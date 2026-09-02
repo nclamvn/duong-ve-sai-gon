@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { execSync } from 'node:child_process';
 import { fileURLToPath, URL } from 'node:url';
-import { benchPlugin } from './scripts/bench-plugin';
+import { benchPlugin } from './scripts/bench-plugin.ts';
 
 function gitHash(): string {
   try {

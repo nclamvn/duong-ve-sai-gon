@@ -24,7 +24,7 @@ Tham số URL: `?backend=webgl|webgpu` · `?autostart=1` · `?overlay=1` (teleme
 ```bash
 npm run typecheck           # tsc strict
 npm run test                # Vitest: 72 unit (core, scaler, telemetry, controller, weapon, ai, mission, i18n)
-npm run build && npm run e2e   # Playwright project webgl-ci (6 spec) — CI/sandbox chỉ có WebGL 2 (ADR-004)
+npm run e2e                 # Playwright project webgl-ci (6 spec) — tự build rồi preview; CI/sandbox chỉ có WebGL 2 (ADR-004)
 npm run e2e:webgpu          # Mac có Chrome: HT_WEBGPU=1, kiểm backend webgpu + không device lost
 npm run ci                  # typecheck + test + build + e2e
 ```

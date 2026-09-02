@@ -22,10 +22,11 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'npm run preview',
+    // build trước rồi preview: chạy `npm run e2e` / `e2e:webgpu` thẳng từ repo sạch, không cần nhớ `npm run build`
+    command: 'npm run build && npm run preview',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: true,
-    timeout: 60_000,
+    timeout: 180_000,
   },
   projects: [
     {
