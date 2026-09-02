@@ -1,8 +1,8 @@
 {
   "gate": "G0",
-  "git": "10cbbb62e300c398efd1b6f007082ece67ba0ebe",
-  "files": 66,
-  "totalBytes": 253545,
+  "git": "f81b6efb6f8f78afbdf5a99fcd40d563a62fbba8",
+  "files": 67,
+  "totalBytes": 278001,
   "manifest": [
     {
       "path": "config/performance-budget.json",
@@ -166,8 +166,8 @@
     },
     {
       "path": "src/engine/render/rain.ts",
-      "bytes": 2343,
-      "sha256": "7ba07719ba8423d2"
+      "bytes": 2739,
+      "sha256": "1660be51986eea08"
     },
     {
       "path": "src/engine/render/scaler.ts",
@@ -186,13 +186,13 @@
     },
     {
       "path": "src/game/actors/botActor.ts",
-      "bytes": 2183,
-      "sha256": "05f4ab2be899de47"
+      "bytes": 2752,
+      "sha256": "716d148f970e8c0c"
     },
     {
       "path": "src/game/actors/dummy.ts",
-      "bytes": 4575,
-      "sha256": "d0ea0ae2bbf147c7"
+      "bytes": 13539,
+      "sha256": "952ad2cc0e9c7b17"
     },
     {
       "path": "src/game/ai/bot.ts",
@@ -216,8 +216,8 @@
     },
     {
       "path": "src/game/game.ts",
-      "bytes": 19294,
-      "sha256": "ef26968ed9344365"
+      "bytes": 20316,
+      "sha256": "ffe341494b4be957"
     },
     {
       "path": "src/game/mission/checkpoint.ts",
@@ -261,8 +261,8 @@
     },
     {
       "path": "src/game/weapons/fx.ts",
-      "bytes": 8067,
-      "sha256": "75dec8d16301fe67"
+      "bytes": 15351,
+      "sha256": "ef55af22988f90ac"
     },
     {
       "path": "src/game/weapons/hitscan.ts",
@@ -278,6 +278,11 @@
       "path": "src/game/weapons/stateMachine.ts",
       "bytes": 5033,
       "sha256": "4024ae8f04e075cd"
+    },
+    {
+      "path": "src/game/weapons/viewmodel.ts",
+      "bytes": 5865,
+      "sha256": "448ace059e331595"
     },
     {
       "path": "src/game/weapons/weapon.ts",
@@ -306,8 +311,8 @@
     },
     {
       "path": "src/qa/telemetry.ts",
-      "bytes": 7378,
-      "sha256": "440f8809c0f15834"
+      "bytes": 7734,
+      "sha256": "936a1fd87869317b"
     },
     {
       "path": "src/ui/capability.ts",

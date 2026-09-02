@@ -1,6 +1,6 @@
 # Known issues — G0
 
-Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:20:24.884Z).
+Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T12:29:53.484Z).
 
 ## TIP-001
 - [Low] TypeScript 7.0 đã bỏ `baseUrl` và bắt `paths` phải tương đối → đã sửa. Ghi vào AGENTS.md? Không cần; tsconfig là nguồn.
@@ -42,3 +42,9 @@ Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:20
 - [Medium→fixed] Playwright `devices['Desktop Chrome']` dùng UA Chrome thường (không "HeadlessChrome") → classifyEvidence xếp sandbox thành `non_reference_device`. Sửa: WebGL2 backend đọc `WEBGL_debug_renderer_info` → "SwiftShader" → sandbox. Trên Mac Chrome WebGL2 sẽ ra "ANGLE (Apple, Apple M1 Max, Metal)" → reference.
 - [Low] Preview server cũ (từ probe trước) còn sống với plugin cũ làm 1 spec fail giả; `reuseExistingServer: true` tiện cho dev nhưng CI nên kill port 4173 trước. Ghi vào README? Đã ghi ở known-issues.
 - [Info] `tests/e2e` import JSON cần đọc file thay vì `import` (Node ESM đòi import attribute).
+
+## TIP-010
+- [High→fixed] `Telemetry.fps_avg` sai khi số frame > capacity ring: `totalMs` cộng dồn mọi frame nhưng chia cho `count` (bị kẹp ở capacity) → report M1 Max ghi `fps_avg 91` trong khi `1% low 106.8` và `p95 9.1 ms` (≈ 110–120 FPS thật). Số G0 khác (p95, 1% low, GPU, draw, heap) **không bị ảnh hưởng** vì tính từ mẫu trong ring. Fix + unit test + capacity 16384 (đủ 90 s × 120 Hz = 10 800).
+- [Medium, QA-only] three r185 (`three/webgpu`) cập nhật skeleton **1 lần mỗi `frameId`** — `frameId` chỉ tăng trong rAF nội bộ của renderer, không tăng theo `renderer.render()`. Gọi `game.frame()` nhiều lần trong 1 task JS (kiểu `renderFrames` của E2E) → bone matrices cũ trong khi `bindMatrixInverse` mới → hình nhân méo trong ảnh chụp (đã thấy ở ảnh probe đầu). Trong game thật (1 frame/rAF) không xảy ra. Thêm `renderFramesRaf` cho screenshot; probe TIP-010 chụp qua rAF.
+- [Low] `heap_start = heap_end = 33.53 MB` trong report M1 Max: Chrome lượng tử hoá/giới hạn tần suất cập nhật `performance.memory` → trend heap 90 s không đủ nhạy. G1: chạy Chrome với `--enable-precise-memory-info` cho soak 10 phút.
+- [Low] Khi hình nhân quay mặt về camera, súng bị rút ngắn phối cảnh nên khó thấy → đổi màu thép súng 0x33383e (sáng hơn giáp) — vẫn là greybox procedural.
