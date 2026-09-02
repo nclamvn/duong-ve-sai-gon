@@ -4,11 +4,13 @@
  * Đèn nòng LUÔN ở trong scene (intensity 0 khi nghỉ) để số đèn không đổi → không recompile shader (hitch).
  */
 import {
-  InstancedMesh, PlaneGeometry, BoxGeometry, MeshBasicNodeMaterial, Matrix4, Vector3, Quaternion, Object3D, Scene, DoubleSide,
-  PointLight, AdditiveBlending, Color, BufferGeometry, Float32BufferAttribute, type PerspectiveCamera,
+  InstancedMesh, PlaneGeometry, BoxGeometry, MeshBasicNodeMaterial, MeshStandardNodeMaterial, Matrix4, Vector3, Quaternion, Object3D, Scene, DoubleSide,
+  PointLight, AdditiveBlending, Color, BufferGeometry, Float32BufferAttribute, InstancedBufferAttribute, type PerspectiveCamera, type Node,
 } from 'three/webgpu';
+import { texture, uv, vec2, vec3, vec4, float, floor, hash, instanceIndex, time, attribute, mix } from 'three/tsl';
 import type { EventBus, Prng } from '@engine/core';
 import type { WeaponEvents } from './weapon';
+import { makeFlashFlipbook, makeSoftPuff, makeBulletHole, FLIPBOOK_N } from './fxTextures';
 
 interface Casing {
   pos: Vector3;
@@ -28,6 +30,16 @@ interface Spark {
   life: number;
   maxLife: number;
 }
+interface Puff {
+  pos: Vector3;
+  vel: Vector3;
+  life: number;
+  maxLife: number;
+  size0: number;
+  size1: number;
+  alpha: number;
+  spin: number;
+}
 
 export interface FxStats {
   decalsPlaced: number;
@@ -35,6 +47,7 @@ export interface FxStats {
   casingsActive: number;
   tracersActive: number;
   sparksActive: number;
+  puffsActive: number;
   /** số object được tạo (phải cố định sau constructor) */
   created: number;
   shots: number;
@@ -62,7 +75,12 @@ export class WeaponFx {
   readonly tracers: InstancedMesh;
   readonly sparks: InstancedMesh;
   readonly flashes: InstancedMesh;
+  readonly puffs: InstancedMesh;
   readonly muzzleLight: PointLight;
+  private readonly puffPool: Puff[] = [];
+  private readonly puffAlpha: InstancedBufferAttribute;
+  private readonly decalKind: InstancedBufferAttribute;
+  private puffHead = 0;
   private decalHead = 0;
   private readonly casingPool: Casing[] = [];
   private readonly tracerPool: Tracer[] = [];
@@ -73,26 +91,37 @@ export class WeaponFx {
   private sparkHead = 0;
   private flashHead = 0;
   private lightLife = 0;
-  readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, created: 0, shots: 0 };
+  readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0 };
   private readonly gravity = new Vector3(0, -9.81, 0);
   private readonly unsub: Array<() => void> = [];
   /** vị trí đầu nòng của player (viewmodel) — Game gán */
   muzzleWorld: Vector3 | null = null;
+  /** cửa thoát vỏ đạn (viewmodel) — Game gán */
+  ejectWorld: Vector3 | null = null;
 
   constructor(
     scene: Scene,
     private readonly camera: PerspectiveCamera,
     events: EventBus<WeaponEvents>,
     private readonly prng: Prng,
-    readonly capacity = { decals: 256, casings: 64, tracers: 24, sparks: 96, flashes: 6 },
+    readonly capacity = { decals: 256, casings: 64, tracers: 24, sparks: 96, flashes: 6, puffs: 40 },
   ) {
-    const decalMat = new MeshBasicNodeMaterial({ color: 0x0a0a0a, transparent: true, opacity: 0.85, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, side: DoubleSide });
-    this.decals = new InstancedMesh(new PlaneGeometry(0.14, 0.14), decalMat, capacity.decals);
+    // Decal: lỗ đạn procedural (texture canvas) · kind 1 = máu (tint đỏ thẫm)
+    const holeTex = makeBulletHole();
+    const decalMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, side: DoubleSide });
+    const kindNode = attribute('decalKind', 'float') as unknown as Node<'float'>;
+    const holeSample = texture(holeTex, uv());
+    decalMat.colorNode = vec4(mix(holeSample.rgb, vec3(0.16, 0.02, 0.02), kindNode), 1.0);
+    decalMat.opacityNode = holeSample.a.mul(mix(float(0.92), float(0.75), kindNode));
+    const decalGeo = new PlaneGeometry(0.14, 0.14);
+    this.decals = new InstancedMesh(decalGeo, decalMat, capacity.decals);
+    this.decalKind = new InstancedBufferAttribute(new Float32Array(capacity.decals), 1);
+    decalGeo.setAttribute('decalKind', this.decalKind);
     this.decals.frustumCulled = false;
     this.decals.count = 0;
     scene.add(this.decals);
 
-    const casingMat = new MeshBasicNodeMaterial({ color: 0xc9a24a });
+    const casingMat = new MeshStandardNodeMaterial({ color: 0xc9a24a, roughness: 0.32, metalness: 0.95 });
     this.casings = new InstancedMesh(new BoxGeometry(0.007, 0.007, 0.02), casingMat, capacity.casings);
     this.casings.frustumCulled = false;
     scene.add(this.casings);
@@ -124,14 +153,19 @@ export class WeaponFx {
       this.stats.created++;
     }
 
-    // Muzzle flash: ngôi sao 3 tia mảnh + lõi (mặt phẳng vuông góc hướng bắn) + 1 cánh dọc theo nòng (nhìn ngang thấy tia lửa vọt)
-    const flashMat = new MeshBasicNodeMaterial({ color: new Color(0.95, 0.62, 0.3), transparent: true, opacity: 0.6, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
+    // Muzzle flash (TIP-013): flipbook 4×4 procedural — 1 đĩa vuông góc nòng + 1 cánh dọc nòng; frame ngẫu nhiên mỗi frame (nhấp nháy)
+    const flip = makeFlashFlipbook();
+    const flashMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
+    const frame = floor(hash(float(instanceIndex).add(floor(time.mul(90.0)).mul(7.0))).mul(FLIPBOOK_N * FLIPBOOK_N));
+    const fx = frame.mod(FLIPBOOK_N);
+    const fy = floor(frame.div(FLIPBOOK_N));
+    const fuv = uv().div(FLIPBOOK_N).add(vec2(fx, fy).div(FLIPBOOK_N));
+    const flipSample = texture(flip, fuv);
+    flashMat.colorNode = vec4(flipSample.rgb.mul(vec3(1.5, 1.2, 0.9)), 1.0);
+    flashMat.opacityNode = flipSample.a.mul(0.85);
     const star = mergePlanes([
-      new PlaneGeometry(0.016, 0.12),
-      new PlaneGeometry(0.016, 0.12).rotateZ(Math.PI / 3),
-      new PlaneGeometry(0.016, 0.12).rotateZ((2 * Math.PI) / 3),
-      new PlaneGeometry(0.04, 0.04),
-      new PlaneGeometry(0.024, 0.18).rotateX(Math.PI / 2).translate(0, 0, 0.08), // cánh dọc nòng
+      new PlaneGeometry(0.26, 0.26).translate(0, 0, 0.04), // đĩa (nhìn từ phía sau nòng vẫn thấy)
+      new PlaneGeometry(0.3, 0.2).rotateY(Math.PI / 2).translate(0, 0.02, 0.1), // cánh dọc nòng (nhìn ngang)
     ]);
     this.flashes = new InstancedMesh(star, flashMat, capacity.flashes);
     this.flashes.frustumCulled = false;
@@ -139,12 +173,39 @@ export class WeaponFx {
     for (let i = 0; i < capacity.flashes; i++) this.flashes.setMatrixAt(i, HIDDEN);
     scene.add(this.flashes);
 
+    // Khói/bụi mềm (TIP-013): quad billboard (CPU xoay theo camera), alpha per-instance, texture puff procedural
+    const puffTex = makeSoftPuff();
+    const puffMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: DoubleSide });
+    const puffSample = texture(puffTex, uv());
+    puffMat.colorNode = vec4(vec3(0.62, 0.6, 0.56).mul(puffSample.rgb), 1.0);
+    puffMat.opacityNode = puffSample.a.mul(attribute('puffAlpha', 'float') as unknown as Node<'float'>);
+    const puffGeo = new PlaneGeometry(1, 1);
+    this.puffAlpha = new InstancedBufferAttribute(new Float32Array(capacity.puffs), 1);
+    puffGeo.setAttribute('puffAlpha', this.puffAlpha);
+    this.puffs = new InstancedMesh(puffGeo, puffMat, capacity.puffs);
+    this.puffs.frustumCulled = false;
+    this.puffs.renderOrder = 4;
+    for (let i = 0; i < capacity.puffs; i++) {
+      this.puffPool.push({ pos: new Vector3(), vel: new Vector3(), life: 0, maxLife: 0.5, size0: 0.1, size1: 0.4, alpha: 0.3, spin: 0 });
+      this.puffs.setMatrixAt(i, HIDDEN);
+      this.stats.created++;
+    }
+    scene.add(this.puffs);
+
     this.muzzleLight = new PointLight(0xffb060, 0, 7, 1.0);
     this.muzzleLight.castShadow = false;
     scene.add(this.muzzleLight);
     this.stats.created += 5;
 
-    this.unsub.push(events.on('IMPACT', (e) => this.placeDecal(e.point, e.normal)));
+    this.unsub.push(
+      events.on('IMPACT', (e) => {
+        this.placeDecal(e.point, e.normal);
+        _p.set(e.point[0], e.point[1], e.point[2]);
+        _n.set(e.normal[0], e.normal[1], e.normal[2]);
+        this.spawnPuffs(_p, _n, 3, 0.09, 0.42, 0.42, 0.55, 0.9);
+        if (e.material === 'steel' || e.material === 'metal') this.spawnSparks(_p, _n, 6);
+      }),
+    );
     this.unsub.push(events.on('WEAPON_FIRED', (e) => this.onPlayerShot(e.origin, e.dir)));
     this.unsub.push(events.on('HIT', (e) => this.placeDecal(e.point, [0, 1, 0], true)));
     this.unsub.push(events.on('RELOAD_START', () => undefined));
@@ -173,6 +234,8 @@ export class WeaponFx {
     _m.compose(_p, _q, _s);
     this.decals.setMatrixAt(i, _m);
     this.decals.instanceMatrix.needsUpdate = true;
+    this.decalKind.setX(i, blood ? 1 : 0);
+    this.decalKind.needsUpdate = true;
     this.stats.decalsPlaced++;
   }
 
@@ -185,6 +248,7 @@ export class WeaponFx {
     this.spawnFlash(_p, _n, 1.0);
     this.spawnSparks(_p, _n, 8);
     this.spawnTracer(_p, _n, 80);
+    this.spawnPuffs(_p, _n, 2, 0.06, 0.32, 0.22, 0.7, 1.6);
     this.muzzleLight.position.copy(_p);
     this.muzzleLight.intensity = MUZZLE_LIGHT;
     this.lightLife = 0.05;
@@ -192,8 +256,8 @@ export class WeaponFx {
     const c = this.casingPool[this.casingHead]!;
     this.casingHead = (this.casingHead + 1) % this.capacity.casings;
     // cửa thoát vỏ đạn: bên phải receiver của viewmodel (camera-local), bay phải-lên-hơi lùi
-    _tmp.set(0.24, -0.16, -0.36).applyQuaternion(this.camera.quaternion).add(this.camera.position);
-    c.pos.copy(_tmp);
+    if (this.ejectWorld) c.pos.copy(this.ejectWorld);
+    else c.pos.copy(_tmp.set(0.24, -0.16, -0.36).applyQuaternion(this.camera.quaternion).add(this.camera.position));
     _tmp.set(1, 0.15, 0.25).applyQuaternion(this.camera.quaternion);
     c.vel.copy(_tmp).multiplyScalar(1.6 + this.prng.next()).addScaledVector(_up, 1.0 + this.prng.next() * 0.5);
     c.life = 1.4;
@@ -234,6 +298,22 @@ export class WeaponFx {
     t.dir.copy(dir);
     t.maxDist = maxDist;
     t.life = 0;
+  }
+
+  /** Khói/bụi: n quad tại pos, bay theo dir (+ tỏa), nở size0→size1, mờ dần. */
+  private spawnPuffs(pos: Vector3, dir: Vector3, n: number, size0: number, size1: number, alpha: number, life: number, speed: number): void {
+    for (let k = 0; k < n; k++) {
+      const q = this.puffPool[this.puffHead]!;
+      this.puffHead = (this.puffHead + 1) % this.capacity.puffs;
+      q.pos.copy(pos).addScaledVector(dir, 0.02 + k * 0.04);
+      q.vel.set((this.prng.next() - 0.5) * 0.8, 0.25 + this.prng.next() * 0.35, (this.prng.next() - 0.5) * 0.8).addScaledVector(dir, speed * (0.5 + this.prng.next() * 0.5));
+      q.maxLife = life * (0.8 + this.prng.next() * 0.4);
+      q.life = q.maxLife;
+      q.size0 = size0 * (0.8 + this.prng.next() * 0.4);
+      q.size1 = size1 * (0.8 + this.prng.next() * 0.5);
+      q.alpha = alpha;
+      q.spin = (this.prng.next() - 0.5) * 2.0;
+    }
   }
 
   /** Render-side update (dt giây). */
@@ -327,6 +407,33 @@ export class WeaponFx {
     }
     this.sparks.instanceMatrix.needsUpdate = true;
     this.stats.sparksActive = sa;
+    // puffs: billboard theo camera, nở + mờ, chậm dần
+    let pa = 0;
+    for (let i = 0; i < this.puffPool.length; i++) {
+      const q = this.puffPool[i]!;
+      if (q.life <= 0) continue;
+      q.life -= dt;
+      if (q.life <= 0) {
+        this.puffs.setMatrixAt(i, HIDDEN);
+        this.puffAlpha.setX(i, 0);
+        continue;
+      }
+      const u = 1 - q.life / q.maxLife;
+      q.vel.multiplyScalar(1 - dt * 2.2);
+      q.pos.addScaledVector(q.vel, dt);
+      const size = q.size0 + (q.size1 - q.size0) * Math.sqrt(u);
+      _q.copy(this.camera.quaternion);
+      _q2.setFromAxisAngle(_fwd, q.spin * u);
+      _q.multiply(_q2);
+      _s.set(size, size, size);
+      _m.compose(q.pos, _q, _s);
+      this.puffs.setMatrixAt(i, _m);
+      this.puffAlpha.setX(i, q.alpha * (1 - u) * Math.min(1, u * 6));
+      pa++;
+    }
+    this.puffs.instanceMatrix.needsUpdate = true;
+    this.puffAlpha.needsUpdate = true;
+    this.stats.puffsActive = pa;
   }
 
   reset(): void {
@@ -348,6 +455,13 @@ export class WeaponFx {
       this.flashLife[i] = 0;
       this.flashes.setMatrixAt(i, HIDDEN);
     }
+    for (let i = 0; i < this.puffPool.length; i++) {
+      this.puffPool[i]!.life = 0;
+      this.puffs.setMatrixAt(i, HIDDEN);
+      this.puffAlpha.setX(i, 0);
+    }
+    this.puffs.instanceMatrix.needsUpdate = true;
+    this.puffAlpha.needsUpdate = true;
     this.casings.instanceMatrix.needsUpdate = true;
     this.tracers.instanceMatrix.needsUpdate = true;
     this.sparks.instanceMatrix.needsUpdate = true;

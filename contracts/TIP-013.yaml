@@ -1,0 +1,20 @@
+# Contract — TIP-013
+id: TIP-013
+goal: "Súng và FX chân thực: viewmodel AR PBR vát cạnh + texture thép CC0 + bao tay vải, muzzle flash flipbook procedural, khói nòng/bụi va chạm, lỗ đạn có texture, vỏ đạn đồng PBR, spark khi trúng thép"
+scope:
+  - src/game/weapons/viewmodel.ts
+  - src/game/weapons/fx.ts
+  - src/game/weapons/fxTextures.ts
+  - src/game/game.ts
+acceptance:
+  - "Chủ nhà chấm trên Mac WebGPU: súng, lửa nòng, làn đạn, va chạm 'chân thực đủ'"
+  - "bench:quick Mac PASS; fx.stats.created cố định sau 150 phát"
+  - "npm run ci exit 0; 0 lỗi console; không Math.random"
+tests:
+  - tests/e2e/boot.spec.ts
+  - tests/unit/governance.test.ts
+evidence:
+  - evidence/TIP-013/completion-report.md
+  - evidence/TIP-013/*-medium-webgl.png
+rollback: "git revert HEAD"
+status: DONE (chờ chấm Mac)

@@ -197,9 +197,10 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.camera);
+    this.viewModel = new WeaponViewModel(this.camera, { steel: this.assets.textures['metal_plate'] ?? null });
     this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
     this.fx.muzzleWorld = this.viewModel.muzzleWorld;
+    this.fx.ejectWorld = this.viewModel.ejectWorld;
     this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
     this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
     this.events.on('HIT', (e) => {
