@@ -27,6 +27,8 @@ export default defineConfig({
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: true,
     timeout: 180_000,
+    stdout: 'pipe', // hiện "Local: http://127.0.0.1:4173" để chẩn đoán khi server không lên
+    stderr: 'pipe',
   },
   projects: [
     {

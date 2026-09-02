@@ -18,9 +18,9 @@ const seconds = Number(get('--seconds', quick ? 10 : 90));
 const seed = Number(get('--seed', 7));
 const port = Number(get('--port', 5173));
 const backend = get('--backend', '');
-const url = `http://localhost:${port}/?bench=1&autostart=1&overlay=1&runs=${runs}&seconds=${seconds}&seed=${seed}${backend ? `&backend=${backend}` : ''}`;
+const url = `http://127.0.0.1:${port}/?bench=1&autostart=1&overlay=1&runs=${runs}&seconds=${seconds}&seed=${seed}${backend ? `&backend=${backend}` : ''}`;
 
-const vite = spawn('npx', ['vite', '--mode', 'bench', '--port', String(port), '--strictPort'], { stdio: ['ignore', 'pipe', 'pipe'] });
+const vite = spawn('npx', ['vite', '--mode', 'bench', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], { stdio: ['ignore', 'pipe', 'pipe'] });
 let opened = false;
 let done = false;
 
@@ -40,7 +40,7 @@ function openBrowser() {
 function onData(chunk) {
   const s = chunk.toString();
   process.stdout.write(s);
-  if (!opened && /localhost:\d+/.test(s)) setTimeout(openBrowser, 800);
+  if (!opened && /(localhost|127\.0\.0\.1):\d+/.test(s)) setTimeout(openBrowser, 800);
   const m = s.match(/\[bench\] saved (\S+) verdict=(\S+)/);
   if (m && !done) {
     done = true;
