@@ -1,9 +1,42 @@
-// TIP-001 bootstrap — thay thế ở TIP-003 bằng boot thật (capability → renderer → arena → loop).
-import { t } from '@ui/i18n';
+/**
+ * Boot: capability screen → renderer → arena → loop. (TIP-003; TIP-004 gắn telemetry/bench; TIP-005+ gắn gameplay.)
+ */
+import { Game } from '@game/game';
+import { showCapability, showFatal } from '@ui/capability';
+import { installDebugApi } from '@qa/debugApi';
 
 declare const __BUILD_HASH__: string;
 
-const cap = document.getElementById('capability');
-if (cap) {
-  cap.innerHTML = `<div class="card"><h1>${t('app.title')}</h1><p>HT-MB boot · build ${__BUILD_HASH__}</p></div>`;
+async function boot(): Promise<void> {
+  const app = document.getElementById('app')!;
+  const capRoot = document.getElementById('capability')!;
+  const canvas = document.createElement('canvas');
+  app.appendChild(canvas);
+  const params = new URLSearchParams(location.search);
+  const game = new Game({ canvas, search: location.search });
+  try {
+    await game.init();
+  } catch (err) {
+    showFatal(capRoot, String((err as Error)?.stack ?? err));
+    throw err;
+  }
+  installDebugApi(game, __BUILD_HASH__);
+  const enter = (): void => {
+    document.getElementById('hud')!.hidden = false;
+    game.start();
+  };
+  showCapability(
+    capRoot,
+    {
+      backend: game.bundle.backend,
+      adapterInfo: game.bundle.adapterInfo,
+      webgpuAvailable: game.bundle.webgpuAvailable,
+      timestampCapable: game.bundle.timestampCapable,
+      buildHash: __BUILD_HASH__,
+    },
+    enter,
+    params.get('autostart') === '1',
+  );
 }
+
+void boot();
