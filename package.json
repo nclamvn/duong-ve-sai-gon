@@ -1,0 +1,39 @@
+{
+  "name": "hai-tuyen",
+  "version": "0.1.0-g0",
+  "private": true,
+  "description": "Hải Tuyến · Nhiệm vụ 01 · Mắt Bão (HT-MB) — browser FPS vertical slice, Gate G0 feasibility",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test --project=webgl-ci",
+    "e2e:webgpu": "HT_WEBGPU=1 playwright test --project=webgpu",
+    "bench": "vite --mode bench --open \"/?bench=1&autostart=1&runs=3&seconds=90\"",
+    "bench:quick": "vite --mode bench --open \"/?bench=1&autostart=1&runs=1&seconds=10\"",
+    "snapshot": "node scripts/snapshot.mjs",
+    "ci": "npm run typecheck && npm run test && npm run build && npm run e2e"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.20.0",
+    "@recast-navigation/core": "0.43.1",
+    "@recast-navigation/generators": "0.43.1",
+    "@recast-navigation/three": "0.43.1",
+    "ajv": "8.20.0",
+    "recast-navigation": "0.43.1",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "22.20.1",
+    "@types/three": "0.185.4",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  }
+}

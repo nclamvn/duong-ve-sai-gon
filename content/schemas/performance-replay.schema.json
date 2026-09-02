@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hai-tuyen.local/schemas/performance-replay.schema.json",
+  "title": "PerformanceReplay",
+  "description": "PRD §8 PerformanceReplay — kết quả benchmark phải tái dựng được: seed, inputTrack, buildHash, device, browser, metrics.",
+  "type": "object",
+  "required": ["schemaVersion", "seed", "inputTrack", "buildHash", "device", "browser", "backend", "timestamp", "runs", "median", "budgetCheck", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "seed": { "type": "integer" },
+    "inputTrack": { "type": "string" },
+    "buildHash": { "type": "string" },
+    "evidence_status": { "enum": ["measured_on_reference_device", "measured_on_non_reference_device", "sandbox_swiftshader_lifecycle_only"] },
+    "device": {
+      "type": "object",
+      "required": ["userAgent", "dpr", "hardwareConcurrency", "viewport"],
+      "properties": {
+        "userAgent": { "type": "string" },
+        "dpr": { "type": "number" },
+        "hardwareConcurrency": { "type": "integer" },
+        "viewport": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "adapter": { "type": ["object", "null"] },
+        "platform": { "type": "string" }
+      }
+    },
+    "browser": { "type": "string" },
+    "backend": { "enum": ["webgpu", "webgl2"] },
+    "timestamp": { "type": "string" },
+    "config": { "type": "object" },
+    "runs": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/summary" } },
+    "median": { "$ref": "#/definitions/summary" },
+    "budgetCheck": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["value", "target", "red", "status"],
+        "properties": {
+          "value": { "type": ["number", "null"] },
+          "target": { "type": ["number", "null"] },
+          "red": { "type": ["number", "null"] },
+          "status": { "enum": ["PASS", "WARN", "FAIL", "NA"] }
+        }
+      }
+    },
+    "verdict": { "enum": ["PASS", "WARN", "FAIL"] },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "definitions": {
+    "summary": {
+      "type": "object",
+      "required": ["frames", "duration_s", "fps_avg", "fps_1pct_low", "frame_p95", "frame_p99", "cpu_sim_p95", "draw_calls_avg", "triangles_avg", "heap_start_mb", "heap_end_mb", "heap_delta_mb", "scale_avg", "actors_full_avg", "actors_total_avg", "gpu_ms_p95", "gpu_method"],
+      "properties": {
+        "frames": { "type": "integer" },
+        "duration_s": { "type": "number" },
+        "fps_avg": { "type": "number" },
+        "fps_1pct_low": { "type": "number" },
+        "frame_p95": { "type": "number" },
+        "frame_p99": { "type": "number" },
+        "cpu_sim_p95": { "type": "number" },
+        "cpu_render_p95": { "type": "number" },
+        "draw_calls_avg": { "type": "number" },
+        "triangles_avg": { "type": "number" },
+        "heap_start_mb": { "type": ["number", "null"] },
+        "heap_end_mb": { "type": ["number", "null"] },
+        "heap_delta_mb": { "type": ["number", "null"] },
+        "scale_avg": { "type": "number" },
+        "render_width_avg": { "type": "number" },
+        "actors_full_avg": { "type": "number" },
+        "actors_total_avg": { "type": "number" },
+        "gpu_ms_p95": { "type": ["number", "null"] },
+        "gpu_method": { "enum": ["timestamp_query", "unavailable"] },
+        "shader_hitches": { "type": "integer" }
+      }
+    }
+  }
+}

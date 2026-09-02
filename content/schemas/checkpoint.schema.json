@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hai-tuyen.local/schemas/checkpoint.schema.json",
+  "title": "CheckpointSnapshot",
+  "description": "PRD §8 — Load phải xóa runtime state cũ trước khi restore.",
+  "type": "object",
+  "required": ["schemaVersion", "missionId", "checkpointId", "node", "missionFlags", "actors", "player", "inventory", "doors", "timers", "seed", "tick"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "missionId": { "type": "string" },
+    "checkpointId": { "type": "string" },
+    "node": { "type": "string" },
+    "missionFlags": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "objectives": { "type": "object", "additionalProperties": { "enum": ["active", "complete"] } },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "group", "position", "health", "alive"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "group": { "type": "string" },
+          "position": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+          "health": { "type": "number" },
+          "alive": { "type": "boolean" },
+          "state": { "type": "string" }
+        }
+      }
+    },
+    "player": {
+      "type": "object",
+      "required": ["position", "yaw", "pitch", "health", "stance"],
+      "additionalProperties": false,
+      "properties": {
+        "position": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "yaw": { "type": "number" },
+        "pitch": { "type": "number" },
+        "health": { "type": "number" },
+        "stance": { "enum": ["stand", "crouch"] }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "required": ["weapon", "mag", "reserve"],
+      "additionalProperties": false,
+      "properties": {
+        "weapon": { "type": "string" },
+        "mag": { "type": "integer", "minimum": 0 },
+        "reserve": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "doors": { "type": "array", "items": { "type": "object", "required": ["id", "open"], "properties": { "id": { "type": "string" }, "open": { "type": "boolean" } } } },
+    "timers": { "type": "object", "additionalProperties": { "type": "number" } },
+    "seed": { "type": "integer" },
+    "tick": { "type": "integer", "minimum": 0 }
+  }
+}

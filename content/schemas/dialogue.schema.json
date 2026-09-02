@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hai-tuyen.local/schemas/dialogue.schema.json",
+  "title": "DialogueCueSet",
+  "description": "PRD §8 DialogueCue — cueId là ID nghiệp vụ, không dùng tên file.",
+  "type": "object",
+  "required": ["cues"],
+  "additionalProperties": false,
+  "properties": {
+    "cues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cueId", "speaker", "subtitleKey", "priority", "interruptPolicy", "durationMs"],
+        "additionalProperties": false,
+        "properties": {
+          "cueId": { "type": "string", "pattern": "^D\\d{2}$" },
+          "speaker": { "enum": ["VY", "NAM", "DUY", "AN", "TRAM_BAC"] },
+          "audio": { "type": ["string", "null"] },
+          "subtitleKey": { "type": "string" },
+          "priority": { "type": "integer", "minimum": 0, "maximum": 10 },
+          "interruptPolicy": { "enum": ["queue", "interrupt", "drop"] },
+          "durationMs": { "type": "integer", "minimum": 500 },
+          "bus": { "enum": ["dialogue", "radio"] }
+        }
+      }
+    }
+  }
+}
