@@ -17,7 +17,7 @@ import { createPostStack, type PostStack } from '@engine/render/post';
 import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
-import { Dummy } from '@game/actors/dummy';
+import { createActorVisual, type ActorVisual } from '@game/actors/visual';
 import { Telemetry, type FrameSample } from '@qa/telemetry';
 import { initPhysics, PhysicsWorld } from '@engine/physics/world';
 import { createPointerLock, type PointerLockController } from '@engine/input/pointerLock';
@@ -47,7 +47,7 @@ export interface GameEvents extends WeaponEvents, BotEvents, MissionEvents {
 export interface ActorEntry {
   id: string;
   group: string;
-  dummy: Dummy;
+  dummy: ActorVisual;
   body: ActorBody;
 }
 
@@ -72,7 +72,7 @@ export class Game {
   rain!: Rain;
   assets: LoadedAssets | null = null;
   post!: PostStack;
-  dummies: Dummy[] = [];
+  dummies: ActorVisual[] = [];
   quality!: QualityPreset;
   physics!: PhysicsWorld;
   player!: Player;
@@ -144,7 +144,7 @@ export class Game {
     window.addEventListener('resize', () => this.resize());
 
     // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
-    this.assets = await loadAssets({ renderer: this.bundle.renderer, lite: !this.quality.assets });
+    this.assets = await loadAssets({ renderer: this.bundle.renderer, lite: !this.quality.assets, noCharacter: !this.quality.character });
     this.arena = buildArena(this.scene, this.seed, { assets: this.assets, signText: t('sign.port') });
     this.lights = createLighting(this.scene, {
       shadowMapSize: this.quality.shadowMapSize,
@@ -158,7 +158,7 @@ export class Game {
     this.scene.add(this.rain.mesh, this.rain.splash);
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = new Dummy({ phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff });
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff });
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -224,7 +224,10 @@ export class Game {
         this.events.emit('ACTOR_DIED', { actorId: a.id, group: a.group });
       }
     });
-    this.events.on('BOT_FIRED', (e) => this.audio.gunshotAt(e.origin));
+    this.events.on('BOT_FIRED', (e) => {
+      this.audio.gunshotAt(e.origin);
+      this.bots.get(e.botId)?.dummy.onFire();
+    });
 
     // Navmesh runtime từ ArenaData.navGeometry (ADR-003) + 1 bot tuần tra
     await initNav();
@@ -452,7 +455,8 @@ export class Game {
   spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
-    const b = new BotActor(id, group, spawn, this.scene, this.physics, {
+    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length });
+    const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,
       events: this.events as unknown as EventBus<BotEvents>,

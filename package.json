@@ -41,6 +41,7 @@
     "@playwright/test": "1.62.1",
     "@types/node": "22.20.1",
     "@types/three": "0.185.4",
+    "fbx2gltf": "0.9.7-p1",
     "meshoptimizer": "1.2.0",
     "typescript": "7.0.2",
     "vite": "8.2.2",

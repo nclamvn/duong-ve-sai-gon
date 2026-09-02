@@ -14,6 +14,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
         colliders: g.arena.colliders.length,
         dummies: g.dummies.length,
         bones: g.dummies.map((d) => d.mesh.skeleton.bones.length),
+        kinds: g.dummies.map((d) => d.kind),
         viewModel: !!g.viewModel && g.viewModel.root.parent === g.camera,
         skinned: g.dummies.every((d) => d.mesh.isSkinnedMesh),
         navPolys: g.nav.polyCount,
@@ -27,7 +28,9 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     expect(info.props).toBeGreaterThanOrEqual(200);
     expect(info.colliders).toBeGreaterThan(200);
     expect(info.dummies).toBe(8);
-    expect(info.bones).toEqual([12, 12, 12, 12, 12, 12, 12, 12]); // soldier 12 bone (TIP-010)
+    // TIP-010 soldier procedural 12 bone; TIP-012 glTF Mixamo ≥ 40 bone khi có assets/characters/soldier.glb
+    expect(info.bones.length).toBe(8);
+    for (let i = 0; i < 8; i++) expect(info.kinds[i] === 'gltf' ? info.bones[i]! >= 40 : info.bones[i] === 12).toBe(true);
     expect(info.skinned).toBe(true);
     expect(info.viewModel).toBe(true);
     expect(info.navPolys).toBeGreaterThan(0);

@@ -6,6 +6,7 @@ import { TextureLoader, SRGBColorSpace, LinearSRGBColorSpace, RepeatWrapping, Li
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { loadCharacter, type CharacterAsset } from './characters';
 
 export interface PbrTextureSet {
   id: string;
@@ -20,12 +21,15 @@ export interface LoadedAssets {
   models: Record<string, Group>;
   /** PMREM environment (đã prefilter) — gán scene.environment */
   environment: Texture | null;
+  /** nhân vật glTF (TIP-012, Mixamo → glb); null → Dummy procedural */
+  character: CharacterAsset | null;
   bytesHint: number;
 }
 
 const TEXTURE_IDS = ['asphalt_02', 'concrete_wall_001', 'factory_wall', 'corrugated_iron_02', 'rusty_metal_02', 'rusty_painted_metal', 'plywood', 'metal_plate'] as const;
 const MODEL_IDS = ['wooden_military_crate', 'old_military_crate', 'plastic_crate_01', 'cardboard_box_01', 'concrete_road_barrier', 'propane_tank', 'metal_trash_can', 'utility_box_01', 'portable_generator'] as const;
 const HDRI_ID = 'blue_lagoon_night';
+export const CHARACTER_URL = 'characters/soldier.glb';
 
 export type TextureId = (typeof TEXTURE_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
@@ -49,6 +53,8 @@ export interface LoadOptions {
   renderer: WebGPURenderer;
   /** bỏ qua model/HDRI (CI SwiftShader nhanh hơn) */
   lite?: boolean;
+  /** bỏ qua nhân vật glTF dù có file (?character=0) */
+  noCharacter?: boolean;
   onProgress?: (done: number, total: number, label: string) => void;
 }
 
@@ -79,6 +85,16 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
 
   const models: Record<string, Group> = {};
   let environment: Texture | null = null;
+  let character: CharacterAsset | null = null;
+  if (!opts.lite && !opts.noCharacter) {
+    // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
+    try {
+      const head = await fetch(`${b}${CHARACTER_URL}`, { method: 'HEAD' });
+      if (head.ok) character = await loadCharacter(`${b}${CHARACTER_URL}`);
+    } catch {
+      character = null;
+    }
+  }
   if (!opts.lite) {
     const gltf = new GLTFLoader();
     gltf.setMeshoptDecoder(MeshoptDecoder);
@@ -106,7 +122,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     pmrem.dispose();
     tick(HDRI_ID);
   }
-  return { textures, models, environment, bytesHint: 0 };
+  return { textures, models, environment, character, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

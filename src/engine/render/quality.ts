@@ -24,12 +24,14 @@ export interface QualityPreset {
   lightCones: boolean;
   /** TRAA thử nghiệm (?taa=1) */
   taa: boolean;
+  /** nhân vật glTF nếu có file (?character=0 → Dummy procedural) */
+  character: boolean;
 }
 
 export const QUALITY: Record<QualityTier, QualityPreset> = {
-  low: { tier: 'low', rainCount: 4000, shadowMapSize: 1024, maxPixelRatio: 1, maxRenderWidth: 1280, dynamicResolution: true, shadows: true, post: 'low', assets: true, splashCount: 128, lightCones: true, taa: false },
-  medium: { tier: 'medium', rainCount: 12000, shadowMapSize: 2048, maxPixelRatio: 1.5, maxRenderWidth: 1600, dynamicResolution: true, shadows: true, post: 'medium', assets: true, splashCount: 256, lightCones: true, taa: false },
-  high: { tier: 'high', rainCount: 20000, shadowMapSize: 2048, maxPixelRatio: 2, maxRenderWidth: 1920, dynamicResolution: true, shadows: true, post: 'high', assets: true, splashCount: 512, lightCones: true, taa: false },
+  low: { tier: 'low', rainCount: 4000, shadowMapSize: 1024, maxPixelRatio: 1, maxRenderWidth: 1280, dynamicResolution: true, shadows: true, post: 'low', assets: true, splashCount: 128, lightCones: true, taa: false, character: true },
+  medium: { tier: 'medium', rainCount: 12000, shadowMapSize: 2048, maxPixelRatio: 1.5, maxRenderWidth: 1600, dynamicResolution: true, shadows: true, post: 'medium', assets: true, splashCount: 256, lightCones: true, taa: false, character: true },
+  high: { tier: 'high', rainCount: 20000, shadowMapSize: 2048, maxPixelRatio: 2, maxRenderWidth: 1920, dynamicResolution: true, shadows: true, post: 'high', assets: true, splashCount: 512, lightCones: true, taa: false, character: true },
 };
 
 export function resolveQuality(params: URLSearchParams): QualityPreset {
@@ -49,5 +51,6 @@ export function resolveQuality(params: URLSearchParams): QualityPreset {
   if (splash !== null) base.splashCount = Math.max(0, Number(splash));
   if (params.get('cones') === '0') base.lightCones = false;
   if (params.get('taa') === '1') base.taa = true;
+  if (params.get('character') === '0') base.character = false;
   return base;
 }

@@ -1,15 +1,15 @@
 /**
- * BotActor — glue: Bot (logic) + Dummy (visual) + ActorBody (physics). Game sở hữu danh sách này.
+ * BotActor — glue: Bot (logic) + ActorVisual (Dummy procedural hoặc SoldierVisual glTF) + ActorBody (physics). Game sở hữu.
  */
 import type { Scene } from 'three/webgpu';
 import { Bot, type BotDeps } from '@game/ai/bot';
-import { Dummy } from './dummy';
+import type { ActorVisual } from './visual';
 import { attachActorBody, type ActorBody } from './actorPhysics';
 import type { PhysicsWorld } from '@engine/physics/world';
 
 export class BotActor {
   readonly bot: Bot;
-  readonly dummy: Dummy;
+  readonly dummy: ActorVisual;
   readonly body: ActorBody;
   readonly spawn: [number, number, number];
 
@@ -19,12 +19,13 @@ export class BotActor {
     spawn: [number, number, number],
     scene: Scene,
     physics: PhysicsWorld,
+    visual: ActorVisual,
     deps: Omit<BotDeps, 'exclude'>,
   ) {
     this.spawn = [spawn[0], spawn[1], spawn[2]];
     this.body = attachActorBody(physics, id, spawn);
     this.bot = new Bot(id, spawn, { ...deps, exclude: () => this.body.bodyCollider });
-    this.dummy = new Dummy({ color: 0x5a3a35, visor: 0xff5a2a, phase: id.length });
+    this.dummy = visual;
     this.dummy.group.position.set(spawn[0], spawn[1], spawn[2]);
     this.dummy.group.name = id;
     scene.add(this.dummy.group);

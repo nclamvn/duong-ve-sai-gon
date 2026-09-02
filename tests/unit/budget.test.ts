@@ -36,6 +36,6 @@ describe('TIP-001 governance', () => {
 
   it('dependencies pin chính xác (không ^ ~)', () => {
     const pkg = JSON.parse(readFileSync('package.json', 'utf8')) as { dependencies: Record<string, string>; devDependencies: Record<string, string> };
-    for (const v of [...Object.values(pkg.dependencies), ...Object.values(pkg.devDependencies)]) expect(v).toMatch(/^\d+\.\d+\.\d+$/);
+    for (const v of [...Object.values(pkg.dependencies), ...Object.values(pkg.devDependencies)]) expect(v).toMatch(/^\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$/); // pin chính xác; cho phép hậu tố prerelease (fbx2gltf 0.9.7-p1)
   });
 });
