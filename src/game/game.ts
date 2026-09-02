@@ -16,6 +16,11 @@ import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { Dummy } from '@game/actors/dummy';
 import { Telemetry, type FrameSample } from '@qa/telemetry';
+import { initPhysics, PhysicsWorld } from '@engine/physics/world';
+import { createPointerLock, type PointerLockController } from '@engine/input/pointerLock';
+import { Player } from '@game/player/player';
+import { SettingsStore, pickStore } from '@game/player/settings';
+import { Hud } from '@ui/hud';
 
 export interface GameEvents extends Record<string, unknown> {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
@@ -44,6 +49,11 @@ export class Game {
   rain!: Rain;
   dummies: Dummy[] = [];
   quality!: QualityPreset;
+  physics!: PhysicsWorld;
+  player!: Player;
+  settings!: SettingsStore;
+  pointerLock!: PointerLockController;
+  hud!: Hud;
   readonly scaler = new QualityScaler();
   freeFly: FreeFly | null = null;
   /** nguồn input hiện tại (bàn phím hoặc replay); bench hoán đổi rồi trả về defaultInput */
@@ -105,22 +115,31 @@ export class Game {
     const ps = this.arena.playerSpawn;
     this.camera.position.set(ps[0], 1.7, ps[2]);
 
-    this.defaultInput.attach();
-    this.opts.canvas.addEventListener('click', () => {
-      if (document.pointerLockElement !== this.opts.canvas) {
-        const p = this.opts.canvas.requestPointerLock as (o?: { unadjustedMovement: boolean }) => Promise<void> | undefined;
-        try {
-          const r = p.call(this.opts.canvas, { unadjustedMovement: true });
-          if (r && typeof r.catch === 'function') r.catch(() => this.opts.canvas.requestPointerLock());
-        } catch {
-          this.opts.canvas.requestPointerLock();
-        }
-      }
-    });
+    // Physics từ ArenaData (nguồn collider duy nhất)
+    await initPhysics();
+    this.physics = new PhysicsWorld();
+    for (const c of this.arena.colliders) this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw }, { id: c.id, kind: 'world', material: c.material });
 
-    if (this.params.get('freefly') === '1' || this.cameraDriver === null) {
+    // Settings (IndexedDB) → player
+    this.settings = new SettingsStore(await pickStore());
+    await this.settings.load();
+    this.player = new Player(this.physics, ps, 0);
+    this.settings.onChange((s) => {
+      this.player.applySettings(s);
+      this.defaultInput.adsHold = s.adsHold;
+      if (this.pointerLock) this.pointerLock.rawInput = s.rawInput;
+    });
+    this.hud = new Hud();
+
+    this.defaultInput.attach();
+    this.pointerLock = createPointerLock(this.opts.canvas, this.settings.current.rawInput);
+    this.opts.canvas.addEventListener('click', () => this.pointerLock.request());
+
+    if (this.params.get('freefly') === '1') {
       this.freeFly = new FreeFly(this.camera);
       this.freeFly.yaw = 0; // spawn z=+40, nhìn −z về tâm arena
+    } else {
+      this.cameraDriver = (alpha) => this.player.render(this.camera, alpha);
     }
     this.scheduler.add('sim60', (tick, dt) => this.simStep(tick, dt));
     this.scheduler.add('render', (alpha, dt) => this.renderStep(alpha, dt));
@@ -196,13 +215,19 @@ export class Game {
 
   private simStep(tick: number, dt: number): void {
     this.input.snapshot(tick, this.inputState);
-    if (!this.cameraDriver && this.freeFly) this.freeFly.step(this.inputState, dt);
+    if (this.freeFly) this.freeFly.step(this.inputState, dt);
+    else this.player.step(this.inputState, dt);
+    this.physics.step();
+    const h = this.hud.state;
+    h.health = this.player.health;
+    h.dead = !this.player.alive;
   }
 
   private renderStep(alpha: number, dt: number): void {
     if (this.cameraDriver) this.cameraDriver(alpha, dt);
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
+    this.hud.update();
     this.lights.followTarget(this.camera);
     this.bundle.renderer.render(this.scene, this.camera);
     readRenderInfo(this.bundle.renderer, this.renderInfo);
@@ -228,6 +253,7 @@ export class Game {
     for (const d of this.dummies) d.reset();
     const ps = this.arena.playerSpawn;
     this.camera.position.set(ps[0], 1.7, ps[2]);
+    this.player.reset(0);
     if (this.freeFly) {
       this.freeFly.yaw = 0;
       this.freeFly.pitch = 0;

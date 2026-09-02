@@ -37,7 +37,7 @@ npm run ci             # typecheck + test + build + e2e
 ## 3. Vùng cấm
 
 - Không dùng `ShaderMaterial` / `onBeforeCompile` — chỉ TSL (`three/tsl`) để chạy cả WGSL lẫn GLSL.
-- Không `import ... from 'three'` trong code render; dùng `three/webgpu` (cùng namespace + WebGPURenderer).
+- Code render (`engine/render`, `game/actors`, `game/game.ts`) import từ `three/webgpu`. Module logic thuần (`game/player`, `game/weapons`, `game/ai`) chỉ import toán học (Vector3/Quaternion/Euler) từ `'three'` (three.core — cùng class) để chạy được trong Node/Vitest.
 - Không tạo object mỗi frame trong hot path (`Vector3`, mảng, closure); dùng scratch + pool.
 - Không đổi `config/performance-budget.json` để "đạt". Ngưỡng là input, không phải output.
 - Không tải asset/texture/audio/model từ mạng hoặc thư viện chưa xác minh license (PRD §9.2). G0 = procedural.
