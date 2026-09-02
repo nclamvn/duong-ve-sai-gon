@@ -1,15 +1,20 @@
 /**
  * Debug API `window.__ht` cho Playwright/QA (PRD §3 Test, §3.2 qa/debug). Không ship trong release:
- * PROD build chỉ cài khi ?debug=1. TIP-003: metrics tối thiểu; TIP-004/008 mở rộng.
+ * PROD build chỉ cài khi ?debug=1. TIP-003 metrics · TIP-004 summary/bench · TIP-008 mission/checkpoint.
  */
 import type { Game } from '@game/game';
+import type { TelemetrySummary } from './telemetry';
+import type { BenchReport } from './bench';
 
 export interface HtDebugApi {
   ready: boolean;
   version: string;
   buildHash: string;
   backend: string;
-  metrics(): { frames: number; lastFrameMs: number; scale: number; calls: number; triangles: number; tick: number };
+  metrics(): { frames: number; lastFrameMs: number; scale: number; calls: number; triangles: number; tick: number; simTime: number };
+  summary(): TelemetrySummary;
+  benchReport?: BenchReport;
+  benchSaved?: { saved: string | null; downloaded: boolean };
   game: Game;
   [k: string]: unknown;
 }
@@ -35,7 +40,9 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
       calls: game.renderInfo.calls,
       triangles: game.renderInfo.triangles,
       tick: game.clock.tick,
+      simTime: game.clock.simTime,
     }),
+    summary: () => game.telemetry.summary(),
     game,
   };
   window.__ht = api;

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "seed": 7,
+  "inputTrack": "arena-v1",
+  "buildHash": "98ac343",
+  "evidence_status": "sandbox_swiftshader_lifecycle_only",
+  "device": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "dpr": 1,
+    "hardwareConcurrency": 2,
+    "viewport": [
+      1280,
+      800
+    ],
+    "adapter": null,
+    "platform": "Linux x86_64"
+  },
+  "browser": "Chrome",
+  "backend": "webgl2",
+  "timestamp": "2026-09-02T10:26:53.741Z",
+  "config": {
+    "runs": 1,
+    "seconds": 3,
+    "warmup": 2,
+    "quality": "low",
+    "rain": 4000,
+    "shadow": 1024,
+    "dynamicResolution": true
+  },
+  "runs": [
+    {
+      "frames": 6,
+      "duration_s": 3.2665,
+      "fps_avg": 1.8368284096127354,
+      "fps_1pct_low": 0.8823010221099769,
+      "frame_p95": 1133.4000244140625,
+      "frame_p99": 1133.4000244140625,
+      "cpu_sim_p95": 0.10000000149011612,
+      "cpu_render_p95": 15.100000381469727,
+      "draw_calls_avg": 63,
+      "triangles_avg": 34147,
+      "heap_start_mb": 4.861529350280762,
+      "heap_end_mb": 4.861529350280762,
+      "heap_delta_mb": 0,
+      "scale_avg": 1,
+      "render_width_avg": 1280,
+      "actors_full_avg": 0,
+      "actors_total_avg": 8,
+      "gpu_ms_p95": 1964.6795654296875,
+      "gpu_method": "timestamp_query",
+      "shader_hitches": 5
+    }
+  ],
+  "median": {
+    "frames": 6,
+    "duration_s": 3.2665,
+    "fps_avg": 1.8368284096127354,
+    "fps_1pct_low": 0.8823010221099769,
+    "frame_p95": 1133.4000244140625,
+    "frame_p99": 1133.4000244140625,
+    "cpu_sim_p95": 0.10000000149011612,
+    "cpu_render_p95": 15.100000381469727,
+    "draw_calls_avg": 63,
+    "triangles_avg": 34147,
+    "heap_start_mb": 4.861529350280762,
+    "heap_end_mb": 4.861529350280762,
+    "heap_delta_mb": 0,
+    "scale_avg": 1,
+    "render_width_avg": 1280,
+    "actors_full_avg": 0,
+    "actors_total_avg": 8,
+    "gpu_ms_p95": 1964.6795654296875,
+    "gpu_method": "timestamp_query",
+    "shader_hitches": 5
+  },
+  "budgetCheck": {
+    "fps_avg": {
+      "value": 1.837,
+      "target": 60,
+      "red": null,
+      "status": "WARN"
+    },
+    "fps_1pct_low": {
+      "value": 0.882,
+      "target": 45,
+      "red": 40,
+      "status": "FAIL"
+    },
+    "frame_p95": {
+      "value": 1133.4,
+      "target": 18.5,
+      "red": 22,
+      "status": "FAIL"
+    },
+    "render_resolution": {
+      "value": 1280,
+      "target": 1920,
+      "red": 2560,
+      "status": "PASS"
+    },
+    "gpu_ms": {
+      "value": 1964.68,
+      "target": 10.5,
+      "red": 14,
+      "status": "FAIL"
+    },
+    "cpu_sim_ms": {
+      "value": 0.1,
+      "target": 5,
+      "red": 8,
+      "status": "PASS"
+    },
+    "draw_calls": {
+      "value": 63,
+      "target": 400,
+      "red": 650,
+      "status": "PASS"
+    },
+    "triangles": {
+      "value": 34147,
+      "target": 2500000,
+      "red": 4000000,
+      "status": "PASS"
+    },
+    "skinned_actors": {
+      "value": 8,
+      "target": 10,
+      "red": 14,
+      "status": "PASS"
+    },
+    "ai_full": {
+      "value": 0,
+      "target": 8,
+      "red": 16,
+      "status": "PASS"
+    },
+    "gpu_memory_gb": {
+      "value": null,
+      "target": 3.5,
+      "red": 5,
+      "status": "NA"
+    },
+    "js_heap_mb": {
+      "value": 4.862,
+      "target": 700,
+      "red": 1000,
+      "status": "PASS"
+    },
+    "initial_payload_mb": {
+      "value": null,
+      "target": 150,
+      "red": 250,
+      "status": "NA"
+    },
+    "level_total_mb": {
+      "value": null,
+      "target": 750,
+      "red": 1200,
+      "status": "NA"
+    },
+    "audio_voices": {
+      "value": null,
+      "target": 32,
+      "red": 48,
+      "status": "NA"
+    }
+  },
+  "verdict": "FAIL",
+  "notes": [
+    "Số đo trong sandbox/SwiftShader — chỉ kiểm lifecycle, không dùng cho phán quyết G0."
+  ]
+}

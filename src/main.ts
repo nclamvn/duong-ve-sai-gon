@@ -1,9 +1,13 @@
 /**
- * Boot: capability screen → renderer → arena → loop. (TIP-003; TIP-004 gắn telemetry/bench; TIP-005+ gắn gameplay.)
+ * Boot: capability screen → renderer → arena → loop → (bench nếu ?bench=1).
+ * TIP-003 boot · TIP-004 overlay/bench · TIP-005+ gameplay.
  */
 import { Game } from '@game/game';
 import { showCapability, showFatal } from '@ui/capability';
+import { Overlay } from '@ui/overlay';
 import { installDebugApi } from '@qa/debugApi';
+import { runBench, submitReport } from '@qa/bench';
+import { t } from '@ui/i18n';
 
 declare const __BUILD_HASH__: string;
 
@@ -20,10 +24,32 @@ async function boot(): Promise<void> {
     showFatal(capRoot, String((err as Error)?.stack ?? err));
     throw err;
   }
-  installDebugApi(game, __BUILD_HASH__);
+  const overlay = new Overlay(game.telemetry, () => ({
+    backend: game.bundle.backend,
+    buildHash: __BUILD_HASH__,
+    tick: game.clock.tick,
+    scale: game.scaler.scale,
+    clampCount: game.clock.clampCount,
+  }));
+  const showOverlay = !import.meta.env.PROD || params.get('overlay') === '1';
+  overlay.toggle(showOverlay);
+  game.onFrame = () => overlay.update(performance.now());
+  const api = installDebugApi(game, __BUILD_HASH__);
+
   const enter = (): void => {
     document.getElementById('hud')!.hidden = false;
     game.start();
+    if (params.get('bench') === '1') {
+      const runs = Number(params.get('runs') ?? 3);
+      const seconds = Number(params.get('seconds') ?? 90);
+      overlay.toggle(true);
+      void runBench(game, { runs, seconds, seed: game.seed, buildHash: __BUILD_HASH__ }, (msg) => overlay.setExtra(() => msg)).then(async (report) => {
+        if (api) api.benchReport = report;
+        const res = await submitReport(report);
+        overlay.setExtra(() => `${res.saved ? t('bench.done') : t('bench.saved_local')} · verdict ${report.verdict} · ${report.evidence_status}`);
+        if (api) api.benchSaved = res;
+      });
+    }
   };
   showCapability(
     capRoot,
