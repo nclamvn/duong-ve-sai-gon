@@ -21,11 +21,24 @@ import { createPointerLock, type PointerLockController } from '@engine/input/poi
 import { Player } from '@game/player/player';
 import { SettingsStore, pickStore } from '@game/player/settings';
 import { Hud } from '@ui/hud';
+import { Weapon, type WeaponEvents, type ShooterContext } from '@game/weapons/weapon';
+import { WeaponFx } from '@game/weapons/fx';
+import { AudioEngine } from '@engine/audio/audio';
+import { attachActorBody, type ActorBody } from '@game/actors/actorPhysics';
+import { Vector3 } from 'three/webgpu';
 
-export interface GameEvents extends Record<string, unknown> {
+export interface GameEvents extends WeaponEvents {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
   GAME_RESET: { seed: number };
+  ACTOR_DIED: { actorId: string; group: string };
   [k: string]: unknown;
+}
+
+export interface ActorEntry {
+  id: string;
+  group: string;
+  dummy: Dummy;
+  body: ActorBody;
 }
 
 export interface GameOptions {
@@ -54,6 +67,14 @@ export class Game {
   settings!: SettingsStore;
   pointerLock!: PointerLockController;
   hud!: Hud;
+  weapon!: Weapon;
+  fx!: WeaponFx;
+  readonly audio = new AudioEngine();
+  /** actor registry: dummies (TIP-006) + bots (TIP-007) */
+  readonly actors = new Map<string, ActorEntry>();
+  private readonly shooter: ShooterContext = { origin: [0, 0, 0], aim: [0, 0, -1], stance: 'stand', moving: false, grounded: true, exclude: undefined };
+  private readonly v3 = new Vector3();
+  private readonly v3b = new Vector3();
   readonly scaler = new QualityScaler();
   freeFly: FreeFly | null = null;
   /** nguồn input hiện tại (bàn phím hoặc replay); bench hoán đổi rồi trả về defaultInput */
@@ -130,6 +151,38 @@ export class Game {
       if (this.pointerLock) this.pointerLock.rawInput = s.rawInput;
     });
     this.hud = new Hud();
+
+    // Actor bodies cho dummies (bia hitscan) + registry
+    this.dummies.forEach((d, i) => {
+      const id = `dummy_${i}`;
+      const p = this.arena.dummySpawns[i]!;
+      const body = attachActorBody(this.physics, id, p);
+      this.actors.set(id, { id, group: 'dummies', dummy: d, body });
+    });
+
+    // Weapon + FX + audio (weapons phát event; fx/audio lắng nghe — PRD §3.2)
+    this.weapon = new Weapon('ar_v1', this.physics, this.events as unknown as EventBus<WeaponEvents>, this.prng);
+    this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
+    this.shooter.exclude = this.player.controller.collider;
+    this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
+    this.events.on('HIT', (e) => {
+      const a = this.actors.get(e.actorId);
+      if (!a) return;
+      const died = a.dummy.applyDamage(e.damage);
+      this.audio.impact('flesh', e.point);
+      if (died) {
+        a.body.setEnabled(false);
+        this.events.emit('ACTOR_DIED', { actorId: a.id, group: a.group });
+      }
+    });
+    this.events.on('IMPACT', (e) => this.audio.impact(e.material, e.point));
+    this.events.on('WEAPON_FIRED', () => this.audio.gunshot());
+    this.events.on('RELOAD_START', () => this.audio.reload());
+    const initAudio = (): void => {
+      this.audio.init();
+    };
+    window.addEventListener('pointerdown', initAudio, { once: true });
+    window.addEventListener('keydown', initAudio, { once: true });
 
     this.defaultInput.attach();
     this.pointerLock = createPointerLock(this.opts.canvas, this.settings.current.rawInput);
@@ -217,10 +270,29 @@ export class Game {
     this.input.snapshot(tick, this.inputState);
     if (this.freeFly) this.freeFly.step(this.inputState, dt);
     else this.player.step(this.inputState, dt);
+    // Weapon sau player (vị trí mắt mới), trước physics.step để ray thấy state tick này
+    const sh = this.shooter;
+    this.player.eyePosition(this.v3);
+    sh.origin[0] = this.v3.x;
+    sh.origin[1] = this.v3.y;
+    sh.origin[2] = this.v3.z;
+    this.player.aimDirection(this.v3b, false);
+    sh.aim[0] = this.v3b.x;
+    sh.aim[1] = this.v3b.y;
+    sh.aim[2] = this.v3b.z;
+    sh.stance = this.player.controller.stance;
+    sh.moving = this.player.controller.horizontalSpeed() > 0.5;
+    sh.grounded = this.player.controller.grounded;
+    if (this.player.alive) this.weapon.step(this.inputState, sh, dt);
+    this.player.adsBlend = this.weapon.ads;
     this.physics.step();
     const h = this.hud.state;
     h.health = this.player.health;
     h.dead = !this.player.alive;
+    h.mag = this.weapon.sm.mag;
+    h.reserve = this.weapon.sm.reserve;
+    h.weaponState = this.weapon.state;
+    h.spreadDeg = this.weapon.spreadDeg;
   }
 
   private renderStep(alpha: number, dt: number): void {
@@ -228,6 +300,11 @@ export class Game {
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
     this.hud.update();
+    this.fx.update(dt);
+    if (this.audio.ctx) {
+      this.v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
+      this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);
+    }
     this.lights.followTarget(this.camera);
     this.bundle.renderer.render(this.scene, this.camera);
     readRenderInfo(this.bundle.renderer, this.renderInfo);
@@ -250,10 +327,15 @@ export class Game {
     this.events.reset();
     this.scaler.reset();
     this.applyScale(true);
-    for (const d of this.dummies) d.reset();
+    for (const a of this.actors.values()) {
+      a.dummy.reset();
+      a.body.setEnabled(true);
+    }
     const ps = this.arena.playerSpawn;
     this.camera.position.set(ps[0], 1.7, ps[2]);
     this.player.reset(0);
+    this.weapon.reset(this.prng);
+    this.fx.reset();
     if (this.freeFly) {
       this.freeFly.yaw = 0;
       this.freeFly.pitch = 0;

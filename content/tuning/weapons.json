@@ -1,0 +1,25 @@
+{
+  "$comment": "PRD WPN-001..004 — data-driven. Recoil pattern là [yawDeg, pitchDeg] cho 10 viên đầu rồi lặp viên cuối. Số là engineering default.",
+  "ar_v1": {
+    "name": "AR-V1",
+    "rpm": 720,
+    "magSize": 30,
+    "reserve": 120,
+    "damage": { "head": 60, "body": 24 },
+    "reloadMs": 1900,
+    "adsMs": 180,
+    "adsFov": 55,
+    "recoilPattern": [[0.0, 0.9], [0.1, 1.0], [-0.15, 1.1], [0.2, 1.0], [0.25, 0.9], [-0.3, 0.8], [-0.2, 0.8], [0.3, 0.7], [0.35, 0.7], [-0.4, 0.6]],
+    "recoilNoise": 0.15,
+    "recoilResetMs": 250,
+    "maxPitchDeg": 8,
+    "viewKickScale": 0.35,
+    "spread": { "hipStand": 1.8, "hipMove": 3.2, "ads": 0.25, "crouchMul": 0.7, "airMul": 1.6 },
+    "penetrationAllow": ["wood", "tarp"],
+    "penetrationMaxThickness": 0.3,
+    "penetrationDamageMul": 0.6,
+    "range": 200,
+    "swapMs": 400,
+    "maxStateMs": { "FIRING": 500, "RELOADING": 2500, "SWAPPING": 1000 }
+  }
+}
