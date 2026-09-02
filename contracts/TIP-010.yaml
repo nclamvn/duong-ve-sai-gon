@@ -1,0 +1,31 @@
+# Contract — TIP-010 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-010
+goal: "Visual refine theo phản hồi Chủ nhà sau bench G0: soldier 12 bone thay khối trụ, mưa mảnh/mờ, viewmodel AR góc nhìn thứ nhất, tracer mảnh + muzzle flash + spark, fix fps_avg ring overflow"
+scope:
+  - src/game/actors/dummy.ts
+  - src/game/actors/botActor.ts
+  - src/engine/render/rain.ts
+  - src/game/weapons/viewmodel.ts
+  - src/game/weapons/fx.ts
+  - src/game/game.ts
+  - src/qa/telemetry.ts
+  - tests/unit/telemetry.test.ts
+  - tests/e2e/boot.spec.ts
+  - tests/e2e/helpers.ts
+acceptance:
+  - "skeleton.bones.length === 12 cho 8 dummy; 1 SkinnedMesh/actor; hitZones không đổi"
+  - "rain plane 0.005 m, opacity ≤ 0.2, fade < 2.5 m bằng TSL, 0 needsUpdate CPU"
+  - "viewmodel gắn camera; ADS đầu ruồi ở tâm; kick/dip; muzzleWorld theo camera"
+  - "fx.stats.created cố định sau 200 phát; muzzle light về 0 ≤ 80 ms"
+  - "Telemetry capacity 16 / 40 mẫu 10 ms → fps_avg 100"
+  - "npm run ci exit 0; screenshot WebGL2 thấy súng, hình nhân lính, mưa mảnh"
+tests:
+  - tests/unit/telemetry.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-010/completion-report.md
+  - evidence/TIP-010/fps-view-webgl.png
+  - evidence/TIP-010/ads-view-webgl.png
+  - evidence/TIP-010/soldier-lineup-webgl.png
+rollback: "git revert HEAD (không đụng physics/hitscan/AI; hitZones giữ nguyên)"
+status: DONE

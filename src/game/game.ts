@@ -23,6 +23,7 @@ import { SettingsStore, pickStore } from '@game/player/settings';
 import { Hud } from '@ui/hud';
 import { Weapon, type WeaponEvents, type ShooterContext } from '@game/weapons/weapon';
 import { WeaponFx } from '@game/weapons/fx';
+import { WeaponViewModel } from '@game/weapons/viewmodel';
 import { AudioEngine } from '@engine/audio/audio';
 import { attachActorBody, type ActorBody } from '@game/actors/actorPhysics';
 import { Vector3 } from 'three/webgpu';
@@ -57,7 +58,7 @@ export class Game {
   readonly clock = new FixedClock(60, 5);
   readonly scheduler = new Scheduler();
   readonly events = new EventBus<GameEvents>(512);
-  readonly telemetry = new Telemetry(8192);
+  readonly telemetry = new Telemetry(16384);
   prng: Prng;
   seed: number;
   readonly scene = new Scene();
@@ -75,6 +76,9 @@ export class Game {
   hud!: Hud;
   weapon!: Weapon;
   fx!: WeaponFx;
+  viewModel!: WeaponViewModel;
+  private lastInputDx = 0;
+  private lastInputDy = 0;
   readonly audio = new AudioEngine();
   /** actor registry: dummies (TIP-006) + bots (TIP-007) */
   readonly actors = new Map<string, ActorEntry>();
@@ -140,7 +144,7 @@ export class Game {
     this.rain.mesh.visible = this.quality.rainCount > 0;
     this.scene.add(this.rain.mesh);
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = new Dummy({ phase: i * 0.9, color: 0x6f7f5f });
+      const d = new Dummy({ phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff });
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -179,6 +183,11 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
+    this.viewModel = new WeaponViewModel(this.camera);
+    this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
+    this.fx.muzzleWorld = this.viewModel.muzzleWorld;
+    this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
+    this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
     this.events.on('HIT', (e) => {
       this.audio.impact('flesh', e.point);
       if (e.actorId === 'player') {
@@ -345,6 +354,8 @@ export class Game {
 
   private simStep(tick: number, dt: number): void {
     this.input.snapshot(tick, this.inputState);
+    this.lastInputDx = this.inputState.dx;
+    this.lastInputDy = this.inputState.dy;
     if (this.freeFly) this.freeFly.step(this.inputState, dt);
     else this.player.step(this.inputState, dt);
     // Weapon sau player (vị trí mắt mới), trước physics.step để ray thấy state tick này
@@ -399,6 +410,11 @@ export class Game {
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
     for (const b of this.bots.values()) b.syncVisual(t);
+    // viewmodel: chỉ khi có player (không free-fly)
+    this.viewModel.visible = !this.freeFly && this.player.alive;
+    this.viewModel.update(dt, this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed());
+    this.lastInputDx = 0;
+    this.lastInputDy = 0;
     this.hud.update();
     this.fx.update(dt);
     if (this.audio.ctx) {
@@ -465,6 +481,7 @@ export class Game {
     this.player.reset(0);
     this.weapon.reset(this.prng);
     this.fx.reset();
+    this.viewModel.reset();
     for (const b of this.bots.values()) b.reset();
     this.mission.reset();
     if (this.freeFly) {

@@ -3,7 +3,7 @@
  * từ instanceIndex + time → CPU không cập nhật buffer mỗi frame, không object JS mỗi hạt.
  */
 import { InstancedMesh, PlaneGeometry, MeshBasicNodeMaterial, DoubleSide, Object3D } from 'three/webgpu';
-import { uniform, instanceIndex, hash, time, positionLocal, vec3, float, mod, cameraPosition } from 'three/tsl';
+import { uniform, instanceIndex, hash, time, positionLocal, vec3, float, mod, cameraPosition, positionView, smoothstep } from 'three/tsl';
 
 export interface Rain {
   mesh: InstancedMesh;
@@ -15,11 +15,15 @@ export interface Rain {
 }
 
 export function createRain(count = 20000, extent = 70, height = 24): Rain {
-  const geo = new PlaneGeometry(0.012, 0.55);
+  // Vạch mưa mảnh (TIP-010: 0.005 × 0.4 m, mờ, fade sát camera) — không còn "mưa đá"
+  const geo = new PlaneGeometry(0.005, 0.4);
   const intensity = uniform(1.0);
   const mat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: DoubleSide });
-  mat.color.setHex(0xaab8c8);
-  mat.opacity = 0.35;
+  mat.color.setHex(0xb9c6d4);
+  mat.opacity = 0.16;
+  // hạt sát camera (< 0.4 m) mờ hẳn, đầy đủ từ 2.5 m; xa dần cũng mờ để hòa vào sương
+  const dist = positionView.z.negate();
+  mat.opacityNode = float(0.16).mul(smoothstep(0.4, 2.5, dist)).mul(float(1.0).sub(smoothstep(30.0, 60.0, dist)));
 
   const i = float(instanceIndex);
   const hx = hash(i);

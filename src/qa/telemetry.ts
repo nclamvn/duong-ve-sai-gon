@@ -62,13 +62,15 @@ export class Telemetry {
   private head = 0;
   private count = 0;
   private totalMs = 0;
+  /** tổng ms mọi frame đã ghi (không giới hạn ring) — duration thật */
+  private wallMs = 0;
   private gpuSamples = 0;
   private hitches = 0;
   /** ngưỡng hitch ms (PRD REN-003: > 50 ms) */
   hitchMs = 50;
   recording = true;
 
-  constructor(capacity = 8192) {
+  constructor(capacity = 16384) {
     this.capacity = capacity;
     this.frameMs = new Float32Array(capacity);
     this.cpuSim = new Float32Array(capacity);
@@ -87,6 +89,8 @@ export class Telemetry {
   sample(s: FrameSample): void {
     if (!this.recording) return;
     const i = this.head;
+    // tổng ms chỉ tính trong ring: trừ mẫu bị ghi đè (bug G0: 90 s × 120 Hz > 8192 → fps_avg thấp giả)
+    if (this.count === this.capacity) this.totalMs -= this.frameMs[i]!;
     this.frameMs[i] = s.frameMs;
     this.cpuSim[i] = s.cpuSimMs;
     this.cpuRender[i] = s.cpuRenderMs;
@@ -102,6 +106,7 @@ export class Telemetry {
     this.head = (i + 1) % this.capacity;
     if (this.count < this.capacity) this.count++;
     this.totalMs += s.frameMs;
+    this.wallMs += s.frameMs;
     if (s.frameMs > this.hitchMs) this.hitches++;
   }
 
@@ -109,6 +114,7 @@ export class Telemetry {
     this.head = 0;
     this.count = 0;
     this.totalMs = 0;
+    this.wallMs = 0;
     this.gpuSamples = 0;
     this.hitches = 0;
   }
@@ -196,7 +202,7 @@ export class Telemetry {
     const avgMs = n === 0 ? 0 : this.totalMs / n;
     return {
       frames: n,
-      duration_s: this.totalMs / 1000,
+      duration_s: this.wallMs / 1000,
       fps_avg: avgMs > 0 ? 1000 / avgMs : 0,
       fps_1pct_low: slowAvg > 0 ? 1000 / slowAvg : 0,
       frame_p95: p95,

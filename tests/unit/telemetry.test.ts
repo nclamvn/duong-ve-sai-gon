@@ -44,6 +44,15 @@ describe('TIP-004 Telemetry', () => {
     expect(t.summary().frame_p99).toBe(39);
   });
 
+  it('ring overflow: capacity 16 với 40 mẫu 10 ms → fps_avg 100 (bug G0: trước đây 40), duration 0.4 s', () => {
+    const t = new Telemetry(16);
+    for (let i = 0; i < 40; i++) t.sample(sample(10));
+    const s = t.summary();
+    expect(s.frames).toBe(16);
+    expect(s.fps_avg).toBeCloseTo(100, 6);
+    expect(s.duration_s).toBeCloseTo(0.4, 6);
+  });
+
   it('gpu p95 khi có timestamp', () => {
     const t = new Telemetry(64);
     for (let i = 0; i < 20; i++) t.sample(sample(16, { gpuMs: 8 + (i % 2) }));

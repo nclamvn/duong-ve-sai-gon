@@ -65,4 +65,9 @@ Luật cho AI agent: `AGENTS.md`. Quyết định kiến trúc: `docs/ADR/`.
 
 ## Trạng thái G0
 
-Xem `docs/VERIFY.md` (Verify Report của Chủ thầu) và `snapshots/G0/known-issues.md`.
+**GO** (2026-09-02) — đo trên MacBook Pro M1 Max, Chrome 152, WebGPU/Metal: frame p95 **9.1 ms**, 1% low 107 FPS, GPU p95 2.4 ms, 0 hitch,
+3 run × 90 s lặp lại ±0.1 ms (`evidence/G0/performance-report-2026-09-02T11-47-08-682Z.json`).
+Chi tiết + deferred: `docs/VERIFY.md` (Verify Report của Chủ thầu) và `snapshots/G0/known-issues.md`.
+
+Sau bench, TIP-010 thay khối trụ bằng hình nhân lính 12 bone, mưa mảnh, súng góc nhìn thứ nhất, tracer/flash/spark;
+cần chạy lại `npm run bench:quick` để xác nhận vẫn PASS.

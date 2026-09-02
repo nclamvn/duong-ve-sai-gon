@@ -1,0 +1,20 @@
+{
+  "capturedAt": "2026-09-02T11:47:08.682Z",
+  "backend": "webgpu",
+  "device": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "dpr": 1.7999999523162842,
+    "hardwareConcurrency": 10,
+    "viewport": [
+      1856,
+      1070
+    ],
+    "adapter": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    },
+    "platform": "MacIntel"
+  }
+}

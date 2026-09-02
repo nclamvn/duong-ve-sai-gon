@@ -25,3 +25,11 @@
 | D-021 | Thợ (L1) | Report sandbox → evidence/sandbox, không lẫn evidence/G0 | TIP-009 |
 | D-022 | Thầu | Sandbox không có WebGPU → CI verify WebGL2; WebGPU + bench chỉ trên Mac | ADR-004 |
 | D-023 | Thầu | VERIFY = READY-với-deferred; phán quyết G0 chờ số đo reference device | docs/VERIFY.md |
+| D-024 | Chủ nhà | G0 bench trên M1 Max: 3 × 90 s PASS (p95 9.1 ms, GPU 2.4 ms, 0 hitch) | evidence/G0/performance-report-2026-09-02T11-47-08-682Z.json |
+| D-025 | Thầu | **Phán quyết G0 = GO** (PRD §10.1), kèm điều kiện bench:quick sau TIP-010 vẫn PASS | docs/VERIFY.md vòng 2 |
+| D-026 | Chủ nhà | Địch phải là hình người ấn tượng (không khối trụ); mưa nhỏ/mờ; có súng góc nhìn thứ nhất; tracer mảnh + tóe lửa nòng | Review trực tiếp sau bench → TIP-010 |
+| D-027 | Thợ (L1) | Soldier procedural 12 bone, 1 SkinnedMesh/actor, visor emissive qua attribute; hitZones giữ nguyên để không đụng hitscan/test | TIP-010 |
+| D-028 | Thợ (L1) | Muzzle PointLight luôn trong scene (intensity 0 khi nghỉ) — tránh recompile shader khi đổi số đèn | TIP-010 |
+| D-029 | Thợ (L1) | Telemetry: tổng ms chỉ trong ring, capacity 16384, `duration_s` từ wallMs | TIP-010 bug fps_avg |
+| D-030 | Thầu | governance.test grep vùng cấm AGENTS.md (Math.random/ShaderMaterial/engine→game/content TS) chạy trong `npm test` | Verify vòng 2 bắt Math.random |
+| D-031 | Thầu | E2E screenshot có SkinnedMesh phải render qua rAF (`renderFramesRaf`) — three r185 cập nhật skeleton theo frameId | TIP-010 D-8 |

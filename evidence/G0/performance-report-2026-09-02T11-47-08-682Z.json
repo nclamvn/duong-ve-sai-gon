@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "seed": 7,
+  "inputTrack": "arena-v1",
+  "buildHash": "e9a0108",
+  "evidence_status": "measured_on_reference_device",
+  "device": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "dpr": 1.7999999523162842,
+    "hardwareConcurrency": 10,
+    "viewport": [
+      1856,
+      1070
+    ],
+    "adapter": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    },
+    "platform": "MacIntel"
+  },
+  "browser": "Chrome",
+  "backend": "webgpu",
+  "timestamp": "2026-09-02T11:47:08.682Z",
+  "config": {
+    "runs": 3,
+    "seconds": 90,
+    "warmup": 2,
+    "quality": "high",
+    "rain": 20000,
+    "shadow": 2048,
+    "dynamicResolution": true
+  },
+  "runs": [
+    {
+      "frames": 8192,
+      "duration_s": 90.0084,
+      "fps_avg": 91.01372760764552,
+      "fps_1pct_low": 107.08619756292892,
+      "frame_p95": 9.100000381469727,
+      "frame_p99": 9.300000190734863,
+      "cpu_sim_p95": 0.5,
+      "cpu_render_p95": 2.5999999046325684,
+      "draw_calls_avg": 163.114013671875,
+      "triangles_avg": 90914.94384765625,
+      "heap_start_mb": 33.528160095214844,
+      "heap_end_mb": 33.528160095214844,
+      "heap_delta_mb": 0,
+      "scale_avg": 1,
+      "render_width_avg": 1920,
+      "actors_full_avg": 0.08203125,
+      "actors_total_avg": 9,
+      "gpu_ms_p95": 2.4248321056365967,
+      "gpu_method": "timestamp_query",
+      "shader_hitches": 0
+    },
+    {
+      "frames": 8192,
+      "duration_s": 90.00859999999999,
+      "fps_avg": 91.01352537424202,
+      "fps_1pct_low": 106.84606421830098,
+      "frame_p95": 9.100000381469727,
+      "frame_p99": 9.300000190734863,
+      "cpu_sim_p95": 0.5,
+      "cpu_render_p95": 2.5999999046325684,
+      "draw_calls_avg": 163.1739501953125,
+      "triangles_avg": 91009.25927734375,
+      "heap_start_mb": 33.528160095214844,
+      "heap_end_mb": 33.528160095214844,
+      "heap_delta_mb": 0,
+      "scale_avg": 1,
+      "render_width_avg": 1920,
+      "actors_full_avg": 0.079833984375,
+      "actors_total_avg": 9,
+      "gpu_ms_p95": 2.4248321056365967,
+      "gpu_method": "timestamp_query",
+      "shader_hitches": 0
+    },
+    {
+      "frames": 8192,
+      "duration_s": 90.00429999999999,
+      "fps_avg": 91.01787359048402,
+      "fps_1pct_low": 106.5649268175277,
+      "frame_p95": 9.100000381469727,
+      "frame_p99": 9.300000190734863,
+      "cpu_sim_p95": 0.5,
+      "cpu_render_p95": 2.700000047683716,
+      "draw_calls_avg": 162.85302734375,
+      "triangles_avg": 90996.95458984375,
+      "heap_start_mb": 33.528160095214844,
+      "heap_end_mb": 33.528160095214844,
+      "heap_delta_mb": 0,
+      "scale_avg": 1,
+      "render_width_avg": 1920,
+      "actors_full_avg": 0.079833984375,
+      "actors_total_avg": 9,
+      "gpu_ms_p95": 2.490367889404297,
+      "gpu_method": "timestamp_query",
+      "shader_hitches": 0
+    }
+  ],
+  "median": {
+    "frames": 8192,
+    "duration_s": 90.00859999999999,
+    "fps_avg": 91.01352537424202,
+    "fps_1pct_low": 106.84606421830098,
+    "frame_p95": 9.100000381469727,
+    "frame_p99": 9.300000190734863,
+    "cpu_sim_p95": 0.5,
+    "cpu_render_p95": 2.5999999046325684,
+    "draw_calls_avg": 163.1739501953125,
+    "triangles_avg": 91009.25927734375,
+    "heap_start_mb": 33.528160095214844,
+    "heap_end_mb": 33.528160095214844,
+    "heap_delta_mb": 0,
+    "scale_avg": 1,
+    "render_width_avg": 1920,
+    "actors_full_avg": 0.079833984375,
+    "actors_total_avg": 9,
+    "gpu_ms_p95": 2.4248321056365967,
+    "gpu_method": "timestamp_query",
+    "shader_hitches": 0
+  },
+  "budgetCheck": {
+    "fps_avg": {
+      "value": 91.014,
+      "target": 60,
+      "red": null,
+      "status": "PASS"
+    },
+    "fps_1pct_low": {
+      "value": 106.846,
+      "target": 45,
+      "red": 40,
+      "status": "PASS"
+    },
+    "frame_p95": {
+      "value": 9.1,
+      "target": 18.5,
+      "red": 22,
+      "status": "PASS"
+    },
+    "render_resolution": {
+      "value": 1920,
+      "target": 1920,
+      "red": 2560,
+      "status": "PASS"
+    },
+    "gpu_ms": {
+      "value": 2.425,
+      "target": 10.5,
+      "red": 14,
+      "status": "PASS"
+    },
+    "cpu_sim_ms": {
+      "value": 0.5,
+      "target": 5,
+      "red": 8,
+      "status": "PASS"
+    },
+    "draw_calls": {
+      "value": 163.174,
+      "target": 400,
+      "red": 650,
+      "status": "PASS"
+    },
+    "triangles": {
+      "value": 91009.259,
+      "target": 2500000,
+      "red": 4000000,
+      "status": "PASS"
+    },
+    "skinned_actors": {
+      "value": 9,
+      "target": 10,
+      "red": 14,
+      "status": "PASS"
+    },
+    "ai_full": {
+      "value": 0.08,
+      "target": 8,
+      "red": 16,
+      "status": "PASS"
+    },
+    "gpu_memory_gb": {
+      "value": null,
+      "target": 3.5,
+      "red": 5,
+      "status": "NA"
+    },
+    "js_heap_mb": {
+      "value": 33.528,
+      "target": 700,
+      "red": 1000,
+      "status": "PASS"
+    },
+    "initial_payload_mb": {
+      "value": null,
+      "target": 150,
+      "red": 250,
+      "status": "NA"
+    },
+    "level_total_mb": {
+      "value": null,
+      "target": 750,
+      "red": 1200,
+      "status": "NA"
+    },
+    "audio_voices": {
+      "value": null,
+      "target": 32,
+      "red": 48,
+      "status": "NA"
+    }
+  },
+  "verdict": "PASS",
+  "notes": [
+    "WebGPU backend: draw_calls counts BatchedMesh sub-draws (1 drawIndexed per instance, same pipeline)."
+  ]
+}

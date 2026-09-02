@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { bootGame, pauseLoop, renderFrames, expectNoErrors } from './helpers';
+import { bootGame, pauseLoop, renderFrames, renderFramesRaf, expectNoErrors } from './helpers';
 
 test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
   test('boot ?backend=webgl → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu', async ({ page }) => {
@@ -14,6 +14,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
         colliders: g.arena.colliders.length,
         dummies: g.dummies.length,
         bones: g.dummies.map((d) => d.mesh.skeleton.bones.length),
+        viewModel: !!g.viewModel && g.viewModel.root.parent === g.camera,
         skinned: g.dummies.every((d) => d.mesh.isSkinnedMesh),
         navPolys: g.nav.polyCount,
         navMs: g.navBuildMs,
@@ -26,8 +27,9 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     expect(info.props).toBeGreaterThanOrEqual(200);
     expect(info.colliders).toBeGreaterThan(200);
     expect(info.dummies).toBe(8);
-    expect(info.bones).toEqual([3, 3, 3, 3, 3, 3, 3, 3]);
+    expect(info.bones).toEqual([12, 12, 12, 12, 12, 12, 12, 12]); // soldier 12 bone (TIP-010)
     expect(info.skinned).toBe(true);
+    expect(info.viewModel).toBe(true);
     expect(info.navPolys).toBeGreaterThan(0);
     expect(info.bots).toBe(1);
     expect(info.hudHidden).toBe(false);
@@ -35,14 +37,15 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
 
     // 120 frame: sim qua stepSim (nhanh) + render 3 frame; bone xoay theo simTime
     await pauseLoop(page);
-    const rot0 = await page.evaluate(() => window.__ht!.game.dummies[0]!.bones.spine.rotation.z);
+    const rot0 = await page.evaluate(() => window.__ht!.game.dummies[0]!.bones.spine.rotation.x);
     await page.evaluate(() => window.__ht!.stepSim(120));
     await renderFrames(page, 3);
-    const after = await page.evaluate(() => ({ tick: window.__ht!.metrics().tick, rot: window.__ht!.game.dummies[0]!.bones.spine.rotation.z, calls: window.__ht!.metrics().calls, tris: window.__ht!.metrics().triangles }));
+    const after = await page.evaluate(() => ({ tick: window.__ht!.metrics().tick, rot: window.__ht!.game.dummies[0]!.bones.spine.rotation.x, calls: window.__ht!.metrics().calls, tris: window.__ht!.metrics().triangles }));
     expect(after.tick).toBeGreaterThanOrEqual(120);
     expect(after.rot).not.toBe(rot0);
     expect(after.calls).toBeGreaterThan(0);
     expect(after.calls).toBeLessThan(650);
+    await renderFramesRaf(page, 2); // skeleton cập nhật theo rAF trước khi chụp
     await page.screenshot({ path: 'evidence/TIP-009/boot-webgl.png' });
     await expectNoErrors(errors);
   });

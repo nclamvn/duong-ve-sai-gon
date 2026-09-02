@@ -19,9 +19,27 @@ export async function pauseLoop(page: Page): Promise<void> {
   await page.evaluate(() => window.__ht!.game.stop());
 }
 
+/**
+ * Render N frame đồng bộ trong 1 task JS. Đủ cho kiểm tra logic/số liệu; KHÔNG dùng cho ảnh có SkinnedMesh:
+ * three cập nhật skeleton 1 lần mỗi frameId (rAF nội bộ của renderer) → bone matrices cũ. Dùng renderFramesRaf.
+ */
 export async function renderFrames(page: Page, n: number): Promise<void> {
   await page.evaluate((k) => {
     for (let i = 0; i < k; i++) window.__ht!.game.frame(1 / 60);
+  }, n);
+}
+
+/** Render N frame, mỗi frame trong 1 tick rAF (skeleton/uniform theo frame cập nhật đúng) — dùng trước screenshot. */
+export async function renderFramesRaf(page: Page, n: number): Promise<void> {
+  await page.evaluate(async (k) => {
+    for (let i = 0; i < k; i++) {
+      await new Promise<void>((res) =>
+        requestAnimationFrame(() => {
+          window.__ht!.game.frame(1 / 60);
+          res();
+        }),
+      );
+    }
   }, n);
 }
 
