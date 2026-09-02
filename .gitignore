@@ -8,3 +8,6 @@ evidence/**/*.mp4
 *.log
 .vite/
 evidence/sandbox/
+
+# asset nguồn (Poly Haven gltf, Mixamo fbx) — chỉ bản tối ưu trong public/assets vào git
+assets-src/

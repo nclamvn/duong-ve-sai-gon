@@ -33,3 +33,12 @@
 | D-029 | Thợ (L1) | Telemetry: tổng ms chỉ trong ring, capacity 16384, `duration_s` từ wallMs | TIP-010 bug fps_avg |
 | D-030 | Thầu | governance.test grep vùng cấm AGENTS.md (Math.random/ShaderMaterial/engine→game/content TS) chạy trong `npm test` | Verify vòng 2 bắt Math.random |
 | D-031 | Thầu | E2E screenshot có SkinnedMesh phải render qua rAF (`renderFramesRaf`) — three r185 cập nhật skeleton theo frameId | TIP-010 D-8 |
+| D-032 | Chủ nhà | bench:quick sau TIP-010 PASS (119.9 FPS, p95 9.1 ms, GPU 2.5 ms, draws 321, tris 120k) → G0 đóng hẳn | ảnh overlay 2026-09-02 22:21 |
+| D-033 | Chủ nhà | G0 "nghèo nàn, cảm giác game thập niên 90" → cần chân thực: texture, súng, làn đạn, tia lửa, kẻ địch, vật thể | Review sau khi chơi |
+| D-034 | Chủ nhà | Chính sách asset: **Mixamo** (nhân vật/animation, tự tải) + **CC0** (Poly Haven/ambientCG/Kenney/Quaternius/Sketchfab CC0); manifest license từng file | ADR-005 |
+| D-035 | Chủ nhà | Chèn **G0.5 Look-dev slice** trước G1 (đổi thứ tự gate PRD, ADR-005) | ADR-005 |
+| D-036 | Chủ nhà | Hướng hình ảnh: **chân thực điện ảnh** — đêm mưa cảng Vạn Hải | ADR-005 |
+| D-037 | Thợ (L1) | Prop glTF CC0 chỉ đặt nơi không cần collider (nóc container, chân tường); prop trong bãi = procedural có texture khớp collider 1:1; `arenaTruthHash` khoá | TIP-011 |
+| D-038 | Thợ (L1) | SSR chỉ WebGPU (SSRNode r185 sinh GLSL lỗi trên WebGL 2); TRAA tắt mặc định (`?taa=1`) | TIP-011 known-issue |
+| D-039 | Thợ (L1) | Texture 1K JPG, ≤ 60 MB ở slice; KTX2 nợ trước G4; Vite `assetsDir: bundle` để `/assets/` là CC0 | ADR-005 |
+| D-040 | Thầu | Luật TSL thêm vào AGENTS: không đảo cạnh `smoothstep` (undefined) — dùng `.oneMinus()` | TIP-011 bug nón đèn |

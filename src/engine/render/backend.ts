@@ -70,7 +70,7 @@ export async function createRenderer(opts: CreateRendererOptions): Promise<Rende
   };
   await renderer.init();
   renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
+  renderer.toneMappingExposure = 1.0;
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = PCFSoftShadowMap;

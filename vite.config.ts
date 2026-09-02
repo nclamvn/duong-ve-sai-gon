@@ -35,6 +35,7 @@ export default defineConfig(({ mode }) => ({
     target: 'es2022',
     sourcemap: true,
     chunkSizeWarningLimit: 4000,
+    assetsDir: 'bundle', // public/assets/ (texture/model CC0) giữ nguyên đường dẫn /assets/ — không lẫn bundle JS
   },
   server: { port: 5173, strictPort: false },
 }));

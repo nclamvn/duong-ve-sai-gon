@@ -49,6 +49,18 @@ Overlay hiện `verdict PASS|WARN|FAIL · evidence_status`. **Chỉ report có `
 
 Ghi chú khi đọc số: `draw_calls` trên backend WebGPU đếm cả sub-draw của BatchedMesh (1 `drawIndexed`/instance trong cùng pipeline) → 200 props hiện ~260 "draw" dù là một batch; trên WebGL 2 với `WEBGL_multi_draw` cùng cảnh chỉ ~60. So sánh giữa hai backend phải nhìn `frame_p95`/`gpu_ms`, không nhìn `draw_calls`.
 
+## Asset (ADR-005 — G0.5 look-dev)
+
+```bash
+npm run assets          # tải texture/HDRI/model CC0 từ Poly Haven → public/assets/, tối ưu glTF (meshopt) và ghi content/assets/manifest.json
+npm run assets:verify   # kiểm file + sha256 khớp manifest (CI/unit test cũng kiểm)
+```
+`public/assets/` (≈35 MB, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo: Chủ nhà tải FBX vào
+`assets-src/mixamo/` (xem `docs/tips/TIP-012.md`), `scripts/convert-mixamo.mjs` chuyển sang GLB.
+
+Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·
+`?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?cones=0` · `?splash=0`.
+
 ## Cấu trúc
 
 ```
@@ -69,5 +81,9 @@ Luật cho AI agent: `AGENTS.md`. Quyết định kiến trúc: `docs/ADR/`.
 3 run × 90 s lặp lại ±0.1 ms (`evidence/G0/performance-report-2026-09-02T11-47-08-682Z.json`).
 Chi tiết + deferred: `docs/VERIFY.md` (Verify Report của Chủ thầu) và `snapshots/G0/known-issues.md`.
 
-Sau bench, TIP-010 thay khối trụ bằng hình nhân lính 12 bone, mưa mảnh, súng góc nhìn thứ nhất, tracer/flash/spark;
-cần chạy lại `npm run bench:quick` để xác nhận vẫn PASS.
+TIP-010 (hình nhân lính 12 bone, mưa mảnh, súng góc nhìn thứ nhất, tracer/flash/spark): bench:quick PASS 119.9 FPS, p95 9.1 ms → G0 đóng.
+
+## G0.5 — Look-dev slice (ADR-005)
+
+Chủ nhà đánh giá G0 "game thập niên 90" → chèn look-dev trước G1: TIP-011 render pipeline (IBL, post stack, texture PBR CC0, hình khối cảng),
+TIP-012 nhân vật Mixamo, TIP-013 súng + FX chân thực. Mục tiêu: một góc arena đạt "chân thực điện ảnh" đêm mưa cảng Vạn Hải, bench vẫn PASS.

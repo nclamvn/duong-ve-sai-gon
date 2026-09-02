@@ -40,7 +40,8 @@ npm run ci             # typecheck + test + build + e2e
 - Code render (`engine/render`, `game/actors`, `game/game.ts`) import từ `three/webgpu`. Module logic thuần (`game/player`, `game/weapons`, `game/ai`) chỉ import toán học (Vector3/Quaternion/Euler) từ `'three'` (three.core — cùng class) để chạy được trong Node/Vitest.
 - Không tạo object mỗi frame trong hot path (`Vector3`, mảng, closure); dùng scratch + pool.
 - Không đổi `config/performance-budget.json` để "đạt". Ngưỡng là input, không phải output.
-- Không tải asset/texture/audio/model từ mạng hoặc thư viện chưa xác minh license (PRD §9.2). G0 = procedural.
+- Asset (ADR-005): chỉ **CC0** qua `scripts/fetch-assets.mjs` (Poly Haven…) và **Mixamo** do Chủ nhà tải vào `assets-src/`; mọi file phải có trong `content/assets/manifest.json` (nguồn, license, sha256). Không nguồn khác, không asset từ game tham chiếu.
+- TSL: không đảo cạnh `smoothstep(a, b, x)` với a > b (undefined GLSL/WGSL → nón đèn thành kim tự tháp, TIP-011); viết `smoothstep(b, a, x).oneMinus()`. Vị trí/kích thước visual không được lệch collider (`tests/unit/arena.test.ts` khoá hash ArenaData).
 - Không thêm dependency ngoài `package.json` mà không có ADR.
 - Không sao chép UI, thoại, bản đồ, tên, âm thanh từ Call of Duty hay game tham chiếu.
 - Không ghi literal tiếng Việt trong `src/**/*.ts` ngoài `src/ui/i18n.ts` — mọi chuỗi qua `content/locale/vi.json`.

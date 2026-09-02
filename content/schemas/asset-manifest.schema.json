@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ht-mb/asset-manifest",
+  "title": "Asset manifest (ADR-005): mọi asset ngoài repo phải có nguồn + license",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "totalBytes", "assets"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedAt": { "type": "string" },
+    "policy": { "type": "string" },
+    "totalBytes": { "type": "integer", "minimum": 0 },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "source", "url", "license", "files"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "type": { "enum": ["texture", "hdri", "model", "character", "animation", "audio"] },
+          "resolution": { "type": "string" },
+          "use": { "type": "string" },
+          "source": { "enum": ["polyhaven", "ambientcg", "kenney", "quaternius", "sketchfab-cc0", "mixamo"] },
+          "url": { "type": "string", "pattern": "^https://" },
+          "authors": { "type": "array", "items": { "type": "string" } },
+          "license": { "enum": ["CC0-1.0", "Mixamo"] },
+          "files": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "bytes", "sha256"],
+              "properties": {
+                "path": { "type": "string", "pattern": "^assets/" },
+                "bytes": { "type": "integer", "minimum": 1 },
+                "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+              }
+            }
+          },
+          "sourceFiles": { "type": "array", "items": { "type": "object" } },
+          "triangles": { "type": "object" }
+        }
+      }
+    }
+  }
+}

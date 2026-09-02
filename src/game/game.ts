@@ -12,6 +12,9 @@ import { createRain, type Rain } from '@engine/render/rain';
 import { QualityScaler } from '@engine/render/scaler';
 import { resolveQuality, type QualityPreset } from '@engine/render/quality';
 import { readRenderInfo, type RenderFrameInfo } from '@engine/render/telemetryHooks';
+import { loadAssets, type LoadedAssets } from '@engine/render/assets';
+import { createPostStack, type PostStack } from '@engine/render/post';
+import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { Dummy } from '@game/actors/dummy';
@@ -67,6 +70,8 @@ export class Game {
   arena!: ArenaData;
   lights!: LightRig;
   rain!: Rain;
+  assets: LoadedAssets | null = null;
+  post!: PostStack;
   dummies: Dummy[] = [];
   quality!: QualityPreset;
   physics!: PhysicsWorld;
@@ -138,11 +143,20 @@ export class Game {
     this.resize();
     window.addEventListener('resize', () => this.resize());
 
-    this.lights = createLighting(this.scene, this.quality.shadowMapSize);
-    this.arena = buildArena(this.scene, this.seed);
-    this.rain = createRain(Math.max(1, this.quality.rainCount));
+    // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
+    this.assets = await loadAssets({ renderer: this.bundle.renderer, lite: !this.quality.assets });
+    this.arena = buildArena(this.scene, this.seed, { assets: this.assets, signText: t('sign.port') });
+    this.lights = createLighting(this.scene, {
+      shadowMapSize: this.quality.shadowMapSize,
+      environment: this.assets.environment,
+      lamps: this.arena.lamps,
+    });
+    this.lights.setCones(this.quality.lightCones);
+    this.rain = createRain(Math.max(1, this.quality.rainCount), 70, 24, this.lights.lampArray, Math.max(1, this.quality.splashCount));
     this.rain.mesh.visible = this.quality.rainCount > 0;
-    this.scene.add(this.rain.mesh);
+    this.rain.splash.visible = this.quality.rainCount > 0 && this.quality.splashCount > 0;
+    this.scene.add(this.rain.mesh, this.rain.splash);
+    this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = new Dummy({ phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff });
       const p = this.arena.dummySpawns[i]!;
@@ -422,7 +436,7 @@ export class Game {
       this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);
     }
     this.lights.followTarget(this.camera);
-    this.bundle.renderer.render(this.scene, this.camera);
+    this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {
       this.pendingTimestamp = true;

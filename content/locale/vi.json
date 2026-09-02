@@ -30,5 +30,7 @@
   "ov.title": "HT-MB G0 TELEMETRY",
   "bench.running": "Đang chạy benchmark…",
   "bench.done": "Benchmark xong — kết quả đã gửi về máy chủ dev.",
-  "bench.saved_local": "Máy chủ không nhận được — đã tải file kết quả xuống."
+  "bench.saved_local": "Máy chủ không nhận được — đã tải file kết quả xuống.",
+  "sign.port": "CẢNG VẠN HẢI · CẦU TÀU 3",
+  "loading.assets": "Đang tải vật liệu và mô hình…"
 }

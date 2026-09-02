@@ -1,0 +1,28 @@
+# Contract — TIP-011 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-011
+goal: "Look-dev slice G0.5: asset pipeline CC0 + manifest, IBL HDRI đêm, post stack (GTAO/SSR/bloom/AgX/FXAA/grain/vignette), vật liệu PBR texture thật, hình khối cảng (container/crate/cuộn cáp/thùng phuy/cột đèn/prop glTF), mưa sáng dưới đèn + splash — trên cùng collider G0"
+scope:
+  - scripts/fetch-assets.mjs
+  - scripts/optimize-models.mjs
+  - content/assets/manifest.json
+  - content/schemas/asset-manifest.schema.json
+  - public/assets/
+  - src/engine/render/{assets,geometry,post,materials,arena,lighting,rain,quality,backend}.ts
+  - src/game/game.ts
+  - src/game/weapons/fx.ts
+acceptance:
+  - "Chủ nhà chấm ảnh WebGPU high trên M1 Max: không còn 90s"
+  - "npm run bench:quick trên Mac: PASS; ghi A/B gpu_ms/draw/tris"
+  - "npm run ci exit 0 (quality=low, backend webgl, 0 lỗi console)"
+  - "manifest schema + file + sha256 + license; tổng ≤ 60 MB"
+  - "arenaTruthHash(7) không đổi"
+  - "governance.test + i18n.test 0 vi phạm"
+tests:
+  - tests/unit/assets.test.ts
+  - tests/unit/arena.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-011/completion-report.md
+  - evidence/TIP-011/*-{low,medium,high}-webgl.png
+rollback: "git revert HEAD; ?post=off&assets=0 trả về hình G0 (collider không đổi)"
+status: DONE (chờ xác nhận Mac)

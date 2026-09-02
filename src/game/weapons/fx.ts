@@ -51,6 +51,8 @@ const _dummy = new Object3D();
 const _fwd = new Vector3(0, 0, 1);
 const _tmp = new Vector3();
 const HIDDEN = new Matrix4().makeScale(0, 0, 0);
+/** đèn nòng: decay 1 (tuyến tính) để súng sát đèn không cháy trắng mà sàn 3–5 m vẫn ánh cam (TIP-011) */
+const MUZZLE_LIGHT = 3.5;
 const TRACER_SPEED = 320; // m/s (hình ảnh)
 const TRACER_LEN = 5;
 
@@ -101,7 +103,7 @@ export class WeaponFx {
     }
 
     // Tracer: vệt mảnh 0.006 m, dài 5 m, additive, bay 320 m/s và mờ dần
-    const tracerMat = new MeshBasicNodeMaterial({ color: new Color(1.6, 1.1, 0.55), transparent: true, opacity: 0.55, depthWrite: false, blending: AdditiveBlending });
+    const tracerMat = new MeshBasicNodeMaterial({ color: new Color(1.3, 0.95, 0.5), transparent: true, opacity: 0.55, depthWrite: false, blending: AdditiveBlending });
     this.tracers = new InstancedMesh(new BoxGeometry(0.006, 0.006, 1), tracerMat, capacity.tracers);
     this.tracers.frustumCulled = false;
     scene.add(this.tracers);
@@ -112,7 +114,7 @@ export class WeaponFx {
     }
 
     // Spark: hạt lửa nhỏ, additive, gravity, life 0.12–0.22 s
-    const sparkMat = new MeshBasicNodeMaterial({ color: new Color(2.2, 1.2, 0.35), transparent: true, opacity: 0.9, depthWrite: false, blending: AdditiveBlending });
+    const sparkMat = new MeshBasicNodeMaterial({ color: new Color(1.5, 0.85, 0.3), transparent: true, opacity: 0.9, depthWrite: false, blending: AdditiveBlending });
     this.sparks = new InstancedMesh(new BoxGeometry(0.008, 0.008, 0.05), sparkMat, capacity.sparks);
     this.sparks.frustumCulled = false;
     scene.add(this.sparks);
@@ -123,7 +125,7 @@ export class WeaponFx {
     }
 
     // Muzzle flash: ngôi sao 3 tia mảnh + lõi (mặt phẳng vuông góc hướng bắn) + 1 cánh dọc theo nòng (nhìn ngang thấy tia lửa vọt)
-    const flashMat = new MeshBasicNodeMaterial({ color: new Color(1.8, 1.0, 0.4), transparent: true, opacity: 0.75, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
+    const flashMat = new MeshBasicNodeMaterial({ color: new Color(0.95, 0.62, 0.3), transparent: true, opacity: 0.6, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
     const star = mergePlanes([
       new PlaneGeometry(0.016, 0.12),
       new PlaneGeometry(0.016, 0.12).rotateZ(Math.PI / 3),
@@ -137,7 +139,7 @@ export class WeaponFx {
     for (let i = 0; i < capacity.flashes; i++) this.flashes.setMatrixAt(i, HIDDEN);
     scene.add(this.flashes);
 
-    this.muzzleLight = new PointLight(0xffb060, 0, 9, 1.8);
+    this.muzzleLight = new PointLight(0xffb060, 0, 7, 1.0);
     this.muzzleLight.castShadow = false;
     scene.add(this.muzzleLight);
     this.stats.created += 5;
@@ -184,7 +186,7 @@ export class WeaponFx {
     this.spawnSparks(_p, _n, 8);
     this.spawnTracer(_p, _n, 80);
     this.muzzleLight.position.copy(_p);
-    this.muzzleLight.intensity = 70;
+    this.muzzleLight.intensity = MUZZLE_LIGHT;
     this.lightLife = 0.05;
     // casing: từ bên phải camera, bay phải-lên rồi rơi
     const c = this.casingPool[this.casingHead]!;
@@ -239,7 +241,7 @@ export class WeaponFx {
     // đèn nòng
     if (this.lightLife > 0) {
       this.lightLife -= dt;
-      this.muzzleLight.intensity = Math.max(0, 70 * (this.lightLife / 0.05));
+      this.muzzleLight.intensity = Math.max(0, MUZZLE_LIGHT * (this.lightLife / 0.05));
       if (this.lightLife <= 0) this.muzzleLight.intensity = 0;
     }
     // flash
