@@ -1,6 +1,6 @@
 # Known issues — G0
 
-Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:15:38.826Z).
+Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:20:24.884Z).
 
 ## TIP-001
 - [Low] TypeScript 7.0 đã bỏ `baseUrl` và bắt `paths` phải tương đối → đã sửa. Ghi vào AGENTS.md? Không cần; tsconfig là nguồn.

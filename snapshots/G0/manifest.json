@@ -1,8 +1,8 @@
 {
   "gate": "G0",
-  "git": "9e9066d27ba5d3949935db55ad176cef3286b2f2",
+  "git": "10cbbb62e300c398efd1b6f007082ece67ba0ebe",
   "files": 66,
-  "totalBytes": 252925,
+  "totalBytes": 253545,
   "manifest": [
     {
       "path": "config/performance-budget.json",
@@ -161,8 +161,8 @@
     },
     {
       "path": "src/engine/render/quality.ts",
-      "bytes": 1354,
-      "sha256": "096f2b883e63b148"
+      "bytes": 1679,
+      "sha256": "42a7841119ed857f"
     },
     {
       "path": "src/engine/render/rain.ts",
@@ -216,8 +216,8 @@
     },
     {
       "path": "src/game/game.ts",
-      "bytes": 18999,
-      "sha256": "12b20af5976bf251"
+      "bytes": 19294,
+      "sha256": "ef26968ed9344365"
     },
     {
       "path": "src/game/mission/checkpoint.ts",
