@@ -41,3 +41,21 @@ describe('TIP-003 QualityScaler (REN-004)', () => {
     expect(changeAt.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+import { resolveQuality, QUALITY } from '@engine/render/quality';
+
+describe('TIP-003/REN-004 quality preset — trần render nội bộ (PRD §4.1 1920×1200)', () => {
+  it('high cap 1920 px; ?renderWidth ghi đè; ?quality=low 1280', () => {
+    expect(QUALITY.high.maxRenderWidth).toBe(1920);
+    expect(resolveQuality(new URLSearchParams('quality=low')).maxRenderWidth).toBe(1280);
+    expect(resolveQuality(new URLSearchParams('renderWidth=2560')).maxRenderWidth).toBe(2560);
+    expect(resolveQuality(new URLSearchParams('renderWidth=10')).maxRenderWidth).toBe(640);
+  });
+  it('pixel ratio hiệu dụng trên Retina 1728 CSS px, DPR 2 → 1920/1728 = 1.11 (không phải 2)', () => {
+    const cssW = 1728;
+    const dpr = 2;
+    const eff = Math.min(dpr, QUALITY.high.maxPixelRatio, QUALITY.high.maxRenderWidth / cssW);
+    expect(eff).toBeCloseTo(1.111, 3);
+    expect(Math.round(cssW * eff)).toBe(1920);
+  });
+});

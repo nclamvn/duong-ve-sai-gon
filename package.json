@@ -4,7 +4,9 @@
   "private": true,
   "description": "Hải Tuyến · Nhiệm vụ 01 · Mắt Bão (HT-MB) — browser FPS vertical slice, Gate G0 feasibility",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,10 +16,11 @@
     "test:watch": "vitest",
     "e2e": "playwright test --project=webgl-ci",
     "e2e:webgpu": "HT_WEBGPU=1 playwright test --project=webgpu",
-    "bench": "vite --mode bench --open \"/?bench=1&autostart=1&runs=3&seconds=90\"",
-    "bench:quick": "vite --mode bench --open \"/?bench=1&autostart=1&runs=1&seconds=10\"",
+    "bench": "node scripts/bench.mjs",
+    "bench:quick": "node scripts/bench.mjs --quick",
     "snapshot": "node scripts/snapshot.mjs",
-    "ci": "npm run typecheck && npm run test && npm run build && npm run e2e"
+    "ci": "npm run typecheck && npm run test && npm run build && npm run e2e",
+    "bench:webgl": "node scripts/bench.mjs --backend webgl"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",

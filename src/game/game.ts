@@ -270,8 +270,14 @@ export class Game {
     this.applyScale(true);
   }
 
+  /** Pixel ratio hiệu dụng = min(DPR, maxPixelRatio, maxRenderWidth / CSS width) × scale — PRD §4 "Độ phân giải". */
+  effectivePixelRatio(): number {
+    const cssW = Math.max(1, window.innerWidth);
+    return Math.min(window.devicePixelRatio || 1, this.quality.maxPixelRatio, this.quality.maxRenderWidth / cssW) * this.scaler.scale;
+  }
+
   private applyScale(force = false): void {
-    const dpr = Math.min(window.devicePixelRatio || 1, this.quality.maxPixelRatio) * this.scaler.scale;
+    const dpr = this.effectivePixelRatio();
     const r = this.bundle.renderer;
     if (force || Math.abs(r.getPixelRatio() - dpr) > 1e-3) {
       r.setPixelRatio(dpr);

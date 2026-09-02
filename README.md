@@ -34,9 +34,12 @@ Sandbox Linux không có GPU: đặt `HT_CHROME=/opt/pw-browsers/chromium-1194/c
 ## Benchmark G0 trên M1 Max (bắt buộc trước khi phán quyết)
 
 ```bash
-npm run bench               # mở Chrome: replay 90 s × 3 (seed 7, track arena-v1), median theo frame_p95
+npm run bench               # mở Google Chrome: replay 90 s × 3 (seed 7, track arena-v1), median theo frame_p95, in verdict rồi thoát
 npm run bench:quick         # 1 × 10 s để thử
+npm run bench:webgl         # cùng cảnh qua WebGL 2 để A/B với WebGPU (PRD §10.1)
+npm run bench -- --runs 3 --seconds 90 --seed 7 --port 5173
 ```
+Render nội bộ mặc định bị trần 1920 px (PRD §4.1) dù màn Retina DPR 2; `?renderWidth=2560` để thử cao hơn.
 
 Kết thúc, trang POST kết quả về dev server → `evidence/G0/performance-report-<ISO>.json` + `device-profile.json`.
 Overlay hiện `verdict PASS|WARN|FAIL · evidence_status`. **Chỉ report có `evidence_status = measured_on_reference_device`
