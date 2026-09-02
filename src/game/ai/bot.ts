@@ -24,7 +24,7 @@ export interface BotEvents extends Record<string, unknown> {
   IMPACT: { point: [number, number, number]; normal: [number, number, number]; material: string; penetrated: boolean };
   AI_STATE: { botId: string; from: BotState; to: BotState; reason: string };
   AI_STUCK_RECOVERED: { botId: string; method: 'replan' | 'teleport' };
-  NODE_TIMEOUT: { botId: string; state: BotState };
+  AI_TIMEOUT: { botId: string; state: BotState };
   [k: string]: unknown;
 }
 
@@ -202,7 +202,7 @@ export class Bot {
     const limit = (ai.states as Record<string, number>)[this.state];
     if (limit !== undefined && this.stateMs > limit) {
       this.stats.timeouts++;
-      this.deps.events.emit('NODE_TIMEOUT', { botId: this.id, state: this.state });
+      this.deps.events.emit('AI_TIMEOUT', { botId: this.id, state: this.state });
       this.go(this.state === 'PATROL' ? 'PATROL' : 'PATROL', 'timeout');
       this.waypointIndex = (this.waypointIndex + 1) % this.deps.waypoints.length;
       const w = this.deps.waypoints[this.waypointIndex]!;

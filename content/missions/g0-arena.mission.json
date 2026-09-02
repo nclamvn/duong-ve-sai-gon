@@ -1,0 +1,210 @@
+{
+  "id": "g0-arena",
+  "version": "0.1.0",
+  "seedPolicy": "fixed",
+  "seed": 7,
+  "startNode": "n_intro",
+  "checkpoints": [
+    "cp0"
+  ],
+  "localization": "vi",
+  "zones": [
+    {
+      "id": "relay_zone",
+      "center": [
+        0,
+        0,
+        -20
+      ],
+      "radius": 8
+    },
+    {
+      "id": "exfil_zone",
+      "center": [
+        0,
+        0,
+        40
+      ],
+      "radius": 6
+    }
+  ],
+  "spawnGroups": [
+    {
+      "id": "bot_group_a",
+      "archetype": "grunt",
+      "count": 2,
+      "spawn": "bot_b",
+      "budget": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_intro",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "D01"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_reach_relay"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_zone",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_zone",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "relay_zone"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "D03"
+        },
+        {
+          "type": "spawn",
+          "group": "bot_group_a"
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_reach_relay"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_clear_relay"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_clear",
+      "timeoutMs": 60000,
+      "fallbackNext": "n_timeout"
+    },
+    {
+      "id": "n_clear",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "bot_group_a"
+        }
+      ],
+      "next": "n_saved",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_saved",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "D05"
+        },
+        {
+          "type": "set_flag",
+          "flag": "relay_cut",
+          "value": true
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_clear_relay"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp0"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_done",
+      "type": "terminal",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective",
+          "objectiveKey": "obj_done"
+        },
+        {
+          "type": "mission_complete"
+        }
+      ],
+      "exitConditions": [],
+      "next": null,
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_timeout",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "D06"
+        },
+        {
+          "type": "set_flag",
+          "flag": "alarm_state",
+          "value": true
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_zone",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    }
+  ]
+}

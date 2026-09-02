@@ -99,9 +99,9 @@ export async function runBench(game: Game, opts: BenchOptions, onStatus?: (msg: 
   const ua = navigator.userAgent;
   const adapter = game.bundle.adapterInfo ? { ...game.bundle.adapterInfo } : null;
   const evidence_status = classifyEvidence(ua, adapter, game.bundle.backend);
-  if (evidence_status === 'sandbox_swiftshader_lifecycle_only') notes.push('Số đo trong sandbox/SwiftShader — chỉ kiểm lifecycle, không dùng cho phán quyết G0.');
-  if (median.gpu_method === 'unavailable') notes.push('GPU timestamp query không khả dụng — gpu_ms = NA, dùng browser profiler.');
-  if (game.bundle.backend === 'webgpu') notes.push('WebGPU backend: draw_calls đếm cả sub-draw của BatchedMesh (1 drawIndexed/instance, cùng pipeline).');
+  if (evidence_status === 'sandbox_swiftshader_lifecycle_only') notes.push('sandbox/SwiftShader measurement: lifecycle check only, not valid for the G0 verdict.');
+  if (median.gpu_method === 'unavailable') notes.push('GPU timestamp query unavailable: gpu_ms = NA, use the browser profiler.');
+  if (game.bundle.backend === 'webgpu') notes.push('WebGPU backend: draw_calls counts BatchedMesh sub-draws (1 drawIndexed per instance, same pipeline).');
   const report: BenchReport = {
     schemaVersion: 1,
     seed: opts.seed,

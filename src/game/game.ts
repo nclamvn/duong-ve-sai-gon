@@ -30,8 +30,10 @@ import { initNav, NavService } from '@engine/nav/navmesh';
 import { getPositionsAndIndices, NavMeshHelper } from '@recast-navigation/three';
 import { BotActor } from '@game/actors/botActor';
 import type { BotEvents } from '@game/ai/bot';
+import { MissionHost } from '@game/mission/missionHost';
+import type { MissionEvents } from '@game/mission/types';
 
-export interface GameEvents extends WeaponEvents, BotEvents {
+export interface GameEvents extends WeaponEvents, BotEvents, MissionEvents {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
   GAME_RESET: { seed: number };
   ACTOR_DIED: { actorId: string; group: string };
@@ -82,6 +84,8 @@ export class Game {
   private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true };
   private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
   navBuildMs = 0;
+  mission!: MissionHost;
+  private prevInteract = false;
   private readonly shooter: ShooterContext = { origin: [0, 0, 0], aim: [0, 0, -1], stance: 'stand', moving: false, grounded: true, exclude: undefined };
   private readonly v3 = new Vector3();
   private readonly v3b = new Vector3();
@@ -248,6 +252,13 @@ export class Game {
     this.scheduler.add('sim60', (tick, dt) => this.simStep(tick, dt));
     this.scheduler.add('render', (alpha, dt) => this.renderStep(alpha, dt));
     this.actorStats.total = this.dummies.length;
+
+    // Mission data-driven (TIP-008): validate schema → runtime → start
+    this.mission = new MissionHost(this);
+    this.mission.start();
+    window.addEventListener('keydown', (ev) => {
+      if (ev.code === 'Enter' && !this.player.alive) this.respawn();
+    });
     this.ready = true;
   }
 
@@ -365,6 +376,9 @@ export class Game {
       b.syncBody();
     }
     this.physics.step();
+    const interactEdge = this.inputState.interact && !this.prevInteract;
+    this.prevInteract = this.inputState.interact;
+    this.mission.step(dt, interactEdge);
     const h = this.hud.state;
     h.health = this.player.health;
     h.dead = !this.player.alive;
@@ -423,6 +437,11 @@ export class Game {
     this.bots.delete(id);
   }
 
+  /** Chết → tải checkpoint gần nhất, không có thì reset mission. */
+  respawn(): void {
+    if (!this.mission.load()) this.reset(this.seed);
+  }
+
   /** Đưa toàn bộ về trạng thái đầu (bench/test). Các TIP sau mở rộng qua resetHooks. */
   reset(seed = this.seed): void {
     this.seed = seed;
@@ -441,6 +460,7 @@ export class Game {
     this.weapon.reset(this.prng);
     this.fx.reset();
     for (const b of this.bots.values()) b.reset();
+    this.mission.reset();
     if (this.freeFly) {
       this.freeFly.yaw = 0;
       this.freeFly.pitch = 0;
