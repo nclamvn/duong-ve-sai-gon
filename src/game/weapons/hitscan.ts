@@ -90,6 +90,7 @@ export function resolveShot(
   prng: Prng,
   exclude: RAPIER.Collider | undefined,
   results: HitResult[],
+  hitMask: number = LAYER.WORLD | LAYER.ACTOR,
 ): HitResult[] {
   results.length = 0;
   const dir = applySpread(aimDir, spreadDeg, prng, scratchDir);
@@ -100,10 +101,10 @@ export function resolveShot(
   let mul = 1;
   let penetrated = false;
   for (let bounce = 0; bounce < 2; bounce++) {
-    const hit = world.castRay(ox, oy, oz, dir[0], dir[1], dir[2], remaining, LAYER.WORLD | LAYER.ACTOR, exclude);
+    const hit = world.castRay(ox, oy, oz, dir[0], dir[1], dir[2], remaining, hitMask, exclude);
     if (!hit) break;
     const data: ColliderUserData | null = hit.data;
-    const isActor = data?.kind === 'actor';
+    const isActor = data?.kind === 'actor' || data?.kind === 'player';
     const zone = isActor ? (data?.zone ?? 'body') : null;
     const dmg = isActor ? (zone === 'head' ? spec.damage.head : spec.damage.body) * mul : 0;
     results.push({
@@ -111,7 +112,7 @@ export function resolveShot(
       point: [hit.point[0], hit.point[1], hit.point[2]],
       normal: [hit.normal[0], hit.normal[1], hit.normal[2]],
       material: data?.material ?? 'concrete',
-      actorId: data?.actorId ?? null,
+      actorId: isActor ? (data?.actorId ?? data?.id ?? null) : null,
       zone,
       damage: dmg,
       penetrated,

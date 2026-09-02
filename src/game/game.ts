@@ -26,8 +26,12 @@ import { WeaponFx } from '@game/weapons/fx';
 import { AudioEngine } from '@engine/audio/audio';
 import { attachActorBody, type ActorBody } from '@game/actors/actorPhysics';
 import { Vector3 } from 'three/webgpu';
+import { initNav, NavService } from '@engine/nav/navmesh';
+import { getPositionsAndIndices, NavMeshHelper } from '@recast-navigation/three';
+import { BotActor } from '@game/actors/botActor';
+import type { BotEvents } from '@game/ai/bot';
 
-export interface GameEvents extends WeaponEvents {
+export interface GameEvents extends WeaponEvents, BotEvents {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
   GAME_RESET: { seed: number };
   ACTOR_DIED: { actorId: string; group: string };
@@ -72,6 +76,12 @@ export class Game {
   readonly audio = new AudioEngine();
   /** actor registry: dummies (TIP-006) + bots (TIP-007) */
   readonly actors = new Map<string, ActorEntry>();
+  nav!: NavService;
+  navHelper: NavMeshHelper | null = null;
+  readonly bots = new Map<string, BotActor>();
+  private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true };
+  private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
+  navBuildMs = 0;
   private readonly shooter: ShooterContext = { origin: [0, 0, 0], aim: [0, 0, -1], stance: 'stand', moving: false, grounded: true, exclude: undefined };
   private readonly v3 = new Vector3();
   private readonly v3b = new Vector3();
@@ -166,14 +176,55 @@ export class Game {
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
     this.events.on('HIT', (e) => {
+      this.audio.impact('flesh', e.point);
+      if (e.actorId === 'player') {
+        const dead = this.player.damage(e.damage);
+        if (dead) this.events.emit('ACTOR_DIED', { actorId: 'player', group: 'player' });
+        return;
+      }
+      const b = this.bots.get(e.actorId);
+      if (b) {
+        this.player.eyePosition(this.v3);
+        const died = b.applyDamage(e.damage, [this.v3.x, this.v3.y, this.v3.z]);
+        if (died) this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
+        return;
+      }
       const a = this.actors.get(e.actorId);
       if (!a) return;
       const died = a.dummy.applyDamage(e.damage);
-      this.audio.impact('flesh', e.point);
       if (died) {
         a.body.setEnabled(false);
         this.events.emit('ACTOR_DIED', { actorId: a.id, group: a.group });
       }
+    });
+    this.events.on('BOT_FIRED', (e) => this.audio.gunshotAt(e.origin));
+
+    // Navmesh runtime từ ArenaData.navGeometry (ADR-003) + 1 bot tuần tra
+    await initNav();
+    const [navPos, navIdx] = getPositionsAndIndices(this.arena.navGeometry);
+    this.nav = new NavService(navPos, navIdx);
+    this.navBuildMs = this.nav.buildMs;
+    this.navHelper = new NavMeshHelper(this.nav.navMesh);
+    this.navHelper.visible = false;
+    this.scene.add(this.navHelper);
+    window.addEventListener('keydown', (ev) => {
+      if (ev.code === 'F4' && this.navHelper) this.navHelper.visible = !this.navHelper.visible;
+    });
+    this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
+    this.scheduler.add('ai10', (_tick, dtAi) => {
+      let full = 0;
+      let alive = 0;
+      for (const b of this.bots.values()) {
+        b.bot.think(dtAi);
+        if (b.bot.alive) {
+          alive++;
+          if (b.bot.lod === 'FULL') full++;
+        }
+      }
+      this.actorStats.full = full;
+      let dummiesAlive = 0;
+      for (const a of this.actors.values()) if (a.dummy.alive) dummiesAlive++;
+      this.actorStats.total = alive + dummiesAlive;
     });
     this.events.on('IMPACT', (e) => this.audio.impact(e.material, e.point));
     this.events.on('WEAPON_FIRED', () => this.audio.gunshot());
@@ -266,6 +317,15 @@ export class Game {
     this.onFrame?.(this, frameMs);
   }
 
+  /** Chạy N tick sim không render (QA/E2E: nhanh, deterministic). */
+  stepSim(ticks: number): void {
+    for (let i = 0; i < ticks; i++) {
+      this.clock.advance(this.clock.step);
+      this.events.currentTick = this.clock.tick;
+      this.scheduler.runSim(this.clock.tick, this.clock.step);
+    }
+  }
+
   private simStep(tick: number, dt: number): void {
     this.input.snapshot(tick, this.inputState);
     if (this.freeFly) this.freeFly.step(this.inputState, dt);
@@ -285,6 +345,25 @@ export class Game {
     sh.grounded = this.player.controller.grounded;
     if (this.player.alive) this.weapon.step(this.inputState, sh, dt);
     this.player.adsBlend = this.weapon.ads;
+    // Bots: cập nhật target/camera info rồi move theo path
+    const ti = this.targetInfo;
+    ti.pos[0] = this.player.controller.feet[0];
+    ti.pos[1] = this.player.controller.feet[1];
+    ti.pos[2] = this.player.controller.feet[2];
+    ti.eye[0] = sh.origin[0];
+    ti.eye[1] = sh.origin[1];
+    ti.eye[2] = sh.origin[2];
+    ti.alive = this.player.alive;
+    this.camInfo.pos[0] = sh.origin[0];
+    this.camInfo.pos[1] = sh.origin[1];
+    this.camInfo.pos[2] = sh.origin[2];
+    this.camInfo.fwd[0] = sh.aim[0];
+    this.camInfo.fwd[1] = sh.aim[1];
+    this.camInfo.fwd[2] = sh.aim[2];
+    for (const b of this.bots.values()) {
+      b.bot.move(dt);
+      b.syncBody();
+    }
     this.physics.step();
     const h = this.hud.state;
     h.health = this.player.health;
@@ -299,6 +378,7 @@ export class Game {
     if (this.cameraDriver) this.cameraDriver(alpha, dt);
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
+    for (const b of this.bots.values()) b.syncVisual(t);
     this.hud.update();
     this.fx.update(dt);
     if (this.audio.ctx) {
@@ -319,6 +399,30 @@ export class Game {
     }
   }
 
+  spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
+    const existing = this.bots.get(id);
+    if (existing) return existing;
+    const b = new BotActor(id, group, spawn, this.scene, this.physics, {
+      physics: this.physics,
+      nav: this.nav,
+      events: this.events as unknown as EventBus<BotEvents>,
+      prng: this.prng,
+      waypoints: this.arena.waypoints,
+      coverMarkers: this.arena.coverMarkers,
+      target: () => this.targetInfo,
+      camera: () => this.camInfo,
+    });
+    this.bots.set(id, b);
+    return b;
+  }
+
+  despawnBot(id: string): void {
+    const b = this.bots.get(id);
+    if (!b) return;
+    b.dispose(this.scene);
+    this.bots.delete(id);
+  }
+
   /** Đưa toàn bộ về trạng thái đầu (bench/test). Các TIP sau mở rộng qua resetHooks. */
   reset(seed = this.seed): void {
     this.seed = seed;
@@ -336,6 +440,7 @@ export class Game {
     this.player.reset(0);
     this.weapon.reset(this.prng);
     this.fx.reset();
+    for (const b of this.bots.values()) b.reset();
     if (this.freeFly) {
       this.freeFly.yaw = 0;
       this.freeFly.pitch = 0;

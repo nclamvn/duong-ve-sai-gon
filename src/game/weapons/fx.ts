@@ -94,6 +94,7 @@ export class WeaponFx {
     this.unsub.push(events.on('IMPACT', (e) => this.placeDecal(e.point, e.normal)));
     this.unsub.push(events.on('WEAPON_FIRED', (e) => this.onShot(e.origin, e.dir)));
     this.unsub.push(events.on('HIT', (e) => this.placeDecal(e.point, [0, 1, 0], true)));
+    this.unsub.push((events as unknown as EventBus<{ BOT_FIRED: { origin: [number, number, number]; dir: [number, number, number] } }>).on('BOT_FIRED', (e) => this.tracer(e.origin, e.dir, 0)));
   }
 
   private placeDecal(point: [number, number, number], normal: [number, number, number], blood = false): void {
@@ -128,13 +129,16 @@ export class WeaponFx {
     c.vel.copy(_n).multiplyScalar(1.5 + this.prng.next()).add(_tmp.copy(_up).multiplyScalar(1.2 + this.prng.next() * 0.5));
     c.life = 1.4;
     c.rot = this.prng.next() * 6;
-    // tracer
+    this.tracer(origin, dir, -0.12);
+  }
+
+  private tracer(origin: [number, number, number], dir: [number, number, number], yOffset: number): void {
     const t = this.tracerPool[this.tracerHead]!;
     const ti = this.tracerHead;
     this.tracerHead = (this.tracerHead + 1) % this.capacity.tracers;
     t.life = 0.06;
     const len = 40;
-    _p.set(origin[0] + dir[0] * (len / 2 + 1), origin[1] + dir[1] * (len / 2 + 1) - 0.12, origin[2] + dir[2] * (len / 2 + 1));
+    _p.set(origin[0] + dir[0] * (len / 2 + 1), origin[1] + dir[1] * (len / 2 + 1) + yOffset, origin[2] + dir[2] * (len / 2 + 1));
     _q.setFromUnitVectors(_fwd, _n.set(dir[0], dir[1], dir[2]));
     _s.set(1, 1, len);
     _m.compose(_p, _q, _s);

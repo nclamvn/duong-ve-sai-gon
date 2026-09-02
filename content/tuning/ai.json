@@ -1,0 +1,10 @@
+{
+  "$comment": "PRD AI-001..004 — engineering default; tinh chỉnh ở G2",
+  "perception": { "fovDeg": 110, "sightRange": 40, "hearRange": 25, "eyeHeight": 1.6, "gainNear": 2.5, "gainFar": 0.6, "decayPerSec": 0.25, "suspiciousAt": 0.3, "alertAt": 0.8, "memoryMs": 6000 },
+  "move": { "speed": 3.5, "alertSpeed": 4.2, "turnRate": 6, "arriveRadius": 0.5, "stuckDistance": 0.3, "stuckMs": 2000, "replanBudgetMs": 400 },
+  "combat": { "spreadDeg": 4, "damage": 8, "cooldownMs": 350, "burst": 3, "burstPauseMs": 900, "range": 60, "mag": 20, "reloadMs": 2000, "retreatHealth": 30, "peekMs": 1800, "coverMs": 1400, "engageRange": 40 },
+  "cover": { "minDistToTarget": 6, "maxSearch": 25, "preferNear": 1.0, "losBlockBonus": 3.0 },
+  "states": { "PATROL": 60000, "INVESTIGATE": 12000, "SEEK_COVER": 8000, "PEEK_FIRE": 6000, "RETREAT": 5000 },
+  "lod": { "fullRange": 30, "reducedRange": 60, "offscreenSleepMs": 5000, "reducedDivider": 5 },
+  "health": 100
+}

@@ -151,6 +151,12 @@ export class AudioEngine {
     this.noiseBurst('sfx', 420, 0.18, 300, 0.8);
   }
 
+  /** Súng của bot: 3D positional, ngắn hơn. */
+  gunshotAt(position: [number, number, number]): void {
+    this.noiseBurst('sfx', 70, 0.7, 4500, 0.6, position);
+    this.noiseBurst('sfx', 260, 0.25, 500, 0.9, position);
+  }
+
   impact(material: string, position: [number, number, number]): void {
     const hz = material === 'steel' ? 3200 : material === 'wood' ? 1400 : material === 'flesh' ? 500 : 900;
     this.noiseBurst('sfx', material === 'steel' ? 180 : 90, 0.35, hz, 1.0, position);
