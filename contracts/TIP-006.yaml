@@ -1,0 +1,22 @@
+# Contract — TIP-006 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-006
+goal: "AR weapon greybox: state machine, recoil seeded, hitscan zones + penetration, pooled FX, procedural audio"
+scope:
+  - src/game/weapons/
+  - src/engine/audio/audio.ts
+  - src/game/actors/actorPhysics.ts
+  - content/tuning/weapons.json
+acceptance:
+  - "spam 1000 input không kẹt"
+  - "30 viên → EMPTY → reload 1900 ms"
+  - "recoil deterministic, ≤ 8°"
+  - "ADS ≥ 95/100 head @10 m"
+  - "pool không tăng sau 18000 tick"
+  - "penetration allow-list"
+tests:
+  - tests/unit/weapon.test.ts
+evidence:
+  - evidence/TIP-006/completion-report.md
+  - evidence/TIP-006/weapon-webgl.png
+rollback: "git revert 22ad252"
+status: DONE

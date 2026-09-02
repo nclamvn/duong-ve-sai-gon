@@ -77,12 +77,19 @@ export async function createRenderer(opts: CreateRendererOptions): Promise<Rende
 
   const backendObj = renderer.backend as { isWebGPUBackend?: boolean; device?: GPUDevice };
   const backend: BackendKind = backendObj.isWebGPUBackend === true ? 'webgpu' : 'webgl2';
-  const adapterInfo = backend === 'webgpu' ? await probeAdapter() : null;
+  let adapterInfo = backend === 'webgpu' ? await probeAdapter() : null;
   let timestampCapable = false;
   if (backend === 'webgpu') timestampCapable = backendObj.device?.features.has('timestamp-query') ?? false;
   else {
     const gl = opts.canvas.getContext('webgl2');
     timestampCapable = !!gl?.getExtension('EXT_disjoint_timer_query_webgl2');
+    // WebGL2: lấy tên renderer thật (ANGLE/SwiftShader/Metal) để capability screen + evidence_status phân loại
+    if (gl) {
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)) : String(gl.getParameter(gl.RENDERER));
+      const vendor = dbg ? String(gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL)) : String(gl.getParameter(gl.VENDOR));
+      adapterInfo = { vendor, architecture: '', device: '', description: renderer };
+    }
   }
   return { renderer, backend, adapterInfo, webgpuAvailable, timestampCapable, canvas: opts.canvas };
 }

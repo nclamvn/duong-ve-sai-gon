@@ -1,0 +1,25 @@
+# Contract — TIP-008 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-008
+goal: "Mission runtime data-driven (schema + allow-list), idempotent actions, checkpoint snapshot/restore + hash, subtitles, debug API"
+scope:
+  - src/game/mission/
+  - src/ui/subtitles.ts
+  - src/qa/debugApi.ts
+  - content/missions/
+acceptance:
+  - "action ngoài allow-list reject với path"
+  - "zone_enter nhiều tick → 1 spawn"
+  - "MISSION_COMPLETE ×1"
+  - "restore ×20 hash khớp"
+  - "timeout → fallback"
+  - "PROD không __ht"
+  - "0 literal VI trong src"
+tests:
+  - tests/unit/mission.test.ts
+  - tests/unit/i18n.test.ts
+  - tests/e2e/mission.spec.ts
+evidence:
+  - evidence/TIP-008/completion-report.md
+  - evidence/TIP-008/mission-webgl.png
+rollback: "git revert d8096ef"
+status: DONE

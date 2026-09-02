@@ -1,0 +1,26 @@
+# Contract — TIP-004 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-004
+goal: "Telemetry ring buffer p95/1%low, budget check, overlay F3, seeded replay track, bench harness → evidence"
+scope:
+  - src/qa/telemetry.ts
+  - src/qa/budget.ts
+  - src/qa/bench.ts
+  - src/ui/overlay.ts
+  - src/engine/input/input.ts
+  - src/engine/input/replay.ts
+  - src/engine/render/quality.ts
+acceptance:
+  - "p95/1%low đúng trên 1000 mẫu"
+  - "track seed deterministic"
+  - "POST /__bench + file hợp lệ schema"
+  - "overlay ≤ 4 Hz"
+  - "budget WARN/FAIL/PASS/NA"
+tests:
+  - tests/unit/telemetry.test.ts
+  - tests/e2e/bench.spec.ts
+evidence:
+  - evidence/TIP-004/completion-report.md
+  - evidence/TIP-004/performance-report-sandbox-sample.json
+  - evidence/TIP-004/bench-overlay-webgl.png
+rollback: "git revert f57a9e5"
+status: DONE

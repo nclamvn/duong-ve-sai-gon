@@ -1,0 +1,21 @@
+# Contract — TIP-009 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-009
+goal: "E2E Playwright (webgl-ci 6 spec, webgpu project cho Mac), snapshot G0, contracts, README"
+scope:
+  - tests/e2e/
+  - scripts/snapshot.mjs
+  - snapshots/G0/
+  - contracts/
+  - README.md
+acceptance:
+  - "npm run ci exit 0"
+  - "6 spec webgl pass, webgpu skip có lý do"
+  - "snapshot 5 file, build-hash khớp git"
+  - "9 contract 8 trường"
+tests:
+  - tests/e2e/*.spec.ts
+evidence:
+  - evidence/TIP-009/completion-report.md
+  - evidence/TIP-009/*.png
+rollback: "git revert HEAD"
+status: DONE

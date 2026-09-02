@@ -1,0 +1,18 @@
+# Contract — TIP-002 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-002
+goal: "engine/core: FixedClock 60 Hz, EventBus idempotent, Scheduler tiers, mulberry32 prng, Pool cố định"
+scope:
+  - src/engine/core/
+acceptance:
+  - "60 step/1 s accumulator"
+  - "clamp dt 5 s"
+  - "emit trùng id → duplicates"
+  - "ai10 = 10/60 tick"
+  - "prng deterministic + fork"
+  - "pool exhausted không grow"
+tests:
+  - tests/unit/core.test.ts
+evidence:
+  - evidence/TIP-002/completion-report.md
+rollback: "git revert 9e117fe"
+status: DONE

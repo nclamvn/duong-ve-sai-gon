@@ -8,7 +8,10 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const EVIDENCE_DIR = join(process.cwd(), 'evidence', 'G0');
+/** Report từ sandbox/SwiftShader không được lẫn vào evidence G0 thật → evidence/sandbox/ */
+function evidenceDir(status: string | undefined): string {
+  return join(process.cwd(), 'evidence', status === 'sandbox_swiftshader_lifecycle_only' ? 'sandbox' : 'G0');
+}
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -28,13 +31,14 @@ function handle(req: IncomingMessage, res: ServerResponse, next: () => void): vo
   }
   readBody(req)
     .then((raw) => {
-      const report = JSON.parse(raw) as { timestamp?: string; device?: unknown; backend?: string; verdict?: string };
-      mkdirSync(EVIDENCE_DIR, { recursive: true });
+      const report = JSON.parse(raw) as { timestamp?: string; device?: unknown; backend?: string; verdict?: string; evidence_status?: string };
+      const dir = evidenceDir(report.evidence_status);
+      mkdirSync(dir, { recursive: true });
       const stamp = (report.timestamp ?? new Date().toISOString()).replace(/[:.]/g, '-');
-      const file = join(EVIDENCE_DIR, `performance-report-${stamp}.json`);
+      const file = join(dir, `performance-report-${stamp}.json`);
       writeFileSync(file, JSON.stringify(report, null, 2));
       writeFileSync(
-        join(EVIDENCE_DIR, 'device-profile.json'),
+        join(dir, 'device-profile.json'),
         JSON.stringify({ capturedAt: report.timestamp, backend: report.backend, device: report.device }, null, 2),
       );
       res.setHeader('content-type', 'application/json');

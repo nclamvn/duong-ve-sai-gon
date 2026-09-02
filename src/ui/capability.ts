@@ -13,9 +13,7 @@ export interface CapabilityInfo {
 export function showCapability(root: HTMLElement, info: CapabilityInfo, onEnter: () => void, autostart: boolean): void {
   const adapter = info.adapterInfo
     ? [info.adapterInfo.vendor, info.adapterInfo.architecture, info.adapterInfo.description].filter(Boolean).join(' · ') || '—'
-    : info.backend === 'webgl2'
-      ? 'WebGL 2'
-      : '—';
+    : '—';
   const rows: Array<[string, string]> = [
     [t('cap.backend'), `${info.backend}${info.timestampCapable ? ' · timestamp-query' : ''}`],
     [t('cap.adapter'), adapter],

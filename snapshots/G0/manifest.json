@@ -1,0 +1,338 @@
+{
+  "gate": "G0",
+  "git": "d8096ef560b1c37dc7a4c29b43686c87c3a4cc2a",
+  "files": 66,
+  "totalBytes": 252925,
+  "manifest": [
+    {
+      "path": "config/performance-budget.json",
+      "bytes": 2660,
+      "sha256": "d48994f905d5455b"
+    },
+    {
+      "path": "content/locale/vi.json",
+      "bytes": 1987,
+      "sha256": "2885419d65854580"
+    },
+    {
+      "path": "content/missions/g0-arena.mission.json",
+      "bytes": 3779,
+      "sha256": "64ef1132f24c31b9"
+    },
+    {
+      "path": "content/missions/g0-dialogue.json",
+      "bytes": 852,
+      "sha256": "d9ba0f86241e5b30"
+    },
+    {
+      "path": "content/schemas/checkpoint.schema.json",
+      "bytes": 2461,
+      "sha256": "80df4131649b5179"
+    },
+    {
+      "path": "content/schemas/dialogue.schema.json",
+      "bytes": 1115,
+      "sha256": "95edb65e47ce18e8"
+    },
+    {
+      "path": "content/schemas/mission.schema.json",
+      "bytes": 3690,
+      "sha256": "7f8bc8d4a5d3dbfa"
+    },
+    {
+      "path": "content/schemas/performance-replay.schema.json",
+      "bytes": 3534,
+      "sha256": "1eceb6da2a01f27a"
+    },
+    {
+      "path": "content/tuning/ai.json",
+      "bytes": 955,
+      "sha256": "12ea034245428d07"
+    },
+    {
+      "path": "content/tuning/player.json",
+      "bytes": 823,
+      "sha256": "8ff44c47a9206132"
+    },
+    {
+      "path": "content/tuning/weapons.json",
+      "bytes": 930,
+      "sha256": "167cce27428704ef"
+    },
+    {
+      "path": "src/engine/audio/audio.ts",
+      "bytes": 6895,
+      "sha256": "cb2f61b33fa1ff97"
+    },
+    {
+      "path": "src/engine/core/clock.ts",
+      "bytes": 1927,
+      "sha256": "0effdc94d2b9f01f"
+    },
+    {
+      "path": "src/engine/core/events.ts",
+      "bytes": 3551,
+      "sha256": "379070275a607954"
+    },
+    {
+      "path": "src/engine/core/ids.ts",
+      "bytes": 507,
+      "sha256": "f4c7ee3636b223b7"
+    },
+    {
+      "path": "src/engine/core/index.ts",
+      "bytes": 416,
+      "sha256": "7f6e05b97d396ef6"
+    },
+    {
+      "path": "src/engine/core/pool.ts",
+      "bytes": 2243,
+      "sha256": "b2171718a9a31641"
+    },
+    {
+      "path": "src/engine/core/prng.ts",
+      "bytes": 1883,
+      "sha256": "11bdd2e706677acb"
+    },
+    {
+      "path": "src/engine/core/scheduler.ts",
+      "bytes": 2203,
+      "sha256": "ff6b47ecab1df575"
+    },
+    {
+      "path": "src/engine/input/freeFly.ts",
+      "bytes": 1650,
+      "sha256": "52773be2e047d6b1"
+    },
+    {
+      "path": "src/engine/input/input.ts",
+      "bytes": 5450,
+      "sha256": "b0e3aa552c8bb45e"
+    },
+    {
+      "path": "src/engine/input/pointerLock.ts",
+      "bytes": 1650,
+      "sha256": "b7f34019b2d14bf9"
+    },
+    {
+      "path": "src/engine/input/replay.ts",
+      "bytes": 3908,
+      "sha256": "946470684966b898"
+    },
+    {
+      "path": "src/engine/nav/navmesh.ts",
+      "bytes": 3421,
+      "sha256": "f6142c70d90a65b8"
+    },
+    {
+      "path": "src/engine/physics/controller.ts",
+      "bytes": 8052,
+      "sha256": "bee7c0ee526f8ac0"
+    },
+    {
+      "path": "src/engine/physics/layers.ts",
+      "bytes": 648,
+      "sha256": "2bda61dae1c9f02a"
+    },
+    {
+      "path": "src/engine/physics/world.ts",
+      "bytes": 5924,
+      "sha256": "36d48e760852d114"
+    },
+    {
+      "path": "src/engine/render/arena.ts",
+      "bytes": 8703,
+      "sha256": "32458b57f5aa33d0"
+    },
+    {
+      "path": "src/engine/render/backend.ts",
+      "bytes": 3787,
+      "sha256": "c6a0751a5aee54d4"
+    },
+    {
+      "path": "src/engine/render/lighting.ts",
+      "bytes": 1749,
+      "sha256": "f004202346306157"
+    },
+    {
+      "path": "src/engine/render/materials.ts",
+      "bytes": 1507,
+      "sha256": "a5a9a936ddc3f3c3"
+    },
+    {
+      "path": "src/engine/render/quality.ts",
+      "bytes": 1354,
+      "sha256": "096f2b883e63b148"
+    },
+    {
+      "path": "src/engine/render/rain.ts",
+      "bytes": 2343,
+      "sha256": "7ba07719ba8423d2"
+    },
+    {
+      "path": "src/engine/render/scaler.ts",
+      "bytes": 2457,
+      "sha256": "8d53060c4bca9db0"
+    },
+    {
+      "path": "src/engine/render/telemetryHooks.ts",
+      "bytes": 1268,
+      "sha256": "3ed6b538f74d2639"
+    },
+    {
+      "path": "src/game/actors/actorPhysics.ts",
+      "bytes": 1744,
+      "sha256": "89e020ff353a02d7"
+    },
+    {
+      "path": "src/game/actors/botActor.ts",
+      "bytes": 2183,
+      "sha256": "05f4ab2be899de47"
+    },
+    {
+      "path": "src/game/actors/dummy.ts",
+      "bytes": 4575,
+      "sha256": "d0ea0ae2bbf147c7"
+    },
+    {
+      "path": "src/game/ai/bot.ts",
+      "bytes": 20931,
+      "sha256": "2c94e06b35b6f181"
+    },
+    {
+      "path": "src/game/ai/cover.ts",
+      "bytes": 1697,
+      "sha256": "2f9f9dd3bde8f427"
+    },
+    {
+      "path": "src/game/ai/lod.ts",
+      "bytes": 1173,
+      "sha256": "6aa73dec50b61af1"
+    },
+    {
+      "path": "src/game/ai/perception.ts",
+      "bytes": 3914,
+      "sha256": "2973f3ba27e97bca"
+    },
+    {
+      "path": "src/game/game.ts",
+      "bytes": 18999,
+      "sha256": "12b20af5976bf251"
+    },
+    {
+      "path": "src/game/mission/checkpoint.ts",
+      "bytes": 2859,
+      "sha256": "a766ec2c79daa4c9"
+    },
+    {
+      "path": "src/game/mission/loader.ts",
+      "bytes": 4411,
+      "sha256": "1730a6cc28a9acae"
+    },
+    {
+      "path": "src/game/mission/missionHost.ts",
+      "bytes": 7732,
+      "sha256": "6d24282795800652"
+    },
+    {
+      "path": "src/game/mission/runtime.ts",
+      "bytes": 9285,
+      "sha256": "23b1e44654f488b5"
+    },
+    {
+      "path": "src/game/mission/types.ts",
+      "bytes": 3217,
+      "sha256": "5b7e9890d93e4134"
+    },
+    {
+      "path": "src/game/player/camera.ts",
+      "bytes": 4155,
+      "sha256": "ed22b6fe710f4a73"
+    },
+    {
+      "path": "src/game/player/player.ts",
+      "bytes": 4654,
+      "sha256": "55b66fb985a1a1c4"
+    },
+    {
+      "path": "src/game/player/settings.ts",
+      "bytes": 4753,
+      "sha256": "301c204a025af6aa"
+    },
+    {
+      "path": "src/game/weapons/fx.ts",
+      "bytes": 8067,
+      "sha256": "75dec8d16301fe67"
+    },
+    {
+      "path": "src/game/weapons/hitscan.ts",
+      "bytes": 4339,
+      "sha256": "9a94d6ddcdadb3ff"
+    },
+    {
+      "path": "src/game/weapons/recoil.ts",
+      "bytes": 2096,
+      "sha256": "fc2e7288ca340d5b"
+    },
+    {
+      "path": "src/game/weapons/stateMachine.ts",
+      "bytes": 5033,
+      "sha256": "4024ae8f04e075cd"
+    },
+    {
+      "path": "src/game/weapons/weapon.ts",
+      "bytes": 6511,
+      "sha256": "882bfe7016676ff3"
+    },
+    {
+      "path": "src/main.ts",
+      "bytes": 2437,
+      "sha256": "e118046c776b43ef"
+    },
+    {
+      "path": "src/qa/bench.ts",
+      "bytes": 5785,
+      "sha256": "4562cfed16595425"
+    },
+    {
+      "path": "src/qa/budget.ts",
+      "bytes": 2430,
+      "sha256": "e691712439dd59b0"
+    },
+    {
+      "path": "src/qa/debugApi.ts",
+      "bytes": 4453,
+      "sha256": "9d173ccf22f0bebf"
+    },
+    {
+      "path": "src/qa/telemetry.ts",
+      "bytes": 7378,
+      "sha256": "440f8809c0f15834"
+    },
+    {
+      "path": "src/ui/capability.ts",
+      "bytes": 1929,
+      "sha256": "44900c19b7e146a5"
+    },
+    {
+      "path": "src/ui/hud.ts",
+      "bytes": 3519,
+      "sha256": "afdfe3a717ffdd7e"
+    },
+    {
+      "path": "src/ui/i18n.ts",
+      "bytes": 717,
+      "sha256": "5176e2c8fdb19c3f"
+    },
+    {
+      "path": "src/ui/overlay.ts",
+      "bytes": 3197,
+      "sha256": "8da50ab4de1850f8"
+    },
+    {
+      "path": "src/ui/subtitles.ts",
+      "bytes": 2470,
+      "sha256": "07c0bf40312f530e"
+    }
+  ]
+}

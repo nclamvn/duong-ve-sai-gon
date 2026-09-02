@@ -1,0 +1,22 @@
+# Contract — TIP-005 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-005
+goal: "Rapier physics world, capsule character controller, camera rig 4 lớp, settings IndexedDB, pointer lock raw"
+scope:
+  - src/engine/physics/
+  - src/engine/input/pointerLock.ts
+  - src/game/player/
+  - content/tuning/player.json
+  - src/ui/hud.ts
+acceptance:
+  - "không xuyên tường/sàn"
+  - "bậc 0.3 lên, 0.6 chặn"
+  - "stateHash deterministic 600 tick"
+  - "spam jump an toàn"
+  - "settings lưu/đọc IndexedDB"
+  - "recoil không drift"
+tests:
+  - tests/unit/controller.test.ts
+evidence:
+  - evidence/TIP-005/completion-report.md
+rollback: "git revert b012e65"
+status: DONE

@@ -1,0 +1,24 @@
+# Contract — TIP-003 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-003
+goal: "Renderer WebGPU/WebGL2 + benchmark arena + TSL wet ground + GPU rain + skinned dummies + QualityScaler"
+scope:
+  - src/engine/render/
+  - src/game/actors/dummy.ts
+  - src/game/game.ts
+  - src/ui/capability.ts
+  - src/main.ts
+acceptance:
+  - "backend theo ?backend= và capability screen"
+  - "drawCalls ≤ 650 (batched 1 draw WebGL)"
+  - "8 SkinnedMesh 3 bone"
+  - "rain không needsUpdate CPU"
+  - "scaler hysteresis"
+  - "120 frame headless không exception"
+tests:
+  - tests/unit/scaler.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-003/completion-report.md
+  - evidence/TIP-003/arena-webgl.png
+rollback: "git revert 98ac343; feature flag ?backend=webgl"
+status: DONE

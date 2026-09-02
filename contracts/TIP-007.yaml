@@ -1,0 +1,21 @@
+# Contract — TIP-007 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-007
+goal: "Recast navmesh runtime, bot FSM (perception/cover/peek/retreat), AI LOD, stuck recovery"
+scope:
+  - src/engine/nav/
+  - src/game/ai/
+  - src/game/actors/botActor.ts
+  - content/tuning/ai.json
+acceptance:
+  - "navmesh poly > 0, path vòng cover"
+  - "perception ALERT/SUSPICIOUS/UNAWARE + hearing"
+  - "FSM 3 phút × 10 seed không timeout"
+  - "stuck ≤ 2 s replan, ≤ 4 s teleport"
+  - "LOD SLEEP không perception"
+tests:
+  - tests/unit/ai.test.ts
+evidence:
+  - evidence/TIP-007/completion-report.md
+  - evidence/TIP-007/bot-webgl.png
+rollback: "git revert 6bc9ad3"
+status: DONE

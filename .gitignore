@@ -7,3 +7,4 @@ evidence/**/*.mp4
 .DS_Store
 *.log
 .vite/
+evidence/sandbox/

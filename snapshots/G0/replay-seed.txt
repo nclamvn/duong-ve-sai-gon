@@ -1,0 +1,4 @@
+seed=7
+inputTrack=arena-v1
+seconds=90
+runs=3

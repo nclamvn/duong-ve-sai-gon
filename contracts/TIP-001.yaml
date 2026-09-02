@@ -1,0 +1,28 @@
+# Contract — TIP-001 (PRD §9.1 hợp đồng task chuẩn)
+id: TIP-001
+goal: "Scaffold + governance: Vite/TS strict, deps pin, AGENTS.md, ADR-001..004, performance-budget.json, 4 schema, vi.json"
+scope:
+  - package.json
+  - tsconfig.json
+  - vite.config.ts
+  - vitest.config.ts
+  - playwright.config.ts
+  - index.html
+  - config/
+  - content/schemas/
+  - content/locale/
+  - AGENTS.md
+  - docs/ADR/
+  - scripts/bench-plugin.ts
+  - src/ui/i18n.ts
+acceptance:
+  - "typecheck + build exit 0"
+  - "15 metric budget + evidence_status"
+  - "schema reject {} thiếu 6 trường"
+  - "AGENTS.md 5 mục"
+tests:
+  - tests/unit/budget.test.ts
+evidence:
+  - evidence/TIP-001/completion-report.md
+rollback: "git revert commit 7bc011d"
+status: DONE
