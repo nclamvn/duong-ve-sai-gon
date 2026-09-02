@@ -1,6 +1,6 @@
 # Known issues — G0
 
-Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:15:00.441Z).
+Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:15:38.826Z).
 
 ## TIP-001
 - [Low] TypeScript 7.0 đã bỏ `baseUrl` và bắt `paths` phải tương đối → đã sửa. Ghi vào AGENTS.md? Không cần; tsconfig là nguồn.
@@ -37,3 +37,8 @@ Tổng hợp tự động từ evidence/*/completion-report.md (2026-09-02T11:15
 - [Medium→fixed] `stateHash` ban đầu gồm `checkpointId` và `actors[].state` (FSM volatile) → hash sau restore luôn khác. Sửa: bỏ 3 trường volatile; hash so sánh trạng thái thật.
 - [Low] Screenshot sau `stepSim` (không render) còn tracer/muzzle "đóng băng" vì FX cập nhật ở render; trong chơi thật biến mất sau 60 ms. E2E chụp sau ≥ 2 frame render.
 - [Low] Sau restore, Bot FSM về PATROL (path/timer nội bộ không nằm trong snapshot) — đúng PRD "actor về snapshot" ở mức vị trí/máu/alive; G3 cân nhắc lưu waypointIndex/awareness.
+
+## TIP-009
+- [Medium→fixed] Playwright `devices['Desktop Chrome']` dùng UA Chrome thường (không "HeadlessChrome") → classifyEvidence xếp sandbox thành `non_reference_device`. Sửa: WebGL2 backend đọc `WEBGL_debug_renderer_info` → "SwiftShader" → sandbox. Trên Mac Chrome WebGL2 sẽ ra "ANGLE (Apple, Apple M1 Max, Metal)" → reference.
+- [Low] Preview server cũ (từ probe trước) còn sống với plugin cũ làm 1 spec fail giả; `reuseExistingServer: true` tiện cho dev nhưng CI nên kill port 4173 trước. Ghi vào README? Đã ghi ở known-issues.
+- [Info] `tests/e2e` import JSON cần đọc file thay vì `import` (Node ESM đòi import attribute).
