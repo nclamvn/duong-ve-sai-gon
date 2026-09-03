@@ -326,9 +326,14 @@ export class Game {
     if (this.running) return;
     this.running = true;
     this.lastT = performance.now();
+    // Frame pacing (D-053): màn 120 Hz + frame ~9–10 ms → xen kẽ 8.3/16.7 ms (giật). Cap 60 → mỗi frame đúng 16.7 ms.
+    // Bench (?bench=1) và ?fps=0 không cap để đo thật; ?fps=N đặt cap khác.
+    const cap = this.quality.fpsCap;
+    const minFrameMs = cap > 0 ? 1000 / cap - 1.0 : 0;
     const loop = (now: number): void => {
       if (!this.running) return;
       this.raf = requestAnimationFrame(loop);
+      if (minFrameMs > 0 && now - this.lastT < minFrameMs) return;
       const dt = (now - this.lastT) / 1000;
       this.lastT = now;
       this.frame(dt);

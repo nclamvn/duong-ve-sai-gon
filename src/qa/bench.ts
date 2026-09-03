@@ -101,6 +101,7 @@ export async function runBench(game: Game, opts: BenchOptions, onStatus?: (msg: 
   const evidence_status = classifyEvidence(ua, adapter, game.bundle.backend);
   if (evidence_status === 'sandbox_swiftshader_lifecycle_only') notes.push('sandbox/SwiftShader measurement: lifecycle check only, not valid for the G0 verdict.');
   if (median.gpu_method === 'unavailable') notes.push('GPU timestamp query unavailable: gpu_ms = NA, use the browser profiler.');
+  if (median.gpu_overlap_frames > 0) notes.push(`GPU timestamp: ${median.gpu_overlap_frames} frames dropped where the per-pass sum exceeded frame time (overlapping passes on TBDR GPUs) — gpu_ms_p95 is from the remaining frames; frame_p95 bounds the true GPU cost.`);
   if (game.bundle.backend === 'webgpu') notes.push('WebGPU backend: draw_calls counts BatchedMesh sub-draws (1 drawIndexed per instance, same pipeline).');
   const report: BenchReport = {
     schemaVersion: 1,

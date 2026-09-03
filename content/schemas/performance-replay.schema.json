@@ -70,6 +70,7 @@
         "actors_total_avg": { "type": "number" },
         "gpu_ms_p95": { "type": ["number", "null"] },
         "gpu_method": { "enum": ["timestamp_query", "unavailable"] },
+        "gpu_overlap_frames": { "type": "integer" },
         "shader_hitches": { "type": "integer" }
       }
     }

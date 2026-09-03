@@ -62,7 +62,7 @@ export class Overlay {
       this.line('fps', 'fps_avg', sum ? sum.fps_avg : null, f1) + `  1%low ${sum ? f1(sum.fps_1pct_low) : '—'}`,
       this.line('frame p95', 'frame_p95', sum ? sum.frame_p95 : null, (v) => `${f1(v)} ms`) + `  last ${s ? f1(s.frameMs) : '—'}`,
       this.line('cpu sim', 'cpu_sim_ms', sum ? sum.cpu_sim_p95 : null, (v) => `${f1(v)} ms`) + `  render ${sum ? f1(sum.cpu_render_p95) : '—'} ms`,
-      this.line('gpu', 'gpu_ms', sum ? sum.gpu_ms_p95 : null, (v) => `${f1(v)} ms`) + (sum?.gpu_method === 'unavailable' ? ' (n/a)' : ''),
+      this.line('gpu', 'gpu_ms', sum ? sum.gpu_ms_p95 : null, (v) => `${f1(v)} ms`) + (sum?.gpu_method === 'unavailable' ? ' (n/a)' : '') + (sum && sum.gpu_overlap_frames > 0 ? `  overlap ${sum.gpu_overlap_frames}` : ''),
       this.line('draws', 'draw_calls', s ? s.calls : null, f0) + `  tris ${s ? (s.tris / 1000).toFixed(0) : '—'}k`,
       this.line('actors', 'ai_full', s ? s.actorsFull : null, f0) + ` full / ${s ? f0(s.actorsTotal) : '—'} total`,
       this.line('heap', 'js_heap_mb', s ? s.heapMB : null, (v) => `${f0(v)} MB`) + `  Δ ${sum?.heap_delta_mb !== null && sum ? f1(sum.heap_delta_mb) : '—'}`,

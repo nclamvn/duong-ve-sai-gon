@@ -36,6 +36,8 @@ export interface TelemetrySummary {
   actors_total_avg: number;
   gpu_ms_p95: number | null;
   gpu_method: 'timestamp_query' | 'unavailable';
+  /** frame có tổng timestamp các pass > frame time (pass chồng lấn trên GPU TBDR — Apple) → mẫu bị loại (D-054) */
+  gpu_overlap_frames: number;
   shader_hitches: number;
 }
 
@@ -65,6 +67,7 @@ export class Telemetry {
   /** tổng ms mọi frame đã ghi (không giới hạn ring) — duration thật */
   private wallMs = 0;
   private gpuSamples = 0;
+  private gpuOverlap = 0;
   private hitches = 0;
   /** ngưỡng hitch ms (PRD REN-003: > 50 ms) */
   hitchMs = 50;
@@ -94,8 +97,15 @@ export class Telemetry {
     this.frameMs[i] = s.frameMs;
     this.cpuSim[i] = s.cpuSimMs;
     this.cpuRender[i] = s.cpuRenderMs;
-    this.gpu[i] = s.gpuMs ?? -1;
-    if (s.gpuMs !== null) this.gpuSamples++;
+    // Tổng timestamp của các render pass (shadow + scene + post) có thể > frame time khi GPU chạy chồng lấn các pass
+    // (Apple TBDR): mẫu đó không phải "GPU ms/frame" → loại, đếm riêng (D-054). GPU thật bị chặn trên bởi frame time.
+    if (s.gpuMs !== null && s.frameMs > 0 && s.gpuMs > s.frameMs * 1.05) {
+      this.gpu[i] = -1;
+      this.gpuOverlap++;
+    } else {
+      this.gpu[i] = s.gpuMs ?? -1;
+      if (s.gpuMs !== null) this.gpuSamples++;
+    }
     this.calls[i] = s.calls;
     this.tris[i] = s.tris;
     this.actorsFull[i] = s.actorsFull;
@@ -116,6 +126,7 @@ export class Telemetry {
     this.totalMs = 0;
     this.wallMs = 0;
     this.gpuSamples = 0;
+    this.gpuOverlap = 0;
     this.hitches = 0;
   }
 
@@ -220,6 +231,7 @@ export class Telemetry {
       actors_total_avg: this.avg(this.actorsTotal),
       gpu_ms_p95: gpuP95,
       gpu_method: this.gpuSamples > 0 ? 'timestamp_query' : 'unavailable',
+      gpu_overlap_frames: this.gpuOverlap,
       shader_hitches: this.hitches,
     };
   }

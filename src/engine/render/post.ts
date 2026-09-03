@@ -33,6 +33,8 @@ export interface PostOptions {
   taa?: boolean;
   bloomStrength?: number;
   bloomThreshold?: number;
+  /** metalness tối thiểu cho SSR trên dielectric (sàn ướt); 0 = chỉ kim loại */
+  ssrWetFloor?: number;
   grain?: number;
   vignette?: number;
 }
@@ -73,28 +75,32 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
   if (useAO) {
     const normal = scenePass.getTextureNode('normal');
     const aoPass = ao(depth, normal, camera);
+    // GTAO đo M1 Max 1920 px (D-052): 12 mẫu ≈ +3.8 ms → 8 mẫu, bán kính 0.5
     aoPass.resolutionScale = 0.5;
-    aoPass.radius.value = 0.7;
+    aoPass.radius.value = 0.5;
     aoPass.distanceFallOff.value = 1.0;
-    aoPass.samples.value = 12;
+    aoPass.samples.value = 8;
     color = color.mul(vec4(vec3(aoPass.getTextureNode().r), 1.0));
     passes.push('gtao');
   }
   if (useSSR) {
     const normal = scenePass.getTextureNode('normal') as unknown as Node<'vec3'>;
+    // SSRNode r185 (mirror mode) nhân màu phản chiếu với metalness → dielectric (sàn ướt) = 0 → không thấy gì.
+    // Sàn ướt cần mức tối thiểu SSR_WET (Fresnel góc thấp + suy giảm theo khoảng cách vẫn áp dụng trong node).
     const ssrPass = ssr(beauty, depth, normal, {
-      metalnessNode: scenePass.getTextureNode('metalness').r,
+      metalnessNode: scenePass.getTextureNode('metalness').r.max(float(opts.ssrWetFloor ?? 0.22)),
       roughnessNode: scenePass.getTextureNode('roughness').r,
       reflectNonMetals: true, // sàn ướt/vũng nước là dielectric
       camera,
     });
     ssrPass.resolutionScale = 0.5;
-    ssrPass.maxDistance.value = 14;
+    ssrPass.maxDistance.value = 12;
     ssrPass.thickness.value = 0.25;
-    ssrPass.quality.value = 0.45;
-    // trộn theo alpha SSR (độ tin cậy phản chiếu)
+    ssrPass.quality.value = 0.4;
+    // r185: rgb đã nhân metalness·suy giảm·Fresnel; **alpha = khoảng cách hit** (chọn mip blur), KHÔNG phải độ tin cậy.
+    // TIP-011 trộn theo alpha → alpha > 1 nhân ngược màu nền thành đen (vệt đen loang lổ trên Mac, D-051). Cộng thẳng như ví dụ three.
     const s4 = ssrPass as unknown as V4;
-    color = vec4(color.rgb.mul(s4.a.oneMinus()).add(s4.rgb.mul(s4.a)), 1.0);
+    color = vec4(color.rgb.add(s4.rgb), 1.0);
     passes.push('ssr');
   }
   const bloomStrength = { value: opts.bloomStrength ?? 0.3 };
