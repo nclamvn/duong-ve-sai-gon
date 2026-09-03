@@ -82,6 +82,13 @@ export interface BarricadeBuild {
   coverMarkers: CoverMarker[];
   navBoxes: Array<{ position: V3; size: V3; yaw: number }>;
   draws: number;
+  /** def dùng model thật (TIP-021): builder instance model tại các transform này (đã có collider/cover ở đây) */
+  modelInstances: Array<{ model: string; position: V3; yaw: number; tint: number; scale: number }>;
+}
+
+export interface BarricadeOptions {
+  /** model id có sẵn trong assets (thiếu → procedural) */
+  hasModel?: (id: string) => boolean;
 }
 
 type Bins = Record<keyof BarricadeMaterials, BufferGeometry[]>;
@@ -103,8 +110,10 @@ function coverAround(id: string, x: number, z: number, yaw: number, hx: number, 
   }
 }
 
-export function buildBarricades(defs: BarricadeDef[], mats: BarricadeMaterials, seed = 3): BarricadeBuild {
+export function buildBarricades(defs: BarricadeDef[], mats: BarricadeMaterials, seed = 3, opts: BarricadeOptions = {}): BarricadeBuild {
   let s = seed >>> 0 || 1;
+  const modelInstances: BarricadeBuild['modelInstances'] = [];
+  const useModel = (d: BarricadeDef): boolean => !!d.model && !!d.size && (opts.hasModel?.(d.model) ?? false);
   const rnd = (): number => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
   const bins: Bins = { sandbag: [], charred: [], concrete: [], rubble: [], tarp: [], wood: [], rubber: [], tin: [], glassBroken: [] };
   const colliders: ColliderDef[] = [];
@@ -124,6 +133,18 @@ export function buildBarricades(defs: BarricadeDef[], mats: BarricadeMaterials, 
     switch (d.kind) {
       case 'sandbags': {
         const len = d.length ?? 4;
+        if (useModel(d)) {
+          // tường bao cát model (dài size[0]) lặp dọc chiều dài; collider theo chiều cao model
+          const [ml, mh, mw] = d.size!;
+          const n = Math.max(1, Math.round(len / ml));
+          for (let k = 0; k < n; k++) {
+            const lx = (k - (n - 1) / 2) * ml;
+            modelInstances.push({ model: d.model!, position: [x + lx * Math.cos(yaw), 0, z - lx * Math.sin(yaw)], yaw: yaw + (rnd() - 0.5) * 0.06, tint: d.tint ?? 1, scale: d.scale ?? 1 });
+          }
+          box(id, x, mh / 2, z, (n * ml) / 2, mh / 2, mw / 2, yaw, 'wood');
+          coverAround(id, x, z, yaw, (n * ml) / 2, mw / 2, coverMarkers);
+          break;
+        }
         const rows = 4;
         const bagL = 0.55;
         const nBags = Math.max(2, Math.round(len / bagL));
@@ -155,6 +176,13 @@ export function buildBarricades(defs: BarricadeDef[], mats: BarricadeMaterials, 
       case 'wreck_car':
       case 'wreck_bus':
       case 'wreck_apc': {
+        if (useModel(d)) {
+          const [L, H, W] = d.size!;
+          modelInstances.push({ model: d.model!, position: [x, 0, z], yaw, tint: d.tint ?? (d.burning ? 0.45 : 1), scale: d.scale ?? 1 });
+          box(id, x, H / 2, z, L / 2, H / 2, W / 2, yaw, 'steel');
+          coverAround(id, x, z, yaw, L / 2, W / 2, coverMarkers, ['front', 'back', 'left', 'right']);
+          break;
+        }
         const bus = d.kind === 'wreck_bus';
         const apc = d.kind === 'wreck_apc';
         const L = bus ? 10.5 : apc ? 7.2 : 4.4;
@@ -296,5 +324,5 @@ export function buildBarricades(defs: BarricadeDef[], mats: BarricadeMaterials, 
     group.add(mesh);
     draws++;
   }
-  return { group, colliders, coverMarkers, navBoxes, draws };
+  return { group, colliders, coverMarkers, navBoxes, draws, modelInstances };
 }

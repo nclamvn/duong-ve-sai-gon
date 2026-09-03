@@ -123,6 +123,13 @@
           "triangles": {
             "type": "object"
           },
+          "size": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 3,
+            "maxItems": 3,
+            "description": "kích thước model sau chuẩn hoá (dài x, cao y, rộng z — m; scripts/convert-model.mjs)"
+          },
           "attribution": {
             "type": "string",
             "description": "chuỗi credit bắt buộc với CC-BY (ADR-006)"

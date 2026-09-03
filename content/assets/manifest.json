@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T10:09:56.618Z",
+  "generatedAt": "2026-09-03T12:24:40.718Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 151411040,
+  "totalBytes": 152259828,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -1274,71 +1274,6 @@
       "triangles": {
         "before": 23822,
         "after": 5954
-      }
-    },
-    {
-      "id": "modular_electricity_poles",
-      "type": "model",
-      "resolution": "1k",
-      "use": "cột điện",
-      "source": "polyhaven",
-      "url": "https://polyhaven.com/a/modular_electricity_poles",
-      "authors": [
-        "James Ray Cock"
-      ],
-      "license": "CC0-1.0",
-      "files": [
-        {
-          "path": "assets/models/modular_electricity_poles.glb",
-          "bytes": 6298636,
-          "sha256": "3fc26b14708f80062354ed6042081e9c9f403baf2251f1b2255468bbd5af6913"
-        }
-      ],
-      "sourceFiles": [
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/modular_electricity_poles_1k.gltf",
-          "bytes": 149324,
-          "sha256": "2032fb781809021258ceeb22f163bd9ddca2a9186173ed99ee61130dbb808c62"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_diff_1k.jpg",
-          "bytes": 802771,
-          "sha256": "c681efa29ce6b28eb3377cfcdb35d1c88a9265189920e9979419d2d5b4086c1d"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/modular_electricity_poles.bin",
-          "bytes": 7215652,
-          "sha256": "143bc8cd007674c74a6bac784a24fd4181234c07498b3a2bbdbf6abcd8a5897f"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_arm_1k.jpg",
-          "bytes": 1052303,
-          "sha256": "4648fab787b80889e54ea90e79fcb3de4c644729c16b8616ae79707b3e5515dd"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_nor_gl_1k.jpg",
-          "bytes": 865048,
-          "sha256": "c78ec7efc67caebc9d43c1c29e5d3972c23bf17e865267cc3acb793774125caa"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_arm_1k.jpg",
-          "bytes": 748382,
-          "sha256": "4765dd2e76a1191b271b2fb1c93354fe3b9cb12a323bafd7f1661effe88fc441"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_diff_1k.jpg",
-          "bytes": 658915,
-          "sha256": "da86d0fc97683a99fc2670f8b889b9632dd6da05e9c042c40cc7bf9e4d0b0104"
-        },
-        {
-          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_nor_gl_1k.jpg",
-          "bytes": 931236,
-          "sha256": "7c77d694c898139a82a66543e33748b4ab7b1f7cf456cdd453d5509810ae238a"
-        }
-      ],
-      "triangles": {
-        "before": 200610,
-        "after": 85477
       }
     },
     {
@@ -2686,6 +2621,356 @@
         "source": 46297,
         "output": 15658
       }
+    },
+    {
+      "id": "veh_ural",
+      "type": "model",
+      "use": "xe tải quân sự trạm C (TIP-021) — Ural 4320",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/ural-4320-f953c51a5dbc4a15949f4dcc0905c4e8",
+      "authors": [
+        "Brout (davidbroutian)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Ural 4320\" (https://sketchfab.com/3d-models/ural-4320-f953c51a5dbc4a15949f4dcc0905c4e8) by Brout (davidbroutian) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_ural.glb",
+          "bytes": 274404,
+          "sha256": "ea8464dba4caa05974cc8e1477d2c7986abeedcde45de6cdc44a3f98206fd080"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/ural/ural.glb",
+          "bytes": 1910728,
+          "sha256": "0f8969767d6c6c972031c93123a1e8f0b742aba2146f38e01f1cfc97c32e3172"
+        }
+      ],
+      "triangles": {
+        "source": 8492,
+        "output": 8492
+      },
+      "size": [
+        7.569,
+        3.275,
+        3.057
+      ]
+    },
+    {
+      "id": "veh_scooter",
+      "type": "model",
+      "use": "xe máy cũ trên phố (TIP-021) — Old Scooter",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/old-scooter-5e9b5072b2224ba982366490ad5f31d9",
+      "authors": [
+        "Nadia Ribitis"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Old Scooter\" (https://sketchfab.com/3d-models/old-scooter-5e9b5072b2224ba982366490ad5f31d9) by Nadia Ribitis is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_scooter.glb",
+          "bytes": 1063236,
+          "sha256": "54037bbac459bd2fd62aae21b8971d7b0da1556775799f84dc8da07fad8642fd"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/scooter/scooter.glb",
+          "bytes": 3880984,
+          "sha256": "dd28d1c6557d68784c50b65710add2eb7df7db890e2a7c38d9993e66f54d0e95"
+        }
+      ],
+      "triangles": {
+        "source": 3534,
+        "output": 3534
+      },
+      "size": [
+        1.75,
+        1.315,
+        0.713
+      ]
+    },
+    {
+      "id": "veh_wreck_car_a",
+      "type": "model",
+      "use": "xác xe hơi cháy (TIP-021, xe A) — Burned-out Cars",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7",
+      "authors": [
+        "Renafox (kryik1023)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Burned-out Cars\" (https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7) by Renafox (kryik1023) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_wreck_car_a.glb",
+          "bytes": 606576,
+          "sha256": "dbef7ce12de6c1799c3a65473864b7996f0e95984762ea434d413bb6d79b78ea"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/burned_cars/burned_cars.glb",
+          "bytes": 32311120,
+          "sha256": "7be59753365502d840a4bf54fee630d4bcc1bf1822a371cf07fd8cc94b497178"
+        }
+      ],
+      "triangles": {
+        "source": 1957,
+        "output": 1957
+      },
+      "size": [
+        4.3,
+        1.247,
+        1.805
+      ]
+    },
+    {
+      "id": "veh_wreck_car_b",
+      "type": "model",
+      "use": "xác xe hơi cháy (TIP-021, xe B) — Burned-out Cars",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7",
+      "authors": [
+        "Renafox (kryik1023)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Burned-out Cars\" (https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7) by Renafox (kryik1023) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_wreck_car_b.glb",
+          "bytes": 567800,
+          "sha256": "5a305ff1f055d4b9bff422a8b13aae9df59ad1868e9afb1f93f24fe13516a23b"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/burned_cars/burned_cars.glb",
+          "bytes": 32311120,
+          "sha256": "7be59753365502d840a4bf54fee630d4bcc1bf1822a371cf07fd8cc94b497178"
+        }
+      ],
+      "triangles": {
+        "source": 1494,
+        "output": 1494
+      },
+      "size": [
+        4.3,
+        1.202,
+        1.829
+      ]
+    },
+    {
+      "id": "veh_pickup",
+      "type": "model",
+      "use": "xe bán tải (TIP-021/023 technical) — Lightbody '90 MD Utility - Low poly model",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/lightbody-90-md-utility-low-poly-model-d3aca50a8f2b4917bb9f4ce2bf1ccfe5",
+      "authors": [
+        "Daniel Zhabotinsky"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Lightbody '90 MD Utility - Low poly model\" (https://sketchfab.com/3d-models/lightbody-90-md-utility-low-poly-model-d3aca50a8f2b4917bb9f4ce2bf1ccfe5) by Daniel Zhabotinsky is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_pickup.glb",
+          "bytes": 2096656,
+          "sha256": "f93e212b2051eb605c8e1e533d4109c460f8b60ea02bed2005a3ba252a9f82c3"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/pickup/pickup.glb",
+          "bytes": 8325960,
+          "sha256": "d14824fafc573b992233f6469afeb290f85141dcd32b1247db4e9623c18d284b"
+        }
+      ],
+      "triangles": {
+        "source": 26600,
+        "output": 26600
+      },
+      "size": [
+        5.372,
+        1.657,
+        2.002
+      ]
+    },
+    {
+      "id": "veh_btr70",
+      "type": "model",
+      "use": "xe bọc thép BTR-70 chốt A (TIP-021) — Low-poly BTR-70",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/low-poly-btr-70-40a2c8b05c1442629fe921e9dfd0a8ae",
+      "authors": [
+        "veightyfive"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Low-poly BTR-70\" (https://sketchfab.com/3d-models/low-poly-btr-70-40a2c8b05c1442629fe921e9dfd0a8ae) by veightyfive is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_btr70.glb",
+          "bytes": 259968,
+          "sha256": "6073697515a6255bc92d718583e448f697935ce68535454b64b50718b912d3f8"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/btr70/btr70.glb",
+          "bytes": 1047272,
+          "sha256": "3c95928ba6ae98ceb81fbe376ceb6b0b95fc779a4cd7e815ad523eac61b96865"
+        }
+      ],
+      "triangles": {
+        "source": 9968,
+        "output": 9968
+      },
+      "size": [
+        7.098,
+        2.752,
+        2.747
+      ]
+    },
+    {
+      "id": "veh_mi24",
+      "type": "model",
+      "use": "trực thăng bay ngang (TIP-023) — Mi-24 Hind",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/mi-24-hind-004d68143e1a4df88e136dbc0a05f181",
+      "authors": [
+        "Duane's Mind"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Mi-24 Hind\" (https://sketchfab.com/3d-models/mi-24-hind-004d68143e1a4df88e136dbc0a05f181) by Duane's Mind is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_mi24.glb",
+          "bytes": 242660,
+          "sha256": "a8c3571c4a6d4a7b31beca07a21a5688ca38bc5e54ccb74bfd89388e39c5edfb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/mi24/mi24.glb",
+          "bytes": 1634184,
+          "sha256": "041289805cad6ac427a42db8c0029ef08814980c43ade2afa43c2e788309bba4"
+        }
+      ],
+      "triangles": {
+        "source": 4237,
+        "output": 4155
+      },
+      "size": [
+        12.986,
+        4.163,
+        17.252
+      ]
+    },
+    {
+      "id": "veh_wreck_bus",
+      "type": "model",
+      "use": "xác xe buýt chắn ngã tư C (TIP-021) — Abandoned Wrecked Bus",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/abandoned-wrecked-bus-0cbd1d8122f442d0a3a4b8a6df4f0e2e",
+      "authors": [
+        "BytesCrafter"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Abandoned Wrecked Bus\" (https://sketchfab.com/3d-models/abandoned-wrecked-bus-0cbd1d8122f442d0a3a4b8a6df4f0e2e) by BytesCrafter is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/veh_wreck_bus.glb",
+          "bytes": 1656876,
+          "sha256": "413a5d67ba9a0d188a3264ed0b7538a0e202ba56a15a79e22f5abd269fe3cac2"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/wreck_bus/wreck_bus.glb",
+          "bytes": 5118400,
+          "sha256": "1c765a1e91cef493b8fb74234ba8455f618eecce19da1b3105470a05e8f8b650"
+        }
+      ],
+      "triangles": {
+        "source": 12339,
+        "output": 12339
+      },
+      "size": [
+        10.484,
+        2.832,
+        3.248
+      ]
+    },
+    {
+      "id": "prop_sandbag_02",
+      "type": "model",
+      "use": "tường bao cát (TIP-021) — Sandbag Wall 02",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e",
+      "authors": [
+        "Pypunk (PieterSnauwaert)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Sandbag Wall 02\" (https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/prop_sandbag_02.glb",
+          "bytes": 194504,
+          "sha256": "7300f27550693b33b564df119b794d12faf7d1e38ce68a0799eb9491789bffec"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/sandbag02/sandbag02.glb",
+          "bytes": 739812,
+          "sha256": "7472aef950e67a6137f7961a059323cd76742988a41d1d5a09908c6bd576b6d0"
+        }
+      ],
+      "triangles": {
+        "source": 1176,
+        "output": 1176
+      },
+      "size": [
+        2.93,
+        0.722,
+        0.973
+      ]
+    },
+    {
+      "id": "prop_sandbag_05",
+      "type": "model",
+      "use": "tường bao cát (TIP-021) — Sandbag Wall 05",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf",
+      "authors": [
+        "Pypunk (PieterSnauwaert)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Sandbag Wall 05\" (https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/prop_sandbag_05.glb",
+          "bytes": 184744,
+          "sha256": "c9905c01cfa62bac0f42cf6e831f454f59ed2017946cbb46a85f241f89b24de5"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/sandbag05/sandbag05.glb",
+          "bytes": 715568,
+          "sha256": "dde3f918e923952251605acb19f80b69e9bcb50dbf8ca9b4ff9c1c0e7f81a04e"
+        }
+      ],
+      "triangles": {
+        "source": 756,
+        "output": 756
+      },
+      "size": [
+        2.94,
+        0.721,
+        0.667
+      ]
     }
   ]
 }

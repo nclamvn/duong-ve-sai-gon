@@ -116,12 +116,26 @@ P('concrete_road_barrier_02', -6.5, -52, 0.15, { collider: [1.1, 0.5, 0.3], cove
 P('concrete_road_barrier_02', 6.5, -52, -0.15, { collider: [1.1, 0.5, 0.3], cover: true });
 P('shrub_02', -8.6, -20, 0.5, { scale: 1.2 });
 P('shrub_02', 8.6, 62, 2.0, { scale: 1.0 });
+// xe nguyên vẹn bỏ lại (TIP-021): bán tải chắn giữa A–B, xe tải Ural đỗ trước trạm C; xe máy dựng dọc vỉa hè + 1 chiếc ngã
+P('veh_pickup', -3.6, 26, 1.25, { collider: [2.7, 0.83, 1.0], cover: true });
+P('veh_ural', 3.8, -64.5, -0.12, { collider: [3.8, 1.64, 1.53], cover: true });
+for (const [x, z, y] of [[7.3, 56, 1.4], [-7.4, 52, -1.8], [7.4, 31, 1.7], [-7.3, 17, -1.5], [7.2, -8, 1.3], [-7.4, -30, -1.6], [7.5, -60, 1.5]]) P('veh_scooter', x, z, y);
+props.push({ model: 'veh_scooter', position: [1.8, 0.3, 24], yaw: 0.4, roll: 1.35 });
 
+// model thật Sketchfab CC-BY (TIP-021, scripts/convert-model.mjs): size = dài × cao × rộng (m) sau chuẩn hoá
+const VEH = {
+  btr70: { model: 'veh_btr70', size: [7.1, 2.75, 2.75] },
+  bus: { model: 'veh_wreck_bus', size: [10.48, 2.83, 3.25] },
+  carA: { model: 'veh_wreck_car_a', size: [4.3, 1.25, 1.81] },
+  carB: { model: 'veh_wreck_car_b', size: [4.3, 1.2, 1.83] },
+  sandbag: { model: 'prop_sandbag_02', size: [4.1, 1.01, 1.36], scale: 1.4 },
+  sandbag5: { model: 'prop_sandbag_05', size: [4.12, 1.01, 0.93], scale: 1.4 },
+};
 const barricades = [
   // A — chốt đầu phố (mặt nam về spawn)
-  { kind: 'sandbags', position: [-3.6, 0, 40], yaw: 0, length: 4.8 },
-  { kind: 'sandbags', position: [3.6, 0, 40], yaw: 0, length: 4.8 },
-  { kind: 'wreck_apc', position: [-1.2, 0, 47.5], yaw: 0.35, burning: true },
+  { kind: 'sandbags', position: [-3.6, 0, 40], yaw: 0, length: 4.8, ...VEH.sandbag },
+  { kind: 'sandbags', position: [3.6, 0, 40], yaw: 0, length: 4.8, ...VEH.sandbag },
+  { kind: 'wreck_apc', position: [-1.2, 0, 47.5], yaw: 0.35, burning: true, ...VEH.btr70 },
   { kind: 'sheet', position: [4.5, 0, 52], yaw: 0.9 },
   { kind: 'sheet', position: [-6.2, 0, 31], yaw: -0.4 },
   // B — chợ
@@ -132,17 +146,17 @@ const barricades = [
   { kind: 'stall', position: [-6.8, 0, 10], yaw: Math.PI, color: 0xd8322a },
   { kind: 'stall', position: [-6.8, 0, 3], yaw: Math.PI, color: 0x1b5fa8 },
   { kind: 'stall', position: [-6.8, 0, -4], yaw: Math.PI, color: 0xf0f0f0 },
-  { kind: 'wreck_car', position: [2.2, 0, 18], yaw: -0.5 },
-  { kind: 'wreck_car', position: [-3.0, 0, -20], yaw: 2.6, burning: true },
+  { kind: 'wreck_car', position: [2.2, 0, 18], yaw: -0.5, ...VEH.carA },
+  { kind: 'wreck_car', position: [-3.0, 0, -20], yaw: 2.6, burning: true, ...VEH.carB },
   { kind: 'tires', position: [-2.5, 0, 9], yaw: 0.3 },
   { kind: 'rubble', position: [-8.5, 0, -8], yaw: 0 },
   // C — ngã tư
-  { kind: 'wreck_bus', position: [4.5, 0, -36], yaw: 0.45, burning: true },
+  { kind: 'wreck_bus', position: [4.5, 0, -36], yaw: 0.45, burning: true, ...VEH.bus, tint: 0.6 },
   { kind: 'rubble', position: [-9.8, 0, -32], yaw: 0.4 },
   { kind: 'rubble', position: [11, 0, -46], yaw: 1.1 },
   { kind: 'barrier', position: [-3, 0, -30], yaw: 0.2 },
-  { kind: 'sandbags', position: [1.5, 0, -52.5], yaw: Math.PI, length: 5 },
-  { kind: 'wreck_car', position: [-14, 0, -38], yaw: 1.4, burning: true },
+  { kind: 'sandbags', position: [1.5, 0, -52.5], yaw: Math.PI, length: 5, ...VEH.sandbag5 },
+  { kind: 'wreck_car', position: [-14, 0, -38], yaw: 1.4, burning: true, ...VEH.carA },
   { kind: 'tires', position: [-6, 0, -40], yaw: 0 },
 ];
 
@@ -180,7 +194,9 @@ const level = {
     csm: { cascades: 2, maxFar: 110, mapSize: 2048 },
   },
   textures: ['road_damaged', 'asphalt_02', 'patterned_concrete_pavers', 'painted_plaster_wall', 'damaged_plaster', 'peeling_painted_wall', 'plastered_wall_02', 'painted_worn_brick', 'clay_roof_tiles', 'corrugated_iron_02', 'burned_ground_01', 'brown_mud_dry', 'rubble', 'painted_metal_shutter', 'rusty_metal_shutter', 'rusty_metal_02', 'concrete_wall_001', 'metal_plate', 'plywood'],
-  models: ['island_tree_01', 'dead_tree_trunk', 'street_lamp_01', 'fire_hydrant', 'water_manhole_cover', 'trashbag', 'cement_bag', 'ammo_box', 'metal_jerrycan', 'Barrel_01', 'concrete_road_barrier_02', 'old_tyre', 'rusted_wheel_rim_01', 'CoffeeCart_01', 'hand_truck', 'plastic_crate_02', 'wicker_basket_01', 'bananas', 'plastic_monobloc_chair_01', 'wooden_crate_01', 'potted_plant_02', 'wooden_ladder', 'rock_07', 'modular_chainlink_fence', 'shrub_02'],
+  models: ['island_tree_01', 'dead_tree_trunk', 'street_lamp_01', 'fire_hydrant', 'water_manhole_cover', 'trashbag', 'cement_bag', 'ammo_box', 'metal_jerrycan', 'Barrel_01', 'concrete_road_barrier_02', 'old_tyre', 'rusted_wheel_rim_01', 'CoffeeCart_01', 'hand_truck', 'plastic_crate_02', 'wicker_basket_01', 'bananas', 'plastic_monobloc_chair_01', 'wooden_crate_01', 'potted_plant_02', 'wooden_ladder', 'rock_07', 'modular_chainlink_fence', 'shrub_02',
+    // Sketchfab CC-BY (TIP-021)
+    'veh_btr70', 'veh_wreck_bus', 'veh_wreck_car_a', 'veh_wreck_car_b', 'veh_pickup', 'veh_ural', 'veh_scooter', 'veh_mi24', 'prop_sandbag_02', 'prop_sandbag_05'],
   ground: {
     road: { halfWidth: 6, z0: -80, z1: 80, texture: 'asphalt_02' },
     crossRoads: [{ z: -38, halfWidth: 6, x0: -45, x1: 45 }],

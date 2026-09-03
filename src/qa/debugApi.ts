@@ -6,6 +6,8 @@ import type { Game } from '@game/game';
 import type { TelemetrySummary } from './telemetry';
 import type { BenchReport } from './bench';
 import type { CalibApi } from './calib';
+import { loadModel } from '@engine/render/assets';
+import { Box3, Vector3 } from 'three/webgpu';
 
 export interface HtDebugApi {
   ready: boolean;
@@ -35,6 +37,8 @@ export interface HtDebugApi {
   bots(): Array<{ id: string; group: string; state: string; lod: string; alive: boolean; health: number; position: [number, number, number] }>;
   /** chế độ hiệu chỉnh tay cầm (TIP-017) — chỉ khi ?calib= */
   calib?: CalibApi;
+  /** QA prop: nạp assets/models/<id>.glb đặt vào scene (TIP-021 lineup) → kích thước bbox (m) */
+  spawnModel(id: string, x: number, y: number, z: number, yaw?: number, scale?: number): Promise<{ size: [number, number, number]; min: [number, number, number] }>;
   [k: string]: unknown;
 }
 
@@ -98,6 +102,17 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
       recent: (n) => game.events.recent(n ?? 32).map((r) => ({ type: r.type, id: r.id, tick: r.tick })),
       countOf: (type) => game.events.countOf(type),
       duplicates: () => game.events.duplicates,
+    },
+    spawnModel: async (id, x, y, z, yaw = 0, scale = 1) => {
+      const g = await loadModel(`${import.meta.env.BASE_URL ?? '/'}assets/models/${id}.glb`);
+      g.position.set(x, y, z);
+      g.rotation.y = yaw;
+      g.scale.setScalar(scale);
+      game.scene.add(g);
+      g.updateMatrixWorld(true);
+      const bb = new Box3().setFromObject(g);
+      const sz = bb.getSize(new Vector3());
+      return { size: [sz.x, sz.y, sz.z], min: [bb.min.x, bb.min.y, bb.min.z] };
     },
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };

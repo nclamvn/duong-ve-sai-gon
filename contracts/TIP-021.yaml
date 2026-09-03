@@ -1,0 +1,29 @@
+# Contract — TIP-021
+id: TIP-021
+goal: "Khí tài/phương tiện thật Sketchfab CC-BY trong Phố Vạn Hải: APC, xe buýt, xe hơi cháy, bán tải, Ural, xe máy, bao cát, trực thăng — pipeline convert-model + level format model-backed"
+scope:
+  - scripts/convert-model.mjs
+  - src/engine/level/types.ts (BarricadeDef.model/size/scale/tint, PropDef.roll/pitch/tint)
+  - src/engine/level/barricades.ts (model-backed → collider/cover từ size, modelInstances)
+  - src/engine/level/builder.ts (instanceModel chung, instanceColor)
+  - src/engine/render/assets.ts (loadModel)
+  - src/qa/debugApi.ts (spawnModel)
+  - content/levels/pho-van-hai.level.json, scripts/gen-level-pho.mjs
+  - content/assets/manifest.json, content/schemas/asset-manifest.schema.json (size), CREDITS.md
+  - scripts/fetch-assets.mjs (bỏ modular_electricity_poles)
+  - public/assets/models/veh_*.glb, prop_sandbag_*.glb
+acceptance:
+  - "npm run dev: xe/khí tài thật tại A/B/C/trạm, collider khớp, nấp được"
+  - "?assets=0: level dựng procedural, không lỗi"
+  - "manifest ≤ 150 MB, CC-BY có attribution; không asset rip từ game (BTR-80 Squad, Mi-8 BO2 bị loại)"
+  - "unit 102/102; npm run ci xanh"
+tests:
+  - tests/unit/level.test.ts
+  - tests/unit/assets.test.ts
+  - tests/unit/weapons.test.ts (CREDITS)
+evidence:
+  - evidence/TIP-021/lineup.jpg
+  - evidence/TIP-021/pho-21-*.png
+  - evidence/TIP-021/completion-report.md
+rollback: "git revert; level JSON bỏ trường model → procedural"
+status: DONE

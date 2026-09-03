@@ -6,6 +6,16 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - "AK-74M Assault Rifle" (https://sketchfab.com/3d-models/ak-74m-assault-rifle-9084c3bae8224d338103997bc3101480) by FJH is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/ak74m.glb`
 - "HK 416 A7 (free download)" (https://sketchfab.com/3d-models/hk-416-a7-free-download-a16768f0ffa24737a4fe324a411cfbd9) by r4m is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/hk416.glb`
+- "Abandoned Wrecked Bus" (https://sketchfab.com/3d-models/abandoned-wrecked-bus-0cbd1d8122f442d0a3a4b8a6df4f0e2e) by BytesCrafter is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_wreck_bus.glb`
+- "Low-poly BTR-70" (https://sketchfab.com/3d-models/low-poly-btr-70-40a2c8b05c1442629fe921e9dfd0a8ae) by veightyfive is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_btr70.glb`
+- "Lightbody '90 MD Utility - Low poly model" (https://sketchfab.com/3d-models/lightbody-90-md-utility-low-poly-model-d3aca50a8f2b4917bb9f4ce2bf1ccfe5) by Daniel Zhabotinsky is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_pickup.glb`
+- "Ural 4320" (https://sketchfab.com/3d-models/ural-4320-f953c51a5dbc4a15949f4dcc0905c4e8) by Brout (davidbroutian) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_ural.glb`
+- "Old Scooter" (https://sketchfab.com/3d-models/old-scooter-5e9b5072b2224ba982366490ad5f31d9) by Nadia Ribitis is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_scooter.glb`
+- "Mi-24 Hind" (https://sketchfab.com/3d-models/mi-24-hind-004d68143e1a4df88e136dbc0a05f181) by Duane's Mind is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_mi24.glb`
+- "Sandbag Wall 02" (https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_02.glb`
+- "Sandbag Wall 05" (https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_05.glb`
+- "Burned-out Cars" (https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7) by Renafox (kryik1023) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_wreck_car_a.glb`
+- "Burned-out Cars" (https://sketchfab.com/3d-models/burned-out-cars-701066df6b914fd08318524c7ccd96a7) by Renafox (kryik1023) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_wreck_car_b.glb`
 
 ## CC0-1.0
 
@@ -44,7 +54,6 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - old_tyre (model) — MP — https://polyhaven.com/a/old_tyre
 - rusted_wheel_rim_01 (model) — John Hutcheson — https://polyhaven.com/a/rusted_wheel_rim_01
 - concrete_road_barrier_02 (model) — Amal Kumar — https://polyhaven.com/a/concrete_road_barrier_02
-- modular_electricity_poles (model) — James Ray Cock — https://polyhaven.com/a/modular_electricity_poles
 - street_lamp_01 (model) — Josh Dean — https://polyhaven.com/a/street_lamp_01
 - fire_hydrant (model) — Gonçalo Felício — https://polyhaven.com/a/fire_hydrant
 - trashbag (model) — Benny Weimer — https://polyhaven.com/a/trashbag
@@ -73,4 +82,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
 - cánh tay góc nhìn thứ nhất (TIP-016) — dẫn xuất từ soldier_mixamo bằng scripts/extract-arms.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
 
-Tổng: 62 asset, 144.4 MB. Cập nhật 2026-09-03T10:09:56.618Z.
+Tổng: 71 asset, 145.8 MB. Cập nhật 2026-09-03T11:44:40.277Z.

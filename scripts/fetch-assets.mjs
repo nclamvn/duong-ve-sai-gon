@@ -54,7 +54,6 @@ const ASSETS = [
   { id: 'old_tyre', type: 'model', res: '1k', use: 'lốp xe' },
   { id: 'rusted_wheel_rim_01', type: 'model', res: '1k', use: 'vành xe' },
   { id: 'concrete_road_barrier_02', type: 'model', res: '1k', use: 'rào bê tông' },
-  { id: 'modular_electricity_poles', type: 'model', res: '1k', use: 'cột điện' },
   { id: 'street_lamp_01', type: 'model', res: '1k', use: 'cột đèn đường' },
   { id: 'fire_hydrant', type: 'model', res: '1k', use: 'trụ cứu hoả' },
   { id: 'trashbag', type: 'model', res: '1k', use: 'túi rác' },

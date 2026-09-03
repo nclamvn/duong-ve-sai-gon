@@ -67,6 +67,11 @@ Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, T
 `public/assets/weapons/<id>.glb` + manifest (attribution); cấu hình anchor/pose ở `content/weapons/<id>.json` (schema `weapon-model.schema.json`).
 `npm run assets:credits` sinh `CREDITS.md`; màn capability hiển thị credit CC-BY.
 
+Model xe/khí tài/prop (TIP-021, D-060 — CC-BY Sketchfab, **không nhận asset rip từ game**: đọc mô tả/tag/tên material trước khi tải):
+`npm run assets:model -- --src assets-src/sketchfab/<slug> --id veh_<slug> --length 7.1 --title … --author … --url … --use …`
+(`--scale`, `--keep/--drop` node, `--merge-mats`, `--no-join` giữ pivot rotor, `--texture 1024`) → `public/assets/models/<id>.glb` (dài theo +x, đáy y=0, tâm xz=0)
++ manifest (`size`). Đặt vào level bằng `BarricadeDef.model/size` (xác xe: collider + cover 4 mặt) hoặc `PropDef` (collider/cover tuỳ chọn, `roll` cho xe ngã).
+
 Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·
 `?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?weapons=0` (súng procedural) · `?cones=0` · `?splash=0` ·
 `?fps=60|120|0` (cap khi chơi, mặc định 60 — màn 120 Hz đỡ giật; bench không cap) · `?arms=0` (tắt cánh tay FP).
@@ -76,7 +81,9 @@ Hiệu chỉnh tay cầm súng (TIP-017, chỉ dev/`?debug=1`): `?calib=soldier&
 ## Credits
 
 Tài sản bên thứ ba liệt kê đầy đủ trong [`CREDITS.md`](CREDITS.md) (sinh từ manifest). CC-BY 4.0 (ghi công bắt buộc, ADR-006):
-"AK-74M Assault Rifle" by FJH · "HK 416 A7" by r4m (Sketchfab). CC0: Poly Haven (texture, HDRI, prop). Nhân vật + animation: Adobe Mixamo.
+"AK-74M Assault Rifle" by FJH · "HK 416 A7" by r4m · "Low-poly BTR-70" by veightyfive · "Abandoned Wrecked Bus" by BytesCrafter · "Burned-out Cars" by Renafox ·
+"Lightbody '90 MD Utility" by Daniel Zhabotinsky · "Ural 4320" by Brout · "Old Scooter" by Nadia Ribitis · "Mi-24 Hind" by Duane's Mind · "Sandbag Wall 02/05" by Pypunk (Sketchfab).
+CC0: Poly Haven (texture, HDRI, prop). Nhân vật + animation: Adobe Mixamo.
 
 ## Cấu trúc
 

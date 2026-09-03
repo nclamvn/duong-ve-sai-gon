@@ -3,7 +3,7 @@
  * chướng ngại/xác xe, FX khói lửa) + ArenaData (collider, navGeometry, waypoint, cover, spawn, zone) cho physics/AI/mission.
  * Cùng hợp đồng với buildArena (G0) → game không đổi; ArenaData là nguồn sự thật duy nhất cho collider.
  */
-import { Scene, Group, Mesh, InstancedMesh, BoxGeometry, PlaneGeometry, CylinderGeometry, MeshStandardNodeMaterial, Object3D, Matrix4, Vector3, Euler, Quaternion, Box3, type BufferGeometry } from 'three/webgpu';
+import { Scene, Group, Mesh, InstancedMesh, BoxGeometry, PlaneGeometry, CylinderGeometry, MeshStandardNodeMaterial, Object3D, Matrix4, Vector3, Euler, Quaternion, Box3, Color, type BufferGeometry } from 'three/webgpu';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { createWetGround, createWetGroundProcedural, createTexturedMaterial, createPropMaterial } from '@engine/render/materials';
 import { createAmbientFx, type AmbientFx } from '@engine/render/ambientFx';
@@ -64,6 +64,63 @@ function mbox(w: number, h: number, d: number): BoxGeometry {
     else uv.setXY(i, pos.getX(i), pos.getY(i));
   }
   return g;
+}
+
+interface ModelInstance {
+  position: V3;
+  yaw: number;
+  pitch: number;
+  roll: number;
+  scale: number;
+  /** nhân màu (instanceColor) 0..1 — ám khói */
+  tint: number;
+}
+
+const _tint = new Color();
+
+/**
+ * Instance một model glTF tại nhiều transform: mỗi primitive → 1 InstancedMesh (draw = số primitive, không phải số instance).
+ * Morph target bị bỏ (InstancedMesh + MorphNode lỗi). Prop thấp < 0.8 m không đổ bóng. Trả về số draw thêm.
+ */
+function instanceModel(root: Group, name: string, src: Group, list: ModelInstance[]): number {
+  src.updateMatrixWorld(true);
+  const bb = new Box3().setFromObject(src);
+  const tall = bb.max.y - bb.min.y > 0.8;
+  const meshes: Mesh[] = [];
+  src.traverse((o: Object3D) => {
+    if ((o as Mesh).isMesh) meshes.push(o as Mesh);
+  });
+  const tmpM = new Matrix4();
+  const instM = new Matrix4();
+  const tinted = list.some((it) => it.tint !== 1);
+  let draws = 0;
+  for (const m of meshes) {
+    let geo = m.geometry;
+    if (Object.keys(geo.morphAttributes).length > 0) {
+      geo = geo.clone();
+      geo.morphAttributes = {};
+      geo.morphTargetsRelative = false;
+    }
+    const im = new InstancedMesh(geo, m.material, list.length);
+    list.forEach((it, k) => {
+      _p.set(it.position[0], it.position[1], it.position[2]);
+      _q.setFromEuler(new Euler(it.pitch, it.yaw, it.roll));
+      _s.setScalar(it.scale);
+      instM.compose(_p, _q, _s);
+      tmpM.copy(instM).multiply(m.matrixWorld);
+      im.setMatrixAt(k, tmpM);
+      if (tinted) im.setColorAt(k, _tint.setScalar(it.tint));
+    });
+    im.instanceMatrix.needsUpdate = true;
+    if (im.instanceColor) im.instanceColor.needsUpdate = true;
+    im.castShadow = tall;
+    im.receiveShadow = true;
+    im.frustumCulled = false;
+    im.name = `props_${name}`;
+    root.add(im);
+    draws++;
+  }
+  return draws;
 }
 
 function placed(g: BufferGeometry, x: number, y: number, z: number, yaw = 0): BufferGeometry {
@@ -250,45 +307,10 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
   }
   if (assets?.models) {
     const M = assets.models;
-    const tmpM = new Matrix4();
-    const instM = new Matrix4();
     for (const [model, list] of byModel) {
       const src = M[model];
       if (!src) continue;
-      src.updateMatrixWorld(true);
-      // kích thước để quyết định đổ bóng (prop nhỏ < 0.8 m không đổ bóng — tiết kiệm pass CSM)
-      const bb = new Box3().setFromObject(src);
-      const tall = bb.max.y - bb.min.y > 0.8;
-      const meshes: Mesh[] = [];
-      src.traverse((o: Object3D) => {
-        if ((o as Mesh).isMesh) meshes.push(o as Mesh);
-      });
-      for (const m of meshes) {
-        // bỏ morph target (cây/bụi Poly Haven có) — InstancedMesh cần morphTexture, không dùng → MorphNode lỗi null
-        let geo = m.geometry;
-        if (Object.keys(geo.morphAttributes).length > 0) {
-          geo = geo.clone();
-          geo.morphAttributes = {};
-          geo.morphTargetsRelative = false;
-        }
-        const im = new InstancedMesh(geo, m.material, list.length);
-        list.forEach((it, k) => {
-          const pd = it.def;
-          _p.set(pd.position[0], pd.position[1], pd.position[2]);
-          _q.setFromEuler(new Euler(0, pd.yaw ?? 0, 0));
-          _s.setScalar(pd.scale ?? 1);
-          instM.compose(_p, _q, _s);
-          tmpM.copy(instM).multiply(m.matrixWorld);
-          im.setMatrixAt(k, tmpM);
-        });
-        im.instanceMatrix.needsUpdate = true;
-        im.castShadow = tall;
-        im.receiveShadow = true;
-        im.frustumCulled = false;
-        im.name = `props_${model}`;
-        root.add(im);
-        draws++;
-      }
+      draws += instanceModel(root, model, src, list.map((it) => ({ position: it.def.position, yaw: it.def.yaw ?? 0, pitch: it.def.pitch ?? 0, roll: it.def.roll ?? 0, scale: it.def.scale ?? 1, tint: it.def.tint ?? 1 })));
       props += list.length;
       for (const it of list) {
         const pd = it.def;
@@ -308,11 +330,24 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
     }
   }
 
-  // ---------- Chướng ngại / xác xe
+  // ---------- Chướng ngại / xác xe (model thật khi có — TIP-021; collider/cover từ size)
   const bmats = createBarricadeMaterials(tex);
-  const bar = buildBarricades(def.barricades, bmats, 5);
+  const bar = buildBarricades(def.barricades, bmats, 5, { hasModel: (id) => !!assets?.models?.[id] });
   root.add(bar.group);
   draws += bar.draws;
+  if (assets?.models) {
+    const byBarModel = new Map<string, ModelInstance[]>();
+    for (const mi of bar.modelInstances) {
+      let arr = byBarModel.get(mi.model);
+      if (!arr) byBarModel.set(mi.model, (arr = []));
+      arr.push({ position: mi.position, yaw: mi.yaw, pitch: 0, roll: 0, scale: mi.scale, tint: mi.tint });
+    }
+    for (const [model, list] of byBarModel) {
+      const src = assets.models[model];
+      if (src) draws += instanceModel(root, `wreck_${model}`, src, list);
+    }
+    props += bar.modelInstances.length;
+  }
   colliders.push(...bar.colliders);
   coverMarkers.push(...bar.coverMarkers);
   for (const nb of bar.navBoxes) navGeometry.push(navBox(nb.position, nb.size, nb.yaw));

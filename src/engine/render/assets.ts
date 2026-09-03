@@ -80,6 +80,22 @@ export interface LoadOptions {
   onProgress?: (done: number, total: number, label: string) => void;
 }
 
+/** Model prop glTF (meshopt) — cast/receive shadow, anisotropy. Dùng bởi loadAssets và debug API (spawnModel). */
+export async function loadModel(url: string, aniso = 4): Promise<Group> {
+  const gltf = new GLTFLoader();
+  gltf.setMeshoptDecoder(MeshoptDecoder);
+  const g = await gltf.loadAsync(url);
+  g.scene.traverse((o: Object3D) => {
+    const m = o as { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean; material?: { map?: Texture | null; anisotropy?: number } };
+    if (m.isMesh) {
+      m.castShadow = true;
+      m.receiveShadow = true;
+      if (m.material?.map) m.material.map.anisotropy = aniso;
+    }
+  });
+  return g.scene;
+}
+
 export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const b = base();
   const aniso = Math.min(8, opts.renderer.getMaxAnisotropy());
@@ -146,20 +162,9 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     }
   }
   if (!opts.lite) {
-    const gltf = new GLTFLoader();
-    gltf.setMeshoptDecoder(MeshoptDecoder);
     await Promise.all(
       modelIds.map(async (id) => {
-        const g = await gltf.loadAsync(`${b}models/${id}.glb`);
-        g.scene.traverse((o: Object3D) => {
-          const m = o as { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean; material?: { map?: Texture | null; anisotropy?: number } };
-          if (m.isMesh) {
-            m.castShadow = true;
-            m.receiveShadow = true;
-            if (m.material?.map) m.material.map.anisotropy = aniso;
-          }
-        });
-        models[id] = g.scene;
+        models[id] = await loadModel(`${b}models/${id}.glb`, aniso);
         tick(id);
       }),
     );

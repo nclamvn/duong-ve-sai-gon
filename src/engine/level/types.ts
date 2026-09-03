@@ -55,7 +55,12 @@ export interface PropDef {
   model: string;
   position: V3;
   yaw?: number;
+  /** nghiêng quanh trục dọc (đổ nghiêng: xe máy ngã) / trục ngang, rad */
+  roll?: number;
+  pitch?: number;
   scale?: number;
+  /** nhân màu toàn model (0..1 mỗi kênh) — ám khói, bạc màu; mặc định trắng */
+  tint?: number;
   /** collider hộp (half extents) nếu chặn đường; không → chỉ hình */
   collider?: V3;
   /** cover marker quanh collider */
@@ -70,6 +75,15 @@ export interface BarricadeDef {
   /** cháy: khói + lửa */
   burning?: boolean;
   color?: number;
+  /**
+   * Model thật (Sketchfab CC-BY, TIP-021) thay hình procedural: id trong manifest/`models`, chuẩn hoá bởi scripts/convert-model.mjs
+   * (dài theo +x, đáy y=0). Thiếu model (?assets=0) → vẽ procedural như cũ. Collider/cover lấy từ `size` (dài, cao, rộng — m).
+   */
+  model?: string;
+  size?: V3;
+  scale?: number;
+  /** nhân màu model (ám khói) — mặc định cháy → 0.45, không → 1 */
+  tint?: number;
 }
 
 export interface FxDef {

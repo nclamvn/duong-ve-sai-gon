@@ -25,7 +25,8 @@
     "assets:verify": "node scripts/fetch-assets.mjs --verify",
     "models:optimize": "node scripts/optimize-models.mjs",
     "assets:credits": "node scripts/credits.mjs",
-    "assets:weapon": "node scripts/convert-weapon.mjs"
+    "assets:weapon": "node scripts/convert-weapon.mjs",
+    "assets:model": "node scripts/convert-model.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",

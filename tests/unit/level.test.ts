@@ -25,6 +25,14 @@ describe('TIP-019 level Phố Vạn Hải (content/levels, ADR-007)', () => {
     for (const z of ['zone_a', 'zone_b', 'zone_c', 'station_zone', 'relay_zone', 'exfil_zone']) expect(def.zones[z], z).toBeDefined();
     expect(def.lots.length).toBeGreaterThan(30);
     expect(def.barricades.some((x) => x.kind === 'wreck_apc')).toBe(true);
+    // TIP-021: model thật của barricade phải nằm trong `models` (được nạp) và có size (collider)
+    for (const b of def.barricades) {
+      if (!b.model) continue;
+      expect(def.models.includes(b.model), b.model).toBe(true);
+      expect(b.size?.length).toBe(3);
+    }
+    expect(def.barricades.filter((b) => b.model).length).toBeGreaterThanOrEqual(5);
+    expect(def.props.filter((p) => p.model.startsWith('veh_')).length).toBeGreaterThanOrEqual(6);
     expect(def.fx.filter((f) => f.kind === 'fire').length).toBeLessThanOrEqual(8);
   });
 

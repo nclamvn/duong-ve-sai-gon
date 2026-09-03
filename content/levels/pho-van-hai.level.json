@@ -77,7 +77,17 @@
     "wooden_ladder",
     "rock_07",
     "modular_chainlink_fence",
-    "shrub_02"
+    "shrub_02",
+    "veh_btr70",
+    "veh_wreck_bus",
+    "veh_wreck_car_a",
+    "veh_wreck_car_b",
+    "veh_pickup",
+    "veh_ural",
+    "veh_scooter",
+    "veh_mi24",
+    "prop_sandbag_02",
+    "prop_sandbag_05"
   ],
   "ground": {
     "road": {
@@ -1941,6 +1951,109 @@
       ],
       "yaw": 2,
       "scale": 1
+    },
+    {
+      "model": "veh_pickup",
+      "position": [
+        -3.6,
+        0,
+        26
+      ],
+      "yaw": 1.25,
+      "collider": [
+        2.7,
+        0.83,
+        1
+      ],
+      "cover": true
+    },
+    {
+      "model": "veh_ural",
+      "position": [
+        3.8,
+        0,
+        -64.5
+      ],
+      "yaw": -0.12,
+      "collider": [
+        3.8,
+        1.64,
+        1.53
+      ],
+      "cover": true
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        7.3,
+        0,
+        56
+      ],
+      "yaw": 1.4
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        -7.4,
+        0,
+        52
+      ],
+      "yaw": -1.8
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        7.4,
+        0,
+        31
+      ],
+      "yaw": 1.7
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        -7.3,
+        0,
+        17
+      ],
+      "yaw": -1.5
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        7.2,
+        0,
+        -8
+      ],
+      "yaw": 1.3
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        -7.4,
+        0,
+        -30
+      ],
+      "yaw": -1.6
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        7.5,
+        0,
+        -60
+      ],
+      "yaw": 1.5
+    },
+    {
+      "model": "veh_scooter",
+      "position": [
+        1.8,
+        0.3,
+        24
+      ],
+      "yaw": 0.4,
+      "roll": 1.35
     }
   ],
   "barricades": [
@@ -1952,7 +2065,14 @@
         40
       ],
       "yaw": 0,
-      "length": 4.8
+      "length": 4.8,
+      "model": "prop_sandbag_02",
+      "size": [
+        4.1,
+        1.01,
+        1.36
+      ],
+      "scale": 1.4
     },
     {
       "kind": "sandbags",
@@ -1962,7 +2082,14 @@
         40
       ],
       "yaw": 0,
-      "length": 4.8
+      "length": 4.8,
+      "model": "prop_sandbag_02",
+      "size": [
+        4.1,
+        1.01,
+        1.36
+      ],
+      "scale": 1.4
     },
     {
       "kind": "wreck_apc",
@@ -1972,7 +2099,13 @@
         47.5
       ],
       "yaw": 0.35,
-      "burning": true
+      "burning": true,
+      "model": "veh_btr70",
+      "size": [
+        7.1,
+        2.75,
+        2.75
+      ]
     },
     {
       "kind": "sheet",
@@ -2070,7 +2203,13 @@
         0,
         18
       ],
-      "yaw": -0.5
+      "yaw": -0.5,
+      "model": "veh_wreck_car_a",
+      "size": [
+        4.3,
+        1.25,
+        1.81
+      ]
     },
     {
       "kind": "wreck_car",
@@ -2080,7 +2219,13 @@
         -20
       ],
       "yaw": 2.6,
-      "burning": true
+      "burning": true,
+      "model": "veh_wreck_car_b",
+      "size": [
+        4.3,
+        1.2,
+        1.83
+      ]
     },
     {
       "kind": "tires",
@@ -2108,7 +2253,14 @@
         -36
       ],
       "yaw": 0.45,
-      "burning": true
+      "burning": true,
+      "model": "veh_wreck_bus",
+      "size": [
+        10.48,
+        2.83,
+        3.25
+      ],
+      "tint": 0.6
     },
     {
       "kind": "rubble",
@@ -2145,7 +2297,14 @@
         -52.5
       ],
       "yaw": 3.141592653589793,
-      "length": 5
+      "length": 5,
+      "model": "prop_sandbag_05",
+      "size": [
+        4.12,
+        1.01,
+        0.93
+      ],
+      "scale": 1.4
     },
     {
       "kind": "wreck_car",
@@ -2155,7 +2314,13 @@
         -38
       ],
       "yaw": 1.4,
-      "burning": true
+      "burning": true,
+      "model": "veh_wreck_car_a",
+      "size": [
+        4.3,
+        1.25,
+        1.81
+      ]
     },
     {
       "kind": "tires",
