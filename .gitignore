@@ -12,3 +12,6 @@ evidence/sandbox/
 # asset nguồn (Poly Haven gltf, Mixamo fbx) — chỉ bản tối ưu trong public/assets vào git
 assets-src/
 
+
+# bundle đồng bộ sandbox ↔ Mac (git bundle, không vào git)
+.sync/
