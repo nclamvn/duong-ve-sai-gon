@@ -66,7 +66,7 @@ Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, T
 
 Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·
 `?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?weapons=0` (súng procedural) · `?cones=0` · `?splash=0` ·
-`?fps=60|120|0` (cap khi chơi, mặc định 60 — màn 120 Hz đỡ giật; bench không cap).
+`?fps=60|120|0` (cap khi chơi, mặc định 60 — màn 120 Hz đỡ giật; bench không cap) · `?arms=0` (tắt cánh tay FP).
 
 ## Credits
 
@@ -102,3 +102,4 @@ TIP-012 nhân vật Mixamo, TIP-013 súng + FX chân thực. Mục tiêu: một 
 Cả ba TIP DONE trong sandbox (WebGL 2, CI xanh) — chờ Chủ nhà `npm install && npm run bench:quick` rồi chơi trên Mac WebGPU (SSR chỉ thấy ở đó).
 TIP-014 (ADR-006): súng thật CC-BY — người chơi AK-74M (ADS theo đường ngắm, reload băng đạn, bolt giật, sprint hạ súng), địch HK416 + lửa nòng/tracer/đèn từ đầu nòng.
 TIP-015 (hotfix sau bench Mac): SSR r185 trộn sai → vệt đen (sửa), GTAO/mưa theo số đo, cap 60 fps khi chơi; đo trên M1 Max: high 86.7 fps p95 17.2 (trước 60.5 / 33 ms).
+TIP-016: cánh tay góc nhìn thứ nhất (mesh tay Mixamo `scripts/extract-arms.mjs` + IK bám anchor súng, `content/weapons/*.json` mục `fp`).

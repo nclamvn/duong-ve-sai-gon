@@ -18,6 +18,7 @@ import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { createActorVisual, type ActorVisual } from '@game/actors/visual';
+import { FpArms } from '@engine/render/fpArms';
 import type { WeaponModelConfig } from '@engine/render/weaponModel';
 import ak74mCfg from '@content/weapons/ak74m.json';
 import hk416Cfg from '@content/weapons/hk416.json';
@@ -85,6 +86,8 @@ export class Game {
   weapon!: Weapon;
   fx!: WeaponFx;
   viewModel!: WeaponViewModel;
+  fpArms: FpArms | null = null;
+  private fpArmsCfg: NonNullable<WeaponModelConfig['fp']> | null = null;
   private lastInputDx = 0;
   private lastInputDy = 0;
   readonly audio = new AudioEngine();
@@ -207,6 +210,13 @@ export class Game {
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
     this.viewModel = new WeaponViewModel(this.camera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons['ak74m'] ?? null);
+    // cánh tay FP (TIP-016): mesh tay Mixamo + IK bám anchor súng; cần viewmodel glTF (anchor) + soldier_arms.glb
+    const ak = this.assets.weapons['ak74m'];
+    if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
+      this.fpArms = new FpArms(this.assets.arms, this.camera, { scale: ak.cfg.view.scale, tint: 0xb9c4ad });
+      this.fpArmsCfg = ak.cfg.fp;
+      this.viewModel.setGlovesVisible(false);
+    }
     this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
     this.fx.muzzleWorld = this.viewModel.muzzleWorld;
     this.fx.ejectWorld = this.viewModel.ejectWorld;
@@ -446,6 +456,10 @@ export class Game {
     // viewmodel: chỉ khi có player (không free-fly)
     this.viewModel.visible = !this.freeFly && this.player.alive;
     this.viewModel.update(dt, this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), this.player.isSprinting);
+    if (this.fpArms && this.fpArmsCfg && this.viewModel.fpAnchors) {
+      this.camera.updateMatrixWorld(true);
+      this.fpArms.update({ gripR: this.viewModel.fpAnchors.gripR, gripL: this.viewModel.fpAnchors.gripL, handR: this.fpArmsCfg.handR, handL: this.fpArmsCfg.handL, triggerFinger: this.fpArmsCfg.triggerFinger });
+    }
     this.lastInputDx = 0;
     this.lastInputDy = 0;
     this.hud.update();

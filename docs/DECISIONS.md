@@ -56,3 +56,5 @@
 | D-052 | Thợ (L1) | Mưa 20k → 9k (high), GTAO 12 → 8 mẫu: đo M1 Max 1920 px mưa ≈ 2 ms, GTAO ≈ 3.8 ms; nhìn tương đương — ghi rõ, không phải hạ chất lượng ngầm | TIP-015 |
 | D-053 | Thợ (L1) | Frame pacing: cap 60 fps khi chơi (màn 120 Hz + frame 9–10 ms → xen kẽ 8.3/16.7 = giật); `?fps=` đổi, bench không cap | TIP-015 |
 | D-054 | Thầu | Timestamp GPU tổng các pass chồng lấn trên GPU Apple → loại mẫu > 1.05 × frame, NA khi đa số; `frame_p95` là trần GPU. Không sửa budget | TIP-015 |
+| D-055 | Chủ nhà | Góc nhìn thứ nhất phải thấy cánh tay trái (áo + bao tay) như tham chiếu CoD — chỉ tham chiếu tư thế, không dùng asset CoD | Yêu cầu 2026-09-03 → TIP-016 |
+| D-056 | Thợ (L1) | Tay FP = mesh tay lọc từ Swat Guy (cùng skeleton) + IK 2 khớp bám anchor gripR/gripL của súng (offset bone trong JSON `fp`); không dùng clip animation tay → mọi pose/reload tự đúng | TIP-016 |

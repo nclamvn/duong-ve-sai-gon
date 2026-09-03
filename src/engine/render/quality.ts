@@ -30,13 +30,15 @@ export interface QualityPreset {
   weapons: boolean;
   /** cap FPS khi chơi (0 = không cap); bench luôn 0 (D-053) */
   fpsCap: number;
+  /** cánh tay góc nhìn thứ nhất (TIP-016) nếu có file (?arms=0 → bao tay procedural) */
+  arms: boolean;
 }
 
 export const QUALITY: Record<QualityTier, QualityPreset> = {
   // rainCount (D-052, đo M1 Max 1920 px): 20k hạt ≈ +2 ms/frame (overdraw hạt gần camera + ánh đèn/hạt) — 9k nhìn tương đương
-  low: { tier: 'low', rainCount: 3000, shadowMapSize: 1024, maxPixelRatio: 1, maxRenderWidth: 1280, dynamicResolution: true, shadows: true, post: 'low', assets: true, splashCount: 128, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60 },
-  medium: { tier: 'medium', rainCount: 6000, shadowMapSize: 2048, maxPixelRatio: 1.5, maxRenderWidth: 1600, dynamicResolution: true, shadows: true, post: 'medium', assets: true, splashCount: 256, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60 },
-  high: { tier: 'high', rainCount: 9000, shadowMapSize: 2048, maxPixelRatio: 2, maxRenderWidth: 1920, dynamicResolution: true, shadows: true, post: 'high', assets: true, splashCount: 384, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60 },
+  low: { tier: 'low', rainCount: 3000, shadowMapSize: 1024, maxPixelRatio: 1, maxRenderWidth: 1280, dynamicResolution: true, shadows: true, post: 'low', assets: true, splashCount: 128, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60, arms: true },
+  medium: { tier: 'medium', rainCount: 6000, shadowMapSize: 2048, maxPixelRatio: 1.5, maxRenderWidth: 1600, dynamicResolution: true, shadows: true, post: 'medium', assets: true, splashCount: 256, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60, arms: true },
+  high: { tier: 'high', rainCount: 9000, shadowMapSize: 2048, maxPixelRatio: 2, maxRenderWidth: 1920, dynamicResolution: true, shadows: true, post: 'high', assets: true, splashCount: 384, lightCones: true, taa: false, character: true, weapons: true, fpsCap: 60, arms: true },
 };
 
 export function resolveQuality(params: URLSearchParams): QualityPreset {
@@ -58,6 +60,7 @@ export function resolveQuality(params: URLSearchParams): QualityPreset {
   if (params.get('taa') === '1') base.taa = true;
   if (params.get('character') === '0') base.character = false;
   if (params.get('weapons') === '0') base.weapons = false;
+  if (params.get('arms') === '0') base.arms = false;
   const fps = params.get('fps');
   if (fps !== null) base.fpsCap = Math.max(0, Number(fps));
   if (params.get('bench') === '1') base.fpsCap = 0; // đo thật, không cap

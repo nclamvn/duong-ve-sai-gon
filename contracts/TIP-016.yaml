@@ -1,0 +1,28 @@
+# Contract — TIP-016
+id: TIP-016
+goal: "Cánh tay góc nhìn thứ nhất: mesh tay Mixamo (extract-arms) + IK 2 khớp bám anchor súng; tay trái đỡ ốp lót như tham chiếu CoD; theo băng đạn khi reload"
+scope:
+  - scripts/extract-arms.mjs
+  - src/engine/render/fpArms.ts
+  - src/engine/render/assets.ts
+  - src/engine/render/quality.ts
+  - src/engine/render/weaponModel.ts
+  - src/game/weapons/viewmodel.ts
+  - src/game/game.ts
+  - content/weapons/*.json (fp)
+  - content/schemas/weapon-model.schema.json
+  - public/assets/characters/soldier_arms.glb
+acceptance:
+  - "thấy cánh tay trái đỡ ốp lót ở hip/ADS; theo băng đạn khi reload; sprint theo súng"
+  - "?arms=0 → bao tay procedural; npm run ci exit 0"
+  - "bench Mac: thêm ≤ 0.3 ms"
+tests:
+  - tests/unit/weapons.test.ts
+  - tests/unit/assets.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-016/fp-hip-webgl.png
+  - evidence/TIP-016/fp-ads-webgl.png
+  - evidence/TIP-016/fp-reload-webgl.png
+rollback: "git revert HEAD; ?arms=0"
+status: DONE (chờ chấm Mac)

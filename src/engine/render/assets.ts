@@ -8,6 +8,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { loadCharacter, type CharacterAsset } from './characters';
 import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
+import { loadFpArms, type FpArmsAsset } from './fpArms';
 
 export interface PbrTextureSet {
   id: string;
@@ -26,6 +27,8 @@ export interface LoadedAssets {
   character: CharacterAsset | null;
   /** vũ khí glTF (TIP-014, CC-BY) theo id cấu hình (content/weapons); thiếu → viewmodel/prop procedural */
   weapons: Record<string, WeaponAsset>;
+  /** cánh tay góc nhìn thứ nhất (TIP-016, dẫn xuất Mixamo); null → bao tay procedural */
+  arms: FpArmsAsset | null;
   bytesHint: number;
 }
 
@@ -33,6 +36,7 @@ const TEXTURE_IDS = ['asphalt_02', 'concrete_wall_001', 'factory_wall', 'corruga
 const MODEL_IDS = ['wooden_military_crate', 'old_military_crate', 'plastic_crate_01', 'cardboard_box_01', 'concrete_road_barrier', 'propane_tank', 'metal_trash_can', 'utility_box_01', 'portable_generator'] as const;
 const HDRI_ID = 'blue_lagoon_night';
 export const CHARACTER_URL = 'characters/soldier.glb';
+export const ARMS_URL = 'characters/soldier_arms.glb';
 
 export type TextureId = (typeof TEXTURE_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
@@ -62,6 +66,8 @@ export interface LoadOptions {
   weapons?: WeaponModelConfig[];
   /** bỏ qua vũ khí glTF (?weapons=0) */
   noWeapons?: boolean;
+  /** bỏ qua cánh tay FP (?arms=0) */
+  noArms?: boolean;
   onProgress?: (done: number, total: number, label: string) => void;
 }
 
@@ -95,6 +101,15 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const weapons: Record<string, WeaponAsset> = {};
   let environment: Texture | null = null;
   let character: CharacterAsset | null = null;
+  let arms: FpArmsAsset | null = null;
+  if (!opts.lite && !opts.noWeapons && !opts.noArms) {
+    try {
+      const head = await fetch(`${b}${ARMS_URL}`, { method: 'HEAD' });
+      if (head.ok) arms = await loadFpArms(`${b}${ARMS_URL}`);
+    } catch {
+      arms = null;
+    }
+  }
   await Promise.all(
     weaponCfgs.map(async (cfg) => {
       // vũ khí: tuỳ chọn — thiếu file (chưa convert) → bỏ qua, viewmodel/prop procedural
@@ -144,7 +159,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     pmrem.dispose();
     tick(HDRI_ID);
   }
-  return { textures, models, environment, character, weapons, bytesHint: 0 };
+  return { textures, models, environment, character, weapons, arms, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

@@ -155,6 +155,9 @@ export class WeaponViewModel {
   private readonly ejectAnchor: Object3D;
   private readonly leftHand = new Group();
   private readonly leftHandRest = new Vector3();
+  /** anchor cho cánh tay FP (TIP-016): gripR (hệ súng) và gripL đi theo tay trái (băng đạn khi reload) */
+  readonly fpAnchors: { gripR: Object3D; gripL: Object3D } | null = null;
+  private readonly gloveMeshes: Mesh[] = [];
   private readonly inst: WeaponInstance | null = null;
   private readonly hip: { pos: Vector3; rot: Euler };
   private readonly ads: { pos: Vector3; rot: Euler };
@@ -207,8 +210,17 @@ export class WeaponViewModel {
       const gb = new GeoBuilder();
       const a = weapon.cfg.anchors;
       addGloves(gb, fabricMaterial(0x23211c), new Vector3(a.gripR[0], a.gripR[1], a.gripR[2]), new Vector3(a.gripL[0], a.gripL[1], a.gripL[2]), this.leftHand);
-      gb.build(inst.root);
+      this.gloveMeshes.push(...gb.build(inst.root));
       inst.root.add(this.leftHand);
+      this.leftHand.traverse((o: Object3D) => {
+        if ((o as Mesh).isMesh) this.gloveMeshes.push(o as Mesh);
+      });
+      // anchor gripL là con của leftHand (đi theo băng đạn khi reload) tại vị trí gripL
+      const gripL = new Object3D();
+      gripL.name = 'gripL_fp';
+      gripL.position.set(a.gripL[0], a.gripL[1], a.gripL[2]);
+      this.leftHand.add(gripL);
+      this.fpAnchors = { gripR: inst.anchors.gripR, gripL };
       this.partCount = weapon.meshes + gb.parts;
       this.triangles = weapon.triangles;
       gun.scale.setScalar(scale);
@@ -248,6 +260,11 @@ export class WeaponViewModel {
     this.fillLight.castShadow = false;
     this.root.add(this.fillLight);
     camera.add(this.root);
+  }
+
+  /** ẩn bao tay procedural khi có cánh tay FP thật */
+  setGlovesVisible(v: boolean): void {
+    for (const m of this.gloveMeshes) m.visible = v;
   }
 
   onShot(): void {

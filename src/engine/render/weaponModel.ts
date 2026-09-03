@@ -22,6 +22,8 @@ export interface WeaponModelConfig {
   parts: { magazine?: string; bolt?: string; boltTravel?: number };
   view: { scale: number; hip: WeaponPose; ads: WeaponPose; sprint: WeaponPose; sightDistance: number; alignSight?: boolean };
   hand: WeaponPose;
+  /** cánh tay góc nhìn thứ nhất (TIP-016): bone bàn tay trong hệ anchor gripR/gripL */
+  fp?: { handR: WeaponPose; handL: WeaponPose; triggerFinger?: number };
 }
 
 export interface WeaponAsset {
