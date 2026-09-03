@@ -155,6 +155,8 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
   root.add(fill);
   navGeometry.push(fill);
   draws++;
+  // collider mặt đất (nguồn collider duy nhất cho physics — thiếu là người chơi rơi xuyên đất; bot đi navmesh nên không lộ)
+  colliders.push({ id: 'floor', kind: 'box', position: [0, -0.5, 0], size: [G.fill.size / 2, 0.5, G.fill.size / 2], yaw: 0, material: 'concrete' });
   const roadMesh = groundPlane(G.road.halfWidth * 2, G.road.z1 - G.road.z0, 0, 0.0, (G.road.z0 + G.road.z1) / 2, road.material, 'road');
   root.add(roadMesh);
   navGeometry.push(roadMesh);
@@ -184,6 +186,7 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
       const x = sgn * (hw + sw / 2);
       walkParts.push(placed(mbox(sw, sh, z1 - z0), x, sh / 2, (z0 + z1) / 2));
       navGeometry.push(navBox([x, sh / 2, (z0 + z1) / 2], [sw / 2, sh / 2, (z1 - z0) / 2], 0));
+      colliders.push({ id: `walk_${sgn > 0 ? 'e' : 'w'}_${Math.round(z0)}`, kind: 'box', position: [x, sh / 2, (z0 + z1) / 2], size: [sw / 2, sh / 2, (z1 - z0) / 2], yaw: 0, material: 'concrete' });
     }
   }
   // vỉa hè ngã tư (hai bên đường ngang, ngoài phạm vi nhà)
@@ -196,6 +199,7 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
       ] as Array<[number, number]>) {
         walkParts.push(placed(mbox(x1 - x0, sh, sw), (x0 + x1) / 2, sh / 2, z));
         navGeometry.push(navBox([(x0 + x1) / 2, sh / 2, z], [(x1 - x0) / 2, sh / 2, sw / 2], 0));
+        colliders.push({ id: `walkx_${Math.round(z)}_${Math.round(x0)}`, kind: 'box', position: [(x0 + x1) / 2, sh / 2, z], size: [(x1 - x0) / 2, sh / 2, sw / 2], yaw: 0, material: 'concrete' });
       }
     }
   }
@@ -208,7 +212,7 @@ export function buildLevel(scene: Scene, def: LevelDef, opts: LevelOptions = {})
     root.add(wm);
     draws++;
   }
-  // bó vỉa: collider thấp không cần (bước qua 15 cm) — nav đã có
+  // bó vỉa 15 cm: collider khớp hình (autostep bước qua)
 
   // ---------- Dãy nhà ống
   const fmats = createFacadeMaterials(tex);

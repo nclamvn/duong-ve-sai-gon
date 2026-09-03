@@ -1,0 +1,1 @@
+{"level":"pho","colliders":113,"floor":true,"walks":8,"t":[{"phase":"idle3s","feet":[0,0.016,70],"grounded":true},{"phase":"sprint6s","feet":[2.98,0.009,41.05],"grounded":true},{"phase":"left4s","feet":[-8.63,0.169,41.046],"grounded":true}]}

@@ -28,3 +28,8 @@ STATUS: DONE
 - TIP-023: technical = `veh_pickup` + MG procedural trên spline ở lane đông; Mi-24 bay ngang 2 lần (mở màn + trước trạm), rotor quay từ node `Top_Rotor_*`/`Tail_Rotor_*`.
 - TIP-026: gộp material bán tải (8 → 2), instanced shadow chỉ cascade gần cho xe máy, đo bench `pho-v1`.
 - Có thể thêm 1–2 xe hơi nguyên vẹn (CC-BY, kiểm rip) đỗ vỉa hè để phố "sống" hơn; hiện chỉ xe cháy + bán tải + Ural + Vespa.
+
+## HOTFIX (TIP-021b, sau khi Chủ nhà chơi e203f1e trên Mac)
+- Lỗi: chỉ thấy trời mây — builder level thiếu collider mặt đất (`floor`) → người chơi rơi xuyên đất từ giây đầu. Lỗi có từ TIP-019, không lộ vì probe sandbox 2 frame + bot navmesh + E2E `level=arena`.
+- Sửa: `builder.ts` thêm collider `floor` (fill size) + collider vỉa hè 15 cm (autostep 0,35 bước qua; hình khớp collider).
+- Kiểm: `probe-ground.txt` (đứng 3 s feet y 0,016 grounded; sprint 6 s tới z 41 trước bao cát; sang trái lên vỉa hè y 0,169) và E2E mới `tests/e2e/level-pho.spec.ts` (`e2e-level-pho.log`: 1 passed) — chạy trong `npm run ci`.
