@@ -46,3 +46,5 @@
 | D-042 | Thợ (L1) | Texture Mixamo 4K PNG → JPEG 2K khi convert (GLB 92.6 → 7.2 MB); `sharp` devDep; KTX2 vẫn nợ G4 | TIP-012 |
 | D-043 | Thợ (L1) | Mixamo không kèm vũ khí → AR procedural gắn bone RightHand, offset rot (π/2,0,π) pos (0,0.05,−0.07) calibrate bằng ảnh; thay GLB CC0 sau nếu Chủ nhà chọn | TIP-012 evidence rifle-*.png |
 | D-044 | Thợ (L1) | Hit zone giữ tĩnh (không bám bone) ở G0.5 — rig chuẩn hoá 1.82 m trùng Dummy; nợ G1 khi có tư thế cúi/ngã | TIP-012 deviation |
+| D-045 | Chủ nhà | Làm ngay trước G1: lửa nòng tại súng địch + súng model thật cho địch **và** người chơi ("hoàn hảo về vũ khí của mình") | Yêu cầu 2026-09-03 → TIP-014 |
+| D-046 | Chủ nhà | Mở chính sách asset sang **CC-BY (Sketchfab)** cho vũ khí, credit bắt buộc (README/CREDITS/UI); người chơi **AK-74M**, địch **AR-15/HK416** | ADR-006; Thợ rà CC0 không có súng hiện đại đạt chuẩn |

@@ -1,0 +1,32 @@
+# Contract — TIP-014
+id: TIP-014
+goal: "Vũ khí hoàn thiện: súng glTF CC-BY (AK-74M người chơi, AR-15/HK416 địch) qua pipeline convert-weapon + content/weapons JSON; viewmodel data-driven (ADS căn đường ngắm, reload băng đạn, bolt); lửa nòng/tracer/đèn từ đầu nòng súng địch; credits CC-BY"
+scope:
+  - scripts/convert-weapon.mjs
+  - content/weapons/*.json
+  - content/schemas/weapon-model.schema.json
+  - src/engine/render/weaponModel.ts
+  - src/engine/render/rifleProp.ts
+  - src/engine/render/assets.ts
+  - src/game/weapons/viewmodel.ts
+  - src/game/weapons/fx.ts
+  - src/game/actors/visual.ts
+  - src/game/game.ts
+  - public/assets/weapons/*.glb
+  - content/assets/manifest.json
+  - CREDITS.md
+acceptance:
+  - "người chơi cầm AK-74M PBR; ADS trùng đường ngắm; reload thấy băng đạn; bolt giật khi bắn"
+  - "địch bắn → flash/spark/khói/tracer/đèn từ đầu nòng súng địch (≤ 5 cm)"
+  - "?assets=0 hoặc thiếu GLB → procedural, không lỗi; E2E cũ pass"
+  - "manifest: mọi CC-BY có attribution/url/authors; CREDITS.md khớp; tổng ≤ 60 MB"
+  - "bench:quick Mac PASS (Chủ nhà); tri súng ≤ 20k/instance"
+tests:
+  - tests/unit/assets.test.ts
+  - tests/unit/weapons.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-014/completion-report.md
+  - evidence/TIP-014/*.png
+rollback: "git revert HEAD; ?weapons=0 tắt GLB tại runtime"
+status: IN PROGRESS
