@@ -49,6 +49,9 @@ Overlay hiện `verdict PASS|WARN|FAIL · evidence_status`. **Chỉ report có `
 
 Ghi chú khi đọc số: `draw_calls` trên backend WebGPU đếm cả sub-draw của BatchedMesh (1 `drawIndexed`/instance trong cùng pipeline) → 200 props hiện ~260 "draw" dù là một batch; trên WebGL 2 với `WEBGL_multi_draw` cùng cảnh chỉ ~60. So sánh giữa hai backend phải nhìn `frame_p95`/`gpu_ms`, không nhìn `draw_calls`.
 
+Dev server bind `127.0.0.1:5173` (như preview/bench — macOS resolve `localhost` → `::1` nên `127.0.0.1` từng bị refused): `npm run dev` →
+`http://127.0.0.1:5173/?autostart=1`. Nếu "ERR_CONNECTION_REFUSED": dev server chưa chạy hoặc đã tắt — chạy lại `npm run dev` trong Terminal và để nguyên.
+
 ## Asset (ADR-005 — G0.5 look-dev)
 
 ```bash
