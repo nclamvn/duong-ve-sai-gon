@@ -1,0 +1,7 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới chốt A bị bao cát chặn, lên vỉa hè 15 cm; collider floor + vỉa hè có mặt (44.3s)
+
+  1 passed (45.9s)
+EXIT:0

@@ -32,4 +32,4 @@ STATUS: DONE
 ## HOTFIX (TIP-021b, sau khi Chủ nhà chơi e203f1e trên Mac)
 - Lỗi: chỉ thấy trời mây — builder level thiếu collider mặt đất (`floor`) → người chơi rơi xuyên đất từ giây đầu. Lỗi có từ TIP-019, không lộ vì probe sandbox 2 frame + bot navmesh + E2E `level=arena`.
 - Sửa: `builder.ts` thêm collider `floor` (fill size) + collider vỉa hè 15 cm (autostep 0,35 bước qua; hình khớp collider).
-- Kiểm: `probe-ground.txt` (đứng 3 s feet y 0,016 grounded; sprint 6 s tới z 41 trước bao cát; sang trái lên vỉa hè y 0,169) và E2E mới `tests/e2e/level-pho.spec.ts` (`e2e-level-pho.log`: 1 passed) — chạy trong `npm run ci`.
+- Kiểm: `probe-ground.txt` (đứng 3 s feet y 0,016 grounded; sprint 6 s tới z 41 trước bao cát; sang trái lên vỉa hè y 0,169) và E2E mới `tests/e2e/level-pho.spec.ts` (`e2e-level-pho.txt`: 1 passed) — chạy trong `npm run ci`.
