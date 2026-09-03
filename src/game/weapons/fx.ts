@@ -77,6 +77,8 @@ export class WeaponFx {
   readonly flashes: InstancedMesh;
   readonly puffs: InstancedMesh;
   readonly muzzleLight: PointLight;
+  /** đèn nòng cho phát bắn của địch (TIP-014) — 1 đèn dùng chung, luôn trong scene */
+  readonly botLight: PointLight;
   private readonly puffPool: Puff[] = [];
   private readonly puffAlpha: InstancedBufferAttribute;
   private readonly decalKind: InstancedBufferAttribute;
@@ -91,6 +93,7 @@ export class WeaponFx {
   private sparkHead = 0;
   private flashHead = 0;
   private lightLife = 0;
+  private botLightLife = 0;
   readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0 };
   private readonly gravity = new Vector3(0, -9.81, 0);
   private readonly unsub: Array<() => void> = [];
@@ -98,6 +101,8 @@ export class WeaponFx {
   muzzleWorld: Vector3 | null = null;
   /** cửa thoát vỏ đạn (viewmodel) — Game gán */
   ejectWorld: Vector3 | null = null;
+  /** đầu nòng súng của bot (world) — Game gán (TIP-014); false → ước lượng từ mắt */
+  botMuzzle: ((botId: string, out: Vector3) => boolean) | null = null;
 
   constructor(
     scene: Scene,
@@ -195,7 +200,10 @@ export class WeaponFx {
     this.muzzleLight = new PointLight(0xffb060, 0, 7, 1.0);
     this.muzzleLight.castShadow = false;
     scene.add(this.muzzleLight);
-    this.stats.created += 5;
+    this.botLight = new PointLight(0xffb060, 0, 6, 1.0);
+    this.botLight.castShadow = false;
+    scene.add(this.botLight);
+    this.stats.created += 6;
 
     this.unsub.push(
       events.on('IMPACT', (e) => {
@@ -210,13 +218,19 @@ export class WeaponFx {
     this.unsub.push(events.on('HIT', (e) => this.placeDecal(e.point, [0, 1, 0], true)));
     this.unsub.push(events.on('RELOAD_START', () => undefined));
     this.unsub.push(
-      (events as unknown as EventBus<{ BOT_FIRED: { origin: [number, number, number]; dir: [number, number, number] } }>).on('BOT_FIRED', (e) => {
-        // đầu nòng bot ≈ mắt + 0.6 m theo hướng bắn, thấp hơn 0.15 m
-        _p.set(e.origin[0] + e.dir[0] * 0.6, e.origin[1] + e.dir[1] * 0.6 - 0.15, e.origin[2] + e.dir[2] * 0.6);
+      (events as unknown as EventBus<{ BOT_FIRED: { botId: string; origin: [number, number, number]; dir: [number, number, number] } }>).on('BOT_FIRED', (e) => {
         _n.set(e.dir[0], e.dir[1], e.dir[2]);
-        this.spawnFlash(_p, _n, 0.7);
+        // đầu nòng thật từ súng của bot (TIP-014); không có → mắt + 0.6 m theo hướng bắn, thấp hơn 0.15 m
+        if (!(this.botMuzzle && this.botMuzzle(e.botId, _p))) {
+          _p.set(e.origin[0] + e.dir[0] * 0.6, e.origin[1] + e.dir[1] * 0.6 - 0.15, e.origin[2] + e.dir[2] * 0.6);
+        }
+        this.spawnFlash(_p, _n, 0.8);
         this.spawnSparks(_p, _n, 5);
         this.spawnTracer(_p, _n, 60);
+        this.spawnPuffs(_p, _n, 1, 0.06, 0.28, 0.2, 0.6, 1.4);
+        this.botLight.position.copy(_p);
+        this.botLight.intensity = MUZZLE_LIGHT * 0.8;
+        this.botLightLife = 0.05;
       }),
     );
   }
@@ -245,7 +259,7 @@ export class WeaponFx {
     // đầu nòng: từ viewmodel nếu có, không thì từ mắt + 0.5 m
     if (this.muzzleWorld) _p.copy(this.muzzleWorld);
     else _p.set(origin[0] + dir[0] * 0.5, origin[1] + dir[1] * 0.5 - 0.1, origin[2] + dir[2] * 0.5);
-    this.spawnFlash(_p, _n, 1.0);
+    this.spawnFlash(_p, _n, 0.7);
     this.spawnSparks(_p, _n, 8);
     this.spawnTracer(_p, _n, 80);
     this.spawnPuffs(_p, _n, 2, 0.06, 0.32, 0.22, 0.7, 1.6);
@@ -323,6 +337,11 @@ export class WeaponFx {
       this.lightLife -= dt;
       this.muzzleLight.intensity = Math.max(0, MUZZLE_LIGHT * (this.lightLife / 0.05));
       if (this.lightLife <= 0) this.muzzleLight.intensity = 0;
+    }
+    if (this.botLightLife > 0) {
+      this.botLightLife -= dt;
+      this.botLight.intensity = Math.max(0, MUZZLE_LIGHT * 0.8 * (this.botLightLife / 0.05));
+      if (this.botLightLife <= 0) this.botLight.intensity = 0;
     }
     // flash
     let anyFlash = false;
@@ -468,6 +487,8 @@ export class WeaponFx {
     this.flashes.instanceMatrix.needsUpdate = true;
     this.muzzleLight.intensity = 0;
     this.lightLife = 0;
+    this.botLight.intensity = 0;
+    this.botLightLife = 0;
     this.stats.decalsPlaced = 0;
     this.stats.decalWraps = 0;
     this.stats.shots = 0;

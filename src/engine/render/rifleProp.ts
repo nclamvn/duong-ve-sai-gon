@@ -2,8 +2,9 @@
  * Súng trường prop cho nhân vật glTF (TIP-012): Mixamo không kèm vũ khí → gắn AR procedural vào bone tay phải.
  * Geometry gộp 1 mesh, trục nòng −z, gốc tại tay cầm. Offset/rotation calibrate theo rig Mixamo (RightHand).
  */
-import { Mesh, BoxGeometry, CylinderGeometry, MeshStandardNodeMaterial, Matrix4, Euler, Quaternion, Vector3, Object3D, type BufferGeometry } from 'three/webgpu';
+import { Mesh, BoxGeometry, CylinderGeometry, MeshStandardNodeMaterial, Matrix4, Euler, Quaternion, Vector3, Object3D, Group, type BufferGeometry } from 'three/webgpu';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { instantiateWeapon, type WeaponAsset } from './weaponModel';
 
 const _m = new Matrix4();
 const _q = new Quaternion();
@@ -60,11 +61,42 @@ export function createRifleProp(): Mesh {
   return m;
 }
 
-/** Gắn súng vào bone; trả về mesh để calibrate (position/rotation local so với bone). */
-export function attachRifle(handBone: Object3D, offset = RIFLE_HAND_OFFSET): Mesh {
+/** Đầu nòng của súng procedural (local, trục −z) — FX địch (TIP-014) lấy world position từ node này. */
+export const RIFLE_MUZZLE_LOCAL = new Vector3(0, 0.03, -0.785);
+
+export interface AttachedRifle {
+  /** pivot trong bone tay (position/rotation = offset calibrate) */
+  pivot: Object3D;
+  /** Object3D tại đầu nòng (world position cho FX) */
+  muzzle: Object3D;
+  kind: 'procedural' | 'gltf';
+}
+
+/**
+ * Gắn súng vào bone tay phải. Có model glTF (TIP-014) → instance chia sẻ geometry, pivot = anchor gripR (tay cầm) với offset `cfg.hand`;
+ * không có → AR procedural (pivot = gốc mesh, offset RIFLE_HAND_OFFSET).
+ */
+export function attachRifle(handBone: Object3D, weapon: WeaponAsset | null = null, offset = RIFLE_HAND_OFFSET): AttachedRifle {
+  if (weapon) {
+    const inst = instantiateWeapon(weapon, { castShadow: true });
+    const pivot = new Group();
+    pivot.name = 'rifle_pivot';
+    const h = weapon.cfg.hand;
+    pivot.position.set(h.pos[0], h.pos[1], h.pos[2]);
+    pivot.rotation.set(h.rot[0], h.rot[1], h.rot[2]);
+    const g = weapon.cfg.anchors.gripR;
+    inst.root.position.set(-g[0], -g[1], -g[2]);
+    pivot.add(inst.root);
+    handBone.add(pivot);
+    return { pivot, muzzle: inst.anchors.muzzle, kind: 'gltf' };
+  }
   const rifle = createRifleProp();
   rifle.position.copy(offset.pos);
   rifle.rotation.copy(offset.rot);
+  const muzzle = new Object3D();
+  muzzle.name = 'muzzle';
+  muzzle.position.copy(RIFLE_MUZZLE_LOCAL);
+  rifle.add(muzzle);
   handBone.add(rifle);
-  return rifle;
+  return { pivot: rifle, muzzle, kind: 'procedural' };
 }

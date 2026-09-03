@@ -6,7 +6,7 @@ import Ajv from 'ajv';
 
 const manifest = JSON.parse(readFileSync('content/assets/manifest.json', 'utf8')) as {
   totalBytes: number;
-  assets: Array<{ id: string; type: string; license: string; files: Array<{ path: string; bytes: number; sha256: string }> }>;
+  assets: Array<{ id: string; type: string; license: string; url: string; authors?: string[]; attribution?: string; files: Array<{ path: string; bytes: number; sha256: string }> }>;
 };
 const schema = JSON.parse(readFileSync('content/schemas/asset-manifest.schema.json', 'utf8'));
 
@@ -18,9 +18,14 @@ describe('ADR-005 asset manifest (CC0/Mixamo, có hash, trong ngân sách payloa
     expect(ok).toBe(true);
   });
 
-  it('mọi file tồn tại trong public/, đúng bytes + sha256; license ∈ {CC0-1.0, Mixamo}', () => {
+  it('mọi file tồn tại trong public/, đúng bytes + sha256; license ∈ {CC0-1.0, Mixamo, CC-BY}; CC-BY phải có attribution + url + authors (ADR-006)', () => {
     for (const a of manifest.assets) {
-      expect(['CC0-1.0', 'Mixamo']).toContain(a.license);
+      expect(['CC0-1.0', 'Mixamo', 'CC-BY-4.0', 'CC-BY-3.0']).toContain(a.license);
+      if (a.license.startsWith('CC-BY')) {
+        expect(a.attribution, `${a.id} attribution`).toMatch(/licensed under/);
+        expect(a.url, `${a.id} url`).toMatch(/^https:\/\/sketchfab\.com\//);
+        expect((a.authors ?? []).length, `${a.id} authors`).toBeGreaterThan(0);
+      }
       for (const f of a.files) {
         const p = join('public', f.path);
         expect(existsSync(p), p).toBe(true);

@@ -59,8 +59,18 @@ npm run assets:verify   # kiểm file + sha256 khớp manifest (CI/unit test cũ
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
 texture 2K JPEG, meshopt) → `public/assets/characters/soldier.glb` + mục `soldier_mixamo` trong manifest.
 
+Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, Thợ tải): nguồn `assets-src/sketchfab/<slug>/` →
+`npm run assets:weapon -- --src assets-src/sketchfab/ak74m --id weapon_ak74m --length 0.943 --title … --author … --url …` →
+`public/assets/weapons/<id>.glb` + manifest (attribution); cấu hình anchor/pose ở `content/weapons/<id>.json` (schema `weapon-model.schema.json`).
+`npm run assets:credits` sinh `CREDITS.md`; màn capability hiển thị credit CC-BY.
+
 Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·
-`?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?cones=0` · `?splash=0`.
+`?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?weapons=0` (súng procedural) · `?cones=0` · `?splash=0`.
+
+## Credits
+
+Tài sản bên thứ ba liệt kê đầy đủ trong [`CREDITS.md`](CREDITS.md) (sinh từ manifest). CC-BY 4.0 (ghi công bắt buộc, ADR-006):
+"AK-74M Assault Rifle" by FJH · "HK 416 A7" by r4m (Sketchfab). CC0: Poly Haven (texture, HDRI, prop). Nhân vật + animation: Adobe Mixamo.
 
 ## Cấu trúc
 
@@ -89,3 +99,4 @@ TIP-010 (hình nhân lính 12 bone, mưa mảnh, súng góc nhìn thứ nhất, 
 Chủ nhà đánh giá G0 "game thập niên 90" → chèn look-dev trước G1: TIP-011 render pipeline (IBL, post stack, texture PBR CC0, hình khối cảng),
 TIP-012 nhân vật Mixamo, TIP-013 súng + FX chân thực. Mục tiêu: một góc arena đạt "chân thực điện ảnh" đêm mưa cảng Vạn Hải, bench vẫn PASS.
 Cả ba TIP DONE trong sandbox (WebGL 2, CI xanh) — chờ Chủ nhà `npm install && npm run bench:quick` rồi chơi trên Mac WebGPU (SSR chỉ thấy ở đó).
+TIP-014 (ADR-006): súng thật CC-BY — người chơi AK-74M (ADS theo đường ngắm, reload băng đạn, bolt giật, sprint hạ súng), địch HK416 + lửa nòng/tracer/đèn từ đầu nòng.

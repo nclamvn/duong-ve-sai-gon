@@ -18,6 +18,9 @@ import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { createActorVisual, type ActorVisual } from '@game/actors/visual';
+import type { WeaponModelConfig } from '@engine/render/weaponModel';
+import ak74mCfg from '@content/weapons/ak74m.json';
+import hk416Cfg from '@content/weapons/hk416.json';
 import { Telemetry, type FrameSample } from '@qa/telemetry';
 import { initPhysics, PhysicsWorld } from '@engine/physics/world';
 import { createPointerLock, type PointerLockController } from '@engine/input/pointerLock';
@@ -144,7 +147,13 @@ export class Game {
     window.addEventListener('resize', () => this.resize());
 
     // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
-    this.assets = await loadAssets({ renderer: this.bundle.renderer, lite: !this.quality.assets, noCharacter: !this.quality.character });
+    this.assets = await loadAssets({
+      renderer: this.bundle.renderer,
+      lite: !this.quality.assets,
+      noCharacter: !this.quality.character,
+      noWeapons: !this.quality.weapons,
+      weapons: [ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
+    });
     this.arena = buildArena(this.scene, this.seed, { assets: this.assets, signText: t('sign.port') });
     this.lights = createLighting(this.scene, {
       shadowMapSize: this.quality.shadowMapSize,
@@ -158,7 +167,7 @@ export class Game {
     this.scene.add(this.rain.mesh, this.rain.splash);
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff });
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons['hk416'] ?? null);
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -197,10 +206,11 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.camera, { steel: this.assets.textures['metal_plate'] ?? null });
+    this.viewModel = new WeaponViewModel(this.camera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons['ak74m'] ?? null);
     this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
     this.fx.muzzleWorld = this.viewModel.muzzleWorld;
     this.fx.ejectWorld = this.viewModel.ejectWorld;
+    this.fx.botMuzzle = (id, out) => this.bots.get(id)?.dummy.muzzleWorld(out) ?? false;
     this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
     this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
     this.events.on('HIT', (e) => {
@@ -430,7 +440,7 @@ export class Game {
     for (const b of this.bots.values()) b.syncVisual(t);
     // viewmodel: chỉ khi có player (không free-fly)
     this.viewModel.visible = !this.freeFly && this.player.alive;
-    this.viewModel.update(dt, this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed());
+    this.viewModel.update(dt, this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), this.player.isSprinting);
     this.lastInputDx = 0;
     this.lastInputDy = 0;
     this.hud.update();
@@ -456,7 +466,7 @@ export class Game {
   spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
-    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length });
+    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length }, this.assets?.weapons['hk416'] ?? null);
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,

@@ -23,7 +23,9 @@
     "bench:webgl": "node scripts/bench.mjs --backend webgl",
     "assets": "node scripts/fetch-assets.mjs",
     "assets:verify": "node scripts/fetch-assets.mjs --verify",
-    "models:optimize": "node scripts/optimize-models.mjs"
+    "models:optimize": "node scripts/optimize-models.mjs",
+    "assets:credits": "node scripts/credits.mjs",
+    "assets:weapon": "node scripts/convert-weapon.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",

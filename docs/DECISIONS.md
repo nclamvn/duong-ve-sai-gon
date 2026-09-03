@@ -48,3 +48,7 @@
 | D-044 | Thợ (L1) | Hit zone giữ tĩnh (không bám bone) ở G0.5 — rig chuẩn hoá 1.82 m trùng Dummy; nợ G1 khi có tư thế cúi/ngã | TIP-012 deviation |
 | D-045 | Chủ nhà | Làm ngay trước G1: lửa nòng tại súng địch + súng model thật cho địch **và** người chơi ("hoàn hảo về vũ khí của mình") | Yêu cầu 2026-09-03 → TIP-014 |
 | D-046 | Chủ nhà | Mở chính sách asset sang **CC-BY (Sketchfab)** cho vũ khí, credit bắt buộc (README/CREDITS/UI); người chơi **AK-74M**, địch **AR-15/HK416** | ADR-006; Thợ rà CC0 không có súng hiện đại đạt chuẩn |
+| D-047 | Thợ (L1) | Pipeline `convert-weapon.mjs` chuẩn hoá hệ súng tự động (nòng −z, lên +y, gốc trên trục nòng) + `--drop/--cut` bỏ prop trang trí; cấu hình anchor/pose là JSON `content/weapons/` (schema) | TIP-014 |
+| D-048 | Thợ (L1) | Súng PBR đen chìm vào đêm → viewmodel dùng material riêng (color ×1.25, metal 0.6, IBL 2) + đèn fill 1.1 cd con của root; bot có 1 PointLight nòng riêng (số đèn cố định) | TIP-014 evidence vm-*.png |
+| D-049 | Thợ (L1) | ADS căn đường ngắm bằng anchor `sight` (0.34 m trước camera) thay vì pose tay chỉnh; reload nâng súng lên-giữa để thấy băng đạn tháo/lắp; sprint hạ súng | TIP-014 |
+| D-050 | Thầu | Credit CC-BY sinh từ manifest → `CREDITS.md` + màn capability + README; `assets.test`/`weapons.test` chặn asset CC-BY thiếu attribution | ADR-006 |

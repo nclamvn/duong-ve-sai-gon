@@ -7,6 +7,7 @@ import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { loadCharacter, type CharacterAsset } from './characters';
+import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
 
 export interface PbrTextureSet {
   id: string;
@@ -23,6 +24,8 @@ export interface LoadedAssets {
   environment: Texture | null;
   /** nhân vật glTF (TIP-012, Mixamo → glb); null → Dummy procedural */
   character: CharacterAsset | null;
+  /** vũ khí glTF (TIP-014, CC-BY) theo id cấu hình (content/weapons); thiếu → viewmodel/prop procedural */
+  weapons: Record<string, WeaponAsset>;
   bytesHint: number;
 }
 
@@ -55,6 +58,10 @@ export interface LoadOptions {
   lite?: boolean;
   /** bỏ qua nhân vật glTF dù có file (?character=0) */
   noCharacter?: boolean;
+  /** cấu hình vũ khí cần nạp (content/weapons/*.json); rỗng/undefined → không nạp */
+  weapons?: WeaponModelConfig[];
+  /** bỏ qua vũ khí glTF (?weapons=0) */
+  noWeapons?: boolean;
   onProgress?: (done: number, total: number, label: string) => void;
 }
 
@@ -62,7 +69,8 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const b = base();
   const aniso = Math.min(8, opts.renderer.getMaxAnisotropy());
   const texLoader = new TextureLoader();
-  const total = TEXTURE_IDS.length + (opts.lite ? 0 : MODEL_IDS.length + 1);
+  const weaponCfgs = opts.lite || opts.noWeapons ? [] : (opts.weapons ?? []);
+  const total = TEXTURE_IDS.length + (opts.lite ? 0 : MODEL_IDS.length + 1) + weaponCfgs.length;
   let done = 0;
   const tick = (label: string): void => {
     done++;
@@ -84,8 +92,22 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   );
 
   const models: Record<string, Group> = {};
+  const weapons: Record<string, WeaponAsset> = {};
   let environment: Texture | null = null;
   let character: CharacterAsset | null = null;
+  await Promise.all(
+    weaponCfgs.map(async (cfg) => {
+      // vũ khí: tuỳ chọn — thiếu file (chưa convert) → bỏ qua, viewmodel/prop procedural
+      try {
+        const url = `${b}${cfg.model}`;
+        const head = await fetch(url, { method: 'HEAD' });
+        if (head.ok) weapons[cfg.id] = await loadWeaponModel(url, cfg, aniso);
+      } catch {
+        /* thiếu → procedural */
+      }
+      tick(cfg.id);
+    }),
+  );
   if (!opts.lite && !opts.noCharacter) {
     // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
     try {
@@ -122,7 +144,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     pmrem.dispose();
     tick(HDRI_ID);
   }
-  return { textures, models, environment, character, bytesHint: 0 };
+  return { textures, models, environment, character, weapons, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

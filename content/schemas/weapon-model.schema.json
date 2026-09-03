@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ht-mb/weapon-model",
+  "title": "Cấu hình model vũ khí glTF (TIP-014, ADR-006): anchor/part/pose — hệ model: nòng −z, lên +y, gốc trên trục nòng, đơn vị m",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "asset", "model", "length", "anchors", "parts", "view", "hand"],
+  "$defs": {
+    "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "pose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pos", "rot"],
+      "properties": { "pos": { "$ref": "#/$defs/vec3" }, "rot": { "$ref": "#/$defs/vec3" } }
+    }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "asset": { "type": "string", "description": "id trong content/assets/manifest.json" },
+    "model": { "type": "string", "pattern": "^weapons/.+\\.glb$" },
+    "length": { "type": "number", "minimum": 0.1 },
+    "anchors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["muzzle", "eject", "gripR", "gripL", "sight", "magazine"],
+      "properties": {
+        "muzzle": { "$ref": "#/$defs/vec3" },
+        "eject": { "$ref": "#/$defs/vec3" },
+        "gripR": { "$ref": "#/$defs/vec3" },
+        "gripL": { "$ref": "#/$defs/vec3" },
+        "sight": { "$ref": "#/$defs/vec3", "description": "một điểm trên đường ngắm (ADS đưa điểm này về trục camera)" },
+        "magazine": { "$ref": "#/$defs/vec3" }
+      }
+    },
+    "parts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "magazine": { "type": "string", "description": "tên node băng đạn (reload)" },
+        "bolt": { "type": "string", "description": "tên node bolt/khoá nòng (giật khi bắn)" },
+        "boltTravel": { "type": "number", "description": "m, dọc +z" }
+      }
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scale", "hip", "ads", "sprint", "sightDistance"],
+      "properties": {
+        "scale": { "type": "number" },
+        "hip": { "$ref": "#/$defs/pose" },
+        "ads": { "$ref": "#/$defs/pose", "description": "pos bị ghi đè khi alignSight (tính từ anchor sight)" },
+        "sprint": { "$ref": "#/$defs/pose" },
+        "sightDistance": { "type": "number", "description": "m trước camera mà anchor sight được đặt khi ADS" },
+        "alignSight": { "type": "boolean" }
+      }
+    },
+    "hand": {
+      "$ref": "#/$defs/pose",
+      "description": "offset pivot (gripR) trong bone tay phải Mixamo (RightHand), rad"
+    }
+  }
+}

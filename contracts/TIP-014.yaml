@@ -29,4 +29,4 @@ evidence:
   - evidence/TIP-014/completion-report.md
   - evidence/TIP-014/*.png
 rollback: "git revert HEAD; ?weapons=0 tắt GLB tại runtime"
-status: IN PROGRESS
+status: DONE (chờ chấm Mac)

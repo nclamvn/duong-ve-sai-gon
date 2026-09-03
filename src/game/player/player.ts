@@ -36,6 +36,10 @@ export class Player {
   readonly spawn: [number, number, number];
   /** yaw hiện tại theo input (rad) — nguồn cho controller */
   private sprinting = false;
+  /** đang chạy nhanh (viewmodel hạ súng) */
+  get isSprinting(): boolean {
+    return this.sprinting;
+  }
 
   constructor(physics: PhysicsWorld, spawn: [number, number, number], initialYaw = 0) {
     this.spawn = [spawn[0], spawn[1], spawn[2]];

@@ -1,0 +1,97 @@
+{
+  "$comment": "AK-74M (FJH, CC-BY-4.0) — súng của người chơi Sơn Ưng (D-046). Hệ model: nòng −z, gốc trên trục nòng giữa súng, m.",
+  "id": "ak74m",
+  "asset": "weapon_ak74m",
+  "model": "weapons/ak74m.glb",
+  "length": 0.943,
+  "anchors": {
+    "muzzle": [
+      0,
+      0,
+      -0.471
+    ],
+    "eject": [
+      0.025,
+      0.015,
+      0.03
+    ],
+    "gripR": [
+      0,
+      -0.085,
+      0.19
+    ],
+    "gripL": [
+      0,
+      -0.03,
+      -0.13
+    ],
+    "sight": [
+      0,
+      0.05,
+      -0.2
+    ],
+    "magazine": [
+      0,
+      -0.107,
+      0.022
+    ]
+  },
+  "parts": {
+    "magazine": "Magazine_lowT__0",
+    "bolt": "Shutter_lowT__0",
+    "boltTravel": 0.07
+  },
+  "view": {
+    "scale": 0.62,
+    "hip": {
+      "pos": [
+        0.12,
+        -0.1,
+        -0.3
+      ],
+      "rot": [
+        0.02,
+        0.05,
+        0.0
+      ]
+    },
+    "ads": {
+      "pos": [
+        0,
+        -0.031,
+        -0.28
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ]
+    },
+    "sprint": {
+      "pos": [
+        0.12,
+        -0.16,
+        -0.26
+      ],
+      "rot": [
+        -0.35,
+        0.5,
+        0.2
+      ]
+    },
+    "sightDistance": 0.34,
+    "alignSight": true
+  },
+  "hand": {
+    "pos": [
+      0,
+      0.06,
+      -0.14
+    ],
+    "rot": [
+      1.5707963,
+      0,
+      3.1415927
+    ]
+  }
+}

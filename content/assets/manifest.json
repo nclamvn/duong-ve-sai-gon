@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T00:14:16.450Z",
+  "generatedAt": "2026-09-03T01:55:44.160Z",
   "policy": "ADR-005: chỉ CC0-1.0 qua script này; Mixamo ghi bởi scripts/convert-mixamo.mjs",
-  "totalBytes": 44339627,
+  "totalBytes": 50142735,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -791,6 +791,66 @@
           "sha256": "de5d15ebae817d5f09fe64edbd8dd4d7844ed725b5581913bdaa9bc9a4ed1c18"
         }
       ]
+    },
+    {
+      "id": "weapon_ak74m",
+      "type": "model",
+      "use": "vũ khí (TIP-014) — AK-74M Assault Rifle",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/ak-74m-assault-rifle-9084c3bae8224d338103997bc3101480",
+      "authors": [
+        "FJH"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"AK-74M Assault Rifle\" (https://sketchfab.com/3d-models/ak-74m-assault-rifle-9084c3bae8224d338103997bc3101480) by FJH is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/weapons/ak74m.glb",
+          "bytes": 4115128,
+          "sha256": "fb0920a3d701b6d5b2d5f415c8f1a9e52981999dac7e93ddcff1750055ecd194"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/ak74m/ak74m.glb",
+          "bytes": 43092276,
+          "sha256": "2e10e9dc74f2b1959000b25d89d2ebcc46787e155883c59ca7801509a7fbd037"
+        }
+      ],
+      "triangles": {
+        "source": 16795,
+        "output": 16795
+      }
+    },
+    {
+      "id": "weapon_hk416",
+      "type": "model",
+      "use": "vũ khí (TIP-014) — HK 416 A7 (free download)",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/hk-416-a7-free-download-a16768f0ffa24737a4fe324a411cfbd9",
+      "authors": [
+        "r4m"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"HK 416 A7 (free download)\" (https://sketchfab.com/3d-models/hk-416-a7-free-download-a16768f0ffa24737a4fe324a411cfbd9) by r4m is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/weapons/hk416.glb",
+          "bytes": 1687980,
+          "sha256": "93f10a5612806ad13e2255748489ae46aa47b6a7af96f5bf53d7582601952748"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/hk416/hk416.glb",
+          "bytes": 27982288,
+          "sha256": "caf9c5cb5c02c87db304b23eb6e618c0328c9a7c613ee79581320eed4fcd9c4f"
+        }
+      ],
+      "triangles": {
+        "source": 30088,
+        "output": 15198
+      }
     }
   ]
 }

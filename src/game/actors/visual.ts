@@ -2,11 +2,11 @@
  * ActorVisual (TIP-012): giao diện chung cho hình đại diện actor — Dummy (procedural, fallback/CI) và SoldierVisual (glTF Mixamo).
  * Game/BotActor/MissionHost chỉ dùng giao diện này. hitZones tĩnh (DUMMY_HIT_ZONES) — physics không đổi.
  */
-import { Group, Object3D, SkinnedMesh } from 'three/webgpu';
+import { Group, Object3D, SkinnedMesh, type Vector3 } from 'three/webgpu';
 import { Dummy, DUMMY_HIT_ZONES, type HitZones, type DummyOptions } from './dummy';
 import { CharacterInstance, type CharacterAsset } from '@engine/render/characters';
 import { attachRifle } from '@engine/render/rifleProp';
-import type { Mesh } from 'three/webgpu';
+import type { WeaponAsset } from '@engine/render/weaponModel';
 
 export interface ActorVisual {
   readonly group: Group;
@@ -23,6 +23,8 @@ export interface ActorVisual {
   reset(): void;
   onFire(): void;
   onReload(): void;
+  /** vị trí đầu nòng súng (world) nếu có súng → true; FX địch (TIP-014) */
+  muzzleWorld(out: Vector3): boolean;
   /** true nếu là nhân vật glTF (không phải procedural) */
   readonly kind: 'procedural' | 'gltf';
 }
@@ -35,14 +37,16 @@ export class SoldierVisual implements ActorVisual {
   readonly hitZones = DUMMY_HIT_ZONES;
   readonly bones: { spine: Object3D; head: Object3D; hips: Object3D };
   readonly char: CharacterInstance;
-  /** súng gắn tay phải (Mixamo không kèm vũ khí) */
-  readonly rifle: Mesh | null;
+  /** pivot súng gắn tay phải (Mixamo không kèm vũ khí): glTF CC-BY (TIP-014) hoặc AR procedural */
+  readonly rifle: Object3D | null;
+  readonly rifleKind: 'procedural' | 'gltf' | 'none';
+  private readonly muzzle: Object3D | null;
   health = 100;
   alive = true;
   motion = { speed: 0, aiming: false };
   private lastT = 0;
 
-  constructor(asset: CharacterAsset, opts: DummyOptions = {}) {
+  constructor(asset: CharacterAsset, opts: DummyOptions = {}, weapon: WeaponAsset | null = null) {
     this.char = new CharacterInstance(asset, { tint: opts.color, visor: opts.visor });
     // Mixamo rig nhìn về +z; hệ actor (Dummy, bot.yaw) quy ước mặt trước là −z → xoay 180°
     this.char.root.rotation.y = Math.PI;
@@ -54,7 +58,16 @@ export class SoldierVisual implements ActorVisual {
     const b = this.char.bones;
     const spine = b.spine ?? b.hips ?? this.char.model;
     this.bones = { spine, head: b.head ?? spine, hips: b.hips ?? spine };
-    this.rifle = b.handR ? attachRifle(b.handR) : null;
+    const att = b.handR ? attachRifle(b.handR, weapon) : null;
+    this.rifle = att?.pivot ?? null;
+    this.muzzle = att?.muzzle ?? null;
+    this.rifleKind = att?.kind ?? 'none';
+  }
+
+  muzzleWorld(out: Vector3): boolean {
+    if (!this.muzzle) return false;
+    this.muzzle.getWorldPosition(out);
+    return true;
   }
 
   setPose(t: number): void {
@@ -106,8 +119,11 @@ export class DummyVisual extends Dummy implements ActorVisual {
   readonly kind = 'procedural' as const;
   onFire(): void {}
   onReload(): void {}
+  muzzleWorld(): boolean {
+    return false;
+  }
 }
 
-export function createActorVisual(character: CharacterAsset | null, opts: DummyOptions): ActorVisual {
-  return character ? new SoldierVisual(character, opts) : new DummyVisual(opts);
+export function createActorVisual(character: CharacterAsset | null, opts: DummyOptions, weapon: WeaponAsset | null = null): ActorVisual {
+  return character ? new SoldierVisual(character, opts, weapon) : new DummyVisual(opts);
 }
