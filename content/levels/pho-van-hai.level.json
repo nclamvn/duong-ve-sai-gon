@@ -1,0 +1,2654 @@
+{
+  "id": "pho-van-hai",
+  "name": "Phố Vạn Hải — sáng sau bão",
+  "size": [
+    90,
+    160
+  ],
+  "sky": {
+    "hdri": "kloofendal_48d_partly_cloudy_puresky",
+    "res": "2k",
+    "envIntensity": 1,
+    "skyIntensity": 1,
+    "sun": {
+      "azimuthDeg": 62,
+      "elevationDeg": 34,
+      "color": 16773590,
+      "intensity": 3.2
+    },
+    "hemi": {
+      "sky": 12572402,
+      "ground": 7036234,
+      "intensity": 0.45
+    },
+    "fog": {
+      "color": 13226972,
+      "density": 0.0035
+    },
+    "csm": {
+      "cascades": 2,
+      "maxFar": 110,
+      "mapSize": 2048
+    }
+  },
+  "textures": [
+    "road_damaged",
+    "asphalt_02",
+    "patterned_concrete_pavers",
+    "painted_plaster_wall",
+    "damaged_plaster",
+    "peeling_painted_wall",
+    "plastered_wall_02",
+    "painted_worn_brick",
+    "clay_roof_tiles",
+    "corrugated_iron_02",
+    "burned_ground_01",
+    "brown_mud_dry",
+    "rubble",
+    "painted_metal_shutter",
+    "rusty_metal_shutter",
+    "rusty_metal_02",
+    "concrete_wall_001",
+    "metal_plate",
+    "plywood"
+  ],
+  "models": [
+    "island_tree_01",
+    "dead_tree_trunk",
+    "street_lamp_01",
+    "fire_hydrant",
+    "water_manhole_cover",
+    "trashbag",
+    "cement_bag",
+    "ammo_box",
+    "metal_jerrycan",
+    "Barrel_01",
+    "concrete_road_barrier_02",
+    "old_tyre",
+    "rusted_wheel_rim_01",
+    "CoffeeCart_01",
+    "hand_truck",
+    "plastic_crate_02",
+    "wicker_basket_01",
+    "bananas",
+    "plastic_monobloc_chair_01",
+    "wooden_crate_01",
+    "potted_plant_02",
+    "wooden_ladder",
+    "rock_07",
+    "modular_chainlink_fence",
+    "shrub_02"
+  ],
+  "ground": {
+    "road": {
+      "halfWidth": 6,
+      "z0": -80,
+      "z1": 80,
+      "texture": "asphalt_02"
+    },
+    "crossRoads": [
+      {
+        "z": -38,
+        "halfWidth": 6,
+        "x0": -45,
+        "x1": 45
+      }
+    ],
+    "sidewalk": {
+      "width": 3,
+      "height": 0.15,
+      "texture": "patterned_concrete_pavers"
+    },
+    "fill": {
+      "texture": "brown_mud_dry",
+      "size": 220
+    },
+    "wetness": 0.35
+  },
+  "lots": [
+    {
+      "side": "west",
+      "z": 65.62,
+      "width": 4.76,
+      "floors": 3,
+      "color": 13208650,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "INTERNET · GAME",
+      "signColor": 15231516,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.12
+    },
+    {
+      "side": "west",
+      "z": 60.62,
+      "width": 5.16,
+      "floors": 3,
+      "color": 13208650,
+      "wall": "plastered",
+      "ground": "shop",
+      "sign": "KARAOKE BIỂN XANH",
+      "signColor": 14168618,
+      "balcony": false,
+      "roof": "flat",
+      "damage": 0.1
+    },
+    {
+      "side": "west",
+      "z": 55.1,
+      "width": 5.31,
+      "floors": 2,
+      "color": 6983623,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "NƯỚC MÍA SIÊU SẠCH",
+      "signColor": 1793960,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.21
+    },
+    {
+      "side": "west",
+      "z": 49.89,
+      "width": 5.09,
+      "floors": 2,
+      "color": 14249055,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "GAS MINH TÂM",
+      "signColor": 15231516,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.14
+    },
+    {
+      "side": "west",
+      "z": 44.86,
+      "width": 4.68,
+      "floors": 2,
+      "color": 15259816,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "VÀNG BẠC KIM THÀNH",
+      "signColor": 2062925,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.06
+    },
+    {
+      "side": "west",
+      "z": 39.9,
+      "width": 5.17,
+      "floors": 2,
+      "color": 8370110,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "SIÊU THỊ MINI",
+      "signColor": 15906565,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.23
+    },
+    {
+      "side": "west",
+      "z": 34.54,
+      "width": 5.49,
+      "floors": 2,
+      "color": 10204267,
+      "wall": "plaster",
+      "ground": "shop",
+      "sign": "VẬT LIỆU XÂY DỰNG",
+      "signColor": 2062925,
+      "awning": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.22
+    },
+    {
+      "side": "west",
+      "z": 29.46,
+      "width": 4.57,
+      "floors": 3,
+      "color": 15328468,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "TẠP HOÁ VẠN HẢI",
+      "signColor": 15906565,
+      "awning": 15906565,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0
+    },
+    {
+      "side": "west",
+      "z": 24.66,
+      "width": 4.46,
+      "floors": 2,
+      "color": 8370110,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "SIÊU THỊ MINI",
+      "signColor": 15231516,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.16
+    },
+    {
+      "side": "west",
+      "z": 19.61,
+      "width": 5.47,
+      "floors": 2,
+      "color": 10204267,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "PHOTOCOPY · IN ẤN",
+      "signColor": 1793960,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.06
+    },
+    {
+      "side": "west",
+      "z": 14.18,
+      "width": 4.83,
+      "floors": 2,
+      "color": 15259816,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "HẢI SẢN TƯƠI SỐNG",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.37
+    },
+    {
+      "side": "west",
+      "z": 8.8,
+      "width": 5.46,
+      "floors": 2,
+      "color": 6983623,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "BÚN CHẢ 36",
+      "signColor": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.23
+    },
+    {
+      "side": "west",
+      "z": 3.39,
+      "width": 5.34,
+      "floors": 3,
+      "color": 9425856,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "VẬT LIỆU XÂY DỰNG",
+      "signColor": 15906565,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.2
+    },
+    {
+      "side": "west",
+      "z": -1.67,
+      "width": 4.46,
+      "floors": 2,
+      "color": 13208650,
+      "wall": "damaged",
+      "ground": "shop",
+      "sign": "CÀ PHÊ SƠN CA",
+      "signColor": 1793960,
+      "awning": 3050327,
+      "balcony": false,
+      "roof": "tin",
+      "damage": 0.11
+    },
+    {
+      "side": "west",
+      "z": -6.17,
+      "width": 4.48,
+      "floors": 4,
+      "color": 16048565,
+      "wall": "plaster",
+      "ground": "shop",
+      "sign": "GAS MINH TÂM",
+      "signColor": 2062925,
+      "awning": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.09
+    },
+    {
+      "side": "west",
+      "z": -11.31,
+      "width": 5.54,
+      "floors": 3,
+      "color": 15328468,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "THỜI TRANG HỒNG",
+      "signColor": 1793960,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.31
+    },
+    {
+      "side": "west",
+      "z": -16.65,
+      "width": 4.65,
+      "floors": 2,
+      "color": 16048565,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "NHÀ THUỐC AN",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.21
+    },
+    {
+      "side": "west",
+      "z": -21.65,
+      "width": 5.18,
+      "floors": 2,
+      "color": 6266528,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "SỬA XE HÙNG",
+      "signColor": 2062925,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.31
+    },
+    {
+      "side": "west",
+      "z": -27.05,
+      "width": 5.06,
+      "floors": 2,
+      "color": 14249055,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "VẬT LIỆU XÂY DỰNG",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.31
+    },
+    {
+      "side": "west",
+      "z": -53.76,
+      "width": 5.32,
+      "floors": 3,
+      "color": 10204267,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "CHÁO LÒNG",
+      "signColor": 1793960,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.78
+    },
+    {
+      "side": "west",
+      "z": -58.89,
+      "width": 4.81,
+      "floors": 2,
+      "color": 6983623,
+      "wall": "plaster",
+      "ground": "shop",
+      "sign": "TRÀ SỮA HẢI ĐĂNG",
+      "signColor": 2062925,
+      "awning": 15906565,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.74
+    },
+    {
+      "side": "west",
+      "z": -63.97,
+      "width": 4.77,
+      "floors": 3,
+      "color": 6983623,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "HỚT TÓC NAM",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.2
+    },
+    {
+      "side": "west",
+      "z": -68.74,
+      "width": 4.67,
+      "floors": 2,
+      "color": 14249055,
+      "wall": "damaged",
+      "ground": "shop",
+      "sign": "XE MÁY THÀNH ĐẠT",
+      "signColor": 15906565,
+      "awning": 14168618,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.37
+    },
+    {
+      "side": "east",
+      "z": 65.51,
+      "width": 4.98,
+      "floors": 3,
+      "color": 10204267,
+      "wall": "plastered",
+      "ground": "shutter",
+      "sign": "PHỞ BÀ TƯ",
+      "signColor": 15231516,
+      "balcony": false,
+      "roof": "tin",
+      "damage": 0.04
+    },
+    {
+      "side": "east",
+      "z": 60.47,
+      "width": 4.95,
+      "floors": 4,
+      "color": 11889546,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "NHÀ NGHỈ HẢI ÂU",
+      "signColor": 15906565,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.22
+    },
+    {
+      "side": "east",
+      "z": 55.18,
+      "width": 5.08,
+      "floors": 2,
+      "color": 6983623,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "CƠM TẤM SÀI GÒN",
+      "signColor": 15231516,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.13
+    },
+    {
+      "side": "east",
+      "z": 49.71,
+      "width": 5.56,
+      "floors": 2,
+      "color": 15259816,
+      "wall": "plastered",
+      "ground": "shop",
+      "sign": "VÀNG BẠC KIM THÀNH",
+      "signColor": 14168618,
+      "awning": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.15
+    },
+    {
+      "side": "east",
+      "z": 44.39,
+      "width": 4.63,
+      "floors": 3,
+      "color": 11889546,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "BÁNH MÌ CÔ BA",
+      "signColor": 15231516,
+      "awning": 15906565,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.04
+    },
+    {
+      "side": "east",
+      "z": 39.59,
+      "width": 4.64,
+      "floors": 3,
+      "color": 15259816,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "NƯỚC MÍA SIÊU SẠCH",
+      "signColor": 2062925,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.13
+    },
+    {
+      "side": "east",
+      "z": 34.75,
+      "width": 4.49,
+      "floors": 3,
+      "color": 15771330,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "CHÁO LÒNG",
+      "signColor": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.2
+    },
+    {
+      "side": "east",
+      "z": 30.1,
+      "width": 4.69,
+      "floors": 3,
+      "color": 15771330,
+      "wall": "plaster",
+      "ground": "shop",
+      "sign": "NƯỚC MÍA SIÊU SẠCH",
+      "signColor": 1793960,
+      "awning": 15790320,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.01
+    },
+    {
+      "side": "east",
+      "z": 25.03,
+      "width": 5.41,
+      "floors": 2,
+      "color": 14249055,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "BÁNH MÌ CÔ BA",
+      "signColor": 15906565,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.01
+    },
+    {
+      "side": "east",
+      "z": 19.79,
+      "width": 4.5,
+      "floors": 3,
+      "color": 15771330,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "GAS MINH TÂM",
+      "signColor": 15231516,
+      "balcony": false,
+      "roof": "tile",
+      "damage": 0.02
+    },
+    {
+      "side": "east",
+      "z": 15.2,
+      "width": 4.36,
+      "floors": 2,
+      "color": 8370110,
+      "wall": "plaster",
+      "ground": "shop",
+      "sign": "XE MÁY THÀNH ĐẠT",
+      "signColor": 15906565,
+      "awning": 15790320,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.29
+    },
+    {
+      "side": "east",
+      "z": 10.3,
+      "width": 5.02,
+      "floors": 2,
+      "color": 8370110,
+      "wall": "plastered",
+      "ground": "shutter",
+      "sign": "HẢI SẢN TƯƠI SỐNG",
+      "signColor": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.54
+    },
+    {
+      "side": "east",
+      "z": 4.86,
+      "width": 5.29,
+      "floors": 2,
+      "color": 6266528,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "GAS MINH TÂM",
+      "signColor": 2062925,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.13
+    },
+    {
+      "side": "east",
+      "z": -0.59,
+      "width": 5.59,
+      "floors": 4,
+      "color": 9425856,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "KARAOKE BIỂN XANH",
+      "signColor": 15231516,
+      "awning": 14168618,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.5
+    },
+    {
+      "side": "east",
+      "z": -5.95,
+      "width": 4.83,
+      "floors": 2,
+      "color": 6266528,
+      "wall": "peeling",
+      "ground": "shutter",
+      "sign": "CÀ PHÊ SƠN CA",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.23
+    },
+    {
+      "side": "east",
+      "z": -19.95,
+      "width": 5.1,
+      "floors": 2,
+      "color": 12572902,
+      "wall": "plaster",
+      "ground": "shutter",
+      "sign": "SÁCH · VĂN PHÒNG PHẨM",
+      "signColor": 14168618,
+      "balcony": true,
+      "roof": "flat",
+      "damage": 0.18
+    },
+    {
+      "side": "east",
+      "z": -24.95,
+      "width": 4.65,
+      "floors": 3,
+      "color": 11889546,
+      "wall": "peeling",
+      "ground": "shop",
+      "sign": "ĐIỆN LẠNH MINH",
+      "signColor": 15906565,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.12
+    },
+    {
+      "side": "east",
+      "z": -51.25,
+      "width": 5.03,
+      "floors": 3,
+      "color": 12572902,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "INTERNET · GAME",
+      "signColor": 1793960,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.85
+    },
+    {
+      "side": "east",
+      "z": -56.6,
+      "width": 5.5,
+      "floors": 3,
+      "color": 13208650,
+      "wall": "plastered",
+      "ground": "ruin",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tin",
+      "damage": 0.86
+    },
+    {
+      "side": "east",
+      "z": -62.04,
+      "width": 5.16,
+      "floors": 3,
+      "color": 9425856,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "BÁNH MÌ CÔ BA",
+      "signColor": 16777215,
+      "balcony": true,
+      "roof": "tile",
+      "damage": 0.71
+    },
+    {
+      "side": "east",
+      "z": -67.38,
+      "width": 5.16,
+      "floors": 3,
+      "color": 15328468,
+      "wall": "brick",
+      "ground": "shutter",
+      "sign": "NƯỚC MÍA SIÊU SẠCH",
+      "signColor": 2062925,
+      "balcony": false,
+      "roof": "flat",
+      "damage": 0.17
+    }
+  ],
+  "crossLots": [
+    {
+      "origin": [
+        0,
+        -38
+      ],
+      "yaw": -1.5707963267948966,
+      "lots": [
+        {
+          "side": "west",
+          "z": -26.5,
+          "width": 5,
+          "floors": 4,
+          "color": 9425856,
+          "wall": "peeling",
+          "ground": "shutter",
+          "sign": "TRÀ SỮA HẢI ĐĂNG",
+          "signColor": 1793960,
+          "balcony": true,
+          "roof": "flat",
+          "damage": 0.64
+        },
+        {
+          "side": "west",
+          "z": -31.75,
+          "width": 4.97,
+          "floors": 2,
+          "color": 15771330,
+          "wall": "peeling",
+          "ground": "shutter",
+          "sign": "BÁNH MÌ CÔ BA",
+          "signColor": 1793960,
+          "balcony": true,
+          "roof": "tin",
+          "damage": 0.79
+        },
+        {
+          "side": "west",
+          "z": -36.79,
+          "width": 4.74,
+          "floors": 3,
+          "color": 15259816,
+          "wall": "plastered",
+          "ground": "shutter",
+          "sign": "CƠM TẤM SÀI GÒN",
+          "signColor": 14168618,
+          "balcony": false,
+          "roof": "flat",
+          "damage": 0.84
+        },
+        {
+          "side": "west",
+          "z": -41.37,
+          "width": 4.38,
+          "floors": 3,
+          "color": 6266528,
+          "wall": "plastered",
+          "ground": "shutter",
+          "sign": "PHOTOCOPY · IN ẤN",
+          "signColor": 1793960,
+          "balcony": false,
+          "roof": "tile",
+          "damage": 0.46
+        },
+        {
+          "side": "west",
+          "z": 26.54,
+          "width": 5.07,
+          "floors": 2,
+          "color": 16048565,
+          "wall": "peeling",
+          "ground": "shutter",
+          "sign": "NHÀ THUỐC AN",
+          "signColor": 2062925,
+          "balcony": true,
+          "roof": "tin",
+          "damage": 0.3
+        },
+        {
+          "side": "west",
+          "z": 31.96,
+          "width": 5.36,
+          "floors": 3,
+          "color": 12572902,
+          "wall": "brick",
+          "ground": "shutter",
+          "sign": "THỜI TRANG HỒNG",
+          "signColor": 1793960,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.26
+        },
+        {
+          "side": "west",
+          "z": 37.42,
+          "width": 5.15,
+          "floors": 3,
+          "color": 15771330,
+          "wall": "plaster",
+          "ground": "ruin",
+          "signColor": 16777215,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.88
+        },
+        {
+          "side": "east",
+          "z": -26.33,
+          "width": 4.67,
+          "floors": 3,
+          "color": 15328468,
+          "wall": "plaster",
+          "ground": "shop",
+          "sign": "THÚ Y VẠN HẢI",
+          "signColor": 16777215,
+          "awning": 14168618,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.36
+        },
+        {
+          "side": "east",
+          "z": -31.1,
+          "width": 4.79,
+          "floors": 3,
+          "color": 15328468,
+          "wall": "plaster",
+          "ground": "shop",
+          "sign": "XE MÁY THÀNH ĐẠT",
+          "signColor": 15906565,
+          "awning": 3050327,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.84
+        },
+        {
+          "side": "east",
+          "z": -36.28,
+          "width": 5.41,
+          "floors": 3,
+          "color": 8370110,
+          "wall": "peeling",
+          "ground": "shop",
+          "sign": "CƠM TẤM SÀI GÒN",
+          "signColor": 2062925,
+          "awning": 3050327,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.25
+        },
+        {
+          "side": "east",
+          "z": -41.72,
+          "width": 5.46,
+          "floors": 4,
+          "color": 15771330,
+          "wall": "damaged",
+          "ground": "shutter",
+          "sign": "SỬA XE HÙNG",
+          "signColor": 16777215,
+          "balcony": true,
+          "roof": "tin",
+          "damage": 0.47
+        },
+        {
+          "side": "east",
+          "z": 26.64,
+          "width": 5.28,
+          "floors": 3,
+          "color": 12572902,
+          "wall": "peeling",
+          "ground": "shop",
+          "sign": "NƯỚC MÍA SIÊU SẠCH",
+          "signColor": 15906565,
+          "awning": 3050327,
+          "balcony": true,
+          "roof": "tin",
+          "damage": 0.81
+        },
+        {
+          "side": "east",
+          "z": 31.61,
+          "width": 4.54,
+          "floors": 4,
+          "color": 9425856,
+          "wall": "brick",
+          "ground": "shop",
+          "sign": "XE MÁY THÀNH ĐẠT",
+          "signColor": 16777215,
+          "balcony": true,
+          "roof": "flat",
+          "damage": 0.61
+        },
+        {
+          "side": "east",
+          "z": 36.22,
+          "width": 4.28,
+          "floors": 3,
+          "color": 14249055,
+          "wall": "peeling",
+          "ground": "shutter",
+          "sign": "CÀ PHÊ SƠN CA",
+          "signColor": 15906565,
+          "balcony": true,
+          "roof": "tile",
+          "damage": 0.37
+        },
+        {
+          "side": "east",
+          "z": 40.78,
+          "width": 4.61,
+          "floors": 2,
+          "color": 15771330,
+          "wall": "damaged",
+          "ground": "shop",
+          "sign": "ĐIỆN THOẠI · PHỤ KIỆN",
+          "signColor": 16777215,
+          "balcony": false,
+          "roof": "flat",
+          "damage": 0.59
+        }
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "side": "east",
+      "z0": -15,
+      "z1": -9
+    },
+    {
+      "side": "east",
+      "z0": -46,
+      "z1": -30
+    },
+    {
+      "side": "west",
+      "z0": -46,
+      "z1": -30
+    }
+  ],
+  "bounds": {
+    "xWest": -48,
+    "xEast": 48,
+    "zNorth": -78,
+    "zSouth": 78
+  },
+  "landmarks": [
+    {
+      "id": "station",
+      "position": [
+        0,
+        0,
+        -71
+      ],
+      "size": [
+        13,
+        5.5,
+        5
+      ],
+      "color": 9213603,
+      "sign": "TRẠM DẪN ĐƯỜNG VẠN HẢI"
+    },
+    {
+      "id": "station_tower",
+      "position": [
+        7,
+        0,
+        -73
+      ],
+      "size": [
+        1.2,
+        12,
+        1.2
+      ],
+      "color": 7305349
+    },
+    {
+      "id": "blk_w1",
+      "position": [
+        -33,
+        0,
+        40
+      ],
+      "size": [
+        16,
+        18,
+        40
+      ],
+      "color": 12104614
+    },
+    {
+      "id": "blk_w2",
+      "position": [
+        -34,
+        0,
+        -2
+      ],
+      "size": [
+        14,
+        14,
+        30
+      ],
+      "color": 12760475
+    },
+    {
+      "id": "blk_w3",
+      "position": [
+        -36,
+        0,
+        -66
+      ],
+      "size": [
+        12,
+        21,
+        20
+      ],
+      "color": 11120053
+    },
+    {
+      "id": "blk_e1",
+      "position": [
+        34,
+        0,
+        48
+      ],
+      "size": [
+        16,
+        15,
+        44
+      ],
+      "color": 12564648
+    },
+    {
+      "id": "blk_e2",
+      "position": [
+        36,
+        0,
+        5
+      ],
+      "size": [
+        12,
+        19,
+        34
+      ],
+      "color": 11581376
+    },
+    {
+      "id": "blk_e3",
+      "position": [
+        36,
+        0,
+        -66
+      ],
+      "size": [
+        14,
+        12,
+        20
+      ],
+      "color": 12892060
+    },
+    {
+      "id": "lane_e_wall",
+      "position": [
+        30,
+        0,
+        -21
+      ],
+      "size": [
+        1,
+        3,
+        20
+      ],
+      "color": 10328720
+    }
+  ],
+  "props": [
+    {
+      "model": "island_tree_01",
+      "position": [
+        8.4,
+        0,
+        30
+      ],
+      "yaw": 0.4,
+      "scale": 1
+    },
+    {
+      "model": "island_tree_01",
+      "position": [
+        -8.4,
+        0,
+        -16
+      ],
+      "yaw": 2.1,
+      "scale": 0.9
+    },
+    {
+      "model": "dead_tree_trunk",
+      "position": [
+        -6.5,
+        0,
+        60
+      ],
+      "yaw": 1.2,
+      "scale": 1.1,
+      "collider": [
+        3.2,
+        0.5,
+        0.6
+      ],
+      "cover": true
+    },
+    {
+      "model": "pole",
+      "position": [
+        8.6,
+        0,
+        55
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "pole",
+      "position": [
+        -8.6,
+        0,
+        25
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "pole",
+      "position": [
+        8.6,
+        0,
+        -25
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "pole",
+      "position": [
+        -8.6,
+        0,
+        -58
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "pole",
+      "position": [
+        8.6,
+        0,
+        -66
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "pole",
+      "position": [
+        -8.6,
+        0,
+        66
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "street_lamp_01",
+      "position": [
+        -8.6,
+        0,
+        48
+      ],
+      "yaw": -1.57
+    },
+    {
+      "model": "street_lamp_01",
+      "position": [
+        8.6,
+        0,
+        10
+      ],
+      "yaw": 1.57
+    },
+    {
+      "model": "street_lamp_01",
+      "position": [
+        -8.6,
+        0,
+        -45
+      ],
+      "yaw": -1.57
+    },
+    {
+      "model": "street_lamp_01",
+      "position": [
+        8.6,
+        0,
+        -62
+      ],
+      "yaw": 1.57
+    },
+    {
+      "model": "fire_hydrant",
+      "position": [
+        8.3,
+        0,
+        20
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "water_manhole_cover",
+      "position": [
+        2,
+        0,
+        30
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "water_manhole_cover",
+      "position": [
+        -3,
+        0,
+        8
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "water_manhole_cover",
+      "position": [
+        1,
+        0,
+        -20
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "water_manhole_cover",
+      "position": [
+        -2,
+        0,
+        -50
+      ],
+      "yaw": 0
+    },
+    {
+      "model": "trashbag",
+      "position": [
+        -7.6,
+        0,
+        35
+      ],
+      "yaw": 5.64
+    },
+    {
+      "model": "trashbag",
+      "position": [
+        7.6,
+        0,
+        3
+      ],
+      "yaw": 3.95
+    },
+    {
+      "model": "trashbag",
+      "position": [
+        -7.4,
+        0,
+        -6
+      ],
+      "yaw": 5.45
+    },
+    {
+      "model": "trashbag",
+      "position": [
+        7.8,
+        0,
+        26
+      ],
+      "yaw": 0.98
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -6.8,
+        0,
+        39.6
+      ],
+      "yaw": -0.21
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -6.05,
+        0,
+        39.6
+      ],
+      "yaw": 0.28
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -5.3,
+        0,
+        39.6
+      ],
+      "yaw": -0.06
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -4.55,
+        0,
+        39.6
+      ],
+      "yaw": 0.16
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -3.8,
+        0,
+        39.6
+      ],
+      "yaw": -0.14
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -3.05,
+        0,
+        39.6
+      ],
+      "yaw": -0.16
+    },
+    {
+      "model": "ammo_box",
+      "position": [
+        2.2,
+        0,
+        38.6
+      ],
+      "yaw": 0.3
+    },
+    {
+      "model": "ammo_box",
+      "position": [
+        2.9,
+        0,
+        38.9
+      ],
+      "yaw": 1.2
+    },
+    {
+      "model": "metal_jerrycan",
+      "position": [
+        -4.4,
+        0,
+        38.4
+      ],
+      "yaw": 0.5
+    },
+    {
+      "model": "Barrel_01",
+      "position": [
+        6.2,
+        0,
+        44
+      ],
+      "yaw": 0,
+      "collider": [
+        0.35,
+        0.5,
+        0.35
+      ],
+      "cover": true
+    },
+    {
+      "model": "Barrel_01",
+      "position": [
+        6.9,
+        0,
+        44.4
+      ],
+      "yaw": 0.7
+    },
+    {
+      "model": "concrete_road_barrier_02",
+      "position": [
+        -7.2,
+        0,
+        40
+      ],
+      "yaw": 0,
+      "collider": [
+        1.1,
+        0.5,
+        0.3
+      ],
+      "cover": true
+    },
+    {
+      "model": "concrete_road_barrier_02",
+      "position": [
+        7.2,
+        0,
+        40
+      ],
+      "yaw": 0,
+      "collider": [
+        1.1,
+        0.5,
+        0.3
+      ],
+      "cover": true
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        5.4,
+        0,
+        36.5
+      ],
+      "yaw": 0.6
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        5.9,
+        0,
+        36.1
+      ],
+      "yaw": 1.9
+    },
+    {
+      "model": "CoffeeCart_01",
+      "position": [
+        -7.4,
+        0,
+        22
+      ],
+      "yaw": 1.4,
+      "collider": [
+        0.9,
+        0.9,
+        0.6
+      ],
+      "cover": true
+    },
+    {
+      "model": "hand_truck",
+      "position": [
+        7.3,
+        0,
+        14
+      ],
+      "yaw": 2.8
+    },
+    {
+      "model": "plastic_crate_02",
+      "position": [
+        6.6,
+        0,
+        9.8
+      ],
+      "yaw": 0.2
+    },
+    {
+      "model": "plastic_crate_02",
+      "position": [
+        7.4,
+        0,
+        9.4
+      ],
+      "yaw": 1.1
+    },
+    {
+      "model": "plastic_crate_02",
+      "position": [
+        -6.9,
+        0,
+        2.3
+      ],
+      "yaw": 0.4
+    },
+    {
+      "model": "plastic_crate_02",
+      "position": [
+        -7.6,
+        0,
+        1.7
+      ],
+      "yaw": 2.2
+    },
+    {
+      "model": "plastic_crate_02",
+      "position": [
+        6.8,
+        0,
+        -3.5
+      ],
+      "yaw": 0.9
+    },
+    {
+      "model": "wicker_basket_01",
+      "position": [
+        7,
+        0,
+        12.2
+      ],
+      "yaw": 0.3
+    },
+    {
+      "model": "wicker_basket_01",
+      "position": [
+        -7.2,
+        0,
+        5.5
+      ],
+      "yaw": 1.6
+    },
+    {
+      "model": "wicker_basket_01",
+      "position": [
+        -6.5,
+        0,
+        -2.2
+      ],
+      "yaw": 0.2
+    },
+    {
+      "model": "bananas",
+      "position": [
+        7.2,
+        0,
+        12.6
+      ],
+      "yaw": 4.72,
+      "scale": 1.2
+    },
+    {
+      "model": "bananas",
+      "position": [
+        -7,
+        0,
+        5.9
+      ],
+      "yaw": 5.8,
+      "scale": 1.2
+    },
+    {
+      "model": "plastic_monobloc_chair_01",
+      "position": [
+        -7.3,
+        0,
+        14
+      ],
+      "yaw": 0.4
+    },
+    {
+      "model": "plastic_monobloc_chair_01",
+      "position": [
+        -6.8,
+        0,
+        13.4
+      ],
+      "yaw": 2.5
+    },
+    {
+      "model": "plastic_monobloc_chair_01",
+      "position": [
+        7.6,
+        0,
+        -1
+      ],
+      "yaw": 1.2
+    },
+    {
+      "model": "plastic_monobloc_chair_01",
+      "position": [
+        7.1,
+        0,
+        -1.6
+      ],
+      "yaw": 4.4
+    },
+    {
+      "model": "plastic_monobloc_chair_01",
+      "position": [
+        -7.5,
+        0,
+        30
+      ],
+      "yaw": 0.6
+    },
+    {
+      "model": "wooden_crate_01",
+      "position": [
+        7.4,
+        0,
+        0.5
+      ],
+      "yaw": 0.2,
+      "collider": [
+        0.45,
+        0.4,
+        0.45
+      ]
+    },
+    {
+      "model": "wooden_crate_01",
+      "position": [
+        -7.6,
+        0,
+        -4.8
+      ],
+      "yaw": 0.9,
+      "collider": [
+        0.45,
+        0.4,
+        0.45
+      ]
+    },
+    {
+      "model": "wooden_crate_01",
+      "position": [
+        7.5,
+        0,
+        17
+      ],
+      "yaw": 0.4,
+      "collider": [
+        0.45,
+        0.4,
+        0.45
+      ]
+    },
+    {
+      "model": "potted_plant_02",
+      "position": [
+        -8.3,
+        0,
+        10
+      ],
+      "yaw": 5.44
+    },
+    {
+      "model": "wooden_ladder",
+      "position": [
+        -8.7,
+        0,
+        16
+      ],
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        -6.2,
+        0,
+        -40.5
+      ],
+      "yaw": 0.2
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        -5.5,
+        0,
+        -40.2
+      ],
+      "yaw": 1.3
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        -6,
+        0,
+        -39.6
+      ],
+      "yaw": 2.6
+    },
+    {
+      "model": "old_tyre",
+      "position": [
+        -5.2,
+        0,
+        -41
+      ],
+      "yaw": 0.7
+    },
+    {
+      "model": "rusted_wheel_rim_01",
+      "position": [
+        -4.6,
+        0,
+        -40.8
+      ],
+      "yaw": 0.9
+    },
+    {
+      "model": "rock_07",
+      "position": [
+        -9.5,
+        0,
+        -33
+      ],
+      "yaw": 1.82,
+      "scale": 1.4
+    },
+    {
+      "model": "rock_07",
+      "position": [
+        -10.5,
+        0,
+        -34.5
+      ],
+      "yaw": 3.11,
+      "scale": 1
+    },
+    {
+      "model": "rock_07",
+      "position": [
+        -8.4,
+        0,
+        -31.5
+      ],
+      "yaw": 1.45,
+      "scale": 0.8
+    },
+    {
+      "model": "rock_07",
+      "position": [
+        10.2,
+        0,
+        -47
+      ],
+      "yaw": 2.39,
+      "scale": 1.2
+    },
+    {
+      "model": "Barrel_01",
+      "position": [
+        7.4,
+        0,
+        -42
+      ],
+      "yaw": 0.4,
+      "collider": [
+        0.35,
+        0.5,
+        0.35
+      ],
+      "cover": true
+    },
+    {
+      "model": "metal_jerrycan",
+      "position": [
+        6.6,
+        0,
+        -41.2
+      ],
+      "yaw": 2
+    },
+    {
+      "model": "modular_chainlink_fence",
+      "position": [
+        -12,
+        0,
+        -56
+      ],
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -3.2,
+        0,
+        -52.4
+      ],
+      "yaw": -0.29
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -2.4,
+        0,
+        -52.4
+      ],
+      "yaw": -0.12
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -1.6,
+        0,
+        -52.4
+      ],
+      "yaw": 0.21
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        -0.8,
+        0,
+        -52.4
+      ],
+      "yaw": 0.02
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        0,
+        0,
+        -52.4
+      ],
+      "yaw": 0.18
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        0.8,
+        0,
+        -52.4
+      ],
+      "yaw": 0.11
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        1.6,
+        0,
+        -52.4
+      ],
+      "yaw": -0.02
+    },
+    {
+      "model": "cement_bag",
+      "position": [
+        2.4,
+        0,
+        -52.4
+      ],
+      "yaw": 0.23
+    },
+    {
+      "model": "ammo_box",
+      "position": [
+        0.8,
+        0,
+        -53.2
+      ],
+      "yaw": 0.4
+    },
+    {
+      "model": "concrete_road_barrier_02",
+      "position": [
+        -6.5,
+        0,
+        -52
+      ],
+      "yaw": 0.15,
+      "collider": [
+        1.1,
+        0.5,
+        0.3
+      ],
+      "cover": true
+    },
+    {
+      "model": "concrete_road_barrier_02",
+      "position": [
+        6.5,
+        0,
+        -52
+      ],
+      "yaw": -0.15,
+      "collider": [
+        1.1,
+        0.5,
+        0.3
+      ],
+      "cover": true
+    },
+    {
+      "model": "shrub_02",
+      "position": [
+        -8.6,
+        0,
+        -20
+      ],
+      "yaw": 0.5,
+      "scale": 1.2
+    },
+    {
+      "model": "shrub_02",
+      "position": [
+        8.6,
+        0,
+        62
+      ],
+      "yaw": 2,
+      "scale": 1
+    }
+  ],
+  "barricades": [
+    {
+      "kind": "sandbags",
+      "position": [
+        -3.6,
+        0,
+        40
+      ],
+      "yaw": 0,
+      "length": 4.8
+    },
+    {
+      "kind": "sandbags",
+      "position": [
+        3.6,
+        0,
+        40
+      ],
+      "yaw": 0,
+      "length": 4.8
+    },
+    {
+      "kind": "wreck_apc",
+      "position": [
+        -1.2,
+        0,
+        47.5
+      ],
+      "yaw": 0.35,
+      "burning": true
+    },
+    {
+      "kind": "sheet",
+      "position": [
+        4.5,
+        0,
+        52
+      ],
+      "yaw": 0.9
+    },
+    {
+      "kind": "sheet",
+      "position": [
+        -6.2,
+        0,
+        31
+      ],
+      "yaw": -0.4
+    },
+    {
+      "kind": "stall",
+      "position": [
+        6.8,
+        0,
+        12
+      ],
+      "yaw": 0,
+      "color": 1793960
+    },
+    {
+      "kind": "stall",
+      "position": [
+        6.8,
+        0,
+        6
+      ],
+      "yaw": 0,
+      "color": 14168618,
+      "burning": true
+    },
+    {
+      "kind": "stall",
+      "position": [
+        6.8,
+        0,
+        0
+      ],
+      "yaw": 0,
+      "color": 15906565
+    },
+    {
+      "kind": "stall",
+      "position": [
+        6.8,
+        0,
+        -6
+      ],
+      "yaw": 0,
+      "color": 3050327
+    },
+    {
+      "kind": "stall",
+      "position": [
+        -6.8,
+        0,
+        10
+      ],
+      "yaw": 3.141592653589793,
+      "color": 14168618
+    },
+    {
+      "kind": "stall",
+      "position": [
+        -6.8,
+        0,
+        3
+      ],
+      "yaw": 3.141592653589793,
+      "color": 1793960
+    },
+    {
+      "kind": "stall",
+      "position": [
+        -6.8,
+        0,
+        -4
+      ],
+      "yaw": 3.141592653589793,
+      "color": 15790320
+    },
+    {
+      "kind": "wreck_car",
+      "position": [
+        2.2,
+        0,
+        18
+      ],
+      "yaw": -0.5
+    },
+    {
+      "kind": "wreck_car",
+      "position": [
+        -3,
+        0,
+        -20
+      ],
+      "yaw": 2.6,
+      "burning": true
+    },
+    {
+      "kind": "tires",
+      "position": [
+        -2.5,
+        0,
+        9
+      ],
+      "yaw": 0.3
+    },
+    {
+      "kind": "rubble",
+      "position": [
+        -8.5,
+        0,
+        -8
+      ],
+      "yaw": 0
+    },
+    {
+      "kind": "wreck_bus",
+      "position": [
+        4.5,
+        0,
+        -36
+      ],
+      "yaw": 0.45,
+      "burning": true
+    },
+    {
+      "kind": "rubble",
+      "position": [
+        -9.8,
+        0,
+        -32
+      ],
+      "yaw": 0.4
+    },
+    {
+      "kind": "rubble",
+      "position": [
+        11,
+        0,
+        -46
+      ],
+      "yaw": 1.1
+    },
+    {
+      "kind": "barrier",
+      "position": [
+        -3,
+        0,
+        -30
+      ],
+      "yaw": 0.2
+    },
+    {
+      "kind": "sandbags",
+      "position": [
+        1.5,
+        0,
+        -52.5
+      ],
+      "yaw": 3.141592653589793,
+      "length": 5
+    },
+    {
+      "kind": "wreck_car",
+      "position": [
+        -14,
+        0,
+        -38
+      ],
+      "yaw": 1.4,
+      "burning": true
+    },
+    {
+      "kind": "tires",
+      "position": [
+        -6,
+        0,
+        -40
+      ],
+      "yaw": 0
+    }
+  ],
+  "fx": [
+    {
+      "kind": "smoke",
+      "position": [
+        -1.2,
+        0.8,
+        47.5
+      ],
+      "scale": 1.6,
+      "color": 1381137
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -1.6,
+        0.6,
+        46.6
+      ],
+      "scale": 1.4
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        6.8,
+        1.2,
+        6
+      ],
+      "scale": 0.9,
+      "color": 5920080
+    },
+    {
+      "kind": "fire",
+      "position": [
+        6.8,
+        0.4,
+        6
+      ],
+      "scale": 0.9
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -3,
+        0.7,
+        -20
+      ],
+      "scale": 1.2,
+      "color": 1710102
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -3.4,
+        0.5,
+        -19.4
+      ],
+      "scale": 1.1
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        4.5,
+        1.8,
+        -36
+      ],
+      "scale": 2.2,
+      "color": 1183758
+    },
+    {
+      "kind": "fire",
+      "position": [
+        3.2,
+        0.9,
+        -37.5
+      ],
+      "scale": 1.6
+    },
+    {
+      "kind": "fire",
+      "position": [
+        6.4,
+        0.9,
+        -34.2
+      ],
+      "scale": 1
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -14,
+        0.6,
+        -38
+      ],
+      "scale": 1,
+      "color": 2038809
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -14,
+        0.4,
+        -38
+      ],
+      "scale": 0.9
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -18,
+        9,
+        -66
+      ],
+      "scale": 2.6,
+      "color": 9078144
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        26,
+        6,
+        -20
+      ],
+      "scale": 2,
+      "color": 3815219
+    },
+    {
+      "kind": "dust",
+      "position": [
+        0,
+        1,
+        -38
+      ],
+      "scale": 1
+    },
+    {
+      "kind": "embers",
+      "position": [
+        4.5,
+        1.5,
+        -36
+      ],
+      "scale": 1
+    },
+    {
+      "kind": "embers",
+      "position": [
+        -1.2,
+        1.2,
+        47.5
+      ],
+      "scale": 1
+    }
+  ],
+  "waypoints": [
+    [
+      0,
+      0,
+      62
+    ],
+    [
+      5,
+      0,
+      45
+    ],
+    [
+      -4,
+      0,
+      30
+    ],
+    [
+      4,
+      0,
+      15
+    ],
+    [
+      -4,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      -16
+    ],
+    [
+      -4,
+      0,
+      -28
+    ],
+    [
+      0,
+      0,
+      -44
+    ],
+    [
+      10,
+      0,
+      -38
+    ],
+    [
+      24,
+      0,
+      -30
+    ],
+    [
+      24,
+      0,
+      -12
+    ],
+    [
+      12,
+      0,
+      -12
+    ]
+  ],
+  "playerSpawn": [
+    0,
+    0,
+    70
+  ],
+  "playerYaw": 0,
+  "botSpawns": {
+    "bot_a": [
+      0,
+      0,
+      -10
+    ],
+    "bot_b": [
+      2,
+      0,
+      34
+    ],
+    "a1": [
+      -3,
+      0,
+      36
+    ],
+    "a2": [
+      3.5,
+      0,
+      37
+    ],
+    "a3": [
+      -7,
+      0,
+      44
+    ],
+    "a4": [
+      7,
+      0,
+      45
+    ],
+    "b1": [
+      4,
+      0,
+      12
+    ],
+    "b2": [
+      -4,
+      0,
+      8
+    ],
+    "b3": [
+      5,
+      0,
+      2
+    ],
+    "b4": [
+      -5,
+      0,
+      -3
+    ],
+    "b5": [
+      0,
+      0,
+      -8
+    ],
+    "b6": [
+      22,
+      0,
+      -12
+    ],
+    "c1": [
+      -2,
+      0,
+      -44
+    ],
+    "c2": [
+      6,
+      0,
+      -46
+    ],
+    "c3": [
+      -8,
+      0,
+      -36
+    ],
+    "c4": [
+      2,
+      0,
+      -55
+    ],
+    "c5": [
+      -4,
+      0,
+      -56
+    ]
+  },
+  "zones": {
+    "zone_a": {
+      "center": [
+        0,
+        0,
+        42
+      ],
+      "radius": 11
+    },
+    "zone_b": {
+      "center": [
+        0,
+        0,
+        5
+      ],
+      "radius": 13
+    },
+    "zone_c": {
+      "center": [
+        0,
+        0,
+        -38
+      ],
+      "radius": 13
+    },
+    "station_zone": {
+      "center": [
+        0,
+        0,
+        -63
+      ],
+      "radius": 6
+    },
+    "relay_zone": {
+      "center": [
+        0,
+        0,
+        5
+      ],
+      "radius": 13
+    },
+    "exfil_zone": {
+      "center": [
+        0,
+        0,
+        -63
+      ],
+      "radius": 6
+    }
+  },
+  "coverMarkers": [
+    {
+      "id": "alley_e",
+      "position": [
+        9.8,
+        0,
+        -12
+      ],
+      "facing": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "corner_w_c",
+      "position": [
+        -8.5,
+        0,
+        -28
+      ],
+      "facing": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "corner_e_c",
+      "position": [
+        8.5,
+        0,
+        -28
+      ],
+      "facing": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "corner_w_a",
+      "position": [
+        -8.5,
+        0,
+        33
+      ],
+      "facing": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "corner_e_a",
+      "position": [
+        8.5,
+        0,
+        33
+      ],
+      "facing": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "lane_e",
+      "position": [
+        22,
+        0,
+        -25
+      ],
+      "facing": [
+        -1,
+        0,
+        0
+      ]
+    }
+  ],
+  "signPool": [
+    "TẠP HOÁ VẠN HẢI",
+    "CÀ PHÊ SƠN CA",
+    "SỬA XE HÙNG",
+    "PHỞ BÀ TƯ",
+    "ĐIỆN LẠNH MINH",
+    "NHÀ THUỐC AN",
+    "HỚT TÓC NAM",
+    "BÚN CHẢ 36",
+    "VẬT LIỆU XÂY DỰNG",
+    "KARAOKE BIỂN XANH",
+    "VÀNG BẠC KIM THÀNH",
+    "PHOTOCOPY · IN ẤN",
+    "TRÀ SỮA HẢI ĐĂNG",
+    "NHÀ NGHỈ HẢI ÂU",
+    "XE MÁY THÀNH ĐẠT",
+    "BÁNH MÌ CÔ BA",
+    "ĐIỆN THOẠI · PHỤ KIỆN",
+    "SIÊU THỊ MINI",
+    "HẢI SẢN TƯƠI SỐNG",
+    "NƯỚC MÍA SIÊU SẠCH",
+    "CƠM TẤM SÀI GÒN",
+    "GIẶT ỦI 24H",
+    "THỜI TRANG HỒNG",
+    "INTERNET · GAME",
+    "CHÁO LÒNG",
+    "THÚ Y VẠN HẢI",
+    "SÁCH · VĂN PHÒNG PHẨM",
+    "GAS MINH TÂM"
+  ],
+  "palette": [
+    15259816,
+    15909198,
+    8370110,
+    14249055,
+    10204267,
+    6983623,
+    15771330,
+    15328468,
+    13208650,
+    9425856,
+    11889546,
+    6266528,
+    16048565,
+    12572902
+  ]
+}

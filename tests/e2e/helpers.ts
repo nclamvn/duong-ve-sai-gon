@@ -1,6 +1,6 @@
 import { type Page, expect } from '@playwright/test';
 
-export const CI_QUERY = 'backend=webgl&autostart=1&debug=1&quality=low&rain=500&shadow=512';
+export const CI_QUERY = 'backend=webgl&level=arena&autostart=1&debug=1&quality=low&rain=500&shadow=512'; // level=arena: E2E G0 giữ arena đêm (TIP-019 mặc định Phố Vạn Hải)
 
 export async function bootGame(page: Page, extra = ''): Promise<string[]> {
   const errors: string[] = [];

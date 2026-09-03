@@ -3,7 +3,7 @@
  * TIP-003 arena/free-fly · TIP-004 input source/telemetry/quality · TIP-005+ gắn player/weapon/ai/mission
  * qua các field public và resetHooks.
  */
-import { Scene, PerspectiveCamera, HemisphereLight } from 'three/webgpu';
+import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight } from 'three/webgpu';
 import { FixedClock, Scheduler, EventBus, mulberry32, type Prng } from '@engine/core';
 import { createRenderer, backendFromSearch, type RendererBundle } from '@engine/render/backend';
 import { buildArena, type ArenaData } from '@engine/render/arena';
@@ -14,6 +14,10 @@ import { resolveQuality, type QualityPreset } from '@engine/render/quality';
 import { readRenderInfo, type RenderFrameInfo } from '@engine/render/telemetryHooks';
 import { loadAssets, type LoadedAssets } from '@engine/render/assets';
 import { createPostStack, type PostStack } from '@engine/render/post';
+import { buildLevel, type LevelBuild } from '@engine/level/builder';
+import { createDaylight } from '@engine/level/daylight';
+import type { LevelDef } from '@engine/level/types';
+import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
@@ -79,6 +83,10 @@ export class Game {
   private readonly fxEject = new Vector3();
   bundle!: RendererBundle;
   arena!: ArenaData;
+  /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
+  level: LevelBuild | null = null;
+  /** 'pho' (Phố Vạn Hải, mặc định khi chơi) | 'arena' (bench/E2E G0) */
+  levelId: 'pho' | 'arena' = 'pho';
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -163,6 +171,10 @@ export class Game {
     this.resize();
     window.addEventListener('resize', () => this.resize());
 
+    // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
+    const levelParam = this.params.get('level');
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' ? levelParam : this.params.get('bench') === '1' ? 'arena' : 'pho';
+    const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
     // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
     this.assets = await loadAssets({
       renderer: this.bundle.renderer,
@@ -170,13 +182,29 @@ export class Game {
       noCharacter: !this.quality.character,
       noWeapons: !this.quality.weapons,
       weapons: [ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
+      textureIds: levelDef?.textures,
+      modelIds: levelDef?.models,
+      hdri: levelDef ? { id: levelDef.sky.hdri, res: levelDef.sky.res } : undefined,
+      keepSky: !!levelDef,
     });
-    this.arena = buildArena(this.scene, this.seed, { assets: this.assets, signText: t('sign.port') });
-    this.lights = createLighting(this.scene, {
-      shadowMapSize: this.quality.shadowMapSize,
-      environment: this.assets.environment,
-      lamps: this.arena.lamps,
-    });
+    if (levelDef) {
+      this.level = buildLevel(this.scene, levelDef, { assets: this.assets, maxFxLights: this.quality.tier === 'low' ? 4 : 6 });
+      this.arena = this.level;
+      this.lights = createDaylight(this.scene, levelDef.sky, {
+        environment: this.assets.environment,
+        sky: this.assets.sky,
+        shadowMapSize: this.quality.shadowMapSize,
+        csm: this.quality.shadows && this.params.get('csm') !== '0',
+      });
+      if (this.params.get('rain') === null) this.quality.rainCount = 0; // bão đã qua
+    } else {
+      this.arena = buildArena(this.scene, this.seed, { assets: this.assets, signText: t('sign.port') });
+      this.lights = createLighting(this.scene, {
+        shadowMapSize: this.quality.shadowMapSize,
+        environment: this.assets.environment,
+        lamps: this.arena.lamps,
+      });
+    }
     this.lights.setCones(this.quality.lightCones);
     this.rain = createRain(Math.max(1, this.quality.rainCount), 70, 24, this.lights.lampArray, Math.max(1, this.quality.splashCount));
     this.rain.mesh.visible = this.quality.rainCount > 0;
@@ -184,7 +212,15 @@ export class Game {
     this.scene.add(this.rain.mesh, this.rain.splash);
     this.vmScene.add(this.vmCamera);
     this.vmScene.environment = this.scene.environment;
-    this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
+    this.vmScene.environmentIntensity = this.scene.environmentIntensity;
+    if (this.level) {
+      const sky = this.level.def.sky;
+      const sunVm = new DirectionalLight(sky.sun.color, sky.sun.intensity);
+      const d = (this.lights as { sunDir?: [number, number, number] }).sunDir ?? [0.5, 0.7, 0.5];
+      sunVm.position.set(d[0] * 20, d[1] * 20, d[2] * 20);
+      this.vmScene.add(sunVm, sunVm.target);
+      this.vmScene.add(new HemisphereLight(sky.hemi.sky, sky.hemi.ground, sky.hemi.intensity));
+    } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons['hk416'] ?? null);
@@ -508,6 +544,7 @@ export class Game {
     this.lastInputDy = 0;
     this.hud.update();
     this.fx.update(dt);
+    if (this.level) this.level.fx.update(dt);
     if (this.audio.ctx) {
       this.v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
       this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);

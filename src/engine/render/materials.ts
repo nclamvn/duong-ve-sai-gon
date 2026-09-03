@@ -5,7 +5,7 @@
 import { MeshStandardNodeMaterial, MeshBasicNodeMaterial, Color, AdditiveBlending, Vector3 } from 'three/webgpu';
 import {
   uniform, positionWorld, mix, float, mx_noise_float, smoothstep, vec2, vec3, vec4, saturate, color, texture, uv, normalMap, time, fract, sin, length, normalize,
-  positionLocal, positionView, normalView, uniformArray,
+  positionLocal, positionView, normalView, uniformArray, attribute,
 } from 'three/tsl';
 import type { PbrTextureSet } from './assets';
 import type { Node } from 'three/webgpu';
@@ -20,11 +20,11 @@ export interface WetGroundMaterial {
  * Sàn bê tông/asphalt cảng ướt: texture 1K lặp 4 m, biến thiên macro (bẩn/dầu), vũng nước theo noise thế giới
  * (roughness → gương, normal → phẳng + gợn mưa động), AO từ arm.
  */
-export function createWetGround(tex: PbrTextureSet, sizeMeters: number): WetGroundMaterial {
-  const wetness = uniform(0.85);
+export function createWetGround(tex: PbrTextureSet, sizeMeters: number, opts: { worldUv?: boolean; tile?: number; wetness?: number; dirt?: [number, number] } = {}): WetGroundMaterial {
+  const wetness = uniform(opts.wetness ?? 0.85);
   const mat = new MeshStandardNodeMaterial();
-  const tile = 4.0;
-  const tuv = uv().mul(sizeMeters / tile);
+  const tile = opts.tile ?? 4.0;
+  const tuv = opts.worldUv ? positionWorld.xz.mul(1.0 / tile) : uv().mul(sizeMeters / tile);
   const diff = texture(tex.map, tuv);
   const arm = texture(tex.armMap, tuv);
   const nrm = texture(tex.normalMap, tuv).rgb;
@@ -32,7 +32,7 @@ export function createWetGround(tex: PbrTextureSet, sizeMeters: number): WetGrou
   const macro = mx_noise_float(positionWorld.xz.mul(0.08)).mul(0.5).add(0.5);
   const puddleN = mx_noise_float(positionWorld.xz.mul(0.35).add(vec2(13.1, 7.7)));
   const puddle = smoothstep(0.12, 0.5, puddleN).mul(wetness);
-  const dirt = mix(float(0.45), float(0.8), macro);
+  const dirt = mix(float(opts.dirt?.[0] ?? 0.45), float(opts.dirt?.[1] ?? 0.8), macro);
   // gợn mưa trong vũng: 2 lớp noise trôi + vòng tròn nhỏ
   const rip1 = mx_noise_float(positionWorld.xz.mul(6.0).add(time.mul(0.9)));
   const rip2 = mx_noise_float(positionWorld.xz.mul(9.0).sub(time.mul(1.3)));
@@ -72,17 +72,32 @@ export interface TexturedOptions {
   rust?: { tex: PbrTextureSet; amount: number };
   normalScale?: number;
   emissive?: { color: number; intensity: number };
+  /** nhân albedo với attribute `color` của geometry (mỗi lot nhà một màu, chung 1 material — TIP-019) */
+  vertexTint?: boolean;
+  /** UV theo world (x,z) thay vì uv geometry — nền/đường (TIP-019) */
+  worldUv?: 'xz' | null;
+  /** bụi/muội đen theo noise thế giới ở chân tường (0..1) */
+  grime?: number;
 }
 
 /** Material PBR texture chuẩn; UV của geometry đã theo mét (xem geometry.ts) → tileMeters là kích thước 1 tile. */
 export function createTexturedMaterial(tex: PbrTextureSet, opts: TexturedOptions = {}): MeshStandardNodeMaterial {
   const tile = opts.tileMeters ?? 2.0;
-  const tuv = uv().mul(1.0 / tile);
+  const tuv = (opts.worldUv === 'xz' ? positionWorld.xz : uv()).mul(1.0 / tile);
   const mat = new MeshStandardNodeMaterial();
   const diff = texture(tex.map, tuv);
   const arm = texture(tex.armMap, tuv);
   let albedo = diff.rgb;
   if (opts.tint !== undefined) albedo = albedo.mul(color(new Color(opts.tint)));
+  if (opts.vertexTint) {
+    mat.vertexColors = true;
+    albedo = albedo.mul(attribute('color', 'vec3'));
+  }
+  if (opts.grime) {
+    const g = mx_noise_float(positionWorld.mul(vec3(1.7, 2.6, 1.7))).mul(0.5).add(0.5);
+    const low = smoothstep(2.2, 0.0, positionWorld.y); // đậm ở chân tường
+    albedo = mix(albedo, albedo.mul(0.35), saturate(g.mul(0.7).add(0.3).mul(low).mul(opts.grime)));
+  }
   let rough = arm.g.mul(opts.roughnessScale ?? 1.0);
   let tangentN = texture(tex.normalMap, tuv).rgb;
   let metal = float(opts.metalness ?? 0.0).add(arm.b.mul(0.5));

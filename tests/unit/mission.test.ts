@@ -76,7 +76,7 @@ function setup() {
 describe('TIP-008 Loader (PRD §8 schema + allow-list)', () => {
   it('mission g0-arena + dialogue hợp lệ', () => {
     expect(loadMission(missionJson).nodes.length).toBe(6);
-    expect(loadDialogue(dialogueJson).cues.length).toBe(5);
+    expect(loadDialogue(dialogueJson).cues.length).toBeGreaterThanOrEqual(5); // TIP-019: + P01..P08
   });
 
   it('action ngoài allow-list → reject với path nodes[1].actions[0].type', () => {

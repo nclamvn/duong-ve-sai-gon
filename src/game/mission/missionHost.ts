@@ -10,6 +10,7 @@ import { CheckpointStore, stateHash, type SavedCheckpoint } from './checkpoint';
 import type { CheckpointSnapshot, MissionDefinition, DialogueSet, MissionEvents } from './types';
 import { Subtitles } from '@ui/subtitles';
 import missionJson from '@content/missions/g0-arena.mission.json';
+import phoMissionJson from '@content/missions/pho-van-hai.mission.json';
 import dialogueJson from '@content/missions/g0-dialogue.json';
 
 export class MissionHost implements MissionWorld {
@@ -25,7 +26,7 @@ export class MissionHost implements MissionWorld {
   private inRelayZone = false;
 
   constructor(private readonly game: Game) {
-    this.def = loadMission(missionJson);
+    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : missionJson);
     this.dialogue = loadDialogue(dialogueJson);
     this.ev = game.events as unknown as EventBus<MissionEvents>;
     this.runtime = new MissionRuntime(this.def, this.dialogue, this.ev, this);

@@ -14,7 +14,7 @@
         "required": ["cueId", "speaker", "subtitleKey", "priority", "interruptPolicy", "durationMs"],
         "additionalProperties": false,
         "properties": {
-          "cueId": { "type": "string", "pattern": "^D\\d{2}$" },
+          "cueId": { "type": "string", "pattern": "^[DP]\\d{2}$" },
           "speaker": { "enum": ["VY", "NAM", "DUY", "AN", "TRAM_BAC"] },
           "audio": { "type": ["string", "null"] },
           "subtitleKey": { "type": "string" },

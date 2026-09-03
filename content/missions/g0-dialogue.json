@@ -1,9 +1,134 @@
 {
   "cues": [
-    { "cueId": "D01", "speaker": "TRAM_BAC", "audio": null, "subtitleKey": "dlg.D01", "priority": 8, "interruptPolicy": "interrupt", "durationMs": 6500, "bus": "radio" },
-    { "cueId": "D02", "speaker": "VY", "audio": null, "subtitleKey": "dlg.D02", "priority": 6, "interruptPolicy": "queue", "durationMs": 3500, "bus": "dialogue" },
-    { "cueId": "D03", "speaker": "DUY", "audio": null, "subtitleKey": "dlg.D03", "priority": 5, "interruptPolicy": "queue", "durationMs": 4500, "bus": "dialogue" },
-    { "cueId": "D05", "speaker": "DUY", "audio": null, "subtitleKey": "dlg.D05", "priority": 5, "interruptPolicy": "queue", "durationMs": 3500, "bus": "dialogue" },
-    { "cueId": "D06", "speaker": "VY", "audio": null, "subtitleKey": "dlg.D06", "priority": 7, "interruptPolicy": "interrupt", "durationMs": 4000, "bus": "dialogue" }
+    {
+      "cueId": "D01",
+      "speaker": "TRAM_BAC",
+      "audio": null,
+      "subtitleKey": "dlg.D01",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 6500,
+      "bus": "radio"
+    },
+    {
+      "cueId": "D02",
+      "speaker": "VY",
+      "audio": null,
+      "subtitleKey": "dlg.D02",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 3500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "D03",
+      "speaker": "DUY",
+      "audio": null,
+      "subtitleKey": "dlg.D03",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 4500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "D05",
+      "speaker": "DUY",
+      "audio": null,
+      "subtitleKey": "dlg.D05",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 3500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "D06",
+      "speaker": "VY",
+      "audio": null,
+      "subtitleKey": "dlg.D06",
+      "priority": 7,
+      "interruptPolicy": "interrupt",
+      "durationMs": 4000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P01",
+      "speaker": "TRAM_BAC",
+      "audio": null,
+      "subtitleKey": "dlg.P01",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 7000,
+      "bus": "radio"
+    },
+    {
+      "cueId": "P02",
+      "speaker": "VY",
+      "audio": null,
+      "subtitleKey": "dlg.P02",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P03",
+      "speaker": "DUY",
+      "audio": null,
+      "subtitleKey": "dlg.P03",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 4000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P04",
+      "speaker": "VY",
+      "audio": null,
+      "subtitleKey": "dlg.P04",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P05",
+      "speaker": "DUY",
+      "audio": null,
+      "subtitleKey": "dlg.P05",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 4000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P06",
+      "speaker": "TRAM_BAC",
+      "audio": null,
+      "subtitleKey": "dlg.P06",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 6000,
+      "bus": "radio"
+    },
+    {
+      "cueId": "P07",
+      "speaker": "VY",
+      "audio": null,
+      "subtitleKey": "dlg.P07",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "P08",
+      "speaker": "AN",
+      "audio": null,
+      "subtitleKey": "dlg.P08",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 5000,
+      "bus": "dialogue"
+    }
   ]
 }

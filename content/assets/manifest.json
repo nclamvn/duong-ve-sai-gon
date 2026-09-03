@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T04:20:00.866Z",
-  "policy": "ADR-005: chỉ CC0-1.0 qua script này; Mixamo ghi bởi scripts/convert-mixamo.mjs",
-  "totalBytes": 52350383,
+  "generatedAt": "2026-09-03T10:09:56.618Z",
+  "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
+  "totalBytes": 151411040,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -725,6 +725,1812 @@
       "triangles": {
         "before": 26419,
         "after": 15851
+      }
+    },
+    {
+      "id": "kloofendal_48d_partly_cloudy_puresky",
+      "type": "hdri",
+      "resolution": "2k",
+      "use": "trời ban ngày sau bão (IBL + nền)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
+      "authors": [
+        "Greg Zaal",
+        "Jarod Guest"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/hdris/kloofendal_48d_partly_cloudy_puresky/kloofendal_48d_partly_cloudy_puresky_2k.hdr",
+          "bytes": 5451493,
+          "sha256": "5244534e9cf5b606f2ff513aa00ddb161b0a4826ffd88a0d3bd03ac29247d198"
+        }
+      ]
+    },
+    {
+      "id": "road_damaged",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "đường nhựa nứt",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/road_damaged",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/road_damaged/road_damaged_diff_1k.jpg",
+          "bytes": 857072,
+          "sha256": "40286b168d8e2990a68c1a97e0162218cc4222b686f2810b8047783d573eddff"
+        },
+        {
+          "path": "assets/textures/road_damaged/road_damaged_nor_gl_1k.jpg",
+          "bytes": 962249,
+          "sha256": "9510546d571fe98e74ec6ebad0ddb5b3350f72f98aed3b23a80ec7bbc2e0c848"
+        },
+        {
+          "path": "assets/textures/road_damaged/road_damaged_arm_1k.jpg",
+          "bytes": 799391,
+          "sha256": "f3c68a97e6b1918aa94178cc2a0dfb84fffff3d752767f9ac77fa497c7297457"
+        }
+      ]
+    },
+    {
+      "id": "patterned_concrete_pavers",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "vỉa hè",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/patterned_concrete_pavers",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_diff_1k.jpg",
+          "bytes": 770709,
+          "sha256": "0738df63d1f4825ee718dd4cc1ee443dd6d7a0015ea8fb9e89304f5447b94027"
+        },
+        {
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_nor_gl_1k.jpg",
+          "bytes": 777901,
+          "sha256": "c7380253a42a950dc22736e2f14b31782d2ebf0f610649e5dc810d2d64aa1431"
+        },
+        {
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_arm_1k.jpg",
+          "bytes": 703333,
+          "sha256": "094e6a8dbca292268a6bd71d04d31ea4320aa82cac9fcfc905f8c5e5f0872276"
+        }
+      ]
+    },
+    {
+      "id": "painted_plaster_wall",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "tường nhà ống (tint màu)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/painted_plaster_wall",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_diff_1k.jpg",
+          "bytes": 686726,
+          "sha256": "440310f05af089f2c93353167573403cbc3f805948203237b5d26431eeb9e19c"
+        },
+        {
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.jpg",
+          "bytes": 900461,
+          "sha256": "8eb01647d126eb5341e2c325821ad48c8ca11349dbef53447c95422c5d91cc9d"
+        },
+        {
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_arm_1k.jpg",
+          "bytes": 511105,
+          "sha256": "2f13ed444e3e8f13087bca0890969d30795ed074bcfb11737d1ad6f5f0b53992"
+        }
+      ]
+    },
+    {
+      "id": "damaged_plaster",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "tường nhà ống hư hại",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/damaged_plaster",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/damaged_plaster/damaged_plaster_diff_1k.jpg",
+          "bytes": 850524,
+          "sha256": "391649dbb391c978b0d95cdd2351617fe3b7a577e432b94171208e576c9b2c63"
+        },
+        {
+          "path": "assets/textures/damaged_plaster/damaged_plaster_nor_gl_1k.jpg",
+          "bytes": 959148,
+          "sha256": "9d2e4c261211c951fc424fe695483596e821f86b13d1d05485551ef0240d6b67"
+        },
+        {
+          "path": "assets/textures/damaged_plaster/damaged_plaster_arm_1k.jpg",
+          "bytes": 575588,
+          "sha256": "78f228161cc3c37cf4a335d8ea0f2a6b4dd5ff7bef50a8aa9fa0397d7ff4de13"
+        }
+      ]
+    },
+    {
+      "id": "peeling_painted_wall",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "tường bong sơn",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/peeling_painted_wall",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_diff_1k.jpg",
+          "bytes": 440121,
+          "sha256": "21455a65cae020ef32f79a00605eb706d7bbd2d47716485a94a3f6571460d254"
+        },
+        {
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_nor_gl_1k.jpg",
+          "bytes": 910482,
+          "sha256": "c1d15c30b089861dbc2995492ec77cd64f530a35bb340879fe0dc86ec3bb9b5c"
+        },
+        {
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_arm_1k.jpg",
+          "bytes": 783136,
+          "sha256": "17dd49cdda749812b781766cddad870cacfe50ad69e6be30d87ac139b8a3d26b"
+        }
+      ]
+    },
+    {
+      "id": "plastered_wall_02",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "tường trát",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/plastered_wall_02",
+      "authors": [
+        "Charlotte Baglioni"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_diff_1k.jpg",
+          "bytes": 436395,
+          "sha256": "0a316ffd3f953a902325c06afb5a5863bbf71d13a353f9d85378562adca79603"
+        },
+        {
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_nor_gl_1k.jpg",
+          "bytes": 960241,
+          "sha256": "0f1b4ea0c4707ea133f133c020923bddd8610a43a153281dad15d49f39ad9624"
+        },
+        {
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_arm_1k.jpg",
+          "bytes": 548372,
+          "sha256": "4cc478e82ac6bcfb1962ddba5e5fd13e70fd26164480b83c8ec33770f5b3ee63"
+        }
+      ]
+    },
+    {
+      "id": "painted_worn_brick",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "tường gạch sơn",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/painted_worn_brick",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_diff_1k.jpg",
+          "bytes": 818739,
+          "sha256": "8076bf7b7129979349dfdd97a02e1ab7f8b0c51f51a2ebc0181e3af78b2278ac"
+        },
+        {
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_nor_gl_1k.jpg",
+          "bytes": 1062458,
+          "sha256": "a79f32b0fbcd02f20a1fbc873901a84b9d68eaafd220ab333001d0285cee524c"
+        },
+        {
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_arm_1k.jpg",
+          "bytes": 846274,
+          "sha256": "30cafcf3c51b4fdeeb7375ca5a1257150a04c78b130ac61902504a297ebb378e"
+        }
+      ]
+    },
+    {
+      "id": "clay_roof_tiles",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "mái ngói",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/clay_roof_tiles",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_diff_1k.jpg",
+          "bytes": 878367,
+          "sha256": "aac0f4e742a2cce21afb5dfb523b47c720c6a8e2782a312b823608fe3f80eae6"
+        },
+        {
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_nor_gl_1k.jpg",
+          "bytes": 1101177,
+          "sha256": "e6b364661f6c3045bf5268f684047968fc6550e5fa9b22b4b1266df47b495faa"
+        },
+        {
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_arm_1k.jpg",
+          "bytes": 644850,
+          "sha256": "dc86408a71ded3d94b1ff1a7bf2253647118b07b83b611fea37a528dc41791cb"
+        }
+      ]
+    },
+    {
+      "id": "burned_ground_01",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "nền cháy quanh lửa",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/burned_ground_01",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/burned_ground_01/burned_ground_01_diff_1k.jpg",
+          "bytes": 1033112,
+          "sha256": "be83310cad64d23539e628f14525af651a03646f5a1cc6029bd19a9446ea72f9"
+        },
+        {
+          "path": "assets/textures/burned_ground_01/burned_ground_01_nor_gl_1k.jpg",
+          "bytes": 366727,
+          "sha256": "86125af02b64b05b0079dd6fa08ffae11878a3f9f50326a265e94c7a64cba865"
+        },
+        {
+          "path": "assets/textures/burned_ground_01/burned_ground_01_arm_1k.jpg",
+          "bytes": 227733,
+          "sha256": "fb7f6cd3a2f240712bf6cb21ca2a54072da5a8a4a0cba897f93c3b435a2a8caa"
+        }
+      ]
+    },
+    {
+      "id": "brown_mud_dry",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "bùn sau bão",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/brown_mud_dry",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_diff_1k.jpg",
+          "bytes": 920456,
+          "sha256": "a56281b644de614787340f3db45e28d2f72ec32fc19a442f99002bae0ab11398"
+        },
+        {
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_nor_gl_1k.jpg",
+          "bytes": 1539092,
+          "sha256": "4dd82ecb3e810d4de49d34c7d6cc30152129434a58b3bd786bc9952bc8874877"
+        },
+        {
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_arm_1k.jpg",
+          "bytes": 242778,
+          "sha256": "4521708cf2976046be3c8f968c5e64e32aa269f5fb9d04b2360269f9f49b9861"
+        }
+      ]
+    },
+    {
+      "id": "rubble",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "đống đổ nát",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/rubble",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/rubble/rubble_diff_1k.jpg",
+          "bytes": 781237,
+          "sha256": "a656a0692138c045c9707933cf0551559b316b817e90089abf12b6ba76e5e779"
+        },
+        {
+          "path": "assets/textures/rubble/rubble_nor_gl_1k.jpg",
+          "bytes": 1124135,
+          "sha256": "e0f1c7d35a3dc994dd0fd3a1e65f469369c5e92172e158ced34e2368d89fccd2"
+        },
+        {
+          "path": "assets/textures/rubble/rubble_arm_1k.jpg",
+          "bytes": 801973,
+          "sha256": "0078618edda9950ebd1b1210cbe4b6e07f3dcccb7b3b1e56ccc1eb4b37cba6df"
+        }
+      ]
+    },
+    {
+      "id": "painted_metal_shutter",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "cửa cuốn nhà ống",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/painted_metal_shutter",
+      "authors": [
+        "Dario Barresi",
+        "Rico Cilliers",
+        "Charlotte Baglioni"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_diff_1k.jpg",
+          "bytes": 627333,
+          "sha256": "278394aabcb5a5bd560d9904358682acc5af23666b22bd1f12558789da4aa4d2"
+        },
+        {
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_nor_gl_1k.jpg",
+          "bytes": 730726,
+          "sha256": "7545d778669c55e3e9bdc89355ce7190077c3ffdfb324e988ff9803a5bae5a46"
+        },
+        {
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_arm_1k.jpg",
+          "bytes": 606809,
+          "sha256": "26a49a8b60dd2e1fdb325c1488d55d2e6e7362f4505e400ac2243bf0ec67ca56"
+        }
+      ]
+    },
+    {
+      "id": "rusty_metal_shutter",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "cửa cuốn rỉ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/rusty_metal_shutter",
+      "authors": [
+        "Charlotte Baglioni"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_diff_1k.jpg",
+          "bytes": 643267,
+          "sha256": "979b0f9db0194b6f1588492ade6627be4f86f8807c6593679ca1eb1d604622f4"
+        },
+        {
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_nor_gl_1k.jpg",
+          "bytes": 747233,
+          "sha256": "b27a8f9548984624ae5bd338da7f068e571b7a40978041c687b73a95377f6c72"
+        },
+        {
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_arm_1k.jpg",
+          "bytes": 533418,
+          "sha256": "ebe030917ad0d866e2774dfc163d66ba8d9c4467338d224ee9a273f2833d4a94"
+        }
+      ]
+    },
+    {
+      "id": "old_tyre",
+      "type": "model",
+      "resolution": "1k",
+      "use": "lốp xe",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/old_tyre",
+      "authors": [
+        "MP"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/old_tyre.glb",
+          "bytes": 2176584,
+          "sha256": "6b8750cdc1d3bb2a8d08296bf125cf2acfbab0a7a7b26ab58d677ef6eeb4e178"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/old_tyre/old_tyre_1k.gltf",
+          "bytes": 2734,
+          "sha256": "ba7b417eb3dc747c356ac3cd1f125754755684eb664737a9f1fc9e490c0b766e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/old_tyre/textures/old_tyre_diff_1k.jpg",
+          "bytes": 650708,
+          "sha256": "0e34ce658c0844c0c94022233226d495930d514c917a5fa15ffee4760567439e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/old_tyre/textures/old_tyre_arm_1k.jpg",
+          "bytes": 776823,
+          "sha256": "3bcf192f5b99a7a574f9e21e75927043e6726c601a5da15e3210a31db05e12d4"
+        },
+        {
+          "path": "assets-src/polyhaven/models/old_tyre/old_tyre.bin",
+          "bytes": 84160,
+          "sha256": "659e7982c2de92ca1d13194c97bf112b6dec22d91daecc88e3912d37ce1b7252"
+        },
+        {
+          "path": "assets-src/polyhaven/models/old_tyre/textures/old_tyre_nor_gl_1k.jpg",
+          "bytes": 722778,
+          "sha256": "34b716e140408985ddbab7d4bf1d8d430edf834cd2fd4639d82b14cb393fa73e"
+        }
+      ],
+      "triangles": {
+        "before": 2880,
+        "after": 2022
+      }
+    },
+    {
+      "id": "rusted_wheel_rim_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "vành xe",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/rusted_wheel_rim_01",
+      "authors": [
+        "John Hutcheson"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/rusted_wheel_rim_01.glb",
+          "bytes": 2030440,
+          "sha256": "abbfaa6a46ffc7a382684d5cd5b871e4346e8e63f5339fa9c3e9c0e36205ae63"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/rusted_wheel_rim_01/rusted_wheel_rim_01_1k.gltf",
+          "bytes": 3748,
+          "sha256": "ddbfc1b68e40d0efa8651ef2d62fbcd6d85050aae64fcc7c0ee56dd7e1293a0b"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rusted_wheel_rim_01/textures/rusted_wheel_rim_01_arm_1k.jpg",
+          "bytes": 606086,
+          "sha256": "e3c5ec3531901f2b9901d232afb512bd0922289ba64cc9b9f975d1b4ed46da27"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rusted_wheel_rim_01/rusted_wheel_rim_01.bin",
+          "bytes": 654048,
+          "sha256": "2dd5797a812d482f432b2a475c78dfddaa1a3e88f27d8d2d2cfebc3852737f5e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rusted_wheel_rim_01/textures/rusted_wheel_rim_01_nor_gl_1k.jpg",
+          "bytes": 816565,
+          "sha256": "6ec1550711bf462579f27237fab6fa77141dadc2b21dc13e6a37c59f185e7ecd"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rusted_wheel_rim_01/textures/rusted_wheel_rim_01_diff_1k.jpg",
+          "bytes": 517042,
+          "sha256": "e533e5d6b7d1526218f3795f5e3694541d3a87e428242645d04783bc3e416e61"
+        }
+      ],
+      "triangles": {
+        "before": 16440,
+        "after": 6948
+      }
+    },
+    {
+      "id": "concrete_road_barrier_02",
+      "type": "model",
+      "resolution": "1k",
+      "use": "rào bê tông",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/concrete_road_barrier_02",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/concrete_road_barrier_02.glb",
+          "bytes": 2438552,
+          "sha256": "15f68fa8e501560c531998e9f227ca7eb50f9243f65f8c1bb2f553dcbd1c4b01"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/concrete_road_barrier_02/concrete_road_barrier_02_1k.gltf",
+          "bytes": 2910,
+          "sha256": "52d13b5105ce861db5dd1413a1a924ad5594dee5a8eb37dbe1a9df441fcd7caf"
+        },
+        {
+          "path": "assets-src/polyhaven/models/concrete_road_barrier_02/concrete_road_barrier_02.bin",
+          "bytes": 542900,
+          "sha256": "254ee05467733e224e127dc76e019e5b5211c0da4248fa3fc75117ec005d7c90"
+        },
+        {
+          "path": "assets-src/polyhaven/models/concrete_road_barrier_02/textures/concrete_road_barrier_02_arm_1k.jpg",
+          "bytes": 717138,
+          "sha256": "6fb282f242ce86a3e44663678c2e0366c37de8244b08acc003d99771cb780e53"
+        },
+        {
+          "path": "assets-src/polyhaven/models/concrete_road_barrier_02/textures/concrete_road_barrier_02_nor_gl_1k.jpg",
+          "bytes": 923479,
+          "sha256": "42ec702843df209f0aef1d247c76dfb91385f0bf3b226b752d22a4c0e3780a31"
+        },
+        {
+          "path": "assets-src/polyhaven/models/concrete_road_barrier_02/textures/concrete_road_barrier_02_diff_1k.jpg",
+          "bytes": 741673,
+          "sha256": "9329260ebfc8632a5d47d9b344ab6f916e26604e73ebd2c495fee544df4bdefa"
+        }
+      ],
+      "triangles": {
+        "before": 23822,
+        "after": 5954
+      }
+    },
+    {
+      "id": "modular_electricity_poles",
+      "type": "model",
+      "resolution": "1k",
+      "use": "cột điện",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/modular_electricity_poles",
+      "authors": [
+        "James Ray Cock"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/modular_electricity_poles.glb",
+          "bytes": 6298636,
+          "sha256": "3fc26b14708f80062354ed6042081e9c9f403baf2251f1b2255468bbd5af6913"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/modular_electricity_poles_1k.gltf",
+          "bytes": 149324,
+          "sha256": "2032fb781809021258ceeb22f163bd9ddca2a9186173ed99ee61130dbb808c62"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_diff_1k.jpg",
+          "bytes": 802771,
+          "sha256": "c681efa29ce6b28eb3377cfcdb35d1c88a9265189920e9979419d2d5b4086c1d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/modular_electricity_poles.bin",
+          "bytes": 7215652,
+          "sha256": "143bc8cd007674c74a6bac784a24fd4181234c07498b3a2bbdbf6abcd8a5897f"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_arm_1k.jpg",
+          "bytes": 1052303,
+          "sha256": "4648fab787b80889e54ea90e79fcb3de4c644729c16b8616ae79707b3e5515dd"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_pieces_nor_gl_1k.jpg",
+          "bytes": 865048,
+          "sha256": "c78ec7efc67caebc9d43c1c29e5d3972c23bf17e865267cc3acb793774125caa"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_arm_1k.jpg",
+          "bytes": 748382,
+          "sha256": "4765dd2e76a1191b271b2fb1c93354fe3b9cb12a323bafd7f1661effe88fc441"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_diff_1k.jpg",
+          "bytes": 658915,
+          "sha256": "da86d0fc97683a99fc2670f8b889b9632dd6da05e9c042c40cc7bf9e4d0b0104"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_electricity_poles/textures/modular_electricity_poles_nor_gl_1k.jpg",
+          "bytes": 931236,
+          "sha256": "7c77d694c898139a82a66543e33748b4ab7b1f7cf456cdd453d5509810ae238a"
+        }
+      ],
+      "triangles": {
+        "before": 200610,
+        "after": 85477
+      }
+    },
+    {
+      "id": "street_lamp_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "cột đèn đường",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/street_lamp_01",
+      "authors": [
+        "Josh Dean"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/street_lamp_01.glb",
+          "bytes": 1492784,
+          "sha256": "1b1ccf27f6f5ccd13fa72caaf6bc7bce9d941d6ef58ba8874cef821291338f86"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/street_lamp_01/street_lamp_01_1k.gltf",
+          "bytes": 6419,
+          "sha256": "5d0358ede168b5e04547780b99d8e6d651cbe644e468e67cb505019047cbd5c8"
+        },
+        {
+          "path": "assets-src/polyhaven/models/street_lamp_01/textures/street_lamp_01_arm_1k.jpg",
+          "bytes": 664324,
+          "sha256": "4b5487a6c7ee300c3cf5449629e01c35409e5c7ac1695edb9fe69d4821853c7c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/street_lamp_01/textures/street_lamp_01_diff_1k.jpg",
+          "bytes": 307889,
+          "sha256": "3e9d3471b33eb1f8075ed741c2b1932103598626d057ca12ef38005ea5fcb165"
+        },
+        {
+          "path": "assets-src/polyhaven/models/street_lamp_01/textures/street_lamp_01_nor_gl_1k.jpg",
+          "bytes": 438623,
+          "sha256": "172af0fd7ed4999e9f520b9f56e1f357a6dba87adbd7b8aa87e0a0b95840c63d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/street_lamp_01/street_lamp_01.bin",
+          "bytes": 748908,
+          "sha256": "c283db9b6d95835d9e8fc1692829acadcb21a0623b2daaa7231cec1440488401"
+        }
+      ],
+      "triangles": {
+        "before": 30610,
+        "after": 7820
+      }
+    },
+    {
+      "id": "fire_hydrant",
+      "type": "model",
+      "resolution": "1k",
+      "use": "trụ cứu hoả",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/fire_hydrant",
+      "authors": [
+        "Gonçalo Felício"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/fire_hydrant.glb",
+          "bytes": 3749760,
+          "sha256": "c0df236891da71c9f52b6fcb7f325201d560fab45b6fcd8e044238cf2990f1dd"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/fire_hydrant_1k.gltf",
+          "bytes": 20926,
+          "sha256": "aaca81b2904e6e5f1fb10a854c7b9a921232624387d1f8757b5c6bdaedcd9eb0"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/fire_hydrant.bin",
+          "bytes": 1928772,
+          "sha256": "a3c7ed023bc4aff190902764326e7f83ae1a108f6bac2a1b637c38a8e03eb516"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_nor_gl_1k.jpg",
+          "bytes": 490552,
+          "sha256": "f6786775276c7b48f0582fdd7c43984b63b15b7a8e0ea0e2f2af8cdab98c06d7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_aged_diff_1k.jpg",
+          "bytes": 629331,
+          "sha256": "3198cabcaf5107e59109bd07dfe8e4c87b3f0533173d10fafdaf86f8024a291e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_aged_arm_1k.jpg",
+          "bytes": 665642,
+          "sha256": "9c46b014735a4e8df5a80e4c030ddb321c9aeaa715ad4ea3eb60e6f0909c9d0a"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_aged_nor_gl_1k.jpg",
+          "bytes": 543768,
+          "sha256": "6fadc78fd5d696bf594ff021aaf93a0c6aced761830f9aa6971c51b17c869c35"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_diff_1k.jpg",
+          "bytes": 570746,
+          "sha256": "a3d0b8b6fcd8a39c8d5067f8ef95e3290053131887398f89baf57c1f8d24ab45"
+        },
+        {
+          "path": "assets-src/polyhaven/models/fire_hydrant/textures/fire_hydrant_arm_1k.jpg",
+          "bytes": 671743,
+          "sha256": "d15bf8fc6389ae48a1060a38057c2093469e62f585c8033d300b80af81d40f9d"
+        }
+      ],
+      "triangles": {
+        "before": 86316,
+        "after": 31572
+      }
+    },
+    {
+      "id": "trashbag",
+      "type": "model",
+      "resolution": "1k",
+      "use": "túi rác",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/trashbag",
+      "authors": [
+        "Benny Weimer"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/trashbag.glb",
+          "bytes": 1628756,
+          "sha256": "0b1d2198fccd057ec5caedc1fbd5873f8f8f62a1f586b3dd0ecf254915ba02d6"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/trashbag/trashbag_1k.gltf",
+          "bytes": 2738,
+          "sha256": "22202e1ec48d924577584dce6751d5ab198fd7c0aee44602e9a7317b5b60a4a7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/trashbag/textures/trashbag_nor_gl_1k.jpg",
+          "bytes": 573449,
+          "sha256": "33ddb9711bb3ab2ff1ed19fa361a4251909643fada7e5579a28f6346a58b4daf"
+        },
+        {
+          "path": "assets-src/polyhaven/models/trashbag/textures/trashbag_diff_1k.jpg",
+          "bytes": 332301,
+          "sha256": "676e01cbeef39b51c9ecd67315c952a605c8db9c11544fbe11e14dcbd00be27f"
+        },
+        {
+          "path": "assets-src/polyhaven/models/trashbag/textures/trashbag_arm_1k.jpg",
+          "bytes": 684660,
+          "sha256": "95e69ba47bc7b84f342cdbe4385cfab670295827740fb09407b967ea2114c0aa"
+        },
+        {
+          "path": "assets-src/polyhaven/models/trashbag/trashbag.bin",
+          "bytes": 106316,
+          "sha256": "7bfac5b9c39a058af347944b437f712718ec129ec883c16339179862cc155fe2"
+        }
+      ],
+      "triangles": {
+        "before": 4482,
+        "after": 3784
+      }
+    },
+    {
+      "id": "cement_bag",
+      "type": "model",
+      "resolution": "1k",
+      "use": "bao cát/xi măng (chốt)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/cement_bag",
+      "authors": [
+        "PierreB3D"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/cement_bag.glb",
+          "bytes": 1432092,
+          "sha256": "e7859416651b5b6070182a5ee80afc27bd51bd2448751a82bfa097cc0722f525"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/cement_bag/cement_bag_1k.gltf",
+          "bytes": 2745,
+          "sha256": "60749af5830f8df1bc1388b177763b1ab09b9f40de3577d21a8c88659f6562a7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/cement_bag/textures/cement_bag_nor_gl_1k.jpg",
+          "bytes": 397422,
+          "sha256": "4f9b5ff34b029b47744dca27b864d35c167472792073a2141a5f69fc4cb39ddd"
+        },
+        {
+          "path": "assets-src/polyhaven/models/cement_bag/textures/cement_bag_diff_1k.jpg",
+          "bytes": 616339,
+          "sha256": "0f1a45ba37e569b744325976b0a4514bc9e0b073bc12f1adb4d3232f6e90ed3e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/cement_bag/textures/cement_bag_arm_1k.jpg",
+          "bytes": 409263,
+          "sha256": "ab39330e5c00b8d8c3febc58076717394d261daea50faba1c9fa90d8c51f06a4"
+        },
+        {
+          "path": "assets-src/polyhaven/models/cement_bag/cement_bag.bin",
+          "bytes": 22280,
+          "sha256": "6f5bb09b0a706d330b208c5a820b23b03d1ddf535fea8c459de398b55bb9e3b0"
+        }
+      ],
+      "triangles": {
+        "before": 844,
+        "after": 548
+      }
+    },
+    {
+      "id": "plastic_monobloc_chair_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "ghế nhựa quán",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/plastic_monobloc_chair_01",
+      "authors": [
+        "Kuutti Siitonen"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/plastic_monobloc_chair_01.glb",
+          "bytes": 1856688,
+          "sha256": "bc5874d3d745639f413ed9f88c8180e5f3136dcb0caa307b96e2774c4224f0a4"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/plastic_monobloc_chair_01/plastic_monobloc_chair_01_1k.gltf",
+          "bytes": 2892,
+          "sha256": "899bf148139ab8d1718c25ec06112a652631f9476b5aaeeacb9eb1da9b7f1d3a"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_monobloc_chair_01/plastic_monobloc_chair_01.bin",
+          "bytes": 124808,
+          "sha256": "db5c778488d01d7e7d3409e2cda53ee8f6dd523a327c080000d549dd0f83b375"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_monobloc_chair_01/textures/plastic_monobloc_chair_01_arm_1k.jpg",
+          "bytes": 634320,
+          "sha256": "78a67659a19a9df9efc0ef71789de0c949a727db62ade4c4c8887cd2c803c1a2"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_monobloc_chair_01/textures/plastic_monobloc_chair_01_diff_1k.jpg",
+          "bytes": 560823,
+          "sha256": "fdd1255a02bf684cfcff2eae75c0e3eea0db1fb5ecbfbd8c4f9beab8fd83ff6c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_monobloc_chair_01/textures/plastic_monobloc_chair_01_nor_gl_1k.jpg",
+          "bytes": 630024,
+          "sha256": "9ffa876b37d72ae1c0aed84d4dc1f62c956c844b3efec1f786f9080c10f63c9e"
+        }
+      ],
+      "triangles": {
+        "before": 3356,
+        "after": 1644
+      }
+    },
+    {
+      "id": "wooden_crate_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "thùng gỗ chợ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/wooden_crate_01",
+      "authors": [
+        "James Ray Cock"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/wooden_crate_01.glb",
+          "bytes": 2132300,
+          "sha256": "25d9226c64d574f3107d9dfce56a46aef6c7962b165ec4f52315552c3e65d2f5"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/wooden_crate_01/wooden_crate_01_1k.gltf",
+          "bytes": 5612,
+          "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg",
+          "bytes": 711292,
+          "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg",
+          "bytes": 594076,
+          "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_crate_01/wooden_crate_01.bin",
+          "bytes": 189408,
+          "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg",
+          "bytes": 776699,
+          "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+        }
+      ],
+      "triangles": {
+        "before": 6576,
+        "after": 3756
+      }
+    },
+    {
+      "id": "plastic_crate_02",
+      "type": "model",
+      "resolution": "1k",
+      "use": "sọt nhựa chợ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/plastic_crate_02",
+      "authors": [
+        "Fabi_G"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/plastic_crate_02.glb",
+          "bytes": 1686080,
+          "sha256": "a0dc20344d5be0a24583a4a188a341d1731f8641e9b4b290fd157f8289c7c731"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/plastic_crate_02/plastic_crate_02_1k.gltf",
+          "bytes": 2947,
+          "sha256": "531f7ba7d4b501759b04fb704db1948bcaab34d8342e71e3f5877d9f0340dba7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_crate_02/textures/plastic_crate_02_nor_gl_1k.jpg",
+          "bytes": 558561,
+          "sha256": "492b4cb03b043fb30a21b5de1cdf91dfbcd9bb7d080957af69a333d622050f30"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_crate_02/textures/plastic_crate_02_diff_1k.jpg",
+          "bytes": 492862,
+          "sha256": "f153478d5f44f39ab27a967850caac27b35ee8f04185d0d4eaf7ad501742fb15"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_crate_02/textures/plastic_crate_02_arm_1k.jpg",
+          "bytes": 597561,
+          "sha256": "f0c667358c7afd46be37b40c30435b63ae3dba8432b45c507f3298fc6f163418"
+        },
+        {
+          "path": "assets-src/polyhaven/models/plastic_crate_02/plastic_crate_02.bin",
+          "bytes": 186848,
+          "sha256": "f51696aa04643b5c1948da88be8ce1d4e92596ae4908b0132cd690f8fb8e0b63"
+        }
+      ],
+      "triangles": {
+        "before": 5840,
+        "after": 2778
+      }
+    },
+    {
+      "id": "wicker_basket_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "rổ mây chợ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/wicker_basket_01",
+      "authors": [
+        "Kuutti Siitonen"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/wicker_basket_01.glb",
+          "bytes": 2299488,
+          "sha256": "53fde2a591ec9ac24049dc5bd7ffcd033de524b0c5dd638f7c1dbe802f378c74"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/wicker_basket_01/wicker_basket_01_1k.gltf",
+          "bytes": 2792,
+          "sha256": "9ad86c33f00f46a18c9bc8bfc28c0036090ee819f7270d0028ec408512c04094"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wicker_basket_01/textures/wicker_basket_01_arm_1k.jpg",
+          "bytes": 874111,
+          "sha256": "5150638cbcd8f1bc07b76af3b60b31a4c5e7d38ce66ac8906b9c3192f3283b9a"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wicker_basket_01/textures/wicker_basket_01_nor_gl_1k.jpg",
+          "bytes": 549218,
+          "sha256": "d06024a37ef330d05bf128b8488f72769af05e72d266ffbc810d7f09ea2b32f9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wicker_basket_01/textures/wicker_basket_01_diff_1k.jpg",
+          "bytes": 679110,
+          "sha256": "15156c7855d5642f6bb594edfad5bcdcfe11f87f3e109956cb9e8fdb15fef921"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wicker_basket_01/wicker_basket_01.bin",
+          "bytes": 624920,
+          "sha256": "8e96025ffcdc64a7e75d1aa980f2491b1219912a4554272cd1e192a966c399f8"
+        }
+      ],
+      "triangles": {
+        "before": 22276,
+        "after": 17730
+      }
+    },
+    {
+      "id": "bananas",
+      "type": "model",
+      "resolution": "1k",
+      "use": "hàng chợ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/bananas",
+      "authors": [
+        "Alexander Shulha"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/bananas.glb",
+          "bytes": 1504760,
+          "sha256": "0ce3944472555e551d2664d267471d09292d634caf2744597b77961107d803dc"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/bananas/bananas_1k.gltf",
+          "bytes": 8796,
+          "sha256": "4709a758c91cbfb5df7df23fb6d9ed21778ed0030c260b11f9171ed28659e700"
+        },
+        {
+          "path": "assets-src/polyhaven/models/bananas/textures/bananas_nor_gl_1k.jpg",
+          "bytes": 319878,
+          "sha256": "e760512ee4ed3135d23e7b87c995a4c8ec6a2b7fd767689deb11b6dd1e50e9a5"
+        },
+        {
+          "path": "assets-src/polyhaven/models/bananas/textures/bananas_diff_1k.jpg",
+          "bytes": 497595,
+          "sha256": "b659aca29f68d038c942cf37f3a89c206c8fea81ff69a5c89d6d7b139bdca6d9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/bananas/textures/bananas_arm_1k.jpg",
+          "bytes": 564855,
+          "sha256": "f5b9a110b75545bec9d80279b02f38c995a257eea5ae5a1f6f6c39e601d4c8a5"
+        },
+        {
+          "path": "assets-src/polyhaven/models/bananas/bananas.bin",
+          "bytes": 1088376,
+          "sha256": "c98b7dbabd8ceb70c9b8ea92611c7c7833dd86c118c8013b941eb379bee26774"
+        }
+      ],
+      "triangles": {
+        "before": 46868,
+        "after": 11884
+      }
+    },
+    {
+      "id": "metal_jerrycan",
+      "type": "model",
+      "resolution": "1k",
+      "use": "can xăng",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/metal_jerrycan",
+      "authors": [
+        "Sean Buckley"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/metal_jerrycan.glb",
+          "bytes": 2600376,
+          "sha256": "b92ee48b65661a30966cae3fa5d4e533a703340d32060247874f1a354190be65"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/metal_jerrycan/metal_jerrycan_1k.gltf",
+          "bytes": 2793,
+          "sha256": "7ae6f2aa0b7f35e38baa89c1c243312848391a9d1c0e67acf02aa7dac32599ff"
+        },
+        {
+          "path": "assets-src/polyhaven/models/metal_jerrycan/textures/metal_jerrycan_nor_gl_1k.jpg",
+          "bytes": 885424,
+          "sha256": "88dd8f6566cc5faa8fee658777115b518642508f23ffa1917128dba9539ae14d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/metal_jerrycan/textures/metal_jerrycan_diff_1k.jpg",
+          "bytes": 673499,
+          "sha256": "64781939c4b3f739c52c335d26473def75d736173f3cc11a50ac2876d511d123"
+        },
+        {
+          "path": "assets-src/polyhaven/models/metal_jerrycan/textures/metal_jerrycan_arm_1k.jpg",
+          "bytes": 988166,
+          "sha256": "fda20dd47d809fd5bd4cd29cd11e77fc2de97bd35569a7efb51fbf78705e659c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/metal_jerrycan/metal_jerrycan.bin",
+          "bytes": 484676,
+          "sha256": "d84ce2528b28a477c5309fc289a50a3deb61287265a787bd728e639c5230408c"
+        }
+      ],
+      "triangles": {
+        "before": 20022,
+        "after": 5004
+      }
+    },
+    {
+      "id": "Barrel_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "thùng phuy cháy",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/Barrel_01",
+      "authors": [
+        "Jorge Camacho"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/Barrel_01.glb",
+          "bytes": 629884,
+          "sha256": "fa24455698367f7a5f0330a02c3c2d3d634e7a20d09b5cd47aad495512de7f67"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/Barrel_01/Barrel_01_1k.gltf",
+          "bytes": 2711,
+          "sha256": "e084945dedd6a3379c6f3e97842cac89df7169797707e123a5e5b42c135d6888"
+        },
+        {
+          "path": "assets-src/polyhaven/models/Barrel_01/Barrel_01.bin",
+          "bytes": 81756,
+          "sha256": "fe8369c1ac796059b62a091c0db7367dc420aa2cee212672e48f991f4208da98"
+        },
+        {
+          "path": "assets-src/polyhaven/models/Barrel_01/textures/Barrel_01_explosive_diff_1k.jpg",
+          "bytes": 179308,
+          "sha256": "a7e5a7b03bbe0c9c56bf1ac09b24121a5d19148428e9e6eac326c803fc297098"
+        },
+        {
+          "path": "assets-src/polyhaven/models/Barrel_01/textures/Barrel_01_explosive_nor_gl_1k.jpg",
+          "bytes": 185578,
+          "sha256": "fa4750d64c6f568c8de3e36bc631348710329cf2d6d9c8c87bd2e47a96bc4fcb"
+        },
+        {
+          "path": "assets-src/polyhaven/models/Barrel_01/textures/Barrel_01_explosive_arm_1k.jpg",
+          "bytes": 243594,
+          "sha256": "eab507df7719f0e7a3615bd22bb7bc0c09fed83bfc44e72a51451f8069c2d374"
+        }
+      ],
+      "triangles": {
+        "before": 2682,
+        "after": 1431
+      }
+    },
+    {
+      "id": "ammo_box",
+      "type": "model",
+      "resolution": "1k",
+      "use": "hòm đạn chốt",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/ammo_box",
+      "authors": [
+        "DanKit"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/ammo_box.glb",
+          "bytes": 1344632,
+          "sha256": "35548d9b9e81f193f76ac886e891adf51185b8f7b60c410ca0057869be2507a6"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/ammo_box/ammo_box_1k.gltf",
+          "bytes": 8802,
+          "sha256": "05dd0a1f2a09d170c1274e7d28d001177920d5c325de6c7460f10d4f314b5638"
+        },
+        {
+          "path": "assets-src/polyhaven/models/ammo_box/textures/ammo_box_nor_gl_1k.jpg",
+          "bytes": 266201,
+          "sha256": "5fc921d93f97646944b4bacae9e8eed1325091103766a8e6477c54bf199e5579"
+        },
+        {
+          "path": "assets-src/polyhaven/models/ammo_box/textures/ammo_box_diff_1k.jpg",
+          "bytes": 461002,
+          "sha256": "6a21a1ca96526f97bd05b52808986152d3266a056d1dbe90204bf191697f0f56"
+        },
+        {
+          "path": "assets-src/polyhaven/models/ammo_box/textures/ammo_box_arm_1k.jpg",
+          "bytes": 583082,
+          "sha256": "fc4ce56bc139d7482ea6e59e5410a19f58af07631d02840a6f0bbf08a1b33189"
+        },
+        {
+          "path": "assets-src/polyhaven/models/ammo_box/ammo_box.bin",
+          "bytes": 153588,
+          "sha256": "7f7211c643fe5fc4e7ec033e644e4fdea18188e15bc55a27972b72e6ff7e1d03"
+        }
+      ],
+      "triangles": {
+        "before": 4382,
+        "after": 1850
+      }
+    },
+    {
+      "id": "hand_truck",
+      "type": "model",
+      "resolution": "1k",
+      "use": "xe đẩy chợ",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/hand_truck",
+      "authors": [
+        "Mutanzom3D"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/hand_truck.glb",
+          "bytes": 2769572,
+          "sha256": "5d21521247841361350e7ceec10d1de21246ef1c4fbc56b3322e1ebd14c77fb2"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/hand_truck/hand_truck_1k.gltf",
+          "bytes": 2754,
+          "sha256": "303029ba829f2975ebed80f6f36e38d57cec87379e7214fcfb7d8e6e921c8e58"
+        },
+        {
+          "path": "assets-src/polyhaven/models/hand_truck/textures/hand_truck_nor_gl_1k.jpg",
+          "bytes": 944148,
+          "sha256": "8674bbaa5562c24efceef0ab77f374ffe32fa583ef5dc2a44846305aa0fd8f79"
+        },
+        {
+          "path": "assets-src/polyhaven/models/hand_truck/textures/hand_truck_diff_1k.jpg",
+          "bytes": 802329,
+          "sha256": "a1c528e0c88a03a96b89215eab228083f9dd66a502174936bccc0fe427ce345a"
+        },
+        {
+          "path": "assets-src/polyhaven/models/hand_truck/textures/hand_truck_arm_1k.jpg",
+          "bytes": 894412,
+          "sha256": "30ceadb1fa303f36dc0372a5681203e69715546219838e1bc0634c274407204c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/hand_truck/hand_truck.bin",
+          "bytes": 535704,
+          "sha256": "2a7ca50cdfac207defa68f71600f37e7cdd05d35bc94139df5269ea7d8b7a214"
+        }
+      ],
+      "triangles": {
+        "before": 13220,
+        "after": 6560
+      }
+    },
+    {
+      "id": "CoffeeCart_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "xe cà phê",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/CoffeeCart_01",
+      "authors": [
+        "Joe Seabuhr"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/CoffeeCart_01.glb",
+          "bytes": 1137492,
+          "sha256": "49ee5ec4b1f093bbd75d2bd61702eb8f61deedd2f6283343f31855d6f1af3372"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/CoffeeCart_01_1k.gltf",
+          "bytes": 6637,
+          "sha256": "3f4e7e79e751662a767c22b21c34dfb6f7d414d56dda60a236ad7d621d211934"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_cart_arm_1k.jpg",
+          "bytes": 159358,
+          "sha256": "7481660c7b4b0c676c9143a9ae497dfa6da2c509a0e1db8080c0dfb498279175"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_props_arm_1k.jpg",
+          "bytes": 198809,
+          "sha256": "8bc6a844a23d1ccb441d40e912adf8c38c6a3f7daf468598ae990a90d73733e8"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/CoffeeCart_01.bin",
+          "bytes": 865700,
+          "sha256": "0c0f9ed417ba85208c7f42b674ee3ce99a7e6fb63e67c7ea8d312304c470db50"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_props_nor_gl_1k.jpg",
+          "bytes": 156633,
+          "sha256": "8546f2ba3cfb14e9aef8e24e695a30117b03076071f11d877c15007793b3ca9e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_cart_nor_gl_1k.jpg",
+          "bytes": 171213,
+          "sha256": "160121cfeb3e9a6a029fd6b7be0e282c1f99abeb1b34d197dbc99d9fcaeea1f7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_cart_diff_1k.jpg",
+          "bytes": 118396,
+          "sha256": "654ead6c2e651e6aa3a9166e9b94333f41b33e31fcd9c75b4058e40744108bcb"
+        },
+        {
+          "path": "assets-src/polyhaven/models/CoffeeCart_01/textures/CoffeeCart_01_props_diff_1k.jpg",
+          "bytes": 158758,
+          "sha256": "2583de82b450923b75eb62b9e24fca9c252969fd249e91e7bbbbf3cfbad5e703"
+        }
+      ],
+      "triangles": {
+        "before": 27659,
+        "after": 12748
+      }
+    },
+    {
+      "id": "wooden_ladder",
+      "type": "model",
+      "resolution": "1k",
+      "use": "thang",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/wooden_ladder",
+      "authors": [
+        "Miroslav Turura"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/wooden_ladder.glb",
+          "bytes": 2345092,
+          "sha256": "e641de754241a7acb7012b641652540a86ed2ecafa7cdf5f5c5798179b4c1fb5"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/wooden_ladder/wooden_ladder_1k.gltf",
+          "bytes": 4390,
+          "sha256": "ad20acb57354f726ef0970ba8e1e02ac12028581173d02b941a8dcf0325c333c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_ladder/textures/wooden_ladder_nor_gl_1k.jpg",
+          "bytes": 750034,
+          "sha256": "4539a49d3834e423b0940d1f04c06704acb56025c5fda24a5451ea7120efac50"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_ladder/textures/wooden_ladder_diff_1k.jpg",
+          "bytes": 758088,
+          "sha256": "c4219c7c0516099c04a1620e74967d358e70438dda042eb99a18cf8471462cfb"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_ladder/textures/wooden_ladder_arm_1k.jpg",
+          "bytes": 798553,
+          "sha256": "ed5fc0f9b1f053dbb43adbfb1e8db0429c42f01af49da117499a44f743db5a91"
+        },
+        {
+          "path": "assets-src/polyhaven/models/wooden_ladder/wooden_ladder.bin",
+          "bytes": 282184,
+          "sha256": "a86818f7a4a6fbedf147d413cc761983fa03b2d5b88dfdda346ffb3ed71698ef"
+        }
+      ],
+      "triangles": {
+        "before": 8492,
+        "after": 2123
+      }
+    },
+    {
+      "id": "rock_07",
+      "type": "model",
+      "resolution": "1k",
+      "use": "đá đổ nát",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/rock_07",
+      "authors": [
+        "Jenelle van Heerden"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/rock_07.glb",
+          "bytes": 1794904,
+          "sha256": "d1f87d713b715467ef749c4f53c72a219d060b03527e26b68df033f58f747d0b"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/rock_07/rock_07_1k.gltf",
+          "bytes": 2979,
+          "sha256": "efcc2dcaa133ff8ad5c865dc2135772e8f5dbc83fa38db2ee2cf25382436b6e6"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rock_07/rock_07.bin",
+          "bytes": 468936,
+          "sha256": "e4a532a6d6cf4a08c288f501b790f32cba0528136a29959ce774c3cd39369e7e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rock_07/textures/rock_07_arm_1k.jpg",
+          "bytes": 309735,
+          "sha256": "1ed76e9a8542c76bdc6b7b018720ae1f52cd75d9f5ae719f613de3f5032cf4da"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rock_07/textures/rock_07_diff_1k.jpg",
+          "bytes": 635452,
+          "sha256": "8ff1965aa1664cc4abcc0131c44ee2b97ab14d6e131d7a51429ff261eeb101c8"
+        },
+        {
+          "path": "assets-src/polyhaven/models/rock_07/textures/rock_07_nor_gl_1k.jpg",
+          "bytes": 766986,
+          "sha256": "57cb2210951aeb376164fce5f7c65f03e5599def04873b56cad0f173c275d78d"
+        }
+      ],
+      "triangles": {
+        "before": 14844,
+        "after": 7530
+      }
+    },
+    {
+      "id": "dead_tree_trunk",
+      "type": "model",
+      "resolution": "1k",
+      "use": "thân cây gãy sau bão",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/dead_tree_trunk",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/dead_tree_trunk.glb",
+          "bytes": 2705212,
+          "sha256": "fe13214d3b446e8598e0066218213aeb411b5ffffacbfca8a97b80b40f57a4d0"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk/dead_tree_trunk_1k.gltf",
+          "bytes": 2812,
+          "sha256": "8baaf1ff66ba1f79acdceed0dc3797a882990a3abb10b18abe56762f34c26e39"
+        },
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk/textures/dead_tree_trunk_arm_1k.jpg",
+          "bytes": 724384,
+          "sha256": "0e0f7d64ac4ee3a7e7861a48f4bbd1ec2c026facd8f48b756f6b5d4557af3fd3"
+        },
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk/textures/dead_tree_trunk_nor_gl_1k.jpg",
+          "bytes": 1053075,
+          "sha256": "b7c393204c93f0c67535ff3b5d723b26598f9dbb2b5110b74249ab88189f026f"
+        },
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk/textures/dead_tree_trunk_diff_1k.jpg",
+          "bytes": 713480,
+          "sha256": "bc31d7d23db90d90cfb568c583914eeec11b29716b79096818b706a9e3e0216c"
+        },
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk/dead_tree_trunk.bin",
+          "bytes": 2293788,
+          "sha256": "c1ac6b3195246e8647a28eee2fbfdd4712a045c7cf2dcb4f5abcc2d40a446ca6"
+        }
+      ],
+      "triangles": {
+        "before": 101802,
+        "after": 25450
+      }
+    },
+    {
+      "id": "island_tree_01",
+      "type": "model",
+      "resolution": "1k",
+      "use": "cây đường phố",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/island_tree_01",
+      "authors": [
+        "Rob Tuytel",
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/island_tree_01.glb",
+          "bytes": 8524560,
+          "sha256": "b851d5f395473e9ff9722d0257d3cbd5aebf6fcae2a9c5691d79b7ad6fa17a07"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/island_tree_01_1k.gltf",
+          "bytes": 8576,
+          "sha256": "78e905a40670bfabb2760601d4d9a6c17193a50d68e6271c66893eb7bd75906d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg",
+          "bytes": 1207134,
+          "sha256": "ca22e428e1b1ebac47b2fc67ec355700c8779d6628d2fc6c3ebae9002988f63e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_diff_1k.jpg",
+          "bytes": 791327,
+          "sha256": "51bff9a3a6ed7d89ff4c73f01708b7267ed8d7a82b0cb12343741894f708218f"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_arm_1k.jpg",
+          "bytes": 727403,
+          "sha256": "bf972dff0fbc71f146b4c02103fc3596477a49a9eff46b87b13c89b7b90d18ca"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_leaves_nor_gl_1k.jpg",
+          "bytes": 379443,
+          "sha256": "07ba461c0c95da4e49a42981766bdb6191d4c3c4d815796c082266dcc3cecdb8"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg",
+          "bytes": 191886,
+          "sha256": "f56d762a1507754752abf164cc12acbc1e87ce87fa609ac44b98a1b0037c89d8"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_leaves_arm_1k.jpg",
+          "bytes": 489476,
+          "sha256": "90da3a072dbcb052715b1313b9dbc69a4aa8a09a31a4b3868411a2bb51d72037"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg",
+          "bytes": 819101,
+          "sha256": "2d67393ba76a0f49cf965fa0c99d8c16268e71e87b1203d35539bfdb971a514e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg",
+          "bytes": 528304,
+          "sha256": "bee5ec22196e9e31ad0c95a5a9b4636571cc0124d5bb27a92f1e307d289cc60d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg",
+          "bytes": 484806,
+          "sha256": "9e3f82263247ce4f619692cea4c4f6fe9936ff465a86623481849062642c7d05"
+        },
+        {
+          "path": "assets-src/polyhaven/models/island_tree_01/island_tree_01.bin",
+          "bytes": 60709812,
+          "sha256": "1faa817b46e24ed6fc90d3ec72188a0dc5ac75e82c89b3dd3c5fdaecf7cc005c"
+        }
+      ],
+      "triangles": {
+        "before": 1599403,
+        "after": 113165
+      }
+    },
+    {
+      "id": "shrub_02",
+      "type": "model",
+      "resolution": "1k",
+      "use": "bụi cây",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/shrub_02",
+      "authors": [
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/shrub_02.glb",
+          "bytes": 1333396,
+          "sha256": "f431859b5449a10d222b6a7ea55847f57f541ec3fed66b0dd4fab04b24ec3714"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/shrub_02/shrub_02_1k.gltf",
+          "bytes": 8083,
+          "sha256": "99de0a70fe88ad414615cc8d8e020617c8512e2abfe08b911b153a6fcc40d93e"
+        },
+        {
+          "path": "assets-src/polyhaven/models/shrub_02/textures/shrub_02_arm_1k.jpg",
+          "bytes": 313715,
+          "sha256": "7186bf604d5c02f873aef6de2346cc06b6fa48f47d054edbef36d2c3772c0890"
+        },
+        {
+          "path": "assets-src/polyhaven/models/shrub_02/textures/shrub_02_nor_gl_1k.jpg",
+          "bytes": 490815,
+          "sha256": "54c24e433365d5410223b7ebd2b33042b80831f80976e10768114db5ef6911d7"
+        },
+        {
+          "path": "assets-src/polyhaven/models/shrub_02/shrub_02.bin",
+          "bytes": 758692,
+          "sha256": "5c1b79da1cfdbac90599542ccd1f75ba433a3a4d356b1ea03655adb39b0e2c96"
+        },
+        {
+          "path": "assets-src/polyhaven/models/shrub_02/textures/shrub_02_diff_1k.jpg",
+          "bytes": 395120,
+          "sha256": "9956eff294034d70516d867e9668428a23d782feb3d4c34061dce5e44bacd5a8"
+        }
+      ],
+      "triangles": {
+        "before": 27254,
+        "after": 8911
+      }
+    },
+    {
+      "id": "potted_plant_02",
+      "type": "model",
+      "resolution": "1k",
+      "use": "chậu cây trước nhà",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/potted_plant_02",
+      "authors": [
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/potted_plant_02.glb",
+          "bytes": 1317280,
+          "sha256": "5d79a3160e59a8e2fd890c482cc9bc82e7a785046c2da108aa7f390c34dc2c24"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/potted_plant_02_1k.gltf",
+          "bytes": 6653,
+          "sha256": "c533dcce0d1aa4379eb7db04601a04983f8df2422b28578de922655a416e64a9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_leaves_diff_1k.jpg",
+          "bytes": 167700,
+          "sha256": "3643dce6e6c0a9f40129bd837ec1a11802e8f43ea43cb29e58219d82e0ac632b"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/potted_plant_02.bin",
+          "bytes": 1852244,
+          "sha256": "9c9812482c78a59789ed32fa842b4cbd9365e09c900c31ebb998e5efe627fe97"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_pot_rough_1k.jpg",
+          "bytes": 114886,
+          "sha256": "4e92ad8ee0f098050785d9a025e2c5a7d55bc7a7f7e1916cc7627fc7824a938f"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_leaves_rough_1k.jpg",
+          "bytes": 102396,
+          "sha256": "ac8959f70c0e91e77f3cd6fd3f73578b8aed64ac6c33fc34ac027a4e88276960"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_pot_diff_1k.jpg",
+          "bytes": 155244,
+          "sha256": "684949bf24821d7e951d46915366b5a388d2e4ccaaa9d5284e718c83604705e9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_leaves_nor_gl_1k.jpg",
+          "bytes": 127232,
+          "sha256": "e0fe090ff7a511729c9bbe59df7288b400430fdab178529443dec75e0f06007d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/potted_plant_02/textures/potted_plant_02_pot_nor_gl_1k.jpg",
+          "bytes": 108343,
+          "sha256": "981a68721c8b7b9ac26b96d0210334599d5e8f529362f505082c071a0a58e86c"
+        }
+      ],
+      "triangles": {
+        "before": 69806,
+        "after": 51075
+      }
+    },
+    {
+      "id": "water_manhole_cover",
+      "type": "model",
+      "resolution": "1k",
+      "use": "nắp cống",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/water_manhole_cover",
+      "authors": [
+        "Raunox"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/water_manhole_cover.glb",
+          "bytes": 2168268,
+          "sha256": "cac59b1d5bd6be6e8349b0e9f7b1d31ab9989e8e3a370714267e4f71b4ed8bf6"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/water_manhole_cover/water_manhole_cover_1k.gltf",
+          "bytes": 4253,
+          "sha256": "9d692740cb6e70cee977a6ccb54a270271b81250b47468e9ef6387bd58215cf9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_arm_1k.jpg",
+          "bytes": 669586,
+          "sha256": "6d5856a467c9286fc993f2bd80bb5c30464fd8a127c8418fc8fc6c34bc54231d"
+        },
+        {
+          "path": "assets-src/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_nor_gl_1k.jpg",
+          "bytes": 1008913,
+          "sha256": "e2c1eac759b8c7430ffc8c59a45f4db98f890f9a22c3d968605a81e99e92bf43"
+        },
+        {
+          "path": "assets-src/polyhaven/models/water_manhole_cover/textures/water_manhole_cover_diff_1k.jpg",
+          "bytes": 448420,
+          "sha256": "cb78919f60c929125317f19f9ecbba9f21089b7c0d6e0428c68f6fa401e6e720"
+        },
+        {
+          "path": "assets-src/polyhaven/models/water_manhole_cover/water_manhole_cover.bin",
+          "bytes": 202320,
+          "sha256": "ada713d1f6f879164d3475e2ee18d69b4c4ecc8f100126e3921b7b3ea42c9267"
+        }
+      ],
+      "triangles": {
+        "before": 6301,
+        "after": 2257
+      }
+    },
+    {
+      "id": "modular_chainlink_fence",
+      "type": "model",
+      "resolution": "1k",
+      "use": "hàng rào lưới",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/modular_chainlink_fence",
+      "authors": [
+        "James Ray Cock",
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/models/modular_chainlink_fence.glb",
+          "bytes": 4500728,
+          "sha256": "a4af9919b041f8cf63cbf8e8ed32872b3dfb5a2b9e890cee963c06c52e97b40b"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/modular_chainlink_fence_1k.gltf",
+          "bytes": 41838,
+          "sha256": "4204f151f809b4abd41ea0b18b1b6a5d9c23e6bcc0b6a81e44d03690f26604e9"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/modular_chainlink_fence.bin",
+          "bytes": 3168016,
+          "sha256": "be9ea1817089fd35b0927a8271358f6abd2ec80b306a085de435613d936fcb9a"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_posts_nor_gl_1k.jpg",
+          "bytes": 505743,
+          "sha256": "b43b8214c90a55bb84222d2a27430b31080d68dc14879632b86dbd316cb5f060"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_wire_arm_1k.jpg",
+          "bytes": 694743,
+          "sha256": "88af8364890b0645cd730eca11b30e6cd1c7578ad3aa1f012bb84915b9be5a03"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_wire_nor_gl_1k.jpg",
+          "bytes": 664165,
+          "sha256": "5cbf280f80e948de2422f0bb2fe2223a3b6f8e6fc75f54b00cd8d3e070938230"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_wire_diff_1k.jpg",
+          "bytes": 670536,
+          "sha256": "79253847a00b67a616148d753df8f4e44ba4615f848b82310426618b5a8dd79b"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_posts_arm_1k.jpg",
+          "bytes": 839858,
+          "sha256": "1694ecc2746ddaa93951ea5d2f2b830f544adf929f7ac9fae855f8b8fdfbad50"
+        },
+        {
+          "path": "assets-src/polyhaven/models/modular_chainlink_fence/textures/modular_chainlink_fence_posts_diff_1k.jpg",
+          "bytes": 707116,
+          "sha256": "ec273fedef04fbcac26460b996beeeceeff3f91c1bea73ed2c6db1d0fdb30b73"
+        }
+      ],
+      "triangles": {
+        "before": 89232,
+        "after": 25505
       }
     },
     {

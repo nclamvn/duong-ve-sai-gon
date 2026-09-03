@@ -35,10 +35,10 @@ describe('ADR-005 asset manifest (CC0/Mixamo, có hash, trong ngân sách payloa
     }
   });
 
-  it('tổng payload asset ≤ 60 MB ở slice G0.5 (KTX2 là nợ — ADR-005) và khớp totalBytes', () => {
+  it('tổng payload asset ≤ 150 MB (initial_payload_mb budget; ADR-007 thêm level ngày; KTX2 là nợ) và khớp totalBytes', () => {
     const sum = manifest.assets.reduce((s, a) => s + a.files.reduce((t, f) => t + f.bytes, 0), 0);
     expect(sum).toBe(manifest.totalBytes);
-    expect(sum).toBeLessThanOrEqual(60 * 1048576);
+    expect(sum).toBeLessThanOrEqual(150 * 1048576);
   });
 
   it('src/engine/render/assets.ts chỉ tham chiếu id có trong manifest', () => {

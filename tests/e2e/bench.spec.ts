@@ -6,7 +6,7 @@ const schema = JSON.parse(readFileSync('content/schemas/performance-replay.schem
 test.describe('G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay)', () => {
   test('?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox', async ({ page }) => {
     const posted = page.waitForRequest((r) => r.url().endsWith('/__bench') && r.method() === 'POST', { timeout: 120_000 });
-    await page.goto('/?backend=webgl&autostart=1&debug=1&quality=low&rain=500&shadow=512&bench=1&runs=1&seconds=3&overlay=1');
+    await page.goto('/?backend=webgl&level=arena&autostart=1&debug=1&quality=low&rain=500&shadow=512&bench=1&runs=1&seconds=3&overlay=1');
     await posted;
     await page.waitForFunction(() => window.__ht?.benchSaved !== undefined, null, { timeout: 60_000 });
     const res = await page.evaluate(() => ({ saved: window.__ht!.benchSaved, report: window.__ht!.benchReport }));

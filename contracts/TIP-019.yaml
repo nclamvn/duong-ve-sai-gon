@@ -1,0 +1,30 @@
+# Contract — TIP-019
+id: TIP-019
+goal: "Màn Phố Vạn Hải sáng sau bão: level JSON + builder, nắng/CSM/HDRI ngày, nhà ống procedural, chướng ngại/xác xe, khói lửa, mission 3 khu"
+scope:
+  - src/engine/level/*.ts
+  - src/engine/render/ambientFx.ts
+  - src/engine/render/assets.ts (ids theo level, sky)
+  - src/engine/render/materials.ts (vertexTint, worldUv, grime, dirt)
+  - src/game/game.ts (level/daylight/vmScene)
+  - src/game/mission/missionHost.ts (mission theo level)
+  - content/levels/pho-van-hai.level.json, scripts/gen-level-pho.mjs
+  - content/missions/pho-van-hai.mission.json, g0-dialogue.json, locale/vi.json, schemas
+  - scripts/fetch-assets.mjs (asset G0.6; giữ entry Mixamo/Sketchfab)
+  - tests/unit/level.test.ts, tests/e2e (level=arena)
+acceptance:
+  - "npm run dev → Phố Vạn Hải ban ngày, chơi được 3 khu tới trạm"
+  - "?level=arena → G0 như cũ; npm run ci xanh"
+  - "sandbox: draw ≤ 700, tri ≤ 3.2 M (nợ TIP-026 về 400/2.5 M)"
+tests:
+  - tests/unit/level.test.ts
+  - tests/unit/mission.test.ts
+  - tests/unit/assets.test.ts
+evidence:
+  - evidence/TIP-019/pho-spawn.png
+  - evidence/TIP-019/pho-zone-a.png
+  - evidence/TIP-019/pho-zone-b.png
+  - evidence/TIP-019/pho-zone-c.png
+  - evidence/TIP-019/e2e.log
+rollback: "?level=arena hoặc git revert"
+status: DONE (chờ Chủ nhà chấm trên Mac)

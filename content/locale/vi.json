@@ -33,5 +33,17 @@
   "bench.saved_local": "Máy chủ không nhận được — đã tải file kết quả xuống.",
   "sign.port": "CẢNG VẠN HẢI · CẦU TÀU 3",
   "loading.assets": "Đang tải vật liệu và mô hình…",
-  "cap.credits": "Tài sản CC-BY (ghi công bắt buộc)"
+  "cap.credits": "Tài sản CC-BY (ghi công bắt buộc)",
+  "hud.objective.obj_pho_a": "Phá chốt Kình Xám ở đầu phố",
+  "hud.objective.obj_pho_b": "Quét sạch khu chợ",
+  "hud.objective.obj_pho_c": "Chiếm ngã tư, mở đường vào trạm",
+  "hud.objective.obj_pho_station": "Tiến vào Trạm dẫn đường Vạn Hải",
+  "dlg.P01": "Sơn Ưng, bão vừa tan. Kình Xám chiếm cả khu phố dẫn ra Trạm dẫn đường. Còn hai mươi phút trước khi tàu cứu trợ vào luồng.",
+  "dlg.P02": "Chốt gác ngay đầu phố, sau xe bọc thép cháy. Nam bên trái, Duy giữ phải. Bắn khi họ ló.",
+  "dlg.P03": "Chốt sạch. Khói từ khu chợ — họ đốt sạp để chắn tầm nhìn. Đi tiếp.",
+  "dlg.P04": "Chợ đông người của họ. Có hẻm bên phải, Nam ép sườn qua đó. Tôi giữ giữa phố.",
+  "dlg.P05": "Chợ xong. Trước mặt là ngã tư, xe buýt cháy chắn ngang. Cẩn thận xạ thủ phía sau.",
+  "dlg.P06": "Sơn Ưng, radar thấy xe bán tải Kình Xám tiến vào ngã tư từ phía đông. Giữ lấy góc phố.",
+  "dlg.P07": "Ngã tư là của ta. Trạm dẫn đường ngay trước mặt — An đang chờ trong đó.",
+  "dlg.P08": "Đừng bắn! Tôi là An. Máy vẫn chạy — cho tôi chín mươi giây là tín hiệu chuyển xanh."
 }

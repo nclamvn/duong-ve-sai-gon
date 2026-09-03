@@ -1,0 +1,434 @@
+{
+  "id": "pho-van-hai",
+  "version": "0.1.0",
+  "seedPolicy": "fixed",
+  "seed": 7,
+  "startNode": "n_intro",
+  "checkpoints": [
+    "cp_a",
+    "cp_b",
+    "cp_c"
+  ],
+  "localization": "vi",
+  "zones": [
+    {
+      "id": "zone_a",
+      "center": [
+        0,
+        0,
+        42
+      ],
+      "radius": 11
+    },
+    {
+      "id": "zone_b",
+      "center": [
+        0,
+        0,
+        5
+      ],
+      "radius": 13
+    },
+    {
+      "id": "zone_c",
+      "center": [
+        0,
+        0,
+        -38
+      ],
+      "radius": 13
+    },
+    {
+      "id": "station_zone",
+      "center": [
+        0,
+        0,
+        -63
+      ],
+      "radius": 6
+    },
+    {
+      "id": "relay_zone",
+      "center": [
+        0,
+        0,
+        5
+      ],
+      "radius": 13
+    },
+    {
+      "id": "exfil_zone",
+      "center": [
+        0,
+        0,
+        -63
+      ],
+      "radius": 6
+    }
+  ],
+  "spawnGroups": [
+    {
+      "id": "grp_a",
+      "archetype": "grunt",
+      "count": 4,
+      "spawn": "a1",
+      "budget": 4
+    },
+    {
+      "id": "grp_b",
+      "archetype": "grunt",
+      "count": 5,
+      "spawn": "b1",
+      "budget": 5
+    },
+    {
+      "id": "grp_b2",
+      "archetype": "grunt",
+      "count": 2,
+      "spawn": "b6",
+      "budget": 2
+    },
+    {
+      "id": "grp_c",
+      "archetype": "grunt",
+      "count": 5,
+      "spawn": "c1",
+      "budget": 5
+    },
+    {
+      "id": "bot_group_a",
+      "archetype": "grunt",
+      "count": 2,
+      "spawn": "bot_b",
+      "budget": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_intro",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P01"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_pho_a"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_a",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_a",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "zone_a"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P02"
+        },
+        {
+          "type": "spawn",
+          "group": "grp_a"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_a_clear",
+      "timeoutMs": 90000,
+      "fallbackNext": "n_a_clear"
+    },
+    {
+      "id": "n_a_clear",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "grp_a"
+        }
+      ],
+      "next": "n_a_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_a_done",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P03"
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_pho_a"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_pho_b"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp_a"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_b",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_b",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "zone_b"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P04"
+        },
+        {
+          "type": "spawn",
+          "group": "grp_b"
+        },
+        {
+          "type": "spawn",
+          "group": "grp_b2"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_b_clear",
+      "timeoutMs": 120000,
+      "fallbackNext": "n_b_clear"
+    },
+    {
+      "id": "n_b_clear",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "grp_b"
+        }
+      ],
+      "next": "n_b_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_b_done",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P05"
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_pho_b"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_pho_c"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp_b"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_c",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_c",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "zone_c"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P06"
+        },
+        {
+          "type": "spawn",
+          "group": "grp_c"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_c_clear",
+      "timeoutMs": 150000,
+      "fallbackNext": "n_c_clear"
+    },
+    {
+      "id": "n_c_clear",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "grp_c"
+        }
+      ],
+      "next": "n_c_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_c_done",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P07"
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_pho_c"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_pho_station"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp_c"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_station",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_station",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [],
+      "exitConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "station_zone"
+        }
+      ],
+      "next": "n_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_done",
+      "type": "terminal",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "P08"
+        },
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_pho_station"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_done"
+        },
+        {
+          "type": "mission_complete"
+        }
+      ],
+      "exitConditions": [],
+      "next": null,
+      "timeoutMs": 0,
+      "fallbackNext": null
+    }
+  ]
+}

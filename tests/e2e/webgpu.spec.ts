@@ -10,7 +10,7 @@ test.describe('G0-02 WebGPU primary (thiết bị chuẩn)', () => {
   test('boot mặc định → webgpu, adapter không rỗng, 300 frame không RENDER_DEVICE_LOST', async ({ page }) => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
-    await page.goto('/?autostart=1&debug=1&overlay=1');
+    await page.goto('/?level=arena&autostart=1&debug=1&overlay=1');
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 60_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 300, null, { timeout: 120_000 });
     const info = await page.evaluate(() => ({

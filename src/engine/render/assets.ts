@@ -23,6 +23,8 @@ export interface LoadedAssets {
   models: Record<string, Group>;
   /** PMREM environment (đã prefilter) — gán scene.environment */
   environment: Texture | null;
+  /** HDRI equirect gốc (nền trời ban ngày, TIP-019) — null khi lite */
+  sky: Texture | null;
   /** nhân vật glTF (TIP-012, Mixamo → glb); null → Dummy procedural */
   character: CharacterAsset | null;
   /** vũ khí glTF (TIP-014, CC-BY) theo id cấu hình (content/weapons); thiếu → viewmodel/prop procedural */
@@ -32,6 +34,7 @@ export interface LoadedAssets {
   bytesHint: number;
 }
 
+/** Bộ asset mặc định của arena G0 (đêm cảng). Level khác truyền `textureIds/modelIds/hdri` (TIP-019). */
 const TEXTURE_IDS = ['asphalt_02', 'concrete_wall_001', 'factory_wall', 'corrugated_iron_02', 'rusty_metal_02', 'rusty_painted_metal', 'plywood', 'metal_plate'] as const;
 const MODEL_IDS = ['wooden_military_crate', 'old_military_crate', 'plastic_crate_01', 'cardboard_box_01', 'concrete_road_barrier', 'propane_tank', 'metal_trash_can', 'utility_box_01', 'portable_generator'] as const;
 const HDRI_ID = 'blue_lagoon_night';
@@ -68,6 +71,12 @@ export interface LoadOptions {
   noWeapons?: boolean;
   /** bỏ qua cánh tay FP (?arms=0) */
   noArms?: boolean;
+  /** danh sách asset theo level (mặc định: arena G0) */
+  textureIds?: readonly string[];
+  modelIds?: readonly string[];
+  hdri?: { id: string; res: '1k' | '2k' | '4k' };
+  /** giữ HDRI equirect làm nền trời (ban ngày) */
+  keepSky?: boolean;
   onProgress?: (done: number, total: number, label: string) => void;
 }
 
@@ -76,7 +85,10 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const aniso = Math.min(8, opts.renderer.getMaxAnisotropy());
   const texLoader = new TextureLoader();
   const weaponCfgs = opts.lite || opts.noWeapons ? [] : (opts.weapons ?? []);
-  const total = TEXTURE_IDS.length + (opts.lite ? 0 : MODEL_IDS.length + 1) + weaponCfgs.length;
+  const textureIds = opts.textureIds ?? TEXTURE_IDS;
+  const modelIds = opts.modelIds ?? MODEL_IDS;
+  const hdri = opts.hdri ?? { id: HDRI_ID, res: '1k' as const };
+  const total = textureIds.length + (opts.lite ? 0 : modelIds.length + 1) + weaponCfgs.length;
   let done = 0;
   const tick = (label: string): void => {
     done++;
@@ -85,7 +97,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
 
   const textures: Record<string, PbrTextureSet> = {};
   await Promise.all(
-    TEXTURE_IDS.map(async (id) => {
+    textureIds.map(async (id) => {
       const dir = `${b}textures/${id}/${id}`;
       const [map, normalMap, armMap] = await Promise.all([
         loadTex(texLoader, `${dir}_diff_1k.jpg`, true, aniso),
@@ -100,6 +112,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const models: Record<string, Group> = {};
   const weapons: Record<string, WeaponAsset> = {};
   let environment: Texture | null = null;
+  let sky: Texture | null = null;
   let character: CharacterAsset | null = null;
   let arms: FpArmsAsset | null = null;
   if (!opts.lite && !opts.noWeapons && !opts.noArms) {
@@ -136,7 +149,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     const gltf = new GLTFLoader();
     gltf.setMeshoptDecoder(MeshoptDecoder);
     await Promise.all(
-      MODEL_IDS.map(async (id) => {
+      modelIds.map(async (id) => {
         const g = await gltf.loadAsync(`${b}models/${id}.glb`);
         g.scene.traverse((o: Object3D) => {
           const m = o as { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean; material?: { map?: Texture | null; anisotropy?: number } };
@@ -150,16 +163,17 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
         tick(id);
       }),
     );
-    const hdr = await new HDRLoader().loadAsync(`${b}hdris/${HDRI_ID}/${HDRI_ID}_1k.hdr`);
+    const hdr = await new HDRLoader().loadAsync(`${b}hdris/${hdri.id}/${hdri.id}_${hdri.res}.hdr`);
     hdr.mapping = EquirectangularReflectionMapping;
     const pmrem = new PMREMGenerator(opts.renderer);
     const rt = await pmrem.fromEquirectangularAsync(hdr);
     environment = rt.texture;
-    hdr.dispose();
+    if (opts.keepSky) sky = hdr;
+    else hdr.dispose();
     pmrem.dispose();
-    tick(HDRI_ID);
+    tick(hdri.id);
   }
-  return { textures, models, environment, character, weapons, arms, bytesHint: 0 };
+  return { textures, models, environment, sky, character, weapons, arms, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

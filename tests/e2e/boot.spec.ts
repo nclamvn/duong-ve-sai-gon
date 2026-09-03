@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { bootGame, pauseLoop, renderFrames, renderFramesRaf, expectNoErrors } from './helpers';
 
 test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
-  test('boot ?backend=webgl → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu', async ({ page }) => {
+  test('boot ?backend=webgl&level=arena → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu', async ({ page }) => {
     const errors = await bootGame(page);
     const info = await page.evaluate(() => {
       const H = window.__ht!;
@@ -54,7 +54,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
   });
 
   test('capability screen hiển thị backend khi không autostart; nút vào arena hoạt động', async ({ page }) => {
-    await page.goto('/?backend=webgl&debug=1&quality=low&rain=500&shadow=512');
+    await page.goto('/?backend=webgl&level=arena&debug=1&quality=low&rain=500&shadow=512');
     await expect(page.getByTestId('capability')).toBeVisible({ timeout: 60_000 });
     await expect(page.locator('[data-cap="Backend render"]')).toContainText('webgl2');
     await page.getByTestId('enter').click();
@@ -63,7 +63,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
   });
 
   test('PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship)', async ({ page }) => {
-    await page.goto('/?backend=webgl&autostart=1&quality=low&rain=500&shadow=512');
+    await page.goto('/?backend=webgl&level=arena&autostart=1&quality=low&rain=500&shadow=512');
     await page.waitForFunction(() => document.getElementById('capability')!.hidden === true, null, { timeout: 60_000 });
     await page.waitForTimeout(1500);
     expect(await page.evaluate(() => typeof window.__ht)).toBe('undefined');

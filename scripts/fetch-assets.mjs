@@ -184,11 +184,16 @@ else {
     console.log(`${entry.files.length} file, ${mb.toFixed(2)} MB`);
     assets.push(entry);
   }
+  // giữ entry không phải Poly Haven (Mixamo, Sketchfab CC-BY) đã có trong manifest — TIP-019 sửa lỗi ghi đè
+  if (existsSync(MANIFEST)) {
+    const prev = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+    for (const a of prev.assets ?? []) if (a.source !== 'polyhaven' && !assets.some((x) => x.id === a.id)) assets.push(a);
+  }
   const totalBytes = assets.reduce((s, a) => s + a.files.reduce((t, f) => t + f.bytes, 0), 0);
   const manifest = {
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
-    policy: 'ADR-005: chỉ CC0-1.0 qua script này; Mixamo ghi bởi scripts/convert-mixamo.mjs',
+    policy: 'ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch',
     totalBytes,
     assets,
   };

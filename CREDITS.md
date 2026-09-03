@@ -27,9 +27,50 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - metal_trash_can (model) — GurJas Studios — https://polyhaven.com/a/metal_trash_can
 - utility_box_01 (model) — James Ray Cock — https://polyhaven.com/a/utility_box_01
 - portable_generator (model) — James Ray Cock — https://polyhaven.com/a/portable_generator
+- kloofendal_48d_partly_cloudy_puresky (hdri) — Greg Zaal, Jarod Guest — https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky
+- road_damaged (texture) — Dimitrios Savva — https://polyhaven.com/a/road_damaged
+- patterned_concrete_pavers (texture) — Amal Kumar — https://polyhaven.com/a/patterned_concrete_pavers
+- painted_plaster_wall (texture) — Amal Kumar — https://polyhaven.com/a/painted_plaster_wall
+- damaged_plaster (texture) — Amal Kumar — https://polyhaven.com/a/damaged_plaster
+- peeling_painted_wall (texture) — Dimitrios Savva — https://polyhaven.com/a/peeling_painted_wall
+- plastered_wall_02 (texture) — Charlotte Baglioni — https://polyhaven.com/a/plastered_wall_02
+- painted_worn_brick (texture) — Dimitrios Savva — https://polyhaven.com/a/painted_worn_brick
+- clay_roof_tiles (texture) — Amal Kumar — https://polyhaven.com/a/clay_roof_tiles
+- burned_ground_01 (texture) — Rob Tuytel — https://polyhaven.com/a/burned_ground_01
+- brown_mud_dry (texture) — Rob Tuytel — https://polyhaven.com/a/brown_mud_dry
+- rubble (texture) — Amal Kumar — https://polyhaven.com/a/rubble
+- painted_metal_shutter (texture) — Dario Barresi, Rico Cilliers, Charlotte Baglioni — https://polyhaven.com/a/painted_metal_shutter
+- rusty_metal_shutter (texture) — Charlotte Baglioni — https://polyhaven.com/a/rusty_metal_shutter
+- old_tyre (model) — MP — https://polyhaven.com/a/old_tyre
+- rusted_wheel_rim_01 (model) — John Hutcheson — https://polyhaven.com/a/rusted_wheel_rim_01
+- concrete_road_barrier_02 (model) — Amal Kumar — https://polyhaven.com/a/concrete_road_barrier_02
+- modular_electricity_poles (model) — James Ray Cock — https://polyhaven.com/a/modular_electricity_poles
+- street_lamp_01 (model) — Josh Dean — https://polyhaven.com/a/street_lamp_01
+- fire_hydrant (model) — Gonçalo Felício — https://polyhaven.com/a/fire_hydrant
+- trashbag (model) — Benny Weimer — https://polyhaven.com/a/trashbag
+- cement_bag (model) — PierreB3D — https://polyhaven.com/a/cement_bag
+- plastic_monobloc_chair_01 (model) — Kuutti Siitonen — https://polyhaven.com/a/plastic_monobloc_chair_01
+- wooden_crate_01 (model) — James Ray Cock — https://polyhaven.com/a/wooden_crate_01
+- plastic_crate_02 (model) — Fabi_G — https://polyhaven.com/a/plastic_crate_02
+- wicker_basket_01 (model) — Kuutti Siitonen — https://polyhaven.com/a/wicker_basket_01
+- bananas (model) — Alexander Shulha — https://polyhaven.com/a/bananas
+- metal_jerrycan (model) — Sean Buckley — https://polyhaven.com/a/metal_jerrycan
+- Barrel_01 (model) — Jorge Camacho — https://polyhaven.com/a/Barrel_01
+- ammo_box (model) — DanKit — https://polyhaven.com/a/ammo_box
+- hand_truck (model) — Mutanzom3D — https://polyhaven.com/a/hand_truck
+- CoffeeCart_01 (model) — Joe Seabuhr — https://polyhaven.com/a/CoffeeCart_01
+- wooden_ladder (model) — Miroslav Turura — https://polyhaven.com/a/wooden_ladder
+- rock_07 (model) — Jenelle van Heerden — https://polyhaven.com/a/rock_07
+- dead_tree_trunk (model) — Rob Tuytel — https://polyhaven.com/a/dead_tree_trunk
+- island_tree_01 (model) — Rob Tuytel, Rico Cilliers — https://polyhaven.com/a/island_tree_01
+- shrub_02 (model) — Rico Cilliers — https://polyhaven.com/a/shrub_02
+- potted_plant_02 (model) — Rico Cilliers — https://polyhaven.com/a/potted_plant_02
+- water_manhole_cover (model) — Raunox — https://polyhaven.com/a/water_manhole_cover
+- modular_chainlink_fence (model) — James Ray Cock, Amal Kumar — https://polyhaven.com/a/modular_chainlink_fence
 
 ## Mixamo
 
 - lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
+- cánh tay góc nhìn thứ nhất (TIP-016) — dẫn xuất từ soldier_mixamo bằng scripts/extract-arms.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
 
-Tổng: 21 asset, 47.8 MB. Cập nhật 2026-09-03T01:55:44.160Z.
+Tổng: 62 asset, 144.4 MB. Cập nhật 2026-09-03T10:09:56.618Z.
