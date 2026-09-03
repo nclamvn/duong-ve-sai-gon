@@ -265,6 +265,10 @@ export function installCalib(game: Game, mode: CalibMode, params: URLSearchParam
   const sun = new DirectionalLight(0xfff2e0, 2.5);
   sun.position.set(3, 6, 4);
   scene.add(sun);
+  game.vmScene.add(new HemisphereLight(0xffffff, 0x8090a0, 2.2));
+  const sunVm = new DirectionalLight(0xfff2e0, 2.5);
+  sunVm.position.set(3, 6, 4);
+  game.vmScene.add(sunVm);
   game.aiPaused = true;
   const helpers: Object3D[] = [];
   game.input = NULL_INPUT;
@@ -379,18 +383,10 @@ export function installCalib(game: Game, mode: CalibMode, params: URLSearchParam
         const gunRoot = fa.gripR.parent ?? fa.gripR;
         const d = game.fpArms.debugInfo();
         const cam = game.camera;
-        // đo trong không gian chưa ép FOV (space scale 1)
-        const sp = game.viewModel.space;
-        const kx = sp.scale.x;
-        const ky = sp.scale.y;
-        sp.scale.set(1, 1, 1);
         cam.updateMatrixWorld(true);
         const inCam = (v: Vector3): Vec3 => r3(cam.worldToLocal(v.clone()));
         const reach = (x: FpChain | null) => (x ? { shoulder: inCam(x.shoulder), target: inCam(x.target), dist: +x.shoulder.distanceTo(x.target).toFixed(3), reach: +x.reach.toFixed(3), err: +x.err.toFixed(3) } : null);
-        const out = { weapon: fpWeaponId, R: measureHand(game.fpArms.model, 'R', fa.gripR, gunRoot), L: measureHand(game.fpArms.model, 'L', fa.gripL, gunRoot), reach: { R: reach(d.R), L: reach(d.L) } };
-        sp.scale.set(kx, ky, 1);
-        cam.updateMatrixWorld(true);
-        return out;
+        return { weapon: fpWeaponId, R: measureHand(game.fpArms.model, 'R', fa.gripR, gunRoot), L: measureHand(game.fpArms.model, 'L', fa.gripL, gunRoot), reach: { R: reach(d.R), L: reach(d.L) } };
       }
       return { weapon: '', R: null, L: null };
     },

@@ -4,8 +4,8 @@
  * Tone mapping (AgX) + sRGB làm ở cuối (renderOutput) rồi AA/grain/vignette trên LDR.
  * TSL only (không ShaderMaterial). Mọi pass là node của RenderPipeline → 1 lệnh render()/frame.
  */
-import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping } from 'three/webgpu';
-import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float } from 'three/tsl';
+import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping, Color } from 'three/webgpu';
+import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float, mix } from 'three/tsl';
 import { ao } from 'three/addons/tsl/display/GTAONode.js';
 import { ssr } from 'three/addons/tsl/display/SSRNode.js';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -37,16 +37,30 @@ export interface PostOptions {
   ssrWetFloor?: number;
   grain?: number;
   vignette?: number;
+  /**
+   * Lớp viewmodel (TIP-017b): scene + camera riêng (FOV hẹp) render sau cảnh, đè lên theo alpha — như FPS thật, không méo hình.
+   * Không có AO/SSR trên lớp này; bloom/tone map/AA áp chung.
+   */
+  overlay?: { scene: Scene; camera: PerspectiveCamera };
 }
 
 export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: PerspectiveCamera, opts: PostOptions): PostStack {
   const tier = opts.tier;
+  const overlay = opts.overlay;
   if (tier === 'off') {
     return {
       tier,
-      passes: [],
+      passes: overlay ? ['overlay'] : [],
       bloomStrength: { value: 0 },
-      render: () => renderer.render(scene, camera),
+      render: () => {
+        renderer.render(scene, camera);
+        if (overlay) {
+          renderer.autoClear = false;
+          renderer.clearDepth();
+          renderer.render(overlay.scene, overlay.camera);
+          renderer.autoClear = true;
+        }
+      },
     };
   }
   renderer.toneMapping = AgXToneMapping;
@@ -102,6 +116,14 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     const s4 = ssrPass as unknown as V4;
     color = vec4(color.rgb.add(s4.rgb), 1.0);
     passes.push('ssr');
+  }
+  if (overlay) {
+    // pass riêng, nền trong suốt (clear alpha 0) → mix theo alpha; đặt sau AO/SSR (không áp lên súng), trước bloom (lửa nòng vẫn bloom)
+    renderer.setClearColor(new Color(0x000000), 0);
+    const vmPass = pass(overlay.scene, overlay.camera);
+    const vm = vmPass.getTextureNode('output') as unknown as V4;
+    color = vec4(mix(color.rgb, vm.rgb, vm.a), 1.0);
+    passes.push('overlay');
   }
   const bloomStrength = { value: opts.bloomStrength ?? 0.3 };
   const bloomPass = bloom(color, bloomStrength.value, 0.25, opts.bloomThreshold ?? 1.0);

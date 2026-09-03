@@ -3,7 +3,7 @@
  * TIP-003 arena/free-fly · TIP-004 input source/telemetry/quality · TIP-005+ gắn player/weapon/ai/mission
  * qua các field public và resetHooks.
  */
-import { Scene, PerspectiveCamera } from 'three/webgpu';
+import { Scene, PerspectiveCamera, HemisphereLight } from 'three/webgpu';
 import { FixedClock, Scheduler, EventBus, mulberry32, type Prng } from '@engine/core';
 import { createRenderer, backendFromSearch, type RendererBundle } from '@engine/render/backend';
 import { buildArena, type ArenaData } from '@engine/render/arena';
@@ -72,6 +72,11 @@ export class Game {
   seed: number;
   readonly scene = new Scene();
   readonly camera = new PerspectiveCamera(90, 1, 0.05, 400);
+  /** lớp viewmodel (TIP-017b): scene + camera FOV hẹp riêng, đè lên cảnh (không méo hình như ép scale) */
+  readonly vmScene = new Scene();
+  readonly vmCamera = new PerspectiveCamera(60, 1, 0.03, 12);
+  private readonly fxMuzzle = new Vector3();
+  private readonly fxEject = new Vector3();
   bundle!: RendererBundle;
   arena!: ArenaData;
   lights!: LightRig;
@@ -177,7 +182,10 @@ export class Game {
     this.rain.mesh.visible = this.quality.rainCount > 0;
     this.rain.splash.visible = this.quality.rainCount > 0 && this.quality.splashCount > 0;
     this.scene.add(this.rain.mesh, this.rain.splash);
-    this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa });
+    this.vmScene.add(this.vmCamera);
+    this.vmScene.environment = this.scene.environment;
+    this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
+    this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons['hk416'] ?? null);
       const p = this.arena.dummySpawns[i]!;
@@ -218,17 +226,17 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.camera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons['ak74m'] ?? null);
+    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons['ak74m'] ?? null);
     // cánh tay FP (TIP-016): mesh tay Mixamo + IK bám anchor súng; cần viewmodel glTF (anchor) + soldier_arms.glb
     const ak = this.assets.weapons['ak74m'];
     if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
-      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space, { tint: 0xb9c4ad }); // kích thước thật trong space (FOV viewmodel)
+      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space); // kích thước thật, camera viewmodel riêng
       this.fpArmsCfg = ak.cfg.fp;
       this.viewModel.setGlovesVisible(false);
     }
     this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
-    this.fx.muzzleWorld = this.viewModel.muzzleWorld;
-    this.fx.ejectWorld = this.viewModel.ejectWorld;
+    this.fx.muzzleWorld = this.fxMuzzle; // vị trí đầu nòng chiếu về camera chính (FX ở scene chính)
+    this.fx.ejectWorld = this.fxEject;
     this.fx.botMuzzle = (id, out) => this.bots.get(id)?.dummy.muzzleWorld(out) ?? false;
     this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
     this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
@@ -324,6 +332,8 @@ export class Game {
     const h = window.innerHeight;
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+    this.vmCamera.aspect = w / h;
+    this.vmCamera.updateProjectionMatrix();
     this.applyScale(true);
   }
 
@@ -474,20 +484,26 @@ export class Game {
     for (const b of this.bots.values()) b.syncVisual(t);
     // viewmodel: chỉ khi có player (không free-fly)
     this.viewModel.visible = !this.freeFly && this.player.alive && !this.viewModelHidden;
+    // camera viewmodel bám camera chính; FOV = 2·atan(k·tan(fov/2)) với k = view.scale (0.62 → 64° khi fov 90)
+    this.camera.updateMatrixWorld(true);
+    this.vmCamera.position.copy(this.camera.position);
+    this.vmCamera.quaternion.copy(this.camera.quaternion);
+    const k = this.viewModelScale;
+    const vmFov = (2 * Math.atan(k * Math.tan((this.camera.fov * Math.PI) / 360)) * 180) / Math.PI;
+    if (Math.abs(this.vmCamera.fov - vmFov) > 0.01) {
+      this.vmCamera.fov = vmFov;
+      this.vmCamera.updateProjectionMatrix();
+    }
+    this.vmCamera.updateMatrixWorld(true);
     const fo = this.fpOverride;
     this.viewModel.update(dt, fo ? fo.ads : this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), fo ? fo.sprint : this.player.isSprinting);
     if (this.fpArms) this.fpArms.visible = this.viewModel.visible;
     if (this.fpArms && this.fpArmsCfg && this.viewModel.fpAnchors && this.viewModel.visible) {
-      // IK chạy trong không gian chưa "ép FOV" (space scale 1) — quaternion/độ dài đốt đúng; ép lại trước khi render
-      const sp = this.viewModel.space;
-      const kx = sp.scale.x;
-      const ky = sp.scale.y;
-      sp.scale.set(1, 1, 1);
-      this.camera.updateMatrixWorld(true);
       this.fpArms.update({ gripR: this.viewModel.fpAnchors.gripR, gripL: this.viewModel.fpAnchors.gripL, handR: this.fpArmsCfg.handR, handL: this.fpArmsCfg.handL, triggerFinger: this.fpArmsCfg.triggerFinger });
-      sp.scale.set(kx, ky, 1);
-      this.camera.updateMatrixWorld(true);
     }
+    // FX (tracer, lửa nòng, vỏ đạn) nằm ở scene chính: chiếu điểm nòng/cửa thoát từ camera viewmodel sang camera chính (cùng vị trí màn hình)
+    this.vmToMain(this.viewModel.muzzleWorld, this.fxMuzzle);
+    this.vmToMain(this.viewModel.ejectWorld, this.fxEject);
     this.lastInputDx = 0;
     this.lastInputDy = 0;
     this.hud.update();
@@ -508,6 +524,25 @@ export class Game {
           this.pendingTimestamp = false;
         });
     }
+  }
+
+  /** k = view.scale của súng (FOV viewmodel); procedural = 0.62 */
+  private get viewModelScale(): number {
+    return this.assets?.weapons['ak74m']?.cfg.view.scale ?? 0.62;
+  }
+
+  /**
+   * Điểm world trong lớp viewmodel → điểm world ở scene chính có cùng vị trí màn hình và cùng độ sâu (camera chính).
+   * (hai camera cùng vị trí/hướng, khác FOV → chỉ x/y view-space đổi theo tỉ lệ tan)
+   */
+  private vmToMain(src: Vector3, out: Vector3): void {
+    out.copy(src).applyMatrix4(this.vmCamera.matrixWorldInverse);
+    const tv = Math.tan((this.vmCamera.fov * Math.PI) / 360);
+    const tm = Math.tan((this.camera.fov * Math.PI) / 360);
+    const r = tm / tv; // > 1 khi FOV viewmodel hẹp hơn: cùng NDC → x/y view-space của camera chính lớn hơn
+    out.x *= r;
+    out.y *= r;
+    out.applyMatrix4(this.camera.matrixWorld);
   }
 
   spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {

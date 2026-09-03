@@ -149,8 +149,8 @@ function buildProceduralGun(mats: ViewModelMaterials, parent: Object3D, leftHand
 
 export class WeaponViewModel {
   /**
-   * "FOV viewmodel" (TIP-017): nhóm con của camera scale (k, k, 1) — chiếu màn hình y hệt camera FOV hẹp hơn (tan nửa góc × k)
-   * nhưng súng và cánh tay giữ **kích thước thật, khoảng cách thật** → tay với tới ốp lót như đời thật. root/tay FP là con của space.
+   * Nhóm gốc viewmodel (TIP-017b): con của **camera viewmodel** (FOV hẹp, scene riêng — xem game.vmScene); súng + cánh tay
+   * kích thước thật, khoảng cách thật → tay với tới ốp lót như đời thật, không méo hình. root/tay FP là con của space.
    */
   readonly space = new Group();
   readonly root = new Group();
@@ -201,7 +201,6 @@ export class WeaponViewModel {
       this.muzzleAnchor = inst.anchors.muzzle;
       this.ejectAnchor = inst.anchors.eject;
       const v = weapon.cfg.view;
-      this.space.scale.set(v.scale, v.scale, 1);
       this.hip = poseToVectors(v.hip);
       this.ads = poseToVectors(v.ads);
       this.sprint = poseToVectors(v.sprint);
