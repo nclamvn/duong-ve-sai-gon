@@ -52,3 +52,7 @@
 | D-048 | Thợ (L1) | Súng PBR đen chìm vào đêm → viewmodel dùng material riêng (color ×1.25, metal 0.6, IBL 2) + đèn fill 1.1 cd con của root; bot có 1 PointLight nòng riêng (số đèn cố định) | TIP-014 evidence vm-*.png |
 | D-049 | Thợ (L1) | ADS căn đường ngắm bằng anchor `sight` (0.34 m trước camera) thay vì pose tay chỉnh; reload nâng súng lên-giữa để thấy băng đạn tháo/lắp; sprint hạ súng | TIP-014 |
 | D-050 | Thầu | Credit CC-BY sinh từ manifest → `CREDITS.md` + màn capability + README; `assets.test`/`weapons.test` chặn asset CC-BY thiếu attribution | ADR-006 |
+| D-051 | Thợ (L1) | SSRNode r185: alpha = khoảng cách hit → **cộng thẳng** rgb, không trộn theo alpha (TIP-011 sai → vệt đen trên Mac); dielectric dùng metalness tối thiểu 0.22 cho sàn ướt | TIP-015 đo trên Mac |
+| D-052 | Thợ (L1) | Mưa 20k → 9k (high), GTAO 12 → 8 mẫu: đo M1 Max 1920 px mưa ≈ 2 ms, GTAO ≈ 3.8 ms; nhìn tương đương — ghi rõ, không phải hạ chất lượng ngầm | TIP-015 |
+| D-053 | Thợ (L1) | Frame pacing: cap 60 fps khi chơi (màn 120 Hz + frame 9–10 ms → xen kẽ 8.3/16.7 = giật); `?fps=` đổi, bench không cap | TIP-015 |
+| D-054 | Thầu | Timestamp GPU tổng các pass chồng lấn trên GPU Apple → loại mẫu > 1.05 × frame, NA khi đa số; `frame_p95` là trần GPU. Không sửa budget | TIP-015 |

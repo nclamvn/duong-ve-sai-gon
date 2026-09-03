@@ -229,8 +229,9 @@ export class Telemetry {
       render_width_avg: this.avg(this.width),
       actors_full_avg: this.avg(this.actorsFull),
       actors_total_avg: this.avg(this.actorsTotal),
-      gpu_ms_p95: gpuP95,
-      gpu_method: this.gpuSamples > 0 ? 'timestamp_query' : 'unavailable',
+      // Đa số frame chồng lấn → phép đo không mô tả GPU/frame (mẫu còn lại chỉ là frame chậm) → NA thay vì số sai (D-054)
+      gpu_ms_p95: this.gpuOverlap > this.gpuSamples ? null : gpuP95,
+      gpu_method: this.gpuSamples > 0 && this.gpuOverlap <= this.gpuSamples ? 'timestamp_query' : 'unavailable',
       gpu_overlap_frames: this.gpuOverlap,
       shader_hitches: this.hitches,
     };
