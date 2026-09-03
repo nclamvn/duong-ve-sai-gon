@@ -14,7 +14,8 @@ import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import { NodeIO, PropertyType } from '@gltf-transform/core';
 import { ALL_EXTENSIONS, EXTMeshoptCompression } from '@gltf-transform/extensions';
-import { resample, dedup, prune, quantize, reorder } from '@gltf-transform/functions';
+import { resample, dedup, prune, quantize, reorder, textureCompress } from '@gltf-transform/functions';
+import sharp from 'sharp';
 import { MeshoptEncoder } from 'meshoptimizer';
 
 const require = createRequire(import.meta.url);
@@ -127,10 +128,13 @@ const bbox = (() => {
 const h = bbox.maxY - bbox.minY;
 console.log(`[mixamo] chiều cao mesh gốc ${h.toFixed(3)} (đơn vị file) → runtime scale ${(HEIGHT / h).toFixed(4)} (loader tự chuẩn hoá về ${HEIGHT} m)`);
 
+const TEX_MAX = Number(opt('texture', '2048'));
 await doc.transform(
   resample(),
   dedup({ propertyTypes: [PropertyType.ACCESSOR, PropertyType.MESH, PropertyType.TEXTURE] }), // KHÔNG gộp material (visor/body cùng tham số khác tên)
   prune({ keepAttributes: false, keepLeaves: true }),
+  // Mixamo xuất PNG 4K (≈90 MB) → JPEG ≤ TEX_MAX (ADR-005: ≤ 2K; KTX2 là nợ)
+  textureCompress({ encoder: sharp, targetFormat: 'jpeg', quality: 86, resize: [TEX_MAX, TEX_MAX] }),
   quantize({ quantizePosition: 14, quantizeNormal: 10, quantizeTexcoord: 12, pattern: /^(?!JOINTS_|WEIGHTS_)/ }),
   reorder({ encoder: MeshoptEncoder }),
 );

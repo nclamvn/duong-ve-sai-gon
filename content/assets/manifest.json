@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-02T15:36:48.552Z",
+  "generatedAt": "2026-09-03T00:14:16.450Z",
   "policy": "ADR-005: chỉ CC0-1.0 qua script này; Mixamo ghi bởi scripts/convert-mixamo.mjs",
-  "totalBytes": 37161327,
+  "totalBytes": 44339627,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -726,6 +726,71 @@
         "before": 26419,
         "after": 15851
       }
+    },
+    {
+      "id": "soldier_mixamo",
+      "type": "character",
+      "use": "lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs",
+      "source": "mixamo",
+      "url": "https://www.mixamo.com/",
+      "authors": [
+        "Adobe Mixamo"
+      ],
+      "license": "Mixamo",
+      "files": [
+        {
+          "path": "assets/characters/soldier.glb",
+          "bytes": 7178300,
+          "sha256": "6de4c96b0ad98899efb2edd6620b583561c060de343a1e58453634b52e9bfc53"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/mixamo/death_front.fbx",
+          "bytes": 589472,
+          "sha256": "bc3348458290ec1d3fc8dec1945d3e78c1cc08f6ee97cc370507cafe9cb05172"
+        },
+        {
+          "path": "assets-src/mixamo/hit.fbx",
+          "bytes": 449952,
+          "sha256": "986671b0fd4a454e5cd80a01e934d5ba6c4b0dd649155eeda0e8c38b5513f9ab"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_aim.fbx",
+          "bytes": 596816,
+          "sha256": "bc5e77c1408951f8bd386914583d40255de38ea4044744ff69fcbef5c6a6e2f6"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_fire.fbx",
+          "bytes": 339792,
+          "sha256": "fe6be19741128d02f9a635b586ed2c75b048019cc2d76ff6c6a120276fe16250"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_idle.fbx",
+          "bytes": 717184,
+          "sha256": "98d4726e0129662447347107d0d114414f562578118c53786e9c195c6595f26f"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_reload.fbx",
+          "bytes": 639232,
+          "sha256": "564b5404db8b663925759a8b57f72c33e0a415ff6d4b5ea26c1ad963780c6c13"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_run.fbx",
+          "bytes": 342016,
+          "sha256": "bfd775dc316635d07b53d2308f07c1525f01487c434b312055c3344795b0fbff"
+        },
+        {
+          "path": "assets-src/mixamo/rifle_walk.fbx",
+          "bytes": 365920,
+          "sha256": "834660d08c3eb76d5910afa2c0b0f0845dd497771945d5690a18d9bf0289e3b7"
+        },
+        {
+          "path": "assets-src/mixamo/swat.fbx",
+          "bytes": 115014208,
+          "sha256": "de5d15ebae817d5f09fe64edbd8dd4d7844ed725b5581913bdaa9bc9a4ed1c18"
+        }
+      ]
     }
   ]
 }

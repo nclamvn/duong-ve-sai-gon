@@ -55,11 +55,12 @@ Ghi chú khi đọc số: `draw_calls` trên backend WebGPU đếm cả sub-draw
 npm run assets          # tải texture/HDRI/model CC0 từ Poly Haven → public/assets/, tối ưu glTF (meshopt) và ghi content/assets/manifest.json
 npm run assets:verify   # kiểm file + sha256 khớp manifest (CI/unit test cũng kiểm)
 ```
-`public/assets/` (≈35 MB, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo: Chủ nhà tải FBX vào
-`assets-src/mixamo/` (xem `docs/tips/TIP-012.md`), `scripts/convert-mixamo.mjs` chuyển sang GLB.
+`public/assets/` (≈44 MB, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo (Swat Guy + 8 clip,
+tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
+texture 2K JPEG, meshopt) → `public/assets/characters/soldier.glb` + mục `soldier_mixamo` trong manifest.
 
 Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·
-`?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?cones=0` · `?splash=0`.
+`?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?cones=0` · `?splash=0`.
 
 ## Cấu trúc
 
@@ -87,3 +88,4 @@ TIP-010 (hình nhân lính 12 bone, mưa mảnh, súng góc nhìn thứ nhất, 
 
 Chủ nhà đánh giá G0 "game thập niên 90" → chèn look-dev trước G1: TIP-011 render pipeline (IBL, post stack, texture PBR CC0, hình khối cảng),
 TIP-012 nhân vật Mixamo, TIP-013 súng + FX chân thực. Mục tiêu: một góc arena đạt "chân thực điện ảnh" đêm mưa cảng Vạn Hải, bench vẫn PASS.
+Cả ba TIP DONE trong sandbox (WebGL 2, CI xanh) — chờ Chủ nhà `npm install && npm run bench:quick` rồi chơi trên Mac WebGPU (SSR chỉ thấy ở đó).

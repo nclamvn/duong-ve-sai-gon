@@ -1,0 +1,31 @@
+# Contract — TIP-012
+id: TIP-012
+goal: "Nhân vật thật: Mixamo Swat Guy + 8 clip (idle/walk/run/aim/fire/reload/hit/death) → GLB meshopt có manifest; ActorVisual (SoldierVisual glTF + DummyVisual fallback); mixer state machine crossfade; súng prop gắn tay phải"
+scope:
+  - scripts/convert-mixamo.mjs
+  - src/engine/render/characters.ts
+  - src/engine/render/rifleProp.ts
+  - src/engine/render/assets.ts
+  - src/game/actors/visual.ts
+  - src/game/actors/botActor.ts
+  - src/game/game.ts
+  - public/assets/characters/soldier.glb
+  - content/assets/manifest.json
+acceptance:
+  - "GLB có sẵn → dummy + bot dùng mesh Mixamo; thiếu GLB hoặc ?character=0 → fallback procedural, không lỗi"
+  - "bot đi/chạy/ngắm/bắn/chết → clip đúng state, crossfade ≤ 0.2 s, death giữ frame cuối; không T-pose lộ"
+  - "manifest ghi license Mixamo + sha256 GLB và từng FBX nguồn; tổng asset ≤ 60 MB"
+  - "bench:quick Mac PASS; skinned_actors ≤ 10 (chờ Chủ nhà)"
+  - "npm run ci exit 0; 0 lỗi console"
+tests:
+  - tests/unit/assets.test.ts
+  - tests/unit/governance.test.ts
+  - tests/e2e/boot.spec.ts
+evidence:
+  - evidence/TIP-012/completion-report.md
+  - evidence/TIP-012/lineup-swat-webgl.png
+  - evidence/TIP-012/rifle-aim-side-webgl.png
+  - evidence/TIP-012/rifle-aim-front-webgl.png
+  - evidence/TIP-012/rifle-poses-idle-run-webgl.jpg
+rollback: "git revert HEAD (GLB + manifest + rifleProp); ?character=0 tắt tại runtime"
+status: DONE (chờ chấm Mac)

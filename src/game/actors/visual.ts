@@ -5,6 +5,8 @@
 import { Group, Object3D, SkinnedMesh } from 'three/webgpu';
 import { Dummy, DUMMY_HIT_ZONES, type HitZones, type DummyOptions } from './dummy';
 import { CharacterInstance, type CharacterAsset } from '@engine/render/characters';
+import { attachRifle } from '@engine/render/rifleProp';
+import type { Mesh } from 'three/webgpu';
 
 export interface ActorVisual {
   readonly group: Group;
@@ -33,6 +35,8 @@ export class SoldierVisual implements ActorVisual {
   readonly hitZones = DUMMY_HIT_ZONES;
   readonly bones: { spine: Object3D; head: Object3D; hips: Object3D };
   readonly char: CharacterInstance;
+  /** súng gắn tay phải (Mixamo không kèm vũ khí) */
+  readonly rifle: Mesh | null;
   health = 100;
   alive = true;
   motion = { speed: 0, aiming: false };
@@ -40,6 +44,8 @@ export class SoldierVisual implements ActorVisual {
 
   constructor(asset: CharacterAsset, opts: DummyOptions = {}) {
     this.char = new CharacterInstance(asset, { tint: opts.color, visor: opts.visor });
+    // Mixamo rig nhìn về +z; hệ actor (Dummy, bot.yaw) quy ước mặt trước là −z → xoay 180°
+    this.char.root.rotation.y = Math.PI;
     this.group.add(this.char.root);
     this.group.name = 'soldier_gltf';
     const first = this.char.skinned[0];
@@ -48,6 +54,7 @@ export class SoldierVisual implements ActorVisual {
     const b = this.char.bones;
     const spine = b.spine ?? b.hips ?? this.char.model;
     this.bones = { spine, head: b.head ?? spine, hips: b.hips ?? spine };
+    this.rifle = b.handR ? attachRifle(b.handR) : null;
   }
 
   setPose(t: number): void {

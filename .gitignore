@@ -12,5 +12,3 @@ evidence/sandbox/
 # asset nguồn (Poly Haven gltf, Mixamo fbx) — chỉ bản tối ưu trong public/assets vào git
 assets-src/
 
-# TIP-012: nhân vật glTF — chỉ commit khi là bản convert từ Mixamo của Chủ nhà (manifest); fixture dev không vào git
-public/assets/characters/

@@ -42,3 +42,7 @@
 | D-038 | Thợ (L1) | SSR chỉ WebGPU (SSRNode r185 sinh GLSL lỗi trên WebGL 2); TRAA tắt mặc định (`?taa=1`) | TIP-011 known-issue |
 | D-039 | Thợ (L1) | Texture 1K JPG, ≤ 60 MB ở slice; KTX2 nợ trước G4; Vite `assetsDir: bundle` để `/assets/` là CC0 | ADR-005 |
 | D-040 | Thầu | Luật TSL thêm vào AGENTS: không đảo cạnh `smoothstep` (undefined) — dùng `.oneMinus()` | TIP-011 bug nón đèn |
+| D-041 | Chủ nhà | "Tải assets hộ tôi" → Thợ tải Mixamo (Swat Guy + 8 clip rifle/hit/death) qua trình duyệt tích hợp với tài khoản Adobe đã đăng nhập; không nhập mật khẩu; FBX nguồn gitignore, sha256 vào manifest | TIP-012 |
+| D-042 | Thợ (L1) | Texture Mixamo 4K PNG → JPEG 2K khi convert (GLB 92.6 → 7.2 MB); `sharp` devDep; KTX2 vẫn nợ G4 | TIP-012 |
+| D-043 | Thợ (L1) | Mixamo không kèm vũ khí → AR procedural gắn bone RightHand, offset rot (π/2,0,π) pos (0,0.05,−0.07) calibrate bằng ảnh; thay GLB CC0 sau nếu Chủ nhà chọn | TIP-012 evidence rifle-*.png |
+| D-044 | Thợ (L1) | Hit zone giữ tĩnh (không bám bone) ở G0.5 — rig chuẩn hoá 1.82 m trùng Dummy; nợ G1 khi có tư thế cúi/ngã | TIP-012 deviation |
