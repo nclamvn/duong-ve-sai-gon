@@ -38,6 +38,8 @@ import { initNav, NavService } from '@engine/nav/navmesh';
 import { getPositionsAndIndices, NavMeshHelper } from '@recast-navigation/three';
 import { BotActor } from '@game/actors/botActor';
 import type { BotEvents } from '@game/ai/bot';
+import { SquadCoordinator } from '@game/ai/squad';
+import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
 import type { MissionEvents } from '@game/mission/types';
 
@@ -87,7 +89,11 @@ export class Game {
   fx!: WeaponFx;
   viewModel!: WeaponViewModel;
   fpArms: FpArms | null = null;
-  private fpArmsCfg: NonNullable<WeaponModelConfig['fp']> | null = null;
+  fpArmsCfg: NonNullable<WeaponModelConfig['fp']> | null = null;
+  /** debug/calib (TIP-017): khoá AI (không think/move), ẩn viewmodel, ép pose FP */
+  aiPaused = false;
+  viewModelHidden = false;
+  fpOverride: { ads: number; sprint: boolean } | null = null;
   private lastInputDx = 0;
   private lastInputDy = 0;
   readonly audio = new AudioEngine();
@@ -96,6 +102,9 @@ export class Game {
   nav!: NavService;
   navHelper: NavMeshHelper | null = null;
   readonly bots = new Map<string, BotActor>();
+  /** tổ địch (TIP-018): ép sườn */
+  squad: SquadCoordinator | null = null;
+  private footstepMs = 0;
   private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true };
   private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
   navBuildMs = 0;
@@ -213,7 +222,7 @@ export class Game {
     // cánh tay FP (TIP-016): mesh tay Mixamo + IK bám anchor súng; cần viewmodel glTF (anchor) + soldier_arms.glb
     const ak = this.assets.weapons['ak74m'];
     if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
-      this.fpArms = new FpArms(this.assets.arms, this.camera, { scale: ak.cfg.view.scale, tint: 0xb9c4ad });
+      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space, { tint: 0xb9c4ad }); // kích thước thật trong space (FOV viewmodel)
       this.fpArmsCfg = ak.cfg.fp;
       this.viewModel.setGlovesVisible(false);
     }
@@ -261,12 +270,13 @@ export class Game {
     window.addEventListener('keydown', (ev) => {
       if (ev.code === 'F4' && this.navHelper) this.navHelper.visible = !this.navHelper.visible;
     });
+    this.squad = new SquadCoordinator(this.arena.coverMarkers);
     this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
     this.scheduler.add('ai10', (_tick, dtAi) => {
       let full = 0;
       let alive = 0;
       for (const b of this.bots.values()) {
-        b.bot.think(dtAi);
+        if (!this.aiPaused) b.bot.think(dtAi);
         if (b.bot.alive) {
           alive++;
           if (b.bot.lod === 'FULL') full++;
@@ -431,10 +441,19 @@ export class Game {
     this.camInfo.fwd[0] = sh.aim[0];
     this.camInfo.fwd[1] = sh.aim[1];
     this.camInfo.fwd[2] = sh.aim[2];
+    // tiếng chân khi chạy nước rút (TIP-018): bot nghe trong ~9 m
+    if (this.player.alive && this.player.isSprinting && this.player.controller.grounded && this.player.controller.horizontalSpeed() > 3.5) {
+      this.footstepMs += dt * 1000;
+      if (this.footstepMs >= aiTuning.hearing.footstepIntervalMs) {
+        this.footstepMs = 0;
+        this.events.emit('PLAYER_FOOTSTEP', { origin: [ti.pos[0], ti.pos[1], ti.pos[2]] });
+      }
+    } else this.footstepMs = 0;
     for (const b of this.bots.values()) {
-      b.bot.move(dt);
+      if (!this.aiPaused) b.bot.move(dt);
       b.syncBody();
     }
+    if (this.squad && !this.aiPaused) this.squad.tick(this.bots.values(), dt, ti.pos);
     this.physics.step();
     const interactEdge = this.inputState.interact && !this.prevInteract;
     this.prevInteract = this.inputState.interact;
@@ -454,11 +473,20 @@ export class Game {
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
     for (const b of this.bots.values()) b.syncVisual(t);
     // viewmodel: chỉ khi có player (không free-fly)
-    this.viewModel.visible = !this.freeFly && this.player.alive;
-    this.viewModel.update(dt, this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), this.player.isSprinting);
-    if (this.fpArms && this.fpArmsCfg && this.viewModel.fpAnchors) {
+    this.viewModel.visible = !this.freeFly && this.player.alive && !this.viewModelHidden;
+    const fo = this.fpOverride;
+    this.viewModel.update(dt, fo ? fo.ads : this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), fo ? fo.sprint : this.player.isSprinting);
+    if (this.fpArms) this.fpArms.visible = this.viewModel.visible;
+    if (this.fpArms && this.fpArmsCfg && this.viewModel.fpAnchors && this.viewModel.visible) {
+      // IK chạy trong không gian chưa "ép FOV" (space scale 1) — quaternion/độ dài đốt đúng; ép lại trước khi render
+      const sp = this.viewModel.space;
+      const kx = sp.scale.x;
+      const ky = sp.scale.y;
+      sp.scale.set(1, 1, 1);
       this.camera.updateMatrixWorld(true);
       this.fpArms.update({ gripR: this.viewModel.fpAnchors.gripR, gripL: this.viewModel.fpAnchors.gripL, handR: this.fpArmsCfg.handR, handL: this.fpArmsCfg.handL, triggerFinger: this.fpArmsCfg.triggerFinger });
+      sp.scale.set(kx, ky, 1);
+      this.camera.updateMatrixWorld(true);
     }
     this.lastInputDx = 0;
     this.lastInputDy = 0;

@@ -148,6 +148,11 @@ function buildProceduralGun(mats: ViewModelMaterials, parent: Object3D, leftHand
 }
 
 export class WeaponViewModel {
+  /**
+   * "FOV viewmodel" (TIP-017): nhóm con của camera scale (k, k, 1) — chiếu màn hình y hệt camera FOV hẹp hơn (tan nửa góc × k)
+   * nhưng súng và cánh tay giữ **kích thước thật, khoảng cách thật** → tay với tới ốp lót như đời thật. root/tay FP là con của space.
+   */
+  readonly space = new Group();
   readonly root = new Group();
   /** 'gltf' = model CC-BY (TIP-014), 'procedural' = AR TIP-013 */
   readonly kind: 'procedural' | 'gltf';
@@ -196,14 +201,14 @@ export class WeaponViewModel {
       this.muzzleAnchor = inst.anchors.muzzle;
       this.ejectAnchor = inst.anchors.eject;
       const v = weapon.cfg.view;
-      const scale = v.scale;
+      this.space.scale.set(v.scale, v.scale, 1);
       this.hip = poseToVectors(v.hip);
       this.ads = poseToVectors(v.ads);
       this.sprint = poseToVectors(v.sprint);
       if (v.alignSight !== false) {
-        // ADS: anchor sight (model) về trục camera tại (0, 0, −sightDistance) khi rot = ads.rot (≈ 0)
+        // ADS: anchor sight (model, kích thước thật) về trục camera tại (0, 0, −sightDistance) khi rot = ads.rot (≈ 0)
         const s = weapon.cfg.anchors.sight;
-        this.ads.pos.set(-s[0] * scale, -s[1] * scale, -v.sightDistance - s[2] * scale);
+        this.ads.pos.set(-s[0], -s[1], -v.sightDistance - s[2]);
       }
       this.boltTravel = weapon.cfg.parts.boltTravel ?? 0.06;
       // bao tay vải tại anchor (hệ model, con của inst.root → theo scale)
@@ -223,7 +228,6 @@ export class WeaponViewModel {
       this.fpAnchors = { gripR: inst.anchors.gripR, gripL };
       this.partCount = weapon.meshes + gb.parts;
       this.triangles = weapon.triangles;
-      gun.scale.setScalar(scale);
       // PBR tối (base ~0.17, metal ~0.6) chìm vào đêm → bản material riêng cho viewmodel: sáng hơn, bớt kim loại, IBL mạnh hơn
       inst.model.traverse((o: Object3D) => {
         const m = o as Object3D & { material?: { clone(): unknown } };
@@ -253,13 +257,16 @@ export class WeaponViewModel {
     }
     this.leftHandRest.copy(this.leftHand.position);
     this.root.add(gun);
+    this.space.name = 'viewmodel_space';
+    this.space.add(this.root);
     this.root.position.copy(this.hip.pos);
     // đèn fill là con của root (theo pose hip/ADS/sprint) → khoảng cách tới súng ổn định, không cháy trắng khi ADS
-    this.fillLight = new PointLight(0xdfe6f2, 1.1, 1.2, 2);
-    this.fillLight.position.set(0.0, 0.15, -0.22);
+    // TIP-017: súng kích thước thật gần đèn hơn → 0.45 cd, lùi lên trên-trước (đo ADS không cháy trắng)
+    this.fillLight = new PointLight(0xdfe6f2, 0.45, 1.4, 2);
+    this.fillLight.position.set(0.04, 0.22, -0.3);
     this.fillLight.castShadow = false;
     this.root.add(this.fillLight);
-    camera.add(this.root);
+    camera.add(this.space);
   }
 
   /** ẩn bao tay procedural khi có cánh tay FP thật */

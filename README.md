@@ -71,6 +71,8 @@ Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high`
 `?taa=1` (TRAA thử nghiệm) · `?assets=0` (lite: không model/HDRI) · `?character=0` (lính procedural) · `?weapons=0` (súng procedural) · `?cones=0` · `?splash=0` ·
 `?fps=60|120|0` (cap khi chơi, mặc định 60 — màn 120 Hz đỡ giật; bench không cap) · `?arms=0` (tắt cánh tay FP).
 
+Hiệu chỉnh tay cầm súng (TIP-017, chỉ dev/`?debug=1`): `?calib=soldier&post=off&rain=0` (lính đứng yên, đèn sáng, camera orbit `&az=&el=&dist=&h=`) hoặc `?calib=fp` (góc nhìn thứ nhất). Console: `__ht.calib.pose('aim')`, `.fit()` (khớp súng vào pose animation), `.measure()`, `.setHand('L', pos, rot)`, `.exportJson()` → dán vào `content/weapons/<id>.json` mục `fp`.
+
 ## Credits
 
 Tài sản bên thứ ba liệt kê đầy đủ trong [`CREDITS.md`](CREDITS.md) (sinh từ manifest). CC-BY 4.0 (ghi công bắt buộc, ADR-006):

@@ -15,7 +15,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
         dummies: g.dummies.length,
         bones: g.dummies.map((d) => d.mesh.skeleton.bones.length),
         kinds: g.dummies.map((d) => d.kind),
-        viewModel: !!g.viewModel && g.viewModel.root.parent === g.camera,
+        viewModel: !!g.viewModel && g.viewModel.space.parent === g.camera && g.viewModel.root.parent === g.viewModel.space, // TIP-017: root nằm trong space (FOV viewmodel)
         skinned: g.dummies.every((d) => d.mesh.isSkinnedMesh),
         navPolys: g.nav.polyCount,
         navMs: g.navBuildMs,

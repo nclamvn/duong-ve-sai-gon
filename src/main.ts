@@ -7,6 +7,7 @@ import { showCapability, showFatal } from '@ui/capability';
 import { Overlay } from '@ui/overlay';
 import { installDebugApi } from '@qa/debugApi';
 import { runBench, submitReport } from '@qa/bench';
+import { installCalib, type CalibMode } from '@qa/calib';
 import { t } from '@ui/i18n';
 
 declare const __BUILD_HASH__: string;
@@ -35,6 +36,8 @@ async function boot(): Promise<void> {
   overlay.toggle(showOverlay);
   game.onFrame = () => overlay.update(performance.now());
   const api = installDebugApi(game, __BUILD_HASH__);
+  const calib = params.get('calib');
+  if (api && (calib === 'soldier' || calib === 'fp')) api.calib = installCalib(game, calib as CalibMode, params);
 
   const enter = (): void => {
     document.getElementById('hud')!.hidden = false;

@@ -4,7 +4,7 @@
  */
 import { Mesh, BoxGeometry, CylinderGeometry, MeshStandardNodeMaterial, Matrix4, Euler, Quaternion, Vector3, Object3D, Group, type BufferGeometry } from 'three/webgpu';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { instantiateWeapon, type WeaponAsset } from './weaponModel';
+import { instantiateWeapon, poseToMatrix, type WeaponAsset, type WeaponInstance } from './weaponModel';
 
 const _m = new Matrix4();
 const _q = new Quaternion();
@@ -64,31 +64,38 @@ export function createRifleProp(): Mesh {
 /** Đầu nòng của súng procedural (local, trục −z) — FX địch (TIP-014) lấy world position từ node này. */
 export const RIFLE_MUZZLE_LOCAL = new Vector3(0, 0.03, -0.785);
 
+/** Đặt pivot (hệ anchor gripR) trong bone tay từ `fp.handR`; con của pivot là root model dịch −gripR. Gọi lại khi đổi số (calib). */
+export function applyGripPivot(pivot: Object3D, weapon: WeaponAsset): void {
+  poseToMatrix(weapon.cfg.fp.handR, _m).invert();
+  _m.decompose(pivot.position, pivot.quaternion, pivot.scale);
+  const g = weapon.cfg.anchors.gripR;
+  for (const child of pivot.children) child.position.set(-g[0], -g[1], -g[2]);
+}
+
 export interface AttachedRifle {
   /** pivot trong bone tay (position/rotation = offset calibrate) */
   pivot: Object3D;
   /** Object3D tại đầu nòng (world position cho FX) */
   muzzle: Object3D;
   kind: 'procedural' | 'gltf';
+  /** anchor của model glTF (gripL cho IK tay trái) */
+  anchors?: WeaponInstance['anchors'];
+  weapon?: WeaponAsset;
 }
 
 /**
- * Gắn súng vào bone tay phải. Có model glTF (TIP-014) → instance chia sẻ geometry, pivot = anchor gripR (tay cầm) với offset `cfg.hand`;
- * không có → AR procedural (pivot = gốc mesh, offset RIFLE_HAND_OFFSET).
+ * Gắn súng vào bone tay phải. Có model glTF (TIP-014/017) → instance chia sẻ geometry; pivot = hệ anchor gripR đặt trong bone tay
+ * bằng **nghịch đảo** `fp.handR` (cùng số với tay FP — một sự thật), root model dịch −gripR; không có → AR procedural (RIFLE_HAND_OFFSET).
  */
 export function attachRifle(handBone: Object3D, weapon: WeaponAsset | null = null, offset = RIFLE_HAND_OFFSET): AttachedRifle {
   if (weapon) {
     const inst = instantiateWeapon(weapon, { castShadow: true });
     const pivot = new Group();
     pivot.name = 'rifle_pivot';
-    const h = weapon.cfg.hand;
-    pivot.position.set(h.pos[0], h.pos[1], h.pos[2]);
-    pivot.rotation.set(h.rot[0], h.rot[1], h.rot[2]);
-    const g = weapon.cfg.anchors.gripR;
-    inst.root.position.set(-g[0], -g[1], -g[2]);
     pivot.add(inst.root);
+    applyGripPivot(pivot, weapon);
     handBone.add(pivot);
-    return { pivot, muzzle: inst.anchors.muzzle, kind: 'gltf' };
+    return { pivot, muzzle: inst.anchors.muzzle, kind: 'gltf', anchors: inst.anchors, weapon };
   }
   const rifle = createRifleProp();
   rifle.position.copy(offset.pos);

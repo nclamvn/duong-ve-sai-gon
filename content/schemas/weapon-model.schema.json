@@ -12,7 +12,7 @@
     "anchors",
     "parts",
     "view",
-    "hand"
+    "fp"
   ],
   "$defs": {
     "vec3": {
@@ -141,10 +141,6 @@
         }
       }
     },
-    "hand": {
-      "$ref": "#/$defs/pose",
-      "description": "offset pivot (gripR) trong bone tay phải Mixamo (RightHand), rad"
-    },
     "fp": {
       "type": "object",
       "additionalProperties": false,
@@ -152,7 +148,7 @@
         "handR",
         "handL"
       ],
-      "description": "cánh tay góc nhìn thứ nhất (TIP-016): bone bàn tay trong hệ anchor gripR/gripL (pos m, rot rad)",
+      "description": "Bàn tay trên súng (TIP-016/017): pose bone bàn tay Mixamo trong hệ anchor gripR/gripL — một sự thật cho tay FP (anchor·pose) lẫn lính (súng trong bone tay = inverse(pose), dịch −gripR).",
       "properties": {
         "handR": {
           "$ref": "#/$defs/pose"
@@ -162,6 +158,9 @@
         },
         "triggerFinger": {
           "type": "number"
+        },
+        "$comment": {
+          "type": "string"
         }
       }
     }

@@ -53,7 +53,7 @@ export class BotActor {
         this.prevPos[2] = p[2];
         this.prevT = t;
       }
-      this.dummy.motion.aiming = this.bot.state === 'PEEK_FIRE';
+      this.dummy.motion.aiming = this.bot.aiming;
       g.position.set(p[0], p[1], p[2]);
       g.rotation.y = this.bot.yaw;
     }

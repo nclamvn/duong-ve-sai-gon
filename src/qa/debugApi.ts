@@ -5,6 +5,7 @@
 import type { Game } from '@game/game';
 import type { TelemetrySummary } from './telemetry';
 import type { BenchReport } from './bench';
+import type { CalibApi } from './calib';
 
 export interface HtDebugApi {
   ready: boolean;
@@ -32,6 +33,8 @@ export interface HtDebugApi {
   checkpoint: { save(id?: string): string; load(id?: string): string | null; lastHash(): string | null; saves(): number };
   events: { recent(n?: number): Array<{ type: string; id: string | null; tick: number }>; countOf(type: string): number; duplicates(): number };
   bots(): Array<{ id: string; group: string; state: string; lod: string; alive: boolean; health: number; position: [number, number, number] }>;
+  /** chế độ hiệu chỉnh tay cầm (TIP-017) — chỉ khi ?calib= */
+  calib?: CalibApi;
   [k: string]: unknown;
 }
 

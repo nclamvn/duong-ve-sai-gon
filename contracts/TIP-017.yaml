@@ -1,0 +1,33 @@
+# Contract — TIP-017
+id: TIP-017
+goal: "Súng nằm trong tay: một sự thật fp.handR/handL cho cả FP lẫn lính; IK tay trái lính; hiệu chỉnh bằng số đo (?calib) thay vì mắt"
+scope:
+  - src/engine/render/armIk.ts
+  - src/engine/render/fpArms.ts
+  - src/engine/render/rifleProp.ts
+  - src/engine/render/weaponModel.ts
+  - src/game/actors/visual.ts
+  - src/game/game.ts (aiPaused, calib hook)
+  - src/qa/calib.ts
+  - src/qa/debugApi.ts
+  - content/weapons/ak74m.json
+  - content/weapons/hk416.json
+  - content/schemas/weapon-model.schema.json
+  - tests/unit/armIk.test.ts
+  - tests/unit/weapons.test.ts
+acceptance:
+  - "measure(): gripR trong cung ngón phải ≤ 1.5 cm, gripL ≤ 2 cm (lính idle/walk/aim; FP hip/ads/sprint)"
+  - "ảnh cận evidence/TIP-017: hai tay ôm súng, không treo trước ngực"
+  - "npm run ci exit 0; bench Mac +≤ 0.3 ms"
+tests:
+  - tests/unit/armIk.test.ts
+  - tests/unit/weapons.test.ts
+  - tests/unit/assets.test.ts
+evidence:
+  - evidence/TIP-017/soldier-idle.png
+  - evidence/TIP-017/soldier-aim.png
+  - evidence/TIP-017/fp-hip.png
+  - evidence/TIP-017/fp-ads.png
+  - evidence/TIP-017/measure.json
+rollback: "git revert HEAD"
+status: IN_PROGRESS

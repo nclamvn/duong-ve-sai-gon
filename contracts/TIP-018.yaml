@@ -1,0 +1,27 @@
+# Contract — TIP-018
+id: TIP-018
+goal: "AI chiến đấu: bắn phản xạ tại chỗ khi thấy, bắn khi di chuyển, cover chỉ khi có nghĩa, ló/nấp thật, ép sườn theo tổ, nghe tiếng chân, đạn sượt"
+scope:
+  - src/game/ai/bot.ts
+  - src/game/ai/squad.ts
+  - src/game/ai/perception.ts
+  - src/game/ai/cover.ts
+  - src/game/game.ts (footstep noise, squad tick)
+  - src/game/player/player.ts (isSprinting đã có)
+  - content/tuning/ai.json
+  - tests/unit/ai.test.ts
+acceptance:
+  - "player 6 m trước mặt, LOS: BOT_FIRED ≤ 0.8 s, bot không rời chỗ trước phát đầu"
+  - "không cover ≤ 12 m: ≥ 4 loạt/10 s, dịch chuyển ≤ 4 m, mặt hướng player"
+  - "có cover: SEEK_COVER bắn khi FOV, PEEK_FIRE bắn khi ló"
+  - "3 bot cùng nhóm: 1 FLANK trong 3 s tới góc ≥ 60°"
+  - "npm run ci exit 0; ai.test deterministic"
+tests:
+  - tests/unit/ai.test.ts
+  - tests/unit/mission.test.ts
+evidence:
+  - evidence/TIP-018/probe-front.txt
+  - evidence/TIP-018/probe-cover.txt
+  - evidence/TIP-018/ci.log
+rollback: "git revert HEAD"
+status: IN_PROGRESS

@@ -3,7 +3,7 @@
  * băng đạn) và part chuyển động (băng đạn, bolt) theo cấu hình content/weapons/<id>.json.
  * Hệ model (convert-weapon.mjs): nòng −z, lên +y, gốc trên trục nòng giữa súng, đơn vị m.
  */
-import { Group, Object3D, Vector3, Euler, type Texture } from 'three/webgpu';
+import { Group, Object3D, Vector3, Euler, Matrix4, Quaternion, type Texture } from 'three/webgpu';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
@@ -21,9 +21,11 @@ export interface WeaponModelConfig {
   anchors: Record<AnchorName, Vec3Tuple>;
   parts: { magazine?: string; bolt?: string; boltTravel?: number };
   view: { scale: number; hip: WeaponPose; ads: WeaponPose; sprint: WeaponPose; sightDistance: number; alignSight?: boolean };
-  hand: WeaponPose;
-  /** cánh tay góc nhìn thứ nhất (TIP-016): bone bàn tay trong hệ anchor gripR/gripL */
-  fp?: { handR: WeaponPose; handL: WeaponPose; triggerFinger?: number };
+  /**
+   * Bàn tay trên súng (TIP-016/017) — một sự thật cho cả tay FP lẫn lính: pose **bone bàn tay Mixamo trong hệ anchor**
+   * gripR/gripL (pos m, rot Euler XYZ). FP: hand = anchor · pose. Lính: súng trong bone tay = inverse(pose) rồi dịch −gripR.
+   */
+  fp: { handR: WeaponPose; handL: WeaponPose; triggerFinger?: number };
 }
 
 export interface WeaponAsset {
@@ -71,6 +73,12 @@ export async function loadWeaponModel(url: string, cfg: WeaponModelConfig, aniso
 
 export function poseToVectors(p: WeaponPose): { pos: Vector3; rot: Euler } {
   return { pos: new Vector3(p.pos[0], p.pos[1], p.pos[2]), rot: new Euler(p.rot[0], p.rot[1], p.rot[2]) };
+}
+
+/** Ma trận local của một pose (pos + Euler XYZ), scale 1. */
+export function poseToMatrix(p: WeaponPose, out = new Matrix4()): Matrix4 {
+  const { pos, rot } = poseToVectors(p);
+  return out.compose(pos, new Quaternion().setFromEuler(rot), new Vector3(1, 1, 1));
 }
 
 /** Clone chia sẻ geometry/material; anchor = Object3D con của root (world position lấy qua getWorldPosition). */

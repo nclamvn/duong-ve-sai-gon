@@ -4,7 +4,8 @@
  * đã calibrate → tự đúng ở mọi pose (hip/ADS/sprint/reload vì tay trái theo băng đạn). Ngón tay co theo góc cố định.
  * Không animation clip; không AI. Engine thuần (không import game/*).
  */
-import { Group, Object3D, Bone, Vector3, Quaternion, Matrix4, Euler, Mesh, SkinnedMesh, Color, type Camera } from 'three/webgpu';
+import { Group, Object3D, Bone, Vector3, Quaternion, Matrix4, Euler, Mesh, SkinnedMesh, Color } from 'three/webgpu';
+import { findArmChain, solveTwoBone, type ArmChain } from './armIk';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
@@ -27,8 +28,11 @@ export async function loadFpArms(url: string): Promise<FpArmsAsset> {
   return { template: gltf.scene, triangles: Math.round(triangles) };
 }
 
-/** Vị trí rig (gốc = chân nhân vật) trong hệ camera: mắt ≈ camera, rig Mixamo nhìn +z → xoay π. */
-export const FP_RIG_POSE = { pos: new Vector3(0, -1.62, 0.1), yaw: Math.PI };
+/**
+ * Vị trí rig (gốc = chân nhân vật, kích thước thật) trong hệ camera: mắt ≈ camera, vai ≈ 0.2 m dưới, rig Mixamo nhìn +z → xoay π.
+ * TIP-017: rig ở kích thước thật trong `viewmodel_space` (scale k,k,1 = FOV viewmodel) → tầm với thật 0.5 m tới ốp lót.
+ */
+export const FP_RIG_POSE = { pos: new Vector3(0, -1.62, 0.02), yaw: Math.PI };
 /** hướng khuỷu tay (hệ camera): phải = xuống-phải-ra sau, trái = xuống-trái */
 const POLE_R = new Vector3(0.9, -1, 0.35);
 const POLE_L = new Vector3(-0.8, -1, 0.1);
@@ -46,36 +50,20 @@ export interface FpArmTargets {
   triggerFinger?: number;
 }
 
-interface ArmChain {
-  shoulder: Bone;
-  upper: Bone;
-  fore: Bone;
-  hand: Bone;
-  lenUpper: number;
-  lenFore: number;
+interface FpChain extends ArmChain {
   pole: Vector3;
+  /** debug/calib: vai, đích (world), tầm với, sai số lần giải cuối */
+  dbg: { shoulder: Vector3; target: Vector3; reach: number; err: number };
 }
 
 const _m = new Matrix4();
 const _m2 = new Matrix4();
 const _q = new Quaternion();
-const _q2 = new Quaternion();
 const _qp = new Quaternion();
 const _e = new Euler();
-const _vS = new Vector3();
-const _vE = new Vector3();
-const _vW = new Vector3();
-const _vT = new Vector3();
-const _dir = new Vector3();
 const _pole = new Vector3();
-const _perp = new Vector3();
-const _cur = new Vector3();
-const _des = new Vector3();
 const _pos = new Vector3();
 const _sc = new Vector3();
-const _ax = new Vector3();
-const _bx = new Vector3();
-const _cx = new Vector3();
 
 function findBone(root: Object3D, ...names: string[]): Bone | null {
   for (const n of names) {
@@ -89,12 +77,12 @@ export class FpArms {
   readonly root = new Group();
   readonly model: Group;
   readonly skinned: SkinnedMesh[] = [];
-  private readonly armR: ArmChain | null;
-  private readonly armL: ArmChain | null;
+  private readonly armR: FpChain | null;
+  private readonly armL: FpChain | null;
   private readonly fingerBones: Array<{ bone: Bone; curl: number; rest: Quaternion; index: boolean }> = [];
   readonly triangles: number;
 
-  constructor(asset: FpArmsAsset, camera: Camera, opts: { tint?: number; scale?: number } = {}) {
+  constructor(asset: FpArmsAsset, parent: Object3D, opts: { tint?: number; scale?: number } = {}) {
     this.model = skeletonClone(asset.template) as Group;
     this.model.traverse((o: Object3D) => {
       const m = o as SkinnedMesh;
@@ -117,7 +105,7 @@ export class FpArms {
     this.model.rotation.y = FP_RIG_POSE.yaw;
     this.root.add(this.model);
     this.root.name = 'fp_arms';
-    camera.add(this.root);
+    parent.add(this.root);
     this.root.updateMatrixWorld(true);
     this.armR = this.chain('Right', POLE_R);
     this.armL = this.chain('Left', POLE_L);
@@ -125,17 +113,9 @@ export class FpArms {
     this.collectFingers('Left');
   }
 
-  private chain(side: 'Left' | 'Right', pole: Vector3): ArmChain | null {
-    const m = this.model;
-    const shoulder = findBone(m, `mixamorig${side}Shoulder`, `mixamorig:${side}Shoulder`);
-    const upper = findBone(m, `mixamorig${side}Arm`, `mixamorig:${side}Arm`);
-    const fore = findBone(m, `mixamorig${side}ForeArm`, `mixamorig:${side}ForeArm`);
-    const hand = findBone(m, `mixamorig${side}Hand`, `mixamorig:${side}Hand`);
-    if (!shoulder || !upper || !fore || !hand) return null;
-    upper.getWorldPosition(_vS);
-    fore.getWorldPosition(_vE);
-    hand.getWorldPosition(_vW);
-    return { shoulder, upper, fore, hand, lenUpper: _vS.distanceTo(_vE), lenFore: _vE.distanceTo(_vW), pole };
+  private chain(side: 'Left' | 'Right', pole: Vector3): FpChain | null {
+    const c = findArmChain(this.model, side);
+    return c ? { ...c, pole, dbg: { shoulder: new Vector3(), target: new Vector3(), reach: c.lenUpper + c.lenFore, err: 0 } } : null;
   }
 
   private collectFingers(side: 'Left' | 'Right'): void {
@@ -169,7 +149,7 @@ export class FpArms {
     if (this.armL) this.solve(this.armL, t.gripL, t.handL);
   }
 
-  private solve(arm: ArmChain, anchor: Object3D, off: WeaponPose): void {
+  private solve(arm: FpChain, anchor: Object3D, off: WeaponPose): void {
     // bàn tay mong muốn (world) = anchor · offset
     anchor.updateWorldMatrix(true, false);
     _e.set(off.rot[0], off.rot[1], off.rot[2]);
@@ -177,75 +157,16 @@ export class FpArms {
     _pos.set(off.pos[0], off.pos[1], off.pos[2]);
     _m2.compose(_pos, _q, _sc.set(1, 1, 1));
     _m.copy(anchor.matrixWorld).multiply(_m2);
-    _m.decompose(_vT, _q2, _sc); // _vT = cổ tay mong muốn, _q2 = hướng bàn tay (world)
-
-    arm.shoulder.updateWorldMatrix(true, true);
-    arm.upper.getWorldPosition(_vS);
-    const a = arm.lenUpper;
-    const b = arm.lenFore;
-    _dir.copy(_vT).sub(_vS);
-    let d = _dir.length();
-    if (d < 1e-5) return;
-    _dir.divideScalar(d);
-    d = Math.min(d, (a + b) * 0.995);
-    // khuỷu: mặt phẳng (dir, pole) — pole trong hệ camera → world
+    // pole trong hệ camera → world
     _pole.copy(arm.pole).applyQuaternion(this.root.getWorldQuaternion(_qp)).normalize();
-    _perp.copy(_pole).addScaledVector(_dir, -_pole.dot(_dir));
-    if (_perp.lengthSq() < 1e-6) _perp.set(0, -1, 0).addScaledVector(_dir, _dir.y);
-    _perp.normalize();
-    const cosA = Math.max(-1, Math.min(1, (a * a + d * d - b * b) / (2 * a * d)));
-    const sinA = Math.sqrt(1 - cosA * cosA);
-    _vE.copy(_vS).addScaledVector(_dir, a * cosA).addScaledVector(_perp, a * sinA);
-    // cánh tay trên: xoay để khuỷu hiện tại → khuỷu mong muốn
-    this.aimBone(arm.upper, arm.fore, _vE);
-    arm.upper.updateWorldMatrix(false, true);
-    // cẳng tay: khuỷu → cổ tay mong muốn
-    this.aimBone(arm.fore, arm.hand, _vT);
-    arm.fore.updateWorldMatrix(false, true);
-    // bàn tay: hướng world = _q2 → local
-    arm.fore.getWorldQuaternion(_qp);
-    arm.hand.quaternion.copy(_qp.invert()).multiply(_q2);
-    // xoắn cẳng tay theo bàn tay (giảm vặn ống tay áo): xoay cẳng tay quanh trục của nó tới nửa góc lệch trục x
-    this.untwist(arm.fore, arm.hand);
-    arm.fore.updateWorldMatrix(false, true);
-    arm.fore.getWorldQuaternion(_qp);
-    arm.hand.quaternion.copy(_qp.invert()).multiply(_q2);
+    arm.dbg.err = solveTwoBone(arm, _m, _pole);
+    arm.upper.getWorldPosition(arm.dbg.shoulder);
+    arm.dbg.target.setFromMatrixPosition(_m);
   }
 
-  /** Xoay bone (world) sao cho con `child` hướng tới điểm `target` (giữ xoắn). */
-  private aimBone(bone: Bone, child: Bone, target: Vector3): void {
-    bone.getWorldPosition(_vW);
-    child.getWorldPosition(_cur).sub(_vW).normalize();
-    _des.copy(target).sub(_vW).normalize();
-    _q.setFromUnitVectors(_cur, _des);
-    bone.getWorldQuaternion(_qp);
-    _qp.premultiply(_q); // world mới
-    const parent = bone.parent;
-    if (parent) {
-      parent.getWorldQuaternion(_q2).invert();
-      bone.quaternion.copy(_q2).multiply(_qp);
-    } else bone.quaternion.copy(_qp);
-  }
-
-  private untwist(fore: Bone, hand: Bone): void {
-    // trục cẳng tay = hướng tới bàn tay; so trục x của cẳng tay và bàn tay chiếu lên mặt phẳng ⟂ trục → xoay nửa góc
-    fore.getWorldPosition(_vW);
-    hand.getWorldPosition(_cur).sub(_vW).normalize();
-    fore.getWorldQuaternion(_qp);
-    _ax.set(1, 0, 0).applyQuaternion(_qp).addScaledVector(_cur, -_ax.dot(_cur)).normalize();
-    hand.getWorldQuaternion(_q2);
-    _bx.set(1, 0, 0).applyQuaternion(_q2).addScaledVector(_cur, -_bx.dot(_cur)).normalize();
-    const cosT = Math.max(-1, Math.min(1, _ax.dot(_bx)));
-    const sign = _cx.copy(_ax).cross(_bx).dot(_cur) < 0 ? -1 : 1;
-    const angle = Math.acos(cosT) * 0.5 * sign;
-    if (Math.abs(angle) < 1e-4) return;
-    _q.setFromAxisAngle(_cur, angle);
-    _qp.premultiply(_q);
-    const parent = fore.parent;
-    if (parent) {
-      parent.getWorldQuaternion(_q2).invert();
-      fore.quaternion.copy(_q2).multiply(_qp);
-    }
+  /** debug/calib: vai, đích, tầm với (world) của hai tay */
+  debugInfo(): { R: FpChain['dbg'] | null; L: FpChain['dbg'] | null } {
+    return { R: this.armR?.dbg ?? null, L: this.armL?.dbg ?? null };
   }
 
   set visible(v: boolean) {

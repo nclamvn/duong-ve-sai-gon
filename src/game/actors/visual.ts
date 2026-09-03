@@ -2,11 +2,19 @@
  * ActorVisual (TIP-012): giao diện chung cho hình đại diện actor — Dummy (procedural, fallback/CI) và SoldierVisual (glTF Mixamo).
  * Game/BotActor/MissionHost chỉ dùng giao diện này. hitZones tĩnh (DUMMY_HIT_ZONES) — physics không đổi.
  */
-import { Group, Object3D, SkinnedMesh, type Vector3 } from 'three/webgpu';
+import { Group, Object3D, SkinnedMesh, Vector3, Matrix4, Quaternion } from 'three/webgpu';
 import { Dummy, DUMMY_HIT_ZONES, type HitZones, type DummyOptions } from './dummy';
 import { CharacterInstance, type CharacterAsset } from '@engine/render/characters';
-import { attachRifle } from '@engine/render/rifleProp';
-import type { WeaponAsset } from '@engine/render/weaponModel';
+import { attachRifle, type AttachedRifle } from '@engine/render/rifleProp';
+import { findArmChain, solveTwoBone, type ArmChain } from '@engine/render/armIk';
+import { poseToMatrix, type WeaponAsset } from '@engine/render/weaponModel';
+
+/** pole khuỷu trái trong hệ nhân vật (Mixamo nhìn +z): xuống, ra trái (+x của rig), hơi ra trước */
+const POLE_L_CHAR = new Vector3(0.9, -1, 0.3);
+const _ikM = new Matrix4();
+const _ikOff = new Matrix4();
+const _ikPole = new Vector3();
+const _ikQ = new Quaternion();
 
 export interface ActorVisual {
   readonly group: Group;
@@ -40,6 +48,14 @@ export class SoldierVisual implements ActorVisual {
   /** pivot súng gắn tay phải (Mixamo không kèm vũ khí): glTF CC-BY (TIP-014) hoặc AR procedural */
   readonly rifle: Object3D | null;
   readonly rifleKind: 'procedural' | 'gltf' | 'none';
+  /** súng đã gắn (anchor/weapon cho IK tay trái + calib) */
+  readonly attached: AttachedRifle | null;
+  /** chuỗi IK tay trái (TIP-017) — null nếu không có súng glTF hoặc thiếu bone */
+  readonly armL: ArmChain | null;
+  /** khoảng cách còn lại cổ tay trái ↔ đích IK (m) — debug/calib */
+  ikErrorL = 0;
+  /** tắt IK tay trái (calib đo pose animation gốc) */
+  ikEnabled = true;
   private readonly muzzle: Object3D | null;
   health = 100;
   alive = true;
@@ -59,9 +75,23 @@ export class SoldierVisual implements ActorVisual {
     const spine = b.spine ?? b.hips ?? this.char.model;
     this.bones = { spine, head: b.head ?? spine, hips: b.hips ?? spine };
     const att = b.handR ? attachRifle(b.handR, weapon) : null;
+    this.attached = att;
     this.rifle = att?.pivot ?? null;
     this.muzzle = att?.muzzle ?? null;
     this.rifleKind = att?.kind ?? 'none';
+    this.armL = att?.kind === 'gltf' ? findArmChain(this.char.model, 'Left') : null;
+  }
+
+  /** IK tay trái ôm ốp lót: cổ tay trái → gripL · fp.handL (world). Gọi sau mixer update, trước render. */
+  private solveLeftHand(): void {
+    const att = this.attached;
+    if (!this.armL || !att?.anchors || !att.weapon) return;
+    const gripL = att.anchors.gripL;
+    gripL.updateWorldMatrix(true, false);
+    poseToMatrix(att.weapon.cfg.fp.handL, _ikOff);
+    _ikM.copy(gripL.matrixWorld).multiply(_ikOff);
+    _ikPole.copy(POLE_L_CHAR).applyQuaternion(this.char.root.getWorldQuaternion(_ikQ)).normalize();
+    this.ikErrorL = solveTwoBone(this.armL, _ikM, _ikPole);
   }
 
   muzzleWorld(out: Vector3): boolean {
@@ -75,6 +105,13 @@ export class SoldierVisual implements ActorVisual {
     this.lastT = t;
     if (this.alive) this.char.setLocomotion(this.motion.speed, this.motion.aiming);
     this.char.update(dt);
+    if (this.alive && this.ikEnabled) this.solveLeftHand();
+  }
+
+  /** Áp lại pose animation hiện tại không IK (calib): mixer ghi lại bone rồi cập nhật matrixWorld. */
+  applyRawPose(): void {
+    this.char.mixer.update(1e-6);
+    this.char.root.updateMatrixWorld(true);
   }
 
   applyDamage(amount: number): boolean {

@@ -1,10 +1,92 @@
 {
-  "$comment": "PRD AI-001..004 — engineering default; tinh chỉnh ở G2",
-  "perception": { "fovDeg": 110, "sightRange": 40, "hearRange": 25, "eyeHeight": 1.6, "gainNear": 2.5, "gainFar": 0.6, "decayPerSec": 0.25, "suspiciousAt": 0.3, "alertAt": 0.8, "memoryMs": 6000 },
-  "move": { "speed": 3.5, "alertSpeed": 4.2, "turnRate": 6, "arriveRadius": 0.5, "stuckDistance": 0.3, "stuckMs": 2000, "replanBudgetMs": 400 },
-  "combat": { "spreadDeg": 4, "damage": 8, "cooldownMs": 350, "burst": 3, "burstPauseMs": 900, "range": 60, "mag": 20, "reloadMs": 2000, "retreatHealth": 30, "peekMs": 1800, "coverMs": 1400, "engageRange": 40 },
-  "cover": { "minDistToTarget": 6, "maxSearch": 25, "preferNear": 1.0, "losBlockBonus": 3.0 },
-  "states": { "PATROL": 60000, "INVESTIGATE": 12000, "SEEK_COVER": 8000, "PEEK_FIRE": 6000, "RETREAT": 5000 },
-  "lod": { "fullRange": 30, "reducedRange": 60, "offscreenSleepMs": 5000, "reducedDivider": 5 },
+  "$comment": "PRD AI-001..004 — TIP-018: bắn trước, di chuyển sau; cover chỉ khi có nghĩa; tổ ép sườn. Tinh chỉnh tiếp ở G1 theo chơi thử.",
+  "perception": {
+    "fovDeg": 110,
+    "sightRange": 40,
+    "hearRange": 25,
+    "eyeHeight": 1.6,
+    "gainNear": 2.5,
+    "gainFar": 0.6,
+    "decayPerSec": 0.25,
+    "suspiciousAt": 0.3,
+    "alertAt": 0.8,
+    "memoryMs": 6000
+  },
+  "hearing": {
+    "footstepLoudness": 0.35,
+    "footstepIntervalMs": 350
+  },
+  "move": {
+    "speed": 3.5,
+    "alertSpeed": 4.2,
+    "turnRate": 6,
+    "arriveRadius": 0.5,
+    "stuckDistance": 0.3,
+    "stuckMs": 2000,
+    "replanBudgetMs": 400
+  },
+  "combat": {
+    "spreadDeg": 3,
+    "spreadFirstDeg": 8,
+    "settleMs": 2000,
+    "moveSpreadMul": 1.8,
+    "aimDrop": 0.35,
+    "damage": 8,
+    "cooldownMs": 110,
+    "burst": 3,
+    "burstPauseMs": 900,
+    "burstPauseJitterMs": 500,
+    "range": 60,
+    "mag": 30,
+    "reloadMs": 2200,
+    "retreatHealth": 30,
+    "reactionMs": 250,
+    "reactionJitterMs": 200,
+    "engageMs": 2500,
+    "repositionMs": 2500,
+    "repositionJitterMs": 1000,
+    "lostMs": 2500,
+    "peekMs": 1600,
+    "peekJitterMs": 500,
+    "coverMs": 900,
+    "coverJitterMs": 400,
+    "coverSuppressedMs": 1400,
+    "peekFailMax": 3,
+    "engageRange": 40,
+    "suppressMs": 1500,
+    "suppressRadius": 1.5,
+    "closeRange": 4,
+    "farRange": 18,
+    "fovFireDot": 0.5
+  },
+  "cover": {
+    "minDistToTarget": 5,
+    "maxSearch": 12,
+    "preferNear": 1.0,
+    "losBlockBonus": 3.0,
+    "retryMs": 6000
+  },
+  "squad": {
+    "tickMs": 500,
+    "flankAngleDeg": 60,
+    "flankMaxDist": 25,
+    "flankMinDist": 5,
+    "cooldownMs": 8000
+  },
+  "states": {
+    "PATROL": 60000,
+    "INVESTIGATE": 12000,
+    "ENGAGE": 20000,
+    "SEEK_COVER": 6000,
+    "PEEK_FIRE": 12000,
+    "FLANK": 12000,
+    "RETREAT": 5000
+  },
+  "lod": {
+    "fullRange": 30,
+    "reducedRange": 60,
+    "offscreenSleepMs": 5000,
+    "reducedDivider": 5
+  },
   "health": 100
 }

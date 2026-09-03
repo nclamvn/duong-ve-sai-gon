@@ -8,6 +8,8 @@ import type { CoverMarker } from '@engine/render/arena';
 export interface CoverPick {
   marker: CoverMarker;
   score: number;
+  /** marker chắn LOS tới threat (cover "thật") — TIP-018 chỉ đi tới cover thật */
+  blocked: boolean;
 }
 
 export function pickCover(
@@ -35,7 +37,7 @@ export function pickCover(
     let score = -dSelf * cfg.preferNear;
     if (blocked) score += cfg.losBlockBonus * 5;
     score += faceDot * 2;
-    if (!best || score > best.score) best = { marker: m, score };
+    if (!best || score > best.score) best = { marker: m, score, blocked };
   }
   return best;
 }
