@@ -1,7 +1,7 @@
 # TIP-D10: AK-47/Type 56 1971 — súng người chơi (GF01, DV-007, DV-025 asset sprint)
 
 ## HEADER
-- TIP-ID: TIP-D10 · Project: DVSG · Module: `scripts/convert-weapon.mjs` (+`scripts/lib/bake-skins.mjs`), `content/weapons/ak47.json`, `public/assets/weapons/ak47.glb`, `src/game/game.ts` (`?weapon=`), `src/qa/calib.ts` (`?calibWeapon=`), manifest (`historical/registryId/approved`), `tests/unit/weapons.test.ts`
+- TIP-ID: TIP-D10 · Project: DVSG · Module: `scripts/convert-weapon.mjs` (+`scripts/lib/bake-skins.mjs`), `content/weapons/ak47.json`, `public/assets/weapons/ak47.glb`, `src/game/game.ts` (`?weapon=`), `src/qa/calib.ts` (`?botWeapon=`), manifest (`historical/registryId/approved`), `tests/unit/weapons.test.ts`
 - Dependencies: D02 (KTX2/validator), D03 (registry `wpn.pavn.type56_rifle`) · Priority: P0 (asset sprint, DV-025) · Effort: 32 h Thợ (bước 1 model + config 6 h · bước 2 fit tay/ADS/recoil/reload 26 h)
 
 ## CONTEXT
@@ -12,8 +12,9 @@
 
 ## TASK
 1. **Bước 1 (xong):** `bake-skins` dùng chung → `convert-weapon` (dài 0,87 m, nòng −z) → `ak47.glb` 1,44 MB WebP → `assets:ktx2` (2,78 MB KTX2); `content/weapons/ak47.json` với anchor đo từ profile geometry (`scripts/weapon-profile.mjs`): muzzle z −0,435; đầu ruồi z −0,41 y 0,040; thước ngắm z −0,07 y 0,037; báng cầm z 0,18 y −0,10; ốp lót −0,28..−0,12 → gripL z −0,13; băng đạn đáy y −0,173; `parts: {}` (một mesh — băng đạn không tách). `?weapon=ak47` mặc định.
-2. **Bước 2:** fit tay bằng `?calib=soldier&calibWeapon=ak47` (fit() trên clip rifle_aim → exportJson → `fp.handR/handL`), kiểm `?calib=fp` hip/ADS/sprint trên Mac WebGPU: tay trái ôm ốp lót, tay phải ôm báng cầm, ngón trỏ ngoài cò; ADS 180–240 ms thẳng đầu ruồi–thước ngắm; recoil 3 lớp và reload theo GF01 (băng đạn chưa tách → reload là chuyển động cả khẩu, ghi deferred); âm/impact theo vật liệu `earth` (terrain) thêm vào pool.
-3. **Evidence:** ảnh Mac hip/ADS/sprint + clip bắn/thay băng; `measure()` gripR/gripL ≤ 1,5 cm; cố vấn ký súng (chờ).
+2. **Bước 2 (xong sandbox, chờ Mac):** fit tay bằng `?calib=soldier&botWeapon=ak47` (fit() trên clip rifle_aim → exportJson → `fp.handR/handL`), kiểm `?calib=fp` hip/ADS/sprint trên Mac WebGPU: tay trái ôm ốp lót, tay phải ôm báng cầm, ngón trỏ ngoài cò; ADS 180–240 ms thẳng đầu ruồi–thước ngắm; recoil 3 lớp và reload theo GF01 (băng đạn chưa tách → reload là chuyển động cả khẩu, ghi deferred); âm/impact theo vật liệu `earth` (terrain) thêm vào pool.
+3. **Evidence:** ảnh Mac hip/ADS/sprint + clip bắn/thay băng; `measure()` gripR/gripL ≤ 1,5 cm; cố vấn ký súng (chờ). Sandbox: `evidence/TIP-D10/sandbox-*.png`, `measure.txt` (ADS 217 ms, 7 viên/40 frame, reload 28→30/118), `completion-report.md`.
+4. **Tuning:** `content/tuning/weapons.json#ak47` (600 v/ph, ADS 210 ms, recoil đứng lệch phải); `Weapon` chọn tuning theo `playerWeaponId`; âm `gunshot('ak47')` trầm hơn; impact `earth` (bụi, đục).
 
 ## ACCEPTANCE CRITERIA
 - Given `?level=truong-son` mặc định, Then súng người chơi là `ak47` (KTX2, manifest historical/registryId), `?weapon=ak74m` vẫn chạy; unit `weapons.test` PASS; `assets:validate` 0 lỗi.

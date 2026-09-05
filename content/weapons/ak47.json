@@ -81,29 +81,29 @@
   "fp": {
     "handR": {
       "pos": [
-        0.0084,
-        -0.0108,
-        0.12
+        0.0477,
+        -0.0012,
+        0.1089
       ],
       "rot": [
-        -2.0599,
-        -1.4363,
-        -0.5653
+        -0.4634,
+        -1.2972,
+        1.1154
       ]
     },
     "handL": {
       "pos": [
-        -0.0914,
-        -0.0224,
-        0.0694
+        -0.1069,
+        -0.0071,
+        0.099
       ],
       "rot": [
-        -1.5905,
-        0.0077,
-        -0.9324
+        -1.3795,
+        0.3812,
+        -1.3796
       ]
     },
     "triggerFinger": 0.6,
-    "$comment": "kế thừa AK-74M; hiệu chỉnh bằng ?calib=soldier&calibWeapon=ak47 fit() + exportJson (D10 bước 2)"
+    "$comment": "TIP-D10 bước 2: fit() trên clip rifle_aim với bot cầm AK-47 (?calib=soldier&botWeapon=ak47), sandbox WebGL; R lệch 0,6 mm, L raw 8,1 cm (IK kéo tới gripL, ikError 0); gripR→gripL 0,318 m"
   }
 }

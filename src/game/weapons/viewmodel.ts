@@ -325,42 +325,46 @@ export class WeaponViewModel {
     this.ejectAnchor.getWorldPosition(this.ejectWorld);
   }
 
-  /** Băng đạn tháo (0–0.35) → ẩn/thay (0.35–0.6) → lắp (0.6–0.8) → bolt kéo (0.8–1); bolt giật mỗi phát. */
+  /**
+   * Băng đạn tháo (0–0.35) → ẩn/thay (0.35–0.6) → lắp (0.6–0.8) → bolt kéo (0.8–1); bolt giật mỗi phát.
+   * Súng một mesh (AK-47 TIP-D10, `parts: {}`): băng không tách — tay trái vẫn đi xuống anchor `magazine` rồi lên
+   * (lắc-khoá), thân súng dip theo RELOAD_DIP; bolt không có → bỏ qua.
+   */
   private animateParts(dt: number, u: number): void {
     const inst = this.inst;
     if (!inst) return;
     const mag = inst.parts.magazine;
     const bolt = inst.parts.bolt;
+    let off = 0;
+    let tilt = 0;
+    let vis = true;
+    if (u < 1) {
+      if (u < 0.35) {
+        const t = u / 0.35;
+        off = t * t * 0.14;
+        tilt = t * 0.5;
+      } else if (u < 0.6) {
+        vis = false;
+        off = 0.14;
+      } else if (u < 0.8) {
+        const t = 1 - (u - 0.6) / 0.2;
+        off = t * t * 0.14;
+        tilt = t * 0.35;
+      }
+    }
     if (mag) {
       const rest = inst.rest.magazine;
-      let off = 0;
-      let tilt = 0;
-      let vis = true;
-      if (u < 1) {
-        if (u < 0.35) {
-          const t = u / 0.35;
-          off = t * t * 0.14;
-          tilt = t * 0.5;
-        } else if (u < 0.6) {
-          vis = false;
-          off = 0.14;
-        } else if (u < 0.8) {
-          const t = 1 - (u - 0.6) / 0.2;
-          off = t * t * 0.14;
-          tilt = t * 0.35;
-        }
-      }
       mag.visible = vis;
       mag.position.set(rest.x, rest.y - off, rest.z + off * 0.3);
       mag.rotation.x = tilt;
-      // tay trái theo băng đạn
-      this.leftHand.position.copy(this.leftHandRest);
-      if (u < 0.8 && u < 1) {
-        const a = this.inst!.anchors;
-        const target = a.magazine.position;
-        const w = u < 0.35 ? u / 0.35 : u < 0.6 ? 1 : 1 - (u - 0.6) / 0.2;
-        this.leftHand.position.lerpVectors(this.leftHandRest, this.tmp.set(target.x - a.gripL.position.x, target.y - off - a.gripL.position.y - 0.02, target.z - a.gripL.position.z + 0.04), w);
-      }
+    }
+    // tay trái theo băng đạn (có tách hay không)
+    this.leftHand.position.copy(this.leftHandRest);
+    if (u < 0.8) {
+      const a = inst.anchors;
+      const target = a.magazine.position;
+      const w = u < 0.35 ? u / 0.35 : u < 0.6 ? 1 : 1 - (u - 0.6) / 0.2;
+      this.leftHand.position.lerpVectors(this.leftHandRest, this.tmp.set(target.x - a.gripL.position.x, target.y - off - a.gripL.position.y - 0.02, target.z - a.gripL.position.z + 0.04), w);
     }
     if (bolt) {
       const rest = inst.rest.bolt;

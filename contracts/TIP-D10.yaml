@@ -1,11 +1,11 @@
 id: TIP-D10
 goal: "AK-47/Type 56 1971 làm súng người chơi: model CC-BY đã kiểm rip → convert (nướng skin) → config anchor → fit tay (calib) → ADS/recoil/reload GF01"
-scope: [scripts/convert-weapon.mjs, scripts/lib/bake-skins.mjs, content/weapons/ak47.json, public/assets/weapons/ak47.glb, content/assets/manifest.json, src/game/game.ts, src/qa/calib.ts, tests/unit/weapons.test.ts, CREDITS.md, docs/tips/TIP-D10.md]
+scope: [scripts/convert-weapon.mjs, scripts/lib/bake-skins.mjs, content/weapons/ak47.json, content/tuning/weapons.json, public/assets/weapons/ak47.glb, content/assets/manifest.json, src/game/game.ts, src/game/weapons/viewmodel.ts, src/game/weapons/fx.ts, src/engine/audio/audio.ts, src/qa/calib.ts, tests/unit/weapons.test.ts, CREDITS.md, docs/tips/TIP-D10.md]
 acceptance:
   - "?weapon mặc định ak47; ak74m fixture; weapons.test PASS; assets:validate 0 lỗi; manifest historical+registryId+approved=false"
   - "Mac ?calib=fp: measure() R/L ≤ 1,5 cm; tay trái trên ốp lót; ảnh hip/ADS/sprint Chủ nhà chấm"
   - "ADS 180–240 ms; reload có thời điểm nạp xác định; không lỗi console"
 tests: [tests/unit/weapons.test.ts, tests/unit/assets.test.ts]
-evidence: [evidence/TIP-D10/ak47-hip-sandbox.png, evidence/TIP-D10/mac-*.png, evidence/TIP-D10/measure.txt, evidence/TIP-D10/completion-report.md]
+evidence: [evidence/TIP-D10/ak47-hip-sandbox.png, evidence/TIP-D10/sandbox-{hip,ads,fire,reload}.png, evidence/TIP-D10/calib-soldier-aim.png, evidence/TIP-D10/measure.txt, evidence/TIP-D10/ci.txt, evidence/TIP-D10/completion-report.md, evidence/TIP-D10/mac-*.png]
 rollback: "git revert; ?weapon=ak74m"
-status: IN PROGRESS (bước 1 xong; bước 2 fit tay trên Mac)
+status: PARTIAL (bước 1 + 2 xong sandbox — tuning ak47, fit tay, ADS 217 ms, reload/impact earth; chờ ảnh Mac WebGPU Chủ nhà chấm + cố vấn ký; xem completion-report)

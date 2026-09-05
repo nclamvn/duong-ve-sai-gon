@@ -1,0 +1,24 @@
+== typecheck
+OK
+== unit
+ Test Files  18 passed (18)
+      Tests  118 passed (118)
+== build
+✓ built in 3.25s
+== e2e
+[WebServer]   ➜  Local:   http://127.0.0.1:4173/
+
+Running 8 tests using 1 worker
+
+[WebServer] [bench] saved /home/claude/duong-ve-sai-gon/evidence/sandbox/performance-report-2026-09-05T13-50-21-816Z.json verdict=FAIL
+  ✓  1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox (1.1m)
+  ✓  2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu (51.4s)
+  ✓  3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi không autostart; nút vào arena hoạt động (30.4s)
+  ✓  4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship) (29.9s)
+  ✓  5 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới chốt A bị bao cát chặn, lên vỉa hè 15 cm; collider floor + vỉa hè có mặt (33.7s)
+  ✓  6 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:12:3 › Trường Sơn — vật lý terrain (TIP-D04) › đứng/đi lên dốc/không leo dốc đứng; heightfield + navmesh + LOD (14.7s)
+  ✓  7 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone → D03 + spawn → kill group → n_done; MISSION_COMPLETE ×1; checkpoint hash khớp (51.5s)
+  ✓  8 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp checkpoint; không có checkpoint → reset mission (31.0s)
+
+  8 passed (5.2m)
+EXIT:0

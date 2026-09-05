@@ -144,8 +144,17 @@ export class AudioEngine {
     src.onended = () => this.voiceEnd();
   }
 
-  /** Súng 3 lớp (AUD-002 rút gọn): transient + body + tail. */
-  gunshot(): void {
+  /**
+   * Súng 3 lớp (AUD-002 rút gọn): transient + body + tail. `weaponId` chọn hồ sơ: `ak47` (7,62×39, TIP-D10) trầm hơn,
+   * thân dài hơn, đuôi vang rừng; mặc định AR 5,56.
+   */
+  gunshot(weaponId = 'ar_v1'): void {
+    if (weaponId === 'ak47') {
+      this.noiseBurst('sfx', 55, 0.95, 4200, 0.6);
+      this.noiseBurst('sfx', 170, 0.55, 620, 1.1);
+      this.noiseBurst('sfx', 560, 0.22, 220, 0.7);
+      return;
+    }
     this.noiseBurst('sfx', 60, 0.9, 6000, 0.5);
     this.noiseBurst('sfx', 140, 0.5, 900, 1.2);
     this.noiseBurst('sfx', 420, 0.18, 300, 0.8);
@@ -157,9 +166,11 @@ export class AudioEngine {
     this.noiseBurst('sfx', 260, 0.25, 500, 0.9, position);
   }
 
+  /** đạn chạm vật liệu (GUN-202): thép chói/dài, gỗ khô, đất (terrain) đục ngắn trầm, mặc định bê tông */
   impact(material: string, position: [number, number, number]): void {
-    const hz = material === 'steel' ? 3200 : material === 'wood' ? 1400 : material === 'flesh' ? 500 : 900;
-    this.noiseBurst('sfx', material === 'steel' ? 180 : 90, 0.35, hz, 1.0, position);
+    const hz = material === 'steel' ? 3200 : material === 'wood' ? 1400 : material === 'flesh' ? 500 : material === 'earth' ? 380 : 900;
+    const ms = material === 'steel' ? 180 : material === 'earth' ? 120 : 90;
+    this.noiseBurst('sfx', ms, material === 'earth' ? 0.3 : 0.35, hz, material === 'earth' ? 0.7 : 1.0, position);
   }
 
   reload(): void {

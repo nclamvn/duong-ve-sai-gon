@@ -23,6 +23,21 @@ describe('TIP-014 cấu hình vũ khí glTF (content/weapons, ADR-006)', () => {
     expect(a?.approved).toBe(false);
   });
 
+  it('tuning ak47 (content/tuning/weapons.json, GF01/GUN-201): 600 v/ph, băng 30, ADS 180–240 ms, recoil 10 viên đứng > ngang, reload < trần state', () => {
+    const tuning = JSON.parse(readFileSync('content/tuning/weapons.json', 'utf8')) as Record<string, { rpm: number; magSize: number; adsMs: number; reloadMs: number; recoilPattern: number[][]; maxStateMs: { RELOADING: number }; spread: { ads: number; hipStand: number } }>;
+    const ak = tuning['ak47']!;
+    expect(ak.rpm).toBe(600);
+    expect(ak.magSize).toBe(30);
+    expect(ak.adsMs).toBeGreaterThanOrEqual(180);
+    expect(ak.adsMs).toBeLessThanOrEqual(240);
+    expect(ak.recoilPattern).toHaveLength(10);
+    for (const [yaw, pitch] of ak.recoilPattern) expect(Math.abs(pitch!)).toBeGreaterThan(Math.abs(yaw!));
+    expect(ak.maxStateMs.RELOADING).toBeGreaterThan(ak.reloadMs);
+    expect(ak.spread.ads).toBeLessThan(ak.spread.hipStand);
+    // AK giật mạnh hơn AR-V1 (7,62×39 vs 5,56) — viên đầu
+    expect(ak.recoilPattern[0]![1]!).toBeGreaterThan(tuning['ar_v1']!.recoilPattern[0]![1]!);
+  });
+
   for (const f of files) {
     const cfg = JSON.parse(readFileSync(join('content/weapons', f), 'utf8')) as {
       $comment?: string;

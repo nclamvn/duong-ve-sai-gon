@@ -94,6 +94,8 @@ export class Game {
   terrain: TerrainLevelBuild | null = null;
   /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
   playerWeaponId = 'ak47';
+  /** súng của bot/dummy: HK416 (fixture HT-MB) — `?botWeapon=ak47` để calib tay theo khẩu người chơi (?calib=soldier) hoặc lính QGP cầm AK (D11) */
+  botWeaponId = 'hk416';
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -183,6 +185,8 @@ export class Game {
     this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'arena';
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
+    const botWeaponParam = this.params.get('botWeapon');
+    this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' ? botWeaponParam : 'hk416';
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
     const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : null;
     const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
@@ -250,7 +254,7 @@ export class Game {
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons['hk416'] ?? null);
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons[this.botWeaponId] ?? null);
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -285,7 +289,8 @@ export class Game {
     });
 
     // Weapon + FX + audio (weapons phát event; fx/audio lắng nghe — PRD §3.2)
-    this.weapon = new Weapon('ar_v1', this.physics, this.events as unknown as EventBus<WeaponEvents>, this.prng);
+    // tuning theo khẩu người chơi (TIP-D10): ak47 → content/tuning/weapons.json#ak47; khẩu HT-MB (ak74m) giữ ar_v1
+    this.weapon = new Weapon(this.playerWeaponId === 'ak47' ? 'ak47' : 'ar_v1', this.physics, this.events as unknown as EventBus<WeaponEvents>, this.prng);
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
@@ -369,7 +374,7 @@ export class Game {
       this.actorStats.total = alive + dummiesAlive;
     });
     this.events.on('IMPACT', (e) => this.audio.impact(e.material, e.point));
-    this.events.on('WEAPON_FIRED', () => this.audio.gunshot());
+    this.events.on('WEAPON_FIRED', (e) => this.audio.gunshot(e.weapon));
     this.events.on('RELOAD_START', () => this.audio.reload());
     const initAudio = (): void => {
       this.audio.init();
@@ -623,7 +628,7 @@ export class Game {
   spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
-    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length }, this.assets?.weapons['hk416'] ?? null);
+    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length }, this.assets?.weapons[this.botWeaponId] ?? null);
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,

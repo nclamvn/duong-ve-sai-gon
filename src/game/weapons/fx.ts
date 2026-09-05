@@ -210,7 +210,9 @@ export class WeaponFx {
         this.placeDecal(e.point, e.normal);
         _p.set(e.point[0], e.point[1], e.point[2]);
         _n.set(e.normal[0], e.normal[1], e.normal[2]);
-        this.spawnPuffs(_p, _n, 3, 0.09, 0.42, 0.42, 0.55, 0.9);
+        // đất (terrain, TIP-D10): bụi nhiều, to, tối hơn, không tia lửa; thép: tia lửa
+        if (e.material === 'earth') this.spawnPuffs(_p, _n, 5, 0.12, 0.6, 0.5, 0.7, 0.7);
+        else this.spawnPuffs(_p, _n, 3, 0.09, 0.42, 0.42, 0.55, 0.9);
         if (e.material === 'steel' || e.material === 'metal') this.spawnSparks(_p, _n, 6);
       }),
     );

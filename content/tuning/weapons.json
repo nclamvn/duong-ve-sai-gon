@@ -21,5 +21,28 @@
     "range": 200,
     "swapMs": 400,
     "maxStateMs": { "FIRING": 500, "RELOADING": 2500, "SWAPPING": 1000 }
+  },
+  "ak47": {
+    "$comment": "TIP-D10 GF01 — AK-47/Type 56 7,62×39 (1971): 600 v/ph, giật đứng nặng lệch phải, băng 30, thay băng lắc-khoá dài hơn AR. ADS 210 ms trong khoảng thử 180–240 (GUN-201), tinh chỉnh bằng người chơi. Không phải thông số thực.",
+    "name": "AK-47",
+    "rpm": 600,
+    "magSize": 30,
+    "reserve": 120,
+    "damage": { "head": 80, "body": 34 },
+    "reloadMs": 2500,
+    "adsMs": 210,
+    "adsFov": 58,
+    "recoilPattern": [[0.0, 1.3], [0.15, 1.4], [0.3, 1.3], [-0.2, 1.25], [0.35, 1.15], [0.5, 1.05], [-0.3, 1.0], [0.55, 0.95], [0.45, 0.9], [-0.5, 0.85]],
+    "recoilNoise": 0.2,
+    "recoilResetMs": 300,
+    "maxPitchDeg": 11,
+    "viewKickScale": 0.42,
+    "spread": { "hipStand": 2.2, "hipMove": 3.8, "ads": 0.35, "crouchMul": 0.7, "airMul": 1.7 },
+    "penetrationAllow": ["wood", "tarp"],
+    "penetrationMaxThickness": 0.4,
+    "penetrationDamageMul": 0.65,
+    "range": 250,
+    "swapMs": 500,
+    "maxStateMs": { "FIRING": 500, "RELOADING": 3200, "SWAPPING": 1000 }
   }
 }

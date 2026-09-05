@@ -1,0 +1,42 @@
+# TIP-D10 measure (sandbox WebGL2/SwiftShader, arena, quality medium, post off)
+## calib soldier fit (?calib=soldier&botWeapon=ak47, clip rifle_aim)
+{"handR":{"pos":[0.0477,-0.0012,0.1089],"rot":[-0.4634,-1.2972,1.1154]},"handL":{"pos":[-0.1069,-0.0071,0.099],"rot":[-1.3795,0.3812,-1.3796]},"handSpan":0.2383,"gripSpan":0.3183,"gun":{"forwardInChar":[0.7706,-0.396,0.4993],"upInChar":[0.3323,0.9182,0.2154],"yawDeg":57.1,"pitchDeg":23.3,"rollDeg":0}}
+{"weapon":"ak47","R":{"side":"R","grip":[-0.002,0.1175,0.0198],"fingerCentroid":[-0.0021,0.1181,0.0197],"error":0.0006,"curlAxis":[-0.8584,-0.5028,0.1015],"axisAngleDeg":17.9,"palmInGun":[-0.9628,0.1208,0.2417]},"L":{"side":"L","grip":[-0.0772,0.1208,0.0288],"fingerCentroid":[0.0024,0.1061,0.0263],"error":0.081,"curlAxis":[0.9839,-0.1591,-0.0812],"axisAngleDeg":15.9,"palmInGun":[0.372,0.9113,0.1765],"ikError":0},"gun":{"forwardInChar":[0.7739,-0.393,0.4965],"upInChar":[0.3581,0.9183,0.1688],"yawDeg":57.3,"pitchDeg":23.1,"rollDeg":-2.9}}
+{
+  "handR": {
+    "pos": [
+      0.0477,
+      -0.0012,
+      0.1089
+    ],
+    "rot": [
+      -0.4634,
+      -1.2972,
+      1.1154
+    ]
+  },
+  "handL": {
+    "pos": [
+      -0.1069,
+      -0.0071,
+      0.099
+    ],
+    "rot": [
+      -1.3795,
+      0.3812,
+      -1.3796
+    ]
+  },
+  "triggerFinger": 0.6,
+  "$comment": "kế thừa AK-74M; hiệu chỉnh bằng ?calib=soldier&botWeapon=ak47 fit() + exportJson (D10 bước 2)"
+}
+
+## fp measure (?calib=fp&weapon=ak47)
+{"pose":"hip","R":{"err":0.0032},"L":{"err":0.0782},"reach":{"R":{"shoulder":[0.1942,-0.1924,0.0665],"target":[0.1821,-0.2069,-0.0159],"dist":0.085,"reach":0.498,"err":0},"L":{"shoulder":[-0.1942,-0.1924,0.0665],"target":[0.0117,-0.1346,-0.3263],"dist":0.447,"reach":0.498,"err":0}}}
+{"pose":"ads","R":{"err":0.0032},"L":{"err":0.0782},"reach":{"R":{"shoulder":[0.1942,-0.1924,0.0665],"target":[0.0477,-0.1412,0.1489],"dist":0.176,"reach":0.498,"err":0},"L":{"shoulder":[-0.1942,-0.1924,0.0665],"target":[-0.1069,-0.0751,-0.171],"dist":0.279,"reach":0.498,"err":0}}}
+{"pose":"sprint","R":{"err":0.0032},"L":{"err":0.0782},"reach":{"R":{"shoulder":[0.1942,-0.1924,0.0665],"target":[0.1821,-0.2069,-0.0159],"dist":0.085,"reach":0.498,"err":0},"L":{"shoulder":[-0.1942,-0.1924,0.0665],"target":[0.0117,-0.1346,-0.3263],"dist":0.447,"reach":0.498,"err":0}}}
+## fire (40 frame @60 Hz, hip)
+{"fire":{"magBefore":30,"magAfter":23,"shots":7,"pitchDeg":0.9381663011646797,"yawDeg":-0.0007701661545490593,"fired":7,"impacts":7}}
+## reload + ADS
+{"reload":{"magBefore":28,"state0":"RELOADING","stateMid":"RELOADING","magMid":28,"reloadMs":2500,"framesMid":23},"reloadEnd":{"state":"IDLE","mag":30,"reserve":118,"reloadEnd":1}}
+{"adsT":{"ticksTo1":13,"ms":216.66666666666666,"adsMs":210,"id":"ak47","rpm":600}}
