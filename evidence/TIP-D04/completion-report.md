@@ -1,6 +1,6 @@
 # Completion Report — TIP-D04: Terrain prototype `engine/terrain` (G0′)
 
-STATUS: **DONE** (số Mac chờ D05; 3 ghi nhận deferred dưới)
+STATUS: **DONE** (Mac WebGPU xác nhận sau 3 sửa — xem Bổ sung; deferred dưới)
 
 ## FILES CHANGED
 Tạo mới
@@ -17,16 +17,21 @@ Sửa
 - `src/engine/nav/navmesh.ts` — `NavService.fromExport(data)` / `export()` (importNavMesh/exportNavMesh), ctor overload nhận `NavMesh`.
 - `src/game/game.ts` — `levelId` +`'truong-son'` (`?level=truong-son`), `terrain` field, camera near/far theo level, `createDaylight` dùng chung skyDef, nav bake sẵn (fallback runtime nếu 0 poly), `terrain.mesh.update(camera)` mỗi frame, collider heightfield qua `addStatic`.
 - `src/qa/debugApi.ts` — `terrainHeight(x,z)`, `terrainStats()`.
-- `src/engine/render/post.ts` — GTAO mờ dần 60 → 140 m (`AO_FADE_START/END`) — xem DEVIATIONS 2.
+- `src/engine/render/post.ts` — GTAO mờ dần 30 → 70 m (`AO_FADE_START/END`) + sàn SSR chỉ cho roughness < ~0,5 — xem DEVIATIONS 2, DV-022/024.
 - `scripts/terrain-bake.mjs` — chế độ `--nav` (bake recast → `nav.bin` + manifest); `scripts/fetch-assets.mjs` — giữ entry đã có, `--force id` (DV-019); `content/assets/manifest.json` (+4 texture, +nav.bin; 76 asset, 120,3 MB); `README.md`; `docs/DECISIONS.md` (DV-018..DV-022).
 
 ## TEST RESULTS (theo AC)
 | AC | Kết quả |
 |----|---------|
-| Probe `?level=truong-son`: terrain ≤ 4 draw, tổng ≤ 120, tris ≤ 1,2 M ở 3 góc; 0 lỗi console; không khe LOD | **PASS** — terrain 4/4/4 draw; tổng 81/81/41; tris 0,35/0,32/0,24 M (terrain 64k/38k/39k); 0 error (2 warning có sẵn/SwiftShader); `wire-lod.png` không khe (`stats.txt`) |
+| Probe `?level=truong-son`: terrain ≤ 4 draw, tổng ≤ 120, tris ≤ 1,2 M ở 3 góc; 0 lỗi console; không khe LOD | **PASS** (WebGL2 sandbox; WebGPU Mac PASS sau sửa binding — xem Bổ sung) — terrain 4/4/4 draw; tổng 81/81/41; tris 0,35/0,32/0,24 M (terrain 64k/38k/39k); 0 error (2 warning có sẵn/SwiftShader); `wire-lod.png` không khe (`stats.txt`) |
 | Unit: heightfield raycast ≤ 0,15 m (50/50); nav bake polyCount > 0 + findPath | **PASS** — 50/50 (mặt nghiêng tổng hợp ≤ 0,02 m: xác nhận column-major hàng z/cột x); nav 64 m: poly > 0, path > 1 điểm; 9/9 test `terrain.test.ts` |
 | E2E `level-truong-son` (webgl-ci): đứng/đi/dốc không xuyên; dốc quá maxSlope không leo | **PASS** 22,7 s — đứng 3 s gap ≤ 0,3; đi lên dốc thoải 8 s tiến ≥ 15 m, minGap > −0,3; dốc > 58° trong 300 m quanh spawn: leo < 2,5 m; nav 1732 poly; terrain 4 draw; bot_a có mặt |
 | `assets:validate` 0 lỗi (4 texture CC0 KTX2 + nav.bin); `npm run ci` xanh | **PASS** — 76 asset 120,3 MB 0 lỗi; CI: typecheck OK, unit 115/115, build, e2e 8/8 (`ci.txt`) |
+
+## BỔ SUNG SAU KIỂM TRÊN MAC (WebGPU, 022d365 → 3 sửa)
+- **Mac chỉ thấy trời, không thấy đất** (Chủ nhà báo): chẩn đoán qua Chrome của Chủ nhà (extension) — `renderer.debug.getShaderAsync` cho thấy fragment shader terrain có 15 `texture_2d` + 3 depth CSM = 18 sampled texture, 17 sampler; `device.limits` = 16/16 → pipeline WebGPU thất bại **im lặng** (draw được đếm, console không lỗi; tắt `roughnessNode`/`aoNode` (bỏ 4 texture ARM) thì hiện). Sandbox WebGL2 (giới hạn 32) không bắt được. Sửa `material.ts`: đất dùng normal mùn, cỏ dùng normal+arm mùn, đá arm hằng → 11 + 3 = 14 texture, 13 sampler → **hiện đúng trên Mac** (`mac-webgpu-spawn.jpg`, 58 fps / p95 17,5 ms ở 1920 px, post high). Luật DV-023.
+- Sau khi hiện: vệt/ô SSR trên sườn (post high) → sàn SSR chỉ cho roughness < ~0,5 (DV-024); vạch GTAO từ ~50 m → AO fade 30→70 m. Xác nhận trên Mac: `post=low` sạch, `post=medium` có vạch trước sửa, sau sửa sạch ở góc spawn.
+- Chưa có ảnh Mac cho góc ridge/valley — Chủ nhà đi thử; số fps 1920 px: **58 fps, p95 17,5 ms** (baseline trước rừng, post high + SSR + AO).
 
 ## ISSUES
 - (Thấp, deferred) GTAO nửa phân giải trên mặt terrain xa tạo ô/vạch (đã xác định bằng thí nghiệm `post=low` sạch / `shadow=0` vẫn vạch): đã mờ AO từ 60 → 140 m; còn vạch mờ ở góc nhìn xiên trong 140 m (`valley.png` phía dưới). Mac full-res sẽ khác — D05 đo lại; nếu còn, hạ `radius` hoặc AO theo normal MRT của terrain.
@@ -36,7 +41,7 @@ Sửa
 
 ## DEVIATIONS
 1. **Camera near 0,05 → 0,25 riêng level terrain** (`camera.near` trong level JSON; arena/pho giữ 0,05): depth 24-bit tới far 2,6 km. Không đổi contract; viewmodel ở scene riêng (near 0,03) nên tay/súng không bị cắt.
-2. **`post.ts` ngoài scope:** thêm fade GTAO theo khoảng cách (60 → 140 m). L1: không đổi API/contract, ảnh hưởng mọi level nhưng chỉ ở > 60 m nơi AO không nhìn thấy; ghi DV-022. Chủ thầu có thể yêu cầu đo lại pho trên Mac để chắc không đổi cảm nhận.
+2. **`post.ts` ngoài scope:** fade GTAO theo khoảng cách (cuối cùng 30 → 70 m) và sàn SSR gated theo roughness. L1: không đổi API/contract; ảnh hưởng mọi level: mất AO ở > 30 m và mất sàn SSR trên mặt nhám — ghi DV-022/024; Chủ nhà kiểm cảm nhận pho trên Mac. Chủ thầu có thể yêu cầu đo lại pho trên Mac để chắc không đổi cảm nhận.
 3. `fetch-assets.mjs` sửa để không ghi đè `.ktx2` (DV-019) — cần thiết để tải 4 texture mới mà không phá KTX2 của D02.
 4. Texture JPG nguồn Poly Haven không còn trong `assets-src/` (fetch ghi thẳng `public/`, ktx2 xoá) — tải lại được bằng `--force id`; ghi README. Không lưu bản JPG để tránh 2 bản.
 5. Chưa bake normal map riêng cho ô (normal tính CPU lúc nạp ~40 ms cho 1025²) — đủ nhanh, để D08 xem có cần đưa vào pipeline bake khi nhiều ô.

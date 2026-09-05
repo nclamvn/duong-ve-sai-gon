@@ -98,24 +98,17 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
   const uvA = positionWorld.xz.mul(1.0 / tileM);
   const uvB = positionWorld.xz.mul(1.0 / (tileM * 2.7)).add(vec2(0.37, 0.61));
   const kAnti = smoothstep(0.3, 0.7, nz1);
-  /** lấy diff/nor/arm của một lớp với phá lặp hai tỉ lệ */
-  const sampleLayer = (t: PbrTextureSet, anti: boolean): { c: Node<'vec3'>; nm: Node<'vec3'>; arm: Node<'vec3'> } => {
-    const cA = texture(t.map, uvA);
-    const nA = texture(t.normalMap, uvA);
-    const aA = texture(t.armMap, uvA);
-    if (!anti) return { c: cA.rgb, nm: nA.rgb, arm: aA.rgb };
-    const cB = texture(t.map, uvB);
-    const nB = texture(t.normalMap, uvB);
-    const aB = texture(t.armMap, uvB);
-    return { c: mix(cA.rgb, cB.rgb, kAnti), nm: mix(nA.rgb, nB.rgb, kAnti), arm: mix(aA.rgb, aB.rgb, kAnti) };
-  };
-  const L = sampleLayer(layers.leaves, true);
-  const M = sampleLayer(layers.mud, true);
-  const G = sampleLayer(layers.grass, false);
+  /** lấy một map với phá lặp hai tỉ lệ (cùng texture → cùng binding) */
+  const sampleAnti = (tex: PbrTextureSet['map'], anti: boolean): Node<'vec3'> => (anti ? mix(texture(tex, uvA).rgb, texture(tex, uvB).rgb, kAnti) : texture(tex, uvA).rgb);
+  // NGÂN SÁCH BINDING WebGPU (DV-023): ≤ 16 texture + ≤ 16 sampler mỗi stage, CSM 3 cascade + PMREM + DFG LUT đã chiếm 5.
+  // Terrain chỉ được ≤ 8 texture lớp: mùn lá 3 (map/nor/arm) · đất 2 (map/arm, dùng normal mùn) · cỏ 1 (map; nor/arm mùn) · đá 1 (map triplanar; arm hằng) + texture normal ô = 8.
+  const L = { c: sampleAnti(layers.leaves.map, true), nm: sampleAnti(layers.leaves.normalMap, true), arm: sampleAnti(layers.leaves.armMap, true) };
+  const M = { c: sampleAnti(layers.mud.map, true), nm: L.nm, arm: sampleAnti(layers.mud.armMap, true) };
+  const G = { c: sampleAnti(layers.grass.map, false), nm: L.nm, arm: L.arm };
   const rockScale = float(1.0 / (tileM * 1.5));
   const R = {
-    c: triplanarTexture(texture(layers.rock.map), null, null, rockScale, positionWorld, nTile).rgb,
-    arm: triplanarTexture(texture(layers.rock.armMap), null, null, rockScale, positionWorld, nTile).rgb,
+    c: triplanarTexture(texture(layers.rock.map), null, null, rockScale, positionWorld, nTile).rgb as Node<'vec3'>,
+    arm: vec3(1.0, 0.86, 0.0) as Node<'vec3'>,
   };
   // tint lớp theo tham chiếu Trường Sơn: mùn lá tối ẩm; đất laterit đỏ nâu; cỏ tranh vàng xanh; đá xám xanh rêu
   const tint = opts.layerTint ?? DEFAULT_LAYER_TINT;

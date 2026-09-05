@@ -9,4 +9,4 @@ acceptance:
 tests: [tests/unit/terrain.test.ts, tests/e2e/level-truong-son.spec.ts, tests/unit/validate-assets.test.ts]
 evidence: [evidence/TIP-D04/spawn.png, evidence/TIP-D04/ridge.png, evidence/TIP-D04/valley.png, evidence/TIP-D04/wire-lod.png, evidence/TIP-D04/stats.txt, evidence/TIP-D04/probe.txt, evidence/TIP-D04/ci.txt, evidence/TIP-D04/completion-report.md]
 rollback: "git revert; ô terrain + texture ở lại manifest không ảnh hưởng level arena/pho"
-status: DONE (số Mac chờ D05; deferred: vạch AO mờ trong 140 m ở góc xiên)
+status: DONE (Mac WebGPU hiện đúng sau sửa binding DV-023; fps 58 @1920 px post high; deferred: xem completion-report)

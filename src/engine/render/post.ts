@@ -7,9 +7,9 @@
 import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping, Color } from 'three/webgpu';
 import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float, mix, smoothstep } from 'three/tsl';
 
-/** GTAO mờ dần theo khoảng cách nhìn (m): xa hơn AO_FADE_END không áp AO — terrain 2 km (TIP-D04) bị vạch/ô từ GTAO nửa phân giải trên mặt xa, và AO ở > 100 m không nhìn thấy */
-export const AO_FADE_START = 60;
-export const AO_FADE_END = 140;
+/** GTAO mờ dần theo khoảng cách nhìn (m): xa hơn AO_FADE_END không áp AO — terrain (TIP-D04) bị vạch/ô từ GTAO nửa phân giải trên sườn ≥ ~50 m (Mac WebGPU xác nhận: post=low sạch, medium có vạch), và AO bán kính 0,5 m ở > 30 m không nhìn thấy */
+export const AO_FADE_START = 30;
+export const AO_FADE_END = 70;
 import { ao } from 'three/addons/tsl/display/GTAONode.js';
 import { ssr } from 'three/addons/tsl/display/SSRNode.js';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -107,9 +107,13 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     const normal = scenePass.getTextureNode('normal') as unknown as Node<'vec3'>;
     // SSRNode r185 (mirror mode) nhân màu phản chiếu với metalness → dielectric (sàn ướt) = 0 → không thấy gì.
     // Sàn ướt cần mức tối thiểu SSR_WET (Fresnel góc thấp + suy giảm theo khoảng cách vẫn áp dụng trong node).
+    // Sàn SSR chỉ cho mặt nhẵn/ướt (roughness < ~0,5): mặt nhám (terrain 0,85–0,9, tường) không có phản chiếu gương → tránh vệt/ô SSR
+    // nửa phân giải trên terrain (TIP-D04, WebGPU Mac, DV-024). Sàn ướt (roughness 0,1–0,3) giữ nguyên.
+    const roughTex = scenePass.getTextureNode('roughness').r;
+    const wetFloor = float(opts.ssrWetFloor ?? 0.22).mul(smoothstep(float(0.6), float(0.35), roughTex));
     const ssrPass = ssr(beauty, depth, normal, {
-      metalnessNode: scenePass.getTextureNode('metalness').r.max(float(opts.ssrWetFloor ?? 0.22)),
-      roughnessNode: scenePass.getTextureNode('roughness').r,
+      metalnessNode: scenePass.getTextureNode('metalness').r.max(wetFloor),
+      roughnessNode: roughTex,
       reflectNonMetals: true, // sàn ướt/vũng nước là dielectric
       camera,
     });
