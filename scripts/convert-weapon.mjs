@@ -17,6 +17,7 @@ import { ALL_EXTENSIONS, EXTMeshoptCompression } from '@gltf-transform/extension
 import { weld, unweld, simplify, dedup, prune, quantize, reorder, textureCompress, flatten } from '@gltf-transform/functions';
 import { MeshoptSimplifier, MeshoptEncoder } from 'meshoptimizer';
 import sharp from 'sharp';
+import { bakeSkins } from './lib/bake-skins.mjs';
 
 const args = process.argv.slice(2);
 const opt = (k, d) => {
@@ -62,6 +63,15 @@ const io = new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies(
 const doc = await io.read(join(SRC, gltfFile));
 const root = doc.getRoot();
 const scene = root.listScenes()[0];
+// skin tầm thường (Sketchfab, vd. AK-47 crwde có animation bắn) → geometry tĩnh trước khi phân tích hướng (TIP-D10)
+{
+  const baked = bakeSkins(scene);
+  if (baked) {
+    for (const a of root.listAnimations()) a.dispose();
+    for (const sk of root.listSkins()) sk.dispose();
+    console.log(`[weapon] nướng skin: ${baked} node, bỏ animation/skin`);
+  }
+}
 if (DROP.length) {
   const dropped = [];
   scene.traverse((node) => {

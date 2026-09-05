@@ -274,8 +274,8 @@ export function installCalib(game: Game, mode: CalibMode, params: URLSearchParam
   game.input = NULL_INPUT;
 
   const weapons = game.assets?.weapons ?? {};
-  const soldierWeaponId = 'hk416';
-  const fpWeaponId = 'ak74m';
+  const soldierWeaponId = params.get('calibWeapon') ?? 'hk416'; // ?calibWeapon=ak47: khớp tay lính vào khẩu người chơi để lấy pose fp (TIP-D10)
+  const fpWeaponId = game.playerWeaponId;
   const bot = game.bots.get('bot_a');
   const soldier = bot?.dummy.kind === 'gltf' ? (bot.dummy as SoldierVisual) : null;
   const target = new Vector3();

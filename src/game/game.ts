@@ -27,6 +27,7 @@ import { createActorVisual, type ActorVisual } from '@game/actors/visual';
 import { FpArms } from '@engine/render/fpArms';
 import type { WeaponModelConfig } from '@engine/render/weaponModel';
 import ak74mCfg from '@content/weapons/ak74m.json';
+import ak47Cfg from '@content/weapons/ak47.json';
 import hk416Cfg from '@content/weapons/hk416.json';
 import { Telemetry, type FrameSample } from '@qa/telemetry';
 import { initPhysics, PhysicsWorld } from '@engine/physics/world';
@@ -91,6 +92,8 @@ export class Game {
   levelId: 'pho' | 'arena' | 'truong-son' = 'arena';
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
+  /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
+  playerWeaponId = 'ak47';
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -178,6 +181,8 @@ export class Game {
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
     this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'arena';
+    const weaponParam = this.params.get('weapon');
+    this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
     const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : null;
     const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
@@ -192,7 +197,7 @@ export class Game {
       lite: !this.quality.assets,
       noCharacter: !this.quality.character,
       noWeapons: !this.quality.weapons,
-      weapons: [ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
+      weapons: [ak47Cfg as unknown as WeaponModelConfig, ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
       textureIds: levelDef?.textures ?? terrainDef?.textures,
       modelIds: levelDef?.models ?? terrainDef?.models,
       hdri: skyDef ? { id: skyDef.hdri, res: skyDef.res } : undefined,
@@ -284,9 +289,9 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons['ak74m'] ?? null);
+    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null);
     // cánh tay FP (TIP-016): mesh tay Mixamo + IK bám anchor súng; cần viewmodel glTF (anchor) + soldier_arms.glb
-    const ak = this.assets.weapons['ak74m'];
+    const ak = this.assets.weapons[this.playerWeaponId];
     if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
       this.fpArms = new FpArms(this.assets.arms, this.viewModel.space); // kích thước thật, camera viewmodel riêng
       this.fpArmsCfg = ak.cfg.fp;
@@ -598,7 +603,7 @@ export class Game {
 
   /** k = view.scale của súng (FOV viewmodel); procedural = 0.62 */
   private get viewModelScale(): number {
-    return this.assets?.weapons['ak74m']?.cfg.view.scale ?? 0.62;
+    return this.assets?.weapons[this.playerWeaponId]?.cfg.view.scale ?? 0.62;
   }
 
   /**

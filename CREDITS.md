@@ -16,6 +16,7 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "Abandoned Wrecked Bus" (https://sketchfab.com/3d-models/abandoned-wrecked-bus-0cbd1d8122f442d0a3a4b8a6df4f0e2e) by BytesCrafter is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_wreck_bus.glb`
 - "Sandbag Wall 02" (https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_02.glb`
 - "Sandbag Wall 05" (https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_05.glb`
+- "AK 47" (https://sketchfab.com/3d-models/ak-47-06262bdca3b44bd8b432ee4c69317f8c) by Aleksei Vlasov (CRWDE) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/ak47.glb`
 
 ## CC0-1.0
 
@@ -90,4 +91,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
-Tổng: 76 asset, 120.3 MB. Cập nhật 2026-09-05T09:26:34.412Z.
+Tổng: 77 asset, 123.1 MB. Cập nhật 2026-09-05T13:00:29.775Z.

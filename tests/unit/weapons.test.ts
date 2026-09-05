@@ -10,9 +10,17 @@ const schema = JSON.parse(readFileSync('content/schemas/weapon-model.schema.json
 const files = readdirSync('content/weapons').filter((f) => f.endsWith('.json'));
 
 describe('TIP-014 cấu hình vũ khí glTF (content/weapons, ADR-006)', () => {
-  it('có ít nhất AK-74M (người chơi) và HK416 (địch)', () => {
+  it('có AK-47 1971 (người chơi, TIP-D10), AK-74M (fixture HT-MB) và HK416 (địch)', () => {
+    expect(files).toContain('ak47.json');
     expect(files).toContain('ak74m.json');
     expect(files).toContain('hk416.json');
+  });
+
+  it('AK-47 là asset lịch sử: historical + registryId wpn.* + approved=false cho tới khi cố vấn ký (PRD §7.2, DV-009)', () => {
+    const a = manifest.assets.find((x) => x.id === 'weapon_ak47') as unknown as { historical?: boolean; registryId?: string; approved?: boolean };
+    expect(a?.historical).toBe(true);
+    expect(a?.registryId).toMatch(/^wpn\./);
+    expect(a?.approved).toBe(false);
   });
 
   for (const f of files) {

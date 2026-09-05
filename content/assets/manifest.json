@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T09:26:34.412Z",
+  "generatedAt": "2026-09-05T13:00:29.775Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 126134228,
+  "totalBytes": 129054136,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3127,6 +3127,39 @@
           "sha256": "cb238cc64e99bd44cec7bcaf7dee79066b5f6e1a2da7bcaf64217e9bc7002ae4"
         }
       ]
+    },
+    {
+      "id": "weapon_ak47",
+      "type": "model",
+      "use": "vũ khí người chơi (TIP-D10, DV-007) — AK-47 báng gỗ (kiểu Type 3 Liên Xô; chưa có nắp che đầu ruồi + lưỡi lê gập của Type 56 — chờ cố vấn duyệt hoặc thay model Type 56)",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/ak-47-06262bdca3b44bd8b432ee4c69317f8c",
+      "authors": [
+        "Aleksei Vlasov (CRWDE)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"AK 47\" (https://sketchfab.com/3d-models/ak-47-06262bdca3b44bd8b432ee4c69317f8c) by Aleksei Vlasov (CRWDE) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/weapons/ak47.glb",
+          "bytes": 2919908,
+          "sha256": "c263786efa8d4ea4acb1f0569d3cb53db5408499872618a3167b400bc7138c8b"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/ak47-crwde/ak_47.glb",
+          "bytes": 13506456,
+          "sha256": "cb2371a0071d2021ca2e71cbf89146ab7815d23f70769d271cd46547a52094c2"
+        }
+      ],
+      "triangles": {
+        "source": 6464,
+        "output": 6464
+      },
+      "historical": true,
+      "registryId": "wpn.pavn.type56_rifle",
+      "approved": false
     }
   ]
 }
