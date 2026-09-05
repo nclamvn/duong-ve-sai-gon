@@ -36,6 +36,13 @@ const POLE_R = new Vector3(0.9, -1, 0.35);
 const POLE_L = new Vector3(-0.8, -1, 0.1);
 /** góc co ngón tay (rad) theo đốt: [đốt 1, đốt 2, đốt 3]; ngón cái riêng */
 const FINGER_CURL = { index: [0.9, 1.1, 0.7], middle: [1.1, 1.2, 0.8], ring: [1.2, 1.25, 0.8], pinky: [1.25, 1.3, 0.8], thumb: [0.3, 0.5, 0.3] };
+/**
+ * Ngón cái TRÁI (TIP-D11a, Chủ nhà: "ngón cái không sát súng"): co quanh x [0,55, 0,8, 0,45] rồi **khép** quanh −z local đốt 1–2 [0,6, 0,6]
+ * — đo bằng thử 6 trục trong hệ anchor gripL: −z đưa đầu ngón từ x −0,065 (giơ thẳng lên cạnh súng) về (−0,015, +0,055) = mép trái-trên ốp lót.
+ * Ngón cái phải giữ x (tay cầm, phần lớn ngoài khung hình).
+ */
+const THUMB_L_CURL = [0.55, 0.8, 0.45];
+const THUMB_L_CLOSE = [0.6, 0.6, 0];
 
 export interface FpArmTargets {
   /** anchor tay cầm (hệ súng) — world matrix dùng trực tiếp */
@@ -77,7 +84,7 @@ export class FpArms {
   readonly skinned: SkinnedMesh[] = [];
   private readonly armR: FpChain | null;
   private readonly armL: FpChain | null;
-  private readonly fingerBones: Array<{ bone: Bone; curl: number; rest: Quaternion; index: boolean }> = [];
+  private readonly fingerBones: Array<{ bone: Bone; curl: number; rest: Quaternion; index: boolean; close: number }> = [];
   readonly triangles: number;
 
   constructor(asset: FpArmsAsset, parent: Object3D, opts: { tint?: number; scale?: number } = {}) {
@@ -125,10 +132,11 @@ export class FpArms {
       ['thumb', 'Thumb'],
     ];
     for (const [key, label] of names) {
-      const curls = FINGER_CURL[key];
+      const thumbL = key === 'thumb' && side === 'Left';
+      const curls = thumbL ? THUMB_L_CURL : FINGER_CURL[key];
       for (let i = 0; i < 3; i++) {
         const b = findBone(this.model, `mixamorig${side}Hand${label}${i + 1}`, `mixamorig:${side}Hand${label}${i + 1}`);
-        if (b) this.fingerBones.push({ bone: b, curl: curls[i]!, rest: b.quaternion.clone(), index: key === 'index' && side === 'Right' });
+        if (b) this.fingerBones.push({ bone: b, curl: curls[i]!, rest: b.quaternion.clone(), index: key === 'index' && side === 'Right', close: thumbL ? THUMB_L_CLOSE[i]! : 0 });
       }
     }
   }
@@ -142,6 +150,11 @@ export class FpArms {
       _e.set(k, 0, 0); // Mixamo: đốt ngón co quanh trục x local (kiểm bằng viewer)
       _q.setFromEuler(_e);
       f.bone.quaternion.copy(f.rest).multiply(_q);
+      if (f.close) {
+        _e.set(0, 0, -f.close); // ngón cái trái: khép thêm quanh −z local
+        _q.setFromEuler(_e);
+        f.bone.quaternion.multiply(_q);
+      }
     }
     if (this.armR) this.solve(this.armR, t.gripR, t.handR);
     if (this.armL) this.solve(this.armL, t.gripL, t.handL);

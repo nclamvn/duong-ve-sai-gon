@@ -43,3 +43,10 @@
 
 ## sửa sau ảnh Mac Chủ nhà ("cánh tay như bị tật" — cổ tay trái gập, DV-029)
 fp.handR/handL đổi sang pose AK-74M đã kiểm Mac (TIP-017); measure() sandbox: {"hip":{"L":0.0083,"R":0.0049},"ads":{"L":0.0083,"R":0.0049}} — cả hai ≤ 1,5 cm (AC).
+
+## sửa lần 2 (Chủ nhà: "ngón tay cái không sát súng, các ngón khác như xuyên qua súng")
+Silhouette (scripts/weapon-silhouette.mjs): ốp lót dưới CRWDE z −0,23..−0,12, y −0,04..−0,0025, x ±0,0175 → gripL = tâm ốp (0, −0,021, −0,165) (trước: −0,13 = mép sau ốp/đầu hộp khoá nòng → ngón cuộn qua thép).
+Đo khớp ngón trong hệ anchor gripL (x phải, y lên, z sau; ốp lót x ±0,0175, y ±0,019, z −0,065..+0,045), pose cuối (hip.pos z −0,28, handL.pos (−0,063, −0,038, 0,05)):
+  Index1 (−0,013, −0,041, −0,020) dưới ốp · Index2 (0,004, −0,016, −0,035) chạm đáy · Index4 (−0,029, 0,020, −0,006) góc trên-trái ngoài ốp · Middle4 (−0,022, 0,008, 0,016) mặt trái · Pinky4 (−0,009, −0,010, 0,056) sau đuôi ốp 1 cm · Thumb4 (−0,012, 0,022, 0,059) trên mép trái-trên (ngón cái khép quanh −z, THUMB_L_CLOSE).
+Trước sửa (pose AK-74M nguyên): Index4 (−0,053, 0,036), Thumb4 (−0,085, 0,075) — lòng ngón lệch trái 3 cm, ngón cái giơ thẳng 8,5 cm cạnh súng.
+measure().L.error (trọng tâm ngón so gripL) hip 2,1 cm / ADS 3,1 cm — chỉ số này đo "tay ở đâu so với anchor", không đo xuyên/ôm; chuẩn nghiệm thu là ảnh Chủ nhà.

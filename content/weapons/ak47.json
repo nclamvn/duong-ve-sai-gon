@@ -1,5 +1,5 @@
 {
-  "$comment": "AK-47 (Aleksei Vlasov/CRWDE, CC-BY-4.0) — súng của Nguyễn Đức Thành 1971 (TIP-D10, DV-007). Hệ model: nòng −z, gốc trên trục nòng giữa súng, m. Anchor từ scripts/weapon-profile.mjs (đầu ruồi z −0,41 y 0,040; thước ngắm z −0,07 y 0,037; báng cầm z 0,18; ốp lót z −0,28..−0,12 → gripL z −0,13 (span tay Mixamo 0,306 m); băng đạn đáy y −0,173). Pose tay fp kế thừa AK-74M, hiệu chỉnh ?calib trên Mac.",
+  "$comment": "AK-47 (Aleksei Vlasov/CRWDE, CC-BY-4.0) — súng của Nguyễn Đức Thành 1971 (TIP-D10, DV-007). Hệ model: nòng −z, gốc trên trục nòng giữa súng, m. Anchor từ scripts/weapon-profile.mjs (đầu ruồi z −0,41 y 0,040; thước ngắm z −0,07 y 0,037; báng cầm z 0,18; ốp lót dưới z −0,23..−0,12, đáy y −0,04 (silhouette scripts/_silhouette) → gripL = tâm ốp lót dưới (0, −0,021, −0,165) — measure() so trọng tâm ngón với gripL; tay cầm z 0,14..0,20 → gripR z 0,175; băng đạn đáy y −0,173). Pose tay fp kế thừa AK-74M, hiệu chỉnh ?calib trên Mac.",
   "id": "ak47",
   "asset": "weapon_ak47",
   "model": "weapons/ak47.glb",
@@ -18,12 +18,12 @@
     "gripR": [
       0,
       -0.1,
-      0.18
+      0.175
     ],
     "gripL": [
       0,
-      -0.028,
-      -0.13
+      -0.021,
+      -0.165
     ],
     "sight": [
       0,
@@ -41,9 +41,9 @@
     "scale": 0.62,
     "hip": {
       "pos": [
-        0.12,
+        0.11,
         -0.1,
-        -0.3
+        -0.28
       ],
       "rot": [
         0.02,
@@ -93,9 +93,9 @@
     },
     "handL": {
       "pos": [
-        -0.0914,
-        -0.0224,
-        0.0694
+        -0.063,
+        -0.038,
+        0.05
       ],
       "rot": [
         -1.5905,
@@ -104,6 +104,6 @@
       ]
     },
     "triggerFinger": 0.6,
-    "$comment": "TIP-D10/D11a: dùng pose tay đã kiểm trên Mac của AK-74M (TIP-017, cùng hệ anchor: gripL z −0,13 y −0,03; gripR lệch 1,5 cm) — fit() từ clip rifle_aim với AK-47 cho cổ tay trái gập (L raw 8,1 cm, Chủ nhà: \"cánh tay như bị tật\"). Hiệu chỉnh tiếp bằng ?calib=fp setHand/exportJson."
+    "$comment": "TIP-D10/D11a: rot tay từ pose AK-74M đã kiểm Mac (TIP-017); handL.pos dịch (+2,8 cm phải, +1,8 cm lên) để lòng ngón (đo khớp Index/Middle trong hệ gripL) ôm đúng ốp lót ±1,75 × 3,8 cm (Chủ nhà: 'ngón xuyên súng, ngón cái không sát'); ngón cái trái khép quanh −z (fpArms THUMB_L_CLOSE). Hiệu chỉnh tiếp bằng ?calib=fp setHand/exportJson."
   }
 }
