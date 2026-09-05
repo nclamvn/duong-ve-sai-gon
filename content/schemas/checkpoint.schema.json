@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://hai-tuyen.local/schemas/checkpoint.schema.json",
+  "$id": "https://duong-ve-sai-gon.local/schemas/checkpoint.schema.json",
   "title": "CheckpointSnapshot",
   "description": "PRD §8 — Load phải xóa runtime state cũ trước khi restore.",
   "type": "object",

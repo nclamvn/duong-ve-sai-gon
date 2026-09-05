@@ -85,8 +85,8 @@ export class Game {
   arena!: ArenaData;
   /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
   level: LevelBuild | null = null;
-  /** 'pho' (Phố Vạn Hải, mặc định khi chơi) | 'arena' (bench/E2E G0) */
-  levelId: 'pho' | 'arena' = 'pho';
+  /** 'arena' (bench/E2E G0, mặc định G0′ — content Hải Tuyến chỉ là test) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
+  levelId: 'pho' | 'arena' = 'arena';
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -173,7 +173,7 @@ export class Game {
 
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
-    this.levelId = levelParam === 'arena' || levelParam === 'pho' ? levelParam : this.params.get('bench') === '1' ? 'arena' : 'pho';
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' ? levelParam : 'arena';
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
     // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
     this.assets = await loadAssets({

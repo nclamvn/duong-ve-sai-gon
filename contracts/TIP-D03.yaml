@@ -1,0 +1,11 @@
+id: TIP-D03
+goal: "Registry lịch sử: 7 YAML + schema + validator + lượt cào–lọc 1 cho 1971 + docs/history/M1.md"
+scope: [content/registry/*.yaml, content/schemas/registry.schema.json, content/schemas/asset-manifest.schema.json, scripts/validate-registry.mjs, scripts/validate-registry.d.mts, tests/unit/registry.test.ts, docs/history/M1.md, docs/ADR/ADR-D03-registry-yaml.md, package.json (yaml 2.9.0, registry:check)]
+acceptance:
+  - "npm run registry:check: 7 file, 0 lỗi"
+  - "≥ 15 fact, ≥ 60 % P/S; H có notes; X có dispute_note"
+  - "manifest historical → registryId bắt buộc; approved không trỏ H/X"
+tests: [tests/unit/registry.test.ts, tests/unit/assets.test.ts]
+evidence: [evidence/TIP-D03/registry-report.json, evidence/TIP-D03/completion-report.md, docs/history/M1.md]
+rollback: "xoá content/registry + dep yaml"
+status: DONE (lượt 1; lượt 2 nâng P chờ cố vấn)

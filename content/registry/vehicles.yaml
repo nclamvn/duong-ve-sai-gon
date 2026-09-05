@@ -1,0 +1,18 @@
+registry: vehicles
+version: 1
+description: "Xe quân sự và dân sự theo vùng/năm. Lượt 1 (TIP-D03) cho M1."
+facts:
+  - id: veh.pavn.zil157_truck
+    value: "ZIL-157 — xe tải 6×6 Liên Xô 2,5 tấn (động cơ I6 5,55 L, 104 hp), sản xuất 1958–1977; Việt Nam dùng cả bản Trung Quốc Jiefang CA-30."
+    year: "1958-1977"
+    force: pavn
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/ZIL-157
+        title: "ZIL-157"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "general-purpose 2+1⁄2-ton 6×6 truck; produced at the Likhachev plant in the Soviet Union from 1958 to 1977"
+        tier: S
+    used_by: [M1, veh_zil157]
+    notes: "Việc ZIL-157/CA-30 là xe chủ lực trên Trường Sơn 1971 chưa có nguồn trực tiếp trong lượt 1 (H) — kiểm bằng ảnh Binh trạm/Bảo tàng Đường Hồ Chí Minh."

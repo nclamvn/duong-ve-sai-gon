@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://hai-tuyen.local/schemas/performance-replay.schema.json",
+  "$id": "https://duong-ve-sai-gon.local/schemas/performance-replay.schema.json",
   "title": "PerformanceReplay",
   "description": "PRD §8 PerformanceReplay — kết quả benchmark phải tái dựng được: seed, inputTrack, buildHash, device, browser, metrics.",
   "type": "object",

@@ -48,7 +48,7 @@ function onData(chunk) {
     try {
       const rep = JSON.parse(readFileSync(file, 'utf8'));
       const md = rep.median;
-      console.log('\n══════════ HT-MB G0 BENCH ══════════');
+      console.log('\n══════════ DVSG BENCH ══════════');
       console.log(`file            ${file}`);
       console.log(`evidence_status ${rep.evidence_status}`);
       console.log(`backend         ${rep.backend} · ${rep.browser} · ${rep.device.adapter ? rep.device.adapter.description || rep.device.adapter.vendor : 'n/a'}`);

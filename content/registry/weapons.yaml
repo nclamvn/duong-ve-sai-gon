@@ -1,0 +1,45 @@
+registry: weapons
+version: 1
+description: "Vũ khí bộ binh hai bên theo năm. Lượt 1 (TIP-D03) cho M1 1971."
+facts:
+  - id: wpn.pavn.type56_rifle
+    value: "Súng trường tấn công Type 56 (bản Trung Quốc của AK-47, 7,62×39 mm, băng 30 viên, ~650 phát/phút) được tìm thấy trong tay bộ đội/QGP nhiều hơn AK-47/AKM Liên Xô; đặc điểm nhận dạng — đầu ruồi có nắp che kín và lưỡi lê gập ba cạnh."
+    year: "1965-1975"
+    force: pavn
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Type_56_assault_rifle
+        title: "Type 56 assault rifle"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "the Type 56 was discovered far more often than the original Russian-made AK-47s or AKMs"
+        tier: S
+    used_by: [M1, wpn_ak47_type56_1971]
+    notes: "Khẩu mẫu G1 (DV-007) là Type 56 báng gỗ, lưỡi lê gập; biến thể báng gấp Type 56-1 cho M3 (1972)."
+  - id: wpn.pavn.type56_rate_mag
+    value: "Type 56 — tốc độ bắn lý thuyết 650 phát/phút, băng 30 viên, tầm hiệu quả 300–400 m."
+    year: "1956-1975"
+    force: pavn
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Type_56_assault_rifle
+        title: "Type 56 assault rifle"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "Rate of fire 650 rounds per minute; magazine 20, 30 or 40-round detachable box"
+        tier: S
+    used_by: [wpn_ak47_type56_1971, content/tuning/weapons]
+  - id: wpn.us.ac130a_armament_1971
+    value: "AC-130A (16th SOS, Ubon) 1969–1971 mang minigun 7,62 mm, pháo 20 mm Vulcan và (Surprise Package/Pave Pronto) pháo 40 mm Bofors; bay vòng \"pylon turn\" quanh mục tiêu, dùng kính nhìn đêm và hồng ngoại để săn xe ban đêm trên đường mòn."
+    year: "1969-1971"
+    force: us
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Lockheed_AC-130
+        title: "Lockheed AC-130"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "pylon turn, flying in a large circle around the target, so is able to fire at it for far longer than in a conventional strafing attack"
+        tier: S
+    used_by: [M1, air_ac130a, VFX-003, AUD-003]
+    notes: "Con số \"hơn 10.000 xe bị phá\" là tuyên bố phía Mỹ — chỉ dùng trong bản tin có ghi nguồn, không dùng trong gameplay."

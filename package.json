@@ -1,8 +1,8 @@
 {
-  "name": "hai-tuyen",
-  "version": "0.1.0-g0",
+  "name": "duong-ve-sai-gon",
+  "version": "0.1.0-g0p",
   "private": true,
-  "description": "Hải Tuyến · Nhiệm vụ 01 · Mắt Bão (HT-MB) — browser FPS vertical slice, Gate G0 feasibility",
+  "description": "Đường về Sài Gòn (DVSG) — browser cinematic FPS, chiến dịch 1971 → 30/4/1975; engine kế thừa HT-MB; Gate G0' kế thừa",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -26,7 +26,8 @@
     "models:optimize": "node scripts/optimize-models.mjs",
     "assets:credits": "node scripts/credits.mjs",
     "assets:weapon": "node scripts/convert-weapon.mjs",
-    "assets:model": "node scripts/convert-model.mjs"
+    "assets:model": "node scripts/convert-model.mjs",
+    "registry:check": "node scripts/validate-registry.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",
@@ -35,7 +36,8 @@
     "@recast-navigation/three": "0.43.1",
     "ajv": "8.20.0",
     "recast-navigation": "0.43.1",
-    "three": "0.185.1"
+    "three": "0.185.1",
+    "yaml": "2.9.0"
   },
   "devDependencies": {
     "@gltf-transform/core": "4.5.0",

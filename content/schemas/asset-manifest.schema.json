@@ -123,6 +123,9 @@
           "triangles": {
             "type": "object"
           },
+          "historical": { "type": "boolean", "description": "asset thể hiện chi tiết lịch sử (quân phục, súng, xe, máy bay, biển hiệu…) → bắt buộc registryId (PRD DVSG §7.2)" },
+          "registryId": { "type": "string", "pattern": "^(uni|wpn|veh|air|plc|tml|dly)\\.[a-z0-9_.]+$", "description": "fact trong content/registry/*.yaml mà asset là thể hiện" },
+          "approved": { "type": "boolean", "description": "cố vấn lịch sử đã ký (PRD DVSG §7.6); false → chỉ build dev" },
           "size": {
             "type": "array",
             "items": { "type": "number" },

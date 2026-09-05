@@ -1,10 +1,12 @@
-# Hải Tuyến · Nhiệm vụ 01 · Mắt Bão — Gate G0 (Feasibility)
+# Đường về Sài Gòn — Gate G0′ (kế thừa engine Hải Tuyến)
 
-Cinematic FPS chạy trực tiếp trên trình duyệt (Three.js WebGPU + TSL, Rapier, Recast), tối ưu cho MacBook Pro M1 Max.
-Repo này là **Gate G0**: benchmark arena "xấu nhưng đo được" + toàn bộ pipeline chạy end-to-end
-(renderer → physics → weapon → bot AI → mission → checkpoint), có telemetry, test và evidence. Không có art.
+FPS chiến dịch chơi đơn, điện ảnh, chạy trực tiếp trên trình duyệt (Three.js WebGPU + TSL, Rapier, Recast), 8 nhiệm vụ từ Trường Sơn 1971 đến Sài Gòn 30/4/1975, "thật đến từng cái dép" — mọi chi tiết lịch sử có nguồn trong `content/registry/`.
 
-Nguồn yêu cầu: `docs/PRD.md` (v0.1). Quy trình: Vibecode Kit v6.1 — `docs/RRI.md`, `docs/BLUEPRINT.md`, `docs/tips/`, `evidence/`, `docs/VERIFY.md`.
+Repo fork từ engine **Hải Tuyến (HT-MB)** tại `8745ba3` (ADR-D01): renderer, physics, nav, AI, weapons, level JSON, pipeline asset, test và quy trình giữ nguyên; content Hải Tuyến (arena đêm, Phố Vạn Hải) chỉ còn là **fixture bench/E2E** (`?level=arena` mặc định, `?level=pho`), không phải content game.
+
+Nguồn yêu cầu: `docs/PRD.md` (v0.2) · kịch bản `docs/story/KICH-BAN-v0.1.md` · khế ước `docs/BLUEPRINT-G1.md` · quyết định `docs/DECISIONS.md` (DV-xxx) · ADR `docs/ADR/` · TIP `docs/tips/TIP-Dxx.md` · evidence `evidence/`. Tài liệu HT-MB cũ: `docs/legacy/`.
+
+Lộ trình: **G0′** (fork, nợ perf, KTX2, registry 1971, prototype terrain DEM + rừng) → **G1** lát cắt "Cổng Trời" 15 phút → G1.5 M1 hoàn chỉnh (đêm, AC-130) → G2 Hồi I → G3 Hà Nội → G4 Hồi III → G5/G6.
 
 ## Chạy
 

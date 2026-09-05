@@ -1,5 +1,5 @@
 {
-  "app.title": "Hải Tuyến · Nhiệm vụ 01 · Mắt Bão",
+  "app.title": "Đường về Sài Gòn · G0′ (engine kế thừa Hải Tuyến — content thử nghiệm)",
   "cap.title": "Kiểm tra năng lực thiết bị",
   "cap.backend": "Backend render",
   "cap.adapter": "GPU adapter",
@@ -27,7 +27,7 @@
   "dlg.D03": "Mưa che tiếng chân, nhưng đèn quét vẫn thấy bóng. Bám sát mép kho.",
   "dlg.D05": "Relay phụ đã ngủ. Camera phía trong mù rồi.",
   "dlg.D06": "Lộ rồi. Bỏ im lặng, tiến nhanh trước khi họ khóa trạm bơm.",
-  "ov.title": "HT-MB G0 TELEMETRY",
+  "ov.title": "DVSG G0′ TELEMETRY",
   "bench.running": "Đang chạy benchmark…",
   "bench.done": "Benchmark xong — kết quả đã gửi về máy chủ dev.",
   "bench.saved_local": "Máy chủ không nhận được — đã tải file kết quả xuống.",

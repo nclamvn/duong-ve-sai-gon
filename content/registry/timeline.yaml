@@ -1,0 +1,54 @@
+registry: timeline
+version: 1
+description: "Ngày giờ sự kiện, đơn vị, con số đã kiểm; con số tranh chấp giữ cả hai bên. Lượt 1 (TIP-D03) cho M1–M2."
+facts:
+  - id: tml.1971.lamson719_dates
+    value: "Chiến dịch Lam Sơn 719 (quân Sài Gòn đánh sang Nam Lào theo Đường 9) diễn ra 8/2–25/3/1971."
+    year: "1971"
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Operation_Lam_Son_719
+        title: "Operation Lam Son 719"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "8 February – 25 March 1971"
+        tier: S
+    used_by: [M1, M2, CINE-M2]
+  - id: tml.1971.lamson719_forces
+    value: "Phía Sài Gòn có Sư đoàn Dù, Sư đoàn 1 Bộ binh, Lữ đoàn 1 Thiết giáp, biệt động quân (TĐ 21, 39) và lữ đoàn TQLC 147, 258; Mỹ yểm trợ không quân/trực thăng/pháo nhưng bộ binh Mỹ bị luật cấm vào đất Lào (Cooper–Church)."
+    year: "1971"
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Operation_Lam_Son_719
+        title: "Operation Lam Son 719"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "ground forces...prohibited by law from entering Laotian territory"
+        tier: S
+    used_by: [M2]
+  - id: tml.1971.fsb31_fell
+    value: "Ngày 25/2/1971 quân giải phóng pháo kích rồi tấn công bằng xe tăng + bộ binh chiếm căn cứ hoả lực 31 (Đồi 31) của lữ đoàn dù."
+    year: "1971"
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Operation_Lam_Son_719
+        title: "Operation Lam Son 719"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "On 25 February the PAVN deluged FSB 31 with artillery fire and then launched a conventional armored/infantry assault"
+        tier: S
+    used_by: [M2]
+    notes: "Kịch bản gọi là \"Điểm cao 31\" và không kể lại từng phút; người chỉ huy lữ đoàn bị bắt là người thật — không thoại."
+  - id: tml.1970.group559_binhtram
+    value: "Cuối 1970 Đoàn 559 vận hành 27 binh trạm, vận chuyển 40.000 tấn với tỉ lệ mất mát 3,4 %; năm 1970 đơn vị được nâng thành cấp tương đương Quân khu (Bộ đội Trường Sơn)."
+    year: "1970"
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Ho_Chi_Minh_trail
+        title: "Ho Chi Minh trail"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "27 Binh Trams; 40,000 tonnes of supplies with a 3.4% loss rate"
+        tier: S
+    used_by: [M1]
+    notes: "Tư lệnh Bộ đội Trường Sơn 1971 là người thật — xuất hiện tối đa dưới dạng bản tin, không thoại."

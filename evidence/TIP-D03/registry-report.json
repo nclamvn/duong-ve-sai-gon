@@ -1,0 +1,56 @@
+{
+  "errors": [],
+  "stats": {
+    "aircraft": {
+      "P": 0,
+      "S": 2,
+      "H": 0,
+      "X": 1,
+      "total": 3
+    },
+    "daily-life": {
+      "P": 0,
+      "S": 0,
+      "H": 0,
+      "X": 0,
+      "total": 0
+    },
+    "places": {
+      "P": 0,
+      "S": 4,
+      "H": 0,
+      "X": 0,
+      "total": 4
+    },
+    "timeline": {
+      "P": 0,
+      "S": 4,
+      "H": 0,
+      "X": 0,
+      "total": 4
+    },
+    "uniforms": {
+      "P": 0,
+      "S": 3,
+      "H": 2,
+      "X": 0,
+      "total": 5
+    },
+    "vehicles": {
+      "P": 0,
+      "S": 1,
+      "H": 0,
+      "X": 0,
+      "total": 1
+    },
+    "weapons": {
+      "P": 0,
+      "S": 3,
+      "H": 0,
+      "X": 0,
+      "total": 3
+    }
+  },
+  "facts": 20,
+  "files": 7
+}

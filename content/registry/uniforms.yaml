@@ -1,0 +1,66 @@
+registry: uniforms
+version: 1
+description: "Quân phục, mũ, giày dép, trang bị mang đeo theo lực lượng × năm. Lượt 1 (TIP-D03, 2026-09-05) cho M1 Trường Sơn 1971. Cần cố vấn lịch sử nâng lên P bằng hiện vật bảo tàng/ảnh tư liệu."
+facts:
+  - id: uni.pavn.1971.helmet_pith
+    value: "Bộ đội miền Bắc đội mũ cối (không phải mũ sắt) — thân bằng bột gỗ/giấy ép hoặc vật liệu cao su, bọc vải màu xanh lá để nguỵ trang; gắn ngôi sao phía trước."
+    year: "1965-1975"
+    force: pavn
+    provenance_level: S
+    sources:
+      - url: https://danviet.vn/mang-xa-hoi-trung-quoc-ban-ve-chiec-mu-coi-viet-nam-7777931480-d672406.html
+        title: "Mạng xã hội Trung Quốc bàn về chiếc mũ cối Việt Nam"
+        publisher: Dân Việt
+        accessed: "2026-09-05"
+        quote: "Để phục vụ yêu cầu ngụy trang, quân đội Việt Nam bọc bên ngoài mũ cối một lớp vải màu xanh lá cây."
+        tier: S
+    used_by: [M1, chr_pavn_1971]
+    notes: "Chi tiết ngôi sao/quân hiệu và biến thể mũ viện trợ Trung Quốc chưa có nguồn — kiểm bằng hiện vật Bảo tàng LSQS trước khi làm asset."
+  - id: uni.pavn.1971.sandals_rubber
+    value: "Dép cao su (dép lốp/dép râu/dép Bình Trị Thiên) cắt từ lốp và săm ô tô là giày dép phổ biến của bộ đội; cuối chiến tranh có thêm dép đúc cao su."
+    year: "1947-1975"
+    force: pavn
+    provenance_level: S
+    sources:
+      - url: https://danviet.vn/truy-tim-lich-su-cua-nhung-doi-dep-huyen-thoai-o-viet-nam-20201213003550895-d923121.html
+        title: "Truy tìm lịch sử của những đôi dép huyền thoại ở Việt Nam"
+        publisher: Dân Việt
+        accessed: "2026-09-05"
+        quote: "Đôi dép cao su này còn có khá nhiều tên gọi khác như dép lốp, dép râu hay dép Bình Trị Thiên"
+        tier: S
+    used_by: [M1, chr_pavn_1971]
+    notes: "Tỉ lệ dép đúc vs dép lốp năm 1971 chưa rõ (H) — asset dùng dép lốp quai rời."
+  - id: uni.pavn.1971.field_uniform_green
+    value: "Quân phục dã chiến bộ đội 1971 màu xanh lá (thường gọi \"quân phục Tô Châu\", vải viện trợ Trung Quốc) — cổ bẻ, hai túi ngực, quần túi hông."
+    year: "1965-1975"
+    force: pavn
+    provenance_level: H
+    sources: []
+    notes: "Tên gọi \"Tô Châu\", màu chính xác, kiểu cắt là kiến thức phổ biến nhưng CHƯA có nguồn P/S trong lượt 1 — không được đánh dấu approved cho asset tới khi có ảnh/hiện vật. Việc cho cố vấn."
+  - id: uni.pavn.1971.chest_rig_type56
+    value: "Bao xe (chest rig) vải ba ngăn băng đạn AK kiểu Type 56 Trung Quốc đeo trước ngực là cách mang đạn phổ biến của bộ đội/QGP."
+    year: "1965-1975"
+    force: pavn
+    provenance_level: H
+    sources: []
+    notes: "Phổ biến trong ảnh tư liệu và hiện vật sưu tầm; cần nguồn bảo tàng hoặc sách tra cứu quân trang để lên S."
+  - id: uni.tnxp.1966.road20_workforce
+    value: "Đường 20 Quyết Thắng do gần 8.000 cán bộ, chiến sĩ công binh (Trung đoàn 4, 5, 10, 41 — Đoàn 559), thanh niên xung phong và dân công hoả tuyến mở."
+    year: "1966"
+    force: tnxp
+    provenance_level: S
+    sources:
+      - url: https://dantri.com.vn/thoi-su/duong-20-quyet-thang-con-duong-huyen-thoai-2015081010364844.htm
+        title: "Đường 20 - Quyết thắng, con đường huyền thoại"
+        publisher: Dân trí
+        accessed: "2026-09-05"
+        quote: "hơn 8.000 chiến sĩ, cán bộ công nhân kỹ thuật thuộc Trung đoàn 4, 5, 10 và 41 bộ đội công binh (Binh đoàn 559)"
+        tier: S
+      - url: https://nhandan.vn/khuc-trang-ca-duong-20-quyet-thang-post707518.html
+        title: "Khúc tráng ca đường 20 Quyết thắng"
+        publisher: Nhân Dân
+        accessed: "2026-09-05"
+        quote: "Có gần 8.000 cán bộ, chiến sĩ, thanh niên xung phong và dân công hỏa tuyến"
+        tier: S
+    used_by: [M1]
+    notes: "Trang phục TNXP nữ 1971 (áo, mũ tai bèo, khăn) chưa có fact riêng — lượt 2."

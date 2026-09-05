@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://hai-tuyen.local/schemas/dialogue.schema.json",
+  "$id": "https://duong-ve-sai-gon.local/schemas/dialogue.schema.json",
   "title": "DialogueCueSet",
   "description": "PRD §8 DialogueCue — cueId là ID nghiệp vụ, không dùng tên file.",
   "type": "object",

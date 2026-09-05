@@ -1,0 +1,60 @@
+registry: places
+version: 1
+description: "Địa danh, km, công trình, tên đường đúng năm. Lượt 1 (TIP-D03) cho M1 Đường 20 Quyết Thắng."
+facts:
+  - id: plc.truongson.road20_endpoints
+    value: "Đường 20 Quyết Thắng — Km 0 tại thôn Phong Nha, xã Sơn Trạch, Bố Trạch, Quảng Bình; điểm cuối ngã ba Lùm Bùm (Khăm Muộn, Lào); tổng chiều dài 125 km (phần trên đất Quảng Bình khoảng 70 km)."
+    year: "1966"
+    provenance_level: S
+    sources:
+      - url: https://dantri.com.vn/thoi-su/duong-20-quyet-thang-con-duong-huyen-thoai-2015081010364844.htm
+        title: "Đường 20 - Quyết thắng, con đường huyền thoại"
+        publisher: Dân trí
+        accessed: "2026-09-05"
+        quote: "Km 00 thuộc thôn Phong Nha, xã Sơn Trạch, huyện Bố Trạch (Quảng Bình)"
+        tier: S
+      - url: https://nhandan.vn/khuc-trang-ca-duong-20-quyet-thang-post707518.html
+        title: "Khúc tráng ca đường 20 Quyết thắng"
+        publisher: Nhân Dân
+        accessed: "2026-09-05"
+        quote: "đường 20 Quyết thắng hiện chỉ dài khoảng 70km"
+        tier: S
+    used_by: [M1, TER-001]
+  - id: plc.truongson.road20_opened
+    value: "Đường 20 khởi công 21/1/1966, thông xe 5/5/1966 (bốn tháng)."
+    year: "1966"
+    provenance_level: S
+    sources:
+      - url: https://nhandan.vn/khuc-trang-ca-duong-20-quyet-thang-post707518.html
+        title: "Khúc tráng ca đường 20 Quyết thắng"
+        publisher: Nhân Dân
+        accessed: "2026-09-05"
+        quote: "Đường 20 hoàn thành trong một thời gian kỷ lục là bốn tháng"
+        tier: S
+    used_by: [M1, CINE-M1]
+  - id: plc.truongson.atp_hotspot
+    value: "Trọng điểm ATP trên Đường 20 gồm cua chữ A, ngầm Ta Lê và đèo Phu La Nhích — \"toạ độ lửa\" bị đánh phá dữ dội nhất tuyến."
+    year: "1966-1973"
+    provenance_level: S
+    sources:
+      - url: https://nhandan.vn/khuc-trang-ca-duong-20-quyet-thang-post707518.html
+        title: "Khúc tráng ca đường 20 Quyết thắng"
+        publisher: Nhân Dân
+        accessed: "2026-09-05"
+        quote: "khu vực \"cua chữ A, ngầm Ta Lê và đèo Phu La Nhích\""
+        tier: S
+    used_by: [M1]
+    notes: "Vị trí km của ATP và của \"Cổng Trời\" chưa có nguồn trong lượt 1 (H) — cần bản đồ/ảnh Bảo tàng Đường Hồ Chí Minh trước khi đặt terrain."
+  - id: plc.truongson.hang_tam_co
+    value: "Hang Tám Cô tại Km 16+200 Đường 20 — nơi 8 thanh niên xung phong hi sinh khi hang sập (11/1972)."
+    year: "1972"
+    provenance_level: S
+    sources:
+      - url: https://dantri.com.vn/thoi-su/duong-20-quyet-thang-con-duong-huyen-thoai-2015081010364844.htm
+        title: "Đường 20 - Quyết thắng, con đường huyền thoại"
+        publisher: Dân trí
+        accessed: "2026-09-05"
+        quote: "Km 16 + 200"
+        tier: S
+    used_by: [M1]
+    notes: "Sự kiện 11/1972 nằm sau mốc M1 (1/1971) — chỉ dùng làm bối cảnh địa lý, không dùng trong kịch bản M1."

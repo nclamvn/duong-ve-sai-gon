@@ -82,7 +82,7 @@ const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 const verifyOnly = process.argv.includes('--verify');
 
 async function getJson(url) {
-  const r = await fetch(url, { headers: { 'user-agent': 'hai-tuyen-asset-fetch/1.0 (CC0 assets; contact: nclamvn@gmail.com)' } });
+  const r = await fetch(url, { headers: { 'user-agent': 'duong-ve-sai-gon-asset-fetch/1.0 (CC0 assets; contact: nclamvn@gmail.com)' } });
   if (!r.ok) throw new Error(`${url} → ${r.status}`);
   return r.json();
 }
@@ -90,7 +90,7 @@ async function getJson(url) {
 async function download(url, dest, expectedBytes) {
   if (existsSync(dest) && (expectedBytes === undefined || statSync(dest).size === expectedBytes)) return false;
   mkdirSync(dirname(dest), { recursive: true });
-  const r = await fetch(url, { headers: { 'user-agent': 'hai-tuyen-asset-fetch/1.0' } });
+  const r = await fetch(url, { headers: { 'user-agent': 'duong-ve-sai-gon-asset-fetch/1.0' } });
   if (!r.ok) throw new Error(`${url} → ${r.status}`);
   const buf = Buffer.from(await r.arrayBuffer());
   writeFileSync(dest, buf);

@@ -1,0 +1,11 @@
+id: TIP-D01
+goal: "Fork engine HT-MB thành repo Đường về Sài Gòn: đổi tên, level mặc định arena, docs legacy, luật DVSG trong AGENTS.md, ADR-D01/D02, CI xanh"
+scope: [package.json, index.html, content/locale/vi.json, config/performance-budget.json, content/schemas/*.schema.json ($id), scripts/fetch-assets.mjs, scripts/bench.mjs, src/game/game.ts (levelId mặc định), AGENTS.md, README.md, docs/**]
+acceptance:
+  - "npm run ci xanh (typecheck, unit, build, e2e webgl-ci)"
+  - "level mặc định arena; ?level=pho chạy; title mới"
+  - "docs/legacy có PRD/Blueprint/RRI/Verify/Decisions HT-MB; docs/PRD.md = v0.2; DECISIONS DV-001..011"
+tests: [tests/unit/**, tests/e2e/**]
+evidence: [evidence/TIP-D01/ci.log, evidence/TIP-D01/completion-report.md]
+rollback: "repo cũ hai-tuyen giữ nguyên; xoá thư mục fork"
+status: DONE

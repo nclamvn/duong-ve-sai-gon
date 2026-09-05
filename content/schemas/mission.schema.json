@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://hai-tuyen.local/schemas/mission.schema.json",
+  "$id": "https://duong-ve-sai-gon.local/schemas/mission.schema.json",
   "title": "MissionDefinition",
   "description": "PRD §8 — MissionDefinition + MissionNode. Runtime chỉ thực thi action/condition trong allow-list.",
   "type": "object",

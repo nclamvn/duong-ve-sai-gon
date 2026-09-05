@@ -1,0 +1,46 @@
+registry: aircraft
+version: 1
+description: "Máy bay hai bên, vai trò, cao độ, quỹ đạo. Lượt 1 (TIP-D03) cho M1–M2."
+facts:
+  - id: air.us.commando_hunt_daily_1971
+    value: "Giai đoạn Commando Hunt cuối (10/1970–4/1972) trung bình mỗi ngày trên đường mòn có 182 máy bay tiêm kích-cường kích, 13 gunship cánh cố định và 21 B-52."
+    year: "1970-1972"
+    force: us
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Ho_Chi_Minh_trail
+        title: "Ho Chi Minh trail"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "averaging 182 attack fighters, 13 fixed-wing gunships, and 21 B-52s"
+        tier: S
+    used_by: [M1, VEH-004]
+  - id: air.us.igloo_white_sensors
+    value: "Chiến dịch Igloo White thả các chuỗi cảm biến âm thanh và địa chấn dọc đường mòn (\"cây nhiệt đới\"), máy tính dự đoán đoàn xe để điều không kích."
+    year: "1968-1972"
+    force: us
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/Ho_Chi_Minh_trail
+        title: "Ho Chi Minh trail"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "strings of air-dropped acoustic and seismic sensors"
+        tier: S
+    used_by: [M1]
+    notes: "Tên gọi \"cây nhiệt đới\" phía Việt Nam chưa có nguồn trích — H."
+  - id: air.us.lamson719_helicopter_losses
+    value: "Trong Lam Sơn 719 (8/2–25/3/1971) phía Mỹ có 108 trực thăng bị phá huỷ và 618 bị hư hại."
+    year: "1971"
+    force: us
+    provenance_level: X
+    disputed: true
+    dispute_note: "Số liệu phía Mỹ (Wikipedia dẫn nguồn Mỹ); phía Việt Nam công bố số trực thăng bị bắn rơi cao hơn nhiều. Game chỉ dùng \"hàng trăm\" trong bản tin, không dùng số cụ thể."
+    sources:
+      - url: https://en.wikipedia.org/wiki/Operation_Lam_Son_719
+        title: "Operation Lam Son 719"
+        publisher: Wikipedia
+        accessed: "2026-09-05"
+        quote: "108 helicopters destroyed and 618 damaged"
+        tier: S
+    used_by: [M2]

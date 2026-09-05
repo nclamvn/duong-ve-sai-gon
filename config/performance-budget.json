@@ -1,26 +1,127 @@
 {
-  "$comment": "PRD HT-MB v0.1 §4.1 — Ngân sách hiệu năng ban đầu. Đây là ngưỡng CI + runtime overlay. Không sửa để 'đạt'.",
+  "$comment": "PRD DVSG v0.2 §11/§22.3 (kế thừa HT-MB §4.1) — Ngân sách hiệu năng: ngưỡng CI + runtime overlay. Không sửa để 'đạt'. target_g1 (ADR-D02): mục tiêu chặt hơn cho gate G1, ngưỡng đỏ giữ nguyên.",
   "evidence_status": "engineering_default_requires_review",
   "device": "MacBook Pro M1 Max 32GB",
   "browser_primary": "Chrome Stable macOS",
-  "resolution_default": [1920, 1200],
-  "render_scale_range": [0.65, 1.0],
-  "replay": { "seconds": 90, "runs": 3, "aggregate": "median" },
+  "resolution_default": [
+    1920,
+    1200
+  ],
+  "render_scale_range": [
+    0.65,
+    1.0
+  ],
+  "replay": {
+    "seconds": 90,
+    "runs": 3,
+    "aggregate": "median"
+  },
   "metrics": {
-    "fps_avg":            { "target": 60,      "red": null,   "direction": "higher", "unit": "fps",   "method": "Replay 90 giây, 3 lần, lấy median" },
-    "fps_1pct_low":       { "target": 45,      "red": 40,     "direction": "higher", "unit": "fps",   "method": "1% frame chậm nhất quy ra FPS" },
-    "frame_p95":          { "target": 18.5,    "red": 22,     "direction": "lower",  "unit": "ms",    "method": "Telemetry theo frame" },
-    "render_resolution":  { "target": 1920,    "red": 2560,   "direction": "lower",  "unit": "px_w",  "method": "Quality scaler report (chiều rộng render nội bộ)" },
-    "gpu_ms":             { "target": 10.5,    "red": 14,     "direction": "lower",  "unit": "ms",    "method": "Timestamp query / browser profile" },
-    "cpu_sim_ms":         { "target": 5.0,     "red": 8,      "direction": "lower",  "unit": "ms",    "method": "Performance marks (sim60 + ai10)" },
-    "draw_calls":         { "target": 400,     "red": 650,    "direction": "lower",  "unit": "calls", "method": "renderer.info / custom counter" },
-    "triangles":          { "target": 2500000, "red": 4000000,"direction": "lower",  "unit": "tris",  "method": "renderer telemetry" },
-    "skinned_actors":     { "target": 10,      "red": 14,     "direction": "lower",  "unit": "count", "method": "actor counter (gần camera)" },
-    "ai_full":            { "target": 8,       "red": 16,     "direction": "lower",  "unit": "count", "method": "AI telemetry (full LOD); 12 tổng" },
-    "gpu_memory_gb":      { "target": 3.5,     "red": 5,      "direction": "lower",  "unit": "GB",    "method": "Asset manifest + browser tools" },
-    "js_heap_mb":         { "target": 700,     "red": 1000,   "direction": "lower",  "unit": "MB",    "method": "Heap snapshots; đỏ nếu tăng dần" },
-    "initial_payload_mb": { "target": 150,     "red": 250,    "direction": "lower",  "unit": "MB",    "method": "Network trace" },
-    "level_total_mb":     { "target": 750,     "red": 1200,   "direction": "lower",  "unit": "MB",    "method": "Build manifest" },
-    "audio_voices":       { "target": 32,      "red": 48,     "direction": "lower",  "unit": "count", "method": "Audio bus counter" }
+    "fps_avg": {
+      "target": 60,
+      "red": null,
+      "direction": "higher",
+      "unit": "fps",
+      "method": "Replay 90 giây, 3 lần, lấy median"
+    },
+    "fps_1pct_low": {
+      "target": 45,
+      "red": 40,
+      "direction": "higher",
+      "unit": "fps",
+      "method": "1% frame chậm nhất quy ra FPS"
+    },
+    "frame_p95": {
+      "target": 18.5,
+      "red": 22,
+      "direction": "lower",
+      "unit": "ms",
+      "method": "Telemetry theo frame",
+      "target_g1": 16.67
+    },
+    "render_resolution": {
+      "target": 1920,
+      "red": 2560,
+      "direction": "lower",
+      "unit": "px_w",
+      "method": "Quality scaler report (chiều rộng render nội bộ)"
+    },
+    "gpu_ms": {
+      "target": 10.5,
+      "red": 14,
+      "direction": "lower",
+      "unit": "ms",
+      "method": "Timestamp query / browser profile"
+    },
+    "cpu_sim_ms": {
+      "target": 5.0,
+      "red": 8,
+      "direction": "lower",
+      "unit": "ms",
+      "method": "Performance marks (sim60 + ai10)"
+    },
+    "draw_calls": {
+      "target": 400,
+      "red": 650,
+      "direction": "lower",
+      "unit": "calls",
+      "method": "renderer.info / custom counter"
+    },
+    "triangles": {
+      "target": 2500000,
+      "red": 4000000,
+      "direction": "lower",
+      "unit": "tris",
+      "method": "renderer telemetry"
+    },
+    "skinned_actors": {
+      "target": 10,
+      "red": 14,
+      "direction": "lower",
+      "unit": "count",
+      "method": "actor counter (gần camera)"
+    },
+    "ai_full": {
+      "target": 8,
+      "red": 16,
+      "direction": "lower",
+      "unit": "count",
+      "method": "AI telemetry (full LOD); 12 tổng"
+    },
+    "gpu_memory_gb": {
+      "target": 3.5,
+      "red": 5,
+      "direction": "lower",
+      "unit": "GB",
+      "method": "Asset manifest + browser tools"
+    },
+    "js_heap_mb": {
+      "target": 700,
+      "red": 1000,
+      "direction": "lower",
+      "unit": "MB",
+      "method": "Heap snapshots; đỏ nếu tăng dần"
+    },
+    "initial_payload_mb": {
+      "target": 150,
+      "red": 250,
+      "direction": "lower",
+      "unit": "MB",
+      "method": "Network trace"
+    },
+    "level_total_mb": {
+      "target": 750,
+      "red": 1200,
+      "direction": "lower",
+      "unit": "MB",
+      "method": "Build manifest"
+    },
+    "audio_voices": {
+      "target": 32,
+      "red": 48,
+      "direction": "lower",
+      "unit": "count",
+      "method": "Audio bus counter"
+    }
   }
 }
