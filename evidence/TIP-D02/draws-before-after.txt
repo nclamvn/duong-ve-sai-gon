@@ -1,0 +1,15 @@
+TIP-D02 — draw call `?level=pho&quality=medium&shadow=1024&backend=webgl` (probe sandbox SwiftShader, 1280×720, 2 frame sau teleport)
+Trước = HT-MB TIP-021 (e203f1e, cùng góc nhìn, cùng probe). Sau = DVSG TIP-D02 (atlas biển hiệu + frustum culling InstancedMesh + KTX2).
+
+view      pos / yaw / pitch              draws trước   draws sau   Δ      tris sau     bots
+spawn     (0, 1.7, 68)   0.00 /  0.00     699           513         −186   2 651 636    1
+a3        (−1,1.6, 36)   3.00 / −0.25     650           425         −225   2 777 568    5
+b         ( 3, 1.7, 33)  0.55 / −0.12     735           589         −146   3 251 005    5
+c         (−3, 1.7,−26) −0.40 /  0.00     686           504         −182   2 269 755    5
+station   (−2, 1.7,−52)  0.10 /  0.00     652           469         −183   2 135 945    5
+
+Trung bình Δ = −184 draw (−27 %). AC "giảm ≥ 150 ở cùng góc nhìn": 4/5 góc đạt; góc b −146 (thiếu 4 draw, 2,7 % mục tiêu) → ghi deferred mức thấp, không tinh chỉnh thêm trong TIP này.
+Console: 0 lỗi (pageerror + console.error) trong cả 5 góc. Ảnh: pho-{spawn,a3,b,c,station}.png (KTX2 hiển thị đúng màu trên WebGL2 transcode RGBA).
+Ngân sách draw_calls (target 400 / red 650): trước có 2/5 góc vượt đỏ (699, 735, 686 → 3/5), sau 0/5 vượt đỏ; chưa góc nào đạt target 400 → phần còn lại thuộc TIP-D05/D08 (LOD/impostor, gộp mesh nhà theo dãy).
+Tam giác 2,1–3,25 M (target 2,5 M / red 4 M): 3/5 góc vượt target, 0 vượt đỏ — nợ ghi nhận, xử lý ở LOD (D05).
+Số Mac WebGPU (fps/p95) do Chủ nhà đo ở D05 theo Blueprint.

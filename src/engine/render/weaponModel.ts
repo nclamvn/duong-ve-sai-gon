@@ -4,8 +4,8 @@
  * Hệ model (convert-weapon.mjs): nòng −z, lên +y, gốc trên trục nòng giữa súng, đơn vị m.
  */
 import { Group, Object3D, Vector3, Euler, Matrix4, Quaternion, type Texture } from 'three/webgpu';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import type { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { createGltfLoader } from './loaders';
 
 export type Vec3Tuple = [number, number, number];
 export interface WeaponPose {
@@ -49,10 +49,7 @@ const ANCHORS: AnchorName[] = ['muzzle', 'eject', 'gripR', 'gripL', 'sight', 'ma
 
 let loader: GLTFLoader | null = null;
 function gltf(): GLTFLoader {
-  if (!loader) {
-    loader = new GLTFLoader();
-    loader.setMeshoptDecoder(MeshoptDecoder);
-  }
+  if (!loader) loader = createGltfLoader();
   return loader;
 }
 

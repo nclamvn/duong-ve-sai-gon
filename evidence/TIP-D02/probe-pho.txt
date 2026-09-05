@@ -1,0 +1,5 @@
+spawn {"calls":513,"tris":2651636,"bots":1,"level":"pho","colliders":113,"covers":74,"polys":1946,"fx":{"smokeParticles":1035,"fires":6,"embers":3}}
+a3 {"calls":425,"tris":2777568,"bots":5,"level":"pho","colliders":113,"covers":74,"polys":1946,"fx":{"smokeParticles":1035,"fires":6,"embers":3}}
+b {"calls":589,"tris":3251005,"bots":5,"level":"pho","colliders":113,"covers":74,"polys":1946,"fx":{"smokeParticles":1035,"fires":6,"embers":3}}
+c {"calls":504,"tris":2269755,"bots":5,"level":"pho","colliders":113,"covers":74,"polys":1946,"fx":{"smokeParticles":1035,"fires":6,"embers":3}}
+station {"calls":469,"tris":2135945,"bots":5,"level":"pho","colliders":113,"covers":74,"polys":1946,"fx":{"smokeParticles":1035,"fires":6,"embers":3}}

@@ -20,7 +20,7 @@ describe('ADR-005 asset manifest (CC0/Mixamo, có hash, trong ngân sách payloa
 
   it('mọi file tồn tại trong public/, đúng bytes + sha256; license ∈ {CC0-1.0, Mixamo, CC-BY}; CC-BY phải có attribution + url + authors (ADR-006)', () => {
     for (const a of manifest.assets) {
-      expect(['CC0-1.0', 'Mixamo', 'CC-BY-4.0', 'CC-BY-3.0']).toContain(a.license);
+      expect(['CC0-1.0', 'Mixamo', 'CC-BY-4.0', 'CC-BY-3.0', 'PD-USGov']).toContain(a.license);
       if (a.license.startsWith('CC-BY')) {
         expect(a.attribution, `${a.id} attribution`).toMatch(/licensed under/);
         expect(a.url, `${a.id} url`).toMatch(/^https:\/\/sketchfab\.com\//);
@@ -35,10 +35,11 @@ describe('ADR-005 asset manifest (CC0/Mixamo, có hash, trong ngân sách payloa
     }
   });
 
-  it('tổng payload asset ≤ 150 MB (initial_payload_mb budget; ADR-007 thêm level ngày; KTX2 là nợ) và khớp totalBytes', () => {
+  it('tổng payload asset ≤ initial_payload_mb.target (config/performance-budget.json — PRD DVSG §11: 250 MB/nhiệm vụ, KTX2) và khớp totalBytes', () => {
+    const budget = JSON.parse(readFileSync('config/performance-budget.json', 'utf8')) as { metrics: { initial_payload_mb: { target: number } } };
     const sum = manifest.assets.reduce((s, a) => s + a.files.reduce((t, f) => t + f.bytes, 0), 0);
     expect(sum).toBe(manifest.totalBytes);
-    expect(sum).toBeLessThanOrEqual(150 * 1048576);
+    expect(sum).toBeLessThanOrEqual(budget.metrics.initial_payload_mb.target * 1048576);
   });
 
   it('src/engine/render/assets.ts chỉ tham chiếu id có trong manifest', () => {

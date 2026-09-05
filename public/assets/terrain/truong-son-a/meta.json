@@ -1,0 +1,24 @@
+{
+  "id": "truong-son-a",
+  "n": 1025,
+  "sizeM": 2048,
+  "resM": 2,
+  "zMin": 522.37,
+  "zMax": 891.92,
+  "center": {
+    "lat": 17.55,
+    "lon": 106.1
+  },
+  "layout": "row-major, hàng 0 = bắc, cột 0 = tây; height = zMin + u16/65535 × (zMax − zMin)",
+  "source": {
+    "dataset": "SRTM 1 arc-second (NASA/USGS, public domain) via Terrain Tiles on AWS (skadi)",
+    "tile": "N17E106.hgt",
+    "url": "https://registry.opendata.aws/terrain-tiles/"
+  },
+  "detailNoise": {
+    "amplitudeM": 1.5,
+    "seed": 7,
+    "note": "chi tiết < 30 m là procedural, không phải đo đạc"
+  },
+  "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e"
+}

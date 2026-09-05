@@ -60,7 +60,12 @@ Dev server bind `127.0.0.1:5173` (như preview/bench — macOS resolve `localhos
 npm run assets          # tải texture/HDRI/model CC0 từ Poly Haven → public/assets/, tối ưu glTF (meshopt) và ghi content/assets/manifest.json
 npm run assets:verify   # kiểm file + sha256 khớp manifest (CI/unit test cũng kiểm)
 ```
-`public/assets/` (≈44 MB, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo (Swat Guy + 8 clip,
+```bash
+npm run assets:ktx2       # KTX2/Basis toàn bộ texture (ADR-D04, TIP-D02): JPG rời → .ktx2, GLB → KHR_texture_basisu; chỉ mã hoá file chưa KTX2; chậm (WASM), chạy nền
+npm run assets:validate   # validator (TIP-D02): license allow-list, CC-BY attribution, sha256, historical→registryId, 100 % KTX2, file lạc, tam giác theo tiền tố
+```
+**Mọi pipeline asset kết thúc bằng `npm run assets:ktx2`** — JPG/WebP không được vào `public/assets` (validator/unit test chặn). Transcoder Basis (`public/basis/`, three r185, Apache-2.0) nạp qua `src/engine/render/loaders.ts`.
+`public/assets/` (≈113 MB KTX2, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo (Swat Guy + 8 clip,
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
 texture 2K JPEG, meshopt) → `public/assets/characters/soldier.glb` + mục `soldier_mixamo` trong manifest.
 

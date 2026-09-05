@@ -103,18 +103,18 @@
       "method": "Heap snapshots; đỏ nếu tăng dần"
     },
     "initial_payload_mb": {
-      "target": 150,
-      "red": 250,
+      "target": 250,
+      "red": 400,
       "direction": "lower",
       "unit": "MB",
-      "method": "Network trace"
+      "method": "Manifest asset của một nhiệm vụ (KTX2) — PRD DVSG v0.2 §11; HT-MB là 150/250"
     },
     "level_total_mb": {
-      "target": 750,
-      "red": 1200,
+      "target": 2500,
+      "red": 4000,
       "direction": "lower",
       "unit": "MB",
-      "method": "Build manifest"
+      "method": "Tổng chiến dịch theo hồi — PRD DVSG v0.2 §11"
     },
     "audio_voices": {
       "target": 32,

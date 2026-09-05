@@ -27,7 +27,9 @@
     "assets:credits": "node scripts/credits.mjs",
     "assets:weapon": "node scripts/convert-weapon.mjs",
     "assets:model": "node scripts/convert-model.mjs",
-    "registry:check": "node scripts/validate-registry.mjs"
+    "registry:check": "node scripts/validate-registry.mjs",
+    "assets:ktx2": "node scripts/ktx2.mjs",
+    "assets:validate": "node scripts/validate-assets.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",
@@ -47,6 +49,7 @@
     "@types/node": "22.20.1",
     "@types/three": "0.185.4",
     "fbx2gltf": "0.9.7-p1",
+    "ktx2-encoder": "0.6.0",
     "meshoptimizer": "1.2.0",
     "sharp": "0.35.4",
     "typescript": "7.0.2",

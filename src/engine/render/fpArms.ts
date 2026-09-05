@@ -6,8 +6,7 @@
  */
 import { Group, Object3D, Bone, Vector3, Quaternion, Matrix4, Euler, Mesh, SkinnedMesh, Color } from 'three/webgpu';
 import { findArmChain, solveTwoBone, type ArmChain } from './armIk';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import type { WeaponPose } from './weaponModel';
 
@@ -17,8 +16,7 @@ export interface FpArmsAsset {
 }
 
 export async function loadFpArms(url: string): Promise<FpArmsAsset> {
-  const loader = new GLTFLoader();
-  loader.setMeshoptDecoder(MeshoptDecoder);
+  const loader = createGltfLoader();
   const gltf = await loader.loadAsync(url);
   let triangles = 0;
   gltf.scene.traverse((o: Object3D) => {

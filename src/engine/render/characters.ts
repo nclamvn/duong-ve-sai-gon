@@ -4,8 +4,7 @@
  * Kích thước chuẩn hoá về chiều cao mét (Mixamo cm hay m đều được).
  */
 import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopOnce, LoopRepeat, Mesh, Bone, type AnimationAction, MeshStandardNodeMaterial, Color } from 'three/webgpu';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 
 /** Trạng thái animation chuẩn của lính; mỗi trạng thái map tới danh sách tên clip ưu tiên (Mixamo, fallback three Soldier.glb). */
@@ -43,8 +42,7 @@ export interface CharacterAsset {
 }
 
 export async function loadCharacter(url: string, targetHeight = 1.82): Promise<CharacterAsset> {
-  const loader = new GLTFLoader();
-  loader.setMeshoptDecoder(MeshoptDecoder);
+  const loader = createGltfLoader();
   const gltf = await loader.loadAsync(url);
   const template = gltf.scene;
   template.updateMatrixWorld(true);

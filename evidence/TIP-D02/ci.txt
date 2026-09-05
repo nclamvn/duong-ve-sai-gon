@@ -1,0 +1,21 @@
+== typecheck
+OK
+== unit
+ Test Files  17 passed (17)
+      Tests  106 passed (106)
+== build
+✓ built in 4.14s
+== e2e
+
+Running 7 tests using 1 worker
+
+  ✓  1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox (1.4m)
+  ✓  2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu (1.2m)
+  ✓  3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi không autostart; nút vào arena hoạt động (39.3s)
+  ✓  4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship) (39.6s)
+  ✓  5 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới chốt A bị bao cát chặn, lên vỉa hè 15 cm; collider floor + vỉa hè có mặt (42.0s)
+  ✓  6 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone → D03 + spawn → kill group → n_done; MISSION_COMPLETE ×1; checkpoint hash khớp (53.0s)
+  ✓  7 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp checkpoint; không có checkpoint → reset mission (41.6s)
+
+  7 passed (6.2m)
+EXIT:0

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T12:24:40.718Z",
+  "generatedAt": "2026-09-05T08:27:08.983Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 152259828,
+  "totalBytes": 118856631,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -36,19 +36,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/asphalt_02/asphalt_02_diff_1k.jpg",
-          "bytes": 731707,
-          "sha256": "1aa5ce99f58a625c71d48cfc3e68b65ca85ccb00f39e045c0a928608a0ea25ed"
+          "path": "assets/textures/asphalt_02/asphalt_02_diff_1k.ktx2",
+          "bytes": 199807,
+          "sha256": "3b929c047d3fdf39a9cb6d3a7437374aae7002ccf323b8e3476201cbc0e4bbfb"
         },
         {
-          "path": "assets/textures/asphalt_02/asphalt_02_nor_gl_1k.jpg",
-          "bytes": 1240122,
-          "sha256": "42a1c381b53204e83a982db2864479a30bc127bbdeebb1006f8ee51bff099df3"
+          "path": "assets/textures/asphalt_02/asphalt_02_nor_gl_1k.ktx2",
+          "bytes": 1317100,
+          "sha256": "1da8bc8e11921802a1ca86d1a658c8a9ca37cc31ffec7cbe484b3845d1484fad"
         },
         {
-          "path": "assets/textures/asphalt_02/asphalt_02_arm_1k.jpg",
-          "bytes": 296770,
-          "sha256": "56bd8e591a3db579846fcb5185f60b0651e0bd4ea85c3529c339e6746243c9cf"
+          "path": "assets/textures/asphalt_02/asphalt_02_arm_1k.ktx2",
+          "bytes": 162460,
+          "sha256": "e50901e6363cbf373838bcdeb925d057e992b5a4195afaeb5ad82fae52a3a825"
         }
       ]
     },
@@ -66,19 +66,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/concrete_wall_001/concrete_wall_001_diff_1k.jpg",
-          "bytes": 79320,
-          "sha256": "c3c936da86d57997d9fc4022371c3798c8d438aeecb8f41546104da6d3947c02"
+          "path": "assets/textures/concrete_wall_001/concrete_wall_001_diff_1k.ktx2",
+          "bytes": 112332,
+          "sha256": "55f1ef9fdc236dcd8cd7ba66d5c12c1c4630041367898a234d70f99346cb4599"
         },
         {
-          "path": "assets/textures/concrete_wall_001/concrete_wall_001_nor_gl_1k.jpg",
-          "bytes": 179270,
-          "sha256": "6f10711d123c8dff26375555196eae9e16d874c137acdacd44d1ba90168b6d46"
+          "path": "assets/textures/concrete_wall_001/concrete_wall_001_nor_gl_1k.ktx2",
+          "bytes": 848907,
+          "sha256": "03a0d533fa23b588c988d58aac666cb35f79aab97dbc4d90fd85b43e1b7ffe7d"
         },
         {
-          "path": "assets/textures/concrete_wall_001/concrete_wall_001_arm_1k.jpg",
-          "bytes": 108936,
-          "sha256": "7d0b31ee71fa9008478c1f14afba577717df7eec02db4b86053f90f51b6b650c"
+          "path": "assets/textures/concrete_wall_001/concrete_wall_001_arm_1k.ktx2",
+          "bytes": 105208,
+          "sha256": "696df129a975aeaa47574777040c940a90f9d38749ee25ae9847026e84b2227f"
         }
       ]
     },
@@ -95,19 +95,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/factory_wall/factory_wall_diff_1k.jpg",
-          "bytes": 308894,
-          "sha256": "6a8d2d4decc7754e56b5c4a3371d98ac5c521ebc732f255ddaa3b1bdd2f1a564"
+          "path": "assets/textures/factory_wall/factory_wall_diff_1k.ktx2",
+          "bytes": 162126,
+          "sha256": "8553d7965fdd266920a2db01e6c9d0d84e04d86d91697ee9a969eb16a020fb7c"
         },
         {
-          "path": "assets/textures/factory_wall/factory_wall_nor_gl_1k.jpg",
-          "bytes": 239999,
-          "sha256": "0500e643299efb2e716673ded425d27d8a71c04047e3143a0aee84aa067cabe3"
+          "path": "assets/textures/factory_wall/factory_wall_nor_gl_1k.ktx2",
+          "bytes": 578089,
+          "sha256": "43b8abd50e03a047627e18b454bd6d6e26c568d5cfff449172e817f777a5781f"
         },
         {
-          "path": "assets/textures/factory_wall/factory_wall_arm_1k.jpg",
-          "bytes": 162417,
-          "sha256": "889d90f362b266f7bc61a96cfeae5cd3fb0b065419bdf0fbea69b41c0cb3e4c8"
+          "path": "assets/textures/factory_wall/factory_wall_arm_1k.ktx2",
+          "bytes": 139992,
+          "sha256": "bd6832d86f1c9b47e7fa709d1813446f4c77d70a7b2d62d4c820a51dffb3178f"
         }
       ]
     },
@@ -125,19 +125,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_diff_1k.jpg",
-          "bytes": 568492,
-          "sha256": "7a7b43099d015c1b08ebb175da5965caeae44b86de65a727b3fffa20a7c69a93"
+          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_diff_1k.ktx2",
+          "bytes": 165206,
+          "sha256": "72f6c6dfaf24f83a690c389cef260239697c1e07f0d246e30317f26a0382eedc"
         },
         {
-          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_nor_gl_1k.jpg",
-          "bytes": 489773,
-          "sha256": "9743c93668689c36a67e9c4dc8d6a0870fe91202f82dcdaf70ddc330c12f9ecb"
+          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_nor_gl_1k.ktx2",
+          "bytes": 391380,
+          "sha256": "763c0706da17588769ee99129305e87ab0ce4c144dc4cbdbc48bb8d4b3d27fe6"
         },
         {
-          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_arm_1k.jpg",
-          "bytes": 904443,
-          "sha256": "da4197f5b3e199ef693082836ca803f9d5cad2b4998a1c1c3dc4ac384f93a890"
+          "path": "assets/textures/corrugated_iron_02/corrugated_iron_02_arm_1k.ktx2",
+          "bytes": 135044,
+          "sha256": "b1612c5fbd3af966f322970cdc34669d35e8c1058576326566c6ceeea22f0751"
         }
       ]
     },
@@ -154,19 +154,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/rusty_metal_02/rusty_metal_02_diff_1k.jpg",
-          "bytes": 564932,
-          "sha256": "adaf094391518b6afe787a123942110aa88ef521c844f970b124420f5ed5d3d9"
+          "path": "assets/textures/rusty_metal_02/rusty_metal_02_diff_1k.ktx2",
+          "bytes": 214124,
+          "sha256": "a6505d958627467645fde8966085930b36494071049cce0e8275d1f6bff00a7b"
         },
         {
-          "path": "assets/textures/rusty_metal_02/rusty_metal_02_nor_gl_1k.jpg",
-          "bytes": 403156,
-          "sha256": "995197a62cac6fbb000e6e6591a3330a3b77ef069c4ac58f505b586b9bdbd97b"
+          "path": "assets/textures/rusty_metal_02/rusty_metal_02_nor_gl_1k.ktx2",
+          "bytes": 856904,
+          "sha256": "d42cbaaa43eeaa655651997ec908af62dc4c6c3c7637131be5ccd17bb51d8174"
         },
         {
-          "path": "assets/textures/rusty_metal_02/rusty_metal_02_arm_1k.jpg",
-          "bytes": 153031,
-          "sha256": "2982943ffe3273a65bf788b77fc0c7a4fd8227824386d065d13a8c8c0e07db10"
+          "path": "assets/textures/rusty_metal_02/rusty_metal_02_arm_1k.ktx2",
+          "bytes": 150549,
+          "sha256": "d222ed4b63f995c1468204bf9354f751dde78fcf91ee456e95ff03bded914552"
         }
       ]
     },
@@ -183,19 +183,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_diff_1k.jpg",
-          "bytes": 471866,
-          "sha256": "b086937b45c3628116a838363364a29bd3c5d2542cff906ec1d92d681ee80e15"
+          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_diff_1k.ktx2",
+          "bytes": 146190,
+          "sha256": "28885fe95a2d6d887d671173cbb2a3b315bf9252852464b6b7d831fef1f745c9"
         },
         {
-          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_nor_gl_1k.jpg",
-          "bytes": 484158,
-          "sha256": "f3372e2f60517df2d0e02c1472eb24071d95182d771c30b7ecd8e1b5142768bb"
+          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_nor_gl_1k.ktx2",
+          "bytes": 557644,
+          "sha256": "b0806757a7e50e1fd061f2d5a97bea423bd13e072fab18a00aa8bca40c25d890"
         },
         {
-          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_arm_1k.jpg",
-          "bytes": 372615,
-          "sha256": "cd3ef3750348bd8afa552ac41120310f740cd4bfd3c303d81e68e3100bdf7fdd"
+          "path": "assets/textures/rusty_painted_metal/rusty_painted_metal_arm_1k.ktx2",
+          "bytes": 79342,
+          "sha256": "215b1e0e80ace3c51250b907324dc00c07dfd4a839ff53ce53b9295a720b18dd"
         }
       ]
     },
@@ -212,19 +212,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/plywood/plywood_diff_1k.jpg",
-          "bytes": 882059,
-          "sha256": "800905650fc6cab2fe7c77c41851f8ea89669f1287ad5ce67c48f435654c0af8"
+          "path": "assets/textures/plywood/plywood_diff_1k.ktx2",
+          "bytes": 192950,
+          "sha256": "7a0fa32c4d502774c18ec6b8281c1cd46d37805d42da37a28d45025e7577156f"
         },
         {
-          "path": "assets/textures/plywood/plywood_nor_gl_1k.jpg",
-          "bytes": 648222,
-          "sha256": "a0d8459eb2586435790225440319586775c9b7dff8441062e077501fd0811e53"
+          "path": "assets/textures/plywood/plywood_nor_gl_1k.ktx2",
+          "bytes": 698452,
+          "sha256": "dc9cfecd77585ec4cb04aff29c62d1748ebfa7bc35144a6c736fe05ba1a556ad"
         },
         {
-          "path": "assets/textures/plywood/plywood_arm_1k.jpg",
-          "bytes": 901468,
-          "sha256": "62b7b6290005dc2d2fc8c207a7ae0abb06961f27c2525955638cea711d6d9d72"
+          "path": "assets/textures/plywood/plywood_arm_1k.ktx2",
+          "bytes": 149447,
+          "sha256": "f3986165d47b3ec090823ae86a3510ffd1227b30d22a406876418a70d32a02f8"
         }
       ]
     },
@@ -241,19 +241,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/metal_plate/metal_plate_diff_1k.jpg",
-          "bytes": 692234,
-          "sha256": "c6b6739eac2c75ccc898e753d7833df24eafbdb9aa92fb6eabfb92abd1a680a5"
+          "path": "assets/textures/metal_plate/metal_plate_diff_1k.ktx2",
+          "bytes": 195167,
+          "sha256": "9e69a4385c86cdf45a224caa67157eaf565b331a9837efcfcbd37387c0b5fe46"
         },
         {
-          "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.jpg",
-          "bytes": 770307,
-          "sha256": "994f851a84d52b51e97906021a1b7070ee6eac9a789fef041132268de47d8e6b"
+          "path": "assets/textures/metal_plate/metal_plate_nor_gl_1k.ktx2",
+          "bytes": 960895,
+          "sha256": "9942ac0c9da115377b36a35cf878dababfcd1d4b4efd53db5a118eaf46a5daa4"
         },
         {
-          "path": "assets/textures/metal_plate/metal_plate_arm_1k.jpg",
-          "bytes": 1004043,
-          "sha256": "fc4708b6700a2cc387654b693091dd0ac0cd1797ae803d75c894e62554fbef07"
+          "path": "assets/textures/metal_plate/metal_plate_arm_1k.ktx2",
+          "bytes": 184264,
+          "sha256": "8d4bb2a571e0bc66115b1471f311e11cd79ce3bdfa8c0d96191a4818901255e6"
         }
       ]
     },
@@ -271,8 +271,8 @@
       "files": [
         {
           "path": "assets/models/wooden_military_crate.glb",
-          "bytes": 2439816,
-          "sha256": "f0c872c8264d8c0d4d6cb68f56036b0d7e93aef60619abe9a7a49b2f297871c1"
+          "bytes": 1357956,
+          "sha256": "d2a900452819f22efaf8aeed95733769856476fa98c9e90db17501d72dc75d81"
         }
       ],
       "sourceFiles": [
@@ -321,8 +321,8 @@
       "files": [
         {
           "path": "assets/models/old_military_crate.glb",
-          "bytes": 2229068,
-          "sha256": "1a5aceb24c6fa516d31f2b9b2d2cae1a52e017cdeb35de8f3b641e8e03d0fec0"
+          "bytes": 1366264,
+          "sha256": "9cfca864d57d4eb3c0ce552bf8070b49e29f3dfb8874fc8f19084c4d1a26bffc"
         }
       ],
       "sourceFiles": [
@@ -371,8 +371,8 @@
       "files": [
         {
           "path": "assets/models/plastic_crate_01.glb",
-          "bytes": 2553848,
-          "sha256": "09f39f38b2d7e7eb41d7fe06abfc946367b2943b977d8a35d70bc9749422a2f1"
+          "bytes": 1314492,
+          "sha256": "63be8e4a7c9663d472876e97cd90789760177e2e86da51b3067088887fe8130a"
         }
       ],
       "sourceFiles": [
@@ -421,8 +421,8 @@
       "files": [
         {
           "path": "assets/models/cardboard_box_01.glb",
-          "bytes": 1823964,
-          "sha256": "d031b7c584aaeb32a68de657c1dd6cf7263a5d25568c14ce5f5caa2926fa2b1e"
+          "bytes": 1316124,
+          "sha256": "6ee45368b6ae366251211e3e96b43b0309ec076334092ad6d502c89789c498d7"
         }
       ],
       "sourceFiles": [
@@ -471,8 +471,8 @@
       "files": [
         {
           "path": "assets/models/concrete_road_barrier.glb",
-          "bytes": 2504456,
-          "sha256": "92ffc5de09eb49824a522115f855779ba3c187d0db37e221adf94342c1bac070"
+          "bytes": 1653948,
+          "sha256": "63d9d9f2e4f383e250824840c68b299126710a20caa41705bbfea23720889712"
         }
       ],
       "sourceFiles": [
@@ -521,8 +521,8 @@
       "files": [
         {
           "path": "assets/models/propane_tank.glb",
-          "bytes": 2081260,
-          "sha256": "47cd171ec6617e2efa3abfce7016606b736f5bb8b1202b035bfc705e270b90a7"
+          "bytes": 1139808,
+          "sha256": "cc384791e2ac2176db7792d94b1774ce4a42b4de7f0ee97a3480b242947b0c40"
         }
       ],
       "sourceFiles": [
@@ -571,8 +571,8 @@
       "files": [
         {
           "path": "assets/models/metal_trash_can.glb",
-          "bytes": 4715644,
-          "sha256": "8eeba061aad92de942908b09702c244f6f75001e812c0e146066e2f1ada8a475"
+          "bytes": 3112740,
+          "sha256": "03a27ea5a0d7c571976e28813cbb41bd96c3c956433616e36e3182eafcd7d2fe"
         }
       ],
       "sourceFiles": [
@@ -636,8 +636,8 @@
       "files": [
         {
           "path": "assets/models/utility_box_01.glb",
-          "bytes": 1853108,
-          "sha256": "413af64ba527609cf9b04b0cebae9c23ffe68691aa8e8a5da0c096e0378da1d6"
+          "bytes": 952908,
+          "sha256": "636344c9b0c647d1b8b9126308d5118ebfce48692b135cacdb6c56e9d82704a1"
         }
       ],
       "sourceFiles": [
@@ -686,8 +686,8 @@
       "files": [
         {
           "path": "assets/models/portable_generator.glb",
-          "bytes": 2705364,
-          "sha256": "d4c8b8fd32f9637465792bece165c278c4c2802ed27fc4bed6bc49d6f78a69a2"
+          "bytes": 1490732,
+          "sha256": "614ec192d6560b28d9ddfa1186c62d32a94335218a92fd616e945cab19af128d"
         }
       ],
       "sourceFiles": [
@@ -760,19 +760,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/road_damaged/road_damaged_diff_1k.jpg",
-          "bytes": 857072,
-          "sha256": "40286b168d8e2990a68c1a97e0162218cc4222b686f2810b8047783d573eddff"
+          "path": "assets/textures/road_damaged/road_damaged_diff_1k.ktx2",
+          "bytes": 186118,
+          "sha256": "71c2893956dfb976f9f3cf90febe9bf9bf03fdbf897b883aa06dd4a099dc23e6"
         },
         {
-          "path": "assets/textures/road_damaged/road_damaged_nor_gl_1k.jpg",
-          "bytes": 962249,
-          "sha256": "9510546d571fe98e74ec6ebad0ddb5b3350f72f98aed3b23a80ec7bbc2e0c848"
+          "path": "assets/textures/road_damaged/road_damaged_nor_gl_1k.ktx2",
+          "bytes": 1196607,
+          "sha256": "aea72a19fc21c32db4de54871b17b340ed586341d5923b01e15b1f70f64935d6"
         },
         {
-          "path": "assets/textures/road_damaged/road_damaged_arm_1k.jpg",
-          "bytes": 799391,
-          "sha256": "f3c68a97e6b1918aa94178cc2a0dfb84fffff3d752767f9ac77fa497c7297457"
+          "path": "assets/textures/road_damaged/road_damaged_arm_1k.ktx2",
+          "bytes": 137679,
+          "sha256": "64509bd80070c58ed569ad6f779f83346b6a2b97df75805206ab68b653127764"
         }
       ]
     },
@@ -789,19 +789,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_diff_1k.jpg",
-          "bytes": 770709,
-          "sha256": "0738df63d1f4825ee718dd4cc1ee443dd6d7a0015ea8fb9e89304f5447b94027"
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_diff_1k.ktx2",
+          "bytes": 186582,
+          "sha256": "0c2f303598ddb495fbeeeee98be26b1d8ca6e667ca78bd55259c7cb44a9eaa5a"
         },
         {
-          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_nor_gl_1k.jpg",
-          "bytes": 777901,
-          "sha256": "c7380253a42a950dc22736e2f14b31782d2ebf0f610649e5dc810d2d64aa1431"
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_nor_gl_1k.ktx2",
+          "bytes": 786077,
+          "sha256": "9ad14f5dcb307a58c22bbb62abf85a4090c3961a5d4c3710247eef0ba9024987"
         },
         {
-          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_arm_1k.jpg",
-          "bytes": 703333,
-          "sha256": "094e6a8dbca292268a6bd71d04d31ea4320aa82cac9fcfc905f8c5e5f0872276"
+          "path": "assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_arm_1k.ktx2",
+          "bytes": 127277,
+          "sha256": "abc4bb66db5833efa9d89508af20317e7aefe5155d198eb5cb253764201fc4aa"
         }
       ]
     },
@@ -818,19 +818,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_diff_1k.jpg",
-          "bytes": 686726,
-          "sha256": "440310f05af089f2c93353167573403cbc3f805948203237b5d26431eeb9e19c"
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_diff_1k.ktx2",
+          "bytes": 170749,
+          "sha256": "a46aed57c17fade793aead62d57f469f31f6db59668adfc1208f7b8b1dee8389"
         },
         {
-          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.jpg",
-          "bytes": 900461,
-          "sha256": "8eb01647d126eb5341e2c325821ad48c8ca11349dbef53447c95422c5d91cc9d"
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.ktx2",
+          "bytes": 1147800,
+          "sha256": "2f949f05bbf74c3be5287b62ad6c5057955fe02da6f1de387299e435cc2cb339"
         },
         {
-          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_arm_1k.jpg",
-          "bytes": 511105,
-          "sha256": "2f13ed444e3e8f13087bca0890969d30795ed074bcfb11737d1ad6f5f0b53992"
+          "path": "assets/textures/painted_plaster_wall/painted_plaster_wall_arm_1k.ktx2",
+          "bytes": 94063,
+          "sha256": "e650b45ace863739e421d80f6db329601b5d6cd8916635a057013b1463369662"
         }
       ]
     },
@@ -847,19 +847,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/damaged_plaster/damaged_plaster_diff_1k.jpg",
-          "bytes": 850524,
-          "sha256": "391649dbb391c978b0d95cdd2351617fe3b7a577e432b94171208e576c9b2c63"
+          "path": "assets/textures/damaged_plaster/damaged_plaster_diff_1k.ktx2",
+          "bytes": 209545,
+          "sha256": "ec0d7cc890557e2101753ce628d3d81388f529c8a342a4e5b8b3c9658bed4e29"
         },
         {
-          "path": "assets/textures/damaged_plaster/damaged_plaster_nor_gl_1k.jpg",
-          "bytes": 959148,
-          "sha256": "9d2e4c261211c951fc424fe695483596e821f86b13d1d05485551ef0240d6b67"
+          "path": "assets/textures/damaged_plaster/damaged_plaster_nor_gl_1k.ktx2",
+          "bytes": 1208995,
+          "sha256": "2bb2bfd7ac8bfa759b185666e96a01182deb80456b2b305c1f3ffb125977adb2"
         },
         {
-          "path": "assets/textures/damaged_plaster/damaged_plaster_arm_1k.jpg",
-          "bytes": 575588,
-          "sha256": "78f228161cc3c37cf4a335d8ea0f2a6b4dd5ff7bef50a8aa9fa0397d7ff4de13"
+          "path": "assets/textures/damaged_plaster/damaged_plaster_arm_1k.ktx2",
+          "bytes": 108362,
+          "sha256": "d459af37a53065988b09981dde46bdb27724c0d415611cab5b921d5d215ca266"
         }
       ]
     },
@@ -876,19 +876,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_diff_1k.jpg",
-          "bytes": 440121,
-          "sha256": "21455a65cae020ef32f79a00605eb706d7bbd2d47716485a94a3f6571460d254"
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_diff_1k.ktx2",
+          "bytes": 123497,
+          "sha256": "06fc1ff12f05915a53bccd82921fca100399a3e1f483cb578321e130c319e63e"
         },
         {
-          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_nor_gl_1k.jpg",
-          "bytes": 910482,
-          "sha256": "c1d15c30b089861dbc2995492ec77cd64f530a35bb340879fe0dc86ec3bb9b5c"
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_nor_gl_1k.ktx2",
+          "bytes": 1179132,
+          "sha256": "bb5735e46392da2d91ca4aaf240266e0e59c2df69a5f02e3bef3b7e608e7ecef"
         },
         {
-          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_arm_1k.jpg",
-          "bytes": 783136,
-          "sha256": "17dd49cdda749812b781766cddad870cacfe50ad69e6be30d87ac139b8a3d26b"
+          "path": "assets/textures/peeling_painted_wall/peeling_painted_wall_arm_1k.ktx2",
+          "bytes": 133631,
+          "sha256": "f7df8ecd6c02c74e0a0c800c6110108bd1ac59ed37b741d60ab4507ba51b7a31"
         }
       ]
     },
@@ -905,19 +905,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/plastered_wall_02/plastered_wall_02_diff_1k.jpg",
-          "bytes": 436395,
-          "sha256": "0a316ffd3f953a902325c06afb5a5863bbf71d13a353f9d85378562adca79603"
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_diff_1k.ktx2",
+          "bytes": 129941,
+          "sha256": "4f9e830a8526677f1847e1df223386b4ce30c661ba1fee875b8607527b48db3a"
         },
         {
-          "path": "assets/textures/plastered_wall_02/plastered_wall_02_nor_gl_1k.jpg",
-          "bytes": 960241,
-          "sha256": "0f1b4ea0c4707ea133f133c020923bddd8610a43a153281dad15d49f39ad9624"
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_nor_gl_1k.ktx2",
+          "bytes": 1231596,
+          "sha256": "64759dbcf011a4c8da4657ec678c32c9b30150ab94d15a62f9810abec3b0d893"
         },
         {
-          "path": "assets/textures/plastered_wall_02/plastered_wall_02_arm_1k.jpg",
-          "bytes": 548372,
-          "sha256": "4cc478e82ac6bcfb1962ddba5e5fd13e70fd26164480b83c8ec33770f5b3ee63"
+          "path": "assets/textures/plastered_wall_02/plastered_wall_02_arm_1k.ktx2",
+          "bytes": 117709,
+          "sha256": "33a006942c40232d3858c1d50fe322e65f24646811f08911b5a964e96325f227"
         }
       ]
     },
@@ -934,19 +934,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/painted_worn_brick/painted_worn_brick_diff_1k.jpg",
-          "bytes": 818739,
-          "sha256": "8076bf7b7129979349dfdd97a02e1ab7f8b0c51f51a2ebc0181e3af78b2278ac"
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_diff_1k.ktx2",
+          "bytes": 192738,
+          "sha256": "8631069b80aa07b22a3d567559f41e02db599ae7c3405ae170eb9dd4ef3d59c0"
         },
         {
-          "path": "assets/textures/painted_worn_brick/painted_worn_brick_nor_gl_1k.jpg",
-          "bytes": 1062458,
-          "sha256": "a79f32b0fbcd02f20a1fbc873901a84b9d68eaafd220ab333001d0285cee524c"
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_nor_gl_1k.ktx2",
+          "bytes": 1301633,
+          "sha256": "c840c93568db5aa506cee41ea538f397d0d47f634fbba556c4ebf3a2e862709b"
         },
         {
-          "path": "assets/textures/painted_worn_brick/painted_worn_brick_arm_1k.jpg",
-          "bytes": 846274,
-          "sha256": "30cafcf3c51b4fdeeb7375ca5a1257150a04c78b130ac61902504a297ebb378e"
+          "path": "assets/textures/painted_worn_brick/painted_worn_brick_arm_1k.ktx2",
+          "bytes": 136090,
+          "sha256": "d413c7ecfee0b1f60d133f5c0c62134a6a6649ae2c82fd373f344ca245321451"
         }
       ]
     },
@@ -963,19 +963,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_diff_1k.jpg",
-          "bytes": 878367,
-          "sha256": "aac0f4e742a2cce21afb5dfb523b47c720c6a8e2782a312b823608fe3f80eae6"
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_diff_1k.ktx2",
+          "bytes": 218448,
+          "sha256": "7d145e8fc833928eb799b5f8349ddb3d2963a8c8fcf238d1fbe6780e4333bdc2"
         },
         {
-          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_nor_gl_1k.jpg",
-          "bytes": 1101177,
-          "sha256": "e6b364661f6c3045bf5268f684047968fc6550e5fa9b22b4b1266df47b495faa"
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_nor_gl_1k.ktx2",
+          "bytes": 1182785,
+          "sha256": "0cae4be177d31a06dcb8a61348bf37df529a3bbca1c4a032b3a5bd2c1df1d3b5"
         },
         {
-          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_arm_1k.jpg",
-          "bytes": 644850,
-          "sha256": "dc86408a71ded3d94b1ff1a7bf2253647118b07b83b611fea37a528dc41791cb"
+          "path": "assets/textures/clay_roof_tiles/clay_roof_tiles_arm_1k.ktx2",
+          "bytes": 127214,
+          "sha256": "9e1921718821405aa26948eba74497c0d446912a8cf63fa668d484430d3e8f12"
         }
       ]
     },
@@ -992,19 +992,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/burned_ground_01/burned_ground_01_diff_1k.jpg",
-          "bytes": 1033112,
-          "sha256": "be83310cad64d23539e628f14525af651a03646f5a1cc6029bd19a9446ea72f9"
+          "path": "assets/textures/burned_ground_01/burned_ground_01_diff_1k.ktx2",
+          "bytes": 223697,
+          "sha256": "a385097d48007103c1fa2f940bfa05c0a6ab0d909ba3c753c167c18f1edf015e"
         },
         {
-          "path": "assets/textures/burned_ground_01/burned_ground_01_nor_gl_1k.jpg",
-          "bytes": 366727,
-          "sha256": "86125af02b64b05b0079dd6fa08ffae11878a3f9f50326a265e94c7a64cba865"
+          "path": "assets/textures/burned_ground_01/burned_ground_01_nor_gl_1k.ktx2",
+          "bytes": 1339243,
+          "sha256": "83ef0ab0d53745ad5ac29f2e8e4848eb48ff58e12426f8f8a4abceee02654ae4"
         },
         {
-          "path": "assets/textures/burned_ground_01/burned_ground_01_arm_1k.jpg",
-          "bytes": 227733,
-          "sha256": "fb7f6cd3a2f240712bf6cb21ca2a54072da5a8a4a0cba897f93c3b435a2a8caa"
+          "path": "assets/textures/burned_ground_01/burned_ground_01_arm_1k.ktx2",
+          "bytes": 150619,
+          "sha256": "7297a9881244701db335c5832c82cca1dfffcc8412772afdbd0325e259411eeb"
         }
       ]
     },
@@ -1021,19 +1021,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/brown_mud_dry/brown_mud_dry_diff_1k.jpg",
-          "bytes": 920456,
-          "sha256": "a56281b644de614787340f3db45e28d2f72ec32fc19a442f99002bae0ab11398"
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_diff_1k.ktx2",
+          "bytes": 219890,
+          "sha256": "03898e352088c0589854dbe46ccd8f0f882d897aad7e44a16fa02a44fb6f5ee9"
         },
         {
-          "path": "assets/textures/brown_mud_dry/brown_mud_dry_nor_gl_1k.jpg",
-          "bytes": 1539092,
-          "sha256": "4dd82ecb3e810d4de49d34c7d6cc30152129434a58b3bd786bc9952bc8874877"
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_nor_gl_1k.ktx2",
+          "bytes": 1360917,
+          "sha256": "1257ea02f831e815527b3d7c022467ce9b6ce129e902b79c7397ac6e3bf5951d"
         },
         {
-          "path": "assets/textures/brown_mud_dry/brown_mud_dry_arm_1k.jpg",
-          "bytes": 242778,
-          "sha256": "4521708cf2976046be3c8f968c5e64e32aa269f5fb9d04b2360269f9f49b9861"
+          "path": "assets/textures/brown_mud_dry/brown_mud_dry_arm_1k.ktx2",
+          "bytes": 151661,
+          "sha256": "e54798ed32e48d85da0abd1d428866fcd478b4f8457370ab1f6c1b291299b366"
         }
       ]
     },
@@ -1050,19 +1050,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/rubble/rubble_diff_1k.jpg",
-          "bytes": 781237,
-          "sha256": "a656a0692138c045c9707933cf0551559b316b817e90089abf12b6ba76e5e779"
+          "path": "assets/textures/rubble/rubble_diff_1k.ktx2",
+          "bytes": 199829,
+          "sha256": "994d1d8d6d88ee7bd10dd05e34c49064621751196e5fe14af9db5f985bd1960f"
         },
         {
-          "path": "assets/textures/rubble/rubble_nor_gl_1k.jpg",
-          "bytes": 1124135,
-          "sha256": "e0f1c7d35a3dc994dd0fd3a1e65f469369c5e92172e158ced34e2368d89fccd2"
+          "path": "assets/textures/rubble/rubble_nor_gl_1k.ktx2",
+          "bytes": 1230803,
+          "sha256": "cc95b3756113fdb19f916bbadfcfcdf8d2242e0a1ed7eef96c4f57ac0aacdb5e"
         },
         {
-          "path": "assets/textures/rubble/rubble_arm_1k.jpg",
-          "bytes": 801973,
-          "sha256": "0078618edda9950ebd1b1210cbe4b6e07f3dcccb7b3b1e56ccc1eb4b37cba6df"
+          "path": "assets/textures/rubble/rubble_arm_1k.ktx2",
+          "bytes": 129098,
+          "sha256": "1d4f98353083e735ef82bc6f7b92c0b06949d116ef12143fe72c627d4ba06856"
         }
       ]
     },
@@ -1081,19 +1081,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_diff_1k.jpg",
-          "bytes": 627333,
-          "sha256": "278394aabcb5a5bd560d9904358682acc5af23666b22bd1f12558789da4aa4d2"
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_diff_1k.ktx2",
+          "bytes": 167762,
+          "sha256": "b83a7407f89f5080775fa1766e33edbc37d199de784bc012591411febe58442c"
         },
         {
-          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_nor_gl_1k.jpg",
-          "bytes": 730726,
-          "sha256": "7545d778669c55e3e9bdc89355ce7190077c3ffdfb324e988ff9803a5bae5a46"
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_nor_gl_1k.ktx2",
+          "bytes": 673941,
+          "sha256": "057238ab9c62e5d6a7f491081b187fa9efeb2f8d7dcd1e37868b5f0f9962943f"
         },
         {
-          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_arm_1k.jpg",
-          "bytes": 606809,
-          "sha256": "26a49a8b60dd2e1fdb325c1488d55d2e6e7362f4505e400ac2243bf0ec67ca56"
+          "path": "assets/textures/painted_metal_shutter/painted_metal_shutter_arm_1k.ktx2",
+          "bytes": 69549,
+          "sha256": "1a942d7b0ccf5444323212b6e9087236deaa878fcc56644e8dc4de2bed4e4d9a"
         }
       ]
     },
@@ -1110,19 +1110,19 @@
       "license": "CC0-1.0",
       "files": [
         {
-          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_diff_1k.jpg",
-          "bytes": 643267,
-          "sha256": "979b0f9db0194b6f1588492ade6627be4f86f8807c6593679ca1eb1d604622f4"
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_diff_1k.ktx2",
+          "bytes": 149834,
+          "sha256": "bd3aae01252557bdd50f1f8065e68238978877ed34e2b1b195aa5260e4008834"
         },
         {
-          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_nor_gl_1k.jpg",
-          "bytes": 747233,
-          "sha256": "b27a8f9548984624ae5bd338da7f068e571b7a40978041c687b73a95377f6c72"
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_nor_gl_1k.ktx2",
+          "bytes": 703675,
+          "sha256": "d28e3909055b135c4f2a7bcc032b730a799b703d129b2fff980cc94802817414"
         },
         {
-          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_arm_1k.jpg",
-          "bytes": 533418,
-          "sha256": "ebe030917ad0d866e2774dfc163d66ba8d9c4467338d224ee9a273f2833d4a94"
+          "path": "assets/textures/rusty_metal_shutter/rusty_metal_shutter_arm_1k.ktx2",
+          "bytes": 75874,
+          "sha256": "1329510dc7c0f18acfd719e99d73bea811f38f157b33f868a2c4d2b2c77f85ce"
         }
       ]
     },
@@ -1140,8 +1140,8 @@
       "files": [
         {
           "path": "assets/models/old_tyre.glb",
-          "bytes": 2176584,
-          "sha256": "6b8750cdc1d3bb2a8d08296bf125cf2acfbab0a7a7b26ab58d677ef6eeb4e178"
+          "bytes": 1131852,
+          "sha256": "349f86089498e57b0a51be42991185258b5a66ee2f0b35966ba2fd87c18d2d23"
         }
       ],
       "sourceFiles": [
@@ -1190,8 +1190,8 @@
       "files": [
         {
           "path": "assets/models/rusted_wheel_rim_01.glb",
-          "bytes": 2030440,
-          "sha256": "abbfaa6a46ffc7a382684d5cd5b871e4346e8e63f5339fa9c3e9c0e36205ae63"
+          "bytes": 1469180,
+          "sha256": "4378e240a03996d27a4ced0edb4b9e8871a57c6902297218780b4833afb94208"
         }
       ],
       "sourceFiles": [
@@ -1240,8 +1240,8 @@
       "files": [
         {
           "path": "assets/models/concrete_road_barrier_02.glb",
-          "bytes": 2438552,
-          "sha256": "15f68fa8e501560c531998e9f227ca7eb50f9243f65f8c1bb2f553dcbd1c4b01"
+          "bytes": 1523532,
+          "sha256": "f103944e3a1cde09e8914b7a61cc32a7f772fabb3827e0c368db6dad91a15574"
         }
       ],
       "sourceFiles": [
@@ -1290,8 +1290,8 @@
       "files": [
         {
           "path": "assets/models/street_lamp_01.glb",
-          "bytes": 1492784,
-          "sha256": "1b1ccf27f6f5ccd13fa72caaf6bc7bce9d941d6ef58ba8874cef821291338f86"
+          "bytes": 905824,
+          "sha256": "f0671d44a89729a35630b993751e0e0dae2e05b09eb3179c413f997d8840dcab"
         }
       ],
       "sourceFiles": [
@@ -1340,8 +1340,8 @@
       "files": [
         {
           "path": "assets/models/fire_hydrant.glb",
-          "bytes": 3749760,
-          "sha256": "c0df236891da71c9f52b6fcb7f325201d560fab45b6fcd8e044238cf2990f1dd"
+          "bytes": 2464672,
+          "sha256": "561ae884c2e6cbdb21d028d8d85f4b24edc4e8173402db22cae75f7579ffc6fc"
         }
       ],
       "sourceFiles": [
@@ -1405,8 +1405,8 @@
       "files": [
         {
           "path": "assets/models/trashbag.glb",
-          "bytes": 1628756,
-          "sha256": "0b1d2198fccd057ec5caedc1fbd5873f8f8f62a1f586b3dd0ecf254915ba02d6"
+          "bytes": 1103944,
+          "sha256": "627b252090e13ecdcb860e9272fc845ea035a2ac89454d2add738c303ba8bd21"
         }
       ],
       "sourceFiles": [
@@ -1455,8 +1455,8 @@
       "files": [
         {
           "path": "assets/models/cement_bag.glb",
-          "bytes": 1432092,
-          "sha256": "e7859416651b5b6070182a5ee80afc27bd51bd2448751a82bfa097cc0722f525"
+          "bytes": 826616,
+          "sha256": "3f4daa7583f2e74fe1ed117159e4f6d61138b6fa32ed9fa59ef7bc6618ad1db2"
         }
       ],
       "sourceFiles": [
@@ -1505,8 +1505,8 @@
       "files": [
         {
           "path": "assets/models/plastic_monobloc_chair_01.glb",
-          "bytes": 1856688,
-          "sha256": "bc5874d3d745639f413ed9f88c8180e5f3136dcb0caa307b96e2774c4224f0a4"
+          "bytes": 1103564,
+          "sha256": "abf9847f22e421f72d415522ee71aa5c83e4ec49dae51f72e76fdcb201124c89"
         }
       ],
       "sourceFiles": [
@@ -1555,8 +1555,8 @@
       "files": [
         {
           "path": "assets/models/wooden_crate_01.glb",
-          "bytes": 2132300,
-          "sha256": "25d9226c64d574f3107d9dfce56a46aef6c7962b165ec4f52315552c3e65d2f5"
+          "bytes": 1095136,
+          "sha256": "ace035b179b34f1897beb4ae5280755378f0a3f7bc19841ea9fa45732f95ba88"
         }
       ],
       "sourceFiles": [
@@ -1605,8 +1605,8 @@
       "files": [
         {
           "path": "assets/models/plastic_crate_02.glb",
-          "bytes": 1686080,
-          "sha256": "a0dc20344d5be0a24583a4a188a341d1731f8641e9b4b290fd157f8289c7c731"
+          "bytes": 774820,
+          "sha256": "285f07a846e4deb7883e1fcad850b006d1ec2cd4039355d101f325dcb3df28bb"
         }
       ],
       "sourceFiles": [
@@ -1655,8 +1655,8 @@
       "files": [
         {
           "path": "assets/models/wicker_basket_01.glb",
-          "bytes": 2299488,
-          "sha256": "53fde2a591ec9ac24049dc5bd7ffcd033de524b0c5dd638f7c1dbe802f378c74"
+          "bytes": 1218020,
+          "sha256": "ec116ee1cf49c831d8957d2a14c9a4f22af5917aec0e8a881b64a419ae3bc5de"
         }
       ],
       "sourceFiles": [
@@ -1705,8 +1705,8 @@
       "files": [
         {
           "path": "assets/models/bananas.glb",
-          "bytes": 1504760,
-          "sha256": "0ce3944472555e551d2664d267471d09292d634caf2744597b77961107d803dc"
+          "bytes": 991392,
+          "sha256": "1e23364f09cd0af69a71cb3b6da71b7388897c3da4710392c610be0661665c08"
         }
       ],
       "sourceFiles": [
@@ -1755,8 +1755,8 @@
       "files": [
         {
           "path": "assets/models/metal_jerrycan.glb",
-          "bytes": 2600376,
-          "sha256": "b92ee48b65661a30966cae3fa5d4e533a703340d32060247874f1a354190be65"
+          "bytes": 1573256,
+          "sha256": "89a3337f2c495924e844b7c2a1c51cf2ef72f897bdf00bb1da80dac8a472da0f"
         }
       ],
       "sourceFiles": [
@@ -1805,8 +1805,8 @@
       "files": [
         {
           "path": "assets/models/Barrel_01.glb",
-          "bytes": 629884,
-          "sha256": "fa24455698367f7a5f0330a02c3c2d3d634e7a20d09b5cd47aad495512de7f67"
+          "bytes": 1209960,
+          "sha256": "bd1ffbcf03fb57a54f1ac482c4a5d9377e09bb670f8578eddbfdb00157e5b553"
         }
       ],
       "sourceFiles": [
@@ -1855,8 +1855,8 @@
       "files": [
         {
           "path": "assets/models/ammo_box.glb",
-          "bytes": 1344632,
-          "sha256": "35548d9b9e81f193f76ac886e891adf51185b8f7b60c410ca0057869be2507a6"
+          "bytes": 584164,
+          "sha256": "91f3fe784a3782c44a38f156ee8c677239209bc3797c5e28a3af1aaee999ff4b"
         }
       ],
       "sourceFiles": [
@@ -1905,8 +1905,8 @@
       "files": [
         {
           "path": "assets/models/hand_truck.glb",
-          "bytes": 2769572,
-          "sha256": "5d21521247841361350e7ceec10d1de21246ef1c4fbc56b3322e1ebd14c77fb2"
+          "bytes": 1666612,
+          "sha256": "2d33ca98b6baae00c0322e2567e44cc0b80cafa7a22a9980a14849b8d5660872"
         }
       ],
       "sourceFiles": [
@@ -1955,8 +1955,8 @@
       "files": [
         {
           "path": "assets/models/CoffeeCart_01.glb",
-          "bytes": 1137492,
-          "sha256": "49ee5ec4b1f093bbd75d2bd61702eb8f61deedd2f6283343f31855d6f1af3372"
+          "bytes": 1980840,
+          "sha256": "34cf320312fdf50da6b2341a3a57696f01e70dfe8c2f4ee0bf3bf6e05dd1f7a0"
         }
       ],
       "sourceFiles": [
@@ -2020,8 +2020,8 @@
       "files": [
         {
           "path": "assets/models/wooden_ladder.glb",
-          "bytes": 2345092,
-          "sha256": "e641de754241a7acb7012b641652540a86ed2ecafa7cdf5f5c5798179b4c1fb5"
+          "bytes": 1441244,
+          "sha256": "be2b2024e5537577e8b73de41108ecc217a2ddcfce16900acbde341108810a29"
         }
       ],
       "sourceFiles": [
@@ -2070,8 +2070,8 @@
       "files": [
         {
           "path": "assets/models/rock_07.glb",
-          "bytes": 1794904,
-          "sha256": "d1f87d713b715467ef749c4f53c72a219d060b03527e26b68df033f58f747d0b"
+          "bytes": 1409884,
+          "sha256": "e55bbbf9243bfed4fe3550b935ff4a264f5c7726954beb157b50156eff83592f"
         }
       ],
       "sourceFiles": [
@@ -2120,8 +2120,8 @@
       "files": [
         {
           "path": "assets/models/dead_tree_trunk.glb",
-          "bytes": 2705212,
-          "sha256": "fe13214d3b446e8598e0066218213aeb411b5ffffacbfca8a97b80b40f57a4d0"
+          "bytes": 1813344,
+          "sha256": "ffe7c902acb06ef9bb77f122f2dc67d639b86eaf14630d8130424a38c165eaee"
         }
       ],
       "sourceFiles": [
@@ -2171,8 +2171,8 @@
       "files": [
         {
           "path": "assets/models/island_tree_01.glb",
-          "bytes": 8524560,
-          "sha256": "b851d5f395473e9ff9722d0257d3cbd5aebf6fcae2a9c5691d79b7ad6fa17a07"
+          "bytes": 6865344,
+          "sha256": "5210210bfada38fb4c2bb5f8bf532d1835364ae904541f0bce69bc54c815da7d"
         }
       ],
       "sourceFiles": [
@@ -2251,8 +2251,8 @@
       "files": [
         {
           "path": "assets/models/shrub_02.glb",
-          "bytes": 1333396,
-          "sha256": "f431859b5449a10d222b6a7ea55847f57f541ec3fed66b0dd4fab04b24ec3714"
+          "bytes": 1113228,
+          "sha256": "c170fe0bc136f76770076d97e049315cf0b94acd20e2802bb6d84b0a91f8641e"
         }
       ],
       "sourceFiles": [
@@ -2301,8 +2301,8 @@
       "files": [
         {
           "path": "assets/models/potted_plant_02.glb",
-          "bytes": 1317280,
-          "sha256": "5d79a3160e59a8e2fd890c482cc9bc82e7a785046c2da108aa7f390c34dc2c24"
+          "bytes": 2369472,
+          "sha256": "8877a4228199da75265550ef6da09c910cb79c8103073f5db75f937d4090b5a7"
         }
       ],
       "sourceFiles": [
@@ -2366,8 +2366,8 @@
       "files": [
         {
           "path": "assets/models/water_manhole_cover.glb",
-          "bytes": 2168268,
-          "sha256": "cac59b1d5bd6be6e8349b0e9f7b1d31ab9989e8e3a370714267e4f71b4ed8bf6"
+          "bytes": 1645520,
+          "sha256": "f28bc8eb53a74212b87b4650605a15f2769f0b17d886cf5c24393a5e0eaa18c9"
         }
       ],
       "sourceFiles": [
@@ -2417,8 +2417,8 @@
       "files": [
         {
           "path": "assets/models/modular_chainlink_fence.glb",
-          "bytes": 4500728,
-          "sha256": "a4af9919b041f8cf63cbf8e8ed32872b3dfb5a2b9e890cee963c06c52e97b40b"
+          "bytes": 2195100,
+          "sha256": "64d54c6e4927f4092f71c11d7498e9a72553a7c6c54d5b9a5e0e5d50d1f4d133"
         }
       ],
       "sourceFiles": [
@@ -2481,8 +2481,8 @@
       "files": [
         {
           "path": "assets/characters/soldier.glb",
-          "bytes": 7178300,
-          "sha256": "6de4c96b0ad98899efb2edd6620b583561c060de343a1e58453634b52e9bfc53"
+          "bytes": 12018728,
+          "sha256": "e1ce7026cb5b69e589879500756f85ed5a459d6bc08ffdf2e792d20268310191"
         }
       ],
       "sourceFiles": [
@@ -2547,8 +2547,8 @@
       "files": [
         {
           "path": "assets/weapons/ak74m.glb",
-          "bytes": 4115128,
-          "sha256": "fb0920a3d701b6d5b2d5f415c8f1a9e52981999dac7e93ddcff1750055ecd194"
+          "bytes": 4430648,
+          "sha256": "d164be005f13cac539bfd819c8dc3986fbc4cb68378dd79f89839784e6d9cf76"
         }
       ],
       "sourceFiles": [
@@ -2577,8 +2577,8 @@
       "files": [
         {
           "path": "assets/weapons/hk416.glb",
-          "bytes": 1687980,
-          "sha256": "93f10a5612806ad13e2255748489ae46aa47b6a7af96f5bf53d7582601952748"
+          "bytes": 1713772,
+          "sha256": "1ebdd8ff8ee30949d15ce8d29faafd25aa9b09a4900da88b492eff9d4d258c22"
         }
       ],
       "sourceFiles": [
@@ -2606,8 +2606,8 @@
       "files": [
         {
           "path": "assets/characters/soldier_arms.glb",
-          "bytes": 2207648,
-          "sha256": "14e783fa467d9d3a532deaaef9e85e815d93b6bde7200b375de12d266f7ca5c6"
+          "bytes": 3448272,
+          "sha256": "894cc9e70009c5fc1beb25a2d42cada5d55b1e65e1c2e0b8e64fd2323e99e3a4"
         }
       ],
       "sourceFiles": [
@@ -2636,8 +2636,8 @@
       "files": [
         {
           "path": "assets/models/veh_ural.glb",
-          "bytes": 274404,
-          "sha256": "ea8464dba4caa05974cc8e1477d2c7986abeedcde45de6cdc44a3f98206fd080"
+          "bytes": 315176,
+          "sha256": "f36d38322df49715d5994511e4ecb7e377a4fc9813790d33a96ba7acf5ad7146"
         }
       ],
       "sourceFiles": [
@@ -2671,8 +2671,8 @@
       "files": [
         {
           "path": "assets/models/veh_scooter.glb",
-          "bytes": 1063236,
-          "sha256": "54037bbac459bd2fd62aae21b8971d7b0da1556775799f84dc8da07fad8642fd"
+          "bytes": 1013108,
+          "sha256": "5768f0d1ecb6f8e1eb3c3503284f3e81fed8a54ca122e17509de6f528533e4b4"
         }
       ],
       "sourceFiles": [
@@ -2706,8 +2706,8 @@
       "files": [
         {
           "path": "assets/models/veh_wreck_car_a.glb",
-          "bytes": 606576,
-          "sha256": "dbef7ce12de6c1799c3a65473864b7996f0e95984762ea434d413bb6d79b78ea"
+          "bytes": 495896,
+          "sha256": "72f78d5c5704064f6101abc6474dd3dc0adea3d21664e1527225b68e531446ca"
         }
       ],
       "sourceFiles": [
@@ -2741,8 +2741,8 @@
       "files": [
         {
           "path": "assets/models/veh_wreck_car_b.glb",
-          "bytes": 567800,
-          "sha256": "5a305ff1f055d4b9bff422a8b13aae9df59ad1868e9afb1f93f24fe13516a23b"
+          "bytes": 470032,
+          "sha256": "70df0838e18ad92f9fe33f7f0f9aae5121c52ee4660274ae33389a68a702833b"
         }
       ],
       "sourceFiles": [
@@ -2776,8 +2776,8 @@
       "files": [
         {
           "path": "assets/models/veh_pickup.glb",
-          "bytes": 2096656,
-          "sha256": "f93e212b2051eb605c8e1e533d4109c460f8b60ea02bed2005a3ba252a9f82c3"
+          "bytes": 1843564,
+          "sha256": "03136468a3ac9f6a322f2491a7fd8c97ee4b86cc4a73cb712501ed41131a52d6"
         }
       ],
       "sourceFiles": [
@@ -2811,8 +2811,8 @@
       "files": [
         {
           "path": "assets/models/veh_btr70.glb",
-          "bytes": 259968,
-          "sha256": "6073697515a6255bc92d718583e448f697935ce68535454b64b50718b912d3f8"
+          "bytes": 260992,
+          "sha256": "e686a6a0088f9bfabf7eaaf9348aad2c2acdce46e4790a89dd21b9c08fbcfb55"
         }
       ],
       "sourceFiles": [
@@ -2846,8 +2846,8 @@
       "files": [
         {
           "path": "assets/models/veh_mi24.glb",
-          "bytes": 242660,
-          "sha256": "a8c3571c4a6d4a7b31beca07a21a5688ca38bc5e54ccb74bfd89388e39c5edfb"
+          "bytes": 297984,
+          "sha256": "3af81bbb2f8cbf23c5e8a4852081e7842dd1b41ac3504e174854031de843f5a2"
         }
       ],
       "sourceFiles": [
@@ -2881,8 +2881,8 @@
       "files": [
         {
           "path": "assets/models/veh_wreck_bus.glb",
-          "bytes": 1656876,
-          "sha256": "413a5d67ba9a0d188a3264ed0b7538a0e202ba56a15a79e22f5abd269fe3cac2"
+          "bytes": 1430388,
+          "sha256": "2cc2cd10aa272bb144416a5ca4069f254b9b1a1576921ab0814e08101993c00b"
         }
       ],
       "sourceFiles": [
@@ -2916,8 +2916,8 @@
       "files": [
         {
           "path": "assets/models/prop_sandbag_02.glb",
-          "bytes": 194504,
-          "sha256": "7300f27550693b33b564df119b794d12faf7d1e38ce68a0799eb9491789bffec"
+          "bytes": 178700,
+          "sha256": "50ed3bd496f243babe7efc7c8332e54ac805e88d02c958c51d2dc32fa075a4d9"
         }
       ],
       "sourceFiles": [
@@ -2951,8 +2951,8 @@
       "files": [
         {
           "path": "assets/models/prop_sandbag_05.glb",
-          "bytes": 184744,
-          "sha256": "c9905c01cfa62bac0f42cf6e831f454f59ed2017946cbb46a85f241f89b24de5"
+          "bytes": 168940,
+          "sha256": "60c58085e1803ec1dac71d39f0c7d0cbba46426c68d2ef1215402f080914d5ab"
         }
       ],
       "sourceFiles": [
@@ -2970,6 +2970,41 @@
         2.94,
         0.721,
         0.667
+      ]
+    },
+    {
+      "id": "terrain_truong_son_a",
+      "type": "terrain",
+      "use": "ô địa hình 2048 m @ 2 m quanh 17.55°N 106.10°E (tây Phong Nha, Đường 20) — TIP-D04 prototype; chi tiết < 30 m là nhiễu procedural (meta.json)",
+      "source": "aws-terrain-tiles",
+      "url": "https://registry.opendata.aws/terrain-tiles/",
+      "authors": [
+        "NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi)"
+      ],
+      "license": "PD-USGov",
+      "files": [
+        {
+          "path": "assets/terrain/truong-son-a/height.r16",
+          "bytes": 2101250,
+          "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e"
+        },
+        {
+          "path": "assets/terrain/truong-son-a/meta.json",
+          "bytes": 679,
+          "sha256": "d6eff42453a20662d7af564376d866235c60d5f7b008b1d7ff2f485894a03bf5"
+        },
+        {
+          "path": "assets/terrain/truong-son-a/preview.png",
+          "bytes": 254713,
+          "sha256": "08c65e0991e563b456a4138dc4284564e0665568e9b289c8241a0d45a8b6ef83"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/dem/N17E106.hgt",
+          "bytes": 25934402,
+          "sha256": "cb238cc64e99bd44cec7bcaf7dee79066b5f6e1a2da7bcaf64217e9bc7002ae4"
+        }
       ]
     }
   ]

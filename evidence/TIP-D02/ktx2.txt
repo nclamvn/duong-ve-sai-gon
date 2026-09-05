@@ -1,0 +1,113 @@
+[ktx2] assets/textures/asphalt_02/asphalt_02_arm_1k.jpg → asphalt_02_arm_1k.ktx2 arm 290→159 KB 3.1 s
+[ktx2] assets/textures/asphalt_02/asphalt_02_diff_1k.jpg → asphalt_02_diff_1k.ktx2 diff 715→195 KB 5.7 s
+[ktx2] assets/textures/asphalt_02/asphalt_02_nor_gl_1k.jpg → asphalt_02_nor_gl_1k.ktx2 normal 1211→1286 KB 27.4 s
+[ktx2] assets/textures/brown_mud_dry/brown_mud_dry_arm_1k.jpg → brown_mud_dry_arm_1k.ktx2 arm 237→148 KB 2.4 s
+[ktx2] assets/textures/brown_mud_dry/brown_mud_dry_diff_1k.jpg → brown_mud_dry_diff_1k.ktx2 diff 899→215 KB 7.9 s
+[ktx2] assets/textures/brown_mud_dry/brown_mud_dry_nor_gl_1k.jpg → brown_mud_dry_nor_gl_1k.ktx2 normal 1503→1329 KB 16.2 s
+[ktx2] assets/textures/burned_ground_01/burned_ground_01_arm_1k.jpg → burned_ground_01_arm_1k.ktx2 arm 222→147 KB 2.3 s
+[ktx2] assets/textures/burned_ground_01/burned_ground_01_diff_1k.jpg → burned_ground_01_diff_1k.ktx2 diff 1009→218 KB 8.8 s
+[ktx2] assets/textures/burned_ground_01/burned_ground_01_nor_gl_1k.jpg → burned_ground_01_nor_gl_1k.ktx2 normal 358→1308 KB 27.0 s
+[ktx2] assets/textures/clay_roof_tiles/clay_roof_tiles_arm_1k.jpg → clay_roof_tiles_arm_1k.ktx2 arm 630→124 KB 2.4 s
+[ktx2] assets/textures/clay_roof_tiles/clay_roof_tiles_diff_1k.jpg → clay_roof_tiles_diff_1k.ktx2 diff 858→213 KB 4.4 s
+[ktx2] assets/textures/clay_roof_tiles/clay_roof_tiles_nor_gl_1k.jpg → clay_roof_tiles_nor_gl_1k.ktx2 normal 1075→1155 KB 23.8 s
+[ktx2] assets/textures/concrete_wall_001/concrete_wall_001_arm_1k.jpg → concrete_wall_001_arm_1k.ktx2 arm 106→103 KB 1.4 s
+[ktx2] assets/textures/concrete_wall_001/concrete_wall_001_diff_1k.jpg → concrete_wall_001_diff_1k.ktx2 diff 77→110 KB 2.7 s
+[ktx2] assets/textures/concrete_wall_001/concrete_wall_001_nor_gl_1k.jpg → concrete_wall_001_nor_gl_1k.ktx2 normal 175→829 KB 19.1 s
+[ktx2] assets/textures/corrugated_iron_02/corrugated_iron_02_arm_1k.jpg → corrugated_iron_02_arm_1k.ktx2 arm 883→132 KB 2.6 s
+[ktx2] assets/textures/corrugated_iron_02/corrugated_iron_02_diff_1k.jpg → corrugated_iron_02_diff_1k.ktx2 diff 555→161 KB 2.4 s
+[ktx2] assets/textures/corrugated_iron_02/corrugated_iron_02_nor_gl_1k.jpg → corrugated_iron_02_nor_gl_1k.ktx2 normal 478→382 KB 13.7 s
+[ktx2] assets/textures/damaged_plaster/damaged_plaster_arm_1k.jpg → damaged_plaster_arm_1k.ktx2 arm 562→106 KB 1.5 s
+[ktx2] assets/textures/damaged_plaster/damaged_plaster_diff_1k.jpg → damaged_plaster_diff_1k.ktx2 diff 831→205 KB 3.4 s
+[ktx2] assets/textures/damaged_plaster/damaged_plaster_nor_gl_1k.jpg → damaged_plaster_nor_gl_1k.ktx2 normal 937→1181 KB 24.8 s
+[ktx2] assets/textures/factory_wall/factory_wall_arm_1k.jpg → factory_wall_arm_1k.ktx2 arm 159→137 KB 1.7 s
+[ktx2] assets/textures/factory_wall/factory_wall_diff_1k.jpg → factory_wall_diff_1k.ktx2 diff 302→158 KB 2.5 s
+[ktx2] assets/textures/factory_wall/factory_wall_nor_gl_1k.jpg → factory_wall_nor_gl_1k.ktx2 normal 234→565 KB 11.3 s
+[ktx2] assets/textures/metal_plate/metal_plate_arm_1k.jpg → metal_plate_arm_1k.ktx2 arm 981→180 KB 3.3 s
+[ktx2] assets/textures/metal_plate/metal_plate_diff_1k.jpg → metal_plate_diff_1k.ktx2 diff 676→191 KB 2.8 s
+[ktx2] assets/textures/metal_plate/metal_plate_nor_gl_1k.jpg → metal_plate_nor_gl_1k.ktx2 normal 752→938 KB 21.9 s
+[ktx2] assets/textures/painted_metal_shutter/painted_metal_shutter_arm_1k.jpg → painted_metal_shutter_arm_1k.ktx2 arm 593→68 KB 1.5 s
+[ktx2] assets/textures/painted_metal_shutter/painted_metal_shutter_diff_1k.jpg → painted_metal_shutter_diff_1k.ktx2 diff 613→164 KB 3.0 s
+[ktx2] assets/textures/painted_metal_shutter/painted_metal_shutter_nor_gl_1k.jpg → painted_metal_shutter_nor_gl_1k.ktx2 normal 714→658 KB 17.8 s
+[ktx2] assets/textures/painted_plaster_wall/painted_plaster_wall_arm_1k.jpg → painted_plaster_wall_arm_1k.ktx2 arm 499→92 KB 1.3 s
+[ktx2] assets/textures/painted_plaster_wall/painted_plaster_wall_diff_1k.jpg → painted_plaster_wall_diff_1k.ktx2 diff 671→167 KB 2.5 s
+[ktx2] assets/textures/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.jpg → painted_plaster_wall_nor_gl_1k.ktx2 normal 879→1121 KB 24.1 s
+[ktx2] assets/textures/painted_worn_brick/painted_worn_brick_arm_1k.jpg → painted_worn_brick_arm_1k.ktx2 arm 826→133 KB 2.0 s
+[ktx2] assets/textures/painted_worn_brick/painted_worn_brick_diff_1k.jpg → painted_worn_brick_diff_1k.ktx2 diff 800→188 KB 3.5 s
+[ktx2] assets/textures/painted_worn_brick/painted_worn_brick_nor_gl_1k.jpg → painted_worn_brick_nor_gl_1k.ktx2 normal 1038→1271 KB 26.3 s
+[ktx2] assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_arm_1k.jpg → patterned_concrete_pavers_arm_1k.ktx2 arm 687→124 KB 1.7 s
+[ktx2] assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_diff_1k.jpg → patterned_concrete_pavers_diff_1k.ktx2 diff 753→182 KB 2.9 s
+[ktx2] assets/textures/patterned_concrete_pavers/patterned_concrete_pavers_nor_gl_1k.jpg → patterned_concrete_pavers_nor_gl_1k.ktx2 normal 760→768 KB 20.2 s
+[ktx2] assets/textures/peeling_painted_wall/peeling_painted_wall_arm_1k.jpg → peeling_painted_wall_arm_1k.ktx2 arm 765→130 KB 1.9 s
+[ktx2] assets/textures/peeling_painted_wall/peeling_painted_wall_diff_1k.jpg → peeling_painted_wall_diff_1k.ktx2 diff 430→121 KB 2.7 s
+[ktx2] assets/textures/peeling_painted_wall/peeling_painted_wall_nor_gl_1k.jpg → peeling_painted_wall_nor_gl_1k.ktx2 normal 889→1151 KB 24.7 s
+[ktx2] assets/textures/plastered_wall_02/plastered_wall_02_arm_1k.jpg → plastered_wall_02_arm_1k.ktx2 arm 536→115 KB 1.5 s
+[ktx2] assets/textures/plastered_wall_02/plastered_wall_02_diff_1k.jpg → plastered_wall_02_diff_1k.ktx2 diff 426→127 KB 2.0 s
+[ktx2] assets/textures/plastered_wall_02/plastered_wall_02_nor_gl_1k.jpg → plastered_wall_02_nor_gl_1k.ktx2 normal 938→1203 KB 26.0 s
+[ktx2] assets/textures/plywood/plywood_arm_1k.jpg → plywood_arm_1k.ktx2 arm 880→146 KB 2.0 s
+[ktx2] assets/textures/plywood/plywood_diff_1k.jpg → plywood_diff_1k.ktx2 diff 861→188 KB 3.8 s
+[ktx2] assets/textures/plywood/plywood_nor_gl_1k.jpg → plywood_nor_gl_1k.ktx2 normal 633→682 KB 18.5 s
+[ktx2] assets/textures/road_damaged/road_damaged_arm_1k.jpg → road_damaged_arm_1k.ktx2 arm 781→134 KB 1.8 s
+[ktx2] assets/textures/road_damaged/road_damaged_diff_1k.jpg → road_damaged_diff_1k.ktx2 diff 837→182 KB 2.8 s
+[ktx2] assets/textures/road_damaged/road_damaged_nor_gl_1k.jpg → road_damaged_nor_gl_1k.ktx2 normal 940→1169 KB 25.9 s
+[ktx2] assets/textures/rubble/rubble_arm_1k.jpg → rubble_arm_1k.ktx2 arm 783→126 KB 2.3 s
+[ktx2] assets/textures/rubble/rubble_diff_1k.jpg → rubble_diff_1k.ktx2 diff 763→195 KB 3.7 s
+[ktx2] assets/textures/rubble/rubble_nor_gl_1k.jpg → rubble_nor_gl_1k.ktx2 normal 1098→1202 KB 26.7 s
+[ktx2] assets/textures/rusty_metal_02/rusty_metal_02_arm_1k.jpg → rusty_metal_02_arm_1k.ktx2 arm 149→147 KB 1.6 s
+[ktx2] assets/textures/rusty_metal_02/rusty_metal_02_diff_1k.jpg → rusty_metal_02_diff_1k.ktx2 diff 552→209 KB 3.9 s
+[ktx2] assets/textures/rusty_metal_02/rusty_metal_02_nor_gl_1k.jpg → rusty_metal_02_nor_gl_1k.ktx2 normal 394→837 KB 20.6 s
+[ktx2] assets/textures/rusty_metal_shutter/rusty_metal_shutter_arm_1k.jpg → rusty_metal_shutter_arm_1k.ktx2 arm 521→74 KB 1.5 s
+[ktx2] assets/textures/rusty_metal_shutter/rusty_metal_shutter_diff_1k.jpg → rusty_metal_shutter_diff_1k.ktx2 diff 628→146 KB 2.9 s
+[ktx2] assets/textures/rusty_metal_shutter/rusty_metal_shutter_nor_gl_1k.jpg → rusty_metal_shutter_nor_gl_1k.ktx2 normal 730→687 KB 19.9 s
+[ktx2] assets/textures/rusty_painted_metal/rusty_painted_metal_arm_1k.jpg → rusty_painted_metal_arm_1k.ktx2 arm 364→77 KB 1.2 s
+[ktx2] assets/textures/rusty_painted_metal/rusty_painted_metal_diff_1k.jpg → rusty_painted_metal_diff_1k.ktx2 diff 461→143 KB 2.5 s
+[ktx2] assets/textures/rusty_painted_metal/rusty_painted_metal_nor_gl_1k.jpg → rusty_painted_metal_nor_gl_1k.ktx2 normal 473→545 KB 12.5 s
+[ktx2] assets/models/Barrel_01.glb: 3 texture → KTX2, 0.60→1.15 MB, 26 s
+[ktx2] assets/models/CoffeeCart_01.glb: 6 texture → KTX2, 1.08→1.89 MB, 48 s
+[ktx2] assets/models/ammo_box.glb: 3 texture → KTX2, 1.28→0.56 MB, 15 s
+[ktx2] assets/models/bananas.glb: 3 texture → KTX2, 1.44→0.95 MB, 20 s
+[ktx2] assets/models/cardboard_box_01.glb: 3 texture → KTX2, 1.74→1.26 MB, 27 s
+[ktx2] assets/models/cement_bag.glb: 3 texture → KTX2, 1.37→0.79 MB, 18 s
+[ktx2] assets/models/concrete_road_barrier.glb: 3 texture → KTX2, 2.39→1.58 MB, 30 s
+[ktx2] assets/models/concrete_road_barrier_02.glb: 3 texture → KTX2, 2.33→1.45 MB, 29 s
+[ktx2] assets/models/dead_tree_trunk.glb: 3 texture → KTX2, 2.58→1.73 MB, 31 s
+[ktx2] assets/models/fire_hydrant.glb: 6 texture → KTX2, 3.58→2.35 MB, 49 s
+[ktx2] assets/models/hand_truck.glb: 3 texture → KTX2, 2.64→1.59 MB, 31 s
+[ktx2] assets/models/island_tree_01.glb: 9 texture → KTX2, 8.13→6.55 MB, 77 s
+[ktx2] assets/models/metal_jerrycan.glb: 3 texture → KTX2, 2.48→1.50 MB, 30 s
+[ktx2] assets/models/metal_trash_can.glb: 6 texture → KTX2, 4.50→2.97 MB, 60 s
+[ktx2] assets/models/modular_chainlink_fence.glb: 6 texture → KTX2, 4.29→2.09 MB, 51 s
+[ktx2] assets/models/old_military_crate.glb: 3 texture → KTX2, 2.13→1.30 MB, 27 s
+[ktx2] assets/models/old_tyre.glb: 3 texture → KTX2, 2.08→1.08 MB, 24 s
+[ktx2] assets/models/plastic_crate_01.glb: 3 texture → KTX2, 2.44→1.25 MB, 28 s
+[ktx2] assets/models/plastic_crate_02.glb: 3 texture → KTX2, 1.61→0.74 MB, 24 s
+[ktx2] assets/models/plastic_monobloc_chair_01.glb: 3 texture → KTX2, 1.77→1.05 MB, 24 s
+[ktx2] assets/models/portable_generator.glb: 4 texture → KTX2, 2.58→1.42 MB, 30 s
+[ktx2] assets/models/potted_plant_02.glb: 6 texture → KTX2, 1.26→2.26 MB, 39 s
+[ktx2] assets/models/prop_sandbag_02.glb: 1 texture → KTX2, 0.19→0.17 MB, 2 s
+[ktx2] assets/models/prop_sandbag_05.glb: đã KTX2
+[ktx2] assets/models/propane_tank.glb: 3 texture → KTX2, 1.98→1.09 MB, 24 s
+[ktx2] assets/models/rock_07.glb: 3 texture → KTX2, 1.71→1.34 MB, 27 s
+[ktx2] assets/models/rusted_wheel_rim_01.glb: 3 texture → KTX2, 1.94→1.40 MB, 29 s
+[ktx2] assets/models/shrub_02.glb: 3 texture → KTX2, 1.27→1.06 MB, 21 s
+[ktx2] assets/models/street_lamp_01.glb: 3 texture → KTX2, 1.42→0.86 MB, 19 s
+[ktx2] assets/models/trashbag.glb: 3 texture → KTX2, 1.55→1.05 MB, 21 s
+[ktx2] assets/models/utility_box_01.glb: 3 texture → KTX2, 1.77→0.91 MB, 21 s
+[ktx2] assets/models/veh_btr70.glb: 1 texture → KTX2, 0.25→0.25 MB, 0 s
+[ktx2] assets/models/veh_mi24.glb: 1 texture → KTX2, 0.23→0.28 MB, 6 s
+[ktx2] assets/models/veh_pickup.glb: 13 texture → KTX2, 2.00→1.76 MB, 33 s
+[ktx2] assets/models/veh_scooter.glb: 4 texture → KTX2, 1.01→0.97 MB, 25 s
+[ktx2] assets/models/veh_ural.glb: 1 texture → KTX2, 0.26→0.30 MB, 4 s
+[ktx2] assets/models/veh_wreck_bus.glb: 7 texture → KTX2, 1.58→1.36 MB, 22 s
+[ktx2] assets/models/veh_wreck_car_a.glb: 3 texture → KTX2, 0.58→0.47 MB, 8 s
+[ktx2] assets/models/veh_wreck_car_b.glb: 3 texture → KTX2, 0.54→0.45 MB, 8 s
+[ktx2] assets/models/water_manhole_cover.glb: 3 texture → KTX2, 2.07→1.57 MB, 31 s
+[ktx2] assets/models/wicker_basket_01.glb: 3 texture → KTX2, 2.19→1.16 MB, 22 s
+[ktx2] assets/models/wooden_crate_01.glb: 3 texture → KTX2, 2.03→1.04 MB, 24 s
+[ktx2] assets/models/wooden_ladder.glb: 3 texture → KTX2, 2.24→1.37 MB, 28 s
+[ktx2] assets/models/wooden_military_crate.glb: 3 texture → KTX2, 2.33→1.30 MB, 28 s
+[ktx2] assets/weapons/ak74m.glb: 3 texture → KTX2, 3.92→4.23 MB, 98 s
+[ktx2] assets/weapons/hk416.glb: 6 texture → KTX2, 1.61→1.63 MB, 31 s
+[ktx2] assets/characters/soldier.glb: 7 texture → KTX2, 6.85→11.46 MB, 210 s
+[ktx2] assets/characters/soldier_arms.glb: 7 texture → KTX2, 2.11→3.29 MB, 57 s
+[ktx2] xong: 110 file, tiết kiệm 34.1 MB, tổng manifest 111.1 MB, 35.0 phút
+EXIT:0

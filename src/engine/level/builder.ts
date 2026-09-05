@@ -115,7 +115,9 @@ function instanceModel(root: Group, name: string, src: Group, list: ModelInstanc
     if (im.instanceColor) im.instanceColor.needsUpdate = true;
     im.castShadow = tall;
     im.receiveShadow = true;
-    im.frustumCulled = false;
+    // bounding sphere theo toàn bộ instance → culling theo cụm (TIP-D02); trước đây frustumCulled=false vẽ mọi cụm mọi frame
+    im.computeBoundingSphere();
+    im.frustumCulled = true;
     im.name = `props_${name}`;
     root.add(im);
     draws++;

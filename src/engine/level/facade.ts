@@ -100,42 +100,107 @@ export function createFacadeMaterials(tex: Record<string, PbrTextureSet> | null)
   return mats;
 }
 
-/** Biển hiệu: canvas text (font đậm), nền màu, viền — 1 texture / biển */
-export function makeSignTexture(text: string, bg: number, w: number, h: number): CanvasTexture {
-  const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = Math.max(64, Math.round((1024 * h) / w));
-  const ctx = canvas.getContext('2d')!;
+/** Vẽ một biển hiệu (font đậm, nền màu, viền, vệt bẩn hash theo text — không Math.random) vào vùng [x,y,w,h] của canvas */
+function drawSign(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, text: string, bg: number): void {
   const bgc = new Color(bg);
   ctx.fillStyle = `rgb(${Math.round(bgc.r * 255)},${Math.round(bgc.g * 255)},${Math.round(bgc.b * 255)})`;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(x, y, w, h);
   const lum = 0.299 * bgc.r + 0.587 * bgc.g + 0.114 * bgc.b;
   const fg = lum > 0.5 ? '#1a1a1a' : '#fffdf5';
   ctx.strokeStyle = fg;
-  ctx.lineWidth = 8;
-  ctx.strokeRect(14, 14, canvas.width - 28, canvas.height - 28);
+  ctx.lineWidth = Math.max(4, Math.round(h * 0.045));
+  const pad = Math.round(h * 0.075);
+  ctx.strokeRect(x + pad, y + pad, w - pad * 2, h - pad * 2);
   ctx.fillStyle = fg;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  let size = Math.round(canvas.height * 0.55);
+  let size = Math.round(h * 0.55);
   ctx.font = `bold ${size}px "Helvetica Neue", Arial, sans-serif`;
-  while (ctx.measureText(text).width > canvas.width - 80 && size > 24) {
+  while (ctx.measureText(text).width > w - h * 0.4 && size > 24) {
     size -= 4;
     ctx.font = `bold ${size}px "Helvetica Neue", Arial, sans-serif`;
   }
-  ctx.fillText(text, canvas.width / 2, canvas.height / 2 + 2);
-  // vệt bẩn/mòn nhẹ (hash deterministic theo text — không Math.random)
+  ctx.fillText(text, x + w / 2, y + h / 2 + 2);
   ctx.globalAlpha = 0.18;
   ctx.fillStyle = '#000';
   let hsh = 2166136261;
   for (let i = 0; i < text.length; i++) hsh = Math.imul(hsh ^ text.charCodeAt(i), 16777619);
   const hr = (): number => ((hsh = (Math.imul(hsh, 1664525) + 1013904223) >>> 0) / 4294967296);
-  for (let i = 0; i < 40; i++) ctx.fillRect(hr() * canvas.width, hr() * canvas.height, 2 + hr() * 30, 1 + hr() * 3);
+  for (let i = 0; i < 40; i++) ctx.fillRect(x + hr() * w, y + hr() * h, 2 + hr() * 30, 1 + hr() * 3);
   ctx.globalAlpha = 1;
+}
+
+/** Biển hiệu đơn lẻ (calib/QA) — 1 texture / biển */
+export function makeSignTexture(text: string, bg: number, w: number, h: number): CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = Math.max(64, Math.round((1024 * h) / w));
+  drawSign(canvas.getContext('2d')!, 0, 0, canvas.width, canvas.height, text, bg);
   const t = new CanvasTexture(canvas);
   t.colorSpace = SRGBColorSpace;
   t.anisotropy = 8;
   return t;
+}
+
+/**
+ * Atlas biển hiệu (TIP-D02): mỗi trang 2048 × 1920, ô 1024 × 192 (2 cột × 10 hàng = 20 biển/trang) → mọi biển của một dãy
+ * gộp thành 1 mesh/trang thay vì 1 mesh + 1 texture/biển (57 biển × 3 pass bóng = 171 draw ở Phố Vạn Hải).
+ */
+export interface SignSlot {
+  page: number;
+  u0: number;
+  v0: number;
+  u1: number;
+  v1: number;
+}
+export class SignAtlas {
+  static readonly COLS = 2;
+  static readonly ROWS = 10;
+  static readonly TILE_W = 1024;
+  static readonly TILE_H = 192;
+  readonly pages: CanvasTexture[] = [];
+  private ctxs: CanvasRenderingContext2D[] = [];
+  private count = 0;
+
+  add(text: string, bg: number): SignSlot {
+    const per = SignAtlas.COLS * SignAtlas.ROWS;
+    const page = Math.floor(this.count / per);
+    const i = this.count % per;
+    if (!this.ctxs[page]) {
+      const canvas = document.createElement('canvas');
+      canvas.width = SignAtlas.COLS * SignAtlas.TILE_W;
+      canvas.height = SignAtlas.ROWS * SignAtlas.TILE_H;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#222';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      this.ctxs[page] = ctx;
+      const t = new CanvasTexture(canvas);
+      t.colorSpace = SRGBColorSpace;
+      t.anisotropy = 8;
+      t.flipY = false;
+      this.pages[page] = t;
+    }
+    const col = i % SignAtlas.COLS;
+    const row = Math.floor(i / SignAtlas.COLS);
+    const x = col * SignAtlas.TILE_W;
+    const y = row * SignAtlas.TILE_H;
+    // chừa 4 px mép để mipmap không lem sang ô cạnh
+    drawSign(this.ctxs[page]!, x + 4, y + 4, SignAtlas.TILE_W - 8, SignAtlas.TILE_H - 8, text, bg);
+    this.count++;
+    const W = SignAtlas.COLS * SignAtlas.TILE_W;
+    const H = SignAtlas.ROWS * SignAtlas.TILE_H;
+    return { page, u0: (x + 6) / W, v0: (y + 6) / H, u1: (x + SignAtlas.TILE_W - 6) / W, v1: (y + SignAtlas.TILE_H - 6) / H };
+  }
+}
+
+/** Ép UV của geometry vào ô atlas (flipY = false → v tăng xuống dưới, giống canvas) */
+function remapUv(g: BufferGeometry, slot: SignSlot): BufferGeometry {
+  const uv = g.attributes['uv'] as Float32BufferAttribute;
+  for (let i = 0; i < uv.count; i++) {
+    uv.setXY(i, slot.u0 + uv.getX(i) * (slot.u1 - slot.u0), slot.v0 + (1 - uv.getY(i)) * (slot.v1 - slot.v0));
+  }
+  uv.needsUpdate = true;
+  return g;
 }
 
 export interface FacadeBuild {
@@ -174,7 +239,8 @@ export function buildFacades(lots: LotDef[], mats: FacadeMaterials, seed = 1, fr
   group.name = 'facades';
   const colliders: FacadeBuild['colliders'] = [];
   let signs = 0;
-  const signMeshes: Mesh[] = [];
+  const atlas = new SignAtlas();
+  const signParts: BufferGeometry[][] = [];
 
   for (let li = 0; li < lots.length; li++) {
     const lot = lots[li]!;
@@ -275,12 +341,9 @@ export function buildFacades(lots: LotDef[], mats: FacadeMaterials, seed = 1, fr
     if (lot.sign && !ruin) {
       const sw = Math.min(w - 0.5, 4.6);
       const sh = 0.8;
-      const texSign = makeSignTexture(lot.sign, lot.signColor ?? 0xd8322a, sw, sh);
-      const m = new Mesh(new BoxGeometry(0.1, sh, sw), new MeshStandardNodeMaterial({ map: texSign, roughness: 0.7, metalness: 0.05 }));
-      m.position.set(fx + sign * 0.08, GROUND_H + 0.5, lot.z);
-      m.castShadow = true;
-      m.name = 'sign';
-      signMeshes.push(m);
+      const slot = atlas.add(lot.sign, lot.signColor ?? 0xd8322a);
+      const g = remapUv(new BoxGeometry(0.1, sh, sw), slot);
+      (signParts[slot.page] ??= []).push(place(g, fx + sign * 0.08, GROUND_H + 0.5, lot.z));
       signs++;
     }
     // muội đen do cháy (tấm tối mờ trên tường) khi damage cao
@@ -314,7 +377,19 @@ export function buildFacades(lots: LotDef[], mats: FacadeMaterials, seed = 1, fr
   add(bins['dark']!, mats.dark, 'dark');
   add(bins['metal']!, mats.metal, 'metal');
   add(bins['awning']!, mats.awning, 'awning');
-  for (const m of signMeshes) group.add(m);
+  // biển hiệu: 1 mesh/trang atlas, không đổ bóng (tấm mỏng sát tường)
+  let signDraws = 0;
+  signParts.forEach((parts, page) => {
+    const g = mergeGeometries(parts, false);
+    if (!g) return;
+    for (const p of parts) p.dispose();
+    const mesh = new Mesh(g, new MeshStandardNodeMaterial({ map: atlas.pages[page]!, roughness: 0.7, metalness: 0.05 }));
+    mesh.name = `signs_${page}`;
+    mesh.castShadow = false;
+    mesh.receiveShadow = true;
+    group.add(mesh);
+    signDraws++;
+  });
   if (frame) {
     group.position.set(frame.origin[0], 0, frame.origin[1]);
     group.rotation.y = frame.yaw;
@@ -326,5 +401,5 @@ export function buildFacades(lots: LotDef[], mats: FacadeMaterials, seed = 1, fr
       col.yaw = frame.yaw;
     }
   }
-  return { group, colliders, drawEstimate: draws + signs, signs };
+  return { group, colliders, drawEstimate: draws + signDraws, signs };
 }

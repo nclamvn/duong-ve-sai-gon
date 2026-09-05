@@ -4,8 +4,7 @@
  */
 import { TextureLoader, SRGBColorSpace, LinearSRGBColorSpace, RepeatWrapping, LinearMipmapLinearFilter, Texture, PMREMGenerator, WebGPURenderer, EquirectangularReflectionMapping, type Object3D, type Group } from 'three/webgpu';
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { createGltfLoader, initLoaders, ktx2Loader } from './loaders';
 import { loadCharacter, type CharacterAsset } from './characters';
 import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
 import { loadFpArms, type FpArmsAsset } from './fpArms';
@@ -48,8 +47,21 @@ function base(): string {
   return `${import.meta.env.BASE_URL ?? '/'}assets/`;
 }
 
+/**
+ * Texture rời: `.ktx2` (Basis, ADR-D04) qua KTX2Loader — mipmap đã có trong file, colorSpace theo DFD (sRGB/linear);
+ * `.jpg/.png` (fallback dev) qua TextureLoader.
+ */
 async function loadTex(loader: TextureLoader, url: string, srgb: boolean, anisotropy: number): Promise<Texture> {
-  const t = await loader.loadAsync(url);
+  const k = ktx2Loader();
+  if (url.endsWith('.ktx2') && k) {
+    const t = await k.loadAsync(url);
+    t.wrapS = t.wrapT = RepeatWrapping;
+    t.colorSpace = srgb ? SRGBColorSpace : LinearSRGBColorSpace;
+    t.anisotropy = anisotropy;
+    t.needsUpdate = true;
+    return t;
+  }
+  const t = await loader.loadAsync(url.replace(/\.ktx2$/, '.jpg'));
   t.wrapS = t.wrapT = RepeatWrapping;
   t.colorSpace = srgb ? SRGBColorSpace : LinearSRGBColorSpace;
   t.minFilter = LinearMipmapLinearFilter;
@@ -82,9 +94,7 @@ export interface LoadOptions {
 
 /** Model prop glTF (meshopt) — cast/receive shadow, anisotropy. Dùng bởi loadAssets và debug API (spawnModel). */
 export async function loadModel(url: string, aniso = 4): Promise<Group> {
-  const gltf = new GLTFLoader();
-  gltf.setMeshoptDecoder(MeshoptDecoder);
-  const g = await gltf.loadAsync(url);
+  const g = await createGltfLoader().loadAsync(url);
   g.scene.traverse((o: Object3D) => {
     const m = o as { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean; material?: { map?: Texture | null; anisotropy?: number } };
     if (m.isMesh) {
@@ -99,6 +109,7 @@ export async function loadModel(url: string, aniso = 4): Promise<Group> {
 export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   const b = base();
   const aniso = Math.min(8, opts.renderer.getMaxAnisotropy());
+  initLoaders(opts.renderer, import.meta.env.BASE_URL ?? '/');
   const texLoader = new TextureLoader();
   const weaponCfgs = opts.lite || opts.noWeapons ? [] : (opts.weapons ?? []);
   const textureIds = opts.textureIds ?? TEXTURE_IDS;
@@ -116,9 +127,9 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     textureIds.map(async (id) => {
       const dir = `${b}textures/${id}/${id}`;
       const [map, normalMap, armMap] = await Promise.all([
-        loadTex(texLoader, `${dir}_diff_1k.jpg`, true, aniso),
-        loadTex(texLoader, `${dir}_nor_gl_1k.jpg`, false, aniso),
-        loadTex(texLoader, `${dir}_arm_1k.jpg`, false, aniso),
+        loadTex(texLoader, `${dir}_diff_1k.ktx2`, true, aniso),
+        loadTex(texLoader, `${dir}_nor_gl_1k.ktx2`, false, aniso),
+        loadTex(texLoader, `${dir}_arm_1k.ktx2`, false, aniso),
       ]);
       textures[id] = { id, map, normalMap, armMap };
       tick(id);

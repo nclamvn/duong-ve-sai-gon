@@ -1,0 +1,12 @@
+id: TIP-D02
+goal: "KTX2 toàn bộ texture (ADR-D04) + atlas biển hiệu + culling instanced + validator asset; đo draw pho trước/sau"
+scope: [scripts/ktx2.mjs, scripts/validate-assets.mjs, scripts/validate-assets.d.mts, scripts/terrain-bake.mjs, src/engine/render/loaders.ts, src/engine/render/assets.ts, src/engine/render/weaponModel.ts, src/engine/render/characters.ts, src/engine/render/fpArms.ts, src/engine/level/facade.ts, src/engine/level/builder.ts, public/basis/**, public/assets/**, content/assets/manifest.json, content/schemas/asset-manifest.schema.json, config/performance-budget.json, docs/ADR/ADR-D04-ktx2-pipeline.md, docs/DECISIONS.md, tests/unit/validate-assets.test.ts, tests/unit/assets.test.ts, package.json]
+acceptance:
+  - "assets:validate 0 lỗi; 100 % texture KTX2"
+  - "draw pho giảm ≥ 150 (sandbox cùng góc); không lỗi console"
+  - "npm run ci xanh"
+  - "Mac WebGPU: màu đúng (Chủ nhà xác nhận)"
+tests: [tests/unit/validate-assets.test.ts, tests/unit/assets.test.ts, tests/e2e/**]
+evidence: [evidence/TIP-D02/ktx2.txt, evidence/TIP-D02/draws-before-after.txt, evidence/TIP-D02/pho-*.png, evidence/TIP-D02/probe-pho.txt, evidence/TIP-D02/ci.txt, evidence/TIP-D02/completion-report.md]
+rollback: "git revert; JPG nguồn còn ở assets-src/"
+status: DONE (deferred: draw góc b −146/150; màu WebGPU chờ Chủ nhà)
