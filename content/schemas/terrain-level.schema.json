@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "duong-ve-sai-gon.local/terrain-level",
+  "title": "Level terrain (TIP-D04): ô DEM + splat + spawn/waypoint theo x/z (y lấy từ terrain)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "terrain", "camera", "sky", "layers", "textures", "models", "playerSpawn", "playerYaw", "botSpawns", "waypoints", "zones", "coverMarkers"],
+  "definitions": {
+    "v2": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+    "v3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "terrain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "yOffset", "navRect"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "public/assets/terrain/<id>/ (manifest type terrain)" },
+        "yOffset": { "type": "number" },
+        "navRect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "z", "w", "h"],
+          "properties": { "x": { "type": "number" }, "z": { "type": "number" }, "w": { "type": "number", "minimum": 16 }, "h": { "type": "number", "minimum": 16 } }
+        },
+        "wetness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tileMeters": { "type": "number", "minimum": 0.5 },
+        "tint": { "type": "integer" }
+      }
+    },
+    "camera": { "type": "object", "additionalProperties": false, "required": ["near", "far"], "properties": { "near": { "type": "number", "minimum": 0.01 }, "far": { "type": "number", "minimum": 100 } } },
+    "sky": { "type": "object" },
+    "layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["leaves", "mud", "rock", "grass"],
+      "properties": { "leaves": { "type": "string" }, "mud": { "type": "string" }, "rock": { "type": "string" }, "grass": { "type": "string" } }
+    },
+    "textures": { "type": "array", "items": { "type": "string" } },
+    "models": { "type": "array", "items": { "type": "string" } },
+    "playerSpawn": { "$ref": "#/definitions/v2" },
+    "playerYaw": { "type": "number" },
+    "botSpawns": { "type": "object", "additionalProperties": { "$ref": "#/definitions/v2" } },
+    "waypoints": { "type": "array", "items": { "$ref": "#/definitions/v2" } },
+    "zones": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["center", "radius"],
+        "properties": { "center": { "$ref": "#/definitions/v2" }, "radius": { "type": "number", "minimum": 0 } }
+      }
+    },
+    "coverMarkers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "position", "facing"],
+        "properties": { "id": { "type": "string" }, "position": { "$ref": "#/definitions/v2" }, "facing": { "$ref": "#/definitions/v3" } }
+      }
+    }
+  }
+}

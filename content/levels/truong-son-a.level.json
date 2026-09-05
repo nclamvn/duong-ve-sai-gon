@@ -1,0 +1,32 @@
+{
+  "$schema": "../schemas/terrain-level.schema.json",
+  "id": "truong-son",
+  "name": "Trường Sơn — ô thử A (TIP-D04)",
+  "terrain": {
+    "id": "truong-son-a",
+    "yOffset": 691.2,
+    "navRect": { "x": -192, "z": 512, "w": 512, "h": 512 },
+    "wetness": 0.25,
+    "tileMeters": 4
+  },
+  "camera": { "near": 0.25, "far": 2600 },
+  "sky": {
+    "hdri": "kloofendal_48d_partly_cloudy_puresky",
+    "res": "2k",
+    "envIntensity": 0.85,
+    "skyIntensity": 0.9,
+    "sun": { "azimuthDeg": 48, "elevationDeg": 41, "color": 16775920, "intensity": 2.4 },
+    "hemi": { "sky": 11847900, "ground": 4872762, "intensity": 0.5 },
+    "fog": { "color": 11582934, "density": 0.0012 },
+    "csm": { "cascades": 3, "maxFar": 180, "mapSize": 2048 }
+  },
+  "layers": { "leaves": "brown_mud_leaves_01", "mud": "brown_mud_03", "rock": "aerial_rocks_02", "grass": "aerial_grass_rock" },
+  "textures": ["brown_mud_leaves_01", "brown_mud_03", "aerial_rocks_02", "aerial_grass_rock"],
+  "models": [],
+  "playerSpawn": [-134, 580],
+  "playerYaw": 0.6,
+  "botSpawns": { "bot_a": [-170, 540] },
+  "waypoints": [[-170, 540], [-210, 500], [-250, 470], [-200, 430], [-150, 470], [-120, 520]],
+  "zones": { "spawn": { "center": [-134, 580], "radius": 12 }, "ridge": { "center": [-200, 430], "radius": 20 } },
+  "coverMarkers": []
+}

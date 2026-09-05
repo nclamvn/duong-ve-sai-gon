@@ -18,6 +18,8 @@ import { buildLevel, type LevelBuild } from '@engine/level/builder';
 import { createDaylight } from '@engine/level/daylight';
 import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
+import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
+import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
 import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
@@ -85,8 +87,10 @@ export class Game {
   arena!: ArenaData;
   /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
   level: LevelBuild | null = null;
-  /** 'arena' (bench/E2E G0, mặc định G0′ — content Hải Tuyến chỉ là test) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
-  levelId: 'pho' | 'arena' = 'arena';
+  /** 'arena' (bench/E2E G0, mặc định G0′ — content Hải Tuyến chỉ là test) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) | 'truong-son' (terrain DEM, TIP-D04) */
+  levelId: 'pho' | 'arena' | 'truong-son' = 'arena';
+  /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
+  terrain: TerrainLevelBuild | null = null;
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -173,8 +177,15 @@ export class Game {
 
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
-    this.levelId = levelParam === 'arena' || levelParam === 'pho' ? levelParam : 'arena';
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'arena';
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
+    const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : null;
+    const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
+    if (terrainDef) {
+      this.camera.near = terrainDef.camera.near;
+      this.camera.far = terrainDef.camera.far;
+      this.camera.updateProjectionMatrix();
+    }
     // Asset CC0 (TIP-011/ADR-005): texture PBR luôn; model + HDRI trừ khi ?assets=0 (lite)
     this.assets = await loadAssets({
       renderer: this.bundle.renderer,
@@ -182,12 +193,23 @@ export class Game {
       noCharacter: !this.quality.character,
       noWeapons: !this.quality.weapons,
       weapons: [ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
-      textureIds: levelDef?.textures,
-      modelIds: levelDef?.models,
-      hdri: levelDef ? { id: levelDef.sky.hdri, res: levelDef.sky.res } : undefined,
-      keepSky: !!levelDef,
+      textureIds: levelDef?.textures ?? terrainDef?.textures,
+      modelIds: levelDef?.models ?? terrainDef?.models,
+      hdri: skyDef ? { id: skyDef.hdri, res: skyDef.res } : undefined,
+      keepSky: !!skyDef,
     });
-    if (levelDef) {
+    if (terrainDef && skyDef) {
+      // Terrain DEM (TIP-D04): ArenaData từ ô heightmap; ánh sáng ban ngày như level JSON
+      this.terrain = await loadTerrainLevel(this.scene, terrainDef, { assets: this.assets, baseUrl: import.meta.env.BASE_URL ?? '/' });
+      this.arena = this.terrain;
+      this.lights = createDaylight(this.scene, skyDef, {
+        environment: this.assets.environment,
+        sky: this.assets.sky,
+        shadowMapSize: this.quality.shadowMapSize,
+        csm: this.quality.shadows && this.params.get('csm') !== '0',
+      });
+      if (this.params.get('rain') === null) this.quality.rainCount = 0;
+    } else if (levelDef) {
       this.level = buildLevel(this.scene, levelDef, { assets: this.assets, maxFxLights: this.quality.tier === 'low' ? 4 : 6 });
       this.arena = this.level;
       this.lights = createDaylight(this.scene, levelDef.sky, {
@@ -213,8 +235,8 @@ export class Game {
     this.vmScene.add(this.vmCamera);
     this.vmScene.environment = this.scene.environment;
     this.vmScene.environmentIntensity = this.scene.environmentIntensity;
-    if (this.level) {
-      const sky = this.level.def.sky;
+    if (skyDef) {
+      const sky = skyDef;
       const sunVm = new DirectionalLight(sky.sun.color, sky.sun.intensity);
       const d = (this.lights as { sunDir?: [number, number, number] }).sunDir ?? [0.5, 0.7, 0.5];
       sunVm.position.set(d[0] * 20, d[1] * 20, d[2] * 20);
@@ -236,7 +258,7 @@ export class Game {
     // Physics từ ArenaData (nguồn collider duy nhất)
     await initPhysics();
     this.physics = new PhysicsWorld();
-    for (const c of this.arena.colliders) this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw }, { id: c.id, kind: 'world', material: c.material });
+    for (const c of this.arena.colliders) this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw, heights: c.heights, n: c.n }, { id: c.id, kind: 'world', material: c.material });
 
     // Settings (IndexedDB) → player
     this.settings = new SettingsStore(await pickStore());
@@ -305,8 +327,18 @@ export class Game {
 
     // Navmesh runtime từ ArenaData.navGeometry (ADR-003) + 1 bot tuần tra
     await initNav();
-    const [navPos, navIdx] = getPositionsAndIndices(this.arena.navGeometry);
-    this.nav = new NavService(navPos, navIdx);
+    if (this.terrain?.navPrebuilt) {
+      this.nav = NavService.fromExport(this.terrain.navPrebuilt);
+      if (this.nav.polyCount === 0) {
+        console.warn('[nav] nav.bin invalid (0 poly) -> runtime bake');
+        this.nav.dispose();
+        this.terrain.navPrebuilt = null;
+      }
+    }
+    if (!this.terrain?.navPrebuilt) {
+      const [navPos, navIdx] = getPositionsAndIndices(this.arena.navGeometry);
+      this.nav = new NavService(navPos, navIdx, this.terrain ? { cs: 0.5, ch: 0.25 } : {});
+    }
     this.navBuildMs = this.nav.buildMs;
     this.navHelper = new NavMeshHelper(this.nav.navMesh);
     this.navHelper.visible = false;
@@ -550,6 +582,7 @@ export class Game {
       this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);
     }
     this.lights.followTarget(this.camera);
+    if (this.terrain) this.terrain.mesh.update(this.camera);
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {

@@ -65,7 +65,12 @@ npm run assets:ktx2       # KTX2/Basis toàn bộ texture (ADR-D04, TIP-D02): JP
 npm run assets:validate   # validator (TIP-D02): license allow-list, CC-BY attribution, sha256, historical→registryId, 100 % KTX2, file lạc, tam giác theo tiền tố
 ```
 **Mọi pipeline asset kết thúc bằng `npm run assets:ktx2`** — JPG/WebP không được vào `public/assets` (validator/unit test chặn). Transcoder Basis (`public/basis/`, three r185, Apache-2.0) nạp qua `src/engine/render/loaders.ts`.
-`public/assets/` (≈113 MB KTX2, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore). Nhân vật Mixamo (Swat Guy + 8 clip,
+`public/assets/` (≈120 MB KTX2, đã commit) là bản tối ưu; nguồn gốc nằm ở `assets-src/` (gitignore; texture Poly Haven tải lại được bằng `fetch-assets --force <id>`).
+
+Terrain DEM (TIP-D04, ADR-D05 — `?level=truong-son`): SRTM 1″ public domain qua Terrain Tiles on AWS →
+`node scripts/terrain-bake.mjs --hgt assets-src/dem/N17E106.hgt --lat 17.55 --lon 106.10 --size 2048 --res 2 --id truong-son-a`
+→ `public/assets/terrain/<id>/{height.r16,meta.json,preview.png}`; navmesh bake: `node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512`
+→ `nav.bin` (+ manifest). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
 texture 2K JPEG, meshopt) → `public/assets/characters/soldier.glb` + mục `soldier_mixamo` trong manifest.
 

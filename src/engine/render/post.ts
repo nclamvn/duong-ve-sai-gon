@@ -5,7 +5,11 @@
  * TSL only (không ShaderMaterial). Mọi pass là node của RenderPipeline → 1 lệnh render()/frame.
  */
 import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping, Color } from 'three/webgpu';
-import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float, mix } from 'three/tsl';
+import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float, mix, smoothstep } from 'three/tsl';
+
+/** GTAO mờ dần theo khoảng cách nhìn (m): xa hơn AO_FADE_END không áp AO — terrain 2 km (TIP-D04) bị vạch/ô từ GTAO nửa phân giải trên mặt xa, và AO ở > 100 m không nhìn thấy */
+export const AO_FADE_START = 60;
+export const AO_FADE_END = 140;
 import { ao } from 'three/addons/tsl/display/GTAONode.js';
 import { ssr } from 'three/addons/tsl/display/SSRNode.js';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -94,7 +98,9 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     aoPass.radius.value = 0.5;
     aoPass.distanceFallOff.value = 1.0;
     aoPass.samples.value = 8;
-    color = color.mul(vec4(vec3(aoPass.getTextureNode().r), 1.0));
+    const aoFade = smoothstep(float(AO_FADE_START), float(AO_FADE_END), scenePass.getViewZNode('depth').negate());
+    const aoTerm = mix(aoPass.getTextureNode().r, float(1.0), aoFade);
+    color = color.mul(vec4(vec3(aoTerm), 1.0));
     passes.push('gtao');
   }
   if (useSSR) {

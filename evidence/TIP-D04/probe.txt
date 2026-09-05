@@ -1,0 +1,9 @@
+spawn {"calls":81,"tris":346656,"terrain":{"lod":[8,12,36,481],"visible":537,"chunks":1024,"tris":63808,"draws":4,"navPrebuilt":true,"polys":1732},"ground":0.023363851010799408,"camY":1.7431194481129864,"feetY":0.04348330711771253,"bots":1,"polys":1732,"navMs":"1"}
+ridge {"calls":81,"tris":320352,"terrain":{"lod":[7,11,38,110],"visible":166,"chunks":1024,"tris":37504,"draws":4,"navPrebuilt":true,"polys":1732},"ground":9.327667236328125,"camY":11.052177849419872,"feetY":9.355689758360384,"bots":1,"polys":1732,"navMs":"1"}
+valley {"calls":41,"tris":243074,"terrain":{"lod":[8,12,35,96],"visible":151,"chunks":1024,"tris":38976,"draws":4,"navPrebuilt":true,"polys":1732},"ground":0.023363851010799408,"camY":60.06415714120694,"feetY":58.3786162413843,"bots":1,"polys":1732,"navMs":"1"}
+wire-lod {"calls":41,"tris":282050,"terrain":{"lod":[8,12,35,96],"visible":151,"chunks":1024,"tris":38976,"draws":4,"navPrebuilt":true,"polys":1732},"ground":0.023363851010799408,"camY":60.0703002011572,"feetY":58.38701385131106,"bots":1,"polys":1732,"navMs":"1"}
+errors [
+  'warning: THREE.PMREMGenerator: ".fromEquirectangularAsync()" is deprecated. Use "await renderer.init()" instead.',
+  'warning: [.WebGL-0x112402319a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): Running out of reserved outsideRenderPass queueSerial. ending renderPass now.',
+  'warning: [.WebGL-0x112402319a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): Running out of reserved outsideRenderPass queueSerial. ending renderPass now.'
+]

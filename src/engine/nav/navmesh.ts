@@ -2,7 +2,7 @@
  * Navmesh — recast-navigation-js (ADR-003): sinh runtime từ positions/indices, query path/nearest.
  * Không chứa logic AI. Chạy được trong Node (wasm-compat) cho unit test.
  */
-import { init, NavMesh, NavMeshQuery } from 'recast-navigation';
+import { init, NavMesh, NavMeshQuery, importNavMesh, exportNavMesh } from 'recast-navigation';
 import { generateSoloNavMesh } from '@recast-navigation/generators';
 
 export interface NavConfig {
@@ -35,7 +35,32 @@ export class NavService {
   readonly polyCount: number;
   private readonly halfExtents = { x: 2, y: 4, z: 2 };
 
-  constructor(positions: ArrayLike<number>, indices: ArrayLike<number>, cfg: Partial<NavConfig> = {}) {
+  /** Nạp navmesh bake sẵn (scripts/terrain-bake.mjs --nav → nav.bin, TIP-D04) — không bake runtime. */
+  static fromExport(data: Uint8Array): NavService {
+    const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const { navMesh } = importNavMesh(data);
+    return new NavService(navMesh, t0);
+  }
+
+  /** Xuất navmesh (bake offline) */
+  export(): Uint8Array {
+    return exportNavMesh(this.navMesh);
+  }
+
+  constructor(positions: ArrayLike<number>, indices: ArrayLike<number>, cfg?: Partial<NavConfig>);
+  constructor(navMesh: NavMesh, t0: number);
+  constructor(a: ArrayLike<number> | NavMesh, b?: ArrayLike<number> | number, cfg: Partial<NavConfig> = {}) {
+    if (!(a instanceof NavMesh) && typeof b === 'number') throw new Error('NavService: invalid arguments');
+    if (a instanceof NavMesh) {
+      const t0 = typeof b === 'number' ? b : Date.now();
+      this.navMesh = a;
+      this.query = new NavMeshQuery(this.navMesh);
+      this.buildMs = (typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0;
+      this.polyCount = countPolys(this.navMesh);
+      return;
+    }
+    const positions = a;
+    const indices = b as ArrayLike<number>;
     const c = { ...DEFAULT_NAV, ...cfg };
     const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
     const res = generateSoloNavMesh(positions, indices, {

@@ -13,7 +13,7 @@ import { metricBox, containerParts, crate, palletStack, cableSpool, drum, lampPo
 import { mulberry32, type Prng } from '@engine/core';
 import type { LoadedAssets } from './assets';
 
-export type ColliderKind = 'box' | 'cylinder';
+export type ColliderKind = 'box' | 'cylinder' | 'heightfield';
 
 export interface ColliderDef {
   id: string;
@@ -22,7 +22,10 @@ export interface ColliderDef {
   /** box: half extents [hx,hy,hz]; cylinder: [radius, halfHeight, 0] */
   size: [number, number, number];
   yaw: number;
-  material: 'concrete' | 'steel' | 'wood' | 'tarp';
+  material: 'concrete' | 'steel' | 'wood' | 'tarp' | 'earth';
+  /** heightfield (TIP-D04): cao độ n×n (index j·n + i) — size = [sizeX, 1, sizeZ] */
+  heights?: Float32Array;
+  n?: number;
 }
 
 export interface CoverMarker {

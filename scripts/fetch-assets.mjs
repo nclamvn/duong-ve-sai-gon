@@ -76,6 +76,11 @@ const ASSETS = [
   { id: 'potted_plant_02', type: 'model', res: '1k', use: 'chậu cây trước nhà' },
   { id: 'water_manhole_cover', type: 'model', res: '1k', use: 'nắp cống' },
   { id: 'modular_chainlink_fence', type: 'model', res: '1k', use: 'hàng rào lưới' },
+  // ---- DVSG G0′ (TIP-D04): 4 lớp splat terrain Trường Sơn (TER-002) ----
+  { id: 'brown_mud_leaves_01', type: 'texture', res: '1k', use: 'terrain lớp mùn lá rừng (mặc định)' },
+  { id: 'brown_mud_03', type: 'texture', res: '1k', use: 'terrain lớp đất ướt đường mòn' },
+  { id: 'aerial_rocks_02', type: 'texture', res: '1k', use: 'terrain lớp đá dốc (triplanar)' },
+  { id: 'aerial_grass_rock', type: 'texture', res: '1k', use: 'terrain lớp cỏ tranh/rêu đồi cao' },
 ];
 const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 
@@ -175,19 +180,26 @@ function verify() {
 
 if (verifyOnly) verify();
 else {
+  // TIP-D04: entry Poly Haven đã có trong manifest (đã KTX2 — ADR-D04) được GIỮ NGUYÊN, chỉ tải id mới (hoặc --force id1,id2);
+  // tải lại toàn bộ sẽ ghi đè .ktx2 bằng .jpg và phá pipeline.
+  const prevAssets = existsSync(MANIFEST) ? (JSON.parse(readFileSync(MANIFEST, 'utf8')).assets ?? []) : [];
+  const forceArg = process.argv.find((x) => x.startsWith('--force'));
+  const force = new Set(forceArg ? (process.argv[process.argv.indexOf(forceArg) + 1] ?? '').split(',').filter(Boolean) : []);
   const assets = [];
   for (const a of ASSETS) {
+    const prev = prevAssets.find((x) => x.id === a.id && x.source === 'polyhaven');
+    if (prev && !force.has(a.id)) {
+      assets.push(prev);
+      continue;
+    }
     process.stdout.write(`[assets] ${a.type} ${a.id} ${a.res} … `);
     const entry = await fetchAsset(a);
     const mb = entry.files.reduce((s, f) => s + f.bytes, 0) / 1048576;
     console.log(`${entry.files.length} file, ${mb.toFixed(2)} MB`);
     assets.push(entry);
   }
-  // giữ entry không phải Poly Haven (Mixamo, Sketchfab CC-BY) đã có trong manifest — TIP-019 sửa lỗi ghi đè
-  if (existsSync(MANIFEST)) {
-    const prev = JSON.parse(readFileSync(MANIFEST, 'utf8'));
-    for (const a of prev.assets ?? []) if (a.source !== 'polyhaven' && !assets.some((x) => x.id === a.id)) assets.push(a);
-  }
+  // giữ entry không phải Poly Haven (Mixamo, Sketchfab CC-BY, terrain) đã có trong manifest — TIP-019 sửa lỗi ghi đè
+  for (const a of prevAssets) if (a.source !== 'polyhaven' && !assets.some((x) => x.id === a.id)) assets.push(a);
   const totalBytes = assets.reduce((s, a) => s + a.files.reduce((t, f) => t + f.bytes, 0), 0);
   const manifest = {
     schemaVersion: 1,

@@ -39,6 +39,10 @@ export interface HtDebugApi {
   calib?: CalibApi;
   /** QA prop: nạp assets/models/<id>.glb đặt vào scene (TIP-021 lineup) → kích thước bbox (m) */
   spawnModel(id: string, x: number, y: number, z: number, yaw?: number, scale?: number): Promise<{ size: [number, number, number]; min: [number, number, number] }>;
+  /** terrain (TIP-D04): cao độ mặt đất tại (x, z) — null khi level không có terrain */
+  terrainHeight(x: number, z: number): number | null;
+  /** terrain (TIP-D04): thống kê LOD/draw/tris của frame gần nhất */
+  terrainStats(): { lod: number[]; visible: number; chunks: number; tris: number; draws: number; navPrebuilt: boolean; polys: number } | null;
   [k: string]: unknown;
 }
 
@@ -114,6 +118,8 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
       const sz = bb.getSize(new Vector3());
       return { size: [sz.x, sz.y, sz.z], min: [bb.min.x, bb.min.y, bb.min.z] };
     },
+    terrainHeight: (x, z) => (game.terrain ? game.terrain.heightAt(x, z) : null),
+    terrainStats: () => (game.terrain ? { ...game.terrain.mesh.stats, lod: [...game.terrain.mesh.stats.lod], navPrebuilt: !!game.terrain.navPrebuilt, polys: game.nav?.polyCount ?? 0 } : null),
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };
   window.__ht = api;

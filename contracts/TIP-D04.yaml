@@ -1,0 +1,12 @@
+id: TIP-D04
+goal: "engine/terrain prototype trên ô DEM truong-son-a: tile r16 → mesh 4 LOD instanced (≤ 4 draw) + splat 4 lớp TSL + heightfield Rapier + navmesh bake/import + level truong-son + E2E vật lý"
+scope: [src/engine/terrain/**, src/engine/physics/world.ts, src/engine/render/arena.ts, src/engine/nav/navmesh.ts, src/engine/render/post.ts, src/game/game.ts, src/qa/debugApi.ts, scripts/terrain-bake.mjs, scripts/fetch-assets.mjs, content/levels/truong-son-a.level.json, content/schemas/terrain-level.schema.json, content/assets/manifest.json, public/assets/textures/{brown_mud_leaves_01,brown_mud_03,aerial_rocks_02,aerial_grass_rock}/**, public/assets/terrain/truong-son-a/nav.bin, tests/unit/terrain.test.ts, tests/e2e/level-truong-son.spec.ts, docs/ADR/ADR-D05-terrain.md]
+acceptance:
+  - "probe ?level=truong-son: draw terrain ≤ 4, tổng ≤ 120, tris ≤ 1,2 M ở 3 góc; 0 lỗi console; không khe LOD"
+  - "unit: heightfield raycast vs sample ≤ 0,15 m (50/50); nav bake polyCount > 0 + findPath"
+  - "e2e level-truong-son (webgl-ci): đứng/đi/dốc không xuyên đất; dốc quá maxSlope không leo"
+  - "assets:validate 0 lỗi (4 bộ texture CC0 KTX2 + nav.bin trong manifest); npm run ci xanh"
+tests: [tests/unit/terrain.test.ts, tests/e2e/level-truong-son.spec.ts, tests/unit/validate-assets.test.ts]
+evidence: [evidence/TIP-D04/spawn.png, evidence/TIP-D04/ridge.png, evidence/TIP-D04/valley.png, evidence/TIP-D04/wire-lod.png, evidence/TIP-D04/stats.txt, evidence/TIP-D04/probe.txt, evidence/TIP-D04/ci.txt, evidence/TIP-D04/completion-report.md]
+rollback: "git revert; ô terrain + texture ở lại manifest không ảnh hưởng level arena/pho"
+status: DONE (số Mac chờ D05; deferred: vạch AO mờ trong 140 m ở góc xiên)

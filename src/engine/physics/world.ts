@@ -5,7 +5,7 @@
 import RAPIER from '@dimforge/rapier3d-compat';
 import { LAYER, colliderGroups, rayGroups } from './layers';
 
-export type SurfaceMaterial = 'concrete' | 'steel' | 'wood' | 'tarp' | 'flesh';
+export type SurfaceMaterial = 'concrete' | 'steel' | 'wood' | 'tarp' | 'flesh' | 'earth';
 
 export interface ColliderUserData {
   id: string;
@@ -28,10 +28,14 @@ export interface RayHit {
 }
 
 export interface StaticShape {
-  kind: 'box' | 'cylinder';
+  kind: 'box' | 'cylinder' | 'heightfield';
   position: [number, number, number];
+  /** box: half extents; cylinder: [radius, halfHeight, 0]; heightfield: [sizeX, 1, sizeZ] (m, toàn chiều) */
   size: [number, number, number];
   yaw: number;
+  /** heightfield (TIP-D04): cao độ n×n theo hàng (j = z, i = x; index j·n + i) — được chuyển sang column-major của Rapier */
+  heights?: Float32Array;
+  n?: number;
 }
 
 let initPromise: Promise<void> | null = null;
@@ -61,7 +65,16 @@ export class PhysicsWorld {
   addStatic(shape: StaticShape, data: ColliderUserData, layer: number = LAYER.WORLD): RAPIER.Collider {
     let desc: RAPIER.ColliderDesc;
     if (shape.kind === 'box') desc = RAPIER.ColliderDesc.cuboid(shape.size[0], shape.size[1], shape.size[2]);
-    else desc = RAPIER.ColliderDesc.cylinder(shape.size[1], shape.size[0]);
+    else if (shape.kind === 'heightfield') {
+      // Rapier: ma trận (nrows+1)×(ncols+1) column-major; hàng ↔ z (từ −sizeZ/2), cột ↔ x (từ −sizeX/2) — kiểm bằng tests/unit/terrain.test.ts
+      const n = shape.n ?? 0;
+      const src = shape.heights;
+      if (!src || n < 2 || src.length !== n * n) throw new Error(`heightfield ${data.id}: heights ${src?.length} ≠ n² (${n})`);
+      const cm = new Float32Array(n * n);
+      for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) cm[i * n + j] = src[j * n + i]!;
+      desc = RAPIER.ColliderDesc.heightfield(n - 1, n - 1, cm, V(shape.size[0], 1, shape.size[2]));
+      if (data.thickness === undefined) data.thickness = 100;
+    } else desc = RAPIER.ColliderDesc.cylinder(shape.size[1], shape.size[0]);
     desc.setTranslation(shape.position[0], shape.position[1], shape.position[2]);
     const half = shape.yaw / 2;
     desc.setRotation({ x: 0, y: Math.sin(half), z: 0, w: Math.cos(half) });

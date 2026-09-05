@@ -1,0 +1,15 @@
+TIP-D04 — probe sandbox `?level=truong-son&quality=medium&backend=webgl` (SwiftShader, 1280×720, 3 frame sau teleport), build sau sửa AO fade + camera near 0,25
+
+view      camera (x,y,z) / yaw / pitch          draws  tris tổng  terrain: draws  tris     LOD0/1/2/3 ô hiển thị   nav
+spawn     (−134, mặt đất+1,7, 580) 0,60 / 0           81    346,656       4   63,808  8/12/36/481             nav.bin 1732 poly
+ridge     (−200, mặt đất+1,7, 430) 2,40 / −0,10       81    320,352       4   37,504  7/11/38/110             nav.bin 1732 poly
+valley    (−134, +60 m, 580) 3,60 / −0,35 (free)      41    243,074       4   38,976  8/12/35/96              nav.bin 1732 poly
+wire-lod  như valley, wireframe                       41    282,050       4   38,976  8/12/35/96              nav.bin 1732 poly
+
+Ngân sách: draw target 400/đỏ 650 → tổng 41–81 (terrain ≤ 4 — AC đạt); tris target 2,5 M → tổng 0,24–0,35 M (terrain 37–64 k; phần còn lại là lính/AK/tay skinned).
+Ô: 1024 ô 64 m; góc spawn thấy 537 ô (8 LOD0, 12 LOD1, 36 LOD2, 481 LOD3). Cull CPU ~0,1 ms (1024 AABB).
+Navmesh bake sẵn nav.bin: 129×129 đỉnh lưới 4 m, 1732 poly, 303 KB, bake 3,7 s (Node); nạp runtime 1–2 ms.
+Console: 0 error; warning: PMREM deprecated (có sẵn), GL driver perf message của SwiftShader (không phải app).
+Heightfield Rapier 1025² (2 m): unit test 50 điểm |raycast − sample| ≤ 0,15 m (đạt; mặt nghiêng tổng hợp ≤ 0,02 m).
+E2E level-truong-son.spec.ts (webgl-ci, assets=0): đứng 3 s gap ≤ 0,3; đi lên dốc 8 s tiến ≥ 15 m không xuyên; dốc > 58° leo < 2,5 m; nav poly > 0; terrain ≤ 4 draw — PASS 22,7 s.
+Số Mac WebGPU (fps/p95/gpu_ms) do Chủ nhà đo ở D05 (script pho-dvsg/ts-probe chạy được trên Chrome thật).

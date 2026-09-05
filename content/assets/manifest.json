@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T08:27:08.983Z",
+  "generatedAt": "2026-09-05T09:26:34.412Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 118856631,
+  "totalBytes": 126134228,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -2469,6 +2469,122 @@
       }
     },
     {
+      "id": "brown_mud_leaves_01",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp mùn lá rừng (mặc định)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/brown_mud_leaves_01",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/brown_mud_leaves_01/brown_mud_leaves_01_diff_1k.ktx2",
+          "bytes": 229954,
+          "sha256": "1045ce8d7a5e79a513c9d0fc9b34ef69328353a38279ff8d3712cce485ba6c6e"
+        },
+        {
+          "path": "assets/textures/brown_mud_leaves_01/brown_mud_leaves_01_nor_gl_1k.ktx2",
+          "bytes": 1368540,
+          "sha256": "4d8e964e04b456d9bc4861c6cb39dd7b2e9f66da141240873a9bcf04c467b138"
+        },
+        {
+          "path": "assets/textures/brown_mud_leaves_01/brown_mud_leaves_01_arm_1k.ktx2",
+          "bytes": 144997,
+          "sha256": "5f707f19d33c722280857835fa22b4a23389d9e660cd08f1740a11e5e8ab2d78"
+        }
+      ]
+    },
+    {
+      "id": "brown_mud_03",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp đất ướt đường mòn",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/brown_mud_03",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/brown_mud_03/brown_mud_03_diff_1k.ktx2",
+          "bytes": 198540,
+          "sha256": "c994489bbc7e0885987f297182630014446259863db01e9032a6694cf539f2f0"
+        },
+        {
+          "path": "assets/textures/brown_mud_03/brown_mud_03_nor_gl_1k.ktx2",
+          "bytes": 1364731,
+          "sha256": "3f42bbc6160b668f3638f859801a59ee8a77ba831951434cf934835f1bcee1c5"
+        },
+        {
+          "path": "assets/textures/brown_mud_03/brown_mud_03_arm_1k.ktx2",
+          "bytes": 184064,
+          "sha256": "45d0142b499ba0ef8dbba756c3b8dfcb7b4e8dc11b9c3f46d866ee3170266165"
+        }
+      ]
+    },
+    {
+      "id": "aerial_rocks_02",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp đá dốc (triplanar)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/aerial_rocks_02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/aerial_rocks_02/aerial_rocks_02_diff_1k.ktx2",
+          "bytes": 231589,
+          "sha256": "8c10f84ca6090d5b6f71906e0b9e33b14a6b66c2d0732d4954f303c01850b12b"
+        },
+        {
+          "path": "assets/textures/aerial_rocks_02/aerial_rocks_02_nor_gl_1k.ktx2",
+          "bytes": 1346078,
+          "sha256": "76b4e0ada4b1996728a9617ad7597058fdfe2bc23fa21cb65e6cd86d0b12820e"
+        },
+        {
+          "path": "assets/textures/aerial_rocks_02/aerial_rocks_02_arm_1k.ktx2",
+          "bytes": 169343,
+          "sha256": "6fc692e48e1cac85031a7a1e45cf7d6f4ca32550e9919f61c636bb9f3f18ba77"
+        }
+      ]
+    },
+    {
+      "id": "aerial_grass_rock",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp cỏ tranh/rêu đồi cao",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/aerial_grass_rock",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/aerial_grass_rock/aerial_grass_rock_diff_1k.ktx2",
+          "bytes": 216370,
+          "sha256": "7bf2621fa579cb4fc80eef4f1774d07023c253c2a936ea88084a54362c8d4277"
+        },
+        {
+          "path": "assets/textures/aerial_grass_rock/aerial_grass_rock_nor_gl_1k.ktx2",
+          "bytes": 1343431,
+          "sha256": "602381d9d12fbd49a51e93c8bd9e7b17edb869969407af87370ec8893b79db4e"
+        },
+        {
+          "path": "assets/textures/aerial_grass_rock/aerial_grass_rock_arm_1k.ktx2",
+          "bytes": 169468,
+          "sha256": "eace5d687204cd255421b697c3dd96d3f10d87205867b332b5e0153f1b6d20a6"
+        }
+      ]
+    },
+    {
       "id": "soldier_mixamo",
       "type": "character",
       "use": "lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs",
@@ -2997,6 +3113,11 @@
           "path": "assets/terrain/truong-son-a/preview.png",
           "bytes": 254713,
           "sha256": "08c65e0991e563b456a4138dc4284564e0665568e9b289c8241a0d45a8b6ef83"
+        },
+        {
+          "path": "assets/terrain/truong-son-a/nav.bin",
+          "bytes": 310492,
+          "sha256": "f8e4aae7bcadc9a647e1eaae2ceadd922c724ba1a0699b83aba069f298ec84b9"
         }
       ],
       "sourceFiles": [

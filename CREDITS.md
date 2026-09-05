@@ -76,6 +76,10 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - potted_plant_02 (model) — Rico Cilliers — https://polyhaven.com/a/potted_plant_02
 - water_manhole_cover (model) — Raunox — https://polyhaven.com/a/water_manhole_cover
 - modular_chainlink_fence (model) — James Ray Cock, Amal Kumar — https://polyhaven.com/a/modular_chainlink_fence
+- brown_mud_leaves_01 (texture) — Rob Tuytel — https://polyhaven.com/a/brown_mud_leaves_01
+- brown_mud_03 (texture) — Rob Tuytel — https://polyhaven.com/a/brown_mud_03
+- aerial_rocks_02 (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_rocks_02
+- aerial_grass_rock (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_grass_rock
 
 ## Mixamo
 
@@ -86,4 +90,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
-Tổng: 72 asset, 113.4 MB. Cập nhật 2026-09-05T08:27:08.983Z.
+Tổng: 76 asset, 120.3 MB. Cập nhật 2026-09-05T09:26:34.412Z.
