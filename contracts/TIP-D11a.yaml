@@ -1,0 +1,11 @@
+id: TIP-D11a
+goal: "Lính QGP 1971 lớp 2–15 m + tay FP 1971 từ Mixamo Swat Guy: bỏ gear hiện đại, sơn lại atlas (vải Tô Châu CC0, tay trần), mũ cối + bao xe procedural gắn bone; tay FP dẫn xuất tự có da/áo"
+scope: [scripts/retexture-1971.mjs, src/engine/render/gear1971.ts, src/game/actors/visual.ts, src/game/actors/dummy.ts, src/game/game.ts, public/assets/characters/soldier.glb, public/assets/characters/soldier_arms.glb, content/assets/manifest.json, tests/unit/soldier1971.test.ts, docs/tips/TIP-D11a.md, README.md]
+acceptance:
+  - "bot/dummy: không rằn ri/giáp/kính/đệm gối; áo quần olive, tay trần, mũ cối, bao xe; tay FP ống tay olive + bàn tay da; assets:validate 0 lỗi; unit + CI xanh"
+  - "manifest soldier_mixamo: historical=true, registryId ∈ content/registry/uniforms.yaml, approved=false; tam giác còn < 45 % gốc"
+  - "Chủ nhà chấm ảnh Mac WebGPU 3 góc (mũ vừa đầu, bao xe không xuyên áo, tay FP tay trần); phần chưa đạt ghi D11b"
+tests: [tests/unit/soldier1971.test.ts, tests/unit/assets.test.ts, tests/unit/weapons.test.ts]
+evidence: [evidence/TIP-D11a/sandbox-soldier-idle.png, evidence/TIP-D11a/sandbox-soldier-aim.png, evidence/TIP-D11a/sandbox-head.png, evidence/TIP-D11a/sandbox-fp-hip.png, evidence/TIP-D11a/atlas-1971.jpg, evidence/TIP-D11a/ci.txt, evidence/TIP-D11a/completion-report.md, evidence/TIP-D11a/mac-*.png]
+rollback: "git revert (soldier.glb/soldier_arms.glb về bản Swat KTX2 2a91795); gear: bỏ opts.gear trong game.ts"
+status: PARTIAL (sandbox xong; chờ ảnh Mac + cố vấn; D11b: đầu/bàn chân/dép/ba lô/bi đông)

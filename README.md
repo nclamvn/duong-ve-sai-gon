@@ -72,7 +72,10 @@ Terrain DEM (TIP-D04, ADR-D05 — `?level=truong-son`): SRTM 1″ public domain 
 → `public/assets/terrain/<id>/{height.r16,meta.json,preview.png}`; navmesh bake: `node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512`
 → `nav.bin` (+ manifest). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
-texture 2K JPEG, meshopt) → `public/assets/characters/soldier.glb` + mục `soldier_mixamo` trong manifest.
+texture 2K JPEG, meshopt) → `assets-src/mixamo/soldier-swat.glb` (giữ bản gốc, không commit) → **lính QGP 1971** (TIP-D11a):
+`node scripts/retexture-1971.mjs` (bỏ gear hiện đại, sơn lại atlas: vải Tô Châu từ Poly Haven CC0 `assets-src/polyhaven/stretch_poplin/`, tay trần)
+→ `node scripts/extract-arms.mjs` (tay FP) → `node scripts/ktx2.mjs --only models --filter soldier` → `public/assets/characters/{soldier,soldier_arms}.glb`
++ manifest `soldier_mixamo` (historical, `registryId uni.pavn.1971.field_uniform_green`, `approved: false`). Mũ cối + bao xe dựng procedural (`src/engine/render/gear1971.ts`, gắn bone `Head`/`Spine2`).
 
 Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, Thợ tải): nguồn `assets-src/sketchfab/<slug>/` →
 `npm run assets:weapon -- --src assets-src/sketchfab/ak74m --id weapon_ak74m --length 0.943 --title … --author … --url …` →

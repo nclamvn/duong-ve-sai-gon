@@ -254,7 +254,7 @@ export class Game {
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff }, this.assets.weapons[this.botWeaponId] ?? null);
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: 'pavn1971' }, this.assets.weapons[this.botWeaponId] ?? null);
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -628,7 +628,7 @@ export class Game {
   spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
-    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length }, this.assets?.weapons[this.botWeaponId] ?? null);
+    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' }, this.assets?.weapons[this.botWeaponId] ?? null);
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,

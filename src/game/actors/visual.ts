@@ -6,6 +6,7 @@ import { Group, Object3D, SkinnedMesh, Vector3, Matrix4, Quaternion } from 'thre
 import { Dummy, DUMMY_HIT_ZONES, type HitZones, type DummyOptions } from './dummy';
 import { CharacterInstance, type CharacterAsset } from '@engine/render/characters';
 import { attachRifle, type AttachedRifle } from '@engine/render/rifleProp';
+import { attachGear1971, findChestBone, type Gear1971 } from '@engine/render/gear1971';
 import { findArmChain, solveTwoBone, type ArmChain } from '@engine/render/armIk';
 import { poseToMatrix, type WeaponAsset } from '@engine/render/weaponModel';
 
@@ -50,6 +51,8 @@ export class SoldierVisual implements ActorVisual {
   readonly rifleKind: 'procedural' | 'gltf' | 'none';
   /** súng đã gắn (anchor/weapon cho IK tay trái + calib) */
   readonly attached: AttachedRifle | null;
+  /** trang bị procedural theo thời kỳ (TIP-D11a) — null nếu opts.gear không đặt */
+  readonly gear: Gear1971 | null;
   /** chuỗi IK tay trái (TIP-017) — null nếu không có súng glTF hoặc thiếu bone */
   readonly armL: ArmChain | null;
   /** khoảng cách còn lại cổ tay trái ↔ đích IK (m) — debug/calib */
@@ -80,6 +83,7 @@ export class SoldierVisual implements ActorVisual {
     this.muzzle = att?.muzzle ?? null;
     this.rifleKind = att?.kind ?? 'none';
     this.armL = att?.kind === 'gltf' ? findArmChain(this.char.model, 'Left') : null;
+    this.gear = opts.gear === 'pavn1971' ? attachGear1971({ head: b.head, chest: findChestBone(this.char.model) }) : null;
   }
 
   /** IK tay trái ôm ốp lót: cổ tay trái → gripL · fp.handL (world). Gọi sau mixer update, trước render. */

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T13:00:29.775Z",
+  "generatedAt": "2026-09-05T14:25:31.542Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 129054136,
+  "totalBytes": 126582460,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -2587,7 +2587,7 @@
     {
       "id": "soldier_mixamo",
       "type": "character",
-      "use": "lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs",
+      "use": "lính Quân Giải phóng 1971 (dummy + bot) — Mixamo Swat Guy, Chủ nhà tải, convert scripts/convert-mixamo.mjs → bỏ gear + sơn lại atlas bằng scripts/retexture-1971.mjs (vải Tô Châu, tay trần; đầu/giày tạm — D11b)",
       "source": "mixamo",
       "url": "https://www.mixamo.com/",
       "authors": [
@@ -2597,8 +2597,8 @@
       "files": [
         {
           "path": "assets/characters/soldier.glb",
-          "bytes": 12018728,
-          "sha256": "e1ce7026cb5b69e589879500756f85ed5a459d6bc08ffdf2e792d20268310191"
+          "bytes": 10049144,
+          "sha256": "54063b960f10191705db4149930fd1725a4538a608029070f49c80be997c9f78"
         }
       ],
       "sourceFiles": [
@@ -2646,8 +2646,25 @@
           "path": "assets-src/mixamo/swat.fbx",
           "bytes": 115014208,
           "sha256": "de5d15ebae817d5f09fe64edbd8dd4d7844ed725b5581913bdaa9bc9a4ed1c18"
+        },
+        {
+          "path": "assets-src/mixamo/soldier-swat.glb",
+          "bytes": 7178300,
+          "sha256": "6de4c96b0ad98899efb2edd6620b583561c060de343a1e58453634b52e9bfc53"
+        },
+        {
+          "path": "assets-src/polyhaven/stretch_poplin/stretch_poplin_diff_1k.jpg",
+          "bytes": 493642,
+          "sha256": "43d1fa852fea75ef9ccb0832f70df3d717190263f3048c4d26a8ec764af49640"
         }
-      ]
+      ],
+      "historical": true,
+      "registryId": "uni.pavn.1971.field_uniform_green",
+      "approved": false,
+      "triangles": {
+        "source": 46297,
+        "output": 17168
+      }
     },
     {
       "id": "weapon_ak74m",
@@ -2707,35 +2724,6 @@
       "triangles": {
         "source": 30088,
         "output": 15198
-      }
-    },
-    {
-      "id": "soldier_arms",
-      "type": "character",
-      "use": "cánh tay góc nhìn thứ nhất (TIP-016) — dẫn xuất từ soldier_mixamo bằng scripts/extract-arms.mjs",
-      "source": "mixamo",
-      "url": "https://www.mixamo.com/",
-      "authors": [
-        "Adobe Mixamo"
-      ],
-      "license": "Mixamo",
-      "files": [
-        {
-          "path": "assets/characters/soldier_arms.glb",
-          "bytes": 3448272,
-          "sha256": "894cc9e70009c5fc1beb25a2d42cada5d55b1e65e1c2e0b8e64fd2323e99e3a4"
-        }
-      ],
-      "sourceFiles": [
-        {
-          "path": "public/assets/characters/soldier.glb",
-          "bytes": 7178300,
-          "sha256": "6de4c96b0ad98899efb2edd6620b583561c060de343a1e58453634b52e9bfc53"
-        }
-      ],
-      "triangles": {
-        "source": 46297,
-        "output": 15658
       }
     },
     {
@@ -3160,6 +3148,35 @@
       "historical": true,
       "registryId": "wpn.pavn.type56_rifle",
       "approved": false
+    },
+    {
+      "id": "soldier_arms",
+      "type": "character",
+      "use": "cánh tay góc nhìn thứ nhất (TIP-016) — dẫn xuất từ soldier_mixamo bằng scripts/extract-arms.mjs",
+      "source": "mixamo",
+      "url": "https://www.mixamo.com/",
+      "authors": [
+        "Adobe Mixamo"
+      ],
+      "license": "Mixamo",
+      "files": [
+        {
+          "path": "assets/characters/soldier_arms.glb",
+          "bytes": 2946180,
+          "sha256": "996aff34e9fa3707074d4ccb9c1fb4c88593c9815e23987c375134c016e78243"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "public/assets/characters/soldier.glb",
+          "bytes": 5460700,
+          "sha256": "72dce4571523b60d3c34e5abe3ea0341d2001713e14358243be89d2375f66ea4"
+        }
+      ],
+      "triangles": {
+        "source": 17168,
+        "output": 6364
+      }
     }
   ]
 }
