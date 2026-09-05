@@ -81,29 +81,29 @@
   "fp": {
     "handR": {
       "pos": [
-        0.0477,
-        -0.0012,
-        0.1089
+        0.0084,
+        -0.0108,
+        0.12
       ],
       "rot": [
-        -0.4634,
-        -1.2972,
-        1.1154
+        -2.0599,
+        -1.4363,
+        -0.5653
       ]
     },
     "handL": {
       "pos": [
-        -0.1069,
-        -0.0071,
-        0.099
+        -0.0914,
+        -0.0224,
+        0.0694
       ],
       "rot": [
-        -1.3795,
-        0.3812,
-        -1.3796
+        -1.5905,
+        0.0077,
+        -0.9324
       ]
     },
     "triggerFinger": 0.6,
-    "$comment": "TIP-D10 bước 2: fit() trên clip rifle_aim với bot cầm AK-47 (?calib=soldier&botWeapon=ak47), sandbox WebGL; R lệch 0,6 mm, L raw 8,1 cm (IK kéo tới gripL, ikError 0); gripR→gripL 0,318 m"
+    "$comment": "TIP-D10/D11a: dùng pose tay đã kiểm trên Mac của AK-74M (TIP-017, cùng hệ anchor: gripL z −0,13 y −0,03; gripR lệch 1,5 cm) — fit() từ clip rifle_aim với AK-47 cho cổ tay trái gập (L raw 8,1 cm, Chủ nhà: \"cánh tay như bị tật\"). Hiệu chỉnh tiếp bằng ?calib=fp setHand/exportJson."
   }
 }

@@ -40,3 +40,6 @@
 ## reload + ADS
 {"reload":{"magBefore":28,"state0":"RELOADING","stateMid":"RELOADING","magMid":28,"reloadMs":2500,"framesMid":23},"reloadEnd":{"state":"IDLE","mag":30,"reserve":118,"reloadEnd":1}}
 {"adsT":{"ticksTo1":13,"ms":216.66666666666666,"adsMs":210,"id":"ak47","rpm":600}}
+
+## sửa sau ảnh Mac Chủ nhà ("cánh tay như bị tật" — cổ tay trái gập, DV-029)
+fp.handR/handL đổi sang pose AK-74M đã kiểm Mac (TIP-017); measure() sandbox: {"hip":{"L":0.0083,"R":0.0049},"ads":{"L":0.0083,"R":0.0049}} — cả hai ≤ 1,5 cm (AC).

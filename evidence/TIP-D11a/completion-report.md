@@ -4,7 +4,7 @@ STATUS: **PARTIAL** — sandbox xong (retexture + gear procedural + tay FP tay t
 
 ## FILES CHANGED
 Tạo mới
-- `scripts/retexture-1971.mjs` — Swat Guy → lính 1971: island (liên thông đỉnh) phân loại theo bbox tỷ lệ mesh; 1002 (gear) chỉ giữ bàn tay+cổ tay (|x| ≥ 73 % nửa rộng T-pose) và giày; 1001 bỏ đệm gối/túi/tai nghe/kính; sơn atlas theo lớp: VẢI = màu Tô Châu × dệt poplin CC0 × sáng/tối gốc (blur 11 px, chuẩn hoá **từng island** ≥ 200 tam giác, nén tương phản 0,5, sàn 0,72), DA (blur 2, nén 0,35), thắt lưng nâu, giày đen; normal vùng da phẳng; ORM: AO sàn 150/235, roughness sàn 190/128/140, metal 0; bỏ emissive. Manifest `soldier_mixamo`: historical, `registryId uni.pavn.1971.field_uniform_green`, approved false, sourceFiles (GLB gốc + vải), triangles.
+- `scripts/retexture-1971.mjs` — Swat Guy → lính 1971: island (liên thông đỉnh) phân loại theo bbox tỷ lệ mesh; 1002 (gear) chỉ giữ bàn tay (|x| ≥ 90 % nửa rộng T-pose → da), đai cổ tay (73–90 % → cổ tay áo) và giày; 1001 bỏ đệm gối/túi/tai nghe/kính; sơn atlas theo lớp: VẢI = màu Tô Châu × dệt poplin CC0 × sáng/tối gốc (blur 22 px, chuẩn hoá **từng island** ≥ 200 tam giác, nén tương phản 0,45, sàn 0,78), DA (blur 2, nén 0,35), thắt lưng nâu, giày đen; normal vùng da phẳng; ORM: AO sàn 150/235, roughness sàn 190/128/140, metal 0; bỏ emissive. Manifest `soldier_mixamo`: historical, `registryId uni.pavn.1971.field_uniform_green`, approved false, sourceFiles (GLB gốc + vải), triangles.
 - `src/engine/render/gear1971.ts` — mũ cối (lathe 14 điểm × 28 đoạn, kéo 1,0/1,12/1,14 → 0,30 × 0,34 × 0,125 m, vành nghiêng, DoubleSide) gắn `Head` (+13,5 cm, +1 cm trước, −3°); bao xe 3 túi ôm ngực (túi ngoài lùi 1,8 cm xoay ±23°, nắp, khuy, dây ngang, 2 dây vai) gắn `Spine2` (+19 cm trước, −3 cm); material olive 0x55634a roughness 0,92; geometry cache; `attachGear1971`/`findChestBone`/`GEAR_TRIANGLES`.
 - `tests/unit/soldier1971.test.ts` (4 test): manifest historical/registry/approved/tam giác < 45 %; registry có 4 mục 1971; kích thước mũ/bao xe + tổng < 3 000 tam giác; attach/dispose + thiếu bone.
 - `docs/tips/TIP-D11a.md`, `contracts/TIP-D11a.yaml`, `evidence/TIP-D11a/*`.
@@ -12,7 +12,7 @@ Tạo mới
 Sửa
 - `src/game/actors/dummy.ts` (`DummyOptions.gear?: 'pavn1971'`), `src/game/actors/visual.ts` (`SoldierVisual.gear`, gắn sau súng), `src/game/game.ts` (bot + dummy `gear: 'pavn1971'`).
 - `public/assets/characters/soldier.glb` 12,0 → **9,58 MB** KTX2 (tam giác 46 297 → **17 168**, −63 %), `soldier_arms.glb` 3,45 → **2,81 MB** (tay FP dẫn xuất qua `extract-arms.mjs` không đổi code); manifest tổng 120,3 → 120,7 MB (ktx2 của atlas sơn lại 2K).
-- `README.md` (pipeline nhân vật 1971), `docs/DECISIONS.md` DV-027/028.
+- `README.md` (pipeline nhân vật 1971), `docs/DECISIONS.md` DV-027/028/029.
 
 ## TEST RESULTS (theo AC)
 | AC | Kết quả |
@@ -26,7 +26,7 @@ Sửa
 - (Trung bình, D11b) **Giày đen** thay vì dép cao su (registry `sandals_rubber` tier S): mesh không có bàn chân → dép cần chân trần + quai; PRD "thật đến từng cái dép" chưa đạt ở lớp này.
 - (Thấp) Đầu to (vỏ mũ Swat làm sọ, rộng ±11 cm) → mũ cối phải 0,30 × 0,34 m để trùm — hơi quá cỡ; D11b đầu thật sẽ về 0,27 × 0,31.
 - (Thấp) Áo giáp Swat sơn olive còn hình khối "áo phao" dưới bao xe; đọc như áo trấn thủ ở xa. D11b thay thân.
-- (Thấp) Bàn tay: đường may găng còn thấy mờ (nén 0,35), bướu bảo vệ khớp ngón (geometry găng) còn → tay hơi "đầy"; cần mesh tay trần thật ở D11b nếu Chủ nhà thấy.
+- (Đã sửa) Ảnh Mac đầu tiên của Chủ nhà: "cánh tay như bị tật" (`mac-fp-hip-before-fix.png`) — cổ tay trái gập do pose fit() của D10 + đai cổ tay găng sơn da thành bướu + ống tay còn loang rằn ri. Sửa: pose tay AK-74M đã kiểm Mac (DV-029), đai cổ tay → vải (cổ tay áo), blur vải 22 px/nén 0,45/sàn 0,78 → ống tay olive trơn. Còn: bàn tay găng Swat mập/mượt (bướu khớp ngón) → mesh tay trần thật ở D11b nếu Chủ nhà thấy.
 - (Ghi nhận) Chiều cao nhân vật vẫn `targetHeight` 1,82 m (HT-MB) — bộ đội 1971 trung bình ~1,60–1,65 m: đổi ở `assets.ts` ảnh hưởng eye-height bot/hit zone/tay FP → ADR riêng (Chủ thầu).
 - (Ghi nhận) Visor emissive (`opts.visor`) không còn material tên visor → không hiện; cyan/orange đọc phe qua visor mất — PRD không muốn hit-marker/đèn arcade nên ổn, nhưng độ đọc địch/bạn ở xa cần xem lại ở D08 (băng tay, mũ khác).
 

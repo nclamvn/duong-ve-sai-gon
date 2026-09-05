@@ -41,7 +41,7 @@ const COLORS = {
   BOOT: [44, 40, 36],
 };
 /** hệ số sáng/tối gốc: blur (px ở 2048) và nén tương phản (0 = phẳng, 1 = giữ nguyên) */
-const SHADE = { CLOTH: { blur: 11, k: 0.5, min: 0.72 }, SKIN: { blur: 2, k: 0.35, min: 0.6 }, BELT: { blur: 3, k: 0.6, min: 0.45 }, BOOT: { blur: 3, k: 0.6, min: 0.45 } };
+const SHADE = { CLOTH: { blur: 22, k: 0.45, min: 0.78 }, SKIN: { blur: 2, k: 0.35, min: 0.6 }, BELT: { blur: 3, k: 0.6, min: 0.45 }, BOOT: { blur: 3, k: 0.6, min: 0.45 } };
 /** island ≥ ngần này tam giác được chuẩn hoá sáng/tối riêng (bỏ chênh lệch sơn gốc: áo giáp đen vs rằn ri sáng) */
 const ISLAND_NORM_MIN = 200;
 
@@ -71,13 +71,14 @@ console.log(`[1971] bbox y ${bb.y0.toFixed(3)}..${bb.y1.toFixed(3)} (cao ${H.toF
  *  1001: DROP nhỏ ≤ 64 tam giác (túi, tai nghe) · DROP đệm gối (uv u ≥ 0,85, v ≤ 0,6) · DROP kính/chụp tai (y ≥ 84,5 %, < 300 tam giác) ·
  *        SKIN sọ (vỏ mũ Swat) + mặt (y ≥ 84,5 % cao) ·
  *        BELT (y 53–61 %, ≤ 210 tam giác) · còn lại CLOTH.
- *  1002: SKIN bàn tay + cổ tay (|x| ≥ 73 % nửa rộng T-pose) · BOOT (y ≤ 10 %) · còn lại DROP.
+ *  1002: SKIN bàn tay (|x| ≥ 90 % nửa rộng T-pose) · CLOTH đai cổ tay (73–90 %) · BOOT (y ≤ 10 %) · còn lại DROP.
  */
 function classify(matName, e) {
   const isGear = /body1$/i.test(matName);
   const ax = Math.max(Math.abs(e.x0), Math.abs(e.x1)) / XH;
   if (isGear) {
-    if (ax >= 0.73) return 'SKIN';
+    if (ax >= 0.9) return 'SKIN'; // bàn tay (găng → da)
+    if (ax >= 0.73) return 'CLOTH'; // đai cổ tay găng → cổ tay áo (che khe ống tay 1001 – bàn tay 1002 ~2 cm)
     if (yF(e.y1) <= 0.1) return 'BOOT';
     return 'DROP';
   }

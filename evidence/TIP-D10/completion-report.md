@@ -6,7 +6,7 @@ STATUS: **PARTIAL** — bước 1 + 2 xong trong sandbox (WebGL2/SwiftShader); c
 Bước 1 (2a91795): `scripts/lib/bake-skins.mjs`, `scripts/convert-weapon.mjs`, `scripts/weapon-profile.mjs`, `public/assets/weapons/ak47.glb` (KTX2 2,78 MB), `content/weapons/ak47.json`, manifest `weapon_ak47` (CC-BY-4.0 Aleksei Vlasov/CRWDE, `historical/registryId wpn.pavn.type56_rifle/approved:false`), `src/game/game.ts` (`?weapon=`), `tests/unit/weapons.test.ts`, CREDITS.
 
 Bước 2 (commit này)
-- `content/weapons/ak47.json` — `fp.handR/handL` từ `fit()` (clip `rifle_aim`, bot cầm AK-47): R lệch 0,6 mm; L raw 8,1 cm → IK kéo về `gripL`, `ikError 0`; `gripR→gripL` 0,318 m (span tay Mixamo 0,306 m).
+- `content/weapons/ak47.json` — `fp.handR/handL`: lần đầu từ `fit()` (clip `rifle_aim`, L raw 8,1 cm → cổ tay gập trên Mac); **sửa:** dùng pose AK-74M đã kiểm Mac (TIP-017), measure R 4,9 mm / L 8,3 mm.
 - `content/tuning/weapons.json` — entry **`ak47`**: 600 v/ph, băng 30/120, sát thương 80/34, reload 2 500 ms, ADS 210 ms (khoảng thử 180–240, GUN-201), FOV ADS 58, recoil 10 viên giật đứng 1,3→0,85° lệch phải, noise 0,2, viewKick 0,42, spread hip 2,2/3,8 ADS 0,35, xuyên gỗ/bạt 0,4 m, tầm 250 m. Không phải thông số thực — tinh chỉnh bằng người chơi.
 - `src/game/game.ts` — `Weapon` dùng tuning theo khẩu (`ak47` ↔ `ak47`; `ak74m` giữ `ar_v1`); `botWeaponId` + `?botWeapon=` (bot/dummy cầm khẩu chọn — calib và lính QGP D11); `audio.gunshot(e.weapon)`.
 - `src/qa/calib.ts` — `soldierWeaponId = game.botWeaponId` (thay `?calibWeapon`).
@@ -20,12 +20,12 @@ Bước 2 (commit này)
 | AC | Kết quả |
 |----|---------|
 | `?weapon` mặc định ak47; ak74m fixture; `weapons.test` PASS; `assets:validate` 0 lỗi; manifest historical+registryId+approved=false | **PASS** — unit 118/118 (7 test weapons), CI xanh (`ci.txt`: typecheck, unit, build, e2e 8/8 5,2 phút) |
-| Mac `?calib=fp`: `measure()` R/L ≤ 1,5 cm; tay trái trên ốp lót; ảnh hip/ADS/sprint Chủ nhà chấm | **PARTIAL** — sandbox: R 3,2 mm ✓; **L raw 7,8 cm** (cổ tay Mixamo so với pose fit) nhưng IK kéo về `gripL` với `ikError 0`, reach 0,447/0,498 m ✓ — tay trái **ôm ốp lót phía sau** (ngón dưới, ngón cái dọc bên trái, `sandbox-hip.png`); ADS thước ngắm–đầu ruồi thẳng trục (`sandbox-ads.png`). **Chưa có ảnh Mac WebGPU** (dev server Mac tắt lúc chạy) — Chủ nhà chạy `?calib=fp&weapon=ak47` và chấm |
+| Mac `?calib=fp`: `measure()` R/L ≤ 1,5 cm; tay trái trên ốp lót; ảnh hip/ADS/sprint Chủ nhà chấm | **PARTIAL** — pose fit() lần đầu (L raw 7,8 cm) bị Chủ nhà chấm trên Mac: "cánh tay như bị tật" (cổ tay trái gập, `evidence/TIP-D11a/mac-fp-hip-before-fix.png`) → **đổi sang pose AK-74M đã kiểm Mac** (TIP-017, cùng hệ anchor; DV-029): sandbox R **4,9 mm**, L **8,3 mm** ✓ (≤ 1,5 cm), cổ tay thẳng, ngón ôm ốp lót, ngón cái dọc trái (`sandbox-hip.png`); ADS thẳng trục (`sandbox-ads.png`). Chờ Chủ nhà chấm lại trên Mac |
 | ADS 180–240 ms; reload có thời điểm nạp xác định; không lỗi console | **PASS** — ADS 0→1: 13 tick = 217 ms (adsMs 210); bắn 40 frame @60 Hz: 7 viên (600 v/ph ✓), 7 IMPACT, recoil pitch tích luỹ 0,94° sau hồi; reload 28 → RELOADING (2 500 ms) → IDLE 30/118, `RELOAD_END` ×1, tay trái xuống băng rồi lên (`sandbox-reload.png`); 0 lỗi console |
 
 ## ISSUES
 - (Trung bình, chờ Chủ nhà) Găng tay đen + ống tay rằn ri Swat Guy còn nguyên trong ảnh — là việc **D11a** (tay trần + vải Tô Châu), không phải D10.
-- (Thấp) Cảm giác tay trái: pose fit từ clip Mixamo `rifle_aim` (tay đỡ hơi trước/giữa ốp lót, ngón cái dọc). Nếu Chủ nhà thấy "cầm hờ", chỉnh `fp.handL.rot` trong JSON (không sửa code) — `?calib=fp&weapon=ak47` có `setHand('L', pos, rot)` + `exportJson()`.
+- (Ghi nhận) `fit()` tự động từ clip Mixamo không tin được cho tay trái khi khẩu khác (AK-47: gun-in-char yaw 57°/pitch 23°, L raw 8 cm) — pose kiểm bằng mắt trên Mac là chuẩn; chỉnh tiếp bằng `?calib=fp&weapon=ak47` `setHand('L', pos, rot)` + `exportJson()` (không sửa code).
 - (Thấp, deferred) Băng đạn CRWDE không tách (`parts: {}`) → reload không thấy băng rời; khi cần hero reload dùng "Used AK 47" (dan741vlasov, 38 k tri, có băng rời) hoặc cắt băng bằng `--cut` theo bbox (z −0,06..0,03, y < −0,05).
 - (Thấp, deferred) Bolt không có part → không giật khi bắn; kick thân súng vẫn có.
 - (Ghi nhận) Sprint pose trong calib = hip (calib đứng yên, sprint cần speed > 3,5 m/s) — kiểm khi chạy thật trên Mac.
