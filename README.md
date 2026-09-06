@@ -70,7 +70,7 @@ npm run assets:validate   # validator (TIP-D02): license allow-list, CC-BY attri
 Terrain DEM (TIP-D04, ADR-D05 — `?level=truong-son`): SRTM 1″ public domain qua Terrain Tiles on AWS →
 `node scripts/terrain-bake.mjs --hgt assets-src/dem/N17E106.hgt --lat 17.55 --lon 106.10 --size 2048 --res 2 --id truong-son-a`
 → `public/assets/terrain/<id>/{height.r16,meta.json,preview.png}`; navmesh bake: `node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512`
-→ `nav.bin` (+ manifest); thêm `--level content/levels/truong-son-a.level.json` để bake **obstacle thân cây** (bot đi vòng cây, DV-040). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
+→ `nav.bin` (+ manifest); thêm `--level content/levels/truong-son-a.level.json` để bake **obstacle thân cây** (bot đi vòng cây, DV-040); `node scripts/find-clearing.mjs <x> <z> 300 18 0.08` tìm bãi trống tự nhiên trong rừng scatter (điểm treo đổ quân/LZ, DV-042). Bầu trời (TIP-D-SKY): khối `airTraffic` của level → `engine/sky` (lịch bay seeded, model `air_*` mũi +x, node tên `rotor|blade|prop` quay). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
 texture 2K JPEG, meshopt) → `assets-src/mixamo/soldier-swat.glb` (giữ bản gốc, không commit) → **lính QGP 1971** (TIP-D11a):
 `node scripts/retexture-1971.mjs` (bỏ gear hiện đại, sơn lại atlas: vải Tô Châu từ Poly Haven CC0 `assets-src/polyhaven/stretch_poplin/`, tay trần)
@@ -91,7 +91,7 @@ Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, T
 
 Model xe/khí tài/prop (TIP-021, D-060 — CC-BY Sketchfab, **không nhận asset rip từ game**: đọc mô tả/tag/tên material trước khi tải):
 `npm run assets:model -- --src assets-src/sketchfab/<slug> --id veh_<slug> --length 7.1 --title … --author … --url … --use …`
-(`--scale`, `--keep/--drop` node, `--merge-mats`, `--no-join` giữ pivot rotor, `--texture 1024`) → `public/assets/models/<id>.glb` (dài theo +x, đáy y=0, tâm xz=0)
+(`--scale`, `--pre x:90` xoay trước khi căn trục, `--flip`/`--yaw90`, `--keep/--drop` node, `--merge-mats`, `--no-join` giữ pivot rotor, `--split-joints rotor_01,tail_rotor_02:z` tách cánh quạt từ skin thành node pivot quay được, `--texture 1024`) → `public/assets/models/<id>.glb` (dài theo +x, đáy y=0, tâm xz=0)
 + manifest (`size`). Đặt vào level bằng `BarricadeDef.model/size` (xác xe: collider + cover 4 mặt) hoặc `PropDef` (collider/cover tuỳ chọn, `roll` cho xe ngã).
 
 Tham số hình ảnh: `?quality=low|medium|high` · `?post=off|low|medium|high` (low = bloom+FXAA, medium = +GTAO, high = +SSR chỉ WebGPU) ·

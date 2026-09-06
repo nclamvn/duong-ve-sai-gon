@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T05:31:30.567Z",
+  "generatedAt": "2026-09-06T06:54:22.409Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 131813236,
+  "totalBytes": 135644560,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3439,6 +3439,146 @@
         "source": 2128,
         "output": 1483
       }
+    },
+    {
+      "id": "air_f4",
+      "type": "model",
+      "use": "tiêm kích F-4 bay ngang trời (TIP-D-SKY) — F4 Phantom 2 Low Poly",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/f4-phantom-2-low-poly-61e7eac5e5bb438989b997dc873934b6",
+      "authors": [
+        "luacha2000"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"F4 Phantom 2 Low Poly\" (https://sketchfab.com/3d-models/f4-phantom-2-low-poly-61e7eac5e5bb438989b997dc873934b6) by luacha2000 is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/air_f4.glb",
+          "bytes": 89044,
+          "sha256": "1ee7293b56250c8de42accd66f072dea99992120d0091ca475aaa12b9d4ba43e"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/f4-luacha2000/f4_phantom_2_low_poly.glb",
+          "bytes": 377284,
+          "sha256": "931dc2f5f4dcc44edddb47a33211b2957647288c0b5a1317c2815447c604b786"
+        }
+      ],
+      "triangles": {
+        "source": 1562,
+        "output": 1562
+      },
+      "size": [
+        19.2,
+        4.045,
+        12.083
+      ]
+    },
+    {
+      "id": "air_b52",
+      "type": "model",
+      "use": "B-52 bay cao (Arc Light) nền trời (TIP-D-SKY) — Boeing B-52 Stratofortress",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/boeing-b-52-stratofortress-38b0c64bd552431394efa8625d7f5144",
+      "authors": [
+        "bohmerang"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Boeing B-52 Stratofortress\" (https://sketchfab.com/3d-models/boeing-b-52-stratofortress-38b0c64bd552431394efa8625d7f5144) by bohmerang is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/air_b52.glb",
+          "bytes": 560796,
+          "sha256": "80928bf74d3fe8b7c3f6c92b15ad481f7e3c007d5c72f1b93fabf71ddf5f4615"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/b52-bohmerang/boeing_b-52_stratofortress.glb",
+          "bytes": 2962928,
+          "sha256": "05c69329c0d06ff6c9dd7a9127e6725de83859056379964b8c7fa02726063adb"
+        }
+      ],
+      "triangles": {
+        "source": 16616,
+        "output": 14392
+      },
+      "size": [
+        48.5,
+        11.072,
+        55.66
+      ]
+    },
+    {
+      "id": "air_uh1b",
+      "type": "model",
+      "use": "trực thăng UH-1B Mỹ/VNCH bay ambient + treo đổ quân (TIP-D-SKY); node rotor_01/tail_rotor_02 quay lúc chạy — UH-1 B with (half modeled cockpit)",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799",
+      "authors": [
+        "TonyWony"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"UH-1 B with (half modeled cockpit)\" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/air_uh1b.glb",
+          "bytes": 2843532,
+          "sha256": "747ed632ba3f6df35dac971257d5c2164a27fb6ebbe80a6cb86c0fe2f412da22"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/uh1b-tonywony/uh-1_b_with_half_modeled_cockpit.glb",
+          "bytes": 14238536,
+          "sha256": "4049f932d527ade9fd9b8541f12272042398c6f51a754e8d4bc8181f035d63bd"
+        }
+      ],
+      "triangles": {
+        "source": 13062,
+        "output": 13062
+      },
+      "size": [
+        13,
+        3.2,
+        2.76
+      ]
+    },
+    {
+      "id": "air_c130",
+      "type": "model",
+      "use": "C-130 Hercules bay cao ngang trời (TIP-D-SKY; chỉ giữ vỏ ngoài + cánh quạt, bỏ buồng lái/pháo) — Lockheed AC-130 \"Hercules\"",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/lockheed-ac-130-hercules-361991c9874d4680931b3e0d23500e43",
+      "authors": [
+        "helijah"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Lockheed AC-130 \"Hercules\"\" (https://sketchfab.com/3d-models/lockheed-ac-130-hercules-361991c9874d4680931b3e0d23500e43) by helijah is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/air_c130.glb",
+          "bytes": 337952,
+          "sha256": "f3a33dd6348b7e0f9459544c5aa14803cd154ff3876bb4d71d83a0674d30860a"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/ac130-helijah/lockheed_ac-130_hercules.glb",
+          "bytes": 10114588,
+          "sha256": "2d8825613c4ea8104c161204685b1ded89d7ea68d18a19cb479135d48b703f76"
+        }
+      ],
+      "triangles": {
+        "source": 44136,
+        "output": 12698
+      },
+      "size": [
+        29.8,
+        12.131,
+        40.511
+      ]
     }
   ]
 }

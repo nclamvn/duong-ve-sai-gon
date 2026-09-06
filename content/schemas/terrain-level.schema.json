@@ -135,6 +135,7 @@
             "additionalProperties": false,
             "required": ["id", "model", "kind", "agl", "speed", "period"],
             "properties": {
+              "$comment": { "type": "string" },
               "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
               "model": { "type": "string", "pattern": "^[a-z0-9_]+$" },
               "kind": { "enum": ["heli", "jet", "prop"] },

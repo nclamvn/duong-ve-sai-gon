@@ -260,9 +260,9 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
   });
 
   /**
-   * TIP-D-SKY — máy bay là thời tiết: lịch bay seeded (F-4 cặp, F-4 trúng đạn → dù, UH-1 cặp + treo đổ quân, A-1, C-130), model
-   * `?skyModel=veh_mi24` thay cho air_* trong CI (asset thật do Chủ nhà tải); tua lịch bằng `skyAdvance`: có lượt bay, cao độ trên địa hình,
-   * treo đúng điểm/AGL, dù thả ≥ 400 m, gió xoáy trực thăng đổi gió rừng (VEG-002), không lỗi console.
+   * TIP-D-SKY — máy bay là thời tiết: lịch bay seeded (F-4 cặp, F-4 trúng đạn → dù, UH-1 cặp + treo đổ quân, C-130, tổ 3 B-52), model thật
+   * air_* (Sketchfab CC-BY, DV-042; `?skyModel=<id>` vẫn dùng được để thử stand-in); tua lịch bằng `skyAdvance`: có lượt bay, cao độ trên
+   * địa hình, treo đúng điểm/AGL, dù thả ≥ 400 m, gió xoáy trực thăng đổi gió rừng (VEG-002), cánh quạt UH-1 quay, không lỗi console.
    */
   test('bầu trời: lượt bay theo lịch seeded, treo đổ quân, dù phi công, gió xoáy', async ({ page }) => {
     test.setTimeout(300_000);
@@ -271,7 +271,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     page.on('console', (m) => {
       if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
     });
-    await page.goto(`/?${QUERY}&veg=1&vegDensity=0.2&sky=1&skyModel=veh_mi24`);
+    await page.goto(`/?${QUERY}&veg=1&vegDensity=0.2&sky=1`);
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
     await pauseLoop(page);
@@ -299,6 +299,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       // gió xoáy: đặt người nghe (camera) ngay dưới trực thăng treo → gust > 0 và gió rừng tăng
       let gust = 0;
       let windAfter = 0;
+      let rotorSpin = -1;
       if (hover) {
         const base = g.forest!.system.wind.strength.value;
         g.cameraDriver = () => { g.camera.position.set(hover!.pos[0] + 5, hAt(hover!.pos[0], hover!.pos[2]) + 1.7, hover!.pos[2] + 5); };
@@ -307,24 +308,32 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         gust = H.skyStats()!.gust;
         windAfter = g.forest!.system.wind.strength.value;
         void base;
+        // cánh quạt: node rotor_01 (pivot tách từ skin — convert-model --split-joints) quay mỗi frame
+        const rotor = g.scene.getObjectByName('sky_huey_insert_0')?.getObjectByName('rotor_01');
+        if (rotor) {
+          const a0 = rotor.rotation.y;
+          await frameRaf();
+          rotorSpin = Math.abs(rotor.rotation.y - a0);
+        }
       }
       // dù: f4_hit first 240, thả ở giữa đường (~12 s sau) — tua tới 330 s tổng và kiểm có dù
       const before = H.skyStats()!.time;
       H.skyAdvance(Math.max(0, 330 - before));
       const s3 = H.skyStats()!;
-      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, hover, hoverAgl, gust, windAfter, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
+      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, hover, hoverAgl, gust, windAfter, rotorSpin, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
     });
     expect(r.s0.flights).toBe(6);
     expect(r.s1.active).toBeGreaterThanOrEqual(1);
     expect(r.s1.ids).toContain('huey_pair');
     for (const a of r.above) expect(a.agl, JSON.stringify(r.above)).toBeGreaterThan(30);
     expect(r.hover, 'huey_insert chưa vào pha treo trong 260 s').not.toBeNull();
-    expect(Math.abs(r.hover!.pos[0] - -560)).toBeLessThan(3);
-    expect(Math.abs(r.hover!.pos[2] - 240)).toBeLessThan(3);
+    expect(Math.abs(r.hover!.pos[0] - -624)).toBeLessThan(3);
+    expect(Math.abs(r.hover!.pos[2] - 480)).toBeLessThan(3);
     expect(r.hoverAgl).toBeGreaterThan(2);
     expect(r.hoverAgl).toBeLessThan(8);
     expect(r.gust).toBeGreaterThan(0.3);
     expect(r.windAfter).toBeGreaterThan(0.5);
+    expect(r.rotorSpin, 'rotor_01 của UH-1 không quay').toBeGreaterThan(0.05);
     expect(r.paras + r.parasStat).toBeGreaterThanOrEqual(1);
     expect(r.runsTotal).toBeGreaterThanOrEqual(5);
     await expectNoErrors(errors);

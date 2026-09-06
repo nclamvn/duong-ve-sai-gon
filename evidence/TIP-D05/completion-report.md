@@ -96,3 +96,21 @@ CI vòng 2: typecheck · unit 132/132 · build · E2E 10/10.
 1. **Đăng nhập Sketchfab trong Chrome** (tab đang mở) → em tải 5 model, convert (`convert-model.mjs --no-join`, KTX2), đặt vào level, chụp ảnh, sync tiếp.
 2. Push + bench (như vòng 1): `git push origin master`; `…&level=truong-son&weapon=ak47&bench=1` ×3 và `&veg=0` ×3.
 3. Cố vấn: sự kiện 1971 (Lam Sơn 719, không kích tuyến 20) — dù/đổ quân; chủng loại máy bay (F-4 USAF hay USN, UH-1B/D, A-1H).
+
+# Vòng 3 — asset máy bay thật ("tôi đã đăng nhập rồi", 2026-09-06)
+
+| Mục | Trạng thái | Chi tiết | Evidence |
+|-----|-----------|----------|----------|
+| Tải Sketchfab | **Xong (qua Browser pane đã đăng nhập, không nhập mật khẩu)** | `fetch('/i/models/<uid>/download')` → `fetch('/i/archives/latest?archiveType=glb…', {credentials:'include'})` → URL S3 ký → curl về `assets-src/sketchfab/` (gitignore). Kiểm nguồn trước khi dùng: **loại** F-4 andertan (texture `Eurofighter_RT`/`F15_R` ghép), A-1 Rhine_Lab (node `AH-1J_node…`), 42manako F-4E ("Model by PAV"), manilov.ap (hàng loạt máy bay mô tả Wikipedia, nguồn không rõ), thomas333 B-52 (bản chỉnh từ bohmerang), C-130 Tyler_Dave (không có archive); ETAN798 F-4 sạch nhưng pose nghiêng + bom rơi cùng mesh | DV-042 |
+| Model dùng | **4 model CC-BY, manifest + CREDITS** | `air_uh1b` TonyWony 13 062 tri 2,71 MB (9 KTX2 1024); `air_f4` luacha2000 1 562 tri 0,09 MB (sơn SEA tan/xanh, sao USAF); `air_b52` bohmerang 14 392 tri 0,53 MB (simplify 0,85 cho ngân sách air_ 15 k); `air_c130` helijah (FlightGear) 12 698 tri 0,32 MB (giữ 12 node vỏ ngoài + cánh quạt, bỏ buồng lái/pháo, simplify 0,28, 3 draw). Validator 90 asset 0 lỗi 0 cảnh báo | `sky-air-models-sheet.jpg`, `sky-air-c130-sheet.jpg`, `CREDITS.md` |
+| convert-model | **`--pre`, `--split-joints`** | Cả 3 model mũi ở −x → `--flip`; B-52/C-130 sải cánh > dài → `--yaw90`; `--pre x:90` (xoay trước khi căn trục, dùng khi model nằm nghiêng); **`--split-joints rotor_01,tail_rotor_02:z`**: tam giác thuộc joint (trọng số lớn nhất, 3 đỉnh) → primitive riêng dưới node pivot tại gốc joint (trục z bọc node khung `frame_*`) → rotor chính + đuôi UH-1 quay thật lúc chạy (spin regex `rotor|blade|prop`), skin bỏ, cây joint rỗng dọn | `sky-air-uh1b-rotor-spin-sheet.jpg` (xoay 1,2 rad: cánh vẫn trên trục) |
+| Level | **6 lượt bay model thật** | F-4 cặp 180–320 m, F-4 trúng đạn → dù, UH-1 cặp 70–120 m, UH-1 treo 25 s, C-130 700–1 000 m, **tổ 3 B-52 1 500–1 900 m** (thực tế ~9 km — nén để còn thấy, cố vấn duyệt); **A-1 tạm bỏ** (chưa có model sạch). Điểm treo dời (−560, 240) → **(−624, 480)**: điểm cũ nằm trong tán cây (Huey treo 4 m AGL không nhìn thấy, `sky-hover-*`); `scripts/find-clearing.mjs` chạy scatter seeded tìm bãi trống tự nhiên (không cây thân trong 28 m, dốc 14°) | `sky-f4-pair.jpg`, `sky-huey-pair.jpg`, `sky-hover-clearing.jpg`, `sky-hover-close-veg0.jpg`, `sky-parachute-f4hit.jpg`, `sky-c130-high.jpg`, `sky-b52-cell.jpg` |
+| E2E | **model thật, bỏ stand-in** | `level-truong-son` "bầu trời": 6 lượt, AGL > 30 m, treo (−624, 480) 2–8 m, gust → gió rừng, **rotor_01 quay** (> 0,05 rad/frame), dù ≥ 1; không lỗi console. CI: typecheck · unit 132/132 · build · E2E 10/10 | `ci-sky2.txt` |
+
+Ảnh sandbox là WebGL2 SwiftShader (mờ, không post) — Mac WebGPU của Chủ nhà mới là ảnh chấm.
+
+## Việc còn lại cho Chủ nhà (cập nhật)
+1. `git push origin master` (13 commit) · bench như vòng 1.
+2. Mac `?autostart=1&level=truong-son&weapon=ak47`: chờ ~1 phút thấy UH-1 cặp (20 s), F-4 cặp (40 s), UH-1 treo ở bãi trống (−624, 480) ~150 s, dù sau F-4 ~250 s, C-130 ~300 s, B-52 ~320 s (tua nhanh: `__ht.skyAdvance(300)` trong console với `?debug=1`) → chụp ảnh gửi em.
+3. Cố vấn: chủng loại/độ cao B-52 (Arc Light tuyến 20, 1971) và C-130; A-1 khi có model sạch; registry `evt.1971.lam_son_719`.
+

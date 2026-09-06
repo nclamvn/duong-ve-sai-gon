@@ -7,7 +7,7 @@
  * (cánh quạt, bánh) còn pivot xoay được lúc chạy (trực thăng TIP-023).
  * Dùng: node scripts/convert-model.mjs --src assets-src/sketchfab/btr70 --id veh_btr70 --length 7.3 \
  *         --title "Low-poly BTR-70" --author veightyfive --url https://sketchfab.com/3d-models/... --use "xác APC chốt A"
- *       [--scale 0.01] [--flip] [--yaw90] [--no-align] [--no-join] [--merge-mats] [--basecolor hex --rough r --metal m] [--keep sub,sub] [--drop sub,sub] [--simplify 0.6] [--texture 1024] [--dry]
+ *       [--scale 0.01] [--pre x:90,z:-90] [--split-joints rotor_01,tail_rotor_02:z] [--flip] [--yaw90] [--no-align] [--no-join] [--merge-mats] [--basecolor hex --rough r --metal m] [--keep sub,sub] [--drop sub,sub] [--simplify 0.6] [--texture 1024] [--dry]
  */
 import { readdirSync, mkdirSync, statSync, readFileSync, writeFileSync } from 'node:fs';
 import { join as pjoin, dirname } from 'node:path';
@@ -77,7 +77,15 @@ if (KEEP.length || DROP.length) {
 }
 
 // ---- nướng skin (xe buýt Sketchfab có skin tầm thường: mỗi mesh buộc 1 joint) → vị trí = Σ w·(J·IBM)·p, bỏ JOINTS/WEIGHTS,
-// node về gốc scene với ma trận đơn vị (glTF: mesh có skin bỏ qua transform node của chính nó)
+// node về gốc scene với ma trận đơn vị (glTF: mesh có skin bỏ qua transform node của chính nó).
+// --split-joints "rotor_01,tail_rotor_02:z": tam giác có cả 3 đỉnh thuộc joint (trọng số lớn nhất) → tách thành primitive riêng
+// dưới node tên joint đặt tại gốc joint (pivot) → lúc chạy xoay node = cánh quạt quay (TIP-D-SKY spin regex /rotor|blade|prop/).
+// Trục quay lúc chạy là +y cục bộ; joint có trục khác (đuôi: ":z" / ":x") → bọc thêm node khung (tên không khớp regex) xoay
+// để y cục bộ trùng trục đó.
+const SPLIT = (opt('split-joints', '') || '').split(',').map((s) => s.trim()).filter(Boolean).map((s) => {
+  const [name, axis] = s.split(':');
+  return { name: name.toLowerCase(), axis: axis === 'x' || axis === 'z' ? axis : 'y' };
+});
 {
   const mat4mul = (a, b) => {
     const o = new Array(16).fill(0);
@@ -88,6 +96,9 @@ if (KEEP.length || DROP.length) {
   scene.traverse((node) => {
     if (node.getSkin() && node.getMesh()) skinned.push(node);
   });
+  const buffer = root.listBuffers()[0] ?? doc.createBuffer();
+  const splitReport = [];
+  const skins = new Set();
   for (const node of skinned) {
     const skin = node.getSkin();
     const joints = skin.listJoints();
@@ -97,6 +108,15 @@ if (KEEP.length || DROP.length) {
       if (!ibm) return w;
       return mat4mul(w, Array.from(ibm.slice(i * 16, i * 16 + 16)));
     });
+    // joint cần tách: index → {def, pivot}
+    const splitJ = new Map();
+    for (const def of SPLIT) {
+      const ji = joints.findIndex((j) => (j.getName() || '').toLowerCase() === def.name);
+      if (ji >= 0) {
+        const w = joints[ji].getWorldMatrix();
+        splitJ.set(ji, { def, pivot: [w[12], w[13], w[14]], joint: joints[ji] });
+      }
+    }
     for (const prim of node.getMesh().listPrimitives()) {
       const pos = prim.getAttribute('POSITION');
       const nor = prim.getAttribute('NORMAL');
@@ -110,12 +130,15 @@ if (KEEP.length || DROP.length) {
       const outP = new Float32Array(pa.length);
       const outN = na ? new Float32Array(na.length) : null;
       const n = pos.getCount();
+      const dom = new Int32Array(n);
       for (let v = 0; v < n; v++) {
         const px = pa[v * 3], py = pa[v * 3 + 1], pz = pa[v * 3 + 2];
         let x = 0, y = 0, z = 0, nx = 0, ny = 0, nz = 0;
+        let best = -1, bw = -1;
         for (let k = 0; k < 4; k++) {
           const w = wa[v * 4 + k];
           if (!w) continue;
+          if (w > bw) { bw = w; best = ja[v * 4 + k]; }
           const m = jm[ja[v * 4 + k]];
           if (!m) continue;
           x += w * (m[0] * px + m[4] * py + m[8] * pz + m[12]);
@@ -128,6 +151,7 @@ if (KEEP.length || DROP.length) {
             nz += w * (m[2] * qx + m[6] * qy + m[10] * qz);
           }
         }
+        dom[v] = best;
         outP[v * 3] = x;
         outP[v * 3 + 1] = y;
         outP[v * 3 + 2] = z;
@@ -144,14 +168,86 @@ if (KEEP.length || DROP.length) {
       prim.setAttribute('WEIGHTS_0', null);
       const tan = prim.getAttribute('TANGENT');
       if (tan) prim.setAttribute('TANGENT', null);
+      // ---- tách tam giác theo joint
+      if (splitJ.size) {
+        const idxAcc = prim.getIndices();
+        const idx = idxAcc ? Array.from(idxAcc.getArray()) : Array.from({ length: n }, (_, i) => i);
+        const keep = [];
+        const byJoint = new Map();
+        for (let t = 0; t < idx.length; t += 3) {
+          const a = idx[t], b = idx[t + 1], c = idx[t + 2];
+          const j = dom[a];
+          if (splitJ.has(j) && dom[b] === j && dom[c] === j) {
+            let arr = byJoint.get(j);
+            if (!arr) byJoint.set(j, (arr = []));
+            arr.push(a, b, c);
+          } else keep.push(a, b, c);
+        }
+        if (byJoint.size) {
+          const uv = prim.getAttribute('TEXCOORD_0');
+          const uva = uv?.getArray();
+          const uvN = uv ? uv.getElementSize() : 0;
+          for (const [j, tris] of byJoint) {
+            const { def, pivot } = splitJ.get(j);
+            // khung: y cục bộ → trục def.axis. Rx(+90°): y→+z ; Rz(−90°): y→+x. Toạ độ đỉnh trong khung = R⁻¹·(p − pivot)
+            const inv = def.axis === 'z' ? (p) => [p[0], p[2], -p[1]] : def.axis === 'x' ? (p) => [-p[1], p[0], p[2]] : (p) => p;
+            const remap = new Map();
+            const P = [], N = [], UV = [], I = [];
+            for (const v of tris) {
+              let nv = remap.get(v);
+              if (nv === undefined) {
+                nv = remap.size;
+                remap.set(v, nv);
+                const lp = inv([outP[v * 3] - pivot[0], outP[v * 3 + 1] - pivot[1], outP[v * 3 + 2] - pivot[2]]);
+                P.push(...lp);
+                if (outN) N.push(...inv([outN[v * 3], outN[v * 3 + 1], outN[v * 3 + 2]]));
+                if (uva) for (let k = 0; k < uvN; k++) UV.push(uva[v * uvN + k]);
+              }
+              I.push(nv);
+            }
+            const np = doc.createPrimitive().setMaterial(prim.getMaterial()).setMode(prim.getMode());
+            np.setAttribute('POSITION', doc.createAccessor().setType('VEC3').setArray(new Float32Array(P)).setBuffer(buffer));
+            if (outN) np.setAttribute('NORMAL', doc.createAccessor().setType('VEC3').setArray(new Float32Array(N)).setBuffer(buffer));
+            if (uva) np.setAttribute('TEXCOORD_0', doc.createAccessor().setType(uv.getType()).setArray(new Float32Array(UV)).setBuffer(buffer));
+            np.setIndices(doc.createAccessor().setType('SCALAR').setArray(remap.size > 65535 ? new Uint32Array(I) : new Uint16Array(I)).setBuffer(buffer));
+            const nm = doc.createMesh(def.name).addPrimitive(np);
+            const spinNode = doc.createNode(joints[j].getName()).setMesh(nm);
+            if (def.axis === 'y') {
+              spinNode.setTranslation(pivot);
+              scene.addChild(spinNode);
+            } else {
+              const frame = doc.createNode(`frame_${def.name.replace(/rotor|blade|prop/gi, 'r')}`).setTranslation(pivot);
+              const h = Math.SQRT1_2;
+              frame.setRotation(def.axis === 'z' ? [h, 0, 0, h] : [0, 0, -h, h]);
+              frame.addChild(spinNode);
+              scene.addChild(frame);
+            }
+            splitReport.push(`${joints[j].getName()} (${tris.length / 3} tri, trục ${def.axis}, pivot ${pivot.map((v) => v.toFixed(2)).join(',')})`);
+          }
+          // primitive gốc: giữ tam giác còn lại
+          if (idxAcc) idxAcc.setArray(keep.length && n > 65535 ? new Uint32Array(keep) : new Uint16Array(keep));
+          else prim.setIndices(doc.createAccessor().setType('SCALAR').setArray(n > 65535 ? new Uint32Array(keep) : new Uint16Array(keep)).setBuffer(buffer));
+        }
+      }
     }
+    skins.add(skin);
     node.setSkin(null);
     const parent = node.getParentNode();
     if (parent) parent.removeChild(node);
     scene.addChild(node);
     node.setMatrix([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
   }
-  if (skinned.length) console.log(`[model] nướng skin: ${skinned.length} node`);
+  // bỏ cây joint rỗng (không còn mesh) — tránh trùng tên với node pivot mới; skin dùng chung nhiều node → dọn sau cùng
+  for (const skin of skins) {
+    for (const j of skin.listJoints()) {
+      let hasMesh = false;
+      j.traverse((c) => { if (c.getMesh()) hasMesh = true; });
+      if (!hasMesh && !j.isDisposed()) j.dispose();
+    }
+    skin.dispose();
+  }
+  if (skinned.length) console.log(`[model] nướng skin: ${skinned.length} node${splitReport.length ? `; tách pivot: ${splitReport.join(' | ')}` : ''}`);
+  if (SPLIT.length && !splitReport.length) console.warn(`[model] --split-joints: không tìm thấy joint ${SPLIT.map((s) => s.name).join(',')}`);
 }
 
 // ---- bbox world của file gốc
@@ -185,7 +281,42 @@ scene.traverse((node) => {
   triTotal += nt;
   nodeInfo.push({ name: node.getName() || mesh.getName() || '(unnamed)', tris: Math.round(nt), box: nb });
 });
-const ext = [bb[3] - bb[0], bb[4] - bb[1], bb[5] - bb[2]];
+// --pre "x:90,z:-90": xoay trước (độ, quanh trục model gốc, áp dụng theo thứ tự) — model lệch trục lên (máy bay nằm nghiêng 90°:
+// cánh dọc y) → đưa về Y-up trước khi căn trục dài → x. Ma trận 3×3 cột-major [c0x,c0y,c0z, c1..., c2...]
+const PRE = (opt('pre', '') || '').split(',').map((s) => s.trim()).filter(Boolean);
+const m3mul = (a, b) => {
+  const o = new Array(9).fill(0);
+  for (let c = 0; c < 3; c++) for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) o[c * 3 + r] += a[k * 3 + r] * b[c * 3 + k];
+  return o;
+};
+const m3axis = (axis, deg) => {
+  const t = (deg * Math.PI) / 180;
+  const c = Math.cos(t);
+  const s = Math.sin(t);
+  if (axis === 'x') return [1, 0, 0, 0, c, s, 0, -s, c];
+  if (axis === 'y') return [c, 0, -s, 0, 1, 0, s, 0, c];
+  return [c, s, 0, -s, c, 0, 0, 0, 1];
+};
+let preM = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+for (const p of PRE) {
+  const [axis, deg] = p.split(':');
+  if (!/^[xyz]$/.test(axis) || !Number.isFinite(Number(deg))) {
+    console.error(`[model] --pre không hợp lệ: ${p} (dạng x:90)`);
+    process.exit(2);
+  }
+  preM = m3mul(m3axis(axis, Number(deg)), preM);
+}
+const m3apply = (m, p) => [m[0] * p[0] + m[3] * p[1] + m[6] * p[2], m[1] * p[0] + m[4] * p[1] + m[7] * p[2], m[2] * p[0] + m[5] * p[1] + m[8] * p[2]];
+// bbox sau pre-rotate (đo trên 8 góc — đủ để chọn trục dài; kích thước thật đo lại bên dưới)
+const pb = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
+for (const x of [bb[0], bb[3]]) for (const y of [bb[1], bb[4]]) for (const z of [bb[2], bb[5]]) {
+  const p = m3apply(preM, [x, y, z]);
+  for (let k = 0; k < 3; k++) {
+    if (p[k] < pb[k]) pb[k] = p[k];
+    if (p[k] > pb[k + 3]) pb[k + 3] = p[k];
+  }
+}
+const ext = [pb[3] - pb[0], pb[4] - pb[1], pb[5] - pb[2]];
 // xoay quanh y: trục ngang dài nhất → x
 let yaw = 0;
 if (!NOALIGN && ext[2] > ext[0]) yaw = Math.PI / 2;
@@ -193,8 +324,29 @@ if (YAW90) yaw += Math.PI / 2;
 if (FLIP) yaw += Math.PI;
 const cy = Math.cos(yaw);
 const sy = Math.sin(yaw);
-// p' = Ry(yaw)·p: x' = c·x + s·z ; z' = −s·x + c·z
-const rot = (p) => [cy * p[0] + sy * p[2], p[1], -sy * p[0] + cy * p[2]];
+// p' = Ry(yaw)·Rpre·p: x' = c·x + s·z ; z' = −s·x + c·z
+const fullM = m3mul([cy, 0, -sy, 0, 1, 0, sy, 0, cy], preM);
+const rot = (p) => m3apply(fullM, p);
+// quaternion từ ma trận 3×3 (cột-major)
+const m3quat = (m) => {
+  const [m00, m10, m20, m01, m11, m21, m02, m12, m22] = m;
+  const tr = m00 + m11 + m22;
+  let x, y, z, w;
+  if (tr > 0) {
+    const s = Math.sqrt(tr + 1) * 2;
+    w = 0.25 * s; x = (m21 - m12) / s; y = (m02 - m20) / s; z = (m10 - m01) / s;
+  } else if (m00 > m11 && m00 > m22) {
+    const s = Math.sqrt(1 + m00 - m11 - m22) * 2;
+    w = (m21 - m12) / s; x = 0.25 * s; y = (m01 + m10) / s; z = (m02 + m20) / s;
+  } else if (m11 > m22) {
+    const s = Math.sqrt(1 + m11 - m00 - m22) * 2;
+    w = (m02 - m20) / s; x = (m01 + m10) / s; y = 0.25 * s; z = (m12 + m21) / s;
+  } else {
+    const s = Math.sqrt(1 + m22 - m00 - m11) * 2;
+    w = (m10 - m01) / s; x = (m02 + m20) / s; y = (m12 + m21) / s; z = 0.25 * s;
+  }
+  return [x, y, z, w];
+};
 const rb = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
 for (const x of [bb[0], bb[3]]) for (const y of [bb[1], bb[4]]) for (const z of [bb[2], bb[5]]) {
   const p = rot([x, y, z]);
@@ -208,7 +360,7 @@ const scale = SCALE ?? (LENGTH ? LENGTH / rext[0] : 1);
 const size = rext.map((v) => v * scale);
 const origin = [(rb[0] + rb[3]) / 2, rb[1], (rb[2] + rb[5]) / 2];
 const fmt = (v) => v.map((x) => x.toFixed(3)).join(', ');
-console.log(`[model] ${gltfFile}: ${Math.round(triTotal)} tri, ${nodeInfo.length} mesh node, bbox gốc [${fmt(ext)}], yaw ${((yaw * 180) / Math.PI).toFixed(0)}°, scale ${scale.toFixed(5)}`);
+console.log(`[model] ${gltfFile}: ${Math.round(triTotal)} tri, ${nodeInfo.length} mesh node, bbox gốc${PRE.length ? ` (sau --pre ${PRE.join(',')})` : ''} [${fmt(ext)}], yaw ${((yaw * 180) / Math.PI).toFixed(0)}°, scale ${scale.toFixed(5)}`);
 console.log(`[model] kích thước chuẩn hoá (m): dài x ${size[0].toFixed(2)} × cao y ${size[1].toFixed(2)} × rộng z ${size[2].toFixed(2)} — đáy y=0, tâm xz=0`);
 for (const n of nodeInfo.sort((a, b) => b.tris - a.tris).slice(0, 14)) {
   const c = rot([(n.box[0] + n.box[3]) / 2, (n.box[1] + n.box[4]) / 2, (n.box[2] + n.box[5]) / 2]);
@@ -223,7 +375,7 @@ for (const child of scene.listChildren()) {
   rootNode.addChild(child);
 }
 scene.addChild(rootNode);
-rootNode.setRotation([0, Math.sin(yaw / 2), 0, Math.cos(yaw / 2)]);
+rootNode.setRotation(m3quat(fullM));
 rootNode.setScale([scale, scale, scale]);
 rootNode.setTranslation([-origin[0] * scale, -origin[1] * scale, -origin[2] * scale]);
 

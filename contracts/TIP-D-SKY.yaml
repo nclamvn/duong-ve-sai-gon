@@ -1,11 +1,11 @@
 id: TIP-D-SKY
-goal: "Bầu trời M1 'máy bay là thời tiết': lượt bay ambient seeded (F-4 cặp, F-4 trúng đạn → dù phi công, UH-1 cặp + treo đổ quân, A-1, C-130) trên terrain, gió xoáy trực thăng lay rừng, âm động cơ 3D Doppler procedural, dù procedural; asset air_* CC-BY do Chủ nhà tải"
-scope: [src/engine/sky/traffic.ts, src/engine/sky/parachute.ts, src/engine/sky/index.ts, src/engine/audio/audio.ts, src/engine/terrain/level.ts, content/levels/truong-son-a.level.json, content/schemas/terrain-level.schema.json, src/game/game.ts, src/qa/debugApi.ts, tests/e2e/level-truong-son.spec.ts, public/assets/models/air_*.glb, content/assets/manifest.json, docs/tips/TIP-D-SKY.md]
+goal: "Bầu trời M1 'máy bay là thời tiết': lượt bay ambient seeded (F-4 cặp, F-4 trúng đạn → dù phi công, UH-1 cặp + treo đổ quân, C-130, tổ 3 B-52; A-1 chờ model sạch) trên terrain, gió xoáy trực thăng lay rừng, âm động cơ 3D Doppler procedural, dù procedural; asset air_* CC-BY do Chủ nhà tải"
+scope: [scripts/convert-model.mjs, scripts/find-clearing.mjs, src/engine/sky/traffic.ts, src/engine/sky/parachute.ts, src/engine/sky/index.ts, src/engine/audio/audio.ts, src/engine/terrain/level.ts, content/levels/truong-son-a.level.json, content/schemas/terrain-level.schema.json, src/game/game.ts, src/qa/debugApi.ts, tests/e2e/level-truong-son.spec.ts, public/assets/models/air_*.glb, content/assets/manifest.json, docs/tips/TIP-D-SKY.md]
 acceptance:
-  - "Mac ?level=truong-son: trong 5 phút thấy tiêm kích cặp có tiếng, trực thăng cặp có bóng trên tán + gió lay cây khi gần, UH-1 treo tại (−560, 240), một dù xa sau F-4; không lỗi console"
-  - "CI stand-in ?skyModel=veh_mi24: E2E bầu trời xanh (lịch, AGL > 30 m, treo 2–8 m, gust → gió rừng, dù); typecheck/unit/build xanh"
+  - "Mac ?level=truong-son: trong 5 phút thấy tiêm kích cặp có tiếng, trực thăng cặp có bóng trên tán + gió lay cây khi gần, UH-1 treo tại bãi trống (−624, 480) rotor quay, một dù xa sau F-4; không lỗi console"
+  - "CI model thật air_* (CC-BY, manifest sha256): E2E bầu trời xanh (lịch, AGL > 30 m, treo 2–8 m, gust → gió rừng, rotor quay, dù); typecheck/unit/build xanh"
   - "Cố vấn duyệt registry evt.1971.lam_son_719 (dù = phi công, đổ quân bằng trực thăng) và chủng loại air_*"
 tests: [tests/e2e/level-truong-son.spec.ts]
 evidence: [evidence/TIP-D05/sky-*.jpg, evidence/TIP-D05/ci-fix2.txt, evidence/TIP-D05/completion-report.md, evidence/TIP-D05/mac-sky-*.png]
 rollback: "?sky=0 hoặc xoá khối airTraffic; engine/sky không được import nơi khác"
-status: PARTIAL (engine + test xong với stand-in; chờ Chủ nhà đăng nhập Sketchfab để tải air_* (UH-1B, F-4 ×2, A-1, C-130) → convert → ảnh Mac; cố vấn registry 1971)
+status: PARTIAL (engine + asset thật UH-1B/F-4/C-130/B-52 + E2E xong trong sandbox — DV-042; còn: ảnh Mac WebGPU Chủ nhà chấm, A-1 chờ model CC-BY sạch, cố vấn registry evt.1971.lam_son_719 + chủng loại/độ cao B-52)
