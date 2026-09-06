@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { TerrainTile, type TerrainMeta } from '@engine/terrain/tile';
 import { scatterSpecies, valueNoise2, fbm2, type ScatterRule } from '@engine/vegetation/scatter';
+import { hashString } from '@engine/core/prng';
 import Ajv from 'ajv';
 
 /**
@@ -142,6 +143,32 @@ describe('TIP-D05 scatter (VEG-001)', () => {
     expect(near).toBeGreaterThan(20);
   });
 
+  it('sink: chôn gốc theo độ dốc (rễ bạnh không trồi); noiseId: mọc theo trường noise của loài khác', () => {
+    const t = loadTile();
+    const base = scatterSpecies(t, RECT, RULE, 1971, 64);
+    const sunk = scatterSpecies(t, RECT, { ...RULE, sink: [0.35, 2] }, 1971, 64);
+    expect(sunk.count).toBe(base.count);
+    const n: [number, number, number] = [0, 1, 0];
+    let maxDrop = 0;
+    for (let i = 0; i < sunk.count; i++) {
+      const x = sunk.pos[i * 3]!;
+      const z = sunk.pos[i * 3 + 2]!;
+      t.normalAt(x, z, n);
+      const tan = Math.sqrt(Math.max(0, 1 - n[1] * n[1])) / Math.max(0.2, n[1]);
+      const drop = base.pos[i * 3 + 1]! - sunk.pos[i * 3 + 1]!;
+      expect(drop).toBeCloseTo(0.35 + 2 * tan, 4);
+      maxDrop = Math.max(maxDrop, drop);
+    }
+    expect(maxDrop).toBeGreaterThan(0.6); // có sườn dốc trong rect
+    // noiseId: mọi cây của 'vine' nằm trong mảng noise của 'tree_gn'
+    const vine: ScatterRule = { id: 'vine', perHa: 70, noise: { scale: 0.006, min: 0.34 }, noiseId: 'tree_gn', lod: [1, 2, 3, 4] };
+    const v = scatterSpecies(t, RECT, vine, 1971, 64);
+    const nseed = (hashString('tree_gn', 1971) & 0xffff) >>> 0;
+    for (let i = 0; i < v.count; i++) expect(fbm2(v.pos[i * 3]! * 0.006, v.pos[i * 3 + 2]! * 0.006, nseed)).toBeGreaterThanOrEqual(0.34);
+    const own = scatterSpecies(t, RECT, { ...vine, noiseId: undefined }, 1971, 64);
+    expect(Array.from(own.pos.slice(0, 30))).not.toEqual(Array.from(v.pos.slice(0, 30)));
+  });
+
   it('level truong-son-a: khối vegetation hợp lệ theo schema, loài có GLB + manifest CC-BY có attribution', () => {
     const schema = JSON.parse(readFileSync('content/schemas/terrain-level.schema.json', 'utf8'));
     const level = JSON.parse(readFileSync('content/levels/truong-son-a.level.json', 'utf8'));
@@ -154,6 +181,7 @@ describe('TIP-D05 scatter (VEG-001)', () => {
       expect(a!.files.some((f) => f.path === `assets/vegetation/${s.id}.glb`)).toBe(true);
       expect(readFileSync(`public/assets/vegetation/${s.id}.glb`).byteLength).toBeGreaterThan(1000);
       if (a!.license?.startsWith('CC-BY')) expect(a!.attribution ?? '').toMatch(/sketchfab|by/i);
+      else expect(a!.license).toBe('CC0-1.0'); // cỏ procedural (gen-grass.mjs)
       expect(s.lod[0]!).toBeLessThan(s.lod[1]!);
       expect(s.lod[1]!).toBeLessThan(s.lod[2]!);
       expect(s.lod[2]!).toBeLessThanOrEqual(s.lod[3]!);

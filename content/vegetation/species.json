@@ -263,9 +263,9 @@
       "height": 1.4,
       "lod": {
         "leaf": [
-          0.6,
-          0.25,
-          0.08
+          0.5,
+          0.2,
+          0.06
         ],
         "bark": [
           1,
@@ -332,6 +332,89 @@
         "username": "mozzarellaARC",
         "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
         "faces": 46575
+      }
+    },
+    "monstera": {
+      "label": "trầu bà/ráy leo lá xẻ Monstera (Tropical Plants Pack) — tầng giữa, dây leo bám gốc",
+      "asset": "veg_monstera",
+      "src": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+      "variants": [
+        {
+          "nodes": "Monstera_B071"
+        },
+        {
+          "nodes": "Monstera_B072"
+        },
+        {
+          "nodes": "Monstera_B073"
+        },
+        {
+          "nodes": "Monstera_B074"
+        }
+      ],
+      "leaf": "Monstera",
+      "height": 2.2,
+      "lod": {
+        "leaf": [
+          0.7,
+          0.3,
+          0.1
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "sketchfab": {
+        "uid": "2f093afb792742438f0f7ba7eaab90f0",
+        "name": "Tropical Plants Pack M02P",
+        "author": "MozzarellaARC",
+        "username": "mozzarellaARC",
+        "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+        "faces": 46575
+      }
+    },
+    "fern_grass": {
+      "label": "cỏ dương xỉ bụi thấp (fern grass 02, POLYSCAN) — tầng đất",
+      "asset": "veg_fern_grass",
+      "src": "assets-src/sketchfab/fern-polyscan/fern_grass_02.glb",
+      "variants": [
+        {
+          "nodes": "^Object"
+        }
+      ],
+      "leaf": "Material",
+      "height": 0.5,
+      "lod": {
+        "leaf": [
+          0.6,
+          0.25,
+          0.06
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 512
+      },
+      "cast": false,
+      "sketchfab": {
+        "uid": "93d1f6a261e24b8394d0ea41cf985ef9",
+        "name": "fern grass 02",
+        "author": "POLYSCAN",
+        "username": "POLYSCAN3D",
+        "url": "https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9",
+        "faces": 2128
       }
     }
   }

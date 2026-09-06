@@ -60,10 +60,11 @@ function makeSmoke(def: FxDef, idx: number): { mesh: InstancedMesh; count: numbe
   const col = new Color(def.color ?? 0x1a1816);
   const uCol = uniform(new Vector3(col.r, col.g, col.b));
   const uScale = uniform(scale);
-  const life = 9.0; // giây một vòng đời
+  const riseM = def.height ?? 14 * scale;
+  const life = 9.0 * Math.max(1, riseM / (14 * scale)) ** 0.5; // giây một vòng đời — cột cao sống lâu hơn (bay chậm hơn theo tỉ lệ)
   const seed = attribute('seed', 'vec4') as unknown as V4Node;
   const t = time.mul(1.0 / life).add(seed.x).fract(); // 0..1 tuổi
-  const rise = t.mul(uScale.mul(14.0)); // cao tối đa
+  const rise = t.mul(float(riseM)); // cao tối đa
   // gió: lệch theo x theo tuổi, cuộn nhẹ theo noise
   const wobble = sin(time.mul(0.7).add(seed.w.mul(6.28))).mul(0.6);
   const px = seed.y.mul(uScale.mul(0.9)).add(t.mul(t).mul(uScale.mul(6.0))).add(wobble.mul(t));

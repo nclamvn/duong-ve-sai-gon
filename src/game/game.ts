@@ -212,7 +212,7 @@ export class Game {
     });
     if (terrainDef && skyDef) {
       // Terrain DEM (TIP-D04): ArenaData từ ô heightmap; ánh sáng ban ngày như level JSON
-      this.terrain = await loadTerrainLevel(this.scene, terrainDef, { assets: this.assets, baseUrl: import.meta.env.BASE_URL ?? '/' });
+      this.terrain = await loadTerrainLevel(this.scene, terrainDef, { assets: this.assets, baseUrl: import.meta.env.BASE_URL ?? '/', maxFxLights: this.quality.tier === 'low' ? 2 : 4 });
       this.arena = this.terrain;
       // Rừng loài thật (TIP-D05): mặc định bật khi có model (assets); lite (CI) chỉ khi ?veg=1
       const vegParam = this.params.get('veg');
@@ -608,13 +608,20 @@ export class Game {
     this.hud.update();
     this.fx.update(dt);
     if (this.level) this.level.fx.update(dt);
+    if (this.terrain) this.terrain.fx.update(dt);
     if (this.audio.ctx) {
       this.v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
       this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);
     }
     this.lights.followTarget(this.camera);
     if (this.terrain) this.terrain.mesh.update(this.camera);
-    if (this.forest) this.forest.system.update(this.camera);
+    if (this.forest) {
+      // đè cỏ (VEG-006): chân người chơi — D12 mở rộng ≤ 8 tác nhân (bot/xe)
+      const f = this.player.controller.feet;
+      if (!this.freeFly) this.forest.system.setPress(f[0]!, f[1]!, f[2]!, 0.9);
+      else this.forest.system.setPress(0, 0, 0, 0);
+      this.forest.system.update(this.camera);
+    }
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {

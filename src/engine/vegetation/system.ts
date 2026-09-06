@@ -81,6 +81,7 @@ export class VegetationSystem {
   private readonly species: SpeciesRuntime[] = [];
   private readonly cellM: number;
   private readonly materials = new Map<string, Material>();
+  private readonly assetHeight = new Map<string, number>();
   readonly colliders: ColliderDef[] = [];
 
   constructor(
@@ -98,6 +99,7 @@ export class VegetationSystem {
     for (const rule0 of def.species) {
       const asset = assets[rule0.id];
       if (!asset) continue;
+      this.assetHeight.set(asset.id, asset.height);
       const rule: ScatterRule = { ...rule0, perHa: rule0.perHa * quality.density, variants: asset.variants.length, lod: rule0.lod.map((d) => d * quality.lodScale) as ScatterRule['lod'] };
       const placement = scatterSpecies(tile, rule.rect ?? def.rect, rule, def.seed, this.cellM);
       placed += placement.count;
@@ -114,11 +116,15 @@ export class VegetationSystem {
       }
       const perVariant = new Uint32Array(asset.variants.length);
       for (let i = 0; i < n; i++) perVariant[placement.variant[i]!]!++;
+      // sức chứa batch: ước lượng số instance trong đĩa bán kính lod[3] (mật độ đã đặt × 1,6 + 64), không cấp phát cho cả rect
+      const rect = rule.rect ?? def.rect;
+      const density = n / Math.max(1, rect.w * rect.h);
+      const capDisc = Math.ceil(density * Math.PI * rule.lod[3] * rule.lod[3] * 1.6) + 64;
       const batches: Batch[][][] = [];
       const sc = rule.scale ?? [0.85, 1.15];
       for (let vi = 0; vi < asset.variants.length; vi++) {
         const v = asset.variants[vi]!;
-        const cap = perVariant[vi]!;
+        const cap = Math.min(perVariant[vi]!, Math.ceil(capDisc / asset.variants.length) + 32);
         batches.push(
           v.lods.map((lod, k) =>
             lod.parts.map((part) => {
@@ -131,7 +137,7 @@ export class VegetationSystem {
         );
       }
       const atlas = atlases[rule.id] ?? null;
-      const impostor = atlas && rule.lod[3] > rule.lod[2] ? createImpostorBatch(atlas, n, this.wind, asset) : null;
+      const impostor = atlas && rule.lod[3] > rule.lod[2] ? createImpostorBatch(atlas, Math.min(n, capDisc), this.wind, asset) : null;
       if (impostor) this.group.add(impostor.mesh);
       this.species.push({ placement, asset, rule, batches, cellLod: new Map(), impostor, rot, maxScale: sc[1] });
       // collider thân
@@ -154,9 +160,11 @@ export class VegetationSystem {
     let m = this.materials.get(k);
     if (!m) {
       if (!map) throw new Error(`vegetation ${species}: material ${key} has no map`);
-      // cây to uốn ít hơn (biên độ tuyệt đối tương tự nhưng theo chiều cao → lá rung nhiều hơn thân)
+      // cây to uốn ít hơn (biên độ tuyệt đối tương tự nhưng theo chiều cao → lá rung nhiều hơn thân); đè cỏ theo chiều cao loài
       const bendM = leaf ? 0.5 : 0.35;
-      m = createVegetationMaterial({ map, leaf, alphaTest, wind: this.wind, bendM, flutterM: leaf ? 0.05 : 0.01 });
+      const h = this.assetHeight.get(species) ?? 10;
+      const pressM = rule.press ?? (h < 1.2 ? 1 : h < 2.6 ? 0.35 : 0);
+      m = createVegetationMaterial({ map, leaf, alphaTest, wind: this.wind, bendM, flutterM: leaf ? 0.05 : 0.01, pressM });
       m.name = k;
       this.materials.set(k, m);
       void rule;
@@ -309,6 +317,15 @@ export class VegetationSystem {
     const out: Record<string, number> = {};
     for (const sp of this.species) out[sp.rule.id] = (out[sp.rule.id] ?? 0) + sp.placement.count;
     return out;
+  }
+
+  /** đè cỏ (VEG-006): tâm tác nhân (người chơi) + bán kính; radius 0 → tắt */
+  setPress(x: number, y: number, z: number, radius = 0.9): void {
+    const p = this.wind.press.value;
+    p.x = x;
+    p.y = y;
+    p.z = z;
+    p.w = radius;
   }
 
   /** gió mạnh lên (trực thăng/bom — VEG-002): strength 0..1 */

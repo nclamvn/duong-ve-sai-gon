@@ -41,9 +41,9 @@
     "scale": 0.62,
     "hip": {
       "pos": [
-        0.11,
+        0.085,
         -0.1,
-        -0.28
+        -0.215
       ],
       "rot": [
         0.02,
@@ -65,9 +65,9 @@
     },
     "sprint": {
       "pos": [
-        0.12,
+        0.1,
         -0.16,
-        -0.26
+        -0.21
       ],
       "rot": [
         -0.35,
@@ -93,17 +93,17 @@
     },
     "handL": {
       "pos": [
-        -0.063,
-        -0.038,
-        0.05
+        -0.08,
+        -0.072,
+        0.0
       ],
       "rot": [
-        -1.5905,
-        0.0077,
-        -0.9324
+        -1.571,
+        -0.418,
+        -1.571
       ]
     },
     "triggerFinger": 0.6,
-    "$comment": "TIP-D10/D11a: rot tay từ pose AK-74M đã kiểm Mac (TIP-017); handL.pos dịch (+2,8 cm phải, +1,8 cm lên) để lòng ngón (đo khớp Index/Middle trong hệ gripL) ôm đúng ốp lót ±1,75 × 3,8 cm (Chủ nhà: 'ngón xuyên súng, ngón cái không sát'); ngón cái trái khép quanh −z (fpArms THUMB_L_CLOSE). Hiệu chỉnh tiếp bằng ?calib=fp setHand/exportJson."
+    "$comment": "TIP-D10/D11a/D05-fix: tay TRÁI ôm ốp lót từ DƯỚI (Chủ nhà lần 3: 'bàn tay trái để lên súng rất thô'): rot giải tích từ trục local bàn tay Mixamo (+y = hướng ngón → (0,91, 0,41, 0) ngang qua ốp; +z = lòng bàn tay → lên-trái; +x = trỏ→út → +z dọc nòng), pos để đốt gốc ngón nằm dưới ốp; ngón co riêng FINGER_CURL_L (fpArms). hip.pos gần camera hơn (z −0,28 → −0,215, x 0,11 → 0,085) vì tầm với tay FP 0,498 m (vai −0,19/−0,19/+0,07 hệ camera) — ốp lót ở 0,44 m trước camera là ngoài tầm 6,5 cm (cổ tay bị kéo lùi, ngón xuyên). Hiệu chỉnh tiếp: ?calib=fp setHand/exportJson."
   }
 }

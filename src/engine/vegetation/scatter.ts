@@ -32,6 +32,12 @@ export interface ScatterRule {
   collider?: { radius: number; height: number };
   /** vùng đặt riêng (tầng thấp chỉ cần quanh vùng chơi) — mặc định rect của level */
   rect?: ScatterRect;
+  /** dùng chung trường noise với loài khác (id) — vd. dây leo mọc trong cụm cây tán */
+  noiseId?: string;
+  /** chôn gốc (m): [cố định, × tan(độ dốc)] — rễ bạnh không "trồi" trên sườn (mặt dốc: mép rễ phía dưới dốc hở R·tanθ) */
+  sink?: [number, number];
+  /** hệ số đè khi tác nhân đi qua (VEG-006): mặc định theo chiều cao loài (cỏ 1, bụi 0,35, cây 0) */
+  press?: number;
 }
 
 export interface ScatterRect {
@@ -85,7 +91,7 @@ export function fbm2(x: number, z: number, seed: number): number {
  */
 export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: ScatterRule, seed: number, cellM: number): SpeciesPlacement {
   const prng: Prng = mulberry32((seed ^ hashString(rule.id)) >>> 0);
-  const nseed = (hashString(rule.id, seed) & 0xffff) >>> 0;
+  const nseed = (hashString(rule.noiseId ?? rule.id, seed) & 0xffff) >>> 0;
   const step = 100 / Math.sqrt(Math.max(0.01, rule.perHa));
   const nx = Math.max(1, Math.floor(rect.w / step));
   const nz = Math.max(1, Math.floor(rect.h / step));
@@ -102,10 +108,11 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
   const normal: [number, number, number] = [0, 1, 0];
   const push = (x: number, z: number, yaw: number, s: number, v: number): void => {
     if (x < -half || x > half || z < -half || z > half) return;
-    const y = tile.sample(x, z);
+    let y = tile.sample(x, z);
     tile.normalAt(x, z, normal);
     const sl = 1 - normal[1];
     if (sl < slope[0] || sl > slope[1]) return;
+    if (rule.sink) y -= rule.sink[0] + (rule.sink[1] * Math.sqrt(Math.max(0, 1 - normal[1] * normal[1]))) / Math.max(0.2, normal[1]);
     const hN = Math.min(1, Math.max(0, (y - tile.minY) / range));
     if (hN < hgt[0] || hN > hgt[1]) return;
     const ix = Math.floor((x + half) / cellM);

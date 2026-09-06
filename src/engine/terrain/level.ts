@@ -5,7 +5,8 @@
 import { Group, Mesh, BufferGeometry, BufferAttribute, type Scene } from 'three/webgpu';
 import type { ArenaData, ColliderDef, CoverMarker } from '../render/arena';
 import type { LoadedAssets } from '../render/assets';
-import type { LevelSky } from '../level/types';
+import type { LevelSky, FxDef } from '../level/types';
+import { createAmbientFx, type AmbientFx } from '../render/ambientFx';
 import { TerrainTile } from './tile';
 import { TerrainMesh, makeHeightTexture, makeNormalTexture } from './mesh';
 import { createTerrainMaterial, type TerrainLayers } from './material';
@@ -35,6 +36,8 @@ export interface TerrainLevelDef {
   models: string[];
   /** rừng loài thật (TIP-D05) — thiếu → không thực vật */
   vegetation?: VegetationDef;
+  /** FX môi trường (khói bom xa, đám cháy) — x/z, y từ terrain + dy */
+  fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number }>;
   playerSpawn: V2;
   playerYaw: number;
   botSpawns: Record<string, V2>;
@@ -51,11 +54,15 @@ export interface TerrainLevelBuild extends ArenaData {
   navPrebuilt: Uint8Array | null;
   /** cao độ mặt đất (m, hệ level) */
   heightAt(x: number, z: number): number;
+  /** FX môi trường (ambientFx) — update(dt) mỗi frame */
+  fx: AmbientFx;
 }
 
 export interface TerrainLevelOptions {
   assets?: LoadedAssets | null;
   baseUrl: string;
+  /** đèn lửa tối đa (PointLight) */
+  maxFxLights?: number;
 }
 
 export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts: TerrainLevelOptions): Promise<TerrainLevelBuild> {
@@ -99,6 +106,9 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     navPrebuilt = null;
   }
 
+  const fxDefs: FxDef[] = (def.fx ?? []).map((f) => ({ kind: f.kind, position: v3(f.position, f.dy ?? 0), scale: f.scale, color: f.color, height: f.height }));
+  const fx = createAmbientFx(fxDefs, { maxLights: opts.maxFxLights ?? 4 });
+  root.add(fx.group);
   const coverMarkers: CoverMarker[] = def.coverMarkers.map((c) => ({ id: c.id, position: v3(c.position), facing: c.facing }));
   const botSpawns: Record<string, [number, number, number]> = {};
   for (const [k, p] of Object.entries(def.botSpawns)) botSpawns[k] = v3(p, 0.05);
@@ -111,6 +121,7 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     mesh,
     navPrebuilt,
     heightAt: h,
+    fx,
     size: tile.sizeM,
     colliders,
     navGeometry: [navMesh],
@@ -123,6 +134,6 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     root,
     wetness: mat.wetness,
     lamps: [],
-    stats: { props: 0, batchedDrawEstimate: 4, decor: 0 },
+    stats: { props: 0, batchedDrawEstimate: 4, decor: fxDefs.length },
   };
 }

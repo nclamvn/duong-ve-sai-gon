@@ -37,12 +37,17 @@ const POLE_L = new Vector3(-0.8, -1, 0.1);
 /** góc co ngón tay (rad) theo đốt: [đốt 1, đốt 2, đốt 3]; ngón cái riêng */
 const FINGER_CURL = { index: [0.9, 1.1, 0.7], middle: [1.1, 1.2, 0.8], ring: [1.2, 1.25, 0.8], pinky: [1.25, 1.3, 0.8], thumb: [0.3, 0.5, 0.3] };
 /**
- * Ngón cái TRÁI (TIP-D11a, Chủ nhà: "ngón cái không sát súng"): co quanh x [0,55, 0,8, 0,45] rồi **khép** quanh −z local đốt 1–2 [0,6, 0,6]
- * — đo bằng thử 6 trục trong hệ anchor gripL: −z đưa đầu ngón từ x −0,065 (giơ thẳng lên cạnh súng) về (−0,015, +0,055) = mép trái-trên ốp lót.
- * Ngón cái phải giữ x (tay cầm, phần lớn ngoài khung hình).
+ * Ngón cái TRÁI (TIP-D11a, Chủ nhà: "ngón cái không sát súng"; D05-fix: tay ôm ốp từ dưới): co quanh x [0,25, 0,35, 0,25] rồi **khép**
+ * quanh −z local đốt 1–2 [0,5, 0,5] — lưới 18 tổ hợp đo trong hệ gripL: đốt 3 (−2,2, +0,7) chạm mặt trái ốp, đầu ngón (−1,4, +2,5, +0,8)
+ * đè lên mép trái-trên. Ngón cái phải giữ x (tay cầm, phần lớn ngoài khung hình). Chỉnh runtime: `game.fpArms.thumbL`.
  */
-const THUMB_L_CURL = [0.55, 0.8, 0.45];
-const THUMB_L_CLOSE = [0.6, 0.6, 0];
+const THUMB_L_CURL = [0.25, 0.35, 0.25];
+const THUMB_L_CLOSE = [0.5, 0.5, 0];
+/**
+ * Ngón tay TRÁI ôm ốp lót (3,5 × 3,8 cm) từ dưới lên (Chủ nhà lần 3: "ngón tay… rất thô, không tự nhiên"): co thoải hơn tay cầm
+ * (bán kính ôm ≈ 2,5 cm thay vì 1,5 cm) — đốt gốc dưới ốp, đốt 2 ôm mép phải, đầu ngón chạm mặt trên.
+ */
+const FINGER_CURL_L = { index: [0.6, 0.77, 1.45], middle: [0.62, 0.8, 1.45], ring: [0.66, 0.85, 1.25], pinky: [0.75, 0.9, 1.15] };
 
 export interface FpArmTargets {
   /** anchor tay cầm (hệ súng) — world matrix dùng trực tiếp */
@@ -80,11 +85,13 @@ function findBone(root: Object3D, ...names: string[]): Bone | null {
 
 export class FpArms {
   readonly root = new Group();
+  /** ngón cái trái (calib runtime: `game.fpArms.thumbL.curl = […]`): co quanh x, khép quanh −z, dang quanh y — mỗi đốt */
+  readonly thumbL = { curl: [...THUMB_L_CURL], close: [...THUMB_L_CLOSE], spread: [0, 0, 0] };
   readonly model: Group;
   readonly skinned: SkinnedMesh[] = [];
   private readonly armR: FpChain | null;
   private readonly armL: FpChain | null;
-  private readonly fingerBones: Array<{ bone: Bone; curl: number; rest: Quaternion; index: boolean; close: number }> = [];
+  private readonly fingerBones: Array<{ bone: Bone; curl: number; rest: Quaternion; index: boolean; close: number; thumbL: number }> = [];
   readonly triangles: number;
 
   constructor(asset: FpArmsAsset, parent: Object3D, opts: { tint?: number; scale?: number } = {}) {
@@ -133,10 +140,10 @@ export class FpArms {
     ];
     for (const [key, label] of names) {
       const thumbL = key === 'thumb' && side === 'Left';
-      const curls = thumbL ? THUMB_L_CURL : FINGER_CURL[key];
+      const curls = thumbL ? THUMB_L_CURL : side === 'Left' && key !== 'thumb' ? FINGER_CURL_L[key] : FINGER_CURL[key];
       for (let i = 0; i < 3; i++) {
         const b = findBone(this.model, `mixamorig${side}Hand${label}${i + 1}`, `mixamorig:${side}Hand${label}${i + 1}`);
-        if (b) this.fingerBones.push({ bone: b, curl: curls[i]!, rest: b.quaternion.clone(), index: key === 'index' && side === 'Right', close: thumbL ? THUMB_L_CLOSE[i]! : 0 });
+        if (b) this.fingerBones.push({ bone: b, curl: curls[i]!, rest: b.quaternion.clone(), index: key === 'index' && side === 'Right', close: thumbL ? THUMB_L_CLOSE[i]! : 0, thumbL: thumbL ? i : -1 });
       }
     }
   }
@@ -146,12 +153,15 @@ export class FpArms {
     this.root.updateMatrixWorld(true);
     // ngón tay: co cố định (ngón trỏ phải duỗi khi triggerFinger → 1)
     for (const f of this.fingerBones) {
-      const k = f.index ? f.curl * (1 - (t.triggerFinger ?? 0.6)) : f.curl;
+      const isThumbL = f.thumbL >= 0;
+      const curl = isThumbL ? this.thumbL.curl[f.thumbL]! : f.curl;
+      const k = f.index ? curl * (1 - (t.triggerFinger ?? 0.6)) : curl;
       _e.set(k, 0, 0); // Mixamo: đốt ngón co quanh trục x local (kiểm bằng viewer)
       _q.setFromEuler(_e);
       f.bone.quaternion.copy(f.rest).multiply(_q);
-      if (f.close) {
-        _e.set(0, 0, -f.close); // ngón cái trái: khép thêm quanh −z local
+      const close = isThumbL ? this.thumbL.close[f.thumbL]! : f.close;
+      if (close) {
+        _e.set(0, isThumbL ? this.thumbL.spread[f.thumbL]! : 0, -close); // ngón cái trái: khép thêm quanh −z local (+ dang quanh y)
         _q.setFromEuler(_e);
         f.bone.quaternion.multiply(_q);
       }

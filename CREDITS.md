@@ -21,8 +21,10 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "Free Bamboo Set" (https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30) by JonhGillessen is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/bamboo.glb`
 - "Banana Tree" (https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e) by DJMiddi is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/banana.glb`
 - "Tropical Plants Pack M02P" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/fern.glb`
-- "Elephant Ear Plant" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/elephant_ear.glb`
 - "Tropical Plants Pack M02P" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/palm.glb`
+- "Tropical Plants Pack M02P" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/monstera.glb`
+- "Elephant Ear Plant" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/elephant_ear.glb`
+- "fern grass 02" (https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9) by POLYSCAN is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/fern_grass.glb`
 
 ## CC0-1.0
 
@@ -87,6 +89,7 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - brown_mud_03 (texture) — Rob Tuytel — https://polyhaven.com/a/brown_mud_03
 - aerial_rocks_02 (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_rocks_02
 - aerial_grass_rock (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_grass_rock
+- veg_grass (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 
 ## Mixamo
 
@@ -97,4 +100,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
-Tổng: 83 asset, 124.3 MB. Cập nhật 2026-09-06T03:07:57.899Z.
+Tổng: 86 asset, 125.3 MB. Cập nhật 2026-09-06T03:54:51.425Z.

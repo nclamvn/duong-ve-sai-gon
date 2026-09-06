@@ -5,3 +5,7 @@
 [ktx2] assets/vegetation/palm.glb: 2 texture → KTX2, 0.76→0.65 MB, 8 s
 [ktx2] assets/vegetation/tree_gn.glb: 3 texture → KTX2, 1.21→1.23 MB, 12 s
 [ktx2] xong: 6 file, tiết kiệm 0.1 MB, tổng manifest 124.3 MB, 0.6 phút
+[ktx2] assets/vegetation/fern_grass.glb: 1 texture → KTX2, 0.11→0.10 MB, 1 s
+[ktx2] assets/vegetation/grass.glb: 1 texture → KTX2, 0.06→0.07 MB, 1 s
+[ktx2] assets/vegetation/monstera.glb: 3 texture → KTX2, 0.80→0.84 MB, 7 s
+[ktx2] xong: 3 file, tiết kiệm -0.0 MB, tổng manifest 125.3 MB, 0.2 phút

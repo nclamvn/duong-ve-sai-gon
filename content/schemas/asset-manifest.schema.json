@@ -68,7 +68,8 @@
               "sketchfab-cc0",
               "sketchfab",
               "mixamo",
-              "aws-terrain-tiles"
+              "aws-terrain-tiles",
+              "procedural"
             ]
           },
           "url": {

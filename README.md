@@ -81,6 +81,7 @@ Rừng loài thật (TIP-D05, ADR-D06 — CC-BY Sketchfab, kiểm rip DV-026): n
 `node scripts/convert-vegetation.mjs [--only id,id]` (chuẩn hoá gốc/chiều cao, 3 LOD: tỉa thẻ lá + meshopt simplify, `_WIND`, material `leaf_*/bark_*` MASK) → `node scripts/ktx2.mjs --only models`
 → `public/assets/vegetation/<id>.glb` + manifest `veg_<id>`. Đặt cây bằng khối `vegetation` trong level terrain JSON (seed, rect, luật mỗi loài: perHa/slope/height/noise/clump/lod/cast/collider) —
 `?level=truong-son` có rừng mặc định; `?veg=0` tắt, `?veg=1` bật cả khi `assets=0`, `?vegDensity=0.5&vegLod=0.8&vegShadow=0&impostor=0` để A/B; `__ht.vegetationStats()`, `__ht.setWind(0.9)`.
+Cỏ procedural (không asset ngoài, CC0): `node scripts/gen-grass.mjs [--seed 7 --tex 512]` → `grass.glb` + manifest `veg_grass` (`source: procedural`) → KTX2. Luật cây thêm `sink` (chôn gốc theo dốc), `noiseId` (mọc theo trường noise loài khác), `press` (đè cỏ). Khói/lửa xa: khối `fx` trong level terrain (kind smoke/fire, position x/z, `height` cột khói m).
 
 Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, Thợ tải): nguồn `assets-src/sketchfab/<slug>/` →
 `npm run assets:weapon -- --src assets-src/sketchfab/ak74m --id weapon_ak74m --length 0.943 --title … --author … --url …` →

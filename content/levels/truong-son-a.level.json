@@ -5,43 +5,490 @@
   "terrain": {
     "id": "truong-son-a",
     "yOffset": 691.2,
-    "navRect": { "x": -192, "z": 512, "w": 512, "h": 512 },
+    "navRect": {
+      "x": -192,
+      "z": 512,
+      "w": 512,
+      "h": 512
+    },
     "wetness": 0.25,
     "tileMeters": 4
   },
-  "camera": { "near": 0.25, "far": 2600 },
+  "camera": {
+    "near": 0.25,
+    "far": 2600
+  },
   "sky": {
     "hdri": "kloofendal_48d_partly_cloudy_puresky",
     "res": "2k",
     "envIntensity": 0.85,
     "skyIntensity": 0.9,
-    "sun": { "azimuthDeg": 48, "elevationDeg": 41, "color": 16775920, "intensity": 2.4 },
-    "hemi": { "sky": 11847900, "ground": 4872762, "intensity": 0.5 },
-    "fog": { "color": 11582934, "density": 0.0012 },
-    "csm": { "cascades": 3, "maxFar": 180, "mapSize": 2048 }
+    "sun": {
+      "azimuthDeg": 48,
+      "elevationDeg": 41,
+      "color": 16775920,
+      "intensity": 2.4
+    },
+    "hemi": {
+      "sky": 11847900,
+      "ground": 4872762,
+      "intensity": 0.5
+    },
+    "fog": {
+      "color": 11582934,
+      "density": 0.0012
+    },
+    "csm": {
+      "cascades": 3,
+      "maxFar": 180,
+      "mapSize": 2048
+    }
   },
-  "layers": { "leaves": "brown_mud_leaves_01", "mud": "brown_mud_03", "rock": "aerial_rocks_02", "grass": "aerial_grass_rock" },
-  "textures": ["brown_mud_leaves_01", "brown_mud_03", "aerial_rocks_02", "aerial_grass_rock"],
+  "layers": {
+    "leaves": "brown_mud_leaves_01",
+    "mud": "brown_mud_03",
+    "rock": "aerial_rocks_02",
+    "grass": "aerial_grass_rock"
+  },
+  "textures": [
+    "brown_mud_leaves_01",
+    "brown_mud_03",
+    "aerial_rocks_02",
+    "aerial_grass_rock"
+  ],
   "models": [],
   "vegetation": {
-    "$comment": "TIP-D05 rừng loài thật (content/vegetation/species.json). perHa = cây/ha (bụi: bụi/ha); lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; rect riêng cho tầng thấp (chỉ thấy < 140 m). Mật độ chỉnh theo đếm tam giác sandbox (≤ 2,5 M mục tiêu, 4 M đỏ) — bench Mac quyết GO/ADJUST (ADR-D01).",
+    "$comment": "TIP-D05 rừng loài thật (content/vegetation/species.json). perHa = cây/ha (bụi: bụi/ha); lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; rect riêng cho tầng thấp (chỉ thấy < 140 m); sink = chôn gốc [m, × tan dốc] (rễ bạnh không trồi trên sườn); noiseId = mọc theo trường noise của loài khác (dây leo trong cụm cây tán). Mật độ chỉnh theo đếm tam giác sandbox (≤ 2,5 M mục tiêu, 4 M đỏ) — bench Mac quyết GO/ADJUST (ADR-D06).",
     "seed": 1971,
     "cellM": 64,
     "wind": 0.35,
-    "rect": { "x": -192, "z": 512, "w": 1024, "h": 1024 },
+    "rect": {
+      "x": -192,
+      "z": 512,
+      "w": 1024,
+      "h": 1024
+    },
     "species": [
-      { "id": "tree_gn", "perHa": 35, "slope": [0, 0.55], "scale": [0.8, 1.25], "noise": { "scale": 0.006, "min": 0.3 }, "lod": [32, 100, 170, 600], "cast": true, "collider": { "radius": 0.45, "height": 6 } },
-      { "id": "palm", "perHa": 12, "slope": [0, 0.5], "scale": [0.8, 1.2], "noise": { "scale": 0.01, "min": 0.4, "offset": 50 }, "lod": [35, 90, 150, 450], "cast": true, "collider": { "radius": 0.2, "height": 3 } },
-      { "id": "bamboo", "perHa": 10, "slope": [0, 0.5], "scale": [0.85, 1.15], "noise": { "scale": 0.008, "min": 0.45, "offset": 120 }, "clump": { "count": [2, 4], "radius": 2.5 }, "lod": [35, 90, 200, 400], "cast": true, "collider": { "radius": 0.35, "height": 4 } },
-      { "id": "banana", "perHa": 60, "slope": [0, 0.45], "height": [0, 0.6], "scale": [0.8, 1.2], "noise": { "scale": 0.012, "min": 0.5, "offset": 300 }, "lod": [30, 70, 130, 130], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } },
-      { "id": "elephant_ear", "perHa": 250, "slope": [0, 0.5], "scale": [0.7, 1.2], "noise": { "scale": 0.015, "min": 0.4, "offset": 700 }, "lod": [18, 40, 90, 90], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } },
-      { "id": "fern", "perHa": 900, "slope": [0, 0.6], "scale": [0.7, 1.3], "noise": { "scale": 0.02, "min": 0.3, "offset": 900 }, "lod": [12, 28, 70, 70], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } }
+      {
+        "id": "tree_gn",
+        "perHa": 40,
+        "slope": [
+          0,
+          0.55
+        ],
+        "scale": [
+          0.8,
+          1.25
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.28
+        },
+        "lod": [
+          32,
+          100,
+          170,
+          600
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.45,
+          "height": 6
+        },
+        "sink": [
+          0.35,
+          2.0
+        ]
+      },
+      {
+        "id": "palm",
+        "perHa": 12,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.8,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.01,
+          "min": 0.4,
+          "offset": 50
+        },
+        "lod": [
+          35,
+          90,
+          150,
+          450
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.2,
+          "height": 3
+        },
+        "sink": [
+          0.1,
+          0.3
+        ]
+      },
+      {
+        "id": "bamboo",
+        "perHa": 12,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.85,
+          1.15
+        ],
+        "noise": {
+          "scale": 0.008,
+          "min": 0.45,
+          "offset": 120
+        },
+        "clump": {
+          "count": [
+            2,
+            4
+          ],
+          "radius": 2.5
+        },
+        "lod": [
+          35,
+          90,
+          200,
+          400
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.35,
+          "height": 4
+        },
+        "sink": [
+          0.15,
+          1.2
+        ]
+      },
+      {
+        "id": "banana",
+        "perHa": 60,
+        "slope": [
+          0,
+          0.45
+        ],
+        "height": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.012,
+          "min": 0.5,
+          "offset": 300
+        },
+        "lod": [
+          30,
+          70,
+          130,
+          130
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.6
+        ]
+      },
+      {
+        "id": "monstera",
+        "perHa": 70,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.7,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.34
+        },
+        "noiseId": "tree_gn",
+        "lod": [
+          22,
+          50,
+          100,
+          100
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.8
+        ]
+      },
+      {
+        "id": "elephant_ear",
+        "perHa": 250,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.7,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.015,
+          "min": 0.4,
+          "offset": 700
+        },
+        "lod": [
+          18,
+          40,
+          90,
+          90
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ]
+      },
+      {
+        "id": "fern",
+        "perHa": 900,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.7,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.02,
+          "min": 0.3,
+          "offset": 900
+        },
+        "lod": [
+          12,
+          28,
+          60,
+          60
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.5
+        ]
+      },
+      {
+        "id": "fern_grass",
+        "perHa": 700,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "noise": {
+          "scale": 0.025,
+          "min": 0.25,
+          "offset": 1300
+        },
+        "lod": [
+          12,
+          26,
+          55,
+          55
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.6
+        ]
+      },
+      {
+        "id": "grass",
+        "perHa": 22000,
+        "slope": [
+          0,
+          0.65
+        ],
+        "scale": [
+          0.75,
+          1.25
+        ],
+        "noise": {
+          "scale": 0.03,
+          "min": 0.08,
+          "offset": 1700
+        },
+        "lod": [
+          14,
+          26,
+          42,
+          42
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 640,
+          "h": 640
+        },
+        "sink": [
+          0.04,
+          0.4
+        ]
+      }
     ]
   },
-  "playerSpawn": [-134, 580],
+  "fx": [
+    {
+      "$comment": "cột khói bom xa (B-52/không kích trên tuyến — 'máy bay là thời tiết'): height = cao cột (m), đen → xám khi lên cao; dy = cao độ thêm so mặt đất",
+      "kind": "smoke",
+      "position": [
+        -560,
+        170
+      ],
+      "scale": 7,
+      "height": 380,
+      "color": 1579032
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        120,
+        120
+      ],
+      "scale": 6,
+      "height": 300,
+      "color": 2500134
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -330,
+        -60
+      ],
+      "scale": 8,
+      "height": 420,
+      "color": 1315860
+    },
+    {
+      "$comment": "đám cháy gần tuyến (xác xe/hố bom âm ỉ) — lửa + khói xám",
+      "kind": "fire",
+      "position": [
+        -262,
+        462
+      ],
+      "scale": 1.6
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -262,
+        462
+      ],
+      "scale": 2.2,
+      "height": 60,
+      "color": 5263440
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -40,
+        700
+      ],
+      "scale": 3,
+      "height": 90,
+      "color": 4210752
+    }
+  ],
+  "playerSpawn": [
+    -134,
+    580
+  ],
   "playerYaw": 0.6,
-  "botSpawns": { "bot_a": [-170, 540] },
-  "waypoints": [[-170, 540], [-210, 500], [-250, 470], [-200, 430], [-150, 470], [-120, 520]],
-  "zones": { "spawn": { "center": [-134, 580], "radius": 12 }, "ridge": { "center": [-200, 430], "radius": 20 } },
+  "botSpawns": {
+    "bot_a": [
+      -170,
+      540
+    ]
+  },
+  "waypoints": [
+    [
+      -170,
+      540
+    ],
+    [
+      -210,
+      500
+    ],
+    [
+      -250,
+      470
+    ],
+    [
+      -200,
+      430
+    ],
+    [
+      -150,
+      470
+    ],
+    [
+      -120,
+      520
+    ]
+  ],
+  "zones": {
+    "spawn": {
+      "center": [
+        -134,
+        580
+      ],
+      "radius": 12
+    },
+    "ridge": {
+      "center": [
+        -200,
+        430
+      ],
+      "radius": 20
+    }
+  },
   "coverMarkers": []
 }

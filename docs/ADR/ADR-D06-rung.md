@@ -29,6 +29,10 @@ M1 là rừng Trường Sơn; sau D04 Chủ nhà thấy "địa hình là rừng
 - **GO** nếu GPU rừng (= GPU frame có rừng − GPU frame `?veg=0` cùng góc) ≤ 12 ms và tổng frame p95 ≤ 16,67 ms ở tier high → G1 giữ kiến trúc, D12 chỉ thêm loài/ground cover/atlas.
 - **ADJUST** (theo thứ tự đòn bẩy, không hạ chất lượng toàn cục — DV-008): (1) bóng chỉ LOD0 hoặc cascade 0–1 (−0,6…1,2 M tam giác); (2) impostor sớm hơn (cây tán 170 → 130 m); (3) atlas texture mỗi loài → 1 material/loài (draw 70 → ~30, đạt PRD ≤ 40); (4) tầng thấp bỏ LOD0 ngoài 10 m; (5) mật độ tier high 1 → 0,8. Nếu vẫn > 12 ms sau (1)–(3) → mở lại thiết kế (compute LOD trên GPU, VEG-004) trước D08.
 
+## Bổ sung vòng 1 (phản hồi Mac Chủ nhà, DV-037)
+- 9 loài: + cỏ procedural (`scripts/gen-grass.mjs`, CC0, 22 000/ha, LOD 14/26/42 m, 16/8/2 tam giác), monstera (dây leo lá xẻ, `noiseId` mọc theo trường noise cây tán), fern_grass (POLYSCAN). Đè cỏ VEG-006: uniform `press` (1 tác nhân ở D05, ≤ 8 ở D12). Luật `sink` chôn gốc theo độ dốc. Sức chứa batch = ước lượng đĩa lod[3] (cỏ 714 k instance đặt → batch ~4 k).
+- Sandbox high sau vòng 1: rừng 1,44–1,59 M tam giác, draw 99–117, tổng renderer 3,05–3,78 M, CPU ~2 ms (frame đầu 4–6 ms). Đòn bẩy ADJUST thêm: (0) cỏ 22 000 → 12 000/ha.
+
 ## Hệ quả
 - Rừng là **placement seeded từ luật** (không tác giả từng cây): cùng seed → cùng rừng trên mọi máy (bench/E2E tái lập); tuyến §20.2 (lối hẹp, khoảng sáng) sẽ tác giả bằng mặt nạ/spline ở D08 (thêm `mask` rule), không đặt tay.
 - Chỉ 1 biến thể cây tán và tầng đất trần (chưa cỏ/lá mục, chưa "đè cỏ" VEG-006) → D12: thêm 1–2 loài tán + ground cover + đè theo vị trí người chơi (uniform ≤ 8 tác nhân).

@@ -18,9 +18,11 @@
 5. **Level:** khối `vegetation` trong `truong-son-a.level.json` (seed 1971, rect 1 024 m quanh navRect, 6 luật, tầng thấp rect 832 m) + schema; `?level=truong-son` mặc định có rừng (`?veg=0` tắt; lite cần `?veg=1`).
 6. **Test/evidence:** unit scatter (7), E2E rừng (ngân sách draw/tris/calls, collider thân chặn người chơi, gió, không lỗi console); ảnh sandbox high/low; `docs/ADR/ADR-D06-rung.md` (đề xuất, cổng GO/ADJUST); DECISIONS DV-032…035; README.
 
+7. **Vòng 1 (phản hồi Mac):** chôn gốc theo dốc (`sink`), cỏ procedural + đè cỏ, monstera/fern_grass, tay trái ôm ốp từ dưới (rot giải tích, `hip.pos` trong tầm với), `fx` khói bom xa/đám cháy cho level terrain; máy bay/lính dù → TIP D-SKY (cần asset + cố vấn).
+
 ## ACCEPTANCE CRITERIA
 - Given `http://127.0.0.1:5173/?autostart=1&level=truong-son&weapon=ak47` trên Mac, Then rừng 6 loài hiện quanh spawn/tuyến (tán, tre, cọ, chuối, ráy, dương xỉ), gió nhẹ, impostor ở xa, không lỗi console; người chơi không đi xuyên thân cây tán/cọ/tre.
-- Given `quality=high` sandbox, Then tam giác rừng ≤ 1,5 M, draw rừng ≤ 90, tổng renderer ≤ 4 M (đỏ) và cùng seed → cùng rừng (unit); `assets:validate` 0 lỗi; unit + CI xanh.
+- Given `quality=high` sandbox, Then tam giác rừng ≤ 1,6 M, draw rừng ≤ 140 (9 loài; atlas D12 → ≤ 40), tổng renderer ≤ 4 M (đỏ) và cùng seed → cùng rừng (unit); `assets:validate` 0 lỗi; unit + CI xanh.
 - Given Chủ nhà bench Mac (`?level=truong-son&bench=1`, 3 run, 1920 px) và so `?veg=0`, Then GPU rừng ≤ 12 ms → ADR-D06 ký **GO**; ngược lại **ADJUST** theo thứ tự đòn bẩy trong ADR (không hạ chất lượng toàn cục).
 
 ## CONSTRAINTS

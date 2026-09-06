@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T03:07:57.899Z",
+  "generatedAt": "2026-09-06T03:54:51.425Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 130345324,
+  "totalBytes": 131365108,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3299,36 +3299,6 @@
       }
     },
     {
-      "id": "veg_elephant_ear",
-      "type": "model",
-      "use": "thực vật rừng (TIP-D05, VEG-001) — ráy Alocasia (Elephant Ear Plant): 2 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
-      "source": "sketchfab",
-      "url": "https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef",
-      "authors": [
-        "BANDANNA"
-      ],
-      "license": "CC-BY-4.0",
-      "attribution": "\"Elephant Ear Plant\" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
-      "files": [
-        {
-          "path": "assets/vegetation/elephant_ear.glb",
-          "bytes": 267256,
-          "sha256": "39738cf83bcdcd18507422585b913088d3a37e107b301cc36b9b35002594e7da"
-        }
-      ],
-      "sourceFiles": [
-        {
-          "path": "assets-src/sketchfab/elephant-ear-band/elephant_ear_plant.glb",
-          "bytes": 1005612,
-          "sha256": "74929815ae81e0031ed668ddba88a6e844d44e8356cb71ff314ca7a178c9272c"
-        }
-      ],
-      "triangles": {
-        "source": 1514,
-        "output": 3274
-      }
-    },
-    {
       "id": "veg_palm",
       "type": "model",
       "use": "thực vật rừng (TIP-D05, VEG-001) — cọ/cau rừng (Tropical Plants Pack): 3 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
@@ -3356,6 +3326,118 @@
       "triangles": {
         "source": 46575,
         "output": 4080
+      }
+    },
+    {
+      "id": "veg_grass",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001/006) — cỏ rừng/cỏ tranh procedural: bụi thẻ chéo 3 biến thể × 3 LOD, texture lá cỏ vẽ bằng scripts/gen-grass.mjs (không asset ngoài)",
+      "source": "procedural",
+      "url": "https://github.com/nclamvn/duong-ve-sai-gon",
+      "authors": [
+        "DVSG (scripts/gen-grass.mjs)"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/grass.glb",
+          "bytes": 70140,
+          "sha256": "c0e8156d12e52d7634862afe2671af932364b4897a34c60b1d74c0a0019df0d7"
+        }
+      ],
+      "triangles": {
+        "source": 16,
+        "output": 16
+      }
+    },
+    {
+      "id": "veg_monstera",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — trầu bà/ráy leo lá xẻ Monstera (Tropical Plants Pack) — tầng giữa, dây leo bám gốc: 4 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+      "authors": [
+        "MozzarellaARC"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Tropical Plants Pack M02P\" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/monstera.glb",
+          "bytes": 883512,
+          "sha256": "0b1d0679bab45778a2f499e7f488150e6479439153ca9de788d27a10930de15f"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+          "bytes": 26963788,
+          "sha256": "df11d08f77622aa9e7a5150579207676b5566dd3b50bc956b63512b87d442145"
+        }
+      ],
+      "triangles": {
+        "source": 46575,
+        "output": 2445
+      }
+    },
+    {
+      "id": "veg_elephant_ear",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — ráy Alocasia (Elephant Ear Plant): 2 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef",
+      "authors": [
+        "BANDANNA"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Elephant Ear Plant\" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/elephant_ear.glb",
+          "bytes": 238916,
+          "sha256": "33656e307d7e6bcc7080db6216d60923cb1058121c64eb3a89bfdc5654fba898"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/elephant-ear-band/elephant_ear_plant.glb",
+          "bytes": 1005612,
+          "sha256": "74929815ae81e0031ed668ddba88a6e844d44e8356cb71ff314ca7a178c9272c"
+        }
+      ],
+      "triangles": {
+        "source": 1514,
+        "output": 2681
+      }
+    },
+    {
+      "id": "veg_fern_grass",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cỏ dương xỉ bụi thấp (fern grass 02, POLYSCAN) — tầng đất: 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9",
+      "authors": [
+        "POLYSCAN"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"fern grass 02\" (https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9) by POLYSCAN is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/fern_grass.glb",
+          "bytes": 94472,
+          "sha256": "5755379f986baf963be8e83e76e7020ac0e80101685555da458efd9fb42961e4"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/fern-polyscan/fern_grass_02.glb",
+          "bytes": 513392,
+          "sha256": "e3b55873f2bfbe6800a365cc559df166e2f7fbcbddb64a05e48be904cdb6d69f"
+        }
+      ],
+      "triangles": {
+        "source": 2128,
+        "output": 1483
       }
     }
   ]

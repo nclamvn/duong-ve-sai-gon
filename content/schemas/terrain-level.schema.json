@@ -91,9 +91,30 @@
                 "required": ["radius", "height"],
                 "properties": { "radius": { "type": "number", "minimum": 0.01 }, "height": { "type": "number", "minimum": 0.1 } }
               },
-              "rect": { "$ref": "#/definitions/rect" }
+              "rect": { "$ref": "#/definitions/rect" },
+              "noiseId": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+              "sink": { "$ref": "#/definitions/v2" },
+              "press": { "type": "number", "minimum": 0, "maximum": 1 }
             }
           }
+        }
+      }
+    },
+    "fx": {
+      "type": "array",
+      "description": "FX môi trường (ambientFx: khói/lửa/tàn lửa/bụi) — vị trí x/z, y từ terrain + dy",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "position"],
+        "properties": {
+          "$comment": { "type": "string" },
+          "kind": { "enum": ["smoke", "fire", "embers", "dust"] },
+          "position": { "$ref": "#/definitions/v2" },
+          "dy": { "type": "number" },
+          "scale": { "type": "number", "minimum": 0.1 },
+          "height": { "type": "number", "minimum": 1 },
+          "color": { "type": "integer" }
         }
       }
     },

@@ -92,6 +92,8 @@ export interface FxDef {
   scale?: number;
   /** khói: màu (đen/xám/trắng) */
   color?: number;
+  /** khói: cao cột (m) — mặc định 14 × scale; cột bom xa 300–500 m */
+  height?: number;
 }
 
 export interface LevelDef {

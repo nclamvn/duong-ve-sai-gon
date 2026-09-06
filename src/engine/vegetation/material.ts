@@ -12,6 +12,8 @@ export interface WindUniforms {
   dir: { value: { x: number; y: number } };
   /** cường độ 0..1 (0,35 gió nhẹ rừng; tăng khi trực thăng/bom — VEG-002) */
   strength: { value: number };
+  /** đè cỏ (VEG-006): tâm xz + bán kính (w) của tác nhân (người chơi); w = 0 → tắt. D12: ≤ 8 tác nhân */
+  press: { value: { x: number; y: number; z: number; w: number } };
 }
 
 export interface VegMaterialOptions {
@@ -27,14 +29,16 @@ export interface VegMaterialOptions {
   /** tint tối/sáng mỗi cây: albedo × mix(1 − v, 1 + v, tint) */
   tintVar?: number;
   roughness?: number;
+  /** hệ số đè (0 = không đè: cây thân; 1 = cỏ) */
+  pressM?: number;
 }
 
 export function createWindUniforms(): WindUniforms {
-  return { dir: uniform(vec2(0.8, 0.6)) as unknown as WindUniforms['dir'], strength: uniform(0.35) as unknown as WindUniforms['strength'] };
+  return { dir: uniform(vec2(0.8, 0.6)) as unknown as WindUniforms['dir'], strength: uniform(0.35) as unknown as WindUniforms['strength'], press: uniform(vec4(0, 0, 0, 0)) as unknown as WindUniforms['press'] };
 }
 
 /** Vị trí instance (local mesh = world vì mesh ở gốc) sau xoay yaw + scale + gió; dùng chung cho mesh và bóng. */
-export function instancedWindPosition(wind: WindUniforms, bendM: number, flutterM: number): Node<'vec3'> {
+export function instancedWindPosition(wind: WindUniforms, bendM: number, flutterM: number, pressM = 0): Node<'vec3'> {
   const ps = attribute('iPosScale', 'vec4') as unknown as Node<'vec4'>;
   const rt = attribute('iRotTint', 'vec4') as unknown as Node<'vec4'>;
   const w = attribute('_wind', 'vec2') as unknown as Node<'vec2'>;
@@ -55,13 +59,23 @@ export function instancedWindPosition(wind: WindUniforms, bendM: number, flutter
   const ox = dir.x.mul(bend).add(dir.x.mul(flutter));
   const oz = dir.y.mul(bend).add(dir.y.mul(flutter));
   const oy = flutter.mul(0.3).sub(bend.mul(0.15)); // thân uốn hạ đỉnh một chút (giữ chiều dài xấp xỉ)
-  return vec3(ps.x.add(rx).add(ox), ps.y.add(p.y).add(oy), ps.z.add(rz).add(oz));
+  let out = vec3(ps.x.add(rx).add(ox), ps.y.add(p.y).add(oy), ps.z.add(rz).add(oz));
+  if (pressM > 0) {
+    // đè cỏ (VEG-006): trong bán kính press.w quanh tâm xz, đỉnh (theo h) ngả ra xa tâm và hạ xuống — không đè gốc
+    const pr = wind.press as unknown as Node<'vec4'>;
+    const dxz = vec2(ps.x.sub(pr.x), ps.z.sub(pr.z));
+    const len = dxz.length().max(0.001);
+    const k = smoothstep(pr.w, pr.w.mul(0.15), len).mul(w.x).mul(float(pressM));
+    const dirP = dxz.div(len);
+    out = vec3(out.x.add(dirP.x.mul(k).mul(0.45)), out.y.sub(k.mul(0.5).mul(p.y)), out.z.add(dirP.y.mul(k).mul(0.45)));
+  }
+  return out;
 }
 
 export function createVegetationMaterial(o: VegMaterialOptions): MeshStandardNodeMaterial {
   const mat = new MeshStandardNodeMaterial();
   const rt = attribute('iRotTint', 'vec4') as unknown as Node<'vec4'>;
-  mat.positionNode = instancedWindPosition(o.wind, o.bendM ?? 0.6, o.flutterM ?? 0.06);
+  mat.positionNode = instancedWindPosition(o.wind, o.bendM ?? 0.6, o.flutterM ?? 0.06, o.pressM ?? 0);
   // normal: xoay yaw theo instance; lá hai mặt → lật theo mặt
   const c = rt.x;
   const s = rt.y;
@@ -87,6 +101,5 @@ export function createVegetationMaterial(o: VegMaterialOptions): MeshStandardNod
   // normal map: bỏ ở D05 (normalNode tuỳ biến thay materialNormal; lá dạng thẻ không cần; thân → D12 nếu thấy phẳng)
   mat.color = new Color(0xffffff);
   mat.shadowSide = DoubleSide;
-  void smoothstep;
   return mat;
 }

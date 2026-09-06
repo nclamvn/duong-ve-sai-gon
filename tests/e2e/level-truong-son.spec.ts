@@ -136,7 +136,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
 
   /**
    * TIP-D05 — rừng loài thật (PRD VEG-001/004/006): scatter seeded → batch instanced theo ô + LOD + impostor; thân cây có collider.
-   * `veg=1` bật rừng dù lite (assets=0). Ngưỡng ở quality=low (density 0,5 · lodScale 0,6): draw rừng ≤ 90, tam giác rừng ≤ 1,5 M,
+   * `veg=1` bật rừng dù lite (assets=0). Ngưỡng ở quality=low (density 0,5 · lodScale 0,6): 9 loài, draw rừng ≤ 140, tam giác rừng ≤ 1,5 M,
    * tổng renderer ≤ 4 M (ngân sách đỏ PRD); người chơi đi thẳng vào thân cây 4 s không xuyên (khoảng cách tới trục ≥ r + bán kính capsule − 5 cm).
    */
   test('rừng: batch/LOD/impostor trong ngân sách; thân cây chặn người chơi; gió; không lỗi console', async ({ page }) => {
@@ -222,17 +222,17 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         atlasTree: !!g.forest?.atlases['tree_gn'],
       };
     });
-    expect(r.species).toBe(6);
+    expect(r.species).toBe(9);
     expect(r.placed).toBeGreaterThan(10_000);
     expect(r.perSpecies['tree_gn']).toBeGreaterThan(500);
     expect(r.colliders).toBeGreaterThan(1000);
     expect(r.atlasTree).toBe(true);
     for (const s of r.stats) {
       expect(s.draws, JSON.stringify(r.stats)).toBeGreaterThan(10);
-      expect(s.draws).toBeLessThanOrEqual(90);
+      expect(s.draws).toBeLessThanOrEqual(140);
       expect(s.tris).toBeLessThanOrEqual(1_500_000);
       expect(s.total).toBeLessThanOrEqual(4_000_000);
-      expect(s.calls, JSON.stringify(r.stats)).toBeLessThanOrEqual(220);
+      expect(s.calls, JSON.stringify(r.stats)).toBeLessThanOrEqual(280);
     }
     expect(Math.max(...r.stats.map((s) => s.visible))).toBeGreaterThan(100);
     expect(Math.max(...r.stats.map((s) => s.imp))).toBeGreaterThan(20);
