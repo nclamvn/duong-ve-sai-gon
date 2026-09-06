@@ -1,0 +1,18 @@
+DV-046 / TIP-D11c CI 2026-09-06 12:35:22 UTC
+typecheck OK · unit 22 files 144/144 · build OK
+  ✓   1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__
+  ✓   2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend w
+  ✓   3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi k
+  ✓   4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › chết nằm hẳn (glTF, DV-045): one-shot 
+  ✓   5 [webgl-ci] › tests/e2e/boot.spec.ts:110:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › súng + trang phục theo phe (DV-046): phe
+  ✓   6 [webgl-ci] › tests/e2e/boot.spec.ts:139:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht 
+  ✓   7 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạ
+  ✓   8 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:12:3 › Trường Sơn — vật lý terrain (TIP-D04) › đứng/đi lên dốc/không leo dốc 
+  ✓   9 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:142:3 › Trường Sơn — vật lý terrain (TIP-D04) › rừng: batch/LOD/impostor trong ngân 
+  ✓  10 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:302:3 › Trường Sơn — vật lý terrain (TIP-D04) › bầu trời: lượt bay theo lịch s
+  ✓  11 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:410:3 › Trường Sơn — vật lý terrain (TIP-D04) › M1 lát cắt: đồng đội theo, ch�
+  ✓  12 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone �
+  ✓  13 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp c
+  13 passed (10.3m)
+
+M16A1 provenance: Sketchfab 3579009c6e444cf5bd8d2646954e45d7, DavidFalke, CC-BY-4.0, 18133 tri, 6 tex, materials lambert5SG/lambert6SG (Maya), asset.extras author/license/source; author portfolio: MP5/Mossberg/M1911A1/Kar98k/MP40 game-ready (2016–2018) — original prop artist; no game tags. Source sha256 ef965723202715ae11da413a7bc39385f8fc74a246b9a45f3127b61882fda390

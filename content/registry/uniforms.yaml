@@ -64,3 +64,31 @@ facts:
         tier: S
     used_by: [M1]
     notes: "Trang phục TNXP nữ 1971 (áo, mũ tai bèo, khăn) chưa có fact riêng — lượt 2."
+  - id: uni.us.1971.erdl_camo
+    value: "Rằn ri hoa rừng ERDL (US Army Engineer Research and Development Laboratory, thiết kế 1948, cấp phát Đông Nam Á từ 1967) — 4 màu: nền xanh chanh (bản 'lime') hoặc nâu nhạt (bản 'brown-dominant'), mảng lớn xanh ô-liu đậm và nâu, nhánh đen mảnh. Lính Mỹ (Marines, Army) và các đơn vị Sài Gòn (Dù, Biệt động quân, TQLC) dùng trong 1968–1975; VNCH có cả bản ERDL chuẩn lẫn bản in nội địa."
+    year: "1967-1975"
+    force: us
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/ERDL_pattern
+        title: "ERDL pattern"
+        publisher: Wikipedia
+        accessed: "2026-09-06"
+        quote: "a large organic shapes pattern of mid-green and brown, black branches, on a lime green background"
+        tier: S
+    used_by: [M1, M2, chr_enemy_erdl_1971]
+    notes: "Asset D11c = shader ERDL trên atlas Swat (mảng 3–10 cm) + mũ sắt M1 bọc vải cùng hoa văn. Thám báo/SOG 1971 thực tế hay mặc rằn ri hổ (tiger stripe) — Chủ nhà chốt ERDL cho địch M1 (DV-046); cố vấn duyệt kích thước mảng và tông màu bằng ảnh tư liệu."
+  - id: uni.us.1971.helmet_m1_cover
+    value: "Mũ sắt M1 (vỏ thép + lót) bọc vải nguỵ trang hai mặt (Mitchell 'cloud/leaf' hoặc ERDL) có dây mũ (helmet band) cao su quanh thân; quai cằm thường không cài."
+    year: "1965-1975"
+    force: us
+    provenance_level: H
+    sources: []
+    notes: "Ảnh tư liệu phổ biến nhưng CHƯA có nguồn P/S trong lượt này; Dù VNCH 1971 dùng vỏ bọc loại nào (Mitchell hay ERDL tự may) chưa xác định — cố vấn."
+  - id: uni.us.1956.web_gear
+    value: "Dây đeo M1956 (LCE): thắt lưng súng lục, dây vai chữ H, hai túi đạn nhỏ trước, bi đông 1 qt trong bao, xẻng gấp; lính Mỹ và VNCH dùng suốt chiến tranh."
+    year: "1961-1975"
+    force: us
+    provenance_level: H
+    sources: []
+    notes: "Kích thước túi đạn 8 × 14 × 7 cm, bi đông 9 × 19 × 6 cm là số phổ biến của giới sưu tầm — nâng lên S bằng tài liệu quân trang (TM 10-8465) khi cố vấn có."

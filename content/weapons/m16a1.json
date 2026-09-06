@@ -1,0 +1,29 @@
+{
+  "$comment": "M16A1 (DavidFalke, CC-BY-4.0) — súng địch 1971: thám báo/lính Sài Gòn (DV-046, TIP-D11c). Hệ model: nòng −z, gốc trên trục nòng giữa súng, dài 0,99 m (loa che lửa → đế báng). Anchor đo từ silhouette (scripts/weapon-silhouette.mjs, lưới 5 cm): loa che lửa z −0,495; đầu ruồi z −0,33..−0,295 đỉnh y 0,067; ốp lót tam giác z −0,285..0,03, y −0,037..0,033 → gripL = giữa mặt dưới ốp (0, −0,02, −0,15); quai xách/thước ngắm sau y 0,067 z 0,04..0,205; băng đạn z 0,05..0,115 đáy y −0,133; tay cầm z 0,18..0,255, y −0,15..−0,08 → gripR (0, −0,105, 0,215); cửa thoát vỏ đạn bên phải z 0,09. Pose tay fp/view sao chép AK-47 (cùng kiểu tay cầm súng lục; bot ở xa — người chơi không dùng M16 ở M1; ?calib=fp&botWeapon=m16a1 khi cần hiệu chỉnh).",
+  "id": "m16a1",
+  "asset": "weapon_m16a1",
+  "model": "weapons/m16a1.glb",
+  "length": 0.99,
+  "anchors": {
+    "muzzle": [0, 0, -0.495],
+    "eject": [0.03, 0.01, 0.09],
+    "gripR": [0, -0.105, 0.215],
+    "gripL": [0, -0.02, -0.15],
+    "sight": [0, 0.064, 0.0],
+    "magazine": [0, -0.133, 0.08]
+  },
+  "parts": {},
+  "view": {
+    "scale": 0.62,
+    "hip": { "pos": [0.085, -0.1, -0.215], "rot": [0.02, 0.05, 0.0] },
+    "ads": { "pos": [0, -0.04, -0.28], "rot": [0, 0, 0] },
+    "sprint": { "pos": [0.1, -0.16, -0.21], "rot": [-0.35, 0.5, 0.2] },
+    "sightDistance": 0.34,
+    "alignSight": true
+  },
+  "fp": {
+    "handR": { "pos": [0.0084, -0.0108, 0.12], "rot": [-2.0599, -1.4363, -0.5653] },
+    "handL": { "pos": [-0.08, -0.072, 0.0], "rot": [-1.571, -0.418, -1.571] },
+    "triggerFinger": 0.6
+  }
+}

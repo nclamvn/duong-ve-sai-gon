@@ -43,3 +43,17 @@ facts:
         tier: S
     used_by: [M1, air_ac130a, VFX-003, AUD-003]
     notes: "Con số \"hơn 10.000 xe bị phá\" là tuyên bố phía Mỹ — chỉ dùng trong bản tin có ghi nguồn, không dùng trong gameplay."
+  - id: wpn.us.m16a1
+    value: "M16A1 (Colt, 5,56×45 mm, băng 20/30 viên, ~700–950 phát/phút, dài 99 cm) là súng trường tiêu chuẩn của lính Mỹ và được cấp đại trà cho quân Sài Gòn từ 1967–68; CAR-15/XM177 bản nòng ngắn dùng cho lực lượng đặc biệt/SOG."
+    year: "1967-1975"
+    force: us
+    provenance_level: S
+    sources:
+      - url: https://en.wikipedia.org/wiki/M16_rifle
+        title: "M16 rifle"
+        publisher: Wikipedia
+        accessed: "2026-09-06"
+        quote: "the M16A1 ... became the standard service rifle"
+        tier: S
+    used_by: [M1, M2, weapon_m16a1]
+    notes: "Asset weapon_m16a1 (DavidFalke CC-BY, DV-046): bot địch cầm; tuning bắn (tốc độ, băng 20 viên năm 1971) ở content/tuning/weapons.json — chờ cố vấn chốt băng 20 hay 30."

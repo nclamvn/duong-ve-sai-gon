@@ -107,6 +107,35 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await expectNoErrors(errors);
   });
 
+  test('súng + trang phục theo phe (DV-046): phe ta AK-47 + mũ cối, địch M16A1 + mũ sắt M1/M1956 (khi có asset glTF)', async ({ page }) => {
+    const errors = await bootGame(page);
+    await pauseLoop(page);
+    const r = await page.evaluate(() => {
+      const g = window.__ht!.game;
+      type Vis = { kind: string; attached?: { weapon?: { cfg: { id: string } } } | null; gear?: { helmet?: { name: string } | null } | null };
+      const friend = g.dummies[0] as unknown as Vis;
+      const enemy = g.spawnBot('probe_enemy', 'probe', [g.player.controller.feet[0]! + 3, g.player.controller.feet[1]!, g.player.controller.feet[2]!], { faction: 'enemy', archetype: 'recon' }).dummy as unknown as Vis;
+      return {
+        kind: friend.kind,
+        friendWeapon: friend.attached?.weapon?.cfg.id ?? null,
+        friendHelmet: friend.gear?.helmet?.name ?? null,
+        enemyWeapon: enemy.attached?.weapon?.cfg.id ?? null,
+        enemyHelmet: enemy.gear?.helmet?.name ?? null,
+        idFriend: g.weaponIdFor('friend'),
+        idEnemy: g.weaponIdFor('enemy'),
+      };
+    });
+    expect(r.idFriend).toBe('ak47');
+    if (r.kind === 'gltf') {
+      expect(r.friendWeapon).toBe('ak47');
+      expect(r.friendHelmet).toBe('gear_pith_helmet');
+      expect(r.idEnemy).toBe('m16a1');
+      expect(r.enemyWeapon).toBe('m16a1');
+      expect(r.enemyHelmet).toBe('gear_m1_helmet');
+    }
+    await expectNoErrors(errors);
+  });
+
   test('PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship)', async ({ page }) => {
     await page.goto('/?backend=webgl&level=arena&autostart=1&quality=low&rain=500&shadow=512');
     await page.waitForFunction(() => document.getElementById('capability')!.hidden === true, null, { timeout: 60_000 });

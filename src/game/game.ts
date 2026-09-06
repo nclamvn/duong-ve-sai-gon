@@ -28,9 +28,10 @@ import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { createActorVisual, type ActorVisual } from '@game/actors/visual';
 import { FpArms } from '@engine/render/fpArms';
-import type { WeaponModelConfig } from '@engine/render/weaponModel';
+import type { WeaponModelConfig, WeaponAsset } from '@engine/render/weaponModel';
 import ak74mCfg from '@content/weapons/ak74m.json';
 import ak47Cfg from '@content/weapons/ak47.json';
+import m16a1Cfg from '@content/weapons/m16a1.json';
 import hk416Cfg from '@content/weapons/hk416.json';
 import { Telemetry, type FrameSample } from '@qa/telemetry';
 import { initPhysics, PhysicsWorld } from '@engine/physics/world';
@@ -110,7 +111,11 @@ export class Game {
   /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
   playerWeaponId = 'ak47';
   /** súng của bot/dummy: HK416 (fixture HT-MB) — `?botWeapon=ak47` để calib tay theo khẩu người chơi (?calib=soldier) hoặc lính QGP cầm AK (D11) */
-  botWeaponId = 'hk416';
+  /**
+   * Súng bot ép qua `?botWeapon=` (calib/bench); mặc định theo phe — DV-046: phe ta AK-47 (1971), địch M16A1 khi có asset
+   * (Chủ nhà Mac 2026-09-06: "đồng đội không dùng AK47, không đúng lính Việt Nam năm 7x" — trước đây mọi bot cầm HK416 của Hải Tuyến)
+   */
+  botWeaponId: string | null = null;
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -207,7 +212,7 @@ export class Game {
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
     const botWeaponParam = this.params.get('botWeapon');
-    this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' ? botWeaponParam : 'hk416';
+    this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' || botWeaponParam === 'm16a1' ? botWeaponParam : null;
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
     const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : null;
     const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
@@ -222,7 +227,7 @@ export class Game {
       lite: !this.quality.assets,
       noCharacter: !this.quality.character,
       noWeapons: !this.quality.weapons,
-      weapons: [ak47Cfg as unknown as WeaponModelConfig, ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
+      weapons: [ak47Cfg as unknown as WeaponModelConfig, m16a1Cfg as unknown as WeaponModelConfig, ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
       textureIds: levelDef?.textures ?? terrainDef?.textures,
       modelIds: levelDef?.models ?? terrainDef?.models,
       hdri: skyDef ? { id: skyDef.hdri, res: skyDef.res } : undefined,
@@ -322,7 +327,7 @@ export class Game {
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: 'pavn1971' }, this.assets.weapons[this.botWeaponId] ?? null);
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: 'pavn1971' }, this.weaponFor('friend'));
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -815,6 +820,17 @@ export class Game {
     out.applyMatrix4(this.camera.matrixWorld);
   }
 
+  /** id súng bot theo phe (DV-046): ta = AK-47; địch = M16A1 (thám báo/lính Sài Gòn 1971) — thiếu asset → AK-47 (SOG cũng dùng AK chiếm được) */
+  weaponIdFor(faction: Faction): string {
+    if (this.botWeaponId) return this.botWeaponId;
+    if (faction === 'enemy' && this.assets?.weapons['m16a1']) return 'm16a1';
+    return 'ak47';
+  }
+
+  private weaponFor(faction: Faction): WeaponAsset | null {
+    return this.assets?.weapons[this.weaponIdFor(faction)] ?? null;
+  }
+
   spawnBot(id: string, group: string, spawn: [number, number, number], opts: { faction?: Faction; nameKey?: string | null; archetype?: 'grunt' | 'recon' | 'squad'; waypoints?: Array<[number, number, number]> } = {}): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
@@ -822,8 +838,9 @@ export class Game {
     const recon = opts.archetype === 'recon';
     const visual = createActorVisual(
       this.quality.character ? this.assets?.character ?? null : null,
-      recon ? { color: 0x3a3a2a, visor: 0xff5a2a, phase: id.length, skin: 'recon' } : { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' },
-      this.assets?.weapons[this.botWeaponId] ?? null,
+      // địch 1971 (DV-046): hoa rừng ERDL + mũ sắt M1 + dây đeo M1956 (thám báo M1, lính Sài Gòn M2); 'recon' rằn ri hổ giữ cho SOG sau
+      recon ? { color: 0x3a3a2a, visor: 0xff5a2a, phase: id.length, skin: 'erdl', gear: 'us1971' } : { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' },
+      this.weaponFor(faction),
     );
     const target = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: false };
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {

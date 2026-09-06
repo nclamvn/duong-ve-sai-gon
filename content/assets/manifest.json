@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T09:57:10.628Z",
+  "generatedAt": "2026-09-06T11:57:26.475Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 136625889,
+  "totalBytes": 138821021,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3633,6 +3633,39 @@
           "sha256": "de9ce1977a6baf1f4342731264352f12a6f4c66352618307523a271c888a5288"
         }
       ]
+    },
+    {
+      "id": "weapon_m16a1",
+      "type": "model",
+      "use": "súng địch (DV-046/TIP-D11c) — M16A1 1971: thám báo M1, lính Sài Gòn M2; cầm bởi bot phe enemy (attachRifle), người chơi không dùng",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7",
+      "authors": [
+        "DavidFalke (davidfalke)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"M16A1 - Gameasset\" (https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/weapons/m16a1.glb",
+          "bytes": 2195132,
+          "sha256": "42b29e2c7dadedc85621f7e48b67249140f012293e28ab739a8ff236c09f99a8"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/m16a1-davidfalke/m16a1_-_gameasset.glb",
+          "bytes": 47450220,
+          "sha256": "ef965723202715ae11da413a7bc39385f8fc74a246b9a45f3127b61882fda390"
+        }
+      ],
+      "triangles": {
+        "source": 18133,
+        "output": 18133
+      },
+      "historical": true,
+      "registryId": "wpn.us.m16a1",
+      "approved": false
     }
   ]
 }
