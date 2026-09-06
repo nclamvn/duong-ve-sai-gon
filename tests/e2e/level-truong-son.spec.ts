@@ -105,6 +105,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         navPrebuilt: ts?.navPrebuilt ?? false,
         terrainDraws: ts?.draws ?? -1,
         bots: H.bots().length,
+        // TIP-D11a: bot tuần tra bám mặt đất (không "bay" theo y góc kế của path) — đo sau 3 s sim
+        botGap: (() => {
+          H.stepSim(180);
+          return H.bots().map((b) => Math.abs(b.position[1] - hAt(b.position[0], b.position[2])));
+        })(),
       };
     });
     expect(r.level).toBe('truong-son');
@@ -121,6 +126,8 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(r.steep, 'không tìm thấy dốc đứng trong 300 m quanh spawn').not.toBeNull();
     expect(r.steep!.climb).toBeLessThan(2.5);
     expect(r.navPolys).toBeGreaterThan(0);
+    expect(r.bots).toBeGreaterThan(0);
+    for (const gap of r.botGap) expect(gap).toBeLessThan(0.5);
     expect(r.terrainDraws).toBeGreaterThan(0);
     expect(r.terrainDraws).toBeLessThanOrEqual(4);
     expect(r.bots).toBe(1);

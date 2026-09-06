@@ -27,6 +27,7 @@ Sửa
 - (Thấp) Đầu to (vỏ mũ Swat làm sọ, rộng ±11 cm) → mũ cối phải 0,30 × 0,34 m để trùm — hơi quá cỡ; D11b đầu thật sẽ về 0,27 × 0,31.
 - (Thấp) Áo giáp Swat sơn olive còn hình khối "áo phao" dưới bao xe; đọc như áo trấn thủ ở xa. D11b thay thân.
 - (Đã sửa) Ảnh Mac đầu tiên của Chủ nhà: "cánh tay như bị tật" (`mac-fp-hip-before-fix.png`) — cổ tay trái gập do pose fit() của D10 + đai cổ tay găng sơn da thành bướu + ống tay còn loang rằn ri. Sửa: pose tay AK-74M đã kiểm Mac (DV-029), đai cổ tay → vải (cổ tay áo), blur vải 22 px/nén 0,45/sàn 0,78 → ống tay olive trơn. Chấm lần 2: "ngón cái không sát súng, ngón khác xuyên súng" → gripL về tâm ốp lót (silhouette), handL.pos dịch, ngón cái trái khép quanh −z (`fpArms`), đo khớp ngón trong hệ anchor (`evidence/TIP-D10/measure.txt`). Còn: bàn tay găng Swat mập/mượt → mesh tay trần thật ở D11b nếu Chủ nhà thấy.
+- (Đã sửa, ngoài scope — DV-031) Ảnh Mac `?level=truong-son`: "quân địch bay trên không trung" — bot đặt y = y của góc kế trong path (arena phẳng không lộ); trên terrain lệch 16 m. `Bot.settleY` bám `terrain.heightAt`/navmesh mỗi tick; unit mặt dốc + E2E bot gap < 0,5 m.
 - (Ghi nhận) Chiều cao nhân vật vẫn `targetHeight` 1,82 m (HT-MB) — bộ đội 1971 trung bình ~1,60–1,65 m: đổi ở `assets.ts` ảnh hưởng eye-height bot/hit zone/tay FP → ADR riêng (Chủ thầu).
 - (Ghi nhận) Visor emissive (`opts.visor`) không còn material tên visor → không hiện; cyan/orange đọc phe qua visor mất — PRD không muốn hit-marker/đèn arcade nên ổn, nhưng độ đọc địch/bạn ở xa cần xem lại ở D08 (băng tay, mũ khác).
 

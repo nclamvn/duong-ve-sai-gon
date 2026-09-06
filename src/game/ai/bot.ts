@@ -46,6 +46,8 @@ export interface BotDeps {
   camera: () => { pos: V3; fwd: V3 };
   /** collider riêng của bot để loại trừ khi bắn */
   exclude: () => RAPIER.Collider | undefined;
+  /** cao độ mặt đất chính xác tại x/z (terrain heightfield, TIP-D11a) — không có → dùng navmesh */
+  groundHeight?: (x: number, z: number) => number | null;
 }
 
 export interface BotSnapshot {
@@ -597,6 +599,21 @@ export class Bot {
     }
   }
 
+  /**
+   * Bám mặt navmesh tại x/z hiện tại (TIP-D11a, Chủ nhà: "quân địch bay trên không trung"): trên terrain, đoạn thẳng giữa hai
+   * góc của straight path dài tới 60 m và lệch cao độ hàng chục m — lấy y của góc kế (cách cũ) làm bot lơ lửng/chìm.
+   * Không tìm được điểm gần (< 1,5 m ngang) → dùng fallback (y góc kế / y hiện tại).
+   */
+  private settleY(fallback: number): void {
+    const g = this.deps.groundHeight?.(this.position[0], this.position[2]);
+    if (g !== null && g !== undefined) {
+      this.position[1] = g;
+      return;
+    }
+    const n = this.deps.nav.nearest({ x: this.position[0], y: this.position[1], z: this.position[2] });
+    this.position[1] = n && Math.hypot(n.x - this.position[0], n.z - this.position[2]) < 1.5 ? n.y : fallback;
+  }
+
   /** Di chuyển theo path — tier sim60. */
   move(dt: number): void {
     if (!this.alive) return;
@@ -611,6 +628,7 @@ export class Bot {
         const step = Math.min(d, ai.move.speed * dt);
         this.position[0] += (dx / d) * step;
         this.position[2] += (dz / d) * step;
+        this.settleY(this.position[1]);
       } else if (this.state === 'ENGAGE') this.moveTarget = null;
       return;
     }
@@ -631,7 +649,7 @@ export class Bot {
         const step = Math.min(d, speed * dt);
         this.position[0] += (dx / d) * step;
         this.position[2] += (dz / d) * step;
-        this.position[1] = wp.y;
+        this.settleY(wp.y);
         const wantYaw = Math.atan2(-dx, -dz);
         let dy = wantYaw - this.yaw;
         while (dy > Math.PI) dy -= Math.PI * 2;

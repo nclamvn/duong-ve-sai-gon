@@ -375,3 +375,47 @@ describe('TIP-018 AI chiến đấu "IQ" (D-057)', () => {
     expect(snap(9)).toBe(snap(9));
   });
 });
+
+describe('TIP-D11a Bot bám mặt navmesh trên dốc (terrain)', () => {
+  it('tuần tra trên mặt phẳng nghiêng 20 % dài 80 m: y luôn cách mặt dốc ≤ 0,8 m (không "bay" tới y của góc kế)', () => {
+    // mặt dốc z: −40 → +40, y = 0,2·(z + 40) (0 → 16 m) — straight path chỉ có góc đầu/cuối → cách cũ nhảy y = 16 ngay từ đầu
+    const geo = new PlaneGeometry(40, 82, 4, 20);
+    geo.rotateX(-Math.PI / 2);
+    const pos = geo.attributes['position']!;
+    for (let i = 0; i < pos.count; i++) pos.setY(i, 0.2 * (pos.getZ(i) + 40));
+    geo.computeVertexNormals();
+    const mesh = new Mesh(geo, new MeshBasicMaterial());
+    mesh.updateMatrixWorld(true);
+    const [positions, indices] = getPositionsAndIndices([mesh]);
+    const nav = new NavService(positions, indices);
+    expect(nav.polyCount).toBeGreaterThan(0);
+    const physics = new PhysicsWorld();
+    physics.addStatic({ kind: 'box', position: [0, -1, 0], size: [40, 0.5, 60], yaw: 0 }, { id: 'floor', kind: 'world', material: 'concrete' });
+    physics.step();
+    const waypoints: [number, number, number][] = [[0, 0, -38], [0, 15.2, 36]];
+    const player = { pos: [200, 0, 200] as [number, number, number], alive: true };
+    const bot = new Bot('slope', [0, 0.4, -38], {
+      physics,
+      nav,
+      events: new EventBus<BotEvents>(64),
+      prng: mulberry32(3),
+      waypoints,
+      coverMarkers: [],
+      target: () => ({ pos: player.pos, eye: [200, 1.6, 200], alive: true }),
+      camera: () => ({ pos: [200, 1.6, 200], fwd: [0, 0, -1] }),
+      exclude: () => undefined,
+    });
+    let worst = 0;
+    let travelled = 0;
+    for (let t = 0; t < 60 * 25; t++) {
+      if (t % 6 === 0) bot.think(0.1);
+      bot.move(1 / 60);
+      const z = bot.position[2];
+      const ground = 0.2 * (z + 40);
+      worst = Math.max(worst, Math.abs(bot.position[1] - ground));
+      travelled = Math.max(travelled, z + 38);
+    }
+    expect(travelled).toBeGreaterThan(30); // có đi lên dốc thật
+    expect(worst).toBeLessThanOrEqual(0.8);
+  });
+});

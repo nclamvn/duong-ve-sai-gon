@@ -638,6 +638,7 @@ export class Game {
       coverMarkers: this.arena.coverMarkers,
       target: () => this.targetInfo,
       camera: () => this.camInfo,
+      groundHeight: this.terrain ? (x, z) => this.terrain!.heightAt(x, z) : undefined,
     });
     this.bots.set(id, b);
     return b;
