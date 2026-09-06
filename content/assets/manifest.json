@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T11:57:26.475Z",
+  "generatedAt": "2026-09-06T13:14:08.674Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 138821021,
+  "totalBytes": 149687786,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -20,6 +20,25 @@
           "path": "assets/hdris/blue_lagoon_night/blue_lagoon_night_1k.hdr",
           "bytes": 1596565,
           "sha256": "e30309e23ff196e839c46478e1db8bc1f750475098d964c93e15fca8116b9ee6"
+        }
+      ]
+    },
+    {
+      "id": "dikhololo_night",
+      "type": "hdri",
+      "resolution": "2k",
+      "use": "trời đêm Đường 9 – Nam Lào (IBL + nền), thay blue_lagoon_night có đèn cảng",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/dikhololo_night",
+      "authors": [
+        "Greg Zaal"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/hdris/dikhololo_night/dikhololo_night_2k.hdr",
+          "bytes": 7050455,
+          "sha256": "35b5ef6d664b9d32db5ef852f52f97b4227a0dca1830e9c8bdb3af5dc2f169cf"
         }
       ]
     },
@@ -3666,6 +3685,73 @@
       "historical": true,
       "registryId": "wpn.us.m16a1",
       "approved": false
+    },
+    {
+      "id": "veg_grass_tall",
+      "type": "model",
+      "use": "cỏ tranh 1,5–2,2 m (M2 Đường 9, DV-047) procedural: bụi thẻ chéo 3 biến thể × 3 LOD, gen-grass --tall",
+      "source": "procedural",
+      "url": "https://github.com/nclamvn/duong-ve-sai-gon",
+      "authors": [
+        "DVSG (scripts/gen-grass.mjs)"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/grass_tall.glb",
+          "bytes": 69568,
+          "sha256": "f392bc5c24594daddbae3219d3abfc2f63434ad77a4164d0bb734029106c73eb"
+        }
+      ],
+      "triangles": {
+        "source": 16,
+        "output": 16
+      }
+    },
+    {
+      "id": "terrain_diem_cao_31",
+      "type": "terrain",
+      "use": "terrain M2 \"Điểm cao 31\" (Đồi 31/FSB 31, Đường 9 – Nam Lào, DEM SRTM 1\" ô N16E106 tâm 16,703 N 106,409 E, 2048 m @ 2 m; chi tiết < 30 m procedural) — Blueprint G2 R1",
+      "source": "aws-terrain-tiles",
+      "url": "https://registry.opendata.aws/terrain-tiles/",
+      "authors": [
+        "NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi)"
+      ],
+      "license": "PD-USGov",
+      "files": [
+        {
+          "path": "assets/terrain/diem-cao-31/height.r16",
+          "bytes": 2101250,
+          "sha256": "eee2a8c79548b2760ab0e32dd41ca4fd8510c2f224311c74fbc419717a86ad42"
+        },
+        {
+          "path": "assets/terrain/diem-cao-31/meta.json",
+          "bytes": 680,
+          "sha256": "8342e6148f2a5cd34c23a52f4b305f1f02a0e1a7cc08c56affd9855a54c600e6"
+        },
+        {
+          "path": "assets/terrain/diem-cao-31/preview.png",
+          "bytes": 269461,
+          "sha256": "2f964e1edbbcb9b2551d61bb8e2c7414693009d648933fe38f842c9cc6547e20"
+        },
+        {
+          "path": "assets/terrain/diem-cao-31/nav.bin",
+          "bytes": 494392,
+          "sha256": "9420be251eb70f701606e73b5689e979c9b3a816d4305f5af59a602deb442f43"
+        },
+        {
+          "path": "assets/terrain/diem-cao-31/map.png",
+          "bytes": 880959,
+          "sha256": "8e7352e97af05420f9052a09eefe132f38974f930172bfbbb5f58dcc129a2d3f"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/dem/N16E106.hgt",
+          "bytes": 25934402,
+          "sha256": "e4c0486732162adebb13801d2210e417de8ab4d65bdcd0df4ad265048c146cc7"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,570 @@
+{
+  "$schema": "../schemas/mission.schema.json",
+  "id": "m2-ban-dong-r1",
+  "version": "0.1.0",
+  "seedPolicy": "fixed",
+  "seed": 1971,
+  "startNode": "n_intro",
+  "checkpoints": [
+    "cp0",
+    "cpA",
+    "cpB"
+  ],
+  "localization": "vi",
+  "zones": [
+    {
+      "id": "foot_31",
+      "center": [
+        -359.6,
+        0,
+        231.6
+      ],
+      "radius": 22
+    },
+    {
+      "id": "w1",
+      "center": [
+        -54.8,
+        0,
+        -73.2
+      ],
+      "radius": 9
+    },
+    {
+      "id": "w2",
+      "center": [
+        -46.3,
+        0,
+        -81.7
+      ],
+      "radius": 8
+    },
+    {
+      "id": "w3",
+      "center": [
+        -37.9,
+        0,
+        -90.1
+      ],
+      "radius": 8
+    },
+    {
+      "id": "mg",
+      "center": [
+        -41.7,
+        0,
+        -123.1
+      ],
+      "radius": 7
+    },
+    {
+      "id": "trench",
+      "center": [
+        -21.6,
+        0,
+        -106.4
+      ],
+      "radius": 16
+    },
+    {
+      "id": "cp",
+      "center": [
+        18,
+        0,
+        -146
+      ],
+      "radius": 9
+    },
+    {
+      "id": "top",
+      "center": [
+        18,
+        0,
+        -146
+      ],
+      "radius": 32
+    },
+    {
+      "id": "lz",
+      "center": [
+        64,
+        0,
+        -186
+      ],
+      "radius": 18
+    }
+  ],
+  "spawnGroups": [
+    {
+      "id": "squad",
+      "archetype": "squad",
+      "faction": "friend",
+      "count": 3,
+      "spawn": "sq_quyet",
+      "spawns": [
+        "sq_quyet",
+        "sq_hai",
+        "sq_sang"
+      ],
+      "names": [
+        "name.quyet",
+        "name.hai",
+        "name.sang"
+      ]
+    },
+    {
+      "id": "para_mg",
+      "archetype": "recon",
+      "faction": "enemy",
+      "count": 2,
+      "spawn": "mg_a",
+      "spawns": [
+        "mg_a",
+        "mg_b"
+      ],
+      "budget": 2
+    },
+    {
+      "id": "para_trench",
+      "archetype": "recon",
+      "faction": "enemy",
+      "count": 6,
+      "spawn": "tr_0",
+      "spawns": [
+        "tr_0",
+        "tr_1",
+        "tr_2",
+        "tr_3",
+        "tr_4",
+        "tr_5"
+      ],
+      "budget": 6
+    },
+    {
+      "id": "para_top",
+      "archetype": "recon",
+      "faction": "enemy",
+      "count": 5,
+      "spawn": "top_0",
+      "spawns": [
+        "top_0",
+        "top_1",
+        "top_2",
+        "top_3",
+        "top_4"
+      ],
+      "budget": 5
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_intro",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "spawn",
+          "group": "squad"
+        },
+        {
+          "type": "squad_order",
+          "order": "follow"
+        },
+        {
+          "type": "radio",
+          "cue": "B01"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_foot",
+          "marker": "foot_31"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp0"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_approach",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_approach",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "foot_31"
+        }
+      ],
+      "actions": [
+        {
+          "type": "squad_order",
+          "order": "hold"
+        },
+        {
+          "type": "radio",
+          "cue": "B02"
+        },
+        {
+          "type": "radio",
+          "cue": "B03"
+        },
+        {
+          "type": "radio",
+          "cue": "B04"
+        },
+        {
+          "type": "radio",
+          "cue": "B05"
+        },
+        {
+          "type": "radio",
+          "cue": "B06"
+        },
+        {
+          "type": "set_flag",
+          "flag": "arty",
+          "value": true
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_wait",
+          "marker": "foot_31"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "active_ms",
+          "ms": 30000
+        }
+      ],
+      "next": "n_go",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_go",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "set_flag",
+          "flag": "arty",
+          "value": false
+        },
+        {
+          "type": "set_flag",
+          "flag": "flares",
+          "value": true
+        },
+        {
+          "type": "radio",
+          "cue": "B07"
+        },
+        {
+          "type": "squad_order",
+          "order": "follow"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_wire1",
+          "marker": "w1"
+        },
+        {
+          "type": "interactable",
+          "interactId": "w1_charge",
+          "zone": "w1",
+          "holdMs": 2600,
+          "promptKey": "charge",
+          "fuseMs": 3000,
+          "prop": "wire_1_gap",
+          "blastRadius": 6,
+          "blastDamage": 35
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "w1_charge_blown",
+          "value": true
+        }
+      ],
+      "next": "n_wire2",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_wire2",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "spawn",
+          "group": "para_mg"
+        },
+        {
+          "type": "radio",
+          "cue": "B08"
+        },
+        {
+          "type": "radio",
+          "cue": "B09"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_wire2",
+          "marker": "w2"
+        },
+        {
+          "type": "interactable",
+          "interactId": "w2_charge",
+          "zone": "w2",
+          "holdMs": 2600,
+          "promptKey": "charge",
+          "fuseMs": 3000,
+          "prop": "wire_2_gap",
+          "blastRadius": 6,
+          "blastDamage": 35
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "w2_charge_blown",
+          "value": true
+        }
+      ],
+      "next": "n_wire3",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_wire3",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_wire3",
+          "marker": "w3"
+        },
+        {
+          "type": "interactable",
+          "interactId": "w3_charge",
+          "zone": "w3",
+          "holdMs": 2600,
+          "promptKey": "charge",
+          "fuseMs": 3000,
+          "prop": "wire_3_gap",
+          "blastRadius": 6,
+          "blastDamage": 35
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "w3_charge_blown",
+          "value": true
+        }
+      ],
+      "next": "n_mg",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_mg",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_mg",
+          "marker": "mg"
+        },
+        {
+          "type": "spawn",
+          "group": "para_trench"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "para_mg"
+        }
+      ],
+      "next": "n_trench",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_trench",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "B10"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_trench",
+          "marker": "cp"
+        },
+        {
+          "type": "spawn",
+          "group": "para_top"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "para_trench"
+        }
+      ],
+      "next": "n_cp",
+      "timeoutMs": 150000,
+      "fallbackNext": "n_cp"
+    },
+    {
+      "id": "n_cp",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "cp"
+        }
+      ],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "B11"
+        },
+        {
+          "type": "radio",
+          "cue": "B12"
+        },
+        {
+          "type": "set_flag",
+          "flag": "flares",
+          "value": false
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cpA"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_top",
+          "marker": "top"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "group_dead",
+          "group": "para_top"
+        }
+      ],
+      "next": "n_tanks",
+      "timeoutMs": 180000,
+      "fallbackNext": "n_tanks"
+    },
+    {
+      "id": "n_tanks",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "set_flag",
+          "flag": "tanks",
+          "value": true
+        },
+        {
+          "type": "radio",
+          "cue": "B13"
+        },
+        {
+          "type": "radio",
+          "cue": "B14"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cpB"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_m2_hold",
+          "marker": "top"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "active_ms",
+          "ms": 14000
+        }
+      ],
+      "next": "n_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_done",
+      "type": "terminal",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_m2_hold"
+        },
+        {
+          "type": "mission_complete"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": null,
+      "timeoutMs": 0,
+      "fallbackNext": null
+    }
+  ]
+}

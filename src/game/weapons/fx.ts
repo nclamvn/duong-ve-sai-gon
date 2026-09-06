@@ -51,6 +51,7 @@ export interface FxStats {
   /** số object được tạo (phải cố định sau constructor) */
   created: number;
   shots: number;
+  explosions: number;
 }
 
 const _m = new Matrix4();
@@ -94,7 +95,7 @@ export class WeaponFx {
   private flashHead = 0;
   private lightLife = 0;
   private botLightLife = 0;
-  readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0 };
+  readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0, explosions: 0 };
   private readonly gravity = new Vector3(0, -9.81, 0);
   private readonly unsub: Array<() => void> = [];
   /** vị trí đầu nòng của player (viewmodel) — Game gán */
@@ -293,6 +294,30 @@ export class WeaponFx {
     _m.compose(pos, _q, _s);
     this.flashes.setMatrixAt(i, _m);
     this.flashes.instanceMatrix.needsUpdate = true;
+  }
+
+  /**
+   * Nổ (bộc phá/lựu đạn — M2 R1): chớp lớn + tia lửa toả cầu + khói đen bốc lên + ánh sáng cam 0,25 s (dùng botLight — đèn thứ hai).
+   * `radius` (m) chỉ đổi kích thước khói; sát thương do game tính.
+   */
+  explosion(position: [number, number, number], radius = 5): void {
+    _p.set(position[0], position[1] + 0.3, position[2]);
+    _n.set(0, 1, 0);
+    this.spawnFlash(_p, _n, 3.5 + radius * 0.3);
+    for (let k = 0; k < 5; k++) {
+      _tmp.set(this.prng.next() - 0.5, 0.35 + this.prng.next() * 0.6, this.prng.next() - 0.5).normalize();
+      this.spawnSparks(_p, _tmp, 9);
+    }
+    this.spawnPuffs(_p, _n, 14, 0.6 + radius * 0.12, 2.4 + radius * 0.45, 0.7, 2.6 + radius * 0.15, 3.5);
+    _tmp.set(0.4, 0.35, 0.2).normalize();
+    this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
+    _tmp.set(-0.4, 0.35, -0.2).normalize();
+    this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
+    this.botLight.position.copy(_p).addScaledVector(_up, 1.2);
+    this.botLight.intensity = MUZZLE_LIGHT * 6;
+    this.botLight.distance = 10 + radius * 2;
+    this.botLightLife = 0.25;
+    this.stats.explosions++;
   }
 
   private spawnSparks(pos: Vector3, dir: Vector3, n: number): void {

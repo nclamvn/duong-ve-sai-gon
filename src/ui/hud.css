@@ -150,3 +150,5 @@
 @media (prefers-reduced-motion: reduce) {
   #hud .objective.fresh, #hud .vitals.critical .state, #hud .ammo.low .mag { animation: none; }
 }
+#hud .prompt .pbar { display: inline-block; width: 6.5em; height: 0.35em; background: rgba(255, 255, 255, 0.14); border-radius: 2px; overflow: hidden; }
+#hud .prompt .pbar i { display: block; height: 100%; width: 0; background: var(--hud-ink); transition: width 60ms linear; }

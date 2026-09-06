@@ -17,6 +17,8 @@ const MANIFEST = 'content/assets/manifest.json';
 const ASSETS = [
   // HDRI đêm cảng (đèn pha, mặt nước) → IBL/phản chiếu
   { id: 'blue_lagoon_night', type: 'hdri', res: '1k', use: 'environment IBL' },
+  // HDRI đêm đồng cỏ (sao, dải Ngân Hà, không đèn thành phố) — M2 Điểm cao 31 đêm 24/2/1971 (Blueprint G2 R1)
+  { id: 'dikhololo_night', type: 'hdri', res: '2k', use: 'trời đêm Đường 9 – Nam Lào (IBL + nền), thay blue_lagoon_night có đèn cảng' },
   // Texture PBR
   { id: 'asphalt_02', type: 'texture', res: '1k', use: 'sàn cảng ướt' },
   { id: 'concrete_wall_001', type: 'texture', res: '1k', use: 'tường bê tông, jersey' },

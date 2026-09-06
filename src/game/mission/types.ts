@@ -1,7 +1,7 @@
 /**
  * Mission types (PRD §8): runtime chỉ thực thi action/condition trong allow-list. Khớp content/schemas/mission.schema.json.
  */
-export const ACTION_TYPES = ['radio', 'objective', 'objective_complete', 'spawn', 'checkpoint', 'mission_complete', 'set_flag', 'sky_trigger', 'squad_order'] as const;
+export const ACTION_TYPES = ['radio', 'objective', 'objective_complete', 'spawn', 'checkpoint', 'mission_complete', 'set_flag', 'sky_trigger', 'squad_order', 'interactable'] as const;
 export const CONDITION_TYPES = ['zone_enter', 'group_dead', 'flag', 'timeout', 'active_ms', 'always'] as const;
 
 export type ActionType = (typeof ACTION_TYPES)[number];
@@ -21,6 +21,15 @@ export interface MissionAction {
   flight?: string;
   /** squad_order: lệnh đồng đội (TIP-M1A) */
   order?: 'follow' | 'hold';
+  /** interactable (M2 R1): điểm giữ phím tại zone; xong → flag <interactId>; fuseMs → nổ → flag <interactId>_blown + gỡ prop */
+  interactId?: string;
+  zone?: string;
+  holdMs?: number;
+  promptKey?: string;
+  fuseMs?: number;
+  prop?: string;
+  blastRadius?: number;
+  blastDamage?: number;
 }
 
 export interface MissionCondition {
@@ -113,6 +122,8 @@ export interface MissionEvents extends Record<string, unknown> {
   SKY_TRIGGER: { flight: string };
   SQUAD_ORDER: { order: 'follow' | 'hold' };
   SPAWN_GROUP: { group: string; count: number; spawn: string };
+  INTERACT_DONE: { id: string };
+  INTERACTABLE: { id: string; zone: string; holdMs: number; promptKey: string; fuseMs: number; prop: string | null; blastRadius: number; blastDamage: number };
   CHECKPOINT_SAVED: { checkpoint: string };
   MISSION_COMPLETE: { missionId: string };
   MISSION_FLAG: { flag: string; value: boolean };

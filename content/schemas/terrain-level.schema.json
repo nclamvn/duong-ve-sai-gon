@@ -4,97 +4,338 @@
   "title": "Level terrain (TIP-D04): ô DEM + splat + spawn/waypoint theo x/z (y lấy từ terrain)",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "name", "terrain", "camera", "sky", "layers", "textures", "models", "playerSpawn", "playerYaw", "botSpawns", "waypoints", "zones", "coverMarkers"],
+  "required": [
+    "id",
+    "name",
+    "terrain",
+    "camera",
+    "sky",
+    "layers",
+    "textures",
+    "models",
+    "playerSpawn",
+    "playerYaw",
+    "botSpawns",
+    "waypoints",
+    "zones",
+    "coverMarkers"
+  ],
   "definitions": {
-    "v2": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
-    "v3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "v2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "v3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
     "rect": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["x", "z", "w", "h"],
-      "properties": { "x": { "type": "number" }, "z": { "type": "number" }, "w": { "type": "number", "minimum": 16 }, "h": { "type": "number", "minimum": 16 } }
+      "required": [
+        "x",
+        "z",
+        "w",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "w": {
+          "type": "number",
+          "minimum": 16
+        },
+        "h": {
+          "type": "number",
+          "minimum": 16
+        }
+      }
     }
   },
   "properties": {
-    "$schema": { "type": "string" },
-    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-    "name": { "type": "string" },
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
     "terrain": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "yOffset", "navRect"],
+      "required": [
+        "id",
+        "yOffset",
+        "navRect"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "public/assets/terrain/<id>/ (manifest type terrain)" },
-        "yOffset": { "type": "number" },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "public/assets/terrain/<id>/ (manifest type terrain)"
+        },
+        "yOffset": {
+          "type": "number"
+        },
         "navRect": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["x", "z", "w", "h"],
-          "properties": { "x": { "type": "number" }, "z": { "type": "number" }, "w": { "type": "number", "minimum": 16 }, "h": { "type": "number", "minimum": 16 } }
+          "required": [
+            "x",
+            "z",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            },
+            "w": {
+              "type": "number",
+              "minimum": 16
+            },
+            "h": {
+              "type": "number",
+              "minimum": 16
+            }
+          }
         },
-        "wetness": { "type": "number", "minimum": 0, "maximum": 1 },
-        "tileMeters": { "type": "number", "minimum": 0.5 },
-        "tint": { "type": "integer" }
+        "wetness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "tileMeters": {
+          "type": "number",
+          "minimum": 0.5
+        },
+        "tint": {
+          "type": "integer"
+        }
       }
     },
-    "camera": { "type": "object", "additionalProperties": false, "required": ["near", "far"], "properties": { "near": { "type": "number", "minimum": 0.01 }, "far": { "type": "number", "minimum": 100 } } },
-    "sky": { "type": "object" },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "near",
+        "far"
+      ],
+      "properties": {
+        "near": {
+          "type": "number",
+          "minimum": 0.01
+        },
+        "far": {
+          "type": "number",
+          "minimum": 100
+        }
+      }
+    },
+    "sky": {
+      "type": "object"
+    },
     "layers": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["leaves", "mud", "rock", "grass"],
-      "properties": { "leaves": { "type": "string" }, "mud": { "type": "string" }, "rock": { "type": "string" }, "grass": { "type": "string" } }
+      "required": [
+        "leaves",
+        "mud",
+        "rock",
+        "grass"
+      ],
+      "properties": {
+        "leaves": {
+          "type": "string"
+        },
+        "mud": {
+          "type": "string"
+        },
+        "rock": {
+          "type": "string"
+        },
+        "grass": {
+          "type": "string"
+        }
+      }
     },
-    "textures": { "type": "array", "items": { "type": "string" } },
-    "models": { "type": "array", "items": { "type": "string" } },
+    "textures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "vegetation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["seed", "rect", "species"],
+      "required": [
+        "seed",
+        "rect",
+        "species"
+      ],
       "description": "TIP-D05 rừng: scatter seeded theo loài (public/assets/vegetation/<id>.glb)",
       "properties": {
-        "$comment": { "type": "string" },
-        "seed": { "type": "integer" },
-        "cellM": { "type": "number", "minimum": 16 },
-        "wind": { "type": "number", "minimum": 0, "maximum": 1 },
-        "rect": { "$ref": "#/definitions/rect" },
+        "$comment": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "cellM": {
+          "type": "number",
+          "minimum": 16
+        },
+        "wind": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rect": {
+          "$ref": "#/definitions/rect"
+        },
         "species": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "perHa", "lod"],
+            "required": [
+              "id",
+              "perHa",
+              "lod"
+            ],
             "properties": {
-              "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
-              "perHa": { "type": "number", "minimum": 0 },
-              "slope": { "$ref": "#/definitions/v2" },
-              "height": { "$ref": "#/definitions/v2" },
-              "scale": { "$ref": "#/definitions/v2" },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "perHa": {
+                "type": "number",
+                "minimum": 0
+              },
+              "slope": {
+                "$ref": "#/definitions/v2"
+              },
+              "height": {
+                "$ref": "#/definitions/v2"
+              },
+              "scale": {
+                "$ref": "#/definitions/v2"
+              },
               "noise": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["scale", "min"],
-                "properties": { "scale": { "type": "number", "minimum": 0 }, "min": { "type": "number", "minimum": 0, "maximum": 1 }, "offset": { "type": "number" } }
+                "required": [
+                  "scale",
+                  "min"
+                ],
+                "properties": {
+                  "scale": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "min": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "offset": {
+                    "type": "number"
+                  }
+                }
               },
               "clump": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["count", "radius"],
-                "properties": { "count": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 2, "maxItems": 2 }, "radius": { "type": "number", "minimum": 0 } }
+                "required": [
+                  "count",
+                  "radius"
+                ],
+                "properties": {
+                  "count": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "radius": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
               },
-              "lod": { "type": "array", "items": { "type": "number", "minimum": 0 }, "minItems": 4, "maxItems": 4 },
-              "cast": { "type": "boolean" },
+              "lod": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "cast": {
+                "type": "boolean"
+              },
               "collider": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["radius", "height"],
-                "properties": { "radius": { "type": "number", "minimum": 0.01 }, "height": { "type": "number", "minimum": 0.1 } }
+                "required": [
+                  "radius",
+                  "height"
+                ],
+                "properties": {
+                  "radius": {
+                    "type": "number",
+                    "minimum": 0.01
+                  },
+                  "height": {
+                    "type": "number",
+                    "minimum": 0.1
+                  }
+                }
               },
-              "rect": { "$ref": "#/definitions/rect" },
-              "noiseId": { "type": "string", "pattern": "^[a-z0-9_]+$" },
-              "sink": { "$ref": "#/definitions/v2" },
-              "press": { "type": "number", "minimum": 0, "maximum": 1 }
+              "rect": {
+                "$ref": "#/definitions/rect"
+              },
+              "noiseId": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "sink": {
+                "$ref": "#/definitions/v2"
+              },
+              "press": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
             }
           }
         }
@@ -106,69 +347,221 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["kind", "position"],
+        "required": [
+          "kind",
+          "position"
+        ],
         "properties": {
-          "$comment": { "type": "string" },
-          "kind": { "enum": ["smoke", "fire", "embers", "dust"] },
-          "position": { "$ref": "#/definitions/v2" },
-          "dy": { "type": "number" },
-          "scale": { "type": "number", "minimum": 0.1 },
-          "height": { "type": "number", "minimum": 1 },
-          "color": { "type": "integer" }
+          "$comment": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "smoke",
+              "fire",
+              "embers",
+              "dust"
+            ]
+          },
+          "position": {
+            "$ref": "#/definitions/v2"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "scale": {
+            "type": "number",
+            "minimum": 0.1
+          },
+          "height": {
+            "type": "number",
+            "minimum": 1
+          },
+          "color": {
+            "type": "integer"
+          }
         }
       }
     },
     "airTraffic": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["seed", "center", "flights"],
+      "required": [
+        "seed",
+        "center",
+        "flights"
+      ],
       "description": "TIP-D-SKY: lượt bay ambient seeded (model manifest air_*)",
       "properties": {
-        "$comment": { "type": "string" },
-        "seed": { "type": "integer" },
-        "center": { "$ref": "#/definitions/v2" },
-        "wind": { "$ref": "#/definitions/v2" },
+        "$comment": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "center": {
+          "$ref": "#/definitions/v2"
+        },
+        "wind": {
+          "$ref": "#/definitions/v2"
+        },
         "flights": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "model", "kind", "agl", "speed", "period"],
+            "required": [
+              "id",
+              "model",
+              "kind",
+              "agl",
+              "speed",
+              "period"
+            ],
             "properties": {
-              "$comment": { "type": "string" },
-              "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
-              "model": { "type": "string", "pattern": "^[a-z0-9_]+$" },
-              "kind": { "enum": ["heli", "jet", "prop"] },
-              "count": { "type": "integer", "minimum": 1, "maximum": 3 },
-              "agl": { "$ref": "#/definitions/v2" },
-              "speed": { "type": "number", "minimum": 1 },
-              "period": { "$ref": "#/definitions/v2" },
-              "first": { "type": "number", "minimum": 0 },
-              "radius": { "type": "number", "minimum": 200 },
-              "hover": { "type": "object", "additionalProperties": false, "required": ["at", "seconds", "agl"], "properties": { "at": { "$ref": "#/definitions/v2" }, "seconds": { "type": "number", "minimum": 1 }, "agl": { "type": "number", "minimum": 1 } } },
-              "parachute": { "type": "object", "additionalProperties": false, "required": ["count"], "properties": { "count": { "type": "integer", "minimum": 1, "maximum": 3 } } },
-              "scale": { "type": "number", "minimum": 0.01 },
-              "sound": { "enum": ["rotor", "jet", "prop", "none"] },
-              "gust": { "type": "number", "minimum": 0 },
-              "spin": { "type": "string" },
-              "spinRate": { "type": "number" },
-              "bank": { "type": "number" }
+              "$comment": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "model": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "kind": {
+                "enum": [
+                  "heli",
+                  "jet",
+                  "prop"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              },
+              "agl": {
+                "$ref": "#/definitions/v2"
+              },
+              "speed": {
+                "type": "number",
+                "minimum": 1
+              },
+              "period": {
+                "$ref": "#/definitions/v2"
+              },
+              "first": {
+                "type": "number",
+                "minimum": 0
+              },
+              "radius": {
+                "type": "number",
+                "minimum": 200
+              },
+              "hover": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "at",
+                  "seconds",
+                  "agl"
+                ],
+                "properties": {
+                  "at": {
+                    "$ref": "#/definitions/v2"
+                  },
+                  "seconds": {
+                    "type": "number",
+                    "minimum": 1
+                  },
+                  "agl": {
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              },
+              "parachute": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "count"
+                ],
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 3
+                  }
+                }
+              },
+              "scale": {
+                "type": "number",
+                "minimum": 0.01
+              },
+              "sound": {
+                "enum": [
+                  "rotor",
+                  "jet",
+                  "prop",
+                  "none"
+                ]
+              },
+              "gust": {
+                "type": "number",
+                "minimum": 0
+              },
+              "spin": {
+                "type": "string"
+              },
+              "spinRate": {
+                "type": "number"
+              },
+              "bank": {
+                "type": "number"
+              }
             }
           }
         }
       }
     },
-    "playerSpawn": { "$ref": "#/definitions/v2" },
-    "playerYaw": { "type": "number" },
-    "botSpawns": { "type": "object", "additionalProperties": { "$ref": "#/definitions/v2" } },
-    "waypoints": { "type": "array", "items": { "$ref": "#/definitions/v2" } },
+    "playerSpawn": {
+      "$ref": "#/definitions/v2"
+    },
+    "playerYaw": {
+      "type": "number"
+    },
+    "botSpawns": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/v2"
+      }
+    },
+    "waypoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/v2"
+      }
+    },
     "zones": {
       "type": "object",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["center", "radius"],
-        "properties": { "center": { "$ref": "#/definitions/v2" }, "radius": { "type": "number", "minimum": 0 } }
+        "required": [
+          "center",
+          "radius"
+        ],
+        "properties": {
+          "center": {
+            "$ref": "#/definitions/v2"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
       }
     },
     "coverMarkers": {
@@ -176,8 +569,70 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "position", "facing"],
-        "properties": { "id": { "type": "string" }, "position": { "$ref": "#/definitions/v2" }, "facing": { "$ref": "#/definitions/v3" } }
+        "required": [
+          "id",
+          "position",
+          "facing"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "position": {
+            "$ref": "#/definitions/v2"
+          },
+          "facing": {
+            "$ref": "#/definitions/v3"
+          }
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "description": "props đặt tay trên terrain (M2 R1): model manifest (sandbag/crate/ammo/barrel/radio) hoặc procedural (wire = rào concertina); id đuôi _gap = gỡ được (bộc phá)",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "position"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "kind": {
+            "enum": [
+              "wire",
+              "sandbag",
+              "crate",
+              "ammo",
+              "barrel",
+              "radio"
+            ]
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "len": {
+            "type": "number",
+            "minimum": 1
+          },
+          "scale": {
+            "type": "number",
+            "minimum": 0.1
+          }
+        }
       }
     }
   }

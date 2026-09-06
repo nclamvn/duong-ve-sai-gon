@@ -1,0 +1,224 @@
+{
+  "cues": [
+    {
+      "cueId": "B01",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.B01",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 9000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B02",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B02",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 6500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B03",
+      "speaker": "THANH",
+      "audio": null,
+      "subtitleKey": "dlg.B03",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 1500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B04",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B04",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B05",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.B05",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 3800,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B06",
+      "speaker": "TRUNG_DOI",
+      "audio": null,
+      "subtitleKey": "dlg.B06",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 3500,
+      "bus": "radio"
+    },
+    {
+      "cueId": "B07",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B07",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 1400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B08",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.B08",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4200,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B09",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B09",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 3000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B10",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.B10",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 1800,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B11",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.B11",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 2600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B12",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B12",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 3400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B13",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.B13",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 5200,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "B14",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.B14",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 3200,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M10",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.M10",
+      "priority": 3,
+      "interruptPolicy": "queue",
+      "durationMs": 1500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M11",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.M11",
+      "priority": 3,
+      "interruptPolicy": "queue",
+      "durationMs": 1600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M12",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.M12",
+      "priority": 3,
+      "interruptPolicy": "queue",
+      "durationMs": 1600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M13",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.M13",
+      "priority": 4,
+      "interruptPolicy": "queue",
+      "durationMs": 1800,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M14",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.M14",
+      "priority": 3,
+      "interruptPolicy": "queue",
+      "durationMs": 1600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M15",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.M15",
+      "priority": 3,
+      "interruptPolicy": "queue",
+      "durationMs": 2000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M05",
+      "speaker": "HAI",
+      "audio": null,
+      "subtitleKey": "dlg.M05",
+      "priority": 4,
+      "interruptPolicy": "queue",
+      "durationMs": 2500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M06",
+      "speaker": "SANG",
+      "audio": null,
+      "subtitleKey": "dlg.M06",
+      "priority": 4,
+      "interruptPolicy": "queue",
+      "durationMs": 2500,
+      "bus": "dialogue"
+    }
+  ]
+}

@@ -14,12 +14,15 @@ import { resolveQuality, type QualityPreset } from '@engine/render/quality';
 import { readRenderInfo, type RenderFrameInfo } from '@engine/render/telemetryHooks';
 import { loadAssets, type LoadedAssets } from '@engine/render/assets';
 import { createPostStack, type PostStack } from '@engine/render/post';
+import { Flares } from '@engine/render/flares';
 import { buildLevel, type LevelBuild } from '@engine/level/builder';
 import { createDaylight } from '@engine/level/daylight';
 import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
+import diemCao31LevelJson from '@content/levels/diem-cao-31.level.json';
 import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
+import type RAPIER from '@dimforge/rapier3d-compat';
 import { buildForest, VEG_QUALITY, navObstacleMesh, navPadFor, type ForestBuild } from '@engine/vegetation';
 import { SkyTraffic } from '@engine/sky';
 import { loadModel } from '@engine/render/assets';
@@ -98,8 +101,8 @@ export class Game {
   arena!: ArenaData;
   /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
   level: LevelBuild | null = null;
-  /** 'truong-son' (M1 Trường Sơn — mặc định từ DV-044) | 'arena' (bench/E2E G0 — content Hải Tuyến chỉ là test, `?level=arena`) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
-  levelId: 'pho' | 'arena' | 'truong-son' = 'truong-son';
+  /** 'truong-son' (M1 Trường Sơn — mặc định từ DV-044) | 'diem-cao-31' (M2 R1 đêm công đồn, `?level=diem-cao-31`) | 'arena' (bench/E2E G0 — content Hải Tuyến chỉ là test, `?level=arena`) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
+  levelId: 'pho' | 'arena' | 'truong-son' | 'diem-cao-31' = 'truong-son';
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
   /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
@@ -208,13 +211,13 @@ export class Game {
 
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
-    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'truong-son';
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' || levelParam === 'diem-cao-31' ? levelParam : 'truong-son';
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
     const botWeaponParam = this.params.get('botWeapon');
     this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' || botWeaponParam === 'm16a1' ? botWeaponParam : null;
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
-    const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : null;
+    const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : this.levelId === 'diem-cao-31' ? (diemCao31LevelJson as unknown as TerrainLevelDef) : null;
     const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
     if (terrainDef) {
       this.camera.near = terrainDef.camera.near;
@@ -326,6 +329,7 @@ export class Game {
       this.vmScene.add(new HemisphereLight(sky.hemi.sky, sky.hemi.ground, sky.hemi.intensity));
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
+    if (this.terrain) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: 'pavn1971' }, this.weaponFor('friend'));
       const p = this.arena.dummySpawns[i]!;
@@ -340,7 +344,10 @@ export class Game {
     // Physics từ ArenaData (nguồn collider duy nhất)
     await initPhysics();
     this.physics = new PhysicsWorld();
-    for (const c of this.arena.colliders) this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw, heights: c.heights, n: c.n }, { id: c.id, kind: 'world', material: c.material });
+    for (const c of this.arena.colliders) {
+      const col = this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw, heights: c.heights, n: c.n }, { id: c.id, kind: 'world', material: c.material });
+      if (c.id.startsWith('prop_')) this.propColliders.set(c.id, col);
+    }
 
     // Settings (IndexedDB) → player
     this.settings = new SettingsStore(await pickStore());
@@ -472,7 +479,7 @@ export class Game {
       if (ev.code === 'F4' && this.navHelper) this.navHelper.visible = !this.navHelper.visible;
     });
     this.squad = new SquadCoordinator(this.arena.coverMarkers);
-    if (this.levelId !== 'truong-son') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
+    if (this.levelId !== 'truong-son' && this.levelId !== 'diem-cao-31') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
     this.scheduler.add('ai10', (_tick, dtAi) => {
       let full = 0;
       let alive = 0;
@@ -681,7 +688,7 @@ export class Game {
     this.physics.step();
     const interactEdge = this.inputState.interact && !this.prevInteract;
     this.prevInteract = this.inputState.interact;
-    this.mission.step(dt, interactEdge);
+    this.mission.step(dt, interactEdge, this.inputState.interact);
     const h = this.hud.state;
     h.health = this.player.health;
     h.dead = !this.player.alive;
@@ -772,6 +779,7 @@ export class Game {
     this.feedHud();
     this.hud.update();
     this.fx.update(dt);
+    this.flares?.update(dt);
     if (this.level) this.level.fx.update(dt);
     if (this.terrain) this.terrain.fx.update(dt);
     if (this.audio.ctx) {
@@ -818,6 +826,55 @@ export class Game {
     out.x *= r;
     out.y *= r;
     out.applyMatrix4(this.camera.matrixWorld);
+  }
+
+  /** pháo sáng (M2 R1) — chỉ level terrain đêm; mission bắn qua flag `flares` */
+  flares: Flares | null = null;
+  /** collider tĩnh của props terrain theo id (gỡ khi bộc phá — M2 R1) */
+  private readonly propColliders = new Map<string, RAPIER.Collider>();
+  /** thống kê nổ (E2E) */
+  readonly blastStats = { count: 0, playerHits: 0, botHits: 0, propsRemoved: 0 };
+
+  /**
+   * Nổ bộc phá/lựu đạn tại `position` (M2 R1): FX + âm + rung camera; người chơi trong `radius` mất `damage` (cúi/nằm → ×0,25 —
+   * "nằm xuống"), bot trong bán kính trúng như đạn (HIT, shooter player); gỡ prop terrain `prop` (rào) + collider + nav.
+   */
+  explode(position: [number, number, number], opts: { radius?: number; damage?: number; prop?: string | null } = {}): void {
+    const radius = opts.radius ?? 6;
+    const damage = opts.damage ?? 35;
+    this.blastStats.count++;
+    this.fx.explosion(position, radius);
+    this.audio.explosion(position, 1 + radius / 8);
+    const f = this.player.controller.feet;
+    const dp = Math.hypot(f[0] - position[0], f[2] - position[2]);
+    this.player.rig.shakeAmp = Math.max(this.player.rig.shakeAmp, Math.min(1, 1.6 * (1 - Math.min(1, dp / (radius * 3)))));
+    if (dp <= radius && this.player.alive) {
+      const crouched = this.player.controller.stance === 'crouch';
+      const fall = 1 - (dp / radius) * 0.5;
+      const d = Math.round(damage * fall * (crouched ? 0.25 : 1));
+      this.blastStats.playerHits++;
+      this.events.emit('HIT', { actorId: 'player', zone: 'body', damage: d, point: position, penetrated: false, shooter: 'blast' });
+    }
+    for (const b of this.bots.values()) {
+      if (!b.bot.alive) continue;
+      const db = Math.hypot(b.bot.position[0] - position[0], b.bot.position[2] - position[2]);
+      if (db > radius) continue;
+      this.blastStats.botHits++;
+      this.events.emit('HIT', { actorId: b.id, zone: 'body', damage: Math.round(damage * 2 * (1 - (db / radius) * 0.5)), point: position, penetrated: false, shooter: 'player' });
+    }
+    if (opts.prop) this.removeProp(opts.prop);
+  }
+
+  /** gỡ prop terrain (ẩn + collider) — trả false nếu không có */
+  removeProp(id: string): boolean {
+    const ok = this.terrain?.props.remove(id) ?? false;
+    const col = this.propColliders.get(`prop_${id}`);
+    if (col) {
+      this.physics.removeCollider(col);
+      this.propColliders.delete(`prop_${id}`);
+    }
+    if (ok) this.blastStats.propsRemoved++;
+    return ok;
   }
 
   /** id súng bot theo phe (DV-046): ta = AK-47; địch = M16A1 (thám báo/lính Sài Gòn 1971) — thiếu asset → AK-47 (SOG cũng dùng AK chiếm được) */

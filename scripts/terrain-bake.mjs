@@ -90,6 +90,46 @@ if (args.includes('--nav')) {
       const base = pos.length / 3;
       for (let i = 0; i < ob.indices.length; i++) idxAll[idx0.length + i] = ob.indices[i] + base;
     }
+    // props (M2 R1): hộp obstacle cho bao cát/phuy/rào cố định (cùng bảng PROP_HALF của src/engine/terrain/props.ts; rào đoạn _gap
+    // KHÔNG chặn — bộc phá mở đường cho bot đi qua; thùng thấp < 0,25 m không chặn)
+    if (Array.isArray(level.props) && level.props.length) {
+      const HALF = { sandbag: [1.47, 0.36, 0.4], crate: [0.9, 0.15, 0.5], ammo: [0.04, 0.09, 0.13], barrel: [0.28, 0.44, 0.28], radio: [0.26, 0.56, 0.22] };
+      const tile = new eng.TerrainTile(meta, u16, yOff);
+      const bp = [], bi = [];
+      let nb = 0;
+      for (const d of level.props) {
+        if (/_gap$/.test(d.id)) continue;
+        const half = d.kind === 'wire' ? [(d.len ?? 6.4) / 2, 0.5, 0.5] : HALF[d.kind];
+        if (!half || half[1] <= 0.25) continue;
+        if (Math.abs(d.position[0] - rect[0]) > rect[2] / 2 + 4 || Math.abs(d.position[1] - rect[1]) > rect[3] / 2 + 4) continue;
+        const gy = tile.sampleGrid(d.position[0], d.position[1], step);
+        const yaw = d.yaw ?? 0, c = Math.cos(yaw), s = Math.sin(yaw);
+        const y0 = gy - 0.5, y1 = gy + Math.max(1.2, half[1] * 2 + 0.3);
+        const base = bp.length / 3;
+        for (const [sx, sz] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
+          const lx = sx * half[0], lz = sz * half[2];
+          const wx = d.position[0] + lx * c + lz * s, wz = d.position[1] - lx * s + lz * c;
+          bp.push(wx, y0, wz, wx, y1, wz);
+        }
+        // 4 mặt bên + nắp (đáy không cần)
+        for (let k = 0; k < 4; k++) {
+          const a = base + k * 2, b = base + ((k + 1) % 4) * 2;
+          bi.push(a, a + 1, b, b, a + 1, b + 1);
+        }
+        bi.push(base + 1, base + 3, base + 5, base + 1, base + 5, base + 7);
+        nb++;
+      }
+      if (nb) {
+        const p2 = new Float32Array(posAll.length + bp.length);
+        p2.set(posAll, 0); p2.set(bp, posAll.length);
+        const off = posAll.length / 3;
+        const i2 = new Uint32Array(idxAll.length + bi.length);
+        i2.set(idxAll, 0);
+        for (let i = 0; i < bi.length; i++) i2[idxAll.length + i] = bi[i] + off;
+        posAll = p2; idxAll = i2;
+        obstacles += nb;
+      }
+    }
   }
   await init();
   const t0 = Date.now();

@@ -1,0 +1,2256 @@
+{
+  "$schema": "../schemas/terrain-level.schema.json",
+  "id": "diem-cao-31",
+  "name": "Điểm cao 31 — Đường 9, đêm 24/2/1971",
+  "terrain": {
+    "id": "diem-cao-31",
+    "yOffset": 396.7,
+    "navRect": {
+      "x": -160,
+      "z": 60,
+      "w": 700,
+      "h": 700
+    },
+    "wetness": 0.05,
+    "tileMeters": 4,
+    "tint": 10127970
+  },
+  "camera": {
+    "near": 0.25,
+    "far": 2600
+  },
+  "sky": {
+    "$comment": "Đêm 24/2/1971, trăng hạ tuần (KC pha trăng — nếu không trăng: hạ sun xuống 0,08). HDRI dikhololo_night (CC0 Poly Haven — đồng cỏ, sao, không đèn; blue_lagoon_night có đèn cảng nên bỏ). Sương thung lũng dày; CSM ngắn. Pháo sáng của địch = engine/render/flares (đèn trắng-vàng rơi chậm, đung đưa) — mission bật bằng flag `flares`.",
+    "hdri": "dikhololo_night",
+    "res": "2k",
+    "envIntensity": 0.12,
+    "skyIntensity": 0.22,
+    "sun": {
+      "azimuthDeg": 250,
+      "elevationDeg": 34,
+      "color": 11124191,
+      "intensity": 0.28
+    },
+    "hemi": {
+      "sky": 1713208,
+      "ground": 789770,
+      "intensity": 0.26
+    },
+    "fog": {
+      "color": 593171,
+      "density": 0.0028
+    },
+    "csm": {
+      "cascades": 3,
+      "maxFar": 120,
+      "mapSize": 2048
+    }
+  },
+  "layers": {
+    "leaves": "brown_mud_leaves_01",
+    "mud": "brown_mud_03",
+    "rock": "aerial_rocks_02",
+    "grass": "aerial_grass_rock"
+  },
+  "textures": [
+    "brown_mud_leaves_01",
+    "brown_mud_03",
+    "aerial_rocks_02",
+    "aerial_grass_rock"
+  ],
+  "models": [
+    "prop_sandbag_05",
+    "prop_sandbag_02",
+    "old_military_crate",
+    "ammo_box",
+    "Barrel_01",
+    "utility_box_01"
+  ],
+  "props": [
+    {
+      "id": "wire_1_0",
+      "kind": "wire",
+      "position": [
+        -81.3,
+        -158.2
+      ],
+      "yaw": 1.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_1",
+      "kind": "wire",
+      "position": [
+        -81.8,
+        -152.2
+      ],
+      "yaw": 1.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_2",
+      "kind": "wire",
+      "position": [
+        -82,
+        -146.1
+      ],
+      "yaw": 1.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_3",
+      "kind": "wire",
+      "position": [
+        -81.8,
+        -140.1
+      ],
+      "yaw": 1.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_4",
+      "kind": "wire",
+      "position": [
+        -81.3,
+        -134
+      ],
+      "yaw": 1.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_5",
+      "kind": "wire",
+      "position": [
+        -80.4,
+        -128.1
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_6",
+      "kind": "wire",
+      "position": [
+        -79.1,
+        -122.1
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_7",
+      "kind": "wire",
+      "position": [
+        -77.5,
+        -116.3
+      ],
+      "yaw": 1.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_8",
+      "kind": "wire",
+      "position": [
+        -75.5,
+        -110.6
+      ],
+      "yaw": 1.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_9",
+      "kind": "wire",
+      "position": [
+        -73.2,
+        -105
+      ],
+      "yaw": 2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_10",
+      "kind": "wire",
+      "position": [
+        -70.6,
+        -99.6
+      ],
+      "yaw": 2.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_11",
+      "kind": "wire",
+      "position": [
+        -67.6,
+        -94.3
+      ],
+      "yaw": 2.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_12",
+      "kind": "wire",
+      "position": [
+        -64.3,
+        -89.2
+      ],
+      "yaw": 2.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_13",
+      "kind": "wire",
+      "position": [
+        -60.7,
+        -84.3
+      ],
+      "yaw": 2.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_14",
+      "kind": "wire",
+      "position": [
+        -56.9,
+        -79.7
+      ],
+      "yaw": 2.3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_gap",
+      "kind": "wire",
+      "position": [
+        -52.7,
+        -75.3
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_16",
+      "kind": "wire",
+      "position": [
+        -48.3,
+        -71.1
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_17",
+      "kind": "wire",
+      "position": [
+        -43.7,
+        -67.3
+      ],
+      "yaw": 2.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_18",
+      "kind": "wire",
+      "position": [
+        -38.8,
+        -63.7
+      ],
+      "yaw": 2.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_19",
+      "kind": "wire",
+      "position": [
+        -33.7,
+        -60.4
+      ],
+      "yaw": 2.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_20",
+      "kind": "wire",
+      "position": [
+        -28.4,
+        -57.4
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_21",
+      "kind": "wire",
+      "position": [
+        -23,
+        -54.8
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_22",
+      "kind": "wire",
+      "position": [
+        -17.4,
+        -52.5
+      ],
+      "yaw": 2.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_23",
+      "kind": "wire",
+      "position": [
+        -11.7,
+        -50.5
+      ],
+      "yaw": 2.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_24",
+      "kind": "wire",
+      "position": [
+        -5.9,
+        -48.9
+      ],
+      "yaw": 2.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_25",
+      "kind": "wire",
+      "position": [
+        0.1,
+        -47.6
+      ],
+      "yaw": 3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_26",
+      "kind": "wire",
+      "position": [
+        6,
+        -46.7
+      ],
+      "yaw": 3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_27",
+      "kind": "wire",
+      "position": [
+        12.1,
+        -46.2
+      ],
+      "yaw": 3.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_28",
+      "kind": "wire",
+      "position": [
+        18.1,
+        -46
+      ],
+      "yaw": 3.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_29",
+      "kind": "wire",
+      "position": [
+        24.2,
+        -46.2
+      ],
+      "yaw": 3.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_1_30",
+      "kind": "wire",
+      "position": [
+        30.2,
+        -46.7
+      ],
+      "yaw": 3.3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_0",
+      "kind": "wire",
+      "position": [
+        -69.3,
+        -156.7
+      ],
+      "yaw": 1.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_1",
+      "kind": "wire",
+      "position": [
+        -69.9,
+        -151
+      ],
+      "yaw": 1.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_2",
+      "kind": "wire",
+      "position": [
+        -70,
+        -145.3
+      ],
+      "yaw": 1.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_3",
+      "kind": "wire",
+      "position": [
+        -69.8,
+        -139.6
+      ],
+      "yaw": 1.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_4",
+      "kind": "wire",
+      "position": [
+        -69.2,
+        -134
+      ],
+      "yaw": 1.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_5",
+      "kind": "wire",
+      "position": [
+        -68.2,
+        -128.3
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_6",
+      "kind": "wire",
+      "position": [
+        -66.9,
+        -122.8
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_7",
+      "kind": "wire",
+      "position": [
+        -65.2,
+        -117.4
+      ],
+      "yaw": 1.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_8",
+      "kind": "wire",
+      "position": [
+        -63.2,
+        -112
+      ],
+      "yaw": 2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_9",
+      "kind": "wire",
+      "position": [
+        -60.8,
+        -106.8
+      ],
+      "yaw": 2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_10",
+      "kind": "wire",
+      "position": [
+        -58.1,
+        -101.8
+      ],
+      "yaw": 2.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_11",
+      "kind": "wire",
+      "position": [
+        -55.1,
+        -97
+      ],
+      "yaw": 2.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_12",
+      "kind": "wire",
+      "position": [
+        -51.7,
+        -92.3
+      ],
+      "yaw": 2.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_13",
+      "kind": "wire",
+      "position": [
+        -48.1,
+        -87.9
+      ],
+      "yaw": 2.3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_gap",
+      "kind": "wire",
+      "position": [
+        -44.2,
+        -83.8
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_15",
+      "kind": "wire",
+      "position": [
+        -40.1,
+        -79.9
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_16",
+      "kind": "wire",
+      "position": [
+        -35.7,
+        -76.3
+      ],
+      "yaw": 2.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_17",
+      "kind": "wire",
+      "position": [
+        -31,
+        -72.9
+      ],
+      "yaw": 2.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_18",
+      "kind": "wire",
+      "position": [
+        -26.2,
+        -69.9
+      ],
+      "yaw": 2.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_19",
+      "kind": "wire",
+      "position": [
+        -21.2,
+        -67.2
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_20",
+      "kind": "wire",
+      "position": [
+        -16,
+        -64.8
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_21",
+      "kind": "wire",
+      "position": [
+        -10.6,
+        -62.8
+      ],
+      "yaw": 2.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_22",
+      "kind": "wire",
+      "position": [
+        -5.2,
+        -61.1
+      ],
+      "yaw": 2.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_23",
+      "kind": "wire",
+      "position": [
+        0.3,
+        -59.8
+      ],
+      "yaw": 2.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_24",
+      "kind": "wire",
+      "position": [
+        6,
+        -58.8
+      ],
+      "yaw": 3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_25",
+      "kind": "wire",
+      "position": [
+        11.6,
+        -58.2
+      ],
+      "yaw": 3.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_26",
+      "kind": "wire",
+      "position": [
+        17.3,
+        -58
+      ],
+      "yaw": 3.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_27",
+      "kind": "wire",
+      "position": [
+        23,
+        -58.1
+      ],
+      "yaw": 3.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_2_28",
+      "kind": "wire",
+      "position": [
+        28.7,
+        -58.7
+      ],
+      "yaw": 3.3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_0",
+      "kind": "wire",
+      "position": [
+        -57.4,
+        -155.3
+      ],
+      "yaw": 1.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_1",
+      "kind": "wire",
+      "position": [
+        -57.9,
+        -149.5
+      ],
+      "yaw": 1.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_2",
+      "kind": "wire",
+      "position": [
+        -58,
+        -143.8
+      ],
+      "yaw": 1.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_3",
+      "kind": "wire",
+      "position": [
+        -57.6,
+        -138.1
+      ],
+      "yaw": 1.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_4",
+      "kind": "wire",
+      "position": [
+        -56.8,
+        -132.4
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_5",
+      "kind": "wire",
+      "position": [
+        -55.5,
+        -126.8
+      ],
+      "yaw": 1.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_6",
+      "kind": "wire",
+      "position": [
+        -53.9,
+        -121.3
+      ],
+      "yaw": 1.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_7",
+      "kind": "wire",
+      "position": [
+        -51.8,
+        -115.9
+      ],
+      "yaw": 2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_8",
+      "kind": "wire",
+      "position": [
+        -49.3,
+        -110.7
+      ],
+      "yaw": 2.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_9",
+      "kind": "wire",
+      "position": [
+        -46.5,
+        -105.7
+      ],
+      "yaw": 2.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_10",
+      "kind": "wire",
+      "position": [
+        -43.2,
+        -101
+      ],
+      "yaw": 2.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_11",
+      "kind": "wire",
+      "position": [
+        -39.6,
+        -96.5
+      ],
+      "yaw": 2.3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_gap",
+      "kind": "wire",
+      "position": [
+        -35.7,
+        -92.3
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_13",
+      "kind": "wire",
+      "position": [
+        -31.5,
+        -88.4
+      ],
+      "yaw": 2.4,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_14",
+      "kind": "wire",
+      "position": [
+        -27,
+        -84.8
+      ],
+      "yaw": 2.5,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_15",
+      "kind": "wire",
+      "position": [
+        -22.3,
+        -81.5
+      ],
+      "yaw": 2.6,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_16",
+      "kind": "wire",
+      "position": [
+        -17.3,
+        -78.7
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_17",
+      "kind": "wire",
+      "position": [
+        -12.1,
+        -76.2
+      ],
+      "yaw": 2.7,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_18",
+      "kind": "wire",
+      "position": [
+        -6.7,
+        -74.1
+      ],
+      "yaw": 2.8,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_19",
+      "kind": "wire",
+      "position": [
+        -1.2,
+        -72.5
+      ],
+      "yaw": 2.9,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_20",
+      "kind": "wire",
+      "position": [
+        4.4,
+        -71.2
+      ],
+      "yaw": 3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_21",
+      "kind": "wire",
+      "position": [
+        10.1,
+        -70.4
+      ],
+      "yaw": 3,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_22",
+      "kind": "wire",
+      "position": [
+        15.8,
+        -70
+      ],
+      "yaw": 3.1,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_23",
+      "kind": "wire",
+      "position": [
+        21.5,
+        -70.1
+      ],
+      "yaw": 3.2,
+      "len": 6.4
+    },
+    {
+      "id": "wire_3_24",
+      "kind": "wire",
+      "position": [
+        27.3,
+        -70.6
+      ],
+      "yaw": 3.3,
+      "len": 6.4
+    },
+    {
+      "id": "sandbag_0",
+      "kind": "sandbag",
+      "position": [
+        -40,
+        -146
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "sandbag_1",
+      "kind": "sandbag",
+      "position": [
+        -39.9,
+        -142.9
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "sandbag_2",
+      "kind": "sandbag",
+      "position": [
+        -39.7,
+        -139.7
+      ],
+      "yaw": 1.7
+    },
+    {
+      "id": "sandbag_3",
+      "kind": "sandbag",
+      "position": [
+        -39.2,
+        -136.6
+      ],
+      "yaw": 1.7
+    },
+    {
+      "id": "sandbag_4",
+      "kind": "sandbag",
+      "position": [
+        -38.6,
+        -133.5
+      ],
+      "yaw": 1.8
+    },
+    {
+      "id": "sandbag_5",
+      "kind": "sandbag",
+      "position": [
+        -37.9,
+        -130.5
+      ],
+      "yaw": 1.8
+    },
+    {
+      "id": "sandbag_6",
+      "kind": "sandbag",
+      "position": [
+        -37,
+        -127.5
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "sandbag_7",
+      "kind": "sandbag",
+      "position": [
+        -35.9,
+        -124.5
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "sandbag_8",
+      "kind": "sandbag",
+      "position": [
+        -34.6,
+        -121.6
+      ],
+      "yaw": 2
+    },
+    {
+      "id": "sandbag_9",
+      "kind": "sandbag",
+      "position": [
+        -33.2,
+        -118.8
+      ],
+      "yaw": 2.1
+    },
+    {
+      "id": "sandbag_10",
+      "kind": "sandbag",
+      "position": [
+        -31.7,
+        -116.1
+      ],
+      "yaw": 2.1
+    },
+    {
+      "id": "sandbag_11",
+      "kind": "sandbag",
+      "position": [
+        -30,
+        -113.5
+      ],
+      "yaw": 2.2
+    },
+    {
+      "id": "sandbag_12",
+      "kind": "sandbag",
+      "position": [
+        -28.2,
+        -110.9
+      ],
+      "yaw": 2.2
+    },
+    {
+      "id": "sandbag_13",
+      "kind": "sandbag",
+      "position": [
+        -26.2,
+        -108.5
+      ],
+      "yaw": 2.3
+    },
+    {
+      "id": "sandbag_14",
+      "kind": "sandbag",
+      "position": [
+        -24.1,
+        -106.1
+      ],
+      "yaw": 2.3
+    },
+    {
+      "id": "sandbag_15",
+      "kind": "sandbag",
+      "position": [
+        -21.9,
+        -103.9
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "sandbag_16",
+      "kind": "sandbag",
+      "position": [
+        -19.5,
+        -101.8
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "sandbag_17",
+      "kind": "sandbag",
+      "position": [
+        -17.1,
+        -99.8
+      ],
+      "yaw": 2.5
+    },
+    {
+      "id": "sandbag_18",
+      "kind": "sandbag",
+      "position": [
+        -14.5,
+        -98
+      ],
+      "yaw": 2.5
+    },
+    {
+      "id": "sandbag_19",
+      "kind": "sandbag",
+      "position": [
+        -11.9,
+        -96.3
+      ],
+      "yaw": 2.6
+    },
+    {
+      "id": "sandbag_20",
+      "kind": "sandbag",
+      "position": [
+        -9.2,
+        -94.8
+      ],
+      "yaw": 2.7
+    },
+    {
+      "id": "sandbag_21",
+      "kind": "sandbag",
+      "position": [
+        -6.4,
+        -93.4
+      ],
+      "yaw": 2.7
+    },
+    {
+      "id": "sandbag_22",
+      "kind": "sandbag",
+      "position": [
+        -3.5,
+        -92.1
+      ],
+      "yaw": 2.8
+    },
+    {
+      "id": "sandbag_23",
+      "kind": "sandbag",
+      "position": [
+        -0.5,
+        -91
+      ],
+      "yaw": 2.8
+    },
+    {
+      "id": "sandbag_24",
+      "kind": "sandbag",
+      "position": [
+        2.5,
+        -90.1
+      ],
+      "yaw": 2.9
+    },
+    {
+      "id": "sandbag_25",
+      "kind": "sandbag",
+      "position": [
+        5.5,
+        -89.4
+      ],
+      "yaw": 2.9
+    },
+    {
+      "id": "sandbag_26",
+      "kind": "sandbag",
+      "position": [
+        8.6,
+        -88.8
+      ],
+      "yaw": 3
+    },
+    {
+      "id": "sandbag_27",
+      "kind": "sandbag",
+      "position": [
+        11.7,
+        -88.3
+      ],
+      "yaw": 3
+    },
+    {
+      "id": "sandbag_28",
+      "kind": "sandbag",
+      "position": [
+        14.9,
+        -88.1
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_29",
+      "kind": "sandbag",
+      "position": [
+        18,
+        -88
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_30",
+      "kind": "sandbag",
+      "position": [
+        -41.7,
+        -126.3
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "sandbag_31",
+      "kind": "sandbag",
+      "position": [
+        -44,
+        -125.4
+      ],
+      "yaw": 0.8
+    },
+    {
+      "id": "sandbag_32",
+      "kind": "sandbag",
+      "position": [
+        -44.9,
+        -123.1
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "sandbag_33",
+      "kind": "sandbag",
+      "position": [
+        -44,
+        -120.8
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "sandbag_34",
+      "kind": "sandbag",
+      "position": [
+        -41.7,
+        -119.9
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_35",
+      "kind": "sandbag",
+      "position": [
+        -39.4,
+        -120.8
+      ],
+      "yaw": 3.9
+    },
+    {
+      "id": "sandbag_36",
+      "kind": "sandbag",
+      "position": [
+        -39.4,
+        -125.4
+      ],
+      "yaw": 5.5
+    },
+    {
+      "id": "crate_37",
+      "kind": "crate",
+      "position": [
+        -40.5,
+        -122.3
+      ],
+      "yaw": 0.4
+    },
+    {
+      "id": "sandbag_38",
+      "kind": "sandbag",
+      "position": [
+        0.5,
+        -91.6
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "sandbag_39",
+      "kind": "sandbag",
+      "position": [
+        -1.6,
+        -90.7
+      ],
+      "yaw": 0.8
+    },
+    {
+      "id": "sandbag_40",
+      "kind": "sandbag",
+      "position": [
+        -2.5,
+        -88.6
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "sandbag_41",
+      "kind": "sandbag",
+      "position": [
+        -1.6,
+        -86.5
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "sandbag_42",
+      "kind": "sandbag",
+      "position": [
+        0.5,
+        -85.6
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_43",
+      "kind": "sandbag",
+      "position": [
+        3.5,
+        -88.6
+      ],
+      "yaw": 4.7
+    },
+    {
+      "id": "sandbag_44",
+      "kind": "sandbag",
+      "position": [
+        2.6,
+        -90.7
+      ],
+      "yaw": 5.5
+    },
+    {
+      "id": "ammo_45",
+      "kind": "ammo",
+      "position": [
+        0.5,
+        -88
+      ],
+      "yaw": 1.1
+    },
+    {
+      "id": "ammo_46",
+      "kind": "ammo",
+      "position": [
+        1.4,
+        -89
+      ],
+      "yaw": 2
+    },
+    {
+      "id": "sandbag_47",
+      "kind": "sandbag",
+      "position": [
+        18,
+        -151
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "sandbag_48",
+      "kind": "sandbag",
+      "position": [
+        13,
+        -146
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "sandbag_49",
+      "kind": "sandbag",
+      "position": [
+        13.7,
+        -143.5
+      ],
+      "yaw": 2.1
+    },
+    {
+      "id": "sandbag_50",
+      "kind": "sandbag",
+      "position": [
+        15.5,
+        -141.7
+      ],
+      "yaw": 2.6
+    },
+    {
+      "id": "sandbag_51",
+      "kind": "sandbag",
+      "position": [
+        18,
+        -141
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_52",
+      "kind": "sandbag",
+      "position": [
+        20.5,
+        -141.7
+      ],
+      "yaw": 3.7
+    },
+    {
+      "id": "sandbag_53",
+      "kind": "sandbag",
+      "position": [
+        22.3,
+        -143.5
+      ],
+      "yaw": 4.2
+    },
+    {
+      "id": "sandbag_54",
+      "kind": "sandbag",
+      "position": [
+        23,
+        -146
+      ],
+      "yaw": 4.7
+    },
+    {
+      "id": "sandbag_55",
+      "kind": "sandbag",
+      "position": [
+        22.3,
+        -148.5
+      ],
+      "yaw": 5.2
+    },
+    {
+      "id": "sandbag_56",
+      "kind": "sandbag",
+      "position": [
+        20.5,
+        -150.3
+      ],
+      "yaw": 5.8
+    },
+    {
+      "id": "crate_57",
+      "kind": "crate",
+      "position": [
+        16.5,
+        -144.8
+      ],
+      "yaw": 0.3
+    },
+    {
+      "id": "crate_58",
+      "kind": "crate",
+      "position": [
+        19.8,
+        -144.4
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "radio_59",
+      "kind": "radio",
+      "position": [
+        18.5,
+        -148.2
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "barrel_60",
+      "kind": "barrel",
+      "position": [
+        15.2,
+        -147.5
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "sandbag_61",
+      "kind": "sandbag",
+      "position": [
+        -18.4,
+        -131.2
+      ],
+      "yaw": 0.6
+    },
+    {
+      "id": "sandbag_62",
+      "kind": "sandbag",
+      "position": [
+        -19.8,
+        -129.2
+      ],
+      "yaw": 1.3
+    },
+    {
+      "id": "sandbag_63",
+      "kind": "sandbag",
+      "position": [
+        -19.8,
+        -126.8
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "sandbag_64",
+      "kind": "sandbag",
+      "position": [
+        -18.4,
+        -124.8
+      ],
+      "yaw": 2.5
+    },
+    {
+      "id": "sandbag_65",
+      "kind": "sandbag",
+      "position": [
+        -16,
+        -124
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_66",
+      "kind": "sandbag",
+      "position": [
+        -13.6,
+        -124.8
+      ],
+      "yaw": 3.8
+    },
+    {
+      "id": "sandbag_67",
+      "kind": "sandbag",
+      "position": [
+        -12.2,
+        -126.8
+      ],
+      "yaw": 4.4
+    },
+    {
+      "id": "sandbag_68",
+      "kind": "sandbag",
+      "position": [
+        -12.2,
+        -129.2
+      ],
+      "yaw": 5
+    },
+    {
+      "id": "sandbag_69",
+      "kind": "sandbag",
+      "position": [
+        -13.6,
+        -131.2
+      ],
+      "yaw": 5.7
+    },
+    {
+      "id": "crate_70",
+      "kind": "crate",
+      "position": [
+        -15,
+        -129
+      ],
+      "yaw": 0.7
+    },
+    {
+      "id": "ammo_71",
+      "kind": "ammo",
+      "position": [
+        -17.4,
+        -127.2
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "ammo_72",
+      "kind": "ammo",
+      "position": [
+        -16.4,
+        -126.4
+      ],
+      "yaw": 0.9
+    },
+    {
+      "id": "sandbag_73",
+      "kind": "sandbag",
+      "position": [
+        49.6,
+        -127.2
+      ],
+      "yaw": 0.6
+    },
+    {
+      "id": "sandbag_74",
+      "kind": "sandbag",
+      "position": [
+        48.2,
+        -125.2
+      ],
+      "yaw": 1.3
+    },
+    {
+      "id": "sandbag_75",
+      "kind": "sandbag",
+      "position": [
+        48.2,
+        -122.8
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "sandbag_76",
+      "kind": "sandbag",
+      "position": [
+        49.6,
+        -120.8
+      ],
+      "yaw": 2.5
+    },
+    {
+      "id": "sandbag_77",
+      "kind": "sandbag",
+      "position": [
+        52,
+        -120
+      ],
+      "yaw": 3.1
+    },
+    {
+      "id": "sandbag_78",
+      "kind": "sandbag",
+      "position": [
+        54.4,
+        -120.8
+      ],
+      "yaw": 3.8
+    },
+    {
+      "id": "sandbag_79",
+      "kind": "sandbag",
+      "position": [
+        55.8,
+        -122.8
+      ],
+      "yaw": 4.4
+    },
+    {
+      "id": "sandbag_80",
+      "kind": "sandbag",
+      "position": [
+        55.8,
+        -125.2
+      ],
+      "yaw": 5
+    },
+    {
+      "id": "sandbag_81",
+      "kind": "sandbag",
+      "position": [
+        54.4,
+        -127.2
+      ],
+      "yaw": 5.7
+    },
+    {
+      "id": "crate_82",
+      "kind": "crate",
+      "position": [
+        53,
+        -125
+      ],
+      "yaw": 0.7
+    },
+    {
+      "id": "ammo_83",
+      "kind": "ammo",
+      "position": [
+        50.6,
+        -123.2
+      ],
+      "yaw": 2.4
+    },
+    {
+      "id": "ammo_84",
+      "kind": "ammo",
+      "position": [
+        51.6,
+        -122.4
+      ],
+      "yaw": 0.9
+    },
+    {
+      "id": "barrel_85",
+      "kind": "barrel",
+      "position": [
+        70,
+        -181
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "barrel_86",
+      "kind": "barrel",
+      "position": [
+        71.2,
+        -180.4
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "crate_87",
+      "kind": "crate",
+      "position": [
+        58,
+        -182
+      ],
+      "yaw": 0.5
+    },
+    {
+      "id": "crate_88",
+      "kind": "crate",
+      "position": [
+        59,
+        -179.8
+      ],
+      "yaw": 2.2
+    },
+    {
+      "id": "sandbag_89",
+      "kind": "sandbag",
+      "position": [
+        6,
+        -142
+      ],
+      "yaw": 0.3
+    },
+    {
+      "id": "sandbag_90",
+      "kind": "sandbag",
+      "position": [
+        32,
+        -140
+      ],
+      "yaw": 2.6
+    },
+    {
+      "id": "sandbag_91",
+      "kind": "sandbag",
+      "position": [
+        14,
+        -132
+      ],
+      "yaw": 1.2
+    },
+    {
+      "id": "sandbag_92",
+      "kind": "sandbag",
+      "position": [
+        26,
+        -158
+      ],
+      "yaw": 0.8
+    }
+  ],
+  "vegetation": {
+    "$comment": "Đồi 31 = đồi trọc cỏ tranh + cây bụi thưa, yên ngựa (hồi ức [H]) — không phải rừng già. Cỏ tranh (grass_tall 1,5–2,2 m, đè theo người) phủ dày dưới cao độ 0,93 (đỉnh đã phát quang r ≈ 90 m); cây tán (khộp) 6/ha, tre 4/ha, bụi dương xỉ.",
+    "seed": 1971,
+    "cellM": 64,
+    "wind": 0.22,
+    "rect": {
+      "x": -160,
+      "z": 60,
+      "w": 1024,
+      "h": 1024
+    },
+    "species": [
+      {
+        "id": "tree_gn",
+        "perHa": 6,
+        "slope": [
+          0,
+          0.6
+        ],
+        "height": [
+          0,
+          0.9
+        ],
+        "scale": [
+          0.7,
+          1.1
+        ],
+        "noise": {
+          "scale": 0.005,
+          "min": 0.3
+        },
+        "lod": [
+          32,
+          100,
+          170,
+          600
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.45,
+          "height": 6
+        },
+        "sink": [
+          0.35,
+          2
+        ]
+      },
+      {
+        "id": "bamboo",
+        "perHa": 4,
+        "slope": [
+          0,
+          0.5
+        ],
+        "height": [
+          0,
+          0.85
+        ],
+        "scale": [
+          0.85,
+          1.15
+        ],
+        "noise": {
+          "scale": 0.008,
+          "min": 0.5,
+          "offset": 120
+        },
+        "clump": {
+          "count": [
+            2,
+            4
+          ],
+          "radius": 2.5
+        },
+        "lod": [
+          35,
+          90,
+          200,
+          400
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.35,
+          "height": 4
+        },
+        "sink": [
+          0.15,
+          1.2
+        ]
+      },
+      {
+        "id": "grass_tall",
+        "perHa": 9000,
+        "slope": [
+          0,
+          0.65
+        ],
+        "height": [
+          0,
+          0.93
+        ],
+        "scale": [
+          0.8,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.02,
+          "min": 0.05,
+          "offset": 1700
+        },
+        "lod": [
+          18,
+          34,
+          60,
+          60
+        ],
+        "rect": {
+          "x": -160,
+          "z": 60,
+          "w": 760,
+          "h": 760
+        },
+        "sink": [
+          0.05,
+          0.4
+        ],
+        "press": 1
+      },
+      {
+        "id": "fern_grass",
+        "perHa": 300,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "noise": {
+          "scale": 0.025,
+          "min": 0.35,
+          "offset": 1300
+        },
+        "lod": [
+          12,
+          26,
+          55,
+          55
+        ],
+        "rect": {
+          "x": -160,
+          "z": 60,
+          "w": 760,
+          "h": 760
+        },
+        "sink": [
+          0.03,
+          0.6
+        ]
+      }
+    ]
+  },
+  "fx": [
+    {
+      "$comment": "gốc cây/xe cháy sau pháo chuẩn bị, sườn SW",
+      "kind": "fire",
+      "position": [
+        -51.5,
+        -154
+      ],
+      "dy": 0,
+      "scale": 1.4
+    },
+    {
+      "kind": "fire",
+      "position": [
+        32.8,
+        -119.9
+      ],
+      "dy": 0,
+      "scale": 1.1
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        10.5,
+        -127.5
+      ],
+      "dy": 0,
+      "scale": 3,
+      "height": 60,
+      "color": 1841687
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        138,
+        -86
+      ],
+      "dy": 0,
+      "scale": 4,
+      "height": 90,
+      "color": 1512980
+    },
+    {
+      "kind": "embers",
+      "position": [
+        -51.5,
+        -154
+      ],
+      "dy": 1,
+      "scale": 1
+    }
+  ],
+  "airTraffic": {
+    "$comment": "Đêm: C-130 thả pháo sáng bay cao xa (Flareship) — KC; trực thăng không bay đêm sương (Sáng nói đúng). R2 thêm Cobra/Huey lúc bình minh qua sky_trigger.",
+    "seed": 1971,
+    "center": [
+      -160,
+      60
+    ],
+    "flights": [
+      {
+        "id": "c130_flare",
+        "model": "air_c130",
+        "kind": "prop",
+        "count": 1,
+        "agl": [
+          700,
+          900
+        ],
+        "speed": 120,
+        "period": [
+          240,
+          400
+        ],
+        "first": 90,
+        "radius": 2200,
+        "sound": "prop"
+      }
+    ]
+  },
+  "playerSpawn": [
+    -402,
+    274
+  ],
+  "playerYaw": -0.8,
+  "botSpawns": {
+    "sq_quyet": [
+      -399.2,
+      271.2
+    ],
+    "sq_hai": [
+      -401.3,
+      277.5
+    ],
+    "sq_sang": [
+      -405.5,
+      273.3
+    ],
+    "mg_a": [
+      -42.5,
+      -123.7
+    ],
+    "mg_b": [
+      -40.7,
+      -122.2
+    ],
+    "tr_0": [
+      -34.6,
+      -139.5
+    ],
+    "tr_1": [
+      -31.1,
+      -126
+    ],
+    "tr_2": [
+      -24.1,
+      -113.8
+    ],
+    "tr_3": [
+      -14.2,
+      -103.9
+    ],
+    "tr_4": [
+      -2,
+      -96.9
+    ],
+    "tr_5": [
+      11.5,
+      -93.4
+    ],
+    "top_0": [
+      2.5,
+      -150.1
+    ],
+    "top_1": [
+      2.5,
+      -141.9
+    ],
+    "top_2": [
+      6.7,
+      -134.7
+    ],
+    "top_3": [
+      13.9,
+      -130.5
+    ],
+    "top_4": [
+      22.1,
+      -130.5
+    ],
+    "cp_a": [
+      20,
+      -149
+    ],
+    "cp_b": [
+      15,
+      -144
+    ]
+  },
+  "waypoints": [
+    [
+      -31.8,
+      -141.6
+    ],
+    [
+      -29.5,
+      -130.3
+    ],
+    [
+      -24.6,
+      -119.8
+    ],
+    [
+      -17.4,
+      -110.6
+    ],
+    [
+      -8.2,
+      -103.4
+    ],
+    [
+      2.3,
+      -98.5
+    ],
+    [
+      13.6,
+      -96.2
+    ]
+  ],
+  "zones": {
+    "spawn": {
+      "center": [
+        -402,
+        274
+      ],
+      "radius": 14
+    },
+    "foot_31": {
+      "center": [
+        -359.6,
+        231.6
+      ],
+      "radius": 22
+    },
+    "w1": {
+      "center": [
+        -54.8,
+        -73.2
+      ],
+      "radius": 9
+    },
+    "w2": {
+      "center": [
+        -46.3,
+        -81.7
+      ],
+      "radius": 8
+    },
+    "w3": {
+      "center": [
+        -37.9,
+        -90.1
+      ],
+      "radius": 8
+    },
+    "mg": {
+      "center": [
+        -41.7,
+        -123.1
+      ],
+      "radius": 7
+    },
+    "trench": {
+      "center": [
+        -21.6,
+        -106.4
+      ],
+      "radius": 16
+    },
+    "cp": {
+      "center": [
+        18,
+        -146
+      ],
+      "radius": 9
+    },
+    "top": {
+      "center": [
+        18,
+        -146
+      ],
+      "radius": 32
+    },
+    "lz": {
+      "center": [
+        64,
+        -186
+      ],
+      "radius": 18
+    }
+  },
+  "coverMarkers": [
+    {
+      "id": "tr_c0",
+      "position": [
+        -36.6,
+        -139.3
+      ],
+      "facing": [
+        -1,
+        0,
+        0.1
+      ]
+    },
+    {
+      "id": "tr_c1",
+      "position": [
+        -32.9,
+        -125.2
+      ],
+      "facing": [
+        -0.9,
+        0,
+        0.4
+      ]
+    },
+    {
+      "id": "tr_c2",
+      "position": [
+        -25.7,
+        -112.6
+      ],
+      "facing": [
+        -0.8,
+        0,
+        0.6
+      ]
+    },
+    {
+      "id": "tr_c3",
+      "position": [
+        -15.4,
+        -102.3
+      ],
+      "facing": [
+        -0.6,
+        0,
+        0.8
+      ]
+    },
+    {
+      "id": "tr_c4",
+      "position": [
+        -2.8,
+        -95.1
+      ],
+      "facing": [
+        -0.4,
+        0,
+        0.9
+      ]
+    },
+    {
+      "id": "tr_c5",
+      "position": [
+        11.3,
+        -91.4
+      ],
+      "facing": [
+        -0.1,
+        0,
+        1
+      ]
+    }
+  ]
+}

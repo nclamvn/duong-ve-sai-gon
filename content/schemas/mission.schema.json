@@ -258,7 +258,8 @@
             "mission_complete",
             "set_flag",
             "sky_trigger",
-            "squad_order"
+            "squad_order",
+            "interactable"
           ]
         },
         "cue": {
@@ -291,6 +292,40 @@
             "follow",
             "hold"
           ]
+        },
+        "interactId": {
+          "type": "string",
+          "description": "interactable: id (cờ mission cùng tên = true khi xong; có fuseMs → cờ <id>_blown khi nổ)"
+        },
+        "zone": {
+          "type": "string",
+          "description": "interactable: zone đặt điểm tương tác (tâm) + bán kính nhắc"
+        },
+        "holdMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "interactable: giữ phím (ms); 0 = nhấn"
+        },
+        "promptKey": {
+          "type": "string",
+          "description": "interactable: khoá hud.prompt.<key>"
+        },
+        "fuseMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "interactable: ngòi nổ sau khi xong (bộc phá)"
+        },
+        "prop": {
+          "type": "string",
+          "description": "interactable: prop terrain gỡ khi nổ (rào)"
+        },
+        "blastRadius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "blastDamage": {
+          "type": "number",
+          "minimum": 0
         }
       }
     }

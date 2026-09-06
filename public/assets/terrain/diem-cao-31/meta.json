@@ -1,0 +1,24 @@
+{
+  "id": "diem-cao-31",
+  "n": 1025,
+  "sizeM": 2048,
+  "resM": 2,
+  "zMin": 316.9,
+  "zMax": 541.28,
+  "center": {
+    "lat": 16.703,
+    "lon": 106.409
+  },
+  "layout": "row-major, hàng 0 = bắc, cột 0 = tây; height = zMin + u16/65535 × (zMax − zMin)",
+  "source": {
+    "dataset": "SRTM 1 arc-second (NASA/USGS, public domain) via Terrain Tiles on AWS (skadi)",
+    "tile": "N16E106.hgt",
+    "url": "https://registry.opendata.aws/terrain-tiles/"
+  },
+  "detailNoise": {
+    "amplitudeM": 1.5,
+    "seed": 7,
+    "note": "chi tiết < 30 m là procedural, không phải đo đạc"
+  },
+  "sha256": "eee2a8c79548b2760ab0e32dd41ca4fd8510c2f224311c74fbc419717a86ad42"
+}

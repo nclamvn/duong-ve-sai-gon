@@ -311,6 +311,14 @@ export class AudioEngine {
     this.noiseBurst('sfx', ms, material === 'earth' ? 0.3 : 0.35, hz, material === 'earth' ? 0.7 : 1.0, position);
   }
 
+  /** Nổ bộc phá/lựu đạn (M2 R1): ầm trầm dài + tiếng vỡ + đuôi ù; duck bus khác 0,6 s */
+  explosion(position: [number, number, number], size = 1): void {
+    this.noiseBurst('sfx', 520 * size, 0.95, 140, 0.5, position);
+    this.noiseBurst('sfx', 160, 0.6, 1800, 0.9, position);
+    this.tone('sfx', 48, 420 * size, 0.35);
+    this.duck(600, 0.5);
+  }
+
   reload(): void {
     this.noiseBurst('sfx', 50, 0.3, 2500, 2);
     setTimeout(() => this.noiseBurst('sfx', 60, 0.35, 1800, 2), 350);

@@ -30,6 +30,8 @@ export interface HudState {
   promptKey: string | null;
   /** khoá i18n phím prompt (vd. key.f) */
   promptKeyCap: string;
+  /** tiến trình giữ phím 0..1 (−1 = không có thanh) */
+  promptProgress: number;
   dead: boolean;
   missionComplete: boolean;
   /** độ, 0 = bắc (−z) */
@@ -40,9 +42,9 @@ const OBJ_FRESH_MS = 6000;
 
 export class Hud {
   private root: HTMLElement;
-  private els: Record<'hurt' | 'objective' | 'objLabel' | 'objText' | 'objDist' | 'vitals' | 'vState' | 'vHp' | 'vBar' | 'ammo' | 'mag' | 'res' | 'wname' | 'wmode' | 'segs' | 'reticle' | 'hit' | 'dmg' | 'markers' | 'prompt' | 'promptKey' | 'promptText' | 'banner' | 'bannerBig' | 'bannerSub' | 'heading' | 'compass' | 'minimap', HTMLElement>;
+  private els: Record<'hurt' | 'objective' | 'objLabel' | 'objText' | 'objDist' | 'vitals' | 'vState' | 'vHp' | 'vBar' | 'ammo' | 'mag' | 'res' | 'wname' | 'wmode' | 'segs' | 'reticle' | 'hit' | 'dmg' | 'markers' | 'prompt' | 'promptKey' | 'promptText' | 'promptBar' | 'banner' | 'bannerBig' | 'bannerSub' | 'heading' | 'compass' | 'minimap', HTMLElement>;
   private last: Partial<HudState> = {};
-  readonly state: HudState = { health: 100, maxHealth: 100, mag: 0, magSize: 30, reserve: 0, weaponState: '', weaponKey: '', fireModeKey: 'firemode.auto', spreadDeg: 1, ads: 0, objectiveKey: null, objectiveDist: null, promptKey: null, promptKeyCap: 'key.f', dead: false, missionComplete: false, headingDeg: 0 };
+  readonly state: HudState = { health: 100, maxHealth: 100, mag: 0, magSize: 30, reserve: 0, weaponState: '', weaponKey: '', fireModeKey: 'firemode.auto', spreadDeg: 1, ads: 0, objectiveKey: null, objectiveDist: null, promptKey: null, promptKeyCap: 'key.f', promptProgress: -1, dead: false, missionComplete: false, headingDeg: 0 };
   readonly compass: CompassBar;
   readonly markers: Markers3D;
   readonly minimap: Minimap;
@@ -67,14 +69,14 @@ export class Hud {
       <div class="reticle" data-testid="crosshair"><i class="dot"></i><i class="arm t"></i><i class="arm b"></i><i class="arm l"></i><i class="arm r"></i></div>
       <div class="hit" data-testid="hitmarker"><i></i><i></i><i></i><i></i></div>
       <div class="dmg" data-testid="damage-dir"><i></i><i></i><i></i></div>
-      <div class="prompt" data-testid="prompt" hidden><span class="key"></span><span class="ptext"></span></div>
+      <div class="prompt" data-testid="prompt" hidden><span class="key"></span><span class="ptext"></span><span class="pbar" hidden><i></i></span></div>
       <div class="banner" data-testid="banner" hidden><div class="big"></div><div class="sub"></div></div>`;
     const q = (sel: string): HTMLElement => this.root.querySelector(sel)!;
     this.els = {
       hurt: q('.hurt'), objective: q('.objective'), objLabel: q('.objective .label'), objText: q('.objective .text'), objDist: q('.objective .dist'),
       vitals: q('.vitals'), vState: q('.vitals .state'), vHp: q('.vitals .hp'), vBar: q('.vitals .bar i'),
       ammo: q('.ammo'), mag: q('.ammo .mag'), res: q('.ammo .res'), wname: q('.ammo .wname'), wmode: q('.ammo .mode'), segs: q('.ammo .segs i'),
-      reticle: q('.reticle'), hit: q('.hit'), dmg: q('.dmg'), markers: q('.markers'), prompt: q('.prompt'), promptKey: q('.prompt .key'), promptText: q('.prompt .ptext'),
+      reticle: q('.reticle'), hit: q('.hit'), dmg: q('.dmg'), markers: q('.markers'), prompt: q('.prompt'), promptKey: q('.prompt .key'), promptText: q('.prompt .ptext'), promptBar: q('.prompt .pbar'),
       banner: q('.banner'), bannerBig: q('.banner .big'), bannerSub: q('.banner .sub'), heading: q('.heading'), compass: q('.compass'), minimap: q('.minimap'),
     };
     this.els.objLabel.textContent = t('hud.objective_label');
@@ -212,6 +214,11 @@ export class Hud {
       l.objectiveDist = d;
     }
     // ---- prompt
+    if (l.promptProgress !== s.promptProgress) {
+      this.els.promptBar.hidden = s.promptProgress < 0;
+      if (s.promptProgress >= 0) (this.els.promptBar.firstElementChild as HTMLElement).style.width = `${Math.round(s.promptProgress * 100)}%`;
+      l.promptProgress = s.promptProgress;
+    }
     if (l.promptKey !== s.promptKey || l.promptKeyCap !== s.promptKeyCap) {
       this.els.prompt.hidden = !s.promptKey;
       if (s.promptKey) {

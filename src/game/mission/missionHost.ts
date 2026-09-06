@@ -2,7 +2,7 @@
  * MissionHost — nối MissionRuntime với Game (MissionWorld adapter): spawn group → bots, capture/restore world,
  * checkpoint, subtitles, HUD objective/prompt, radio ducking. Game gọi host.step() trong sim.
  */
-import type { EventBus } from '@engine/core';
+import type { EventBus, Prng } from '@engine/core';
 import type { Game } from '@game/game';
 import { MissionRuntime, type MissionWorld } from './runtime';
 import { loadMission, loadDialogue } from './loader';
@@ -14,6 +14,24 @@ import phoMissionJson from '@content/missions/pho-van-hai.mission.json';
 import truongSonMissionJson from '@content/missions/truong-son-a.mission.json';
 import dialogueJson from '@content/missions/g0-dialogue.json';
 import truongSonDialogueJson from '@content/missions/truong-son-a.dialogue.json';
+import diemCao31MissionJson from '@content/missions/diem-cao-31.mission.json';
+import diemCao31DialogueJson from '@content/missions/diem-cao-31.dialogue.json';
+
+export interface Interactable {
+  id: string;
+  position: [number, number, number];
+  radius: number;
+  holdMs: number;
+  promptKey: string;
+  fuseMs: number;
+  prop: string | null;
+  blastRadius: number;
+  blastDamage: number;
+  progress: number;
+  done: boolean;
+  /** giây còn lại của ngòi (−1 = không) */
+  fuseLeft: number;
+}
 
 export class MissionHost implements MissionWorld {
   readonly def: MissionDefinition;
@@ -26,15 +44,30 @@ export class MissionHost implements MissionWorld {
   private readonly spawned = new Set<string>();
   private readonly ev: EventBus<MissionEvents>;
   private inRelayZone = false;
+  /** điểm tương tác giữ phím (M2 R1 — bộc phá, gắn súng, băng bó): từ action `interactable`; xong → flag id; fuse → nổ → flag id_blown */
+  readonly interactables: Interactable[] = [];
+  private activeInteract: Interactable | null = null;
+  /** pháo chuẩn bị (M2 C1, flag `arty`): đạn rơi quanh zone `top` mỗi 0,8–1,5 s; tiếng xích xe tăng (flag `tanks`) — âm + rung */
+  private artyOn = false;
+  private artyNext = 0;
+  private tanksLeft = 0;
+  private tanksNext = 0;
+  /** pháo sáng địch (flag `flares`): mỗi 9–14 s một quả trên đỉnh, rơi 34 s */
+  private flaresOn = false;
+  private flareNext = 0;
+  readonly artyStats = { shells: 0 };
+  private readonly rng: Prng;
   /** điểm marker mục tiêu hiện tại (world) — HUD la bàn/marker/minimap (TIP-UX02) */
   objectiveMarker: [number, number, number] | null = null;
   private objectiveMarkerKey: string | null = null;
   private barkSeq = 0;
 
   constructor(private readonly game: Game) {
+    this.rng = game.prng.fork('mission-host');
     const m1 = game.levelId === 'truong-son';
-    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : m1 ? truongSonMissionJson : missionJson);
-    this.dialogue = loadDialogue(m1 ? truongSonDialogueJson : dialogueJson);
+    const m2 = game.levelId === 'diem-cao-31';
+    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : m1 ? truongSonMissionJson : m2 ? diemCao31MissionJson : missionJson);
+    this.dialogue = loadDialogue(m1 ? truongSonDialogueJson : m2 ? diemCao31DialogueJson : dialogueJson);
     this.ev = game.events as unknown as EventBus<MissionEvents>;
     this.runtime = new MissionRuntime(this.def, this.dialogue, this.ev, this);
     this.checkpoints = new CheckpointStore(game.settings.store);
@@ -56,6 +89,28 @@ export class MissionHost implements MissionWorld {
     });
     this.ev.on('SQUAD_ORDER', (e) => {
       game.squadmates.order = e.order;
+    });
+    this.ev.on('INTERACTABLE', (e) => {
+      const z = this.def.zones?.find((zz) => zz.id === e.zone);
+      if (!z) {
+        console.warn(`[mission] interactable ${e.id}: zone ${e.zone} not found`);
+        return;
+      }
+      if (this.interactables.some((it) => it.id === e.id)) return;
+      const y = game.terrain ? game.terrain.heightAt(z.center[0], z.center[2]) : z.center[1];
+      this.interactables.push({ id: e.id, position: [z.center[0], y, z.center[2]], radius: Math.max(2.5, z.radius), holdMs: e.holdMs, promptKey: e.promptKey, fuseMs: e.fuseMs, prop: e.prop, blastRadius: e.blastRadius, blastDamage: e.blastDamage, progress: 0, done: false, fuseLeft: -1 });
+    });
+    this.ev.on('MISSION_FLAG', (e) => {
+      if (e.flag === 'arty') {
+        this.artyOn = e.value;
+        this.artyNext = 0.6;
+      } else if (e.flag === 'tanks') {
+        this.tanksLeft = e.value ? 14 : 0;
+        this.tanksNext = 0;
+      } else if (e.flag === 'flares') {
+        this.flaresOn = e.value;
+        this.flareNext = 1.5;
+      }
     });
     this.ev.on('CHECKPOINT_SAVED', (e) => this.save(e.checkpoint));
     this.ev.on('MISSION_COMPLETE', () => {
@@ -229,9 +284,11 @@ export class MissionHost implements MissionWorld {
   }
 
   /** sim tick */
-  step(dt: number, interact: boolean): void {
+  step(dt: number, interact: boolean, interactHeld = interact): void {
     this.runtime.step(dt);
     this.subtitles.update(dt); // phụ đề chạy theo sim time (deterministic, không phụ thuộc render)
+    this.stepInteractables(dt, interact, interactHeld);
+    this.stepAmbientScript(dt);
     // Tương tác relay (PLY-004 tối giản): prompt khi trong relay_zone và chưa cắt
     const z = this.def.zones?.find((zz) => zz.id === 'relay_zone');
     if (z) {
@@ -239,14 +296,123 @@ export class MissionHost implements MissionWorld {
       this.inRelayZone = Math.hypot(p[0] - z.center[0], p[2] - z.center[2]) <= z.radius;
     }
     const cut = this.runtime.state.flags['relay_cut'] === true;
-    this.game.hud.state.promptKey = this.inRelayZone && !cut && this.game.player.alive ? 'cut_relay' : null;
+    if (!this.activeInteract) this.game.hud.state.promptKey = this.inRelayZone && !cut && this.game.player.alive ? 'cut_relay' : null;
     if (interact && this.inRelayZone && !cut) {
       this.runtime.state.flags['relay_cut'] = true;
       this.ev.emit('MISSION_FLAG', { flag: 'relay_cut', value: true }, { id: `${this.def.id}:interact:relay_cut` });
     }
   }
 
+  /**
+   * Tương tác giữ phím: điểm gần nhất trong bán kính (người chơi sống) hiện prompt + thanh tiến trình; giữ F đủ holdMs → xong
+   * (flag id = true); có ngòi → đếm fuseMs rồi `game.explode` (gỡ prop) + flag id_blown. Tiến trình rớt 2× tốc độ khi thả phím.
+   */
+  private stepInteractables(dt: number, edge: boolean, held: boolean): void {
+    const p = this.game.player.controller.feet;
+    let best: Interactable | null = null;
+    let bestD = Infinity;
+    for (const it of this.interactables) {
+      if (it.fuseLeft >= 0) {
+        it.fuseLeft -= dt;
+        if (it.fuseLeft < 0) {
+          it.fuseLeft = -1;
+          this.game.explode(it.position, { radius: it.blastRadius, damage: it.blastDamage, prop: it.prop });
+          this.setFlag(`${it.id}_blown`);
+        }
+      }
+      if (it.done || !this.game.player.alive) continue;
+      const d = Math.hypot(p[0] - it.position[0], p[2] - it.position[2]);
+      if (d <= it.radius && d < bestD) {
+        bestD = d;
+        best = it;
+      }
+    }
+    if (this.activeInteract && this.activeInteract !== best) this.activeInteract.progress = 0;
+    this.activeInteract = best;
+    if (!best) {
+      this.game.hud.state.promptProgress = -1;
+      return;
+    }
+    this.game.hud.state.promptKey = best.promptKey;
+    if (best.holdMs <= 0) {
+      if (edge) this.finishInteract(best);
+      this.game.hud.state.promptProgress = -1;
+      return;
+    }
+    if (held) best.progress = Math.min(1, best.progress + (dt * 1000) / best.holdMs);
+    else best.progress = Math.max(0, best.progress - (dt * 2000) / best.holdMs);
+    this.game.hud.state.promptProgress = best.progress;
+    if (best.progress >= 1) this.finishInteract(best);
+  }
+
+  /** pháo chuẩn bị + tiếng xích: theo sim time, seeded (rng fork) */
+  private stepAmbientScript(dt: number): void {
+    if (this.artyOn) {
+      this.artyNext -= dt;
+      if (this.artyNext <= 0) {
+        this.artyNext = 0.8 + this.rng.next() * 0.7;
+        const z = this.def.zones?.find((zz) => zz.id === 'top');
+        if (z) {
+          const a = this.rng.next() * Math.PI * 2;
+          const r = Math.sqrt(this.rng.next()) * (z.radius + 40);
+          const x = z.center[0] + Math.sin(a) * r;
+          const zz = z.center[2] + Math.cos(a) * r;
+          const y = this.game.terrain ? this.game.terrain.heightAt(x, zz) : z.center[1];
+          this.game.explode([x, y, zz], { radius: 9, damage: 70 });
+          this.game.player.rig.shakeAmp = Math.max(this.game.player.rig.shakeAmp, 0.3); // đất rung dù ở xa (kịch bản C1)
+          this.artyStats.shells++;
+        }
+      }
+    }
+    if (this.flaresOn && this.game.flares) {
+      this.flareNext -= dt;
+      if (this.flareNext <= 0) {
+        this.flareNext = 9 + this.rng.next() * 5;
+        const z = this.def.zones?.find((zz) => zz.id === 'top');
+        if (z) {
+          const a = this.rng.next() * Math.PI * 2;
+          const r = this.rng.next() * 60;
+          const x = z.center[0] + Math.sin(a) * r;
+          const zz = z.center[2] + Math.cos(a) * r;
+          const g = this.game.terrain ? this.game.terrain.heightAt(x, zz) : z.center[1];
+          this.game.flares.fire(x, g + 110 + this.rng.next() * 40, zz, g, this.rng.next() * 6.28);
+        }
+      }
+    }
+    if (this.tanksLeft > 0) {
+      this.tanksLeft -= dt;
+      this.tanksNext -= dt;
+      if (this.tanksNext <= 0) {
+        this.tanksNext = 0.55 + this.rng.next() * 0.2;
+        this.game.audio.tone('sfx', 48 + this.rng.next() * 12, 420, 0.22);
+        this.game.player.rig.shakeAmp = Math.max(this.game.player.rig.shakeAmp, 0.12);
+      }
+    }
+  }
+
+  private finishInteract(it: Interactable): void {
+    it.done = true;
+    it.progress = 0;
+    this.activeInteract = null;
+    this.game.hud.state.promptKey = null;
+    this.game.hud.state.promptProgress = -1;
+    this.setFlag(it.id);
+    if (it.fuseMs > 0) it.fuseLeft = it.fuseMs / 1000;
+    this.ev.emit('INTERACT_DONE', { id: it.id }, { id: `${this.def.id}:interact:${it.id}` });
+  }
+
+  private setFlag(flag: string): void {
+    this.runtime.state.flags[flag] = true;
+    this.ev.emit('MISSION_FLAG', { flag, value: true }, { id: `${this.def.id}:flag:${flag}` });
+  }
+
   reset(): void {
+    this.artyOn = false;
+    this.flaresOn = false;
+    this.tanksLeft = 0;
+    this.interactables.length = 0;
+    this.activeInteract = null;
+    this.game.hud.state.promptProgress = -1;
     for (const id of this.spawned) this.game.despawnBot(id);
     this.spawned.clear();
     this.game.squadmates.clear();

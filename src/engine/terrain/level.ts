@@ -4,6 +4,7 @@
  */
 import { Group, Mesh, BufferGeometry, BufferAttribute, type Scene } from 'three/webgpu';
 import type { ArenaData, ColliderDef, CoverMarker } from '../render/arena';
+import { buildTerrainProps, navBoxGeometry, type TerrainPropDef, type TerrainPropsBuild } from './props';
 import type { LoadedAssets } from '../render/assets';
 import type { LevelSky, FxDef } from '../level/types';
 import { createAmbientFx, type AmbientFx } from '../render/ambientFx';
@@ -35,6 +36,8 @@ export interface TerrainLevelDef {
   layers: { leaves: string; mud: string; rock: string; grass: string };
   textures: string[];
   models: string[];
+  /** props đặt tay trên terrain (M2 R1): bao cát, thùng, rào concertina… — collider + obstacle nav; gỡ được theo id */
+  props?: TerrainPropDef[];
   /** rừng loài thật (TIP-D05) — thiếu → không thực vật */
   vegetation?: VegetationDef;
   /** máy bay ambient (TIP-D-SKY) — thiếu → trời trống */
@@ -59,6 +62,8 @@ export interface TerrainLevelBuild extends ArenaData {
   heightAt(x: number, z: number): number;
   /** FX môi trường (ambientFx) — update(dt) mỗi frame */
   fx: AmbientFx;
+  /** props (bao cát/rào…) — remove(id) khi bộc phá */
+  props: TerrainPropsBuild;
 }
 
 export interface TerrainLevelOptions {
@@ -109,6 +114,22 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     navPrebuilt = null;
   }
 
+  // props (M2 R1): collider hộp vào ArenaData; obstacle nav vào navGeometry (fallback runtime — bake offline có sẵn trong nav.bin)
+  const props = buildTerrainProps(def.props ?? [], { models: opts.assets?.models ?? null, heightAt: h });
+  root.add(props.group);
+  colliders.push(...props.colliders);
+  const navGeometry: Mesh[] = [navMesh];
+  for (const b of props.navBoxes) {
+    const bg = new BufferGeometry();
+    const nb = navBoxGeometry(b);
+    bg.setAttribute('position', new BufferAttribute(nb.positions, 3));
+    bg.setIndex(new BufferAttribute(nb.indices, 1));
+    const bm = new Mesh(bg);
+    bm.name = `nav_prop_${b.id}`;
+    bm.updateMatrixWorld(true);
+    navGeometry.push(bm);
+  }
+
   const fxDefs: FxDef[] = (def.fx ?? []).map((f) => ({ kind: f.kind, position: v3(f.position, f.dy ?? 0), scale: f.scale, color: f.color, height: f.height }));
   const fx = createAmbientFx(fxDefs, { maxLights: opts.maxFxLights ?? 4 });
   root.add(fx.group);
@@ -125,9 +146,10 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     navPrebuilt,
     heightAt: h,
     fx,
+    props,
     size: tile.sizeM,
     colliders,
-    navGeometry: [navMesh],
+    navGeometry,
     waypoints: def.waypoints.map((p) => v3(p)),
     coverMarkers,
     playerSpawn: v3(def.playerSpawn, 0.1),
@@ -137,6 +159,6 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     root,
     wetness: mat.wetness,
     lamps: [],
-    stats: { props: 0, batchedDrawEstimate: 4, decor: fxDefs.length },
+    stats: { props: props.count, batchedDrawEstimate: 4 + props.draws, decor: fxDefs.length },
   };
 }

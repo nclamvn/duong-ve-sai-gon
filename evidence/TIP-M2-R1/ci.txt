@@ -1,0 +1,20 @@
+TIP-M2-R1 / DV-048 CI 2026-09-06 13:56:00 UTC
+typecheck OK · unit 23 files 147/147 · build OK
+[WebServer] ✓ 235 modules transformed.
+[WebServer] ✓ built in 3.78s
+  ✓   1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__bench → 
+  ✓   2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend webgl2, cap
+  ✓   3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi không auto
+  ✓   4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › chết nằm hẳn (glTF, DV-045): one-shot hit xong p
+  ✓   5 [webgl-ci] › tests/e2e/boot.spec.ts:110:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › súng + trang phục theo phe (DV-046): phe ta AK-47 
+  ✓   6 [webgl-ci] › tests/e2e/boot.spec.ts:139:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht undefined 
+  ✓   7 [webgl-ci] › tests/e2e/level-diem-cao-31.spec.ts:13:3 › Điểm cao 31 — M2 R1 (đêm công đồn) › vật lý terrain đêm: đứng/đi lên dốc/kh
+  ✓   8 [webgl-ci] › tests/e2e/level-diem-cao-31.spec.ts:144:3 › Điểm cao 31 — M2 R1 (đêm công đồn) › bộc phá + mission C1–C2: pháo chuẩn bị,
+  ✓   9 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới ch
+  ✓  10 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:12:3 › Trường Sơn — vật lý terrain (TIP-D04) › đứng/đi lên dốc/không leo dốc đứng; h
+  ✓  11 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:142:3 › Trường Sơn — vật lý terrain (TIP-D04) › rừng: batch/LOD/impostor trong ngân sách; th�
+  ✓  12 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:302:3 › Trường Sơn — vật lý terrain (TIP-D04) › bầu trời: lượt bay theo lịch seeded, tre
+  ✓  13 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:410:3 › Trường Sơn — vật lý terrain (TIP-D04) › M1 lát cắt: đồng đội theo, chặn thám 
+  ✓  14 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone → D03 + sp
+  ✓  15 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp checkpoint;
+  15 passed (11.9m)

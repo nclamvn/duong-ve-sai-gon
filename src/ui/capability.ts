@@ -24,7 +24,7 @@ export function showCapability(root: HTMLElement, info: CapabilityInfo, onEnter:
   /** nhãn nút vào theo ?level (mặc định Trường Sơn M1 — DV-044) */
   const enterKey = (): string => {
     const lv = new URLSearchParams(location.search).get('level');
-    return lv === 'arena' ? 'cap.enter_arena' : lv === 'pho' ? 'cap.enter_pho' : 'cap.enter';
+    return lv === 'arena' ? 'cap.enter_arena' : lv === 'pho' ? 'cap.enter_pho' : lv === 'diem-cao-31' ? 'cap.enter_m2' : 'cap.enter';
   };
   const rows: Array<[string, string]> = [
     [t('cap.backend'), `${info.backend}${info.timestampCapable ? ' · timestamp-query' : ''}`],

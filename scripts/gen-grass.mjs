@@ -21,7 +21,10 @@ const opt = (k, d) => {
 };
 const SEED = Number(opt('seed', 7));
 const TEX = Number(opt('tex', 512));
-const OUT = 'public/assets/vegetation/grass.glb';
+/** --tall: cỏ tranh (Imperata) 1,6–2,2 m cho Đường 9 – Nam Lào (M2, DV-047) — thẻ cao gấp ~2,7×, lá vàng khô mùa khô */
+const TALL = args.includes('--tall');
+const SPECIES_ID = TALL ? 'grass_tall' : 'grass';
+const OUT = `public/assets/vegetation/${SPECIES_ID}.glb`;
 const MANIFEST = 'content/assets/manifest.json';
 const sha256 = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
 const log = (s) => console.log(`[grass] ${s}`);
@@ -58,9 +61,10 @@ function paintGrass(size, seed) {
     const curve = (rnd() - 0.5) * 1.2; // cong
     const wBase = size * (0.012 + rnd() * 0.014);
     // màu: xanh vàng, mỗi lá lệch; gốc tối
-    const hue = 0.22 + (rnd() - 0.5) * 0.08; // ~xanh lá ngả vàng
-    const sat = 0.45 + rnd() * 0.25;
-    const light = 0.28 + rnd() * 0.16;
+    // cỏ tranh mùa khô (--tall): vàng rơm ngả nâu, ít bão hoà; cỏ rừng: xanh lá ngả vàng
+    const hue = (TALL ? 0.14 : 0.22) + (rnd() - 0.5) * 0.08;
+    const sat = (TALL ? 0.32 : 0.45) + rnd() * 0.25;
+    const light = (TALL ? 0.36 : 0.28) + rnd() * 0.16;
     const steps = Math.round(h * 2.2);
     for (let s = 0; s <= steps; s++) {
       const t = s / steps; // 0 gốc → 1 ngọn
@@ -136,11 +140,17 @@ function clump(quads, height, width, seg, rnd) {
   return { pos, nor, uv, idx, height };
 }
 
-const VARIANTS = [
-  { height: 0.75, width: 0.85, quads: 3 },
-  { height: 0.55, width: 0.7, quads: 3 },
-  { height: 0.35, width: 0.75, quads: 2 },
-];
+const VARIANTS = TALL
+  ? [
+      { height: 2.1, width: 1.1, quads: 3 },
+      { height: 1.75, width: 1.0, quads: 3 },
+      { height: 1.45, width: 0.95, quads: 2 },
+    ]
+  : [
+      { height: 0.75, width: 0.85, quads: 3 },
+      { height: 0.55, width: 0.7, quads: 3 },
+      { height: 0.35, width: 0.75, quads: 2 },
+    ];
 const LODS = [
   { quads: (q) => q, seg: 3 },
   { quads: (q) => Math.max(2, q - 1), seg: 2 },
@@ -189,14 +199,14 @@ mkdirSync('public/assets/vegetation', { recursive: true });
 await io.write(OUT, doc);
 const bytes = statSync(OUT).size;
 const nVar = VARIANTS.length;
-log(`grass.glb: ${nVar} biến thể, tam giác/biến thể LOD0 ${tris[0] / nVar} · LOD1 ${tris[1] / nVar} · LOD2 ${tris[2] / nVar}; texture ${TEX}² WebP; ${(bytes / 1024).toFixed(0)} KB`);
+log(`${SPECIES_ID}.glb: ${nVar} biến thể, tam giác/biến thể LOD0 ${tris[0] / nVar} · LOD1 ${tris[1] / nVar} · LOD2 ${tris[2] / nVar}; texture ${TEX}² WebP; ${(bytes / 1024).toFixed(0)} KB`);
 
 const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8'));
-manifest.assets = manifest.assets.filter((a) => a.id !== 'veg_grass');
+manifest.assets = manifest.assets.filter((a) => a.id !== `veg_${SPECIES_ID}`);
 manifest.assets.push({
-  id: 'veg_grass',
+  id: `veg_${SPECIES_ID}`,
   type: 'model',
-  use: 'thực vật rừng (TIP-D05, VEG-001/006) — cỏ rừng/cỏ tranh procedural: bụi thẻ chéo 3 biến thể × 3 LOD, texture lá cỏ vẽ bằng scripts/gen-grass.mjs (không asset ngoài)',
+  use: TALL ? 'cỏ tranh 1,5–2,2 m (M2 Đường 9, DV-047) procedural: bụi thẻ chéo 3 biến thể × 3 LOD, gen-grass --tall' : 'thực vật rừng (TIP-D05, VEG-001/006) — cỏ rừng/cỏ tranh procedural: bụi thẻ chéo 3 biến thể × 3 LOD, texture lá cỏ vẽ bằng scripts/gen-grass.mjs (không asset ngoài)',
   source: 'procedural',
   url: 'https://github.com/nclamvn/duong-ve-sai-gon',
   authors: ['DVSG (scripts/gen-grass.mjs)'],

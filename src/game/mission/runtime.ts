@@ -151,6 +151,9 @@ export class MissionRuntime {
       case 'squad_order':
         this.events.emit('SQUAD_ORDER', { order: a.order ?? 'follow' }, { id });
         break;
+      case 'interactable':
+        this.events.emit('INTERACTABLE', { id: a.interactId ?? '', zone: a.zone ?? '', holdMs: a.holdMs ?? 0, promptKey: a.promptKey ?? 'interact', fuseMs: a.fuseMs ?? 0, prop: a.prop ?? null, blastRadius: a.blastRadius ?? 6, blastDamage: a.blastDamage ?? 35 }, { id });
+        break;
     }
   }
 
