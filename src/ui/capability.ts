@@ -21,6 +21,11 @@ export function showCapability(root: HTMLElement, info: CapabilityInfo, onEnter:
     ? [info.adapterInfo.vendor, info.adapterInfo.architecture, info.adapterInfo.description].filter(Boolean).join(' · ') || '—'
     : '—';
   const credits = ccByCredits();
+  /** nhãn nút vào theo ?level (mặc định Trường Sơn M1 — DV-044) */
+  const enterKey = (): string => {
+    const lv = new URLSearchParams(location.search).get('level');
+    return lv === 'arena' ? 'cap.enter_arena' : lv === 'pho' ? 'cap.enter_pho' : 'cap.enter';
+  };
   const rows: Array<[string, string]> = [
     [t('cap.backend'), `${info.backend}${info.timestampCapable ? ' · timestamp-query' : ''}`],
     [t('cap.adapter'), adapter],
@@ -34,7 +39,7 @@ export function showCapability(root: HTMLElement, info: CapabilityInfo, onEnter:
       <table>${rows.map(([k, v]) => `<tr><td>${k}</td><td data-cap="${k}">${v}</td></tr>`).join('')}</table>
       ${!info.webgpuAvailable ? `<p style="color:var(--warn)">${t('cap.webgpu_missing')}</p>` : ''}
       <p style="color:var(--muted);font-size:12px">${t('cap.hint')}</p>
-      <button id="cap-enter" data-testid="enter">${t('cap.enter')}</button>
+      <button id="cap-enter" data-testid="enter">${t(enterKey())}</button>
       ${credits.length ? `<p data-testid="credits" style="color:var(--muted);font-size:11px;margin-top:12px">${t('cap.credits')}: ${credits.map(escapeHtml).join(' · ')}</p>` : ''}
     </div>`;
   const btn = root.querySelector<HTMLButtonElement>('#cap-enter');

@@ -32,8 +32,8 @@ async function boot(): Promise<void> {
     scale: game.scaler.scale,
     clampCount: game.clock.clampCount,
   }));
-  const showOverlay = !import.meta.env.PROD || params.get('overlay') === '1';
-  overlay.toggle(showOverlay);
+  // Telemetry chỉ khi ?overlay=1 (hoặc bench); F3 bật/tắt lúc chơi — Chủ nhà: bảng thông số không hiện mặc định (DV-044)
+  overlay.toggle(params.get('overlay') === '1');
   game.onFrame = () => overlay.update(performance.now());
   const api = installDebugApi(game, __BUILD_HASH__);
   const calib = params.get('calib');

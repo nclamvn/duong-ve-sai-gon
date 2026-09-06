@@ -7,8 +7,8 @@
   "cap.viewport": "Kích thước khung",
   "cap.build": "Build",
   "cap.webgpu_missing": "Trình duyệt không có WebGPU — dùng WebGL 2 fallback.",
-  "cap.enter": "Vào benchmark arena",
-  "cap.hint": "Click vào màn hình để khóa chuột · WASD di chuyển · Shift chạy · C cúi · Space nhảy · R nạp đạn · Chuột phải ADS · F tương tác · F3 telemetry · F4 navmesh · Esc thoát",
+  "cap.enter": "Vào Trường Sơn (M1)",
+  "cap.hint": "Click vào màn hình để khóa chuột · WASD di chuyển · Shift chạy · C cúi · Space nhảy · R nạp đạn · Chuột phải ADS · F tương tác · M bản đồ · N minimap · F3 telemetry · F4 navmesh · Esc thoát",
   "hud.health": "MÁU",
   "hud.ammo_reserve": "dự trữ",
   "hud.objective.obj_reach_relay": "Tiến vào khu relay phụ",
@@ -98,5 +98,7 @@
   "dlg.M12": "Tôi dính đạn!",
   "dlg.M13": "Thấy chúng nó — bắn!",
   "dlg.M14": "Hạ một thằng.",
-  "dlg.M15": "Đồ tiếp! Tôi nằm sau gốc cây."
+  "dlg.M15": "Đồ tiếp! Tôi nằm sau gốc cây.",
+  "cap.enter_arena": "Vào benchmark arena",
+  "cap.enter_pho": "Vào Phố Vạn Hải (test)"
 }

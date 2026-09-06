@@ -97,8 +97,8 @@ export class Game {
   arena!: ArenaData;
   /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
   level: LevelBuild | null = null;
-  /** 'arena' (bench/E2E G0, mặc định G0′ — content Hải Tuyến chỉ là test) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) | 'truong-son' (terrain DEM, TIP-D04) */
-  levelId: 'pho' | 'arena' | 'truong-son' = 'arena';
+  /** 'truong-son' (M1 Trường Sơn — mặc định từ DV-044) | 'arena' (bench/E2E G0 — content Hải Tuyến chỉ là test, `?level=arena`) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
+  levelId: 'pho' | 'arena' | 'truong-son' = 'truong-son';
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
   /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
@@ -203,7 +203,7 @@ export class Game {
 
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
-    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'arena';
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' ? levelParam : 'truong-son';
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
     const botWeaponParam = this.params.get('botWeapon');
