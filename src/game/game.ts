@@ -20,7 +20,7 @@ import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
 import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
-import { buildForest, VEG_QUALITY, navObstacleMesh, type ForestBuild } from '@engine/vegetation';
+import { buildForest, VEG_QUALITY, navObstacleMesh, navPadFor, type ForestBuild } from '@engine/vegetation';
 import { SkyTraffic } from '@engine/sky';
 import { loadModel } from '@engine/render/assets';
 import { t } from '@ui/i18n';
@@ -447,7 +447,7 @@ export class Game {
       // bake runtime: thêm obstacle thân cây (cùng lăng trụ như terrain-bake --level) để bot đi vòng cây
       const navGeo = [...this.arena.navGeometry];
       if (this.forest && this.forest.system.colliders.length) {
-        const ob = navObstacleMesh(this.forest.system.colliders, { capH: 1.2, sides: 8, radiusPad: 0.0, groundAt: (x, z) => this.terrain!.tile.sampleGrid(x, z, Math.max(1, Math.round(4 / this.terrain!.tile.resM))) });
+        const ob = navObstacleMesh(this.forest.system.colliders, { capH: 1.2, sides: 8, radiusPad: (c) => navPadFor(c.id, 0), groundAt: (x, z) => this.terrain!.tile.sampleGrid(x, z, Math.max(1, Math.round(4 / this.terrain!.tile.resM))) });
         const g = new BufferGeometry();
         g.setAttribute('position', new BufferAttribute(ob.positions, 3));
         g.setIndex(new BufferAttribute(ob.indices, 1));

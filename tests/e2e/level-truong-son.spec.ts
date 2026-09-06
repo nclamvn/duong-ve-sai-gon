@@ -220,7 +220,36 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         navChecked++;
         if (Math.hypot(n.x - t.position[0], n.z - t.position[2]) < t.size[0] - 0.3) navOnTrunk++;
       }
+      // đồng đội đi theo 15 s (người chơi chạy) — không thành viên nào lọt vào thân cây (Chủ nhà Mac: "đồng đội chạy xuyên qua cây");
+      // bước di chuyển trượt trên navmesh (moveAlong) + obstacle đệm theo loài (Tree GN rễ bạnh 1 m)
+      g.aiPaused = false;
+      // kéo đồng đội về gần rồi để họ tự đi theo (người chơi đã chạy xa trong các bước trên)
+      for (const b of g.bots.values()) {
+        const f = c.feet;
+        b.bot.position[0] = f[0]! + (b.id.endsWith('0') ? -2 : 2);
+        b.bot.position[2] = f[2]! + 2;
+        b.bot.position[1] = hAt(b.bot.position[0], b.bot.position[2]);
+      }
+      move(1, true);
+      let botInTrunk = 0;
+      let botSamples = 0;
+      for (let k = 0; k < 30; k++) {
+        H.stepSim(30);
+        for (const b of H.bots()) {
+          if (!b.alive) continue;
+          botSamples++;
+          for (const t of trunks) {
+            const dd = Math.hypot(b.position[0] - t.position[0], b.position[2] - t.position[2]);
+            if (dd < t.size[0] - 0.05 && Math.abs(b.position[1] - (t.position[1] - t.size[1])) < 4) botInTrunk++;
+          }
+        }
+      }
+      idle();
+      H.stepSim(60 * 5); // đứng lại 5 s cho đội hình khép
+      g.aiPaused = true;
+      const squadAfter = H.squad();
       return {
+        squad: { samples: botSamples, inTrunk: botInTrunk, followerDist: squadAfter.followerDist, leaderDist: squadAfter.leaderDist, count: squadAfter.count },
         nav: { checked: navChecked, onTrunk: navOnTrunk, prebuilt: !!g.terrain!.navPrebuilt, polys: g.nav.polyCount },
         species: v0.species,
         placed: v0.placed,
@@ -256,6 +285,12 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     // bot không đi xuyên cây: navmesh không có điểm trong thân
     expect(r.nav.checked).toBeGreaterThan(20);
     expect(r.nav.onTrunk, JSON.stringify(r.nav)).toBe(0);
+    // đồng đội theo 15 s qua rừng: không mẫu nào trong thân cây, vẫn bám ≤ 12 m (theo) / ≤ 16 m (dẫn)
+    expect(r.squad.samples).toBeGreaterThan(40);
+    expect(r.squad.inTrunk, JSON.stringify(r.squad)).toBe(0);
+    expect(r.squad.count).toBe(2);
+    expect(r.squad.followerDist, JSON.stringify(r.squad)).toBeLessThanOrEqual(12);
+    expect(r.squad.leaderDist, JSON.stringify(r.squad)).toBeLessThanOrEqual(16);
     await expectNoErrors(errors);
   });
 
@@ -482,6 +517,29 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     await renderFrames(page, 1);
     expect(await page.locator('[data-testid="hitmarker"].show').count()).toBe(1);
     expect(await page.locator('[data-testid="damage-dir"] .on').count()).toBe(1);
+    // chết phải nằm hẳn (Chủ nhà Mac: "bị bắn gục không ngã hẳn, đứng nghiêng"): trúng đạn (clip hit) rồi chết ngay qua HIT event
+    // → sau 3 s đầu thấp hơn 0,9 m so với chân; glTF: chỉ clip death còn weight (CI chạy character=0 → Dummy thủ tục; glTF kiểm ở boot.spec)
+    const death = await page.evaluate(() => {
+      const H = window.__ht!;
+      const g = H.game;
+      const b = [...g.bots.values()].find((x) => x.group === 'recon_1' && x.bot.alive)!;
+      type V3 = { x: number; y: number; z: number };
+      const vis = b.dummy as unknown as { kind: string; char?: { mixer: { _actions: Array<{ _clip: { name: string }; getEffectiveWeight(): number; isScheduled(): boolean }> } }; bones: { head: { getWorldPosition(v: V3): V3 } }; setPose(t: number): void; group: { rotation: { x: number } } };
+      let t = 100;
+      vis.setPose(t);
+      g.events.emit('HIT', { actorId: b.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: 'player' });
+      vis.setPose((t += 0.05));
+      g.events.emit('HIT', { actorId: b.id, zone: 'head', damage: 1000, point: [0, 0, 0], penetrated: false, shooter: 'player' });
+      for (let i = 0; i < 60; i++) vis.setPose((t += 0.05));
+      const V = g.camera.position.constructor as new () => V3;
+      const head = vis.bones.head.getWorldPosition(new V());
+      const weights = vis.char ? Object.fromEntries(vis.char.mixer._actions.filter((a) => a.isScheduled()).map((a) => [a._clip.name, +a.getEffectiveWeight().toFixed(3)])) : {};
+      return { kind: vis.kind, alive: b.bot.alive, headAbove: head.y - b.bot.position[1], weights, rotX: vis.group.rotation.x };
+    });
+    expect(death.alive).toBe(false);
+    expect(death.headAbove, JSON.stringify(death)).toBeLessThan(0.9);
+    if (death.kind === 'gltf') for (const [clip, w] of Object.entries(death.weights)) if (!/death/i.test(clip)) expect(w, `${clip} còn weight ${w}`).toBeLessThan(0.01);
+    else expect(death.rotX).toBeCloseTo(-Math.PI / 2, 2);
     // hạ đợt 1 → đợt 2 spawn; hạ đợt 2 → tới bãi
     const waves = await page.evaluate(() => {
       const H = window.__ht!;
@@ -493,7 +551,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       H.stepSim(10);
       return { k1, n2, w2, k2, node: H.mission.state().currentNode, shown: H.mission.subtitlesShown(), marker: H.hud().marker };
     });
-    expect(waves.k1).toBe(3);
+    expect(waves.k1).toBe(2); // 1 tên đã chết ở bước kiểm ngã
     expect(waves.n2).toBe('n_wave2');
     expect(waves.w2).toBe(3);
     expect(waves.k2).toBe(3);

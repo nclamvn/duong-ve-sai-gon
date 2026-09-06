@@ -98,6 +98,18 @@ export class NavService {
     return r.path.map((v) => ({ x: v.x, y: v.y, z: v.z }));
   }
 
+  /**
+   * Trượt trên mặt navmesh từ `from` tới `to` (moveAlongSurface): bước thẳng ngắn của bot (ló/nấp/dịch chuyển khi bắn, đội hình)
+   * không xuyên tường/thân cây — obstacle = mép navmesh. Null khi `from` không nằm gần navmesh.
+   */
+  moveAlong(from: NavPoint, to: NavPoint): NavPoint | null {
+    const n = this.query.findNearestPoly(from, { halfExtents: this.halfExtents });
+    if (!n.success || !n.nearestRef) return null;
+    const r = this.query.moveAlongSurface(n.nearestRef, n.nearestPoint, to);
+    if (!r.success) return null;
+    return { x: r.resultPosition.x, y: r.resultPosition.y, z: r.resultPosition.z };
+  }
+
   /** Điểm ngẫu nhiên quanh p trong bán kính r (dùng cho stuck recovery). */
   randomAround(p: NavPoint, radius: number, rand: () => number): NavPoint | null {
     const r = this.query.findRandomPointAroundCircle(p, radius, { halfExtents: this.halfExtents });

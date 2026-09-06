@@ -11,10 +11,18 @@ export interface NavObstacleMesh {
   count: number;
 }
 
-export function navObstacleMesh(colliders: readonly ColliderDef[], opts: { capH?: number; sides?: number; radiusPad?: number; groundAt?: (x: number, z: number) => number } = {}): NavObstacleMesh {
+/** đệm bán kính obstacle theo loài (id collider `veg_<loài>_<i>`): cây tán rễ bạnh rộng hơn thân → bot không giẫm qua rễ */
+export const NAV_RADIUS_PAD: Record<string, number> = { tree_gn: 1.0, palm: 0.3, bamboo: 0.15 };
+
+export function navPadFor(id: string, fallback = 0.05): number {
+  const m = /^veg_([a-z0-9]+)_\d+$/.exec(id);
+  return m && NAV_RADIUS_PAD[m[1]!] !== undefined ? NAV_RADIUS_PAD[m[1]!]! : fallback;
+}
+
+export function navObstacleMesh(colliders: readonly ColliderDef[], opts: { capH?: number; sides?: number; radiusPad?: number | ((c: ColliderDef) => number); groundAt?: (x: number, z: number) => number } = {}): NavObstacleMesh {
   const capH = opts.capH ?? 1.2; // > walkableClimb (0,35 m → 2 cell 0,5 m: nắp thấp hơn bị coi là bậc thang đi lên được) và < walkableHeight 1,8
   const sides = opts.sides ?? 8;
-  const pad = opts.radiusPad ?? 0.05;
+  const padOf = typeof opts.radiusPad === 'function' ? opts.radiusPad : (): number => (opts.radiusPad as number | undefined) ?? 0.05;
   const groundAt = opts.groundAt;
   const list = colliders.filter((c) => c.kind === 'cylinder');
   const vPer = sides * 2 + 1;
@@ -22,7 +30,7 @@ export function navObstacleMesh(colliders: readonly ColliderDef[], opts: { capH?
   const idx: number[] = [];
   let v = 0;
   for (const c of list) {
-    const r = c.size[0] + pad;
+    const r = c.size[0] + padOf(c);
     // đáy = mặt đất tại tâm (gốc cây đã chôn theo dốc — `sink` — nên đáy cylinder có thể thấp hơn mặt đất 1–2 m → phải lấy terrain)
     const base = groundAt ? groundAt(c.position[0], c.position[2]) : c.position[1] - c.size[1];
     const y0 = base - 0.8;

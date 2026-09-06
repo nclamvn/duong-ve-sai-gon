@@ -308,6 +308,7 @@ describe('TIP-018 AI chiến đấu "IQ" (D-057)', () => {
     let seekShots = 0;
     let peekShots = 0;
     let peekAt = -1;
+    let insideBlock = 0;
     events.on('AI_STATE', (e) => {
       states.push(e.to);
     });
@@ -319,13 +320,16 @@ describe('TIP-018 AI chiến đấu "IQ" (D-057)', () => {
     run(world, bot, 60 * 14, (t) => {
       tick = t;
       if (peekAt < 0 && bot.state === 'PEEK_FIRE') peekAt = t;
+      // DV-045: bước đi trượt trên navmesh → không được cắt góc xuyên khối cover (x 7..13, z −13,2..−10,8) như trước
+      if (bot.position[0] > 7 && bot.position[0] < 13 && bot.position[2] > -13.2 && bot.position[2] < -10.8) insideBlock++;
       if (t % 45 === 0) events.emit('WEAPON_FIRED', { origin: [player[0], 1.6, player[2]], dir: [0, 0, -1] }); // player bắn về phía bot → đạn sượt → đi cover
     });
     void tick;
     expect(states).toContain('ENGAGE');
     expect(states).toContain('SEEK_COVER');
     expect(peekAt).toBeGreaterThanOrEqual(0);
-    expect(peekAt / 60).toBeLessThanOrEqual(6);
+    expect(peekAt / 60).toBeLessThanOrEqual(6.5); // 6,02 s sau DV-045 (đi vòng mép khối thay vì cắt góc: trước 5,3 s nhưng xuyên khối)
+    expect(insideBlock).toBe(0);
     expect(peekShots).toBeGreaterThan(0);
     expect(seekShots + peekShots).toBeGreaterThan(3);
   });

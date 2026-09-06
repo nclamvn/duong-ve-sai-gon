@@ -559,7 +559,7 @@ export class Bot {
     if (this.deps.followGoal) {
       // đồng đội (TIP-M1A): đi tới điểm đội hình; replan khi điểm dời > 1,5 m hoặc mỗi 1 s; không có điểm → đứng
       const g = this.deps.followGoal();
-      this.speedMul = g?.run ? 1.35 : 1;
+      this.speedMul = g?.run ? 1.8 : 1; // chạy theo kịp người chơi nước rút (~6,3 m/s)
       if (!g) {
         this.path = [];
         return;
@@ -653,6 +653,21 @@ export class Bot {
     this.position[1] = n && Math.hypot(n.x - this.position[0], n.z - this.position[2]) < 1.5 ? n.y : fallback;
   }
 
+  /**
+   * Bước tới (x, z) nhưng **trượt trên mặt navmesh** (moveAlongSurface): mép navmesh = tường/thân cây (obstacle bake DV-040) →
+   * bot không xuyên thân cây ở mọi state (Chủ nhà Mac 2026-09-06: "đồng đội chạy xuyên qua cây"). Không có navmesh gần → đi thẳng.
+   */
+  private slide(x: number, z: number): void {
+    const r = this.deps.nav.moveAlong({ x: this.position[0], y: this.position[1], z: this.position[2] }, { x, y: this.position[1], z });
+    if (r) {
+      this.position[0] = r.x;
+      this.position[2] = r.z;
+    } else {
+      this.position[0] = x;
+      this.position[2] = z;
+    }
+  }
+
   /** Di chuyển theo path — tier sim60. */
   move(dt: number): void {
     if (!this.alive) return;
@@ -665,8 +680,7 @@ export class Bot {
       const d = Math.hypot(dx, dz);
       if (d > 0.05) {
         const step = Math.min(d, ai.move.speed * this.speedMul * dt);
-        this.position[0] += (dx / d) * step;
-        this.position[2] += (dz / d) * step;
+        this.slide(this.position[0] + (dx / d) * step, this.position[2] + (dz / d) * step);
         this.settleY(this.position[1]);
       } else if (this.state === 'ENGAGE') this.moveTarget = null;
       return;
@@ -686,8 +700,7 @@ export class Bot {
       if (d > 1e-3) {
         const speed = (this.perception.state === 'ALERT' ? ai.move.alertSpeed : ai.move.speed) * this.speedMul;
         const step = Math.min(d, speed * dt);
-        this.position[0] += (dx / d) * step;
-        this.position[2] += (dz / d) * step;
+        this.slide(this.position[0] + (dx / d) * step, this.position[2] + (dz / d) * step);
         this.settleY(wp.y);
         const wantYaw = Math.atan2(-dx, -dz);
         let dy = wantYaw - this.yaw;

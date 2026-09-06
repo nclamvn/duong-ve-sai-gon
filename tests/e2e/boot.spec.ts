@@ -62,6 +62,51 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 1, null, { timeout: 120_000 });
   });
 
+  test('chết nằm hẳn (glTF, DV-045): one-shot hit xong phải mờ đi; chết giữa lúc hit → sau 3 s chỉ clip death còn weight, đầu sát đất', async ({ page }) => {
+    const errors = await bootGame(page);
+    await pauseLoop(page);
+    const r = await page.evaluate(() => {
+      const g = window.__ht!.game;
+      const d = g.dummies[0]!;
+      type Act = { _clip: { name: string }; getEffectiveWeight(): number; isScheduled(): boolean };
+      type V3 = { x: number; y: number; z: number };
+      const vis = d as unknown as {
+        kind: string;
+        char?: { mixer: { _actions: Act[] } };
+        bones: { head: { getWorldPosition(v: V3): V3 } };
+        group: { rotation: { x: number }; getWorldPosition(v: V3): V3 };
+        setPose(t: number): void;
+        applyDamage(n: number): boolean;
+      };
+      const V = g.camera.position.constructor as new () => V3;
+      const weightsOf = (): Record<string, number> => (vis.char ? Object.fromEntries(vis.char.mixer._actions.filter((a) => a.isScheduled()).map((a) => [a._clip.name, +a.getEffectiveWeight().toFixed(3)])) : {});
+      let t = 100;
+      vis.setPose(t);
+      const feetY = vis.group.getWorldPosition(new V()).y;
+      const headUp = vis.bones.head.getWorldPosition(new V()).y - feetY;
+      vis.applyDamage(8); // one-shot hit
+      for (let i = 0; i < 60; i++) vis.setPose((t += 0.05)); // 3 s: clip hit (2,29 s) đã xong + clamp → phải đã fade về 0
+      const afterHit = weightsOf();
+      vis.applyDamage(8);
+      vis.setPose((t += 0.05));
+      vis.applyDamage(1000); // chết ngay khi hit đang chạy (kịch bản Chủ nhà thấy trên Mac)
+      for (let i = 0; i < 60; i++) vis.setPose((t += 0.05));
+      const head = vis.bones.head.getWorldPosition(new V());
+      return { kind: vis.kind, headUp, afterHit, weights: weightsOf(), headAbove: head.y - feetY, rotX: vis.group.rotation.x };
+    });
+    expect(r.headUp).toBeGreaterThan(1.3); // đứng: đầu ≥ 1,3 m
+    expect(r.headAbove, JSON.stringify(r)).toBeLessThan(0.9); // nằm: đầu < 0,9 m
+    if (r.kind === 'gltf') {
+      expect(Object.keys(r.weights).some((c) => /death/i.test(c))).toBe(true);
+      for (const [clip, w] of Object.entries(r.afterHit)) if (/hit/i.test(clip)) expect(w, `hit còn weight ${w} sau khi xong`).toBeLessThan(0.01);
+      for (const [clip, w] of Object.entries(r.weights)) {
+        if (/death/i.test(clip)) expect(w, `death weight ${w}`).toBeGreaterThan(0.99);
+        else expect(w, `${clip} còn weight ${w} khi đã chết`).toBeLessThan(0.01);
+      }
+    } else expect(r.rotX).toBeCloseTo(-Math.PI / 2, 2);
+    await expectNoErrors(errors);
+  });
+
   test('PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship)', async ({ page }) => {
     await page.goto('/?backend=webgl&level=arena&autostart=1&quality=low&rain=500&shadow=512');
     await page.waitForFunction(() => document.getElementById('capability')!.hidden === true, null, { timeout: 60_000 });

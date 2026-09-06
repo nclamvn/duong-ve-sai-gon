@@ -1,0 +1,20 @@
+DV-045 CI 2026-09-06 10:34:01 UTC
+typecheck: OK
+unit: 21 files, 140/140 (ai.test cover: PEEK_FIRE 6,02 s ≤ 6,5; insideBlock 0 — code cũ 18 tick)
+build: OK
+  ✓   1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__
+  ✓   2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend w
+  ✓   3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi k
+  ✓   4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › chết nằm hẳn (glTF, DV-045): one-shot 
+  ✓   5 [webgl-ci] › tests/e2e/boot.spec.ts:110:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht 
+  ✓   6 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạ
+  ✓   7 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:12:3 › Trường Sơn — vật lý terrain (TIP-D04) › đứng/đi lên dốc/không leo dốc 
+  ✓   8 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:142:3 › Trường Sơn — vật lý terrain (TIP-D04) › rừng: batch/LOD/impostor trong ngân 
+  ✓   9 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:302:3 › Trường Sơn — vật lý terrain (TIP-D04) › bầu trời: lượt bay theo lịch s
+  ✓  10 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:410:3 › Trường Sơn — vật lý terrain (TIP-D04) › M1 lát cắt: đồng đội theo, ch�
+  ✓  11 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone �
+  ✓  12 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp c
+  12 passed (10.2m)
+
+glTF death test trên code cũ (HEAD 1f42245 characters.ts): FAIL — afterHit {rifle_idle:1, hit:1}; weights {rifle_idle:0, hit:1, death_front:1}; headAbove 0,919 m (đứng nghiêng)
+glTF death test sau sửa: PASS — chỉ death_front weight 1, đầu < 0,9 m

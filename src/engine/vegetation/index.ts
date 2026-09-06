@@ -8,4 +8,4 @@ export { createVegetationMaterial, createWindUniforms, instancedWindPosition, ty
 export { bakeImpostorAtlas, createImpostorBatch, type ImpostorAtlas, type ImpostorBatch } from './impostor';
 export { VegetationSystem, type VegetationDef, type VegetationQuality, type VegetationStats } from './system';
 export { buildForest, VEG_QUALITY, type ForestBuild, type ForestOptions } from './forest';
-export { navObstacleMesh, type NavObstacleMesh } from './navObstacles';
+export { navObstacleMesh, navPadFor, NAV_RADIUS_PAD, type NavObstacleMesh } from './navObstacles';

@@ -63,7 +63,7 @@ if (args.includes('--nav')) {
     const { rolldown } = await import('rolldown');
     const { mkdirSync, writeFileSync: wf } = await import('node:fs');
     mkdirSync('.sync', { recursive: true });
-    wf('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+    wf('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh, navPadFor } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
     const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
     const { output } = await b.generate({ format: 'esm' });
     wf('.sync/_nav-veg.mjs', output[0].code);
@@ -81,7 +81,7 @@ if (args.includes('--nav')) {
       }
       // chỉ obstacle trong navRect + 4 m
       const inRect = colliders.filter((c) => Math.abs(c.position[0] - rect[0]) <= rect[2] / 2 + 4 && Math.abs(c.position[2] - rect[1]) <= rect[3] / 2 + 4);
-      const ob = eng.navObstacleMesh(inRect, { capH: 1.2, sides: 8, radiusPad: 0.0, groundAt: (x, z) => tile.sampleGrid(x, z, step) }); // mặt navmesh (lưới 4 m), không phải terrain thật
+      const ob = eng.navObstacleMesh(inRect, { capH: 1.2, sides: 8, radiusPad: (c) => eng.navPadFor(c.id, 0), groundAt: (x, z) => tile.sampleGrid(x, z, step) }); // đệm theo loài (rễ bạnh Tree GN 1 m) // mặt navmesh (lưới 4 m), không phải terrain thật
       obstacles = ob.count;
       posAll = new Float32Array(pos.length + ob.positions.length);
       posAll.set(pos, 0); posAll.set(ob.positions, pos.length);

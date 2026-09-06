@@ -151,7 +151,11 @@ export class CharacterInstance {
       if (this.oneShot && ev.action === this.actions.get(this.oneShot)) {
         const done = this.oneShot;
         this.oneShot = null;
-        if (done !== 'death') this.play(this.current ?? 'idle', 0.15, true);
+        if (done !== 'death') {
+          // clip kết thúc bị clamp frame cuối với weight 1 → phải mờ đi, nếu không nó trộn 50/50 mãi với nền (và với death sau này)
+          ev.action.fadeOut(0.15);
+          this.play(this.current ?? 'idle', 0.15, true);
+        }
       }
     });
     this.play('idle', 0);
@@ -189,9 +193,17 @@ export class CharacterInstance {
     if (!a) return false;
     if (this.oneShot === 'death') return false;
     const base = this.current ? this.actions.get(this.current) : undefined;
+    // one-shot đang chạy (hit/fire/reload) phải mờ đi — trước đây giữ nguyên weight 1 + clamp frame cuối → chết mà đứng nghiêng
+    // (Chủ nhà Mac 2026-09-06): pose = trộn hit-reaction đứng với death
+    const prevShot = this.oneShot ? this.actions.get(this.oneShot) : undefined;
     this.oneShot = state;
     a.reset().setEffectiveWeight(1).fadeIn(fade).play();
     if (base && base !== a) base.fadeOut(fade);
+    if (prevShot && prevShot !== a) prevShot.fadeOut(fade);
+    if (state === 'death') {
+      // chết: mọi action khác (kể cả one-shot đã xong nhưng còn clamp/paused với weight 1) về 0 sau fade → frame cuối chỉ còn death
+      for (const [st, act] of this.actions) if (st !== 'death' && act.isScheduled()) act.fadeOut(fade);
+    }
     return true;
   }
 
