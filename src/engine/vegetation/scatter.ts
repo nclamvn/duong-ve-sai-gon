@@ -6,6 +6,7 @@
  */
 import { mulberry32, hashString, type Prng } from '../core/prng';
 import type { TerrainTile } from '../terrain/tile';
+import type { ColliderDef } from '../render/arena';
 
 export interface ScatterRule {
   /** id loài (khớp file public/assets/vegetation/<id>.glb) */
@@ -89,7 +90,11 @@ export function fbm2(x: number, z: number, seed: number): number {
  * Đặt một loài. Lưới jitter: bước s = 100/√perHa (m); mỗi điểm lệch ±0,45 s; kiểm rect/ô/dốc/cao/noise.
  * Bụi: điểm lưới = tâm bụi, culm rải trong bán kính (scale/yaw riêng).
  */
-export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: ScatterRule, seed: number, cellM: number): SpeciesPlacement {
+/**
+ * `density` (0..1, tier chất lượng) là **tập con** của placement đầy đủ (giữ điểm lưới có hash(jitter) < density), không đổi bước lưới —
+ * cây ở tier thấp ⊂ tier cao → navmesh bake với density 1 (obstacle thân) vẫn đúng ở mọi tier; cùng seed → cùng rừng.
+ */
+export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: ScatterRule, seed: number, cellM: number, density = 1): SpeciesPlacement {
   const prng: Prng = mulberry32((seed ^ hashString(rule.id)) >>> 0);
   const nseed = (hashString(rule.noiseId ?? rule.id, seed) & 0xffff) >>> 0;
   const step = 100 / Math.sqrt(Math.max(0.01, rule.perHa));
@@ -136,6 +141,7 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
       const rvar = prng.next();
       const x = x0 + (i + 0.05 + jx * 0.9) * step;
       const z = z0 + (j + 0.05 + jz * 0.9) * step;
+      if (density < 1 && (jx * 7.0 + jz * 13.0) % 1 >= density) continue;
       if (rule.noise) {
         const n = fbm2(x * rule.noise.scale + (rule.noise.offset ?? 0), z * rule.noise.scale, nseed);
         if (n < rule.noise.min) continue;
@@ -187,4 +193,17 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
     off += n;
   }
   return { id: rule.id, rule, count: total, pos, yaw: yawA, scale: scaleA, variant: variantA, cells };
+}
+
+/** Collider thân (cylinder Rapier) của một placement — dùng chung cho game (physics) và bake navmesh (obstacle) */
+export function placementColliders(pl: SpeciesPlacement, rule: ScatterRule): ColliderDef[] {
+  const out: ColliderDef[] = [];
+  if (!rule.collider) return out;
+  for (let i = 0; i < pl.count; i++) {
+    const s = pl.scale[i]!;
+    const r = rule.collider.radius * s;
+    const h = rule.collider.height * s;
+    out.push({ id: `veg_${rule.id}_${i}`, kind: 'cylinder', position: [pl.pos[i * 3]!, pl.pos[i * 3 + 1]! + h / 2, pl.pos[i * 3 + 2]!], size: [r, h / 2, 0], yaw: 0, material: 'wood' });
+  }
+  return out;
 }

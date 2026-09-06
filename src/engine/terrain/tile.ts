@@ -85,6 +85,21 @@ export class TerrainTile {
     return (1 - tj) * ((1 - ti) * a + ti * b) + tj * ((1 - ti) * c + ti * d);
   }
 
+  /** cao độ song tuyến trên lưới thưa `step` đỉnh (4 m = step 2 với res 2) — cùng mặt với navmesh/gridMesh, không phải terrain thật */
+  sampleGrid(x: number, z: number, step: number): number {
+    const fi = (x + this.half) / this.resM / step;
+    const fj = (z + this.half) / this.resM / step;
+    const i0 = Math.floor(fi);
+    const j0 = Math.floor(fj);
+    const ti = fi - i0;
+    const tj = fj - j0;
+    const a = this.at(i0 * step, j0 * step);
+    const b = this.at((i0 + 1) * step, j0 * step);
+    const c = this.at(i0 * step, (j0 + 1) * step);
+    const d = this.at((i0 + 1) * step, (j0 + 1) * step);
+    return (1 - tj) * ((1 - ti) * a + ti * b) + tj * ((1 - ti) * c + ti * d);
+  }
+
   /** normal (đơn vị, hướng lên) bằng sai phân trung tâm tại (x, z) */
   normalAt(x: number, z: number, out: [number, number, number] = [0, 1, 0]): [number, number, number] {
     const e = this.resM;

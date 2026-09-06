@@ -3,7 +3,7 @@
  * TIP-003 arena/free-fly · TIP-004 input source/telemetry/quality · TIP-005+ gắn player/weapon/ai/mission
  * qua các field public và resetHooks.
  */
-import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight } from 'three/webgpu';
+import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, BufferGeometry, BufferAttribute, Mesh } from 'three/webgpu';
 import { FixedClock, Scheduler, EventBus, mulberry32, type Prng } from '@engine/core';
 import { createRenderer, backendFromSearch, type RendererBundle } from '@engine/render/backend';
 import { buildArena, type ArenaData } from '@engine/render/arena';
@@ -20,7 +20,9 @@ import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
 import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
-import { buildForest, VEG_QUALITY, type ForestBuild } from '@engine/vegetation';
+import { buildForest, VEG_QUALITY, navObstacleMesh, type ForestBuild } from '@engine/vegetation';
+import { SkyTraffic } from '@engine/sky';
+import { loadModel } from '@engine/render/assets';
 import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
@@ -95,6 +97,10 @@ export class Game {
   terrain: TerrainLevelBuild | null = null;
   /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
   forest: ForestBuild | null = null;
+  /** máy bay ambient (TIP-D-SKY) — null khi level không có `airTraffic`, `?sky=0`, hoặc lite không kèm `?sky=1` */
+  sky: SkyTraffic | null = null;
+  /** gió xoáy trực thăng hiện tại 0..1 (telemetry/debug) */
+  skyGust = 0;
   /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
   playerWeaponId = 'ak47';
   /** súng của bot/dummy: HK416 (fixture HT-MB) — `?botWeapon=ak47` để calib tay theo khẩu người chơi (?calib=soldier) hoặc lính QGP cầm AK (D11) */
@@ -232,6 +238,35 @@ export class Game {
         // collider thân cây vào ArenaData (nguồn collider duy nhất → physics.addStatic bên dưới)
         for (const c of this.forest.system.colliders) this.arena.colliders.push(c);
       }
+      // Máy bay ambient (TIP-D-SKY): nạp model air_* của các lượt (thiếu → bỏ lượt), ?skyModel=<id> ép một model cho mọi lượt (debug)
+      const skyParam = this.params.get('sky');
+      if (terrainDef.airTraffic && skyParam !== '0' && (this.quality.assets || skyParam === '1')) {
+        const base = import.meta.env.BASE_URL ?? '/';
+        const override = this.params.get('skyModel');
+        const def = override ? { ...terrainDef.airTraffic, flights: terrainDef.airTraffic.flights.map((f) => ({ ...f, model: override })) } : terrainDef.airTraffic;
+        const ids = [...new Set(def.flights.map((f) => f.model))];
+        const models: Record<string, import('three/webgpu').Object3D> = {};
+        await Promise.all(
+          ids.map(async (id) => {
+            try {
+              models[id] = await loadModel(`${base}assets/models/${id}.glb`);
+            } catch (e) {
+              console.warn(`[sky] model ${id} missing (assets/models/${id}.glb) — flights skipped: ${(e as Error).message ?? e}`);
+            }
+          }),
+        );
+        this.sky = new SkyTraffic(this.terrain.tile, def, models, {
+          onGust: (g, dx, dz) => {
+            this.skyGust = g;
+            if (this.forest) {
+              const base0 = terrainDef.vegetation?.wind ?? 0.35;
+              this.forest.system.setWind(Math.min(1, base0 + g * 0.9), g > 0 ? dx : undefined, g > 0 ? dz : undefined);
+            }
+          },
+          sound: (kind) => (kind === 'none' ? null : this.audio.aircraft(kind)),
+        });
+        this.terrain.root.add(this.sky.group);
+      }
       this.lights = createDaylight(this.scene, skyDef, {
         environment: this.assets.environment,
         sky: this.assets.sky,
@@ -367,7 +402,19 @@ export class Game {
       }
     }
     if (!this.terrain?.navPrebuilt) {
-      const [navPos, navIdx] = getPositionsAndIndices(this.arena.navGeometry);
+      // bake runtime: thêm obstacle thân cây (cùng lăng trụ như terrain-bake --level) để bot đi vòng cây
+      const navGeo = [...this.arena.navGeometry];
+      if (this.forest && this.forest.system.colliders.length) {
+        const ob = navObstacleMesh(this.forest.system.colliders, { capH: 1.2, sides: 8, radiusPad: 0.0, groundAt: (x, z) => this.terrain!.tile.sampleGrid(x, z, Math.max(1, Math.round(4 / this.terrain!.tile.resM))) });
+        const g = new BufferGeometry();
+        g.setAttribute('position', new BufferAttribute(ob.positions, 3));
+        g.setIndex(new BufferAttribute(ob.indices, 1));
+        const m = new Mesh(g);
+        m.name = 'veg_nav_obstacles';
+        m.updateMatrixWorld(true);
+        navGeo.push(m);
+      }
+      const [navPos, navIdx] = getPositionsAndIndices(navGeo);
       this.nav = new NavService(navPos, navIdx, this.terrain ? { cs: 0.5, ch: 0.25 } : {});
     }
     this.navBuildMs = this.nav.buildMs;
@@ -615,6 +662,7 @@ export class Game {
     }
     this.lights.followTarget(this.camera);
     if (this.terrain) this.terrain.mesh.update(this.camera);
+    if (this.sky) this.sky.update(dt, this.camera);
     if (this.forest) {
       // đè cỏ (VEG-006): chân người chơi — D12 mở rộng ≤ 8 tác nhân (bot/xe)
       const f = this.player.controller.feet;

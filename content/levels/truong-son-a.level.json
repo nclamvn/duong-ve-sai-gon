@@ -437,6 +437,151 @@
       "color": 4210752
     }
   ],
+  "airTraffic": {
+    "$comment": "TIP-D-SKY 'máy bay là thời tiết' (1971, tuyến 20 Quyết Thắng): tiêm kích F-4 cặp đôi bay thấp, F-4 trúng đạn phi công nhảy dù (xa ≥ 400 m), UH-1 cặp đôi theo tuyến + một chiếc treo đổ thám báo (Lam Sơn 719/SOG đổ bằng trực thăng — không nhảy dù ồ ạt; chờ cố vấn registry evt.1971.lam_son_719), A-1 Skyraider tuần tiễu, C-130 cao. Model manifest air_* (Chủ nhà tải Sketchfab CC-BY); thiếu model → bỏ lượt (console warn). agl = cao độ trên max địa hình dọc đường; period = giây giữa hai lượt.",
+    "seed": 1971,
+    "center": [
+      -192,
+      512
+    ],
+    "wind": [
+      3,
+      1
+    ],
+    "flights": [
+      {
+        "id": "f4_pair",
+        "model": "air_f4",
+        "kind": "jet",
+        "count": 2,
+        "agl": [
+          180,
+          320
+        ],
+        "speed": 190,
+        "period": [
+          150,
+          260
+        ],
+        "first": 40,
+        "radius": 1800,
+        "bank": 0.12,
+        "sound": "jet"
+      },
+      {
+        "id": "f4_hit",
+        "model": "air_f4",
+        "kind": "jet",
+        "count": 1,
+        "agl": [
+          350,
+          520
+        ],
+        "speed": 165,
+        "period": [
+          600,
+          900
+        ],
+        "first": 240,
+        "radius": 2000,
+        "parachute": {
+          "count": 1
+        },
+        "sound": "jet"
+      },
+      {
+        "id": "huey_pair",
+        "model": "air_uh1b",
+        "kind": "heli",
+        "count": 2,
+        "agl": [
+          70,
+          120
+        ],
+        "speed": 42,
+        "period": [
+          120,
+          240
+        ],
+        "first": 20,
+        "radius": 1500,
+        "gust": 90,
+        "spin": "rotor|blade|prop",
+        "spinRate": 30,
+        "sound": "rotor"
+      },
+      {
+        "id": "huey_insert",
+        "model": "air_uh1b",
+        "kind": "heli",
+        "count": 1,
+        "agl": [
+          60,
+          90
+        ],
+        "speed": 38,
+        "period": [
+          420,
+          720
+        ],
+        "first": 95,
+        "radius": 1500,
+        "hover": {
+          "at": [
+            -560,
+            240
+          ],
+          "seconds": 25,
+          "agl": 4
+        },
+        "gust": 90,
+        "spin": "rotor|blade|prop",
+        "spinRate": 30,
+        "sound": "rotor"
+      },
+      {
+        "id": "a1_patrol",
+        "model": "air_a1",
+        "kind": "prop",
+        "count": 1,
+        "agl": [
+          250,
+          400
+        ],
+        "speed": 95,
+        "period": [
+          300,
+          520
+        ],
+        "first": 130,
+        "radius": 1700,
+        "spin": "prop|blade",
+        "spinRate": 60,
+        "bank": 0.08,
+        "sound": "prop"
+      },
+      {
+        "id": "c130_high",
+        "model": "air_c130",
+        "kind": "prop",
+        "count": 1,
+        "agl": [
+          650,
+          950
+        ],
+        "speed": 120,
+        "period": [
+          500,
+          900
+        ],
+        "first": 300,
+        "radius": 2200,
+        "spin": "prop|blade",
+        "spinRate": 50,
+        "sound": "prop"
+      }
+    ]
+  },
   "playerSpawn": [
     -134,
     580

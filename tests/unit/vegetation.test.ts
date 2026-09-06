@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { TerrainTile, type TerrainMeta } from '@engine/terrain/tile';
-import { scatterSpecies, valueNoise2, fbm2, type ScatterRule } from '@engine/vegetation/scatter';
+import { scatterSpecies, placementColliders, valueNoise2, fbm2, type ScatterRule } from '@engine/vegetation/scatter';
+import { navObstacleMesh } from '@engine/vegetation/navObstacles';
 import { hashString } from '@engine/core/prng';
 import Ajv from 'ajv';
 
@@ -167,6 +168,28 @@ describe('TIP-D05 scatter (VEG-001)', () => {
     for (let i = 0; i < v.count; i++) expect(fbm2(v.pos[i * 3]! * 0.006, v.pos[i * 3 + 2]! * 0.006, nseed)).toBeGreaterThanOrEqual(0.34);
     const own = scatterSpecies(t, RECT, { ...vine, noiseId: undefined }, 1971, 64);
     expect(Array.from(own.pos.slice(0, 30))).not.toEqual(Array.from(v.pos.slice(0, 30)));
+  });
+
+  it('density tier = tập con của placement đầy đủ (navmesh bake density 1 đúng ở mọi tier); collider + obstacle navmesh', () => {
+    const t = loadTile();
+    const full = scatterSpecies(t, RECT, RULE, 1971, 64, 1);
+    const half = scatterSpecies(t, RECT, RULE, 1971, 64, 0.5);
+    expect(half.count).toBeGreaterThan(full.count * 0.35);
+    expect(half.count).toBeLessThan(full.count * 0.65);
+    const key = (p: Float32Array, i: number): string => `${p[i * 3]!.toFixed(3)},${p[i * 3 + 2]!.toFixed(3)}`;
+    const set = new Set<string>();
+    for (let i = 0; i < full.count; i++) set.add(key(full.pos, i));
+    for (let i = 0; i < half.count; i++) expect(set.has(key(half.pos, i))).toBe(true);
+    const cols = placementColliders(full, RULE);
+    expect(cols.length).toBe(full.count);
+    expect(cols[0]!.kind).toBe('cylinder');
+    expect(cols[0]!.size[0]).toBeCloseTo(0.45 * full.scale[0]!, 5);
+    const ob = navObstacleMesh(cols.slice(0, 10), { capH: 1.2, sides: 8, groundAt: (x, z) => t.sampleGrid(x, z, 2) });
+    expect(ob.count).toBe(10);
+    expect(ob.positions.length).toBe(10 * 17 * 3);
+    expect(ob.indices.length).toBe(10 * 8 * (12 + 3));
+    // nắp 1,2 m trên mặt navmesh tại tâm (không phải đáy cylinder đã chôn)
+    expect(ob.positions[16 * 3 + 1]! - t.sampleGrid(cols[0]!.position[0], cols[0]!.position[2], 2)).toBeCloseTo(1.2, 5);
   });
 
   it('level truong-son-a: khối vegetation hợp lệ theo schema, loài có GLB + manifest CC-BY có attribution', () => {

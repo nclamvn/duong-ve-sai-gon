@@ -10,7 +10,7 @@
 import { Box3, Frustum, Group, InstancedBufferAttribute, InstancedBufferGeometry, Matrix4, Mesh, Sphere, Vector3, type BufferGeometry, type Camera, type Material } from 'three/webgpu';
 import type { TerrainTile } from '../terrain/tile';
 import type { ColliderDef } from '../render/arena';
-import { scatterSpecies, type ScatterRule, type ScatterRect, type SpeciesPlacement } from './scatter';
+import { scatterSpecies, placementColliders, type ScatterRule, type ScatterRect, type SpeciesPlacement } from './scatter';
 import type { SpeciesAsset } from './species';
 import { createVegetationMaterial, createWindUniforms, type WindUniforms } from './material';
 import { createImpostorBatch, type ImpostorAtlas, type ImpostorBatch } from './impostor';
@@ -100,8 +100,8 @@ export class VegetationSystem {
       const asset = assets[rule0.id];
       if (!asset) continue;
       this.assetHeight.set(asset.id, asset.height);
-      const rule: ScatterRule = { ...rule0, perHa: rule0.perHa * quality.density, variants: asset.variants.length, lod: rule0.lod.map((d) => d * quality.lodScale) as ScatterRule['lod'] };
-      const placement = scatterSpecies(tile, rule.rect ?? def.rect, rule, def.seed, this.cellM);
+      const rule: ScatterRule = { ...rule0, variants: asset.variants.length, lod: rule0.lod.map((d) => d * quality.lodScale) as ScatterRule['lod'] };
+      const placement = scatterSpecies(tile, rule.rect ?? def.rect, rule, def.seed, this.cellM, quality.density);
       placed += placement.count;
       const n = placement.count;
       const rot = new Float32Array(n * 4);
@@ -140,15 +140,8 @@ export class VegetationSystem {
       const impostor = atlas && rule.lod[3] > rule.lod[2] ? createImpostorBatch(atlas, Math.min(n, capDisc), this.wind, asset) : null;
       if (impostor) this.group.add(impostor.mesh);
       this.species.push({ placement, asset, rule, batches, cellLod: new Map(), impostor, rot, maxScale: sc[1] });
-      // collider thân
-      if (rule.collider) {
-        for (let i = 0; i < n; i++) {
-          const s = placement.scale[i]!;
-          const r = rule.collider.radius * s;
-          const h = rule.collider.height * s;
-          this.colliders.push({ id: `veg_${rule.id}_${i}`, kind: 'cylinder', position: [placement.pos[i * 3]!, placement.pos[i * 3 + 1]! + h / 2, placement.pos[i * 3 + 2]!], size: [r, h / 2, 0], yaw: 0, material: 'wood' });
-        }
-      }
+      // collider thân (cùng hàm với bake navmesh — scatter.placementColliders)
+      for (const c of placementColliders(placement, rule)) this.colliders.push(c);
     }
     this.stats.species = this.species.length;
     this.stats.placed = placed;

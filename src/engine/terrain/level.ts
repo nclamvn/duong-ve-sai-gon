@@ -11,6 +11,7 @@ import { TerrainTile } from './tile';
 import { TerrainMesh, makeHeightTexture, makeNormalTexture } from './mesh';
 import { createTerrainMaterial, type TerrainLayers } from './material';
 import type { VegetationDef } from '../vegetation/system';
+import type { AirTrafficDef } from '../sky/traffic';
 
 export type V2 = [number, number];
 
@@ -36,6 +37,8 @@ export interface TerrainLevelDef {
   models: string[];
   /** rừng loài thật (TIP-D05) — thiếu → không thực vật */
   vegetation?: VegetationDef;
+  /** máy bay ambient (TIP-D-SKY) — thiếu → trời trống */
+  airTraffic?: AirTrafficDef;
   /** FX môi trường (khói bom xa, đám cháy) — x/z, y từ terrain + dy */
   fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number }>;
   playerSpawn: V2;

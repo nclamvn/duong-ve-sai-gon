@@ -21,8 +21,10 @@ const opt = (k, d) => {
 
 /**
  * Chế độ --nav (TIP-D04, TER-003): bake navmesh recast trên lưới 4 m của navRect từ ô đã có (height.r16 + meta.json)
- *   node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512 [--cs 0.5 --ch 0.25]
+ *   node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512 [--cs 0.5 --ch 0.25] [--level content/levels/truong-son-a.level.json]
  * → public/assets/terrain/<id>/nav.bin (exportNavMesh) + cập nhật manifest (files[] của entry terrain_<id>).
+ *   --level: thêm obstacle thân cây (TIP-D05 vòng 2): chạy scatter của engine (bundle rolldown từ src/engine/vegetation/scatter.ts + terrain/tile.ts,
+ *   density 1 = tier cao; tier thấp là tập con) → lăng trụ thấp quanh thân (navObstacleMesh) vào lưới đầu vào recast → bot đi vòng cây.
  */
 if (args.includes('--nav')) {
   const { init, exportNavMesh } = await import('recast-navigation');
@@ -48,16 +50,51 @@ if (args.includes('--nav')) {
     const i = i0 + c * step, j = j0 + r * step, k = (r * cols + c) * 3;
     pos[k] = -half + i * res; pos[k + 1] = at(i, j); pos[k + 2] = -half + j * res;
   }
-  const idx = new Uint32Array((cols - 1) * (rows - 1) * 6);
+  const idx0 = new Uint32Array((cols - 1) * (rows - 1) * 6);
   let q = 0;
   for (let r = 0; r < rows - 1; r++) for (let c = 0; c < cols - 1; c++) {
     const a = r * cols + c, b = a + 1, d = a + cols, e = d + 1;
-    idx[q++] = a; idx[q++] = d; idx[q++] = b; idx[q++] = b; idx[q++] = d; idx[q++] = e;
+    idx0[q++] = a; idx0[q++] = d; idx0[q++] = b; idx0[q++] = b; idx0[q++] = d; idx0[q++] = e;
+  }
+  // obstacle thân cây (--level): bundle scatter/tile của engine bằng rolldown rồi chạy cùng luật level (density 1)
+  let posAll = pos, idxAll = idx0, obstacles = 0;
+  const levelPath = opt('level', null);
+  if (levelPath) {
+    const { rolldown } = await import('rolldown');
+    const { mkdirSync, writeFileSync: wf } = await import('node:fs');
+    mkdirSync('.sync', { recursive: true });
+    wf('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+    const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
+    const { output } = await b.generate({ format: 'esm' });
+    wf('.sync/_nav-veg.mjs', output[0].code);
+    const eng = await import(`${process.cwd()}/.sync/_nav-veg.mjs?t=${Date.now()}`);
+    const level = JSON.parse(readFileSync(levelPath, 'utf8'));
+    const veg = level.vegetation;
+    if (veg) {
+      const tile = new eng.TerrainTile(meta, u16, yOff);
+      const colliders = [];
+      for (const rule of veg.species) {
+        if (!rule.collider) continue;
+        // biến thể: lấy từ GLB? bake không cần (variant chỉ ảnh hưởng hình); dùng 1
+        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, { ...rule, variants: 1 }, veg.seed, veg.cellM ?? 64, 1);
+        colliders.push(...eng.placementColliders(pl, rule));
+      }
+      // chỉ obstacle trong navRect + 4 m
+      const inRect = colliders.filter((c) => Math.abs(c.position[0] - rect[0]) <= rect[2] / 2 + 4 && Math.abs(c.position[2] - rect[1]) <= rect[3] / 2 + 4);
+      const ob = eng.navObstacleMesh(inRect, { capH: 1.2, sides: 8, radiusPad: 0.0, groundAt: (x, z) => tile.sampleGrid(x, z, step) }); // mặt navmesh (lưới 4 m), không phải terrain thật
+      obstacles = ob.count;
+      posAll = new Float32Array(pos.length + ob.positions.length);
+      posAll.set(pos, 0); posAll.set(ob.positions, pos.length);
+      idxAll = new Uint32Array(idx0.length + ob.indices.length);
+      idxAll.set(idx0, 0);
+      const base = pos.length / 3;
+      for (let i = 0; i < ob.indices.length; i++) idxAll[idx0.length + i] = ob.indices[i] + base;
+    }
   }
   await init();
   const t0 = Date.now();
   // cùng tham số DEFAULT_NAV của engine (walkableRadius 0.4, climb 0.35, slope 50°, height 1.8)
-  const r = generateSoloNavMesh(pos, idx, {
+  const r = generateSoloNavMesh(posAll, idxAll, {
     cs, ch,
     walkableRadius: Math.ceil(0.4 / cs), walkableClimb: Math.ceil(0.35 / ch), walkableSlopeAngle: 50, walkableHeight: Math.ceil(1.8 / ch),
     minRegionArea: 8, mergeRegionArea: 20, maxEdgeLen: 12, maxSimplificationError: 1.3, detailSampleDist: 6, detailSampleMaxError: 1,
@@ -80,7 +117,7 @@ if (args.includes('--nav')) {
     m.generatedAt = new Date().toISOString();
     writeFileSync(MANIFEST, JSON.stringify(m, null, 2) + '\n');
   } else console.warn(`[terrain] manifest: không thấy entry terrain cho ${ID} — chưa ghi nav.bin vào manifest`);
-  console.log(`[terrain] nav ${ID}: rect ${rect.join(' ')} → ${cols}×${rows} đỉnh, ${polys} poly, ${(data.byteLength / 1024).toFixed(0)} KB, ${((Date.now() - t0) / 1000).toFixed(1)} s → ${out}`);
+  console.log(`[terrain] nav ${ID}: rect ${rect.join(' ')} → ${cols}×${rows} đỉnh + ${obstacles} obstacle thân cây, ${polys} poly, ${(data.byteLength / 1024).toFixed(0)} KB, ${((Date.now() - t0) / 1000).toFixed(1)} s → ${out}`);
   process.exit(0);
 }
 

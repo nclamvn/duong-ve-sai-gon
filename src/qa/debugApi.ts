@@ -48,6 +48,10 @@ export interface HtDebugApi {
   vegetationStats(): { species: number; placed: number; visible: number; draws: number; triangles: number; impostors: number; lod: number[]; cpuMs: number; colliders: number; loadMs: number; bakeMs: number; perSpecies: Record<string, number> } | null;
   /** rừng: gió 0..1 (VEG-002) */
   setWind(strength: number, dirX?: number, dirZ?: number): void;
+  /** máy bay (TIP-D-SKY): thống kê + lượt đang bay; skyAdvance tua lịch (s) */
+  skyStats(): { flights: number; active: number; runs: number; parachutes: number; gust: number; nearestM: number; time: number; runsNow: Array<{ id: string; phase: string; pos: [number, number, number]; s: number; length: number }>; parasNow: Array<{ pos: [number, number, number]; alive: boolean }> } | null;
+  skyAdvance(seconds: number): void;
+  skyDrop(x: number, y: number, z: number): void;
   [k: string]: unknown;
 }
 
@@ -142,6 +146,9 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
       return { ...s, lod: [...s.lod], loadMs: f.loadMs, bakeMs: f.bakeMs, perSpecies: f.system.placedPerSpecies() };
     },
     setWind: (strength, dirX, dirZ) => game.forest?.system.setWind(strength, dirX, dirZ),
+    skyStats: () => (game.sky ? { ...game.sky.stats, time: game.sky.time, runsNow: game.sky.active(), parasNow: game.sky.parachutesNow() } : null),
+    skyAdvance: (seconds) => game.sky?.advance(seconds),
+    skyDrop: (x, y, z) => game.sky?.dropParachute(x, y, z),
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };
   window.__ht = api;

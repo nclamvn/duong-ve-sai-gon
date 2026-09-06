@@ -93,6 +93,144 @@ export class AudioEngine {
     this.activeVoices = Math.max(0, this.activeVoices - 1);
   }
 
+  /**
+   * Nguồn âm máy bay 3D liên tục (TIP-D-SKY, AUD-003 "động cơ xa có hướng/khoảng cách"): procedural, không file.
+   *  rotor: xung "phành phạch" 10,8 Hz (Huey 2 cánh 324 v/ph) = noise lowpass 320 Hz nhân AM + sine 27 Hz thân;
+   *  jet: noise bandpass 900 Hz + lowpass 2,8 kHz, rít nhẹ 2,4 kHz; prop: răng cưa 85 Hz + noise.
+   *  Doppler: playbackRate = 1 − v_radial/343 (vận tốc tương đối theo tia tới người nghe), kẹp ±25 %.
+   * Panner inverse, refDistance 40, maxDistance 3000. Trả null khi chưa init/không còn voice.
+   */
+  aircraft(kind: 'rotor' | 'jet' | 'prop'): { set(pos: { x: number; y: number; z: number }, vel: { x: number; y: number; z: number }): void; stop(): void } | null {
+    if (!this.enabled || !this.ctx || !this.buses || !this.noiseBuffer) return null;
+    if (!this.voiceStart()) return null;
+    const ctx = this.ctx;
+    const out = ctx.createGain();
+    out.gain.value = 0.0001;
+    const pan = ctx.createPanner();
+    pan.panningModel = 'HRTF';
+    pan.distanceModel = 'inverse';
+    pan.refDistance = 40;
+    pan.maxDistance = 3000;
+    pan.rolloffFactor = 1;
+    out.connect(pan);
+    pan.connect(this.buses.sfx);
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.noiseBuffer;
+    noise.loop = true;
+    const nodes: AudioScheduledSourceNode[] = [noise];
+    let gainTarget = 0.5;
+    if (kind === 'rotor') {
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 320;
+      lp.Q.value = 0.9;
+      const am = ctx.createGain();
+      am.gain.value = 0.35;
+      const lfo = ctx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 10.8;
+      const lfoG = ctx.createGain();
+      lfoG.gain.value = 0.35;
+      lfo.connect(lfoG);
+      lfoG.connect(am.gain);
+      noise.connect(lp);
+      lp.connect(am);
+      am.connect(out);
+      const body = ctx.createOscillator();
+      body.type = 'sine';
+      body.frequency.value = 27;
+      const bodyG = ctx.createGain();
+      bodyG.gain.value = 0.25;
+      body.connect(bodyG);
+      bodyG.connect(out);
+      nodes.push(lfo, body);
+      gainTarget = 0.7;
+    } else if (kind === 'jet') {
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.value = 900;
+      bp.Q.value = 0.6;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 2800;
+      noise.connect(bp);
+      bp.connect(lp);
+      lp.connect(out);
+      const whine = ctx.createOscillator();
+      whine.type = 'sine';
+      whine.frequency.value = 2400;
+      const wG = ctx.createGain();
+      wG.gain.value = 0.02;
+      whine.connect(wG);
+      wG.connect(out);
+      nodes.push(whine);
+      gainTarget = 0.9;
+    } else {
+      const saw = ctx.createOscillator();
+      saw.type = 'sawtooth';
+      saw.frequency.value = 85;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 600;
+      saw.connect(lp);
+      const sG = ctx.createGain();
+      sG.gain.value = 0.18;
+      lp.connect(sG);
+      sG.connect(out);
+      const nl = ctx.createBiquadFilter();
+      nl.type = 'lowpass';
+      nl.frequency.value = 500;
+      const nG = ctx.createGain();
+      nG.gain.value = 0.15;
+      noise.connect(nl);
+      nl.connect(nG);
+      nG.connect(out);
+      nodes.push(saw);
+      gainTarget = 0.55;
+    }
+    const t0 = ctx.currentTime;
+    for (const n of nodes) n.start(t0);
+    out.gain.setTargetAtTime(gainTarget, t0, 0.5);
+    let stopped = false;
+    const l = ctx.listener;
+    const lp = { x: 0, y: 0, z: 0 };
+    return {
+      set: (pos, vel) => {
+        if (stopped) return;
+        const t = ctx.currentTime;
+        pan.positionX.setTargetAtTime(pos.x, t, 0.05);
+        pan.positionY.setTargetAtTime(pos.y, t, 0.05);
+        pan.positionZ.setTargetAtTime(pos.z, t, 0.05);
+        // Doppler theo vận tốc xuyên tâm (người nghe đứng yên tương đối)
+        if ('positionX' in l && l.positionX) {
+          lp.x = l.positionX.value;
+          lp.y = l.positionY.value;
+          lp.z = l.positionZ.value;
+        }
+        const dx = lp.x - pos.x;
+        const dy = lp.y - pos.y;
+        const dz = lp.z - pos.z;
+        const d = Math.hypot(dx, dy, dz) || 1;
+        const vr = (vel.x * dx + vel.y * dy + vel.z * dz) / d; // > 0: đang tới
+        const rate = Math.max(0.75, Math.min(1.25, 1 + vr / 343));
+        noise.playbackRate.setTargetAtTime(rate, t, 0.1);
+        for (const n of nodes) if ((n as OscillatorNode).detune) (n as OscillatorNode).detune.setTargetAtTime(1200 * Math.log2(rate), t, 0.1);
+      },
+      stop: () => {
+        if (stopped) return;
+        stopped = true;
+        const t = ctx.currentTime;
+        out.gain.setTargetAtTime(0.0001, t, 0.3);
+        for (const n of nodes) n.stop(t + 1.5);
+        setTimeout(() => {
+          out.disconnect();
+          pan.disconnect();
+          this.voiceEnd();
+        }, 1700);
+      },
+    };
+  }
+
   /** Ducking: SFX/music hạ khi có dialogue/radio ưu tiên (AUD-001). */
   duck(ms: number, amount = 0.35): void {
     if (!this.ctx || !this.buses) return;

@@ -118,6 +118,45 @@
         }
       }
     },
+    "airTraffic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seed", "center", "flights"],
+      "description": "TIP-D-SKY: lượt bay ambient seeded (model manifest air_*)",
+      "properties": {
+        "$comment": { "type": "string" },
+        "seed": { "type": "integer" },
+        "center": { "$ref": "#/definitions/v2" },
+        "wind": { "$ref": "#/definitions/v2" },
+        "flights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "model", "kind", "agl", "speed", "period"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+              "model": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+              "kind": { "enum": ["heli", "jet", "prop"] },
+              "count": { "type": "integer", "minimum": 1, "maximum": 3 },
+              "agl": { "$ref": "#/definitions/v2" },
+              "speed": { "type": "number", "minimum": 1 },
+              "period": { "$ref": "#/definitions/v2" },
+              "first": { "type": "number", "minimum": 0 },
+              "radius": { "type": "number", "minimum": 200 },
+              "hover": { "type": "object", "additionalProperties": false, "required": ["at", "seconds", "agl"], "properties": { "at": { "$ref": "#/definitions/v2" }, "seconds": { "type": "number", "minimum": 1 }, "agl": { "type": "number", "minimum": 1 } } },
+              "parachute": { "type": "object", "additionalProperties": false, "required": ["count"], "properties": { "count": { "type": "integer", "minimum": 1, "maximum": 3 } } },
+              "scale": { "type": "number", "minimum": 0.01 },
+              "sound": { "enum": ["rotor", "jet", "prop", "none"] },
+              "gust": { "type": "number", "minimum": 0 },
+              "spin": { "type": "string" },
+              "spinRate": { "type": "number" },
+              "bank": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
     "playerSpawn": { "$ref": "#/definitions/v2" },
     "playerYaw": { "type": "number" },
     "botSpawns": { "type": "object", "additionalProperties": { "$ref": "#/definitions/v2" } },

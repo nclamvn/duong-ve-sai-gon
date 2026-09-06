@@ -70,7 +70,7 @@ npm run assets:validate   # validator (TIP-D02): license allow-list, CC-BY attri
 Terrain DEM (TIP-D04, ADR-D05 — `?level=truong-son`): SRTM 1″ public domain qua Terrain Tiles on AWS →
 `node scripts/terrain-bake.mjs --hgt assets-src/dem/N17E106.hgt --lat 17.55 --lon 106.10 --size 2048 --res 2 --id truong-son-a`
 → `public/assets/terrain/<id>/{height.r16,meta.json,preview.png}`; navmesh bake: `node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512`
-→ `nav.bin` (+ manifest). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
+→ `nav.bin` (+ manifest); thêm `--level content/levels/truong-son-a.level.json` để bake **obstacle thân cây** (bot đi vòng cây, DV-040). Level: `content/levels/truong-son-a.level.json` (schema `terrain-level.schema.json`; spawn/waypoint theo x/z, y từ terrain). Nhân vật Mixamo (Swat Guy + 8 clip,
 tải bằng tài khoản Adobe): FBX trong `assets-src/mixamo/` (xem `docs/tips/TIP-012.md`) → `node scripts/convert-mixamo.mjs` (FBX2glTF, gộp clip,
 texture 2K JPEG, meshopt) → `assets-src/mixamo/soldier-swat.glb` (giữ bản gốc, không commit) → **lính QGP 1971** (TIP-D11a):
 `node scripts/retexture-1971.mjs` (bỏ gear hiện đại, sơn lại atlas: vải Tô Châu từ Poly Haven CC0 `assets-src/polyhaven/stretch_poplin/`, tay trần)
@@ -81,6 +81,7 @@ Rừng loài thật (TIP-D05, ADR-D06 — CC-BY Sketchfab, kiểm rip DV-026): n
 `node scripts/convert-vegetation.mjs [--only id,id]` (chuẩn hoá gốc/chiều cao, 3 LOD: tỉa thẻ lá + meshopt simplify, `_WIND`, material `leaf_*/bark_*` MASK) → `node scripts/ktx2.mjs --only models`
 → `public/assets/vegetation/<id>.glb` + manifest `veg_<id>`. Đặt cây bằng khối `vegetation` trong level terrain JSON (seed, rect, luật mỗi loài: perHa/slope/height/noise/clump/lod/cast/collider) —
 `?level=truong-son` có rừng mặc định; `?veg=0` tắt, `?veg=1` bật cả khi `assets=0`, `?vegDensity=0.5&vegLod=0.8&vegShadow=0&impostor=0` để A/B; `__ht.vegetationStats()`, `__ht.setWind(0.9)`.
+Bầu trời (TIP-D-SKY): khối `airTraffic` trong level terrain (lượt bay seeded F-4/UH-1/A-1/C-130, treo đổ quân, dù phi công; model manifest `air_*` — thiếu → bỏ lượt); `?sky=0` tắt, `?sky=1` bật khi lite, `?skyModel=<id>` ép model (CI: `veh_mi24`); `__ht.skyStats()`, `skyAdvance(s)`, `skyDrop(x,y,z)`.
 Cỏ procedural (không asset ngoài, CC0): `node scripts/gen-grass.mjs [--seed 7 --tex 512]` → `grass.glb` + manifest `veg_grass` (`source: procedural`) → KTX2. Luật cây thêm `sink` (chôn gốc theo dốc), `noiseId` (mọc theo trường noise loài khác), `press` (đè cỏ). Khói/lửa xa: khối `fx` trong level terrain (kind smoke/fire, position x/z, `height` cột khói m).
 
 Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, Thợ tải): nguồn `assets-src/sketchfab/<slug>/` →

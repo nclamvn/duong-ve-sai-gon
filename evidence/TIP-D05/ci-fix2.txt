@@ -1,0 +1,24 @@
+== typecheck
+OK
+== unit
+ Test Files  20 passed (20)
+      Tests  132 passed (132)
+== build
+✓ built in 3.15s
+== e2e
+
+Running 10 tests using 1 worker
+
+  ✓   1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox (1.1m)
+  ✓   2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu (45.2s)
+  ✓   3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi không autostart; nút vào arena hoạt động (26.6s)
+  ✓   4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship) (27.8s)
+  ✓   5 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới chốt A bị bao cát chặn, lên vỉa hè 15 cm; collider floor + vỉa hè có mặt (31.4s)
+  ✓   6 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:12:3 › Trường Sơn — vật lý terrain (TIP-D04) › đứng/đi lên dốc/không leo dốc đứng; heightfield + navmesh + LOD (16.1s)
+  ✓   7 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:142:3 › Trường Sơn — vật lý terrain (TIP-D04) › rừng: batch/LOD/impostor trong ngân sách; thân cây chặn người chơi; gió; không lỗi console (1.2m)
+  ✓   8 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:267:3 › Trường Sơn — vật lý terrain (TIP-D04) › bầu trời: lượt bay theo lịch seeded, treo đổ quân, dù phi công, gió xoáy (56.7s)
+  ✓   9 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone → D03 + spawn → kill group → n_done; MISSION_COMPLETE ×1; checkpoint hash khớp (41.1s)
+  ✓  10 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp checkpoint; không có checkpoint → reset mission (28.5s)
+
+  10 passed (6.8m)
+EXIT:0

@@ -209,7 +209,19 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       await frameRaf();
       H.setWind(0.35);
       const gap = c.feet[1]! - hAt(c.feet[0]!, c.feet[2]!);
+      // navmesh có obstacle thân cây (bake --level / runtime): điểm navmesh gần nhất tới trục thân ≥ r − 0,3 m (cs 0,5)
+      const nr = g.terrain!.def.terrain.navRect;
+      const inRect = trunks.filter((t) => Math.abs(t.position[0] - nr.x) < nr.w / 2 - 8 && Math.abs(t.position[2] - nr.z) < nr.h / 2 - 8).slice(0, 60);
+      let navOnTrunk = 0;
+      let navChecked = 0;
+      for (const t of inRect) {
+        const n = g.nav.nearest({ x: t.position[0], y: t.position[1] - t.size[1], z: t.position[2] });
+        if (!n) continue;
+        navChecked++;
+        if (Math.hypot(n.x - t.position[0], n.z - t.position[2]) < t.size[0] - 0.3) navOnTrunk++;
+      }
       return {
+        nav: { checked: navChecked, onTrunk: navOnTrunk, prebuilt: !!g.terrain!.navPrebuilt, polys: g.nav.polyCount },
         species: v0.species,
         placed: v0.placed,
         perSpecies: v0.perSpecies,
@@ -241,6 +253,80 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(r.trunk.minD).toBeGreaterThanOrEqual(r.trunk.r + r.trunk.capsule - 0.05);
     expect(r.trunk.minD).toBeLessThan(3);
     expect(Math.abs(r.trunk.gap)).toBeLessThan(0.4);
+    // bot không đi xuyên cây: navmesh không có điểm trong thân
+    expect(r.nav.checked).toBeGreaterThan(20);
+    expect(r.nav.onTrunk, JSON.stringify(r.nav)).toBe(0);
+    await expectNoErrors(errors);
+  });
+
+  /**
+   * TIP-D-SKY — máy bay là thời tiết: lịch bay seeded (F-4 cặp, F-4 trúng đạn → dù, UH-1 cặp + treo đổ quân, A-1, C-130), model
+   * `?skyModel=veh_mi24` thay cho air_* trong CI (asset thật do Chủ nhà tải); tua lịch bằng `skyAdvance`: có lượt bay, cao độ trên địa hình,
+   * treo đúng điểm/AGL, dù thả ≥ 400 m, gió xoáy trực thăng đổi gió rừng (VEG-002), không lỗi console.
+   */
+  test('bầu trời: lượt bay theo lịch seeded, treo đổ quân, dù phi công, gió xoáy', async ({ page }) => {
+    test.setTimeout(300_000);
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(`PAGEERROR ${e.message}`));
+    page.on('console', (m) => {
+      if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
+    });
+    await page.goto(`/?${QUERY}&veg=1&vegDensity=0.2&sky=1&skyModel=veh_mi24`);
+    await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
+    await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
+    await pauseLoop(page);
+    const r = await page.evaluate(async () => {
+      const H = window.__ht!;
+      const g = H.game;
+      g.aiPaused = true;
+      const hAt = (x: number, z: number): number => H.terrainHeight(x, z) ?? NaN;
+      const frameRaf = (): Promise<void> => new Promise((res) => requestAnimationFrame(() => { g.frame(1 / 60); res(); }));
+      const s0 = H.skyStats()!;
+      // 60 s: F-4 cặp (first 40) + UH-1 cặp (first 20) đang bay
+      H.skyAdvance(60);
+      await frameRaf();
+      const s1 = H.skyStats()!;
+      const above = s1.runsNow.map((run) => ({ id: run.id, agl: run.pos[1] - hAt(Math.max(-1000, Math.min(1000, run.pos[0])), Math.max(-1000, Math.min(1000, run.pos[2]))) }));
+      // đến lúc treo: huey_insert first 95 + 1500 m / 38 m/s ≈ 40 s + giảm tốc → ~150 s
+      let hover: { id: string; phase: string; pos: [number, number, number] } | null = null;
+      for (let k = 0; k < 40 && !hover; k++) {
+        H.skyAdvance(5);
+        const st = H.skyStats()!;
+        const h = st.runsNow.find((run) => run.id === 'huey_insert' && run.phase === 'hover');
+        if (h) hover = h;
+      }
+      const hoverAgl = hover ? hover.pos[1] - hAt(hover.pos[0], hover.pos[2]) : NaN;
+      // gió xoáy: đặt người nghe (camera) ngay dưới trực thăng treo → gust > 0 và gió rừng tăng
+      let gust = 0;
+      let windAfter = 0;
+      if (hover) {
+        const base = g.forest!.system.wind.strength.value;
+        g.cameraDriver = () => { g.camera.position.set(hover!.pos[0] + 5, hAt(hover!.pos[0], hover!.pos[2]) + 1.7, hover!.pos[2] + 5); };
+        await frameRaf();
+        await frameRaf();
+        gust = H.skyStats()!.gust;
+        windAfter = g.forest!.system.wind.strength.value;
+        void base;
+      }
+      // dù: f4_hit first 240, thả ở giữa đường (~12 s sau) — tua tới 330 s tổng và kiểm có dù
+      const before = H.skyStats()!.time;
+      H.skyAdvance(Math.max(0, 330 - before));
+      const s3 = H.skyStats()!;
+      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, hover, hoverAgl, gust, windAfter, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
+    });
+    expect(r.s0.flights).toBe(6);
+    expect(r.s1.active).toBeGreaterThanOrEqual(1);
+    expect(r.s1.ids).toContain('huey_pair');
+    for (const a of r.above) expect(a.agl, JSON.stringify(r.above)).toBeGreaterThan(30);
+    expect(r.hover, 'huey_insert chưa vào pha treo trong 260 s').not.toBeNull();
+    expect(Math.abs(r.hover!.pos[0] - -560)).toBeLessThan(3);
+    expect(Math.abs(r.hover!.pos[2] - 240)).toBeLessThan(3);
+    expect(r.hoverAgl).toBeGreaterThan(2);
+    expect(r.hoverAgl).toBeLessThan(8);
+    expect(r.gust).toBeGreaterThan(0.3);
+    expect(r.windAfter).toBeGreaterThan(0.5);
+    expect(r.paras + r.parasStat).toBeGreaterThanOrEqual(1);
+    expect(r.runsTotal).toBeGreaterThanOrEqual(5);
     await expectNoErrors(errors);
   });
 });

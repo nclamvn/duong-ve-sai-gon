@@ -78,3 +78,21 @@ Số đo sandbox sau vòng 1 (high, `fix1-sandbox-high-stats.txt`): 9 loài, 799
 - **TIP mới "D-SKY: máy bay là thời tiết"** (đề xuất đặt sau D08 tuyến, trước D09 âm): hệ `engine/sky-traffic` — spline bay seeded, 2–4 lượt/phút (tiêm kích cặp đôi bay thấp qua thung lũng, trực thăng theo tuyến, vận tải cao), âm 3D theo Doppler (D09), bóng lướt trên tán (đổ bóng từ mesh máy bay là rẻ), khói/bụi khi bay thấp (`setWind` rừng đã có: gió mạnh lên khi trực thăng — VEG-002). Cần **Chủ nhà tải Sketchfab** (đăng nhập) — ứng viên CC-BY đã kiểm mô tả tác giả tự làm, không tag game: **UH-1B "TonyWony"** (13 k tri, "here is my helicopter i modeled and texture") + **Bell 205/UH-1 polarvoid** (2,4 k, cho xa); **F-4 Phantom II "andertan"** (62,7 k, tag vietnamwar/usnavy — cần simplify ≤ 15 k + LOD) + **"ETAN798"** (8,3 k stylized, cho xa); **A-1 Skyraider "Rhine_Lab_Muelsyse"** (58 k, cần simplify); **C-130 "Tyler_Dave"** (25,5 k); **CH-47 "Artjomka81"** (29,5 k — chưa có mô tả, kiểm trước khi tải). Mi-24 sẵn có của HT-MB **không dùng** (Mi-24 không có ở chiến trường 1971).
 - **Lính dù — cần cố vấn trước khi làm:** năm 1971 không có nhảy dù ồ ạt xuống Trường Sơn; Sư đoàn Dù VNCH trong Lam Sơn 719 (2–3/1971, Đường 9 – Nam Lào) đổ bộ **bằng trực thăng**; biệt kích/thám báo (SOG) cũng đổ bằng trực thăng. Đề xuất thay bằng: (a) đổ quân trực thăng UH-1 lên bãi trống xa (đúng sử), (b) một chiếc dù đơn của phi công nhảy khỏi máy bay trúng đạn (có thật, gắn set piece bắn máy bay của D08/G1.5). Ghi registry `evt.1971.lam_son_719` tier P (nguồn: Lam Son 719 — Nguyen Duy Hinh, Indochina Monographs 1979).
 - Khói lửa gần tuyến (xác xe cháy trên đường 20, hố bom còn khói) cần prop xác xe (Ural/BTR có sẵn HT-MB nhưng là xe Liên Xô — hợp với đoàn xe Trường Sơn bị đánh, đúng phe) → D08 đặt cùng tuyến.
+
+---
+
+# Vòng 2 — "triển khai hoàn tất các mục còn thiếu" (2026-09-06)
+
+| Mục | Trạng thái | Chi tiết | Evidence |
+|-----|-----------|----------|----------|
+| Máy bay (tiêm kích, trực thăng, vận tải) | **Engine xong, chờ asset** | `engine/sky` (TIP-D-SKY): lịch bay seeded 6 lượt (F-4 cặp thấp 180–320 m, F-4 trúng đạn 350–520 m → dù, UH-1 cặp 70–120 m, UH-1 treo đổ quân 25 s tại (−560, 240), A-1 tuần tiễu, C-130 cao); cao độ = max địa hình dọc đường + AGL; đội hình so le; rotor quay; bóng CSM; **gió xoáy trực thăng lay rừng** (hook → `forest.setWind`); **âm 3D procedural có Doppler** (`AudioEngine.aircraft`: rotor 10,8 Hz/jet/prop); `?sky=0/1`, `?skyModel=`. Model `air_*` chưa có: Chrome của Chủ nhà **chưa đăng nhập Sketchfab** (tab UH-1B đang mở) → E2E/ảnh dùng stand-in Mi-24 (`?skyModel=veh_mi24`, không vào level) | `sky-pairs-standin.jpg`, `sky-hover-standin-mi24.jpg`, E2E "bầu trời" (`ci-fix2.txt`) |
+| Lính dù | **Làm dạng đúng sử: dù phi công + đổ quân trực thăng** | Dù procedural (vòm 24 múi, dây, người treo), rơi 4,5–5,7 m/s trôi gió, thả ≥ 400 m sau khi F-4 "trúng đạn" bay qua; UH-1 treo 4 m ở bãi 25 s (đổ thám báo). Không làm nhảy dù ồ ạt (1971 không có) — chờ cố vấn registry `evt.1971.lam_son_719` | `sky-parachute-close.jpg` |
+| Bot đi xuyên cây (ghi nợ D08) | **Xong** | navmesh bake `--level` với obstacle thân (1 366 lăng trụ, 4 554 poly, nav.bin 741 KB) + runtime bake cùng lăng trụ; 2 bài học recast ghi DV-040 (nắp 1,2 m, mặt navmesh 4 m); `density` tier = tập con → nav đúng mọi tier; E2E: 60 thân trong navRect không có điểm navmesh | `ci-fix2.txt` |
+| Bàn tay thật (D11b) | **Chưa** | cần mesh tay CC0 + retarget skin về skeleton Mixamo (ước 12–16 h) — ngoài phạm vi vòng này | — |
+
+CI vòng 2: typecheck · unit 132/132 · build · E2E 10/10.
+
+## Việc còn lại cho Chủ nhà
+1. **Đăng nhập Sketchfab trong Chrome** (tab đang mở) → em tải 5 model, convert (`convert-model.mjs --no-join`, KTX2), đặt vào level, chụp ảnh, sync tiếp.
+2. Push + bench (như vòng 1): `git push origin master`; `…&level=truong-son&weapon=ak47&bench=1` ×3 và `&veg=0` ×3.
+3. Cố vấn: sự kiện 1971 (Lam Sơn 719, không kích tuyến 20) — dù/đổ quân; chủng loại máy bay (F-4 USAF hay USN, UH-1B/D, A-1H).
