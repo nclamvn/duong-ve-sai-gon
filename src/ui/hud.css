@@ -1,0 +1,152 @@
+/*
+ * HUD FPS cao cấp (TIP-UX02, PRD §8.3/§8.4): DOM/CSS, không React. Token: than #151A18, giấy #E9E0CD, mực #202823, đất #BE995B,
+ * nguy hiểm #C7614C (PRD) — trong game dùng bản sáng hơn để đạt tương phản ≥ 4,5:1 trên tán lá. Lề HUD ≥ 5 %.
+ * Font OFL tự host: Barlow Condensed (số/nhãn), Be Vietnam Pro (chữ). Mọi cập nhật mỗi frame chỉ đổi transform/text.
+ */
+@font-face { font-family: 'Barlow Condensed'; font-weight: 500; font-display: swap; src: url(/assets/fonts/BarlowCondensed-Medium.woff2) format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 600; font-display: swap; src: url(/assets/fonts/BarlowCondensed-SemiBold.woff2) format('woff2'); }
+@font-face { font-family: 'Be Vietnam Pro'; font-weight: 400; font-display: swap; src: url(/assets/fonts/BeVietnamPro-Regular.woff2) format('woff2'); }
+@font-face { font-family: 'Be Vietnam Pro'; font-weight: 600; font-display: swap; src: url(/assets/fonts/BeVietnamPro-SemiBold.woff2) format('woff2'); }
+
+:root {
+  --hud-ink: #f3efe4;
+  --hud-ink-dim: rgba(243, 239, 228, 0.62);
+  --hud-ink-faint: rgba(243, 239, 228, 0.28);
+  --hud-earth: #e0aa5c;
+  --hud-danger: #e0644c;
+  --hud-friend: #9fd8a8;
+  --hud-enemy: #ff6b57;
+  --hud-coal: rgba(21, 26, 24, 0.55);
+  --hud-coal-soft: rgba(21, 26, 24, 0.32);
+  --hud-line: rgba(243, 239, 228, 0.22);
+  --hud-shadow: 0 1px 2px rgba(0, 0, 0, 0.75), 0 0 8px rgba(0, 0, 0, 0.35);
+  --hud-num: 'Barlow Condensed', 'Oswald', 'Arial Narrow', sans-serif;
+  --hud-text: 'Be Vietnam Pro', 'Noto Sans', 'Segoe UI', system-ui, sans-serif;
+  --hud-margin: 5vmin;
+  --hud-fs: clamp(13px, 1.05vw, 19px);
+}
+
+#hud { z-index: 10; font-family: var(--hud-text); font-size: var(--hud-fs); color: var(--hud-ink); text-shadow: var(--hud-shadow); }
+#hud * { box-sizing: border-box; }
+#hud .num { font-family: var(--hud-num); font-weight: 600; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+#hud .label { font-family: var(--hud-num); font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72em; color: var(--hud-ink-dim); }
+
+/* ---- hurt vignette + flash */
+#hud .hurt { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(120, 20, 10, 0) 45%, rgba(140, 22, 12, 0.85) 100%); mix-blend-mode: multiply; }
+#hud .hurt.flash { transition: none; }
+
+/* ---- la bàn */
+#hud .compass { position: absolute; top: calc(var(--hud-margin) * 0.55); left: 50%; width: min(38vw, 620px); height: 2.6em; transform: translateX(-50%); overflow: hidden; background: linear-gradient(180deg, rgba(21, 26, 24, 0.42), rgba(21, 26, 24, 0.12) 70%, rgba(21, 26, 24, 0)); border-top: 1px solid var(--hud-line); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+#hud .compass .tape { position: absolute; left: 50%; top: 0; height: 100%; will-change: transform; }
+#hud .compass .tick { position: absolute; top: 1.25em; width: 1px; height: 0.45em; background: var(--hud-ink-dim); transform: translateX(-50%); }
+#hud .compass .tick.major { height: 0.8em; background: var(--hud-ink); top: 1.05em; }
+#hud .compass .card { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--hud-num); font-weight: 600; font-size: 0.95em; letter-spacing: 0.08em; color: var(--hud-ink); }
+#hud .compass .card.minor { font-size: 0.7em; color: var(--hud-ink-dim); top: 0.15em; }
+#hud .compass .deg { position: absolute; top: 0.2em; transform: translateX(-50%); font-family: var(--hud-num); font-size: 0.62em; color: var(--hud-ink-faint); letter-spacing: 0.06em; }
+#hud .compass .notch { position: absolute; left: 50%; top: 0; width: 2px; height: 2.05em; background: var(--hud-earth); transform: translateX(-50%); box-shadow: 0 0 6px rgba(224, 170, 92, 0.6); }
+#hud .compass .mk { position: absolute; top: 1.35em; width: 0.6em; height: 0.6em; transform: translate(-50%, 0) rotate(45deg); background: var(--hud-earth); box-shadow: 0 0 4px rgba(0, 0, 0, 0.8); will-change: transform; }
+#hud .compass .mk.friend { width: 0.5em; height: 0.5em; background: var(--hud-friend); border-radius: 50%; transform: translate(-50%, 0.1em); }
+#hud .compass .mk.edge { opacity: 0.55; }
+#hud .heading { position: absolute; top: calc(var(--hud-margin) * 0.55 + 2.7em); left: 50%; transform: translateX(-50%); font-family: var(--hud-num); font-weight: 600; font-size: 0.95em; letter-spacing: 0.1em; color: var(--hud-ink-dim); }
+
+/* ---- mục tiêu (góc trên trái, PRD §8.4) */
+#hud .objective { position: absolute; top: var(--hud-margin); left: var(--hud-margin); max-width: 34vw; padding: 0.35em 0.9em 0.45em 0.8em; border-left: 3px solid var(--hud-earth); background: linear-gradient(90deg, var(--hud-coal), rgba(21, 26, 24, 0)); transition: opacity 0.6s ease, transform 0.35s ease; }
+#hud .objective[hidden] { display: none; }
+#hud .objective .label { display: block; margin-bottom: 0.15em; }
+#hud .objective .text { font-size: 1.08em; font-weight: 600; line-height: 1.3; }
+#hud .objective .dist { margin-left: 0.6em; font-family: var(--hud-num); font-weight: 500; color: var(--hud-earth); letter-spacing: 0.06em; }
+#hud .objective.fresh { animation: obj-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+#hud .objective.compact { opacity: 0.78; }
+@keyframes obj-in { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+
+/* ---- máu (dưới trái, trên minimap) */
+#hud .vitals { position: absolute; left: var(--hud-margin); bottom: calc(var(--hud-margin) + 15.5vmin); width: 15.5em; }
+#hud .vitals .row { display: flex; align-items: baseline; justify-content: space-between; }
+#hud .vitals .state { font-family: var(--hud-num); font-weight: 600; font-size: 1.05em; letter-spacing: 0.12em; text-transform: uppercase; }
+#hud .vitals .hp { font-family: var(--hud-num); font-weight: 500; font-size: 0.9em; color: var(--hud-ink-dim); letter-spacing: 0.06em; }
+#hud .vitals .bar { position: relative; height: 4px; margin-top: 0.35em; background: var(--hud-coal); border: 1px solid var(--hud-line); }
+#hud .vitals .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--hud-ink); transform-origin: left; will-change: transform; }
+#hud .vitals.wounded .state, #hud .vitals.wounded .bar i { color: var(--hud-earth); background: var(--hud-earth); }
+#hud .vitals.critical .state, #hud .vitals.critical .bar i { color: var(--hud-danger); background: var(--hud-danger); }
+#hud .vitals.critical .state { animation: pulse 0.9s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* ---- đạn (dưới phải) */
+#hud .ammo { position: absolute; right: var(--hud-margin); bottom: var(--hud-margin); text-align: right; }
+#hud .ammo .mag { font-family: var(--hud-num); font-weight: 600; font-size: 3.6em; line-height: 0.9; letter-spacing: 0.02em; }
+#hud .ammo .res { font-family: var(--hud-num); font-weight: 500; font-size: 1.5em; color: var(--hud-ink-dim); margin-left: 0.15em; letter-spacing: 0.04em; }
+#hud .ammo .meta { display: flex; justify-content: flex-end; gap: 1.1em; margin-top: 0.2em; }
+#hud .ammo .meta .label { color: var(--hud-ink); }
+#hud .ammo .meta .mode { color: var(--hud-earth); }
+#hud .ammo .segs { position: relative; height: 5px; width: 11em; margin: 0.45em 0 0 auto; background: repeating-linear-gradient(90deg, var(--hud-ink-faint) 0 var(--seg-w, 6px), transparent var(--seg-w, 6px) var(--seg-p, 8px)); }
+#hud .ammo .segs i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--hud-ink) 0 var(--seg-w, 6px), transparent var(--seg-w, 6px) var(--seg-p, 8px)); transform-origin: left; will-change: transform; }
+#hud .ammo.low .mag, #hud .ammo.low .segs i { color: var(--hud-danger); background-image: repeating-linear-gradient(90deg, var(--hud-danger) 0 var(--seg-w, 6px), transparent var(--seg-w, 6px) var(--seg-p, 8px)); }
+#hud .ammo.low .mag { animation: pulse 0.8s ease-in-out infinite; background: none; }
+#hud .ammo.reloading .mag { color: var(--hud-ink-dim); }
+
+/* ---- chấm ngắm + hit marker + hướng trúng đạn */
+#hud .reticle { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+#hud .reticle .dot { position: absolute; left: -2px; top: -2px; width: 4px; height: 4px; background: #fff; border-radius: 50%; box-shadow: 0 0 2px #000; transition: opacity 0.12s; }
+#hud .reticle .arm { position: absolute; background: #fff; box-shadow: 0 0 2px #000; transition: opacity 0.12s; }
+#hud .reticle .arm.t { left: -0.5px; top: calc(-1 * var(--gap, 10px) - 6px); width: 1px; height: 6px; }
+#hud .reticle .arm.b { left: -0.5px; top: var(--gap, 10px); width: 1px; height: 6px; }
+#hud .reticle .arm.l { top: -0.5px; left: calc(-1 * var(--gap, 10px) - 6px); width: 6px; height: 1px; }
+#hud .reticle .arm.r { top: -0.5px; left: var(--gap, 10px); width: 6px; height: 1px; }
+#hud .reticle.ads .dot, #hud .reticle.ads .arm { opacity: 0; }
+#hud .hit { position: absolute; left: 50%; top: 50%; width: 0; height: 0; opacity: 0; }
+#hud .hit i { position: absolute; width: 2px; height: 9px; background: #fff; box-shadow: 0 0 3px #000; left: -1px; top: -16px; transform-origin: 1px 16px; }
+#hud .hit i:nth-child(1) { transform: rotate(45deg); } #hud .hit i:nth-child(2) { transform: rotate(135deg); } #hud .hit i:nth-child(3) { transform: rotate(225deg); } #hud .hit i:nth-child(4) { transform: rotate(315deg); }
+#hud .hit.show { animation: hit 0.28s ease-out both; }
+#hud .hit.kill i { background: var(--hud-danger); height: 12px; }
+@keyframes hit { 0% { opacity: 1; transform: scale(1.25); } 100% { opacity: 0; transform: scale(0.9); } }
+#hud .dmg { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+#hud .dmg i { position: absolute; left: -3.2em; top: -3.2em; width: 6.4em; height: 6.4em; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--hud-danger); opacity: 0; box-shadow: none; will-change: transform, opacity; }
+#hud .dmg i.on { animation: dmg 1s ease-out both; }
+@keyframes dmg { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---- marker 3D (mục tiêu, đồng đội) */
+#hud .markers { position: absolute; inset: 0; overflow: hidden; }
+#hud .m3 { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); text-align: center; white-space: nowrap; will-change: transform; }
+#hud .m3.obj .ico { display: inline-block; width: 0.75em; height: 0.75em; border: 2px solid var(--hud-earth); transform: rotate(45deg); box-shadow: 0 0 6px rgba(0, 0, 0, 0.6); background: rgba(224, 170, 92, 0.25); }
+#hud .m3.obj .d { display: block; margin-top: 0.15em; font-family: var(--hud-num); font-weight: 600; font-size: 0.85em; letter-spacing: 0.08em; color: var(--hud-earth); }
+#hud .m3.obj.edge .ico { border-radius: 0; }
+#hud .m3.obj .arrow { display: none; position: absolute; left: 50%; top: 50%; width: 0; height: 0; border: 0.45em solid transparent; border-bottom-color: var(--hud-earth); transform-origin: 50% 100%; }
+#hud .m3.obj.edge .arrow { display: block; }
+#hud .m3.friend .name { display: inline-block; padding: 0.05em 0.5em; font-family: var(--hud-num); font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hud-friend); background: var(--hud-coal-soft); border-radius: 2px; }
+#hud .m3.friend .chev { display: block; width: 0; height: 0; margin: 0.1em auto 0; border: 0.35em solid transparent; border-top-color: var(--hud-friend); }
+#hud .m3.faded { opacity: 0.45; }
+
+/* ---- prompt tương tác */
+#hud .prompt { position: absolute; left: 50%; bottom: 24%; transform: translateX(-50%); display: flex; align-items: center; gap: 0.6em; padding: 0.35em 0.8em; background: var(--hud-coal); border: 1px solid var(--hud-line); border-radius: 3px; }
+#hud .prompt .key { display: inline-grid; place-items: center; min-width: 1.7em; height: 1.7em; padding: 0 0.3em; font-family: var(--hud-num); font-weight: 600; border: 1px solid var(--hud-ink); border-radius: 3px; color: var(--hud-ink); }
+
+/* ---- banner giữa (gục / hoàn thành) */
+#hud .banner { position: absolute; left: 0; right: 0; top: 38%; padding: 1.1em 0; text-align: center; background: linear-gradient(90deg, rgba(21, 26, 24, 0) 0, var(--hud-coal) 20%, var(--hud-coal) 80%, rgba(21, 26, 24, 0) 100%); }
+#hud .banner .big { font-family: var(--hud-num); font-weight: 600; font-size: 2.4em; letter-spacing: 0.3em; text-transform: uppercase; color: var(--hud-earth); }
+#hud .banner .sub { margin-top: 0.4em; color: var(--hud-ink-dim); }
+#hud .banner.dead .big { color: var(--hud-danger); }
+
+/* ---- minimap (dưới trái) */
+#hud .minimap { position: absolute; left: var(--hud-margin); bottom: var(--hud-margin); width: 14vmin; height: 14vmin; min-width: 150px; min-height: 150px; border: 1px solid var(--hud-line); border-radius: 4px; background: var(--hud-coal); overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); }
+#hud .minimap canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#hud .minimap .n { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); font-family: var(--hud-num); font-weight: 600; font-size: 0.7em; letter-spacing: 0.1em; color: var(--hud-ink-dim); }
+#hud .minimap .scale { position: absolute; right: 6px; bottom: 4px; font-family: var(--hud-num); font-size: 0.62em; color: var(--hud-ink-dim); letter-spacing: 0.06em; }
+#hud .minimap .scale i { display: block; height: 1px; background: var(--hud-ink-dim); margin-bottom: 2px; }
+
+/* ---- bản đồ chiến thuật toàn màn */
+#tacmap { position: fixed; inset: 0; z-index: 11; display: grid; place-items: center; background: rgba(10, 12, 11, 0.72); backdrop-filter: blur(2px); pointer-events: none; font-family: var(--hud-text); color: var(--hud-ink); }
+#tacmap .paper { position: relative; width: min(82vh, 82vw); height: min(82vh, 82vw); border: 1px solid var(--hud-line); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6); }
+#tacmap canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#tacmap .title { position: absolute; left: 0; top: -2.4em; font-family: var(--hud-num); font-weight: 600; font-size: 1.3em; letter-spacing: 0.24em; text-transform: uppercase; }
+#tacmap .legend { position: absolute; left: 0; bottom: -2.6em; display: flex; gap: 1.6em; font-size: 0.85em; color: var(--hud-ink-dim); }
+#tacmap .legend b { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.4em; vertical-align: -0.05em; }
+#tacmap .hint { position: absolute; right: 0; bottom: -2.6em; font-size: 0.85em; color: var(--hud-ink-dim); }
+
+/* ---- phụ đề */
+#subtitles { position: fixed; left: 50%; bottom: 11%; transform: translateX(-50%); max-width: 64%; text-align: center; font-family: var(--hud-text); font-size: clamp(15px, 1.35vw, 24px); line-height: 1.35; color: var(--hud-ink); background: rgba(21, 26, 24, var(--sub-bg, 0.55)); padding: 0.4em 1em; border-radius: 3px; z-index: 12; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); }
+#subtitles .speaker { font-family: var(--hud-num); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hud-earth); margin-right: 0.5em; }
+#subtitles .radio { display: inline-block; width: 0.8em; height: 0.8em; margin-right: 0.35em; vertical-align: -0.08em; border: 2px solid var(--hud-earth); border-radius: 50%; border-left-color: transparent; border-right-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  #hud .objective.fresh, #hud .vitals.critical .state, #hud .ammo.low .mag { animation: none; }
+}

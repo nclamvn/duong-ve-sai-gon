@@ -1,0 +1,11 @@
+id: TIP-M1A
+goal: "Trận đánh M1 lát cắt: mission truong-son-a (theo Quyết → điểm quan sát → chặn thám báo 2 đợt → bãi bốc UH-1), đồng đội có tên theo/dẫn, phe + không sát thương cùng phe, thám báo rằn ri (shader), sky_trigger (G1-A, DV-043)"
+scope: [content/missions/truong-son-a.mission.json, content/missions/truong-son-a.dialogue.json, src/game/ai/squadmates.ts, src/game/ai/bot.ts, src/game/actors/botActor.ts, src/game/mission/*, src/engine/render/camo.ts, src/engine/render/characters.ts, src/engine/sky/traffic.ts, content/levels/truong-son-a.level.json, content/schemas/mission.schema.json, content/schemas/dialogue.schema.json]
+acceptance:
+  - "E2E: mission chạy hết (3 checkpoint, MISSION_COMPLETE ×1), đồng đội theo ≤ 12 m / dẫn ≤ 16 m, cùng phe không sát thương, địch spawn > 40 m, UH-1 tới bãi ≤ 2 s"
+  - "Unit: la bàn/marker, goalFor Quyết/Hải/hold, bark cooldown, mission schema + locale + graph active_ms"
+  - "Ảnh Mac: đồng đội có tên khi nhìn, thám báo rằn ri ở khu giao chiến; cố vấn duyệt registry thám báo 1971"
+tests: [tests/unit/hud-m1.test.ts, tests/e2e/level-truong-son.spec.ts]
+evidence: [evidence/TIP-M1A/completion-report.md, evidence/TIP-M1A/ci.txt, evidence/TIP-M1A/*.jpg]
+rollback: "MissionHost chọn g0-arena khi level truong-son; bỏ khối airTraffic sky_trigger; despawn squad"
+status: DONE-sandbox (chờ ảnh Mac Chủ nhà; D11c asset thám báo thật; cố vấn)

@@ -24,11 +24,13 @@ type V3 = [number, number, number];
 
 export interface BotEvents extends Record<string, unknown> {
   BOT_FIRED: { botId: string; origin: V3; dir: V3 };
-  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: V3; penetrated: boolean };
+  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: V3; penetrated: boolean; shooter?: string };
   IMPACT: { point: V3; normal: V3; material: string; penetrated: boolean };
   AI_STATE: { botId: string; from: BotState; to: BotState; reason: string };
   AI_STUCK_RECOVERED: { botId: string; method: 'replan' | 'teleport' };
   AI_TIMEOUT: { botId: string; state: BotState };
+  /** bắt đầu nạp đạn (bark đồng đội) */
+  AI_RELOAD: { botId: string };
   /** người chơi chạy nước rút (TIP-018): tiếng chân */
   PLAYER_FOOTSTEP: { origin: V3 };
   [k: string]: unknown;
@@ -48,6 +50,12 @@ export interface BotDeps {
   exclude: () => RAPIER.Collider | undefined;
   /** cao độ mặt đất chính xác tại x/z (terrain heightfield, TIP-D11a) — không có → dùng navmesh */
   groundHeight?: (x: number, z: number) => number | null;
+  /** phe (TIP-M1A): 'friend' = đồng đội — target() là địch gần nhất, không nghe tiếng chân người chơi, bắn layer ACTOR */
+  faction?: 'enemy' | 'friend';
+  /** lớp vật lý tia bắn được chạm (mặc định WORLD|PLAYER) */
+  hitMask?: number;
+  /** điểm đi theo (đồng đội): PATROL đi tới điểm này thay vì waypoint; null = đứng yên. Trả speedMul qua tham số thứ hai */
+  followGoal?: () => { x: number; z: number; run: boolean } | null;
 }
 
 export interface BotSnapshot {
@@ -110,6 +118,9 @@ export class Bot {
   private offscreenMs = 0;
   private aiTick = 0;
   private lateralSide = 1;
+  /** hệ số tốc độ khi đi theo (đuổi kịp) */
+  private speedMul = 1;
+  private followReplanMs = 0;
   private readonly hits: HitResult[] = [];
   private readonly fireOut: V3 = [0, 0, 0];
   private readonly eye: V3 = [0, 0, 0];
@@ -134,6 +145,7 @@ export class Bot {
         if (ev.dir) this.checkSuppression(ev.origin, ev.dir);
       }),
       deps.events.on('PLAYER_FOOTSTEP', (e: unknown) => {
+        if (deps.faction === 'friend') return;
         const ev = e as { origin: V3 };
         if (this.noises.length < 8) this.noises.push({ x: ev.origin[0], y: ev.origin[1], z: ev.origin[2], loudness: ai.hearing.footstepLoudness });
       }),
@@ -353,7 +365,10 @@ export class Bot {
         break;
       }
       case 'RETREAT': {
-        if (this.reloadMs <= 0 && this.mag === 0) this.reloadMs = C.reloadMs;
+        if (this.reloadMs <= 0 && this.mag === 0) {
+          this.reloadMs = C.reloadMs;
+          this.deps.events.emit('AI_RELOAD', { botId: this.id });
+        }
         if (!this.coverPos && this.stateMs < 50) {
           const threat = per.hasLastKnown ? per.lastKnown : target.pos;
           const pick = pickCover(this.deps.coverMarkers, this.position, threat, (x, y, z, tx, ty, tz) => this.deps.physics.hasLineOfSight(x, y, z, tx, ty, tz));
@@ -541,6 +556,30 @@ export class Bot {
   }
 
   private patrolThink(): void {
+    if (this.deps.followGoal) {
+      // đồng đội (TIP-M1A): đi tới điểm đội hình; replan khi điểm dời > 1,5 m hoặc mỗi 1 s; không có điểm → đứng
+      const g = this.deps.followGoal();
+      this.speedMul = g?.run ? 1.35 : 1;
+      if (!g) {
+        this.path = [];
+        return;
+      }
+      const dx = g.x - this.position[0];
+      const dz = g.z - this.position[2];
+      if (Math.hypot(dx, dz) < 1.2) {
+        this.path = [];
+        this.followReplanMs = 0;
+        return;
+      }
+      const last = this.path.length ? this.path[this.path.length - 1]! : null;
+      const moved = !last || Math.hypot(last.x - g.x, last.z - g.z) > 1.5;
+      this.followReplanMs += 100;
+      if (this.path.length === 0 || this.arrived() || (moved && this.followReplanMs >= 1000)) {
+        this.followReplanMs = 0;
+        if (!this.setPathTo(g.x, this.position[1], g.z)) this.path = [];
+      }
+      return;
+    }
     if (this.path.length === 0 || this.arrived()) {
       if (this.arrived() && this.path.length > 0) this.waypointIndex = (this.waypointIndex + 1) % this.deps.waypoints.length;
       const w = this.deps.waypoints[this.waypointIndex]!;
@@ -589,12 +628,12 @@ export class Bot {
       this.stats.bursts++;
     }
     this.deps.events.emit('BOT_FIRED', { botId: this.id, origin: [eye[0], eye[1], eye[2]], dir: [this.fireOut[0], this.fireOut[1], this.fireOut[2]] });
-    resolveShot(this.deps.physics, eye, this.fireOut, spread, BOT_HITSCAN, this.prng, this.deps.exclude(), this.hits, LAYER.WORLD | LAYER.PLAYER);
+    resolveShot(this.deps.physics, eye, this.fireOut, spread, BOT_HITSCAN, this.prng, this.deps.exclude(), this.hits, this.deps.hitMask ?? (LAYER.WORLD | LAYER.PLAYER));
     for (let i = 0; i < this.hits.length; i++) {
       const h = this.hits[i]!;
       if (h.kind === 'actor' && h.actorId) {
         this.stats.hits++;
-        this.deps.events.emit('HIT', { actorId: h.actorId, zone: h.zone ?? 'body', damage: h.damage, point: h.point, penetrated: false });
+        this.deps.events.emit('HIT', { actorId: h.actorId, zone: h.zone ?? 'body', damage: h.damage, point: h.point, penetrated: false, shooter: this.id });
       } else this.deps.events.emit('IMPACT', { point: h.point, normal: h.normal, material: h.material, penetrated: false });
     }
   }
@@ -625,7 +664,7 @@ export class Bot {
       const dz = mt[2] - this.position[2];
       const d = Math.hypot(dx, dz);
       if (d > 0.05) {
-        const step = Math.min(d, ai.move.speed * dt);
+        const step = Math.min(d, ai.move.speed * this.speedMul * dt);
         this.position[0] += (dx / d) * step;
         this.position[2] += (dz / d) * step;
         this.settleY(this.position[1]);
@@ -645,7 +684,7 @@ export class Bot {
         d = Math.hypot(dx, dz);
       }
       if (d > 1e-3) {
-        const speed = this.perception.state === 'ALERT' ? ai.move.alertSpeed : ai.move.speed;
+        const speed = (this.perception.state === 'ALERT' ? ai.move.alertSpeed : ai.move.speed) * this.speedMul;
         const step = Math.min(d, speed * dt);
         this.position[0] += (dx / d) * step;
         this.position[2] += (dz / d) * step;

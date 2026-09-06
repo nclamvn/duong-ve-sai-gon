@@ -38,6 +38,9 @@ import { createPointerLock, type PointerLockController } from '@engine/input/poi
 import { Player } from '@game/player/player';
 import { SettingsStore, pickStore } from '@game/player/settings';
 import { Hud } from '@ui/hud';
+import { bearingOf, relDeg, type CompassMarker } from '@ui/compass';
+import type { Marker3DInput } from '@ui/markers';
+import type { MinimapActor } from '@ui/minimap';
 import { Weapon, type WeaponEvents, type ShooterContext } from '@game/weapons/weapon';
 import { WeaponFx } from '@game/weapons/fx';
 import { WeaponViewModel } from '@game/weapons/viewmodel';
@@ -49,6 +52,9 @@ import { getPositionsAndIndices, NavMeshHelper } from '@recast-navigation/three'
 import { BotActor } from '@game/actors/botActor';
 import type { BotEvents } from '@game/ai/bot';
 import { SquadCoordinator } from '@game/ai/squad';
+import { Squadmates } from '@game/ai/squadmates';
+import { LAYER } from '@engine/physics/layers';
+import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
 import type { MissionEvents } from '@game/mission/types';
@@ -125,6 +131,10 @@ export class Game {
   aiPaused = false;
   viewModelHidden = false;
   fpOverride: { ads: number; sprint: boolean } | null = null;
+  private readonly v3c = new Vector3();
+  private readonly hudCompass: CompassMarker[] = [];
+  private readonly hudMarkers: Marker3DInput[] = [];
+  private readonly hudMini: MinimapActor[] = [];
   private lastInputDx = 0;
   private lastInputDy = 0;
   readonly audio = new AudioEngine();
@@ -135,6 +145,8 @@ export class Game {
   readonly bots = new Map<string, BotActor>();
   /** tổ địch (TIP-018): ép sườn */
   squad: SquadCoordinator | null = null;
+  /** đồng đội có tên (TIP-M1A) */
+  squadmates!: Squadmates;
   private footstepMs = 0;
   private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true };
   private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
@@ -335,6 +347,12 @@ export class Game {
       if (this.pointerLock) this.pointerLock.rawInput = s.rawInput;
     });
     this.hud = new Hud();
+    if (this.terrain) {
+      this.hud.minimap.setMap(`${import.meta.env.BASE_URL ?? '/'}assets/terrain/${terrainDef!.terrain.id}/map.png`, { sizeM: this.terrain.tile.sizeM, cx: 0, cz: 0 });
+      const nr = terrainDef!.terrain.navRect;
+      this.hud.minimap.setFocus(nr.x, nr.z, Math.max(nr.w, nr.h) + 200);
+    }
+    else this.hud.minimap.setMap(null, { sizeM: 240, cx: 0, cz: 0 });
 
     // Actor bodies cho dummies (bia hitscan) + registry
     this.dummies.forEach((d, i) => {
@@ -365,22 +383,42 @@ export class Game {
     this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
     this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
     this.events.on('HIT', (e) => {
-      this.audio.impact('flesh', e.point);
+      const shooterBot = e.shooter && e.shooter !== 'player' ? this.bots.get(e.shooter) : undefined;
       if (e.actorId === 'player') {
+        if (shooterBot && shooterBot.faction === 'friend') return; // đồng đội không sát thương người chơi (TIP-M1A)
+        this.audio.impact('flesh', e.point);
         const dead = this.player.damage(e.damage);
+        // vòng chỉ hướng trúng đạn (TIP-UX02): phương vị nguồn so với hướng nhìn
+        if (shooterBot) {
+          const f = this.player.controller.feet;
+          const src = shooterBot.bot.position;
+          this.hud.damageFrom(relDeg(this.cameraHeadingDeg(), bearingOf(src[0] - f[0], src[2] - f[2])));
+        }
         if (dead) this.events.emit('ACTOR_DIED', { actorId: 'player', group: 'player' });
         return;
       }
       const b = this.bots.get(e.actorId);
       if (b) {
-        this.player.eyePosition(this.v3);
+        if (shooterBot && shooterBot.faction === b.faction) return; // cùng phe: không sát thương
+        if (e.shooter === 'player' && b.faction === 'friend') return; // người chơi không bắn được đồng đội (PRD §20.3 công bằng — đồng đội né; tạm miễn)
+        this.audio.impact('flesh', e.point);
+        if (shooterBot) this.v3.set(shooterBot.bot.position[0], shooterBot.bot.position[1] + 1.5, shooterBot.bot.position[2]);
+        else this.player.eyePosition(this.v3);
         const died = b.applyDamage(e.damage, [this.v3.x, this.v3.y, this.v3.z]);
-        if (died) this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
+        if (e.shooter === 'player') this.hud.hit(died);
+        if (shooterBot && shooterBot.faction === 'friend' && died) this.squadmates.bark(shooterBot.id, 'kill');
+        if (!died && b.faction === 'friend' && b.bot.health < 55) this.squadmates.bark(b.id, 'hurt');
+        if (died) {
+          this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
+          if (b.faction === 'friend') this.squadmates.remove(b.id);
+        }
         return;
       }
+      this.audio.impact('flesh', e.point);
       const a = this.actors.get(e.actorId);
       if (!a) return;
       const died = a.dummy.applyDamage(e.damage);
+      if (e.shooter === 'player') this.hud.hit(died);
       if (died) {
         a.body.setEnabled(false);
         this.events.emit('ACTOR_DIED', { actorId: a.id, group: a.group });
@@ -388,7 +426,11 @@ export class Game {
     });
     this.events.on('BOT_FIRED', (e) => {
       this.audio.gunshotAt(e.origin);
-      this.bots.get(e.botId)?.dummy.onFire();
+      const b = this.bots.get(e.botId);
+      if (b) {
+        b.dummy.onFire();
+        b.lastFireTick = this.clock.tick;
+      }
     });
 
     // Navmesh runtime từ ArenaData.navGeometry (ADR-003) + 1 bot tuần tra
@@ -425,7 +467,7 @@ export class Game {
       if (ev.code === 'F4' && this.navHelper) this.navHelper.visible = !this.navHelper.visible;
     });
     this.squad = new SquadCoordinator(this.arena.coverMarkers);
-    this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
+    if (this.levelId !== 'truong-son') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
     this.scheduler.add('ai10', (_tick, dtAi) => {
       let full = 0;
       let alive = 0;
@@ -465,6 +507,27 @@ export class Game {
     this.actorStats.total = this.dummies.length;
 
     // Mission data-driven (TIP-008): validate schema → runtime → start
+    this.squadmates = new Squadmates({
+      player: () => {
+        const f = this.player.controller.feet;
+        this.player.aimDirection(this.v3b, false);
+        const l = Math.hypot(this.v3b.x, this.v3b.z) || 1;
+        return { feet: [f[0], f[1], f[2]], fwdX: this.v3b.x / l, fwdZ: this.v3b.z / l, speed: this.player.controller.horizontalSpeed() };
+      },
+      objective: () => this.mission.objectiveMarker,
+      say: (cue, speaker) => this.mission.say(cue, speaker),
+      now: () => this.clock.simTime,
+    });
+    this.events.on('AI_STATE', (e) => {
+      const b = this.bots.get(e.botId);
+      if (!b || b.faction !== 'friend') return;
+      if (e.to === 'ENGAGE' && (e.from === 'PATROL' || e.from === 'INVESTIGATE')) this.squadmates.bark(b.id, 'contact');
+      else if (e.to === 'SEEK_COVER') this.squadmates.bark(b.id, 'cover');
+    });
+    this.events.on('AI_RELOAD', (e) => {
+      const b = this.bots.get(e.botId);
+      if (b && b.faction === 'friend') this.squadmates.bark(b.id, 'reload');
+    });
     this.mission = new MissionHost(this);
     this.mission.start();
     window.addEventListener('keydown', (ev) => {
@@ -618,10 +681,59 @@ export class Game {
     h.health = this.player.health;
     h.dead = !this.player.alive;
     h.mag = this.weapon.sm.mag;
+    h.magSize = this.weapon.def.magSize;
     h.reserve = this.weapon.sm.reserve;
     h.weaponState = this.weapon.state;
+    h.weaponKey = `weapon.${this.weapon.id}`;
     h.spreadDeg = this.weapon.spreadDeg;
+    h.ads = this.weapon.ads;
   }
+
+  /** hướng nhìn camera theo la bàn (độ, 0 = bắc = −z, kim đồng hồ) */
+  cameraHeadingDeg(): number {
+    this.v3c.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
+    return bearingOf(this.v3c.x, this.v3c.z);
+  }
+
+  /** dữ liệu HUD theo camera (la bàn, marker 3D, minimap) — gọi ở render sau khi camera cập nhật (TIP-UX02) */
+  private feedHud(): void {
+    const hud = this.hud;
+    const heading = this.cameraHeadingDeg();
+    hud.state.headingDeg = heading;
+    const eye: [number, number, number] = [this.camera.position.x, this.camera.position.y, this.camera.position.z];
+    this.v3c.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
+    const fwd: [number, number, number] = [this.v3c.x, this.v3c.y, this.v3c.z];
+    const feet = this.player.controller.feet;
+    this.hudCompass.length = 0;
+    this.hudMarkers.length = 0;
+    this.hudMini.length = 0;
+    const obj = this.mission.objectiveMarker;
+    if (obj) {
+      const d = Math.hypot(obj[0] - feet[0], obj[2] - feet[2]);
+      hud.state.objectiveDist = d;
+      this.hudCompass.push({ id: 'obj', kind: 'obj', bearing: bearingOf(obj[0] - feet[0], obj[2] - feet[2]) });
+      this.hudMarkers.push({ id: 'obj', kind: 'obj', x: obj[0], y: obj[1] + 1.6, z: obj[2], dist: d });
+    } else hud.state.objectiveDist = null;
+    for (const b of this.bots.values()) {
+      if (!b.bot.alive) continue;
+      const p = b.bot.position;
+      if (b.faction === 'friend') {
+        this.hudCompass.push({ id: b.id, kind: 'friend', bearing: bearingOf(p[0] - feet[0], p[2] - feet[2]) });
+        this.hudMarkers.push({ id: b.id, kind: 'friend', x: p[0], y: p[1] + 2.05, z: p[2], nameKey: b.nameKey ?? undefined });
+        this.hudMini.push({ x: p[0], z: p[2], kind: 'friend' });
+      } else if (this.clock.tick - b.lastFireTick < 180) this.hudMini.push({ x: p[0], z: p[2], kind: 'enemy' });
+    }
+    hud.setCompassMarkers(this.hudCompass);
+    hud.setMarkers3D(this.hudMarkers, this.projectPoint, eye, fwd);
+    hud.setMinimapActors({ x: feet[0], z: feet[2], yaw: this.player.rig.yaw, kind: 'player' }, this.hudMini, obj ? { x: obj[0], z: obj[2] } : null);
+  }
+
+  private readonly projectPoint = (x: number, y: number, z: number, out: [number, number, number]): void => {
+    this.v3c.set(x, y, z).project(this.camera);
+    out[0] = this.v3c.x;
+    out[1] = this.v3c.y;
+    out[2] = this.v3c.z > 1 || this.v3c.z < -1 ? 1 : 0;
+  };
 
   private renderStep(alpha: number, dt: number): void {
     if (this.cameraDriver) this.cameraDriver(alpha, dt);
@@ -652,6 +764,7 @@ export class Game {
     this.vmToMain(this.viewModel.ejectWorld, this.fxEject);
     this.lastInputDx = 0;
     this.lastInputDy = 0;
+    this.feedHud();
     this.hud.update();
     this.fx.update(dt);
     if (this.level) this.level.fx.update(dt);
@@ -702,23 +815,68 @@ export class Game {
     out.applyMatrix4(this.camera.matrixWorld);
   }
 
-  spawnBot(id: string, group: string, spawn: [number, number, number]): BotActor {
+  spawnBot(id: string, group: string, spawn: [number, number, number], opts: { faction?: Faction; nameKey?: string | null; archetype?: 'grunt' | 'recon' | 'squad'; waypoints?: Array<[number, number, number]> } = {}): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
-    const visual = createActorVisual(this.quality.character ? this.assets?.character ?? null : null, { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' }, this.assets?.weapons[this.botWeaponId] ?? null);
+    const faction: Faction = opts.faction ?? 'enemy';
+    const recon = opts.archetype === 'recon';
+    const visual = createActorVisual(
+      this.quality.character ? this.assets?.character ?? null : null,
+      recon ? { color: 0x3a3a2a, visor: 0xff5a2a, phase: id.length, skin: 'recon' } : { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' },
+      this.assets?.weapons[this.botWeaponId] ?? null,
+    );
+    const target = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: false };
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,
       events: this.events as unknown as EventBus<BotEvents>,
       prng: this.prng,
-      waypoints: this.arena.waypoints,
+      waypoints: opts.waypoints && opts.waypoints.length >= 2 ? opts.waypoints : this.arena.waypoints,
       coverMarkers: this.arena.coverMarkers,
-      target: () => this.targetInfo,
+      target: () => this.nearestHostile(b, target),
       camera: () => this.camInfo,
       groundHeight: this.terrain ? (x, z) => this.terrain!.heightAt(x, z) : undefined,
+      faction,
+      hitMask: faction === 'friend' ? LAYER.WORLD | LAYER.ACTOR : LAYER.WORLD | LAYER.PLAYER | LAYER.ACTOR,
+      followGoal: faction === 'friend' ? this.squadmates.goalFor(id) : undefined,
     });
+    b.faction = faction;
+    b.nameKey = opts.nameKey ?? null;
     this.bots.set(id, b);
     return b;
+  }
+
+  /** mục tiêu gần nhất khác phe (TIP-M1A): địch → người chơi/đồng đội; đồng đội → địch. Không có → alive=false (bot tuần tra/theo) */
+  private nearestHostile(self: BotActor, out: { pos: [number, number, number]; eye: [number, number, number]; alive: boolean }): { pos: [number, number, number]; eye: [number, number, number]; alive: boolean } {
+    const p = self.bot.position;
+    let best = Infinity;
+    let found = false;
+    if (self.faction === 'enemy') {
+      const ti = this.targetInfo;
+      if (ti.alive) {
+        best = Math.hypot(ti.pos[0] - p[0], ti.pos[2] - p[2]);
+        out.pos[0] = ti.pos[0]; out.pos[1] = ti.pos[1]; out.pos[2] = ti.pos[2];
+        out.eye[0] = ti.eye[0]; out.eye[1] = ti.eye[1]; out.eye[2] = ti.eye[2];
+        found = true;
+      }
+    }
+    for (const o of this.bots.values()) {
+      if (o === self || !o.bot.alive || o.faction === self.faction) continue;
+      const q = o.bot.position;
+      const d = Math.hypot(q[0] - p[0], q[2] - p[2]);
+      if (d < best) {
+        best = d;
+        out.pos[0] = q[0]; out.pos[1] = q[1]; out.pos[2] = q[2];
+        out.eye[0] = q[0]; out.eye[1] = q[1] + aiTuning.perception.eyeHeight; out.eye[2] = q[2];
+        found = true;
+      }
+    }
+    if (!found) {
+      out.pos[0] = 1e5; out.pos[1] = 0; out.pos[2] = 1e5;
+      out.eye[0] = 1e5; out.eye[1] = 1.6; out.eye[2] = 1e5;
+    }
+    out.alive = found;
+    return out;
   }
 
   despawnBot(id: string): void {
@@ -726,6 +884,7 @@ export class Game {
     if (!b) return;
     b.dispose(this.scene);
     this.bots.delete(id);
+    this.squadmates.remove(id);
   }
 
   /** Chết → tải checkpoint gần nhất, không có thì reset mission. */

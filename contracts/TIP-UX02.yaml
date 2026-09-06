@@ -1,0 +1,11 @@
+id: TIP-UX02
+goal: "HUD FPS cao cấp + la bàn + marker 3D + minimap bản đồ giấy + bản đồ chiến thuật (M/N), hit marker, vòng hướng trúng đạn, font OFL tự host (G1-A, DV-043)"
+scope: [src/ui/hud.ts, src/ui/hud.css, src/ui/compass.ts, src/ui/markers.ts, src/ui/minimap.ts, src/ui/subtitles.ts, index.html, src/game/game.ts, scripts/terrain-bake.mjs, public/assets/fonts, public/assets/terrain/truong-son-a/map.png, content/locale/vi.json, content/assets/manifest.json]
+acceptance:
+  - "Khung đầu ?level=truong-son: la bàn, đạn, máu, minimap, marker mục tiêu; font tải; yaw 90° → số hướng đổi 90"
+  - "Hit marker khi trúng địch, đỏ khi hạ; vòng hướng khi trúng đạn; M mở bản đồ, N tắt minimap; không lỗi console"
+  - "Ảnh Mac WebGPU Chủ nhà chấm 'chuẩn UI FPS cao cấp'" 
+tests: [tests/unit/hud-m1.test.ts, tests/e2e/level-truong-son.spec.ts]
+evidence: [evidence/TIP-UX02/completion-report.md, evidence/TIP-UX02/ci.txt, evidence/TIP-UX02/*.jpg]
+rollback: "git revert commit TIP-UX02; index.html style cũ trong lịch sử"
+status: DONE-sandbox (chờ ảnh Mac Chủ nhà)

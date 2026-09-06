@@ -307,7 +307,7 @@ Mỗi asset lịch sử qua checklist trước khi được đánh dấu `approv
 
 **Giao diện mang chất liệu của ký ức; thông tin chiến đấu phải rõ ngay.** Menu dùng giấy, vải, mực và bản đồ minh họa; HUD dùng chữ sạch, tương phản tốt. Không ép mọi thông tin thành đồ vật trong thế giới game: việc đọc máu, đạn và mục tiêu không được biến thành thao tác rườm rà. Không dùng màn hình vệ tinh, kính nhìn đêm, mã nhị phân hay nhiễu số làm ngôn ngữ chủ đạo cho bối cảnh 1971–1975.
 
-UX-001 được làm rõ: không mini-map mặc định, nhưng có trợ giúp định hướng tùy chọn. Hiển thị cả đạn trong súng và băng dự trữ ở chế độ mặc định; chế độ Nhập vai có thể ẩn số đạn nhưng phải có thao tác kiểm tra. Nhịp thở và thay đổi hình ảnh hỗ trợ trạng thái sức khỏe, không phải kênh thông tin duy nhất.
+UX-001 được làm rõ: không mini-map mặc định *(sửa DV-043, 2026-09-06: Chủ nhà chọn minimap bản đồ giấy bật mặc định ở M1 + la bàn + marker 3D + bản đồ chiến thuật phím M; tắt bằng N)*, nhưng có trợ giúp định hướng tùy chọn. Hiển thị cả đạn trong súng và băng dự trữ ở chế độ mặc định; chế độ Nhập vai có thể ẩn số đạn nhưng phải có thao tác kiểm tra. Nhịp thở và thay đổi hình ảnh hỗ trợ trạng thái sức khỏe, không phải kênh thông tin duy nhất.
 
 ### 8.2 Luồng vào game và quay lại
 

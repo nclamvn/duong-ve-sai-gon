@@ -11,6 +11,8 @@ export interface CueRequest {
   durationMs: number;
   priority: number;
   interruptPolicy: string;
+  /** 'radio' → icon sóng trước tên (TIP-UX02) */
+  bus?: string;
 }
 
 export class Subtitles {
@@ -56,7 +58,8 @@ export class Subtitles {
     this.remainingMs = req.durationMs;
     this.shown.push(req.cue);
     this.el.hidden = false;
-    this.el.innerHTML = `<span class="speaker">${t(`speaker.${req.speaker}`)}</span><span data-testid="subtitle-text" data-cue="${req.cue}">${t(req.subtitleKey)}</span>`;
+    const radio = req.bus === 'radio' ? '<i class="radio" aria-hidden="true"></i>' : '';
+    this.el.innerHTML = `${radio}<span class="speaker">${t(`speaker.${req.speaker}`)}</span><span data-testid="subtitle-text" data-cue="${req.cue}">${t(req.subtitleKey)}</span>`;
   }
 
   /** dt giây — gọi mỗi frame (render) */

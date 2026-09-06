@@ -7,11 +7,19 @@ import type { ActorVisual } from './visual';
 import { attachActorBody, type ActorBody } from './actorPhysics';
 import type { PhysicsWorld } from '@engine/physics/world';
 
+export type Faction = 'enemy' | 'friend';
+
 export class BotActor {
   readonly bot: Bot;
   readonly dummy: ActorVisual;
   readonly body: ActorBody;
   readonly spawn: [number, number, number];
+  /** phe (TIP-M1A): địch nhắm người chơi + đồng đội; đồng đội nhắm địch */
+  faction: Faction = 'enemy';
+  /** khoá i18n tên (đồng đội có tên — PRD §8.4 "dấu nhỏ khi nhìn vào") */
+  nameKey: string | null = null;
+  /** tick sim lần bắn gần nhất (minimap: địch chỉ hiện khi vừa bắn) */
+  lastFireTick = -1e9;
 
   constructor(
     readonly id: string,

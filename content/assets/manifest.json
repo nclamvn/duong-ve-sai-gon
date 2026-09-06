@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T07:46:10.067Z",
+  "generatedAt": "2026-09-06T09:00:08.693Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 135644516,
+  "totalBytes": 136616053,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3106,6 +3106,11 @@
           "path": "assets/terrain/truong-son-a/nav.bin",
           "bytes": 758620,
           "sha256": "e12b66359f8d0de0ddfbc5c5d36515aee047d18d5f9c1db0069722b922c566ea"
+        },
+        {
+          "path": "assets/terrain/truong-son-a/map.png",
+          "bytes": 834461,
+          "sha256": "b8734fb379b0a83f762e50d7a744b76b4761d8d3cbf842a37afe4c938e2a22b1"
         }
       ],
       "sourceFiles": [
@@ -3578,6 +3583,55 @@
         13,
         3.2,
         2.76
+      ]
+    },
+    {
+      "id": "font_barlow_condensed",
+      "type": "font",
+      "use": "HUD số/nhãn (TIP-UX02): la bàn, đạn, mục tiêu — subset Latin + tiếng Việt, woff2",
+      "source": "google-fonts",
+      "url": "https://github.com/google/fonts/tree/main/ofl/barlowcondensed",
+      "authors": [
+        "Jeremy Tribby"
+      ],
+      "license": "OFL-1.1",
+      "attribution": "Barlow Condensed by Jeremy Tribby, SIL Open Font License 1.1 (public/assets/fonts/OFL-BarlowCondensed.txt)",
+      "files": [
+        {
+          "path": "assets/fonts/BarlowCondensed-Medium.woff2",
+          "bytes": 31596,
+          "sha256": "82e71b07cdd4ed55116deffc59ba76c372eea0f342c62e1df8b1a2450e1ebf63"
+        },
+        {
+          "path": "assets/fonts/BarlowCondensed-SemiBold.woff2",
+          "bytes": 32596,
+          "sha256": "9c003e95c45fe2437c48a2aec8f4d18a9ebe40fe8a3af4dd187b695728c51147"
+        }
+      ]
+    },
+    {
+      "id": "font_be_vietnam_pro",
+      "type": "font",
+      "use": "HUD chữ/phụ đề (TIP-UX02): mục tiêu, phụ đề, bản đồ — subset Latin + tiếng Việt, woff2",
+      "source": "google-fonts",
+      "url": "https://github.com/google/fonts/tree/main/ofl/bevietnampro",
+      "authors": [
+        "Lam Bao",
+        "Tony Le"
+      ],
+      "license": "OFL-1.1",
+      "attribution": "Be Vietnam Pro by Lam Bao, Tony Le, SIL Open Font License 1.1 (public/assets/fonts/OFL-BeVietnamPro.txt)",
+      "files": [
+        {
+          "path": "assets/fonts/BeVietnamPro-Regular.woff2",
+          "bytes": 35292,
+          "sha256": "ee2264be609466d057609512675331c616f8fe6df65e62a96749a9f446b97114"
+        },
+        {
+          "path": "assets/fonts/BeVietnamPro-SemiBold.woff2",
+          "bytes": 37592,
+          "sha256": "de9ce1977a6baf1f4342731264352f12a6f4c66352618307523a271c888a5288"
+        }
       ]
     }
   ]

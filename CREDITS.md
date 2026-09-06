@@ -27,8 +27,8 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "fern grass 02" (https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9) by POLYSCAN is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/fern_grass.glb`
 - "F4 Phantom 2 Low Poly" (https://sketchfab.com/3d-models/f4-phantom-2-low-poly-61e7eac5e5bb438989b997dc873934b6) by luacha2000 is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_f4.glb`
 - "Boeing B-52 Stratofortress" (https://sketchfab.com/3d-models/boeing-b-52-stratofortress-38b0c64bd552431394efa8625d7f5144) by bohmerang is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_b52.glb`
-- "UH-1 B with (half modeled cockpit)" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_uh1b.glb`
 - "Lockheed AC-130 "Hercules"" (https://sketchfab.com/3d-models/lockheed-ac-130-hercules-361991c9874d4680931b3e0d23500e43) by helijah is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_c130.glb`
+- "UH-1 B with (half modeled cockpit)" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_uh1b.glb`
 
 ## CC0-1.0
 
@@ -104,4 +104,9 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
-Tổng: 90 asset, 129.2 MB. Cập nhật 2026-09-06T06:31:39.625Z.
+## OFL-1.1
+
+- font_barlow_condensed (font) — Jeremy Tribby — https://github.com/google/fonts/tree/main/ofl/barlowcondensed
+- font_be_vietnam_pro (font) — Lam Bao, Tony Le — https://github.com/google/fonts/tree/main/ofl/bevietnampro
+
+Tổng: 92 asset, 130.3 MB. Cập nhật 2026-09-06T09:00:08.693Z.

@@ -104,3 +104,20 @@ Tạo repo GitHub `duong-ve-sai-gon` (private) và push như quy trình cũ; ch�
 3. **Repo:** fork thành `duong-ve-sai-gon` (đề xuất) hay tiếp tục trong `hai-tuyen`.
 
 Sau APPROVED, tôi phát TIP-D01 và D03 ngay (song song), rồi D04.
+
+## 8. Sửa đổi G1-A — "Nâng cấp triệt để" (Chủ nhà, 2026-09-06, sau ảnh Mac `83ce72b`)
+
+Chủ nhà xem M1 trên Mac WebGPU và yêu cầu **không quick fix, nâng cấp triệt để**: tay FP "như cục thịt", trực thăng bay giật lùi và
+quá cao, không bản đồ/mục tiêu, không đồng đội, không địch, chữ HUD thô. Chủ thầu gộp thành vòng **G1-A** chạy TRƯỚC D06–D09
+(đè lên thứ tự §4), Chủ nhà chốt qua AskUserQuestion: vòng 1 = **trận đánh + HUD**; bản đồ = **la bàn + marker + minimap + bản đồ
+chiến thuật** (sửa PRD §8.1 "không mini-map mặc định" → minimap bật mặc định ở M1, tắt được); tay = **Sketchfab CC-BY rigged**.
+
+| TIP | Phạm vi | Deps | Nghiệm thu | Effort |
+|---|---|---|---|---|
+| **TIP-UX02 HUD FPS cao cấp + bản đồ** (thay phần HUD của D06) | Font OFL tự host (Barlow Condensed số/nhãn, Be Vietnam Pro chữ); thanh la bàn có marker mục tiêu/đồng đội; marker 3D mục tiêu + khoảng cách, kẹp mép khi ngoài khung; **minimap bản đồ giấy 1971** bake từ terrain + rừng (`terrain-bake --map`), xoay theo hướng nhìn, bật/tắt; bản đồ chiến thuật toàn màn (M); đạn (băng to, dự trữ, tên súng, chế độ), máu = thanh + trạng thái chữ §8.4 + vignette đỏ; hit marker (khác khi hạ), vòng chỉ hướng trúng đạn; banner mục tiêu góc trái 6 s rồi thu gọn; phụ đề tên người nói + icon radio; tên đồng đội khi nhìn vào; mọi chuỗi i18n; ADS ẩn chấm ngắm | D-SKY | E2E: phần tử HUD có/đúng dữ liệu, la bàn quay theo yaw, marker chiếu đúng, minimap render; ảnh Mac Chủ nhà chấm | 24 h |
+| **TIP-M1A Trận đánh M1 lát cắt** (gộp phần đầu D08 + D13 + D14) | Mission `truong-son-a.mission.json` + thoại M1 (Quyết, Hải, Sáng, trạm giao liên — không dùng thoại Hải Tuyến); tuyến: theo Quyết vào tuyến → điểm quan sát (checkpoint B) → **chặn toán thám báo** 4–6 tên 2 đợt trước bãi bốc → UH-1 đến bãi (sky trigger) → xong; `faction` cho bot (`friend`/`enemy`): đồng đội Quyết + Hải theo người chơi (đội hình, navmesh, dừng khi ta dừng), bắn địch, bark ưu tiên; địch nhắm ta lẫn đồng đội; archetype thám báo = retexture rằn ri hổ (procedural) + mũ đi rừng, súng tạm AK (M16 CC-BY khi tìm được); không spawn trước mắt (ENC-201); checkpoint A/B/C | TIP-UX02 (marker), D05 | E2E `level-truong-son`: mission chạy hết bằng stepSim; đồng đội theo ≤ 12 m; địch chết → node kế; unit faction targeting; ảnh Mac | 32 h |
+| **TIP-D11b Bàn tay thật** | Bộ tay FPS rigged CC-BY (kiểm nguồn DV-042), retarget vào IK hai xương + ngón, ống tay Tô Châu, da tay trần; `?calib=fp` chấm; hip/ADS giữ trong tầm với | — | ảnh Mac 3 pose; `fpArms.debugInfo().L.dist ≤ reach` | 16 h |
+| **TIP-ART02 Đồ hoạ M1** | LUT màu phim 70s (REN-006, `?lut=0`), sương theo độ cao + tia nắng có điều kiện (REN-004/005), lá xuyên sáng, TRAA mặc định WebGPU, vật liệu súng/tay, ánh sáng M1 theo giờ; giữ ngân sách frame (D18 gate) | TIP-D11b | bench Mac trước/sau; ảnh hero 3 góc | 24 h |
+
+Thứ tự: UX02 → M1A (phiên này) → D11b → ART02. Gate perf không đổi: p95 ≤ 16,67 ms mục tiêu, không hạ chất lượng toàn cục để "đạt".
+

@@ -4,24 +4,75 @@
   "title": "DialogueCueSet",
   "description": "PRD §8 DialogueCue — cueId là ID nghiệp vụ, không dùng tên file.",
   "type": "object",
-  "required": ["cues"],
+  "required": [
+    "cues"
+  ],
   "additionalProperties": false,
   "properties": {
     "cues": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["cueId", "speaker", "subtitleKey", "priority", "interruptPolicy", "durationMs"],
+        "required": [
+          "cueId",
+          "speaker",
+          "subtitleKey",
+          "priority",
+          "interruptPolicy",
+          "durationMs"
+        ],
         "additionalProperties": false,
         "properties": {
-          "cueId": { "type": "string", "pattern": "^[DP]\\d{2}$" },
-          "speaker": { "enum": ["VY", "NAM", "DUY", "AN", "TRAM_BAC"] },
-          "audio": { "type": ["string", "null"] },
-          "subtitleKey": { "type": "string" },
-          "priority": { "type": "integer", "minimum": 0, "maximum": 10 },
-          "interruptPolicy": { "enum": ["queue", "interrupt", "drop"] },
-          "durationMs": { "type": "integer", "minimum": 500 },
-          "bus": { "enum": ["dialogue", "radio"] }
+          "cueId": {
+            "type": "string",
+            "pattern": "^[DPM]\\d{2}$",
+            "description": "D = G0 arena, P = Phố Vạn Hải, M = M1 Trường Sơn"
+          },
+          "speaker": {
+            "enum": [
+              "VY",
+              "NAM",
+              "DUY",
+              "AN",
+              "TRAM_BAC",
+              "QUYET",
+              "HAI",
+              "SANG",
+              "THANH",
+              "GIAO_LIEN"
+            ]
+          },
+          "audio": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subtitleKey": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "interruptPolicy": {
+            "enum": [
+              "queue",
+              "interrupt",
+              "drop"
+            ]
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": 500
+          },
+          "bus": {
+            "enum": [
+              "dialogue",
+              "radio"
+            ]
+          }
         }
       }
     }

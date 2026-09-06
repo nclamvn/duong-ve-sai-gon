@@ -6,6 +6,7 @@
 import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopOnce, LoopRepeat, Mesh, Bone, type AnimationAction, MeshStandardNodeMaterial, Color } from 'three/webgpu';
 import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
+import { tigerStripeColorNode } from './camo';
 
 /** Trạng thái animation chuẩn của lính; mỗi trạng thái map tới danh sách tên clip ưu tiên (Mixamo, fallback three Soldier.glb). */
 export type CharState = 'idle' | 'walk' | 'run' | 'aim' | 'fire' | 'reload' | 'hit' | 'death' | 'crouch_idle' | 'crouch_walk';
@@ -76,6 +77,8 @@ export interface CharacterInstanceOptions {
   /** màu phe: nhân emissive nhẹ lên material tên chứa "visor"/"light", tint nhẹ body */
   tint?: number;
   visor?: number;
+  /** 'recon' = rằn ri hổ thay vải QGP trong shader (TIP-M1A) */
+  skin?: 'recon';
 }
 
 /**
@@ -117,6 +120,7 @@ export class CharacterInstance {
           } else if (opts.tint !== undefined && c.color) {
             c.color.lerp(new Color(opts.tint), 0.25);
           }
+          if (opts.skin === 'recon' && c.map) c.colorNode = tigerStripeColorNode(c.map);
           this.materials.push(c);
           this.baseEmissive.push(c.emissive ? c.emissive.clone() : new Color(0));
           return c;

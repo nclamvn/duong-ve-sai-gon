@@ -521,15 +521,15 @@
         ],
         "speed": 38,
         "period": [
-          420,
-          720
+          100000,
+          100001
         ],
-        "first": 95,
+        "first": 100000,
         "radius": 1500,
         "hover": {
           "at": [
-            -624,
-            480
+            -292,
+            306
           ],
           "seconds": 25,
           "agl": 4
@@ -538,7 +538,7 @@
         "spin": "rotor|blade|prop",
         "spinRate": 30,
         "sound": "rotor",
-        "$comment": "điểm treo = bãi trống tự nhiên trong rừng (không cây thân trong bán kính ~28 m, dốc ~14°; tìm bằng scripts/_clearing.mjs từ scatter seed 1971) — treo trong tán cây thì không thấy (DV-042)"
+        "$comment": "bãi bốc thám báo = bãi trống tự nhiên trong navRect (find-clearing: không cây thân trong 22 m, dốc 2°); lượt này KHÔNG theo lịch — mission M1 kích hoạt bằng action sky_trigger khi người chơi tới bãi (TIP-M1A, DV-043)"
       },
       {
         "id": "c130_high",
@@ -588,6 +588,38 @@
     "bot_a": [
       -170,
       540
+    ],
+    "sq_quyet": [
+      -130,
+      574
+    ],
+    "sq_hai": [
+      -138,
+      574
+    ],
+    "rc1_a": [
+      -330,
+      330
+    ],
+    "rc1_b": [
+      -322,
+      318
+    ],
+    "rc1_c": [
+      -338,
+      316
+    ],
+    "rc2_a": [
+      -240,
+      300
+    ],
+    "rc2_b": [
+      -232,
+      292
+    ],
+    "rc2_c": [
+      -250,
+      286
     ]
   },
   "waypoints": [
@@ -629,8 +661,143 @@
         -200,
         430
       ],
-      "radius": 20
+      "radius": 16
+    },
+    "block": {
+      "center": [
+        -262,
+        352
+      ],
+      "radius": 22
+    },
+    "lz": {
+      "center": [
+        -292,
+        306
+      ],
+      "radius": 16
     }
   },
-  "coverMarkers": []
+  "coverMarkers": [
+    {
+      "id": "lz_0",
+      "position": [
+        -312.9,
+        280.6
+      ],
+      "facing": [
+        0.635,
+        0,
+        0.773
+      ]
+    },
+    {
+      "id": "lz_1",
+      "position": [
+        -277.7,
+        273.8
+      ],
+      "facing": [
+        -0.406,
+        0,
+        0.914
+      ]
+    },
+    {
+      "id": "lz_2",
+      "position": [
+        -268.7,
+        306.1
+      ],
+      "facing": [
+        -1,
+        0,
+        -0.006
+      ]
+    },
+    {
+      "id": "lz_3",
+      "position": [
+        -314.8,
+        321.4
+      ],
+      "facing": [
+        0.829,
+        0,
+        -0.56
+      ]
+    },
+    {
+      "id": "lz_4",
+      "position": [
+        -270.9,
+        334.3
+      ],
+      "facing": [
+        -0.598,
+        0,
+        -0.802
+      ]
+    },
+    {
+      "id": "blk_0",
+      "position": [
+        -272.3,
+        332.1
+      ],
+      "facing": [
+        0.459,
+        0,
+        0.889
+      ]
+    },
+    {
+      "id": "blk_1",
+      "position": [
+        -257.1,
+        332.2
+      ],
+      "facing": [
+        -0.24,
+        0,
+        0.971
+      ]
+    },
+    {
+      "id": "blk_2",
+      "position": [
+        -280.4,
+        368.8
+      ],
+      "facing": [
+        0.739,
+        0,
+        -0.674
+      ]
+    },
+    {
+      "id": "blk_3",
+      "position": [
+        -255.5,
+        364
+      ],
+      "facing": [
+        -0.477,
+        0,
+        -0.879
+      ]
+    },
+    {
+      "id": "blk_4",
+      "position": [
+        -276.1,
+        375
+      ],
+      "facing": [
+        0.523,
+        0,
+        -0.852
+      ]
+    }
+  ]
 }

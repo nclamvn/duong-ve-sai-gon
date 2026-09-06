@@ -1,8 +1,8 @@
 /**
  * Mission types (PRD §8): runtime chỉ thực thi action/condition trong allow-list. Khớp content/schemas/mission.schema.json.
  */
-export const ACTION_TYPES = ['radio', 'objective', 'objective_complete', 'spawn', 'checkpoint', 'mission_complete', 'set_flag'] as const;
-export const CONDITION_TYPES = ['zone_enter', 'group_dead', 'flag', 'timeout', 'always'] as const;
+export const ACTION_TYPES = ['radio', 'objective', 'objective_complete', 'spawn', 'checkpoint', 'mission_complete', 'set_flag', 'sky_trigger', 'squad_order'] as const;
+export const CONDITION_TYPES = ['zone_enter', 'group_dead', 'flag', 'timeout', 'active_ms', 'always'] as const;
 
 export type ActionType = (typeof ACTION_TYPES)[number];
 export type ConditionType = (typeof CONDITION_TYPES)[number];
@@ -11,10 +11,16 @@ export interface MissionAction {
   type: ActionType;
   cue?: string;
   objectiveKey?: string;
+  /** objective: zone id làm điểm marker HUD (TIP-UX02) */
+  marker?: string;
   group?: string;
   checkpoint?: string;
   flag?: string;
   value?: boolean;
+  /** sky_trigger: id lượt bay (engine/sky) */
+  flight?: string;
+  /** squad_order: lệnh đồng đội (TIP-M1A) */
+  order?: 'follow' | 'hold';
 }
 
 export interface MissionCondition {
@@ -45,10 +51,16 @@ export interface MissionZone {
 
 export interface SpawnGroup {
   id: string;
-  archetype: 'grunt';
+  /** grunt = lính HT-MB/địch mặc định; recon = thám báo (rằn ri); squad = đồng đội có tên */
+  archetype: 'grunt' | 'recon' | 'squad';
   count: number;
+  /** tên spawn point (hoặc danh sách — mỗi bot một điểm, TIP-M1A) */
   spawn: string;
+  spawns?: string[];
   budget?: number;
+  faction?: 'enemy' | 'friend';
+  /** squad: khoá i18n tên từng thành viên (name.quyet …) */
+  names?: string[];
 }
 
 export interface MissionDefinition {
@@ -66,7 +78,7 @@ export interface MissionDefinition {
 
 export interface DialogueCue {
   cueId: string;
-  speaker: 'VY' | 'NAM' | 'DUY' | 'AN' | 'TRAM_BAC';
+  speaker: string;
   audio: string | null;
   subtitleKey: string;
   priority: number;
@@ -97,7 +109,9 @@ export interface CheckpointSnapshot {
 
 export interface MissionEvents extends Record<string, unknown> {
   RADIO: { cue: string; speaker: string; subtitleKey: string; durationMs: number; priority: number; interruptPolicy: string; bus: string };
-  OBJECTIVE: { key: string; status: 'active' | 'complete' };
+  OBJECTIVE: { key: string; status: 'active' | 'complete'; marker?: string };
+  SKY_TRIGGER: { flight: string };
+  SQUAD_ORDER: { order: 'follow' | 'hold' };
   SPAWN_GROUP: { group: string; count: number; spawn: string };
   CHECKPOINT_SAVED: { checkpoint: string };
   MISSION_COMPLETE: { missionId: string };

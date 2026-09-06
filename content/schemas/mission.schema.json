@@ -4,26 +4,77 @@
   "title": "MissionDefinition",
   "description": "PRD §8 — MissionDefinition + MissionNode. Runtime chỉ thực thi action/condition trong allow-list.",
   "type": "object",
-  "required": ["id", "version", "seedPolicy", "startNode", "checkpoints", "localization", "nodes"],
+  "required": [
+    "id",
+    "version",
+    "seedPolicy",
+    "startNode",
+    "checkpoints",
+    "localization",
+    "nodes"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "seedPolicy": { "enum": ["fixed", "random"] },
-    "seed": { "type": "integer", "minimum": 0 },
-    "startNode": { "type": "string" },
-    "checkpoints": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
-    "localization": { "type": "string", "enum": ["vi"] },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "seedPolicy": {
+      "enum": [
+        "fixed",
+        "random"
+      ]
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "startNode": {
+      "type": "string"
+    },
+    "checkpoints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "localization": {
+      "type": "string",
+      "enum": [
+        "vi"
+      ]
+    },
     "zones": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "center", "radius"],
+        "required": [
+          "id",
+          "center",
+          "radius"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "center": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
-          "radius": { "type": "number", "exclusiveMinimum": 0 }
+          "id": {
+            "type": "string"
+          },
+          "center": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "radius": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
         }
       }
     },
@@ -31,64 +82,216 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "archetype", "count", "spawn"],
+        "required": [
+          "id",
+          "archetype",
+          "count",
+          "spawn"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "archetype": { "enum": ["grunt"] },
-          "count": { "type": "integer", "minimum": 1, "maximum": 16 },
-          "spawn": { "type": "string", "description": "tên spawn point trong ArenaData" },
-          "budget": { "type": "integer", "minimum": 1, "maximum": 16 }
+          "id": {
+            "type": "string"
+          },
+          "archetype": {
+            "enum": [
+              "grunt",
+              "recon",
+              "squad"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "spawn": {
+            "type": "string",
+            "description": "tên spawn point trong ArenaData"
+          },
+          "budget": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          },
+          "spawns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "faction": {
+            "enum": [
+              "enemy",
+              "friend"
+            ]
+          },
+          "names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "nodes": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/definitions/node" }
+      "items": {
+        "$ref": "#/definitions/node"
+      }
+    },
+    "$schema": {
+      "type": "string"
     }
   },
   "definitions": {
     "node": {
       "type": "object",
-      "required": ["id", "type", "enterConditions", "actions", "exitConditions", "next"],
+      "required": [
+        "id",
+        "type",
+        "enterConditions",
+        "actions",
+        "exitConditions",
+        "next"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string" },
-        "type": { "enum": ["script", "objective", "encounter", "terminal"] },
-        "enterConditions": { "type": "array", "items": { "$ref": "#/definitions/condition" } },
-        "actions": { "type": "array", "items": { "$ref": "#/definitions/action" } },
-        "exitConditions": { "type": "array", "items": { "$ref": "#/definitions/condition" } },
-        "next": { "type": ["string", "null"] },
-        "timeoutMs": { "type": "integer", "minimum": 0 },
-        "fallbackNext": { "type": ["string", "null"] }
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "script",
+            "objective",
+            "encounter",
+            "terminal"
+          ]
+        },
+        "enterConditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/action"
+          }
+        },
+        "exitConditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timeoutMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fallbackNext": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "condition": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": { "enum": ["zone_enter", "group_dead", "flag", "timeout", "always"] },
-        "zone": { "type": "string" },
-        "group": { "type": "string" },
-        "flag": { "type": "string" },
-        "value": { "type": "boolean" },
-        "ms": { "type": "integer", "minimum": 0 }
+        "type": {
+          "enum": [
+            "zone_enter",
+            "group_dead",
+            "flag",
+            "timeout",
+            "active_ms",
+            "always"
+          ]
+        },
+        "zone": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "flag": {
+          "type": "string"
+        },
+        "value": {
+          "type": "boolean"
+        },
+        "ms": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "action": {
       "type": "object",
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": { "enum": ["radio", "objective", "objective_complete", "spawn", "checkpoint", "mission_complete", "set_flag"] },
-        "cue": { "type": "string" },
-        "objectiveKey": { "type": "string" },
-        "group": { "type": "string" },
-        "checkpoint": { "type": "string" },
-        "flag": { "type": "string" },
-        "value": { "type": "boolean" }
+        "type": {
+          "enum": [
+            "radio",
+            "objective",
+            "objective_complete",
+            "spawn",
+            "checkpoint",
+            "mission_complete",
+            "set_flag",
+            "sky_trigger",
+            "squad_order"
+          ]
+        },
+        "cue": {
+          "type": "string"
+        },
+        "objectiveKey": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "checkpoint": {
+          "type": "string"
+        },
+        "flag": {
+          "type": "string"
+        },
+        "value": {
+          "type": "boolean"
+        },
+        "marker": {
+          "type": "string",
+          "description": "objective: zone id làm marker HUD"
+        },
+        "flight": {
+          "type": "string"
+        },
+        "order": {
+          "enum": [
+            "follow",
+            "hold"
+          ]
+        }
       }
     }
   }

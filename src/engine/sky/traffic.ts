@@ -275,6 +275,14 @@ export class SkyTraffic {
     this.stats.parachutes = this.parachutes.filter((p) => p.alive).length;
   }
 
+  /** kích hoạt một lượt bay ngay (mission `sky_trigger`, TIP-M1A) — không đụng lịch; false nếu không có flight/model */
+  trigger(flightId: string): boolean {
+    const f = this.def.flights.find((x) => x.id === flightId);
+    if (!f || !this.models[f.model]) return false;
+    this.startRun(f);
+    return true;
+  }
+
   private startRun(d: FlightDef): void {
     const tpl = this.models[d.model];
     if (!tpl) return;

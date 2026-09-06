@@ -17,7 +17,7 @@ export type WeaponDef = (typeof weaponsJson)['ar_v1'];
 
 export interface WeaponEvents extends Record<string, unknown> {
   WEAPON_FIRED: { weapon: string; origin: [number, number, number]; dir: [number, number, number]; shotIndex: number; ads: number };
-  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: [number, number, number]; penetrated: boolean };
+  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: [number, number, number]; penetrated: boolean; shooter?: string };
   IMPACT: { point: [number, number, number]; normal: [number, number, number]; material: string; penetrated: boolean };
   RELOAD_START: { weapon: string };
   RELOAD_END: { weapon: string; mag: number; reserve: number };
@@ -141,7 +141,7 @@ export class Weapon {
     resolveShot(this.world, ctx.origin, this.aimWithRecoil, this.spreadDeg, this.def, this.prng, ctx.exclude, this.hits);
     for (let i = 0; i < this.hits.length; i++) {
       const h = this.hits[i]!;
-      if (h.kind === 'actor' && h.actorId) this.events.emit('HIT', { actorId: h.actorId, zone: h.zone ?? 'body', damage: h.damage, point: h.point, penetrated: h.penetrated });
+      if (h.kind === 'actor' && h.actorId) this.events.emit('HIT', { actorId: h.actorId, zone: h.zone ?? 'body', damage: h.damage, point: h.point, penetrated: h.penetrated, shooter: 'player' });
       else this.events.emit('IMPACT', { point: h.point, normal: h.normal, material: h.material, penetrated: h.penetrated });
     }
   }

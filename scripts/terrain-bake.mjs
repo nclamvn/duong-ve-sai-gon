@@ -121,6 +121,123 @@ if (args.includes('--nav')) {
   process.exit(0);
 }
 
+/**
+ * Chế độ --map (TIP-UX02): bản đồ giấy 1971 cho minimap/bản đồ chiến thuật từ height.r16 (+ rừng scatter của level)
+ *   node scripts/terrain-bake.mjs --map --id truong-son-a [--level content/levels/truong-son-a.level.json] [--px 1024] [--yOffset 691.2]
+ * → public/assets/terrain/<id>/map.png: giấy + hillshade + đường đồng mức 20 m (100 m đậm) + màu rừng theo mật độ cây tán; bắc = mép trên.
+ */
+if (args.includes('--map')) {
+  const ID = opt('id', 'truong-son-a');
+  const dir = `public/assets/terrain/${ID}`;
+  const meta = JSON.parse(readFileSync(`${dir}/meta.json`, 'utf8'));
+  const buf = readFileSync(`${dir}/height.r16`);
+  const u16 = new Uint16Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+  const n = meta.n, res = meta.resM, size = meta.sizeM, half = size / 2;
+  const PX = Number(opt('px', '1024'));
+  const hAt = (i, j) => meta.zMin + (u16[Math.min(n - 1, Math.max(0, j)) * n + Math.min(n - 1, Math.max(0, i))] / 65535) * (meta.zMax - meta.zMin);
+  // rừng: mật độ cây tán trên lưới 8 m (scatter engine, density 1)
+  const forest = new Float32Array(PX * PX);
+  const levelPath = opt('level', null);
+  if (levelPath) {
+    const { rolldown } = await import('rolldown');
+    mkdirSync('.sync', { recursive: true });
+    writeFileSync('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+    const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
+    const { output } = await b.generate({ format: 'esm' });
+    writeFileSync('.sync/_nav-veg.mjs', output[0].code);
+    const eng = await import(`${process.cwd()}/.sync/_nav-veg.mjs?t=${Date.now()}`);
+    const level = JSON.parse(readFileSync(levelPath, 'utf8'));
+    const veg = level.vegetation;
+    if (veg) {
+      const tile = new eng.TerrainTile(meta, u16, 0);
+      const tmp = new Float32Array(PX * PX);
+      for (const rule of veg.species) {
+        if (!rule.collider) continue; // cây thân (tán, cọ, tre)
+        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, { ...rule, variants: 1 }, veg.seed, veg.cellM ?? 64, 1);
+        const w = /tree/.test(rule.id) ? 1 : 0.5;
+        for (let i = 0; i < pl.count; i++) {
+          const px = Math.floor(((pl.pos[i * 3] + half) / size) * PX);
+          const py = Math.floor(((pl.pos[i * 3 + 2] + half) / size) * PX);
+          if (px >= 0 && py >= 0 && px < PX && py < PX) tmp[py * PX + px] += w;
+        }
+      }
+      // làm mờ hộp 9 px hai lần → mảng rừng mềm
+      const blur = (src, dst, r) => {
+        for (let y = 0; y < PX; y++) for (let x = 0; x < PX; x++) {
+          let s = 0, c = 0;
+          for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
+            const xx = x + dx, yy = y + dy;
+            if (xx < 0 || yy < 0 || xx >= PX || yy >= PX) continue;
+            s += src[yy * PX + xx]; c++;
+          }
+          dst[y * PX + x] = s / c;
+        }
+      };
+      const t2 = new Float32Array(PX * PX);
+      blur(tmp, t2, 4);
+      blur(t2, forest, 4);
+      let mx = 0;
+      for (let i = 0; i < forest.length; i++) mx = Math.max(mx, forest[i]);
+      for (let i = 0; i < forest.length; i++) forest[i] = Math.min(1, (forest[i] / (mx || 1)) * 1.6);
+    }
+  }
+  // hillshade + đồng mức trên lưới PX
+  const img = Buffer.alloc(PX * PX * 3);
+  const paper = [233, 224, 205];
+  const ink = [44, 52, 46];
+  const sample = (x, y) => hAt(Math.round((x / PX) * (n - 1)), Math.round((y / PX) * (n - 1)));
+  const hash = (x, y) => { let h = (x * 374761393 + y * 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
+  const mPerPx = size / PX;
+  for (let y = 0; y < PX; y++) for (let x = 0; x < PX; x++) {
+    const h = sample(x, y);
+    const hx = sample(Math.min(PX - 1, x + 1), y) - sample(Math.max(0, x - 1), y);
+    const hy = sample(x, Math.min(PX - 1, y + 1)) - sample(x, Math.max(0, y - 1));
+    // pháp tuyến (ánh sáng từ tây-bắc, cao 45°)
+    const nx = -hx / (2 * mPerPx), ny = -hy / (2 * mPerPx);
+    const l = Math.hypot(nx, ny, 1);
+    const shade = Math.max(0, (nx * -0.5 + ny * -0.5 + 1 * 0.7071) / l);
+    let r = paper[0], g = paper[1], b = paper[2];
+    // rừng: tông xanh lục nhạt
+    const f = forest[y * PX + x];
+    r = r * (1 - f * 0.35) + 150 * f * 0.35;
+    g = g * (1 - f * 0.25) + 175 * f * 0.25;
+    b = b * (1 - f * 0.45) + 120 * f * 0.45;
+    // hillshade nhẹ
+    const sh = 0.72 + 0.28 * shade;
+    r *= sh; g *= sh; b *= sh;
+    // đồng mức: đổi bậc 20 m so với lân cận
+    const lvl = Math.floor(h / 20);
+    const lx = Math.floor(sample(Math.min(PX - 1, x + 1), y) / 20);
+    const ly = Math.floor(sample(x, Math.min(PX - 1, y + 1)) / 20);
+    if (lvl !== lx || lvl !== ly) {
+      const major = Math.max(lvl, lx, ly) % 5 === 0;
+      const k = major ? 0.85 : 0.45;
+      r = r * (1 - k) + ink[0] * k; g = g * (1 - k) + ink[1] * k; b = b * (1 - k) + ink[2] * k;
+    }
+    // hạt giấy
+    const gr = (hash(x, y) - 0.5) * 10;
+    r += gr; g += gr; b += gr;
+    const o = (y * PX + x) * 3;
+    img[o] = Math.max(0, Math.min(255, r)); img[o + 1] = Math.max(0, Math.min(255, g)); img[o + 2] = Math.max(0, Math.min(255, b));
+  }
+  const out = `${dir}/map.png`;
+  await sharp(img, { raw: { width: PX, height: PX, channels: 3 } }).png({ compressionLevel: 9, palette: true, colours: 128 }).toFile(out);
+  const MANIFEST = 'content/assets/manifest.json';
+  const m = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+  const entry = m.assets.find((a) => a.type === 'terrain' && a.files.some((f) => f.path.startsWith(`assets/terrain/${ID}/`)));
+  if (entry) {
+    const rel = `assets/terrain/${ID}/map.png`;
+    const f = entry.files.find((x) => x.path === rel) ?? (entry.files.push({ path: rel }), entry.files[entry.files.length - 1]);
+    f.bytes = statSync(out).size;
+    f.sha256 = createHash('sha256').update(readFileSync(out)).digest('hex');
+    m.totalBytes = m.assets.reduce((s, a) => s + a.files.reduce((x, y) => x + y.bytes, 0), 0);
+    m.generatedAt = new Date().toISOString();
+    writeFileSync(MANIFEST, JSON.stringify(m, null, 2) + '\n');
+  } else console.warn(`[terrain] manifest: không thấy entry terrain cho ${ID}`);
+  console.log(`[terrain] map ${ID}: ${PX}×${PX} (${mPerPx} m/px), rừng ${levelPath ? 'có' : 'không'} → ${out} ${(statSync(out).size / 1024).toFixed(0)} KB`);
+  process.exit(0);
+}
+
 const HGT = opt('hgt', null);
 const LAT = Number(opt('lat', '17.55'));
 const LON = Number(opt('lon', '106.10'));

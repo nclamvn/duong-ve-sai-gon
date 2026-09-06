@@ -24,18 +24,7 @@
       #capability button { pointer-events: auto; font: inherit; padding: 10px 18px; background: var(--accent); color: #0b0f14; border: 0; border-radius: 4px; cursor: pointer; font-weight: 600; }
       #overlay { position: fixed; top: 8px; left: 8px; font-family: var(--mono); font-size: 11px; line-height: 1.35; background: rgba(11,15,20,.72); padding: 8px 10px; border-radius: 4px; white-space: pre; pointer-events: none; z-index: 30; }
       #overlay .ok { color: var(--ok); } #overlay .warn { color: var(--warn); } #overlay .bad { color: var(--danger); }
-      #hud { z-index: 10; font-size: clamp(12px, 1.2vw, 18px); }
-      #hud .objective { position: absolute; top: 4%; left: 50%; transform: translateX(-50%); color: var(--accent); letter-spacing: .04em; text-transform: uppercase; font-size: .85em; }
-      #hud .ammo { position: absolute; right: 4%; bottom: 5%; font-family: var(--mono); font-size: 1.6em; }
-      #hud .ammo small { font-size: .5em; color: var(--muted); }
-      #hud .health { position: absolute; left: 4%; bottom: 5%; font-family: var(--mono); }
-      #hud .prompt { position: absolute; left: 50%; bottom: 22%; transform: translateX(-50%); background: rgba(0,0,0,.5); padding: 4px 10px; border-radius: 3px; }
-      #hud .crosshair { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; background: #fff; border-radius: 50%; box-shadow: 0 0 2px #000; }
-      #hud .crosshair::before, #hud .crosshair::after { content: ""; position: absolute; background: #fff; box-shadow: 0 0 2px #000; }
-      #hud .crosshair::before { left: 50%; top: calc(-1 * var(--gap, 10px)); width: 1px; height: 6px; transform: translateX(-50%); }
-      #hud .crosshair::after { top: 50%; left: calc(-1 * var(--gap, 10px)); height: 1px; width: 6px; transform: translateY(-50%); }
-      #subtitles { position: fixed; left: 50%; bottom: 10%; transform: translateX(-50%); max-width: 70%; text-align: center; font-size: clamp(14px, 1.4vw, 22px); background: rgba(0,0,0,var(--sub-bg, .55)); padding: 6px 14px; border-radius: 4px; z-index: 12; }
-      #subtitles .speaker { color: var(--accent); font-weight: 600; margin-right: .4em; }
+      /* HUD/phụ đề: src/ui/hud.css (TIP-UX02) */
       [hidden] { display: none !important; }
     </style>
   </head>

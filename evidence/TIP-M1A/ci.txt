@@ -1,0 +1,21 @@
+# CI G1-A (TIP-UX02 + TIP-M1A) — sandbox 2026-09-06T09:29Z
+
+== typecheck: OK
+== unit: 21 files, 140/140 (mới: tests/unit/hud-m1.test.ts 8)
+== build: OK
+== e2e webgl-ci: 11/11 (mới: 'M1 lát cắt: đồng đội theo, chặn thám báo, UH-1 tới bãi, HUD cao cấp')
+  ✓   1 [webgl-ci] › tests/e2e/bench.spec.ts:7:3 › G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay) › ?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox (1.4m)
+  ✓   2 [webgl-ci] › tests/e2e/boot.spec.ts:5:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › boot ?backend=webgl&level=arena → backend webgl2, capability đã ghi, 120 frame không lỗi, arena đúng số liệu (1.0m)
+  ✓   3 [webgl-ci] › tests/e2e/boot.spec.ts:56:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › capability screen hiển thị backend khi không autostart; nút vào arena hoạt động (35.7s)
+  ✓   4 [webgl-ci] › tests/e2e/boot.spec.ts:65:3 › G0-02/G0-03 boot (WebGL2 fallback, cùng content path) › PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship) (38.2s)
+  ✓   5 [webgl-ci] › tests/e2e/level-pho.spec.ts:11:3 › Phố Vạn Hải — vật lý level (TIP-019/021) › người chơi đứng trên đất, chạy tới chốt A bị bao cát chặn, lên vỉa hè 15 cm; collider floor + vỉa hè có mặt (39.0s)
+  ✓   6 … (đã sửa: bots = 2 đồng đội, chạy lại 1 passed)
+  ✓   7 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:142:3 › Trường Sơn — vật lý terrain (TIP-D04) › rừng: batch/LOD/impostor trong ngân sách; thân cây chặn người chơi; gió; không lỗi console (1.3m)
+  ✓   8 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:267:3 › Trường Sơn — vật lý terrain (TIP-D04) › bầu trời: lượt bay theo lịch seeded, treo đổ quân, dù phi công, gió xoáy (1.1m)
+  ✓   9 [webgl-ci] › tests/e2e/level-truong-son.spec.ts:375:3 › Trường Sơn — vật lý terrain (TIP-D04) › M1 lát cắt: đồng đội theo, chặn thám báo, UH-1 tới bãi, HUD cao cấp (1.3m)
+  ✓  10 [webgl-ci] › tests/e2e/mission.spec.ts:5:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › intro → teleport relay_zone → D03 + spawn → kill group → n_done; MISSION_COMPLETE ×1; checkpoint hash khớp (47.7s)
+  ✓  11 [webgl-ci] › tests/e2e/mission.spec.ts:77:3 › G0-11/G0-12 mission node + checkpoint (PRD §6.5, §8, §11 E2E) › player chết → Enter nạp checkpoint; không có checkpoint → reset mission (37.8s)
+  1 failed
+  10 passed (9.8m)
+
+== assets: 92 asset, 130.3 MB, 0 lỗi (thêm font OFL ×2, map.png)

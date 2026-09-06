@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { pauseLoop, expectNoErrors } from './helpers';
+import { pauseLoop, expectNoErrors, renderFrames } from './helpers';
 
 /**
  * TIP-D04 — Trường Sơn (terrain DEM): E2E vật lý người chơi bắt buộc cho mọi level mới (DV-009/D-075).
@@ -130,7 +130,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     for (const gap of r.botGap) expect(gap).toBeLessThan(0.5);
     expect(r.terrainDraws).toBeGreaterThan(0);
     expect(r.terrainDraws).toBeLessThanOrEqual(4);
-    expect(r.bots).toBe(1);
+    expect(r.bots).toBe(2); // đồng đội Quyết + Hải (mission M1, TIP-M1A) — không còn bot ambient
     await expectNoErrors(errors);
   });
 
@@ -311,7 +311,8 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         const sp = ship.getWorldPosition(new V());
         noseDot.push({ id: run.def.id, model: run.def.model, ahead: ((c.x - sp.x) * vel.x + (c.z - sp.z) * vel.z) / vl });
       }
-      // đến lúc treo: huey_insert first 95 + 1500 m / 38 m/s ≈ 40 s + giảm tốc → ~150 s
+      // huey_insert không theo lịch (mission M1 kích hoạt bằng sky_trigger khi tới bãi bốc) → kích thủ công; 1500 m / 38 m/s ≈ 40 s + giảm tốc
+      const triggered = H.skyTrigger('huey_insert');
       let hover: { id: string; phase: string; pos: [number, number, number] } | null = null;
       for (let k = 0; k < 40 && !hover; k++) {
         H.skyAdvance(5);
@@ -344,7 +345,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       const before = H.skyStats()!.time;
       H.skyAdvance(Math.max(0, 330 - before));
       const s3 = H.skyStats()!;
-      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, noseDot, hover, hoverAgl, gust, windAfter, rotorSpin, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
+      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, noseDot, triggered, hover, hoverAgl, gust, windAfter, rotorSpin, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
     });
     expect(r.s0.flights).toBe(6);
     expect(r.s1.active).toBeGreaterThanOrEqual(1);
@@ -352,9 +353,10 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     for (const a of r.above) expect(a.agl, JSON.stringify(r.above)).toBeGreaterThan(30);
     expect(r.noseDot.length).toBeGreaterThanOrEqual(1);
     for (const n of r.noseDot) expect(n.ahead, `mũi ${n.model} (${n.id}) không đi trước — bay giật lùi ${JSON.stringify(r.noseDot)}`).toBeGreaterThan(0.5);
-    expect(r.hover, 'huey_insert chưa vào pha treo trong 260 s').not.toBeNull();
-    expect(Math.abs(r.hover!.pos[0] - -624)).toBeLessThan(3);
-    expect(Math.abs(r.hover!.pos[2] - 480)).toBeLessThan(3);
+    expect(r.triggered, 'skyTrigger huey_insert').toBe(true);
+    expect(r.hover, 'huey_insert chưa vào pha treo trong 200 s').not.toBeNull();
+    expect(Math.abs(r.hover!.pos[0] - -292)).toBeLessThan(3);
+    expect(Math.abs(r.hover!.pos[2] - 306)).toBeLessThan(3);
     expect(r.hoverAgl).toBeGreaterThan(2);
     expect(r.hoverAgl).toBeLessThan(8);
     expect(r.gust).toBeGreaterThan(0.3);
@@ -362,6 +364,161 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(r.rotorSpin, 'rotor_01 của UH-1 không quay').toBeGreaterThan(0.05);
     expect(r.paras + r.parasStat).toBeGreaterThanOrEqual(1);
     expect(r.runsTotal).toBeGreaterThanOrEqual(5);
+    await expectNoErrors(errors);
+  });
+
+  /**
+   * TIP-M1A + TIP-UX02 — trận đánh M1 lát cắt: mission truong-son-a chạy hết bằng stepSim + teleport (intro → điểm quan sát cpB →
+   * chặn thám báo 2 đợt → bãi bốc: sky_trigger UH-1 → hoàn thành); đồng đội Quyết/Hải đi theo ≤ 12 m; cùng phe không sát thương;
+   * địch không spawn trong 40 m; HUD: la bàn/marker/minimap/hit marker/vòng trúng đạn; không lỗi console.
+   */
+  test('M1 lát cắt: đồng đội theo, chặn thám báo, UH-1 tới bãi, HUD cao cấp', async ({ page }) => {
+    test.setTimeout(420_000);
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(`PAGEERROR ${e.message}`));
+    page.on('console', (m) => {
+      if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
+    });
+    await page.goto(`/?${QUERY}&veg=0&sky=1`);
+    await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
+    await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
+    await pauseLoop(page);
+    const intro = await page.evaluate(() => {
+      const H = window.__ht!;
+      H.stepSim(10);
+      const sq = H.squad();
+      return { node: H.mission.state().currentNode, squad: sq.count, names: sq.members.map((m) => m.name), order: sq.order, shown: H.mission.subtitlesShown(), hud: H.hud(), fonts: document.fonts.check('600 16px "Barlow Condensed"') };
+    });
+    expect(intro.node).toBe('n_ridge');
+    expect(intro.squad).toBe(2);
+    expect(intro.names).toEqual(['name.quyet', 'name.hai']);
+    expect(intro.shown[0]).toBe('M01');
+    expect(intro.hud.marker).not.toBeNull();
+    await renderFrames(page, 2);
+    await expect(page.getByTestId('objective')).toContainText('Quyết');
+    await expect(page.getByTestId('compass')).toBeVisible();
+    await expect(page.getByTestId('minimap')).toBeVisible();
+    await expect(page.getByTestId('ammo')).toContainText('AK-47');
+    await expect(page.getByTestId('health')).toContainText('Ổn định');
+    expect(await page.locator('[data-testid="marker-obj"]').count()).toBe(1);
+    // la bàn: quay 90° phải → số hướng đổi ~90
+    const heading = await page.evaluate(async () => {
+      const H = window.__ht!;
+      const g = H.game;
+      const h0 = H.hud().heading;
+      g.player.rig.yaw -= Math.PI / 2; // yaw dương = quay trái → −90° = quay phải
+      g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+      H.stepSim(2);
+      await new Promise((res) => requestAnimationFrame(() => { g.frame(1 / 60); res(null); }));
+      return { h0, h1: H.hud().heading, text: document.querySelector('[data-testid="heading"]')?.textContent };
+    });
+    expect((((heading.h1 - heading.h0) % 360) + 360) % 360).toBeCloseTo(90, 0);
+    expect(heading.text).toBe(String(Math.round(heading.h1)).padStart(3, '0'));
+    // đồng đội theo: dịch người chơi 25 m về phía điểm quan sát rồi chạy 12 s sim
+    const follow = await page.evaluate(() => {
+      const H = window.__ht!;
+      const z = H.mission.zones()['ridge']!;
+      const c = H.game.player.controller;
+      const dx = z.center[0] - c.feet[0]!;
+      const dz = z.center[2] - c.feet[2]!;
+      const l = Math.hypot(dx, dz);
+      const x = c.feet[0]! + (dx / l) * 25;
+      const zz = c.feet[2]! + (dz / l) * 25;
+      H.teleport(x, (H.terrainHeight(x, zz) ?? 0) + 0.5, zz);
+      H.stepSim(60 * 12);
+      return H.squad();
+    });
+    expect(follow.count).toBe(2);
+    expect(follow.followerDist, JSON.stringify(follow.members)).toBeLessThanOrEqual(12);
+    expect(follow.leaderDist, 'Quyết dẫn trước ≤ 16 m').toBeLessThanOrEqual(16);
+    // điểm quan sát → cpB, M03, rồi mục tiêu chặn
+    const ridge = await page.evaluate(() => {
+      const H = window.__ht!;
+      const z = H.mission.zones()['ridge']!;
+      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
+      H.stepSim(10);
+      const atRidge = H.mission.state().currentNode;
+      H.stepSim(60 * 5);
+      return { atRidge, node: H.mission.state().currentNode, shown: H.mission.subtitlesShown(), saves: H.checkpoint.saves(), marker: H.hud().marker };
+    });
+    expect(ridge.atRidge).toBe('n_ridge');
+    expect(ridge.node).toBe('n_block');
+    expect(ridge.shown).toContain('M03');
+    expect(ridge.saves).toBeGreaterThanOrEqual(2);
+    // chặn: đợt 1 spawn ≥ 40 m, rằn ri (faction enemy); cùng phe không sát thương; hit marker; vòng trúng đạn
+    const block = await page.evaluate(() => {
+      const H = window.__ht!;
+      const z = H.mission.zones()['block']!;
+      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
+      H.stepSim(10);
+      const c = H.game.player.controller;
+      const bots = H.bots().filter((b) => b.group === 'recon_1');
+      const minDist = Math.min(...bots.map((b) => Math.hypot(b.position[0] - c.feet[0]!, b.position[2] - c.feet[2]!)));
+      const sq = H.squad();
+      const friend = sq.members.find((m) => m.faction === 'friend')!;
+      const enemy = sq.members.find((m) => m.faction === 'enemy' && m.alive)!;
+      const g = H.game;
+      const hpBefore = friend.health;
+      // người chơi bắn đồng đội → không sát thương; đồng đội bắn đồng đội → không; địch bắn đồng đội → có
+      g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: 'player' });
+      g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: sq.members.find((m) => m.faction === 'friend' && m.id !== friend.id)!.id });
+      const hpMid = H.squad().members.find((m) => m.id === friend.id)!.health;
+      g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: enemy.id });
+      const hpAfter = H.squad().members.find((m) => m.id === friend.id)!.health;
+      // hit marker + vòng trúng đạn
+      const hud0 = H.hud();
+      g.events.emit('HIT', { actorId: enemy.id, zone: 'body', damage: 1, point: [0, 0, 0], penetrated: false, shooter: 'player' });
+      g.events.emit('HIT', { actorId: 'player', zone: 'body', damage: 1, point: [0, 0, 0], penetrated: false, shooter: enemy.id });
+      const hud1 = H.hud();
+      return { node: H.mission.state().currentNode, n: bots.length, minDist, factions: sq.members.map((m) => m.faction), hpBefore, hpMid, hpAfter, hits: hud1.hits - hud0.hits, dmg: hud1.damageIndicators - hud0.damageIndicators, playerHealth: g.player.health };
+    });
+    expect(block.node).toBe('n_block');
+    expect(block.n).toBe(3);
+    expect(block.minDist).toBeGreaterThan(40);
+    expect(block.hpMid).toBe(block.hpBefore);
+    expect(block.hpAfter).toBe(block.hpBefore - 8);
+    expect(block.hits).toBe(1);
+    expect(block.dmg).toBe(1);
+    await renderFrames(page, 1);
+    expect(await page.locator('[data-testid="hitmarker"].show').count()).toBe(1);
+    expect(await page.locator('[data-testid="damage-dir"] .on').count()).toBe(1);
+    // hạ đợt 1 → đợt 2 spawn; hạ đợt 2 → tới bãi
+    const waves = await page.evaluate(() => {
+      const H = window.__ht!;
+      const k1 = H.kill('recon_1');
+      H.stepSim(10);
+      const n2 = H.mission.state().currentNode;
+      const w2 = H.bots().filter((b) => b.group === 'recon_2' && b.alive).length;
+      const k2 = H.kill('recon_2');
+      H.stepSim(10);
+      return { k1, n2, w2, k2, node: H.mission.state().currentNode, shown: H.mission.subtitlesShown(), marker: H.hud().marker };
+    });
+    expect(waves.k1).toBe(3);
+    expect(waves.n2).toBe('n_wave2');
+    expect(waves.w2).toBe(3);
+    expect(waves.k2).toBe(3);
+    expect(waves.node).toBe('n_lz');
+    expect(waves.marker).not.toBeNull();
+    // bãi bốc: UH-1 kích hoạt ngay, cpC, sau 34 s hoàn thành
+    const lz = await page.evaluate(() => {
+      const H = window.__ht!;
+      const z = H.mission.zones()['lz']!;
+      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
+      H.stepSim(10);
+      const atLz = H.mission.state().currentNode;
+      const runs = H.skyStats()!.runsNow.map((r) => r.id);
+      H.stepSim(60 * 35);
+      return { atLz, runs, node: H.mission.state().currentNode, complete: H.mission.state().complete, completeCount: H.events.countOf('MISSION_COMPLETE'), saves: H.checkpoint.saves(), shown: H.mission.subtitlesShown(), order: H.squad().order };
+    });
+    expect(lz.atLz).toBe('n_lz');
+    expect(lz.runs).toContain('huey_insert');
+    expect(lz.node).toBe('n_done');
+    expect(lz.complete).toBe(true);
+    expect(lz.completeCount).toBe(1);
+    expect(lz.saves).toBeGreaterThanOrEqual(3);
+    expect(lz.shown).toContain('M09');
+    await renderFrames(page, 2);
+    await expect(page.getByTestId('banner')).toBeVisible();
     await expectNoErrors(errors);
   });
 });

@@ -45,6 +45,8 @@ export function loadMission(json: unknown): MissionDefinition {
       if (a.type === 'radio' && !a.cue) problems.push(`/nodes/${ni}/actions/${ai}: radio missing cue`);
       if ((a.type === 'objective' || a.type === 'objective_complete') && !a.objectiveKey) problems.push(`/nodes/${ni}/actions/${ai}: missing objectiveKey`);
       if (a.type === 'set_flag' && (!a.flag || typeof a.value !== 'boolean')) problems.push(`/nodes/${ni}/actions/${ai}: set_flag missing flag/value`);
+      if (a.type === 'objective' && a.marker && !zoneIds.has(a.marker)) problems.push(`/nodes/${ni}/actions/${ai}/marker: zone '${a.marker}' not found`);
+      if (a.type === 'sky_trigger' && !a.flight) problems.push(`/nodes/${ni}/actions/${ai}: sky_trigger missing flight`);
     });
     [...n.enterConditions, ...n.exitConditions].forEach((c, ci) => {
       if (!(CONDITION_TYPES as readonly string[]).includes(c.type)) problems.push(`/nodes/${ni}/conditions/${ci}/type: '${c.type}' not in allow-list`);

@@ -30,6 +30,8 @@ export interface DummyOptions {
   phase?: number;
   /** trang bị procedural theo thời kỳ (TIP-D11a): 'pavn1971' = mũ cối + bao xe AK gắn bone (chỉ nhân vật glTF) */
   gear?: 'pavn1971';
+  /** 'recon' = thám báo rằn ri hổ (shader, TIP-M1A) */
+  skin?: 'recon';
 }
 
 type BoneName = 'hips' | 'spine' | 'head' | 'armL' | 'foreL' | 'armR' | 'foreR' | 'rifle' | 'thighL' | 'shinL' | 'thighR' | 'shinR';

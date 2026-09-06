@@ -20,7 +20,7 @@ describe('ADR-005 asset manifest (CC0/Mixamo, có hash, trong ngân sách payloa
 
   it('mọi file tồn tại trong public/, đúng bytes + sha256; license ∈ {CC0-1.0, Mixamo, CC-BY}; CC-BY phải có attribution + url + authors (ADR-006)', () => {
     for (const a of manifest.assets) {
-      expect(['CC0-1.0', 'Mixamo', 'CC-BY-4.0', 'CC-BY-3.0', 'PD-USGov']).toContain(a.license);
+      expect(['CC0-1.0', 'Mixamo', 'CC-BY-4.0', 'CC-BY-3.0', 'PD-USGov', 'OFL-1.1']).toContain(a.license);
       if (a.license.startsWith('CC-BY')) {
         expect(a.attribution, `${a.id} attribution`).toMatch(/licensed under/);
         expect(a.url, `${a.id} url`).toMatch(/^https:\/\/sketchfab\.com\//);

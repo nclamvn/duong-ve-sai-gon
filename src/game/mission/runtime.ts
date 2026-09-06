@@ -32,10 +32,12 @@ export interface MissionState {
   nodeMs: number;
   /** đã enter-check xong node hiện tại (actions đã chạy) */
   nodeActive: boolean;
+  /** nodeMs lúc actions chạy (điều kiện active_ms) */
+  nodeActiveMs: number;
 }
 
 export class MissionRuntime {
-  readonly state: MissionState = { currentNode: null, flags: {}, objectives: {}, groups: {}, nodeEnteredTick: 0, complete: false, nodeMs: 0, nodeActive: false };
+  readonly state: MissionState = { currentNode: null, flags: {}, objectives: {}, groups: {}, nodeEnteredTick: 0, complete: false, nodeMs: 0, nodeActive: false, nodeActiveMs: 0 };
   private readonly nodes = new Map<string, MissionNode>();
   private readonly cues = new Map<string, DialogueCue>();
   private readonly zoneInside = new Map<string, boolean>();
@@ -66,6 +68,7 @@ export class MissionRuntime {
     this.state.nodeEnteredTick = this.world.currentTick();
     this.state.nodeMs = 0;
     this.state.nodeActive = false;
+    this.state.nodeActiveMs = 0;
     this.events.emit('NODE_ENTER', { node: id });
   }
 
@@ -88,6 +91,8 @@ export class MissionRuntime {
       }
       case 'timeout':
         return this.state.nodeMs >= (c.ms ?? 0);
+      case 'active_ms': // ms kể từ khi action của node đã chạy (không tính thời gian chờ enterConditions)
+        return this.state.nodeActive && this.state.nodeMs - this.state.nodeActiveMs >= (c.ms ?? 0);
       case 'zone_enter': {
         const z = this.zoneOf(c.zone ?? '');
         if (!z) return false;
@@ -117,7 +122,7 @@ export class MissionRuntime {
         break;
       }
       case 'objective':
-        if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'active' }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'active';
+        if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'active', marker: a.marker }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'active';
         break;
       case 'objective_complete':
         if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'complete' }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'complete';
@@ -140,6 +145,12 @@ export class MissionRuntime {
         this.state.flags[a.flag ?? ''] = a.value ?? true;
         this.events.emit('MISSION_FLAG', { flag: a.flag ?? '', value: a.value ?? true }, { id });
         break;
+      case 'sky_trigger':
+        this.events.emit('SKY_TRIGGER', { flight: a.flight ?? '' }, { id });
+        break;
+      case 'squad_order':
+        this.events.emit('SQUAD_ORDER', { order: a.order ?? 'follow' }, { id });
+        break;
     }
   }
 
@@ -159,6 +170,7 @@ export class MissionRuntime {
         return;
       }
       this.state.nodeActive = true;
+      this.state.nodeActiveMs = this.state.nodeMs;
       for (let i = 0; i < node.actions.length; i++) this.runAction(id, i, node.actions[i]!);
     }
     if (node.type === 'terminal') return;
@@ -184,7 +196,7 @@ export class MissionRuntime {
       player: w.player,
       inventory: w.inventory,
       doors: w.doors,
-      timers: { nodeMs: this.state.nodeMs },
+      timers: { nodeMs: this.state.nodeMs, nodeActiveMs: this.state.nodeActiveMs },
       seed: this.world.seed(),
       tick: this.world.currentTick(),
     };
@@ -213,6 +225,7 @@ export class MissionRuntime {
     this.state.nodeEnteredTick = s.tick;
     // node hiện tại coi như đã enter-check + actions đã chạy (event id đã có trong seen) → chỉ chờ exit
     this.state.nodeActive = true;
+    this.state.nodeActiveMs = s.timers['nodeActiveMs'] ?? 0;
     this.started = true;
   }
 

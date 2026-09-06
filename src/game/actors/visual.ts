@@ -66,7 +66,7 @@ export class SoldierVisual implements ActorVisual {
   private lastT = 0;
 
   constructor(asset: CharacterAsset, opts: DummyOptions = {}, weapon: WeaponAsset | null = null) {
-    this.char = new CharacterInstance(asset, { tint: opts.color, visor: opts.visor });
+    this.char = new CharacterInstance(asset, { tint: opts.color, visor: opts.visor, skin: opts.skin });
     // Mixamo rig nhìn về +z; hệ actor (Dummy, bot.yaw) quy ước mặt trước là −z → xoay 180°
     this.char.root.rotation.y = Math.PI;
     this.group.add(this.char.root);

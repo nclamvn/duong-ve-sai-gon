@@ -12,7 +12,7 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 
 const MANIFEST = 'content/assets/manifest.json';
-const LICENSES = new Set(['CC0-1.0', 'CC-BY-4.0', 'CC-BY-3.0', 'Mixamo', 'PD-USGov']);
+const LICENSES = new Set(['CC0-1.0', 'CC-BY-4.0', 'CC-BY-3.0', 'Mixamo', 'PD-USGov', 'OFL-1.1']); // OFL: font tự host (TIP-UX02)
 const TRI_BUDGET = { chr_: 25000, wpn_: 20000, veh_: 40000, air_: 15000, veg_: 22000, prop_: 3000 }; // veg_: LOD0 cây tán (TIP-D05, chỉ hiện < 32 m; LOD1/2 + impostor ở xa)
 
 const sha256 = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');

@@ -52,6 +52,12 @@ export interface HtDebugApi {
   skyStats(): { flights: number; active: number; runs: number; parachutes: number; gust: number; nearestM: number; time: number; runsNow: Array<{ id: string; phase: string; pos: [number, number, number]; s: number; length: number }>; parasNow: Array<{ pos: [number, number, number]; alive: boolean }> } | null;
   skyAdvance(seconds: number): void;
   skyDrop(x: number, y: number, z: number): void;
+  /** kích hoạt lượt bay theo id (mission sky_trigger) */
+  skyTrigger(flightId: string): boolean;
+  /** đồng đội (TIP-M1A): số thành viên còn sống, khoảng cách xa nhất tới người chơi, lệnh, bark */
+  squad(): { count: number; maxDist: number; leaderDist: number; followerDist: number; order: string; barks: number; members: Array<{ id: string; name: string | null; faction: string; alive: boolean; health: number; state: string }> };
+  /** HUD (TIP-UX02): thống kê + marker mục tiêu */
+  hud(): { hits: number; kills: number; damageIndicators: number; objectiveChanges: number; heading: number; objectiveDist: number | null; marker: [number, number, number] | null; markers3d: number; minimapImage: boolean };
   [k: string]: unknown;
 }
 
@@ -148,6 +154,17 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
     setWind: (strength, dirX, dirZ) => game.forest?.system.setWind(strength, dirX, dirZ),
     skyStats: () => (game.sky ? { ...game.sky.stats, time: game.sky.time, runsNow: game.sky.active(), parasNow: game.sky.parachutesNow() } : null),
     skyAdvance: (seconds) => game.sky?.advance(seconds),
+    skyTrigger: (id) => game.sky?.trigger(id) ?? false,
+    squad: () => ({
+      count: game.squadmates.list().filter((b) => b.bot.alive).length,
+      maxDist: game.squadmates.maxDistToPlayer(),
+      leaderDist: game.squadmates.maxDistToPlayer('leader'),
+      followerDist: game.squadmates.maxDistToPlayer('follower'),
+      order: game.squadmates.order,
+      barks: game.squadmates.stats.barks,
+      members: [...game.bots.values()].map((b) => ({ id: b.id, name: b.nameKey, faction: b.faction, alive: b.bot.alive, health: b.bot.health, state: b.bot.state })),
+    }),
+    hud: () => ({ ...game.hud.stats, heading: game.hud.state.headingDeg, objectiveDist: game.hud.state.objectiveDist, marker: game.mission.objectiveMarker, markers3d: game.hud.markers.count, minimapImage: game.hud.minimap.hasImage }),
     skyDrop: (x, y, z) => game.sky?.dropParachute(x, y, z),
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };
