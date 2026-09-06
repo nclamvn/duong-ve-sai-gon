@@ -438,7 +438,7 @@
     }
   ],
   "airTraffic": {
-    "$comment": "TIP-D-SKY 'máy bay là thời tiết' (1971, tuyến 20 Quyết Thắng): tiêm kích F-4 cặp đôi bay thấp, F-4 trúng đạn phi công nhảy dù (xa ≥ 400 m), UH-1 cặp đôi theo tuyến + một chiếc treo đổ thám báo (Lam Sơn 719/SOG đổ bằng trực thăng — không nhảy dù ồ ạt; chờ cố vấn registry evt.1971.lam_son_719), C-130 vận tải bay cao, tổ 3 B-52 Arc Light rất cao (thực tế ~9 km — game nén xuống 1,5–1,9 km để còn thấy; cố vấn duyệt DV-042). A-1 Skyraider tạm bỏ: chưa có model CC-BY sạch (DV-042). Model manifest air_* (Sketchfab CC-BY, tải qua tài khoản Chủ nhà); thiếu model → bỏ lượt (console warn). agl = cao độ trên max địa hình dọc đường; period = giây giữa hai lượt.",
+    "$comment": "TIP-D-SKY 'máy bay là thời tiết' (1971, tuyến 20 Quyết Thắng): tiêm kích F-4 cặp đôi bay thấp, F-4 trúng đạn phi công nhảy dù (xa ≥ 400 m), UH-1 cặp đôi theo tuyến + một chiếc treo đổ thám báo (Lam Sơn 719/SOG đổ bằng trực thăng — không nhảy dù ồ ạt; chờ cố vấn registry evt.1971.lam_son_719), C-130 vận tải bay cao, tổ 3 B-52 Arc Light rất cao (thực tế ~9 km — game nén xuống 1,1–1,4 km để còn thấy; cố vấn duyệt DV-042). AGL hạ ~35 % theo Chủ nhà (Mac, 2026-09-06: 'quá cao') — agl tính trên MAX địa hình dọc đường nên trên thung lũng máy bay còn cao hơn số này. A-1 Skyraider tạm bỏ: chưa có model CC-BY sạch (DV-042). Model manifest air_* (Sketchfab CC-BY, tải qua tài khoản Chủ nhà); thiếu model → bỏ lượt (console warn). agl = cao độ trên max địa hình dọc đường; period = giây giữa hai lượt.",
     "seed": 1971,
     "center": [
       -192,
@@ -455,8 +455,8 @@
         "kind": "jet",
         "count": 2,
         "agl": [
-          180,
-          320
+          120,
+          220
         ],
         "speed": 190,
         "period": [
@@ -474,8 +474,8 @@
         "kind": "jet",
         "count": 1,
         "agl": [
-          350,
-          520
+          250,
+          380
         ],
         "speed": 165,
         "period": [
@@ -495,8 +495,8 @@
         "kind": "heli",
         "count": 2,
         "agl": [
-          70,
-          120
+          45,
+          80
         ],
         "speed": 42,
         "period": [
@@ -516,8 +516,8 @@
         "kind": "heli",
         "count": 1,
         "agl": [
-          60,
-          90
+          40,
+          70
         ],
         "speed": 38,
         "period": [
@@ -546,8 +546,8 @@
         "kind": "prop",
         "count": 1,
         "agl": [
-          700,
-          1000
+          450,
+          650
         ],
         "speed": 120,
         "period": [
@@ -564,8 +564,8 @@
         "kind": "jet",
         "count": 3,
         "agl": [
-          1500,
-          1900
+          1100,
+          1400
         ],
         "speed": 240,
         "period": [

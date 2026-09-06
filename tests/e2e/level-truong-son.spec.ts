@@ -287,6 +287,30 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       await frameRaf();
       const s1 = H.skyStats()!;
       const above = s1.runsNow.map((run) => ({ id: run.id, agl: run.pos[1] - hAt(Math.max(-1000, Math.min(1000, run.pos[0])), Math.max(-1000, Math.min(1000, run.pos[2]))) }));
+      // mũi máy bay phải đi trước: bộ phận đầu mũi (buồng lái/kính/cánh quạt — material đặc trưng từng model) nằm phía trước
+      // tâm thân theo hướng bay. Chủ nhà thấy UH-1 "bay giật lùi" khi GLB convert ngược chiều (DV-042) — engine chỉ xoay model +x theo
+      // vận tốc nên phải kiểm bằng hình học asset, không kiểm được bằng trục.
+      const NOSE_MAT: Record<string, string> = { air_uh1b: 'cockpit', air_f4: 'Mat2', air_b52: 'Glass', air_c130: 'DefaultWhite_propeller.png' };
+      const noseDot: Array<{ id: string; model: string; ahead: number }> = [];
+      type O3 = { position: { x: number; y: number; z: number }; children: O3[]; name: string; isMesh?: boolean; material?: { name: string }; geometry?: { computeBoundingBox(): void; boundingBox: { clone(): { applyMatrix4(m: unknown): { getCenter(v: { x: number; y: number; z: number }): { x: number; y: number; z: number } } } } }; matrixWorld: unknown; traverse(cb: (o: O3) => void): void; getWorldPosition(v: { x: number; y: number; z: number }): { x: number; y: number; z: number } };
+      const sky = g.sky as unknown as { runs: Array<{ def: { id: string; model: string }; phase: string; ships: O3[] }> };
+      for (const run of sky.runs) {
+        if (run.phase !== 'fly') continue;
+        const ship = run.ships[0]!;
+        const p0 = { x: ship.position.x, y: ship.position.y, z: ship.position.z };
+        await frameRaf();
+        const vel = { x: ship.position.x - p0.x, y: ship.position.y - p0.y, z: ship.position.z - p0.z };
+        const vl = Math.hypot(vel.x, vel.y, vel.z) || 1;
+        let nose: O3 | null = null;
+        ship.traverse((o) => { if (o.isMesh && o.material?.name === NOSE_MAT[run.def.model] && !nose) nose = o; });
+        if (!nose) { noseDot.push({ id: run.def.id, model: run.def.model, ahead: NaN }); continue; }
+        const n = nose as O3;
+        n.geometry!.computeBoundingBox();
+        const V = g.camera.position.constructor as new () => { x: number; y: number; z: number };
+        const c = n.geometry!.boundingBox.clone().applyMatrix4(n.matrixWorld).getCenter(new V());
+        const sp = ship.getWorldPosition(new V());
+        noseDot.push({ id: run.def.id, model: run.def.model, ahead: ((c.x - sp.x) * vel.x + (c.z - sp.z) * vel.z) / vl });
+      }
       // đến lúc treo: huey_insert first 95 + 1500 m / 38 m/s ≈ 40 s + giảm tốc → ~150 s
       let hover: { id: string; phase: string; pos: [number, number, number] } | null = null;
       for (let k = 0; k < 40 && !hover; k++) {
@@ -320,12 +344,14 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       const before = H.skyStats()!.time;
       H.skyAdvance(Math.max(0, 330 - before));
       const s3 = H.skyStats()!;
-      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, hover, hoverAgl, gust, windAfter, rotorSpin, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
+      return { s0: { flights: s0.flights }, s1: { active: s1.active, runs: s1.runs, ids: s1.runsNow.map((x) => x.id) }, above, noseDot, hover, hoverAgl, gust, windAfter, rotorSpin, paras: s3.parasNow.length, parasStat: s3.parachutes, runsTotal: s3.runs };
     });
     expect(r.s0.flights).toBe(6);
     expect(r.s1.active).toBeGreaterThanOrEqual(1);
     expect(r.s1.ids).toContain('huey_pair');
     for (const a of r.above) expect(a.agl, JSON.stringify(r.above)).toBeGreaterThan(30);
+    expect(r.noseDot.length).toBeGreaterThanOrEqual(1);
+    for (const n of r.noseDot) expect(n.ahead, `mũi ${n.model} (${n.id}) không đi trước — bay giật lùi ${JSON.stringify(r.noseDot)}`).toBeGreaterThan(0.5);
     expect(r.hover, 'huey_insert chưa vào pha treo trong 260 s').not.toBeNull();
     expect(Math.abs(r.hover!.pos[0] - -624)).toBeLessThan(3);
     expect(Math.abs(r.hover!.pos[2] - 480)).toBeLessThan(3);

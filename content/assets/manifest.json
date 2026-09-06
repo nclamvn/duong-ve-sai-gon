@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T06:54:22.409Z",
+  "generatedAt": "2026-09-06T07:46:10.067Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 135644560,
+  "totalBytes": 135644516,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3511,41 +3511,6 @@
       ]
     },
     {
-      "id": "air_uh1b",
-      "type": "model",
-      "use": "trực thăng UH-1B Mỹ/VNCH bay ambient + treo đổ quân (TIP-D-SKY); node rotor_01/tail_rotor_02 quay lúc chạy — UH-1 B with (half modeled cockpit)",
-      "source": "sketchfab",
-      "url": "https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799",
-      "authors": [
-        "TonyWony"
-      ],
-      "license": "CC-BY-4.0",
-      "attribution": "\"UH-1 B with (half modeled cockpit)\" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
-      "files": [
-        {
-          "path": "assets/models/air_uh1b.glb",
-          "bytes": 2843532,
-          "sha256": "747ed632ba3f6df35dac971257d5c2164a27fb6ebbe80a6cb86c0fe2f412da22"
-        }
-      ],
-      "sourceFiles": [
-        {
-          "path": "assets-src/sketchfab/uh1b-tonywony/uh-1_b_with_half_modeled_cockpit.glb",
-          "bytes": 14238536,
-          "sha256": "4049f932d527ade9fd9b8541f12272042398c6f51a754e8d4bc8181f035d63bd"
-        }
-      ],
-      "triangles": {
-        "source": 13062,
-        "output": 13062
-      },
-      "size": [
-        13,
-        3.2,
-        2.76
-      ]
-    },
-    {
       "id": "air_c130",
       "type": "model",
       "use": "C-130 Hercules bay cao ngang trời (TIP-D-SKY; chỉ giữ vỏ ngoài + cánh quạt, bỏ buồng lái/pháo) — Lockheed AC-130 \"Hercules\"",
@@ -3578,6 +3543,41 @@
         29.8,
         12.131,
         40.511
+      ]
+    },
+    {
+      "id": "air_uh1b",
+      "type": "model",
+      "use": "trực thăng UH-1B Mỹ/VNCH bay ambient + treo đổ quân (TIP-D-SKY); node rotor_01/tail_rotor_02 quay lúc chạy — UH-1 B with (half modeled cockpit)",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799",
+      "authors": [
+        "TonyWony"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"UH-1 B with (half modeled cockpit)\" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/models/air_uh1b.glb",
+          "bytes": 2843488,
+          "sha256": "81785d27646ed67cdd82236fe6ae6113449da48b505fc892d292dd22288ac56e"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/uh1b-tonywony/uh-1_b_with_half_modeled_cockpit.glb",
+          "bytes": 14238536,
+          "sha256": "4049f932d527ade9fd9b8541f12272042398c6f51a754e8d4bc8181f035d63bd"
+        }
+      ],
+      "triangles": {
+        "source": 13062,
+        "output": 13062
+      },
+      "size": [
+        13,
+        3.2,
+        2.76
       ]
     }
   ]
