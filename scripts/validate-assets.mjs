@@ -4,7 +4,7 @@
  *  FAIL: file thiếu/bytes/sha256 lệch; license ngoài allow-list; CC-BY thiếu attribution/url/authors; `historical` thiếu registryId;
  *        texture rời không phải .ktx2; GLB còn texture không phải image/ktx2 (KTX2 bắt buộc từ G2 — PRF-004);
  *        tên file/id không đúng quy ước (models: veh_/prop_/chr_/wpn_/veg_/bld_/lm_ hoặc id Poly Haven kế thừa).
- *  WARN: tam giác vượt ngân sách loại (nhân vật 25k, súng 20k, xe 40k, máy bay 15k, prop 3k, cây 8k) — asset kế thừa HT-MB không chặn.
+ *  WARN: tam giác vượt ngân sách loại (nhân vật 25k, súng 20k, xe 40k, máy bay 15k, prop 3k, cây 22k LOD0) — asset kế thừa HT-MB không chặn.
  * Dùng: node scripts/validate-assets.mjs [--json] [--strict-tris]
  */
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
@@ -13,7 +13,7 @@ import { join } from 'node:path';
 
 const MANIFEST = 'content/assets/manifest.json';
 const LICENSES = new Set(['CC0-1.0', 'CC-BY-4.0', 'CC-BY-3.0', 'Mixamo', 'PD-USGov']);
-const TRI_BUDGET = { chr_: 25000, wpn_: 20000, veh_: 40000, air_: 15000, veg_: 8000, prop_: 3000 };
+const TRI_BUDGET = { chr_: 25000, wpn_: 20000, veh_: 40000, air_: 15000, veg_: 22000, prop_: 3000 }; // veg_: LOD0 cây tán (TIP-D05, chỉ hiện < 32 m; LOD1/2 + impostor ở xa)
 
 const sha256 = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
 

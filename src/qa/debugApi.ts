@@ -7,7 +7,7 @@ import type { TelemetrySummary } from './telemetry';
 import type { BenchReport } from './bench';
 import type { CalibApi } from './calib';
 import { loadModel } from '@engine/render/assets';
-import { Box3, Vector3 } from 'three/webgpu';
+import { Box3, Vector3, type Mesh } from 'three/webgpu';
 
 export interface HtDebugApi {
   ready: boolean;
@@ -38,11 +38,16 @@ export interface HtDebugApi {
   /** chế độ hiệu chỉnh tay cầm (TIP-017) — chỉ khi ?calib= */
   calib?: CalibApi;
   /** QA prop: nạp assets/models/<id>.glb đặt vào scene (TIP-021 lineup) → kích thước bbox (m) */
-  spawnModel(id: string, x: number, y: number, z: number, yaw?: number, scale?: number): Promise<{ size: [number, number, number]; min: [number, number, number] }>;
+  /** id có '/' → đường dẫn assets/<id>.glb (vd. vegetation/fern); keep = regex tên node giữ hiển thị (LOD/biến thể) */
+  spawnModel(id: string, x: number, y: number, z: number, yaw?: number, scale?: number, keep?: string): Promise<{ size: [number, number, number]; min: [number, number, number]; tris: number }>;
   /** terrain (TIP-D04): cao độ mặt đất tại (x, z) — null khi level không có terrain */
   terrainHeight(x: number, z: number): number | null;
   /** terrain (TIP-D04): thống kê LOD/draw/tris của frame gần nhất */
   terrainStats(): { lod: number[]; visible: number; chunks: number; tris: number; draws: number; navPrebuilt: boolean; polys: number } | null;
+  /** rừng (TIP-D05): thống kê frame gần nhất + thời gian nạp/bake — null khi không có rừng */
+  vegetationStats(): { species: number; placed: number; visible: number; draws: number; triangles: number; impostors: number; lod: number[]; cpuMs: number; colliders: number; loadMs: number; bakeMs: number; perSpecies: Record<string, number> } | null;
+  /** rừng: gió 0..1 (VEG-002) */
+  setWind(strength: number, dirX?: number, dirZ?: number): void;
   [k: string]: unknown;
 }
 
@@ -107,19 +112,36 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
       countOf: (type) => game.events.countOf(type),
       duplicates: () => game.events.duplicates,
     },
-    spawnModel: async (id, x, y, z, yaw = 0, scale = 1) => {
-      const g = await loadModel(`${import.meta.env.BASE_URL ?? '/'}assets/models/${id}.glb`);
+    spawnModel: async (id, x, y, z, yaw = 0, scale = 1, keep) => {
+      const base = import.meta.env.BASE_URL ?? '/';
+      const g = await loadModel(id.includes('/') ? `${base}assets/${id}.glb` : `${base}assets/models/${id}.glb`);
       g.position.set(x, y, z);
       g.rotation.y = yaw;
       g.scale.setScalar(scale);
+      let tris = 0;
+      if (keep) {
+        const re = new RegExp(keep);
+        for (const c of g.children) c.visible = re.test(c.name);
+      }
+      g.traverse((o) => {
+        const m = o as Mesh;
+        if (m.isMesh && m.visible && (!m.parent || m.parent.visible)) tris += (m.geometry.index ? m.geometry.index.count : m.geometry.attributes['position']!.count) / 3;
+      });
       game.scene.add(g);
       g.updateMatrixWorld(true);
       const bb = new Box3().setFromObject(g);
       const sz = bb.getSize(new Vector3());
-      return { size: [sz.x, sz.y, sz.z], min: [bb.min.x, bb.min.y, bb.min.z] };
+      return { size: [sz.x, sz.y, sz.z], min: [bb.min.x, bb.min.y, bb.min.z], tris };
     },
     terrainHeight: (x, z) => (game.terrain ? game.terrain.heightAt(x, z) : null),
     terrainStats: () => (game.terrain ? { ...game.terrain.mesh.stats, lod: [...game.terrain.mesh.stats.lod], navPrebuilt: !!game.terrain.navPrebuilt, polys: game.nav?.polyCount ?? 0 } : null),
+    vegetationStats: () => {
+      const f = game.forest;
+      if (!f) return null;
+      const s = f.system.stats;
+      return { ...s, lod: [...s.lod], loadMs: f.loadMs, bakeMs: f.bakeMs, perSpecies: f.system.placedPerSpecies() };
+    },
+    setWind: (strength, dirX, dirZ) => game.forest?.system.setWind(strength, dirX, dirZ),
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };
   window.__ht = api;

@@ -77,6 +77,11 @@ texture 2K JPEG, meshopt) → `assets-src/mixamo/soldier-swat.glb` (giữ bản 
 → `node scripts/extract-arms.mjs` (tay FP) → `node scripts/ktx2.mjs --only models --filter soldier` → `public/assets/characters/{soldier,soldier_arms}.glb`
 + manifest `soldier_mixamo` (historical, `registryId uni.pavn.1971.field_uniform_green`, `approved: false`). Mũ cối + bao xe dựng procedural (`src/engine/render/gear1971.ts`, gắn bone `Head`/`Spine2`).
 
+Rừng loài thật (TIP-D05, ADR-D06 — CC-BY Sketchfab, kiểm rip DV-026): nguồn `assets-src/sketchfab/<slug>/` + cấu hình `content/vegetation/species.json` (node biến thể, material lá, chiều cao, tỉ lệ LOD, attribution) →
+`node scripts/convert-vegetation.mjs [--only id,id]` (chuẩn hoá gốc/chiều cao, 3 LOD: tỉa thẻ lá + meshopt simplify, `_WIND`, material `leaf_*/bark_*` MASK) → `node scripts/ktx2.mjs --only models`
+→ `public/assets/vegetation/<id>.glb` + manifest `veg_<id>`. Đặt cây bằng khối `vegetation` trong level terrain JSON (seed, rect, luật mỗi loài: perHa/slope/height/noise/clump/lod/cast/collider) —
+`?level=truong-son` có rừng mặc định; `?veg=0` tắt, `?veg=1` bật cả khi `assets=0`, `?vegDensity=0.5&vegLod=0.8&vegShadow=0&impostor=0` để A/B; `__ht.vegetationStats()`, `__ht.setWind(0.9)`.
+
 Vũ khí glTF (TIP-014, ADR-006 — CC-BY Sketchfab, Chủ nhà đăng nhập, Thợ tải): nguồn `assets-src/sketchfab/<slug>/` →
 `npm run assets:weapon -- --src assets-src/sketchfab/ak74m --id weapon_ak74m --length 0.943 --title … --author … --url …` →
 `public/assets/weapons/<id>.glb` + manifest (attribution); cấu hình anchor/pose ở `content/weapons/<id>.json` (schema `weapon-model.schema.json`).
@@ -97,7 +102,7 @@ Hiệu chỉnh tay cầm súng (TIP-017, chỉ dev/`?debug=1`): `?calib=soldier&
 
 Tài sản bên thứ ba liệt kê đầy đủ trong [`CREDITS.md`](CREDITS.md) (sinh từ manifest). CC-BY 4.0 (ghi công bắt buộc, ADR-006):
 "AK-74M Assault Rifle" by FJH · "HK 416 A7" by r4m · "Low-poly BTR-70" by veightyfive · "Abandoned Wrecked Bus" by BytesCrafter · "Burned-out Cars" by Renafox ·
-"Lightbody '90 MD Utility" by Daniel Zhabotinsky · "Ural 4320" by Brout · "Old Scooter" by Nadia Ribitis · "Mi-24 Hind" by Duane's Mind · "Sandbag Wall 02/05" by Pypunk (Sketchfab).
+"Lightbody '90 MD Utility" by Daniel Zhabotinsky · "Ural 4320" by Brout · "Old Scooter" by Nadia Ribitis · "Mi-24 Hind" by Duane's Mind · "Sandbag Wall 02/05" by Pypunk · "AK 47" by Aleksei Vlasov (CRWDE) · rừng: "Tree GN" by Node_λrt · "Free Bamboo Set" by JonhGillessen · "Banana Tree" by DJMiddi · "Tropical Plants Pack M02P" by MozzarellaARC · "Elephant Ear Plant" by BANDANNA (Sketchfab).
 CC0: Poly Haven (texture, HDRI, prop). Nhân vật + animation: Adobe Mixamo.
 
 ## Cấu trúc

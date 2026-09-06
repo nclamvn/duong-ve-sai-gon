@@ -20,6 +20,7 @@ import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
 import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
+import { buildForest, VEG_QUALITY, type ForestBuild } from '@engine/vegetation';
 import { t } from '@ui/i18n';
 import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
@@ -92,6 +93,8 @@ export class Game {
   levelId: 'pho' | 'arena' | 'truong-son' = 'arena';
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
+  /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
+  forest: ForestBuild | null = null;
   /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
   playerWeaponId = 'ak47';
   /** súng của bot/dummy: HK416 (fixture HT-MB) — `?botWeapon=ak47` để calib tay theo khẩu người chơi (?calib=soldier) hoặc lính QGP cầm AK (D11) */
@@ -211,6 +214,24 @@ export class Game {
       // Terrain DEM (TIP-D04): ArenaData từ ô heightmap; ánh sáng ban ngày như level JSON
       this.terrain = await loadTerrainLevel(this.scene, terrainDef, { assets: this.assets, baseUrl: import.meta.env.BASE_URL ?? '/' });
       this.arena = this.terrain;
+      // Rừng loài thật (TIP-D05): mặc định bật khi có model (assets); lite (CI) chỉ khi ?veg=1
+      const vegParam = this.params.get('veg');
+      if (terrainDef.vegetation && vegParam !== '0' && (this.quality.assets || vegParam === '1')) {
+        const vq = { ...VEG_QUALITY[this.quality.tier] };
+        const vd = this.params.get('vegDensity');
+        const vl = this.params.get('vegLod');
+        if (vd !== null) vq.density = Math.max(0, Number(vd));
+        if (vl !== null) vq.lodScale = Math.max(0.1, Number(vl));
+        if (this.params.get('vegShadow') === '0' || !this.quality.shadows) vq.shadows = false;
+        this.forest = await buildForest(this.bundle.renderer, this.terrain.tile, terrainDef.vegetation, {
+          baseUrl: import.meta.env.BASE_URL ?? '/',
+          quality: vq,
+          noImpostor: this.params.get('impostor') === '0',
+        });
+        this.terrain.root.add(this.forest.system.group);
+        // collider thân cây vào ArenaData (nguồn collider duy nhất → physics.addStatic bên dưới)
+        for (const c of this.forest.system.colliders) this.arena.colliders.push(c);
+      }
       this.lights = createDaylight(this.scene, skyDef, {
         environment: this.assets.environment,
         sky: this.assets.sky,
@@ -593,6 +614,7 @@ export class Game {
     }
     this.lights.followTarget(this.camera);
     if (this.terrain) this.terrain.mesh.update(this.camera);
+    if (this.forest) this.forest.system.update(this.camera);
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {

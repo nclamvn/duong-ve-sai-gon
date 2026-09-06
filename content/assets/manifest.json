@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T15:00:52.109Z",
+  "generatedAt": "2026-09-06T03:07:57.899Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 126583844,
+  "totalBytes": 130345324,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3176,6 +3176,186 @@
       "triangles": {
         "source": 17168,
         "output": 6364
+      }
+    },
+    {
+      "id": "veg_tree_gn",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cây tán rừng già có dây leo (Tree GN): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/tree-gn-40da979cb23f492583ec89c4196cff4e",
+      "authors": [
+        "Node_λrt"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Tree GN\" (https://sketchfab.com/3d-models/tree-gn-40da979cb23f492583ec89c4196cff4e) by Node_λrt is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/tree_gn.glb",
+          "bytes": 1291832,
+          "sha256": "c72c564da1f18b79d67ca50c56e63fc3594b14b2e520d91b2e839da43ebbf2dd"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/tree-gn/tree_gn.glb",
+          "bytes": 24071396,
+          "sha256": "ae087e69edfca5245b2bb7cf66fb350521d342ff15cb3db5279a0ec58b0bedbb"
+        }
+      ],
+      "triangles": {
+        "source": 22577,
+        "output": 21003
+      }
+    },
+    {
+      "id": "veg_bamboo",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — tre/nứa (Free Bamboo Set): 3 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30",
+      "authors": [
+        "JonhGillessen"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Free Bamboo Set\" (https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30) by JonhGillessen is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/bamboo.glb",
+          "bytes": 483600,
+          "sha256": "2d7ca0242220755fd5d7484d110bef76867a3b4419c14ace196940333f1d17e0"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/bamboo-jonh/free_bamboo_set.glb",
+          "bytes": 26776896,
+          "sha256": "3c4cec41ba38b51dcbb92e881d304dd12d81ed7a4dcf9936a3565c5b53de8c79"
+        }
+      ],
+      "triangles": {
+        "source": 37834,
+        "output": 4673
+      }
+    },
+    {
+      "id": "veg_banana",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — chuối rừng Musa acuminata (Banana Tree): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e",
+      "authors": [
+        "DJMiddi"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Banana Tree\" (https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e) by DJMiddi is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/banana.glb",
+          "bytes": 242664,
+          "sha256": "740d24606ac85e3e4f8e30f50a8361ec3c78e07bce4b9817ddf22bff97a2baaa"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/banana-djmiddi/banana_tree.glb",
+          "bytes": 6459188,
+          "sha256": "99db1707bf1024c1c316c19191ee08a249c24e05c6aafd5a597a5f885b0bd645"
+        }
+      ],
+      "triangles": {
+        "source": 3332,
+        "output": 3332
+      }
+    },
+    {
+      "id": "veg_fern",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — dương xỉ (Tropical Plants Pack): 4 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+      "authors": [
+        "MozzarellaARC"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Tropical Plants Pack M02P\" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/fern.glb",
+          "bytes": 794060,
+          "sha256": "002907859473f2eca048320958310e5730ed5d9595e1a4762420493893572ac1"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+          "bytes": 26963788,
+          "sha256": "df11d08f77622aa9e7a5150579207676b5566dd3b50bc956b63512b87d442145"
+        }
+      ],
+      "triangles": {
+        "source": 46575,
+        "output": 1495
+      }
+    },
+    {
+      "id": "veg_elephant_ear",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — ráy Alocasia (Elephant Ear Plant): 2 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef",
+      "authors": [
+        "BANDANNA"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Elephant Ear Plant\" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/elephant_ear.glb",
+          "bytes": 267256,
+          "sha256": "39738cf83bcdcd18507422585b913088d3a37e107b301cc36b9b35002594e7da"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/elephant-ear-band/elephant_ear_plant.glb",
+          "bytes": 1005612,
+          "sha256": "74929815ae81e0031ed668ddba88a6e844d44e8356cb71ff314ca7a178c9272c"
+        }
+      ],
+      "triangles": {
+        "source": 1514,
+        "output": 3274
+      }
+    },
+    {
+      "id": "veg_palm",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cọ/cau rừng (Tropical Plants Pack): 3 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+      "authors": [
+        "MozzarellaARC"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"Tropical Plants Pack M02P\" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/vegetation/palm.glb",
+          "bytes": 682068,
+          "sha256": "359b4c956d21830a55dceb4384cd146bb98ff35da5548c73940345c17bfdfbbc"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+          "bytes": 26963788,
+          "sha256": "df11d08f77622aa9e7a5150579207676b5566dd3b50bc956b63512b87d442145"
+        }
+      ],
+      "triangles": {
+        "source": 46575,
+        "output": 4080
       }
     }
   ]

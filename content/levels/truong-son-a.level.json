@@ -23,6 +23,21 @@
   "layers": { "leaves": "brown_mud_leaves_01", "mud": "brown_mud_03", "rock": "aerial_rocks_02", "grass": "aerial_grass_rock" },
   "textures": ["brown_mud_leaves_01", "brown_mud_03", "aerial_rocks_02", "aerial_grass_rock"],
   "models": [],
+  "vegetation": {
+    "$comment": "TIP-D05 rừng loài thật (content/vegetation/species.json). perHa = cây/ha (bụi: bụi/ha); lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; rect riêng cho tầng thấp (chỉ thấy < 140 m). Mật độ chỉnh theo đếm tam giác sandbox (≤ 2,5 M mục tiêu, 4 M đỏ) — bench Mac quyết GO/ADJUST (ADR-D01).",
+    "seed": 1971,
+    "cellM": 64,
+    "wind": 0.35,
+    "rect": { "x": -192, "z": 512, "w": 1024, "h": 1024 },
+    "species": [
+      { "id": "tree_gn", "perHa": 35, "slope": [0, 0.55], "scale": [0.8, 1.25], "noise": { "scale": 0.006, "min": 0.3 }, "lod": [32, 100, 170, 600], "cast": true, "collider": { "radius": 0.45, "height": 6 } },
+      { "id": "palm", "perHa": 12, "slope": [0, 0.5], "scale": [0.8, 1.2], "noise": { "scale": 0.01, "min": 0.4, "offset": 50 }, "lod": [35, 90, 150, 450], "cast": true, "collider": { "radius": 0.2, "height": 3 } },
+      { "id": "bamboo", "perHa": 10, "slope": [0, 0.5], "scale": [0.85, 1.15], "noise": { "scale": 0.008, "min": 0.45, "offset": 120 }, "clump": { "count": [2, 4], "radius": 2.5 }, "lod": [35, 90, 200, 400], "cast": true, "collider": { "radius": 0.35, "height": 4 } },
+      { "id": "banana", "perHa": 60, "slope": [0, 0.45], "height": [0, 0.6], "scale": [0.8, 1.2], "noise": { "scale": 0.012, "min": 0.5, "offset": 300 }, "lod": [30, 70, 130, 130], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } },
+      { "id": "elephant_ear", "perHa": 250, "slope": [0, 0.5], "scale": [0.7, 1.2], "noise": { "scale": 0.015, "min": 0.4, "offset": 700 }, "lod": [18, 40, 90, 90], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } },
+      { "id": "fern", "perHa": 900, "slope": [0, 0.6], "scale": [0.7, 1.3], "noise": { "scale": 0.02, "min": 0.3, "offset": 900 }, "lod": [12, 28, 70, 70], "rect": { "x": -192, "z": 512, "w": 832, "h": 832 } }
+    ]
+  },
   "playerSpawn": [-134, 580],
   "playerYaw": 0.6,
   "botSpawns": { "bot_a": [-170, 540] },

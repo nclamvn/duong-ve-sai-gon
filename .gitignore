@@ -15,3 +15,4 @@ assets-src/
 
 # bundle đồng bộ sandbox ↔ Mac (git bundle, không vào git)
 .sync/
+out/

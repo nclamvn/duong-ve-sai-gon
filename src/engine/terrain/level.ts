@@ -9,6 +9,7 @@ import type { LevelSky } from '../level/types';
 import { TerrainTile } from './tile';
 import { TerrainMesh, makeHeightTexture, makeNormalTexture } from './mesh';
 import { createTerrainMaterial, type TerrainLayers } from './material';
+import type { VegetationDef } from '../vegetation/system';
 
 export type V2 = [number, number];
 
@@ -32,6 +33,8 @@ export interface TerrainLevelDef {
   layers: { leaves: string; mud: string; rock: string; grass: string };
   textures: string[];
   models: string[];
+  /** rừng loài thật (TIP-D05) — thiếu → không thực vật */
+  vegetation?: VegetationDef;
   playerSpawn: V2;
   playerYaw: number;
   botSpawns: Record<string, V2>;

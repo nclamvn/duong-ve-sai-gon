@@ -1,0 +1,338 @@
+{
+  "$comment": "TIP-D05 rừng Trường Sơn M1 — loài thật (chuối rừng Musa acuminata, tre/nứa, ráy Alocasia, dương xỉ, cọ/cau rừng, cây tán lớn có dây leo). Nguồn Sketchfab CC-BY đã kiểm rip (DV-026): mô tả tác giả tự làm, không tag game. Cấu hình cho scripts/convert-vegetation.mjs: variants.nodes = regex tên node cấp cao; leaf = regex tên material coi là lá (MASK hai mặt); height = chiều cao (m) biến thể cao nhất; lod = tỉ lệ tam giác giữ theo lớp [LOD0, LOD1, LOD2]. Loài chưa có registry thực vật (không phải fact lịch sử) — cố vấn kiểm loài ở D12.",
+  "species": {
+    "tree_gn": {
+      "label": "cây tán rừng già có dây leo (Tree GN)",
+      "asset": "veg_tree_gn",
+      "src": "assets-src/sketchfab/tree-gn/tree_gn.glb",
+      "variants": [
+        {
+          "nodes": "^TreeGen$",
+          "drop": "PruneB|ClusterB2|CortexB"
+        }
+      ],
+      "leaf": "Cluster|Vines",
+      "height": 24,
+      "lod": {
+        "leaf": [
+          1,
+          0.35,
+          0.15
+        ],
+        "bark": [
+          1,
+          0.2,
+          0.05
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 1024
+      },
+      "cast": true,
+      "collider": {
+        "radius": 0.45,
+        "height": 6
+      },
+      "sketchfab": {
+        "uid": "40da979cb23f492583ec89c4196cff4e",
+        "name": "Tree GN",
+        "author": "Node_λrt",
+        "username": "Node_Art",
+        "url": "https://sketchfab.com/3d-models/tree-gn-40da979cb23f492583ec89c4196cff4e",
+        "faces": 22577
+      }
+    },
+    "bamboo": {
+      "label": "tre/nứa (Free Bamboo Set)",
+      "asset": "veg_bamboo",
+      "src": "assets-src/sketchfab/bamboo-jonh/free_bamboo_set.glb",
+      "variants": [
+        {
+          "nodes": "^bambooBlock\\.016_13$"
+        },
+        {
+          "nodes": "^bambooBlock\\.015_14$"
+        },
+        {
+          "nodes": "^bambooBlock\\.008_21$"
+        }
+      ],
+      "leaf": "alpha",
+      "height": 12,
+      "lod": {
+        "leaf": [
+          1,
+          0.5,
+          0.2
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": true,
+      "collider": {
+        "radius": 0.12,
+        "height": 4
+      },
+      "sketchfab": {
+        "uid": "e9f9fa5397814f81bf85ad06acf5bf30",
+        "name": "Free Bamboo Set",
+        "author": "JonhGillessen",
+        "username": "JonhGillessen",
+        "url": "https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30",
+        "faces": 37834
+      }
+    },
+    "banana": {
+      "label": "chuối rừng Musa acuminata (Banana Tree)",
+      "asset": "veg_banana",
+      "src": "assets-src/sketchfab/banana-djmiddi/banana_tree.glb",
+      "variants": [
+        {
+          "nodes": "^BANANA_PLANT$"
+        }
+      ],
+      "leaf": "lambert1",
+      "height": 4,
+      "lod": {
+        "leaf": [
+          1,
+          0.5,
+          0.25
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "sketchfab": {
+        "uid": "7186ebfc24fc42c599f81713cd28d55e",
+        "name": "Banana Tree",
+        "author": "DJMiddi",
+        "username": "DJMiddi",
+        "url": "https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e",
+        "faces": 3332
+      }
+    },
+    "fern": {
+      "label": "dương xỉ (Tropical Plants Pack)",
+      "asset": "veg_fern",
+      "src": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+      "variants": [
+        {
+          "nodes": "^SM_MZRa_Fern_B052$"
+        },
+        {
+          "nodes": "^SM_MZRa_Fern_B0522$"
+        },
+        {
+          "nodes": "^SM_MZRa_Fern_B053$"
+        },
+        {
+          "nodes": "^SM_MZRa_Fern_B0532$"
+        }
+      ],
+      "leaf": "Fern",
+      "height": 0.9,
+      "lod": {
+        "leaf": [
+          0.7,
+          0.25,
+          0.08
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "sketchfab": {
+        "uid": "2f093afb792742438f0f7ba7eaab90f0",
+        "name": "Tropical Plants Pack M02P",
+        "author": "MozzarellaARC",
+        "username": "mozzarellaARC",
+        "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+        "faces": 46575
+      }
+    },
+    "elephant_ear": {
+      "label": "ráy Alocasia (Elephant Ear Plant)",
+      "asset": "veg_elephant_ear",
+      "src": "assets-src/sketchfab/elephant-ear-band/elephant_ear_plant.glb",
+      "variants": [
+        {
+          "nodes": "^ElephantEarLeaf$",
+          "parts": [
+            {
+              "rotY": 0.0,
+              "tilt": -0.3,
+              "scale": 1.0,
+              "pos": [
+                0,
+                0.3,
+                0
+              ]
+            },
+            {
+              "rotY": 1.7,
+              "tilt": -0.35,
+              "scale": 0.9,
+              "pos": [
+                0,
+                0.25,
+                0
+              ]
+            },
+            {
+              "rotY": 3.3,
+              "tilt": -0.25,
+              "scale": 1.05,
+              "pos": [
+                0,
+                0.35,
+                0
+              ]
+            },
+            {
+              "rotY": 4.9,
+              "tilt": -0.4,
+              "scale": 0.85,
+              "pos": [
+                0,
+                0.2,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "nodes": "^ElephantEarLeaf$",
+          "parts": [
+            {
+              "rotY": 0.6,
+              "tilt": -0.35,
+              "scale": 0.9,
+              "pos": [
+                0,
+                0.25,
+                0
+              ]
+            },
+            {
+              "rotY": 2.8,
+              "tilt": -0.3,
+              "scale": 1.0,
+              "pos": [
+                0,
+                0.3,
+                0
+              ]
+            },
+            {
+              "rotY": 4.6,
+              "tilt": -0.45,
+              "scale": 0.8,
+              "pos": [
+                0,
+                0.2,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "leaf": "elephant",
+      "height": 1.4,
+      "lod": {
+        "leaf": [
+          0.6,
+          0.25,
+          0.08
+        ],
+        "bark": [
+          1,
+          1,
+          1
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "sketchfab": {
+        "uid": "9cd6cf1553844d4999530f8916991cef",
+        "name": "Elephant Ear Plant",
+        "author": "BANDANNA",
+        "username": "BAND_ANNA",
+        "url": "https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef",
+        "faces": 1514
+      }
+    },
+    "palm": {
+      "label": "cọ/cau rừng (Tropical Plants Pack)",
+      "asset": "veg_palm",
+      "src": "assets-src/sketchfab/tropical-pack-mozz/tropical_plants_pack_m02p.glb",
+      "variants": [
+        {
+          "nodes": "^SM_MZRa_Palm_B081$"
+        },
+        {
+          "nodes": "^SM_MZRa_Palm_B082$"
+        },
+        {
+          "nodes": "^SM_MZRa_Palm_B083$"
+        }
+      ],
+      "leaf": "B08a",
+      "height": 7,
+      "lod": {
+        "leaf": [
+          1,
+          0.45,
+          0.2
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": true,
+      "collider": {
+        "radius": 0.2,
+        "height": 3
+      },
+      "sketchfab": {
+        "uid": "2f093afb792742438f0f7ba7eaab90f0",
+        "name": "Tropical Plants Pack M02P",
+        "author": "MozzarellaARC",
+        "username": "mozzarellaARC",
+        "url": "https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0",
+        "faces": 46575
+      }
+    }
+  }
+}

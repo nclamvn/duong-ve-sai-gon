@@ -17,6 +17,12 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "Sandbag Wall 02" (https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_02.glb`
 - "Sandbag Wall 05" (https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_05.glb`
 - "AK 47" (https://sketchfab.com/3d-models/ak-47-06262bdca3b44bd8b432ee4c69317f8c) by Aleksei Vlasov (CRWDE) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/ak47.glb`
+- "Tree GN" (https://sketchfab.com/3d-models/tree-gn-40da979cb23f492583ec89c4196cff4e) by Node_λrt is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/tree_gn.glb`
+- "Free Bamboo Set" (https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30) by JonhGillessen is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/bamboo.glb`
+- "Banana Tree" (https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e) by DJMiddi is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/banana.glb`
+- "Tropical Plants Pack M02P" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/fern.glb`
+- "Elephant Ear Plant" (https://sketchfab.com/3d-models/elephant-ear-plant-9cd6cf1553844d4999530f8916991cef) by BANDANNA is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/elephant_ear.glb`
+- "Tropical Plants Pack M02P" (https://sketchfab.com/3d-models/tropical-plants-pack-m02p-2f093afb792742438f0f7ba7eaab90f0) by MozzarellaARC is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/palm.glb`
 
 ## CC0-1.0
 
@@ -84,11 +90,11 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 ## Mixamo
 
-- lính (dummy + bot) — mesh + animation Mixamo, Chủ nhà tải, convert bằng scripts/convert-mixamo.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
+- lính Quân Giải phóng 1971 (dummy + bot) — Mixamo Swat Guy, Chủ nhà tải, convert scripts/convert-mixamo.mjs → bỏ gear + sơn lại atlas bằng scripts/retexture-1971.mjs (vải Tô Châu, tay trần; đầu/giày tạm — D11b) — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
 - cánh tay góc nhìn thứ nhất (TIP-016) — dẫn xuất từ soldier_mixamo bằng scripts/extract-arms.mjs — Adobe Mixamo (https://www.mixamo.com/); dùng theo điều khoản Mixamo, không phân phối lại asset rời.
 
 ## PD-USGov
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
-Tổng: 77 asset, 123.1 MB. Cập nhật 2026-09-05T13:00:29.775Z.
+Tổng: 83 asset, 124.3 MB. Cập nhật 2026-09-06T03:07:57.899Z.

@@ -42,8 +42,8 @@ export class TerrainTile {
     let mn = Infinity;
     let mx = -Infinity;
     for (let k = 0; k < u16.length; k++) {
-      const y = meta.zMin + (u16[k]! / 65535) * range - yOffset;
-      h[k] = y;
+      h[k] = meta.zMin + (u16[k]! / 65535) * range - yOffset;
+      const y = h[k]!; // min/max từ giá trị float32 đã lưu (sample() trả float32 — không lệch ε khi so với minY)
       if (y < mn) mn = y;
       if (y > mx) mx = y;
     }

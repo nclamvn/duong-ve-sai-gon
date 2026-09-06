@@ -7,7 +7,13 @@
   "required": ["id", "name", "terrain", "camera", "sky", "layers", "textures", "models", "playerSpawn", "playerYaw", "botSpawns", "waypoints", "zones", "coverMarkers"],
   "definitions": {
     "v2": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
-    "v3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+    "v3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "z", "w", "h"],
+      "properties": { "x": { "type": "number" }, "z": { "type": "number" }, "w": { "type": "number", "minimum": 16 }, "h": { "type": "number", "minimum": 16 } }
+    }
   },
   "properties": {
     "$schema": { "type": "string" },
@@ -41,6 +47,56 @@
     },
     "textures": { "type": "array", "items": { "type": "string" } },
     "models": { "type": "array", "items": { "type": "string" } },
+    "vegetation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seed", "rect", "species"],
+      "description": "TIP-D05 rừng: scatter seeded theo loài (public/assets/vegetation/<id>.glb)",
+      "properties": {
+        "$comment": { "type": "string" },
+        "seed": { "type": "integer" },
+        "cellM": { "type": "number", "minimum": 16 },
+        "wind": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rect": { "$ref": "#/definitions/rect" },
+        "species": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "perHa", "lod"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+              "perHa": { "type": "number", "minimum": 0 },
+              "slope": { "$ref": "#/definitions/v2" },
+              "height": { "$ref": "#/definitions/v2" },
+              "scale": { "$ref": "#/definitions/v2" },
+              "noise": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["scale", "min"],
+                "properties": { "scale": { "type": "number", "minimum": 0 }, "min": { "type": "number", "minimum": 0, "maximum": 1 }, "offset": { "type": "number" } }
+              },
+              "clump": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["count", "radius"],
+                "properties": { "count": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 2, "maxItems": 2 }, "radius": { "type": "number", "minimum": 0 } }
+              },
+              "lod": { "type": "array", "items": { "type": "number", "minimum": 0 }, "minItems": 4, "maxItems": 4 },
+              "cast": { "type": "boolean" },
+              "collider": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["radius", "height"],
+                "properties": { "radius": { "type": "number", "minimum": 0.01 }, "height": { "type": "number", "minimum": 0.1 } }
+              },
+              "rect": { "$ref": "#/definitions/rect" }
+            }
+          }
+        }
+      }
+    },
     "playerSpawn": { "$ref": "#/definitions/v2" },
     "playerYaw": { "type": "number" },
     "botSpawns": { "type": "object", "additionalProperties": { "$ref": "#/definitions/v2" } },

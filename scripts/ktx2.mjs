@@ -3,7 +3,7 @@
  * KTX2/Basis cho toàn bộ texture (PRD DVSG PRF-004, ADR-D04, TIP-D02).
  *  - Texture rời `public/assets/textures/<id>/<id>_{diff,nor_gl,arm}_1k.jpg` → `.ktx2` cùng chỗ, xoá .jpg (nguồn còn ở assets-src/).
  *      diff: ETC1S q160 sRGB · arm: ETC1S q128 linear · nor_gl: UASTC (normal preset, RDO λ1) linear · mipmap.
- *  - GLB (`public/assets/{models,weapons,characters}/*.glb`): texture WebP/JPEG/PNG bên trong → KTX2 (KHR_texture_basisu):
+ *  - GLB (`public/assets/{models,weapons,characters,vegetation}/*.glb`): texture WebP/JPEG/PNG bên trong → KTX2 (KHR_texture_basisu):
  *      normalTexture: UASTC · còn lại ETC1S q160 (baseColor sRGB) / q128 (ORM linear).
  *  - Cập nhật `content/assets/manifest.json` (path/bytes/sha256, totalBytes).
  * Dùng: node scripts/ktx2.mjs [--only textures|models] [--filter <substring>] [--dry] [--keep-src]
@@ -87,7 +87,7 @@ if (!ONLY || ONLY === 'models') {
   await MeshoptDecoder.ready;
   await MeshoptEncoder.ready;
   const io = new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({ 'meshopt.decoder': MeshoptDecoder, 'meshopt.encoder': MeshoptEncoder });
-  for (const sub of ['models', 'weapons', 'characters']) {
+  for (const sub of ['models', 'weapons', 'characters', 'vegetation']) {
     const dir = `public/assets/${sub}`;
     if (!existsSync(dir)) continue;
     for (const f of readdirSync(dir).sort()) {
