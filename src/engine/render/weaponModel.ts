@@ -25,7 +25,13 @@ export interface WeaponModelConfig {
    * Bàn tay trên súng (TIP-016/017) — một sự thật cho cả tay FP lẫn lính: pose **bone bàn tay Mixamo trong hệ anchor**
    * gripR/gripL (pos m, rot Euler XYZ). FP: hand = anchor · pose. Lính: súng trong bone tay = inverse(pose) rồi dịch −gripR.
    */
-  fp: { handR: WeaponPose; handL: WeaponPose; triggerFinger?: number };
+  fp: {
+    handR: WeaponPose;
+    handL: WeaponPose;
+    triggerFinger?: number;
+    /** pose tay FP v2 (TIP-D11b) — dữ liệu authored cho FpHands (xoay local từng xương + hướng rig); thiếu → DEFAULT_AK_GRIP */
+    handsPose?: unknown;
+  };
 }
 
 export interface WeaponAsset {

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-06T13:14:08.674Z",
+  "generatedAt": "2026-09-08T13:03:36.440Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 149687786,
+  "totalBytes": 149796750,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3752,6 +3752,35 @@
           "sha256": "e4c0486732162adebb13801d2210e417de8ab4d65bdcd0df4ad265048c146cc7"
         }
       ]
+    },
+    {
+      "id": "fp_hands",
+      "type": "character",
+      "use": "tay góc nhìn thứ nhất người chơi (TIP-D11b) — rig 63 joint đủ đốt ngón, pose nắm súng authored + clip idle/aim/reload trong game; thay tay Mixamo cũ (soldier_arms)",
+      "source": "sketchfab",
+      "url": "https://sketchfab.com/3d-models/first-person-hands-rigged-547a45535f0c4fe787948f7a7a6a88db",
+      "authors": [
+        "David Fischer (davidfischer)"
+      ],
+      "license": "CC-BY-4.0",
+      "attribution": "\"First Person hands rigged\" (https://sketchfab.com/3d-models/first-person-hands-rigged-547a45535f0c4fe787948f7a7a6a88db) by David Fischer (davidfischer) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "files": [
+        {
+          "path": "assets/characters/fp_hands.glb",
+          "bytes": 108964,
+          "sha256": "5903aac7d195dddc86693e7158c40610f1fc7e583ccda9b4b1fe7aa10c1347b9"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/sketchfab/fp-hands-davidfischer/fp_hands.glb",
+          "bytes": 387856,
+          "sha256": "f262f890dc499104e0fca4fb6cb011a078e1dc5909ae10c1107520c7b1f2390e"
+        }
+      ],
+      "triangles": {
+        "output": 7966
+      }
     }
   ]
 }

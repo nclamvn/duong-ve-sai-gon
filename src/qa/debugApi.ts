@@ -168,6 +168,29 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
     skyDrop: (x, y, z) => game.sky?.dropParachute(x, y, z),
     bots: () => [...game.bots.values()].map((b) => ({ id: b.id, group: b.group, state: b.bot.state, lod: b.bot.lod, alive: b.bot.alive, health: b.bot.health, position: [b.bot.position[0], b.bot.position[1], b.bot.position[2]] })),
   };
+  // calib tay FP v2 (TIP-D11b): chỉnh pose bằng ảnh sandbox rồi dump ra để ghi vào ak47.json#fp.handsPose
+  api.fp = {
+    has: () => !!game.fpHands,
+    pose: () => game.fpHandsPose,
+    setArm: (side: 'R' | 'L', px: number, py: number, pz: number, rx: number, ry: number, rz: number, ex: number, ey: number, ez: number) => {
+      const p = game.fpHandsPose; if (!game.fpHands || !p) return;
+      const a = side === 'L' ? p.armL : p.armR;
+      a.pos = [px, py, pz]; a.rot = [rx, ry, rz]; a.pole = [ex, ey, ez];
+      game.fpHands.applyPose(p);
+    },
+    setFinger: (prefix: string, x: number, y: number, z: number) => {
+      const p = game.fpHandsPose; if (!game.fpHands || !p) return;
+      p.fingers[prefix] = [x, y, z]; game.fpHands.applyPose(p);
+    },
+    setScale: (s: number) => { const p = game.fpHandsPose; if (!game.fpHands || !p) return; p.scale = s; game.fpHands.applyPose(p); },
+    setPlace: (px: number, py: number, pz: number, ex = 0, ey = 0, ez = 0) => {
+      const p = game.fpHandsPose; if (!game.fpHands || !p) return;
+      p.place = { pos: [px, py, pz], euler: [ex, ey, ez] }; game.fpHands.applyPose(p);
+    },
+    setPose: (json: string) => { if (!game.fpHands) return; game.fpHandsPose = JSON.parse(json); game.fpHands.applyPose(game.fpHandsPose!); },
+    dump: () => JSON.stringify(game.fpHandsPose),
+    tris: () => game.fpHands?.triangles ?? 0,
+  };
   window.__ht = api;
   return api;
 }

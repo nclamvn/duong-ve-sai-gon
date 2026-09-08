@@ -161,6 +161,32 @@
         },
         "$comment": {
           "type": "string"
+        },
+        "handsPose": {
+          "type": "object",
+          "description": "Pose tay FP v2 (TIP-D11b) cho FpHands: scale + place + armR/armL (IK) + fingers. Dữ liệu calib, tinh chỉnh runtime.",
+          "properties": {
+            "scale": {
+              "type": "number"
+            },
+            "place": {
+              "type": "object"
+            },
+            "armR": {
+              "type": "object"
+            },
+            "armL": {
+              "type": "object"
+            },
+            "fingers": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "armR",
+            "armL"
+          ],
+          "additionalProperties": true
         }
       }
     }

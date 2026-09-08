@@ -8,6 +8,7 @@ import { createGltfLoader, initLoaders, ktx2Loader } from './loaders';
 import { loadCharacter, type CharacterAsset } from './characters';
 import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
 import { loadFpArms, type FpArmsAsset } from './fpArms';
+import { loadFpHands, type FpHandsAsset } from './fpHands';
 
 export interface PbrTextureSet {
   id: string;
@@ -30,6 +31,8 @@ export interface LoadedAssets {
   weapons: Record<string, WeaponAsset>;
   /** cánh tay góc nhìn thứ nhất (TIP-016, dẫn xuất Mixamo); null → bao tay procedural */
   arms: FpArmsAsset | null;
+  /** tay FP v2 (TIP-D11b, David Fischer CC-BY, rig riêng); ưu tiên hơn `arms` khi có */
+  fpHands: FpHandsAsset | null;
   bytesHint: number;
 }
 
@@ -39,6 +42,7 @@ const MODEL_IDS = ['wooden_military_crate', 'old_military_crate', 'plastic_crate
 const HDRI_ID = 'blue_lagoon_night';
 export const CHARACTER_URL = 'characters/soldier.glb';
 export const ARMS_URL = 'characters/soldier_arms.glb';
+export const FP_HANDS_URL = 'characters/fp_hands.glb';
 
 export type TextureId = (typeof TEXTURE_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
@@ -142,12 +146,22 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   let sky: Texture | null = null;
   let character: CharacterAsset | null = null;
   let arms: FpArmsAsset | null = null;
+  let fpHands: FpHandsAsset | null = null;
   if (!opts.lite && !opts.noWeapons && !opts.noArms) {
+    // ưu tiên tay FP v2 (fp_hands.glb, D11b); giữ soldier_arms cũ làm fallback
     try {
-      const head = await fetch(`${b}${ARMS_URL}`, { method: 'HEAD' });
-      if (head.ok) arms = await loadFpArms(`${b}${ARMS_URL}`);
+      const head = await fetch(`${b}${FP_HANDS_URL}`, { method: 'HEAD' });
+      if (head.ok) fpHands = await loadFpHands(`${b}${FP_HANDS_URL}`);
     } catch {
-      arms = null;
+      fpHands = null;
+    }
+    if (!fpHands) {
+      try {
+        const head = await fetch(`${b}${ARMS_URL}`, { method: 'HEAD' });
+        if (head.ok) arms = await loadFpArms(`${b}${ARMS_URL}`);
+      } catch {
+        arms = null;
+      }
     }
   }
   await Promise.all(
@@ -189,7 +203,7 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     pmrem.dispose();
     tick(hdri.id);
   }
-  return { textures, models, environment, sky, character, weapons, arms, bytesHint: 0 };
+  return { textures, models, environment, sky, character, weapons, arms, fpHands, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

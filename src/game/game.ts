@@ -31,6 +31,7 @@ import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { createActorVisual, type ActorVisual } from '@game/actors/visual';
 import { FpArms } from '@engine/render/fpArms';
+import { FpHands, DEFAULT_AK_GRIP, type FpHandsPose } from '@engine/render/fpHands';
 import type { WeaponModelConfig, WeaponAsset } from '@engine/render/weaponModel';
 import ak74mCfg from '@content/weapons/ak74m.json';
 import ak47Cfg from '@content/weapons/ak47.json';
@@ -135,6 +136,8 @@ export class Game {
   viewModel!: WeaponViewModel;
   fpArms: FpArms | null = null;
   fpArmsCfg: NonNullable<WeaponModelConfig['fp']> | null = null;
+  fpHands: FpHands | null = null;
+  fpHandsPose: FpHandsPose | null = null;
   /** debug/calib (TIP-017): khoá AI (không think/move), ẩn viewmodel, ép pose FP */
   aiPaused = false;
   viewModelHidden = false;
@@ -381,10 +384,16 @@ export class Game {
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
     this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null);
-    // cánh tay FP (TIP-016): mesh tay Mixamo + IK bám anchor súng; cần viewmodel glTF (anchor) + soldier_arms.glb
     const ak = this.assets.weapons[this.playerWeaponId];
-    if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
-      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space); // kích thước thật, camera viewmodel riêng
+    // tay FP v2 (TIP-D11b): asset tay riêng (David Fischer) + pose authored, gắn cứng tay phải vào gripR, KHÔNG IK
+    if (this.quality.arms && this.assets.fpHands && ak?.cfg.fp && this.viewModel.fpAnchors) {
+      this.fpHands = new FpHands(this.assets.fpHands, this.viewModel.space, { tint: 0xc79a72 });
+      this.fpHandsPose = (ak.cfg.fp.handsPose as FpHandsPose | undefined) ?? DEFAULT_AK_GRIP;
+      this.fpHands.applyPose(this.fpHandsPose);
+      this.viewModel.setGlovesVisible(false);
+    } else if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
+      // fallback: tay Mixamo cũ + IK (TIP-016) khi chưa có fp_hands.glb
+      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space);
       this.fpArmsCfg = ak.cfg.fp;
       this.viewModel.setGlovesVisible(false);
     }
@@ -767,6 +776,11 @@ export class Game {
     this.vmCamera.updateMatrixWorld(true);
     const fo = this.fpOverride;
     this.viewModel.update(dt, fo ? fo.ads : this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), fo ? fo.sprint : this.player.isSprinting);
+    if (this.fpHands) this.fpHands.visible = this.viewModel.visible;
+    if (this.fpHands && this.viewModel.fpAnchors && this.viewModel.visible) {
+      this.fpHands.triggerFinger = 0.5; // ngón trỏ: giữa (bản calib sẽ nối bắn/ADS sau)
+      this.fpHands.update(this.viewModel.fpAnchors.gripR, this.viewModel.fpAnchors.gripL);
+    }
     if (this.fpArms) this.fpArms.visible = this.viewModel.visible;
     if (this.fpArms && this.fpArmsCfg && this.viewModel.fpAnchors && this.viewModel.visible) {
       this.fpArms.update({ gripR: this.viewModel.fpAnchors.gripR, gripL: this.viewModel.fpAnchors.gripL, handR: this.fpArmsCfg.handR, handL: this.fpArmsCfg.handL, triggerFinger: this.fpArmsCfg.triggerFinger });

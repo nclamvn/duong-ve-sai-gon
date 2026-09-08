@@ -104,6 +104,207 @@
       ]
     },
     "triggerFinger": 0.6,
-    "$comment": "TIP-D10/D11a/D05-fix: tay TRÁI ôm ốp lót từ DƯỚI (Chủ nhà lần 3: 'bàn tay trái để lên súng rất thô'): rot giải tích từ trục local bàn tay Mixamo (+y = hướng ngón → (0,91, 0,41, 0) ngang qua ốp; +z = lòng bàn tay → lên-trái; +x = trỏ→út → +z dọc nòng), pos để đốt gốc ngón nằm dưới ốp; ngón co riêng FINGER_CURL_L (fpArms). hip.pos gần camera hơn (z −0,28 → −0,215, x 0,11 → 0,085) vì tầm với tay FP 0,498 m (vai −0,19/−0,19/+0,07 hệ camera) — ốp lót ở 0,44 m trước camera là ngoài tầm 6,5 cm (cổ tay bị kéo lùi, ngón xuyên). Hiệu chỉnh tiếp: ?calib=fp setHand/exportJson."
+    "$comment": "TIP-D10/D11a/D05-fix: tay TRÁI ôm ốp lót từ DƯỚI (Chủ nhà lần 3: 'bàn tay trái để lên súng rất thô'): rot giải tích từ trục local bàn tay Mixamo (+y = hướng ngón → (0,91, 0,41, 0) ngang qua ốp; +z = lòng bàn tay → lên-trái; +x = trỏ→út → +z dọc nòng), pos để đốt gốc ngón nằm dưới ốp; ngón co riêng FINGER_CURL_L (fpArms). hip.pos gần camera hơn (z −0,28 → −0,215, x 0,11 → 0,085) vì tầm với tay FP 0,498 m (vai −0,19/−0,19/+0,07 hệ camera) — ốp lót ở 0,44 m trước camera là ngoài tầm 6,5 cm (cổ tay bị kéo lùi, ngón xuyên). Hiệu chỉnh tiếp: ?calib=fp setHand/exportJson. | handsPose (TIP-D11b): tay FP v2 (fp_hands.glb) — IK 2 khớp đặt tay + ngón authored; chỉnh runtime qua __ht.fp.* rồi __ht.fp.dump() dán lại vào đây.",
+    "handsPose": {
+      "scale": 0.92,
+      "place": {
+        "pos": [
+          -0.04,
+          -1.32,
+          0.07
+        ],
+        "euler": [
+          0,
+          0,
+          0
+        ]
+      },
+      "armR": {
+        "pos": [
+          0.02,
+          -0.02,
+          0.02
+        ],
+        "rot": [
+          -0.3,
+          3.141592653589793,
+          0
+        ],
+        "pole": [
+          1.1,
+          -1.5,
+          -0.2
+        ]
+      },
+      "armL": {
+        "pos": [
+          -0.02,
+          0.0,
+          0.0
+        ],
+        "rot": [
+          -1.4,
+          3.141592653589793,
+          0.2
+        ],
+        "pole": [
+          -1.1,
+          -1.5,
+          -0.2
+        ]
+      },
+      "fingers": {
+        "f_index01R": [
+          0.55,
+          0,
+          0
+        ],
+        "f_index02R": [
+          0.7,
+          0,
+          0
+        ],
+        "f_index03R": [
+          0.5,
+          0,
+          0
+        ],
+        "f_middle01R": [
+          0.85,
+          0,
+          0
+        ],
+        "f_middle02R": [
+          0.95,
+          0,
+          0
+        ],
+        "f_middle03R": [
+          0.7,
+          0,
+          0
+        ],
+        "f_ring01R": [
+          0.9,
+          0,
+          0
+        ],
+        "f_ring02R": [
+          1.0,
+          0,
+          0
+        ],
+        "f_ring03R": [
+          0.72,
+          0,
+          0
+        ],
+        "f_pinky01R": [
+          0.95,
+          0,
+          0
+        ],
+        "f_pinky02R": [
+          1.05,
+          0,
+          0
+        ],
+        "f_pinky03R": [
+          0.75,
+          0,
+          0
+        ],
+        "thumb01R": [
+          0.4,
+          0.2,
+          0
+        ],
+        "thumb02R": [
+          0.35,
+          0,
+          0
+        ],
+        "thumb03R": [
+          0.3,
+          0,
+          0
+        ],
+        "f_index01L": [
+          0.8,
+          0,
+          0
+        ],
+        "f_index02L": [
+          0.9,
+          0,
+          0
+        ],
+        "f_index03L": [
+          0.7,
+          0,
+          0
+        ],
+        "f_middle01L": [
+          0.85,
+          0,
+          0
+        ],
+        "f_middle02L": [
+          0.95,
+          0,
+          0
+        ],
+        "f_middle03L": [
+          0.72,
+          0,
+          0
+        ],
+        "f_ring01L": [
+          0.9,
+          0,
+          0
+        ],
+        "f_ring02L": [
+          1.0,
+          0,
+          0
+        ],
+        "f_ring03L": [
+          0.75,
+          0,
+          0
+        ],
+        "f_pinky01L": [
+          0.95,
+          0,
+          0
+        ],
+        "f_pinky02L": [
+          1.05,
+          0,
+          0
+        ],
+        "f_pinky03L": [
+          0.78,
+          0,
+          0
+        ],
+        "thumb01L": [
+          0.4,
+          0.2,
+          0
+        ],
+        "thumb02L": [
+          0.35,
+          0,
+          0
+        ],
+        "thumb03L": [
+          0.3,
+          0,
+          0
+        ]
+      }
+    }
   }
 }

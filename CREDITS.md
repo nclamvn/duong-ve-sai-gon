@@ -17,7 +17,6 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "Sandbag Wall 02" (https://sketchfab.com/3d-models/sandbag-wall-02-6ab8f2c7db3d46f49b5b58ae0b686e2e) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_02.glb`
 - "Sandbag Wall 05" (https://sketchfab.com/3d-models/sandbag-wall-05-b5994d5a6a2648e59cf86ea1951bacaf) by Pypunk (PieterSnauwaert) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_sandbag_05.glb`
 - "AK 47" (https://sketchfab.com/3d-models/ak-47-06262bdca3b44bd8b432ee4c69317f8c) by Aleksei Vlasov (CRWDE) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/ak47.glb`
-- "M16A1 - Gameasset" (https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/m16a1.glb`
 - "Tree GN" (https://sketchfab.com/3d-models/tree-gn-40da979cb23f492583ec89c4196cff4e) by Node_λrt is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/tree_gn.glb`
 - "Free Bamboo Set" (https://sketchfab.com/3d-models/free-bamboo-set-e9f9fa5397814f81bf85ad06acf5bf30) by JonhGillessen is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/bamboo.glb`
 - "Banana Tree" (https://sketchfab.com/3d-models/banana-tree-7186ebfc24fc42c599f81713cd28d55e) by DJMiddi is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/vegetation/banana.glb`
@@ -30,10 +29,13 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "Boeing B-52 Stratofortress" (https://sketchfab.com/3d-models/boeing-b-52-stratofortress-38b0c64bd552431394efa8625d7f5144) by bohmerang is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_b52.glb`
 - "Lockheed AC-130 "Hercules"" (https://sketchfab.com/3d-models/lockheed-ac-130-hercules-361991c9874d4680931b3e0d23500e43) by helijah is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_c130.glb`
 - "UH-1 B with (half modeled cockpit)" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_uh1b.glb`
+- "M16A1 - Gameasset" (https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/m16a1.glb`
+- "First Person hands rigged" (https://sketchfab.com/3d-models/first-person-hands-rigged-547a45535f0c4fe787948f7a7a6a88db) by David Fischer (davidfischer) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/characters/fp_hands.glb`
 
 ## CC0-1.0
 
 - blue_lagoon_night (hdri) — Greg Zaal — https://polyhaven.com/a/blue_lagoon_night
+- dikhololo_night (hdri) — Greg Zaal — https://polyhaven.com/a/dikhololo_night
 - asphalt_02 (texture) — Rob Tuytel — https://polyhaven.com/a/asphalt_02
 - concrete_wall_001 (texture) — Dimitrios Savva, Rico Cilliers — https://polyhaven.com/a/concrete_wall_001
 - factory_wall (texture) — Rob Tuytel — https://polyhaven.com/a/factory_wall
@@ -95,6 +97,7 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - aerial_rocks_02 (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_rocks_02
 - aerial_grass_rock (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_grass_rock
 - veg_grass (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
+- veg_grass_tall (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 
 ## Mixamo
 
@@ -104,10 +107,11 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 ## PD-USGov
 
 - terrain_truong_son_a (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
+- terrain_diem_cao_31 (terrain) — NASA/USGS SRTM 1 arc-second (public domain); Terrain Tiles on AWS (Mapzen/Nextzen skadi) — https://registry.opendata.aws/terrain-tiles/
 
 ## OFL-1.1
 
 - font_barlow_condensed (font) — Jeremy Tribby — https://github.com/google/fonts/tree/main/ofl/barlowcondensed
 - font_be_vietnam_pro (font) — Lam Bao, Tony Le — https://github.com/google/fonts/tree/main/ofl/bevietnampro
 
-Tổng: 92 asset, 130.3 MB. Cập nhật 2026-09-06T09:00:08.693Z.
+Tổng: 97 asset, 142.9 MB. Cập nhật 2026-09-08T13:03:36.440Z.

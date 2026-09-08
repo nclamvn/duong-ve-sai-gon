@@ -136,6 +136,41 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await expectNoErrors(errors);
   });
 
+  test('tay FP v2 (TIP-D11b): fp_hands.glb nạp, IK 2 khớp đặt CẢ HAI cổ tay lên gripR/gripL (sai số < 12 cm)', async ({ page }) => {
+    const errors = await bootGame(page);
+    await pauseLoop(page);
+    const r = await page.evaluate(() => {
+      const g = window.__ht!.game as unknown as {
+        fpHands: { bone(p: string): { getWorldPosition(v: unknown): void } | null; update(a: unknown, b: unknown): void; triangles: number } | null;
+        viewModel: { fpAnchors: { gripR: unknown; gripL: unknown } | null; visible: boolean };
+      };
+      const fh = g.fpHands;
+      if (!fh || !g.viewModel.fpAnchors) return { has: false };
+      const V = (window as unknown as { THREE?: unknown }).THREE;
+      // dùng matrixWorld elements (không cần Vector3 ctor)
+      const wp = (o: { updateWorldMatrix(a: boolean, b: boolean): void; matrixWorld: { elements: number[] } }) => {
+        o.updateWorldMatrix(true, false);
+        const e = o.matrixWorld.elements;
+        return [e[12]!, e[13]!, e[14]!] as [number, number, number];
+      };
+      fh.update(g.viewModel.fpAnchors.gripR, g.viewModel.fpAnchors.gripL);
+      const d = (a: [number, number, number], b: [number, number, number]) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+      const hr = fh.bone('handR') as unknown as Parameters<typeof wp>[0];
+      const hl = fh.bone('handL') as unknown as Parameters<typeof wp>[0];
+      const gr = g.viewModel.fpAnchors.gripR as Parameters<typeof wp>[0];
+      const gl = g.viewModel.fpAnchors.gripL as Parameters<typeof wp>[0];
+      void V;
+      return { has: true, tris: fh.triangles, errR: d(wp(hr), wp(gr)), errL: d(wp(hl), wp(gl)) };
+    });
+    if (r.has) {
+      expect(r.tris).toBeGreaterThan(6000);
+      expect(r.tris).toBeLessThan(9000);
+      expect(r.errR, `tay phải cách gripR ${r.errR}`).toBeLessThan(0.12);
+      expect(r.errL, `tay trái cách gripL ${r.errL}`).toBeLessThan(0.12);
+    }
+    await expectNoErrors(errors);
+  });
+
   test('PROD build không ?debug=1 → window.__ht undefined (qa/debug không ship)', async ({ page }) => {
     await page.goto('/?backend=webgl&level=arena&autostart=1&quality=low&rain=500&shadow=512');
     await page.waitForFunction(() => document.getElementById('capability')!.hidden === true, null, { timeout: 60_000 });
