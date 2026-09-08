@@ -3,7 +3,7 @@
  * Engine chỉ biết: template, clone (SkeletonUtils), mixer, crossfade theo tên clip chuẩn. Không biết AI/mission.
  * Kích thước chuẩn hoá về chiều cao mét (Mixamo cm hay m đều được).
  */
-import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopOnce, LoopRepeat, Mesh, Bone, type AnimationAction, MeshStandardNodeMaterial, Color } from 'three/webgpu';
+import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopOnce, LoopRepeat, Mesh, Bone, DoubleSide, type AnimationAction, MeshStandardNodeMaterial, Color } from 'three/webgpu';
 import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import { tigerStripeColorNode, erdlColorNode } from './camo';
@@ -113,6 +113,9 @@ export class CharacterInstance {
         const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         const cloned = mats.map((mat) => {
           const c = (mat as MeshStandardNodeMaterial).clone() as MeshStandardNodeMaterial;
+          // hai mặt: thân/vải Mixamo là các mảnh hở (cổ tay, cổ áo, khe giáp) — FrontSide để lộ mặt trong bị cull → "nhìn xuyên thấu"
+          // (Chủ nhà Mac 2026-09-08). DoubleSide vá lỗ; số nhân vật ít nên chi phí fragment không đáng kể.
+          c.side = DoubleSide;
           const isVisor = /visor|light|lamp|glow/i.test(c.name ?? '') || /visor|light|lamp|glow/i.test(mesh.name);
           if (isVisor && opts.visor !== undefined) {
             c.emissive = new Color(opts.visor);
