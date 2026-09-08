@@ -13,7 +13,9 @@ export interface InputSnapshot {
   fire: boolean;
   ads: boolean;
   reload: boolean;
+  /** interact = edge (bấm 1 lần, cho tương tác một-nhịp như cắt relay); interactHeld = GIỮ (thanh tiến trình bộc phá/gắn súng — M2 R1) */
   interact: boolean;
+  interactHeld: boolean;
   /** delta chuột tích lũy từ snapshot trước (pixel) */
   dx: number;
   dy: number;
@@ -26,13 +28,13 @@ export interface InputSource {
 }
 
 export function emptySnapshot(): InputSnapshot {
-  return { fwd: 0, right: 0, sprint: false, crouch: false, jump: false, fire: false, ads: false, reload: false, interact: false, dx: 0, dy: 0 };
+  return { fwd: 0, right: 0, sprint: false, crouch: false, jump: false, fire: false, ads: false, reload: false, interact: false, interactHeld: false, dx: 0, dy: 0 };
 }
 
 export function clearSnapshot(s: InputSnapshot): void {
   s.fwd = 0;
   s.right = 0;
-  s.sprint = s.crouch = s.jump = s.fire = s.ads = s.reload = s.interact = false;
+  s.sprint = s.crouch = s.jump = s.fire = s.ads = s.reload = s.interact = s.interactHeld = false;
   s.dx = 0;
   s.dy = 0;
 }
@@ -150,6 +152,7 @@ export class KeyboardMouseInput implements InputSource {
     out.jump = this.edges.jump;
     out.reload = this.edges.reload;
     out.interact = this.edges.interact;
+    out.interactHeld = this.has(b.interact);
     out.fire = this.fire;
     out.ads = this.adsHold ? this.ads : this.adsToggle;
     out.dx = this.dx;

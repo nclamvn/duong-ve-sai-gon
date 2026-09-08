@@ -205,20 +205,22 @@ test.describe('Điểm cao 31 — M2 R1 (đêm công đồn)', () => {
           H.teleport(sx, (H.terrainHeight(sx, sz) ?? 0) + 0.3, sz);
           g.player.rig.reset(Math.atan2(ux, uz), 0);
           const hp0 = g.player.health;
-          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = true; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+          // GIỮ F: mô phỏng bàn phím thật — interact = false (edge đã tắt sau tick đầu), chỉ interactHeld = true dẫn thanh tiến trình.
+          // Đây là guard đúng cho lỗi "giữ F không ăn": nếu wiring interactHeld hỏng thì thanh không đầy, test fail.
+          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.interactHeld = true; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
           H.stepSim(30);
           const promptMid = g.hud.state.promptKey;
           const progMid = g.hud.state.promptProgress;
           H.stepSim(60 * 2.6 + 10);
           const flagDone = H.mission.state().flags[`${zoneId}_charge`] === true;
           // ngòi 3 s: cúi hay đứng
-          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = crouch; o.jump = false; o.reload = false; o.interact = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = crouch; o.jump = false; o.reload = false; o.interact = false; o.interactHeld = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
           H.stepSim(60 * 3.5);
           const blown = H.mission.state().flags[`${zoneId}_charge_blown`] === true;
           const removed = g.terrain!.props.removed.has(wireId);
           const hp1 = g.player.health;
           // đi qua chỗ rào 4 s
-          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 1; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+          g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 1; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.interactHeld = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
           g.player.rig.reset(Math.atan2(ux, uz), 0);
           H.stepSim(60 * 4);
           const f = g.player.controller.feet;

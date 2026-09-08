@@ -688,7 +688,7 @@ export class Game {
     this.physics.step();
     const interactEdge = this.inputState.interact && !this.prevInteract;
     this.prevInteract = this.inputState.interact;
-    this.mission.step(dt, interactEdge, this.inputState.interact);
+    this.mission.step(dt, interactEdge, this.inputState.interactHeld || this.inputState.interact);
     const h = this.hud.state;
     h.health = this.player.health;
     h.dead = !this.player.alive;
