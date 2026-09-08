@@ -31,7 +31,7 @@ import { FreeFly } from '@engine/input/freeFly';
 import { KeyboardMouseInput, emptySnapshot, type InputSource, type InputSnapshot } from '@engine/input/input';
 import { createActorVisual, type ActorVisual } from '@game/actors/visual';
 import { FpArms } from '@engine/render/fpArms';
-import { FpHands, DEFAULT_AK_GRIP, type FpHandsPose } from '@engine/render/fpHands';
+import { FpHands, type FpHandsPose } from '@engine/render/fpHands';
 import type { WeaponModelConfig, WeaponAsset } from '@engine/render/weaponModel';
 import ak74mCfg from '@content/weapons/ak74m.json';
 import ak47Cfg from '@content/weapons/ak47.json';
@@ -384,19 +384,10 @@ export class Game {
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
     this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null);
-    const ak = this.assets.weapons[this.playerWeaponId];
-    // tay FP v2 (TIP-D11b): asset tay riêng (David Fischer) + pose authored, gắn cứng tay phải vào gripR, KHÔNG IK
-    if (this.quality.arms && this.assets.fpHands && ak?.cfg.fp && this.viewModel.fpAnchors) {
-      this.fpHands = new FpHands(this.assets.fpHands, this.viewModel.space, { tint: 0xc79a72 });
-      this.fpHandsPose = (ak.cfg.fp.handsPose as FpHandsPose | undefined) ?? DEFAULT_AK_GRIP;
-      this.fpHands.applyPose(this.fpHandsPose);
-      this.viewModel.setGlovesVisible(false);
-    } else if (this.quality.arms && this.assets.arms && ak?.cfg.fp && this.viewModel.fpAnchors) {
-      // fallback: tay Mixamo cũ + IK (TIP-016) khi chưa có fp_hands.glb
-      this.fpArms = new FpArms(this.assets.arms, this.viewModel.space);
-      this.fpArmsCfg = ak.cfg.fp;
-      this.viewModel.setGlovesVisible(false);
-    }
+    // tay FP v2 (TIP-D11b, Chủ nhà chọn "tự dựng"): cẳng tay 1971 procedural DỰNG SẴN trong viewmodel (tay áo Tô Châu
+    // + cẳng tay + bàn tay ôm súng), nằm trong hệ súng → theo sway/ADS, không rig/IK → không nháy. Bật mặc định khi có arms.
+    // (Asset tay rig David Fischer/Mixamo giữ trong code làm fallback nghiên cứu, KHÔNG dùng cho người chơi mặc định.)
+    this.viewModel.setGlovesVisible(!!this.quality.arms);
     this.scene.add(this.camera); // camera phải nằm trong scene để viewmodel (con của camera) được render
     this.fx.muzzleWorld = this.fxMuzzle; // vị trí đầu nòng chiếu về camera chính (FX ở scene chính)
     this.fx.ejectWorld = this.fxEject;

@@ -57,6 +57,15 @@ function fabricMaterial(tint: number): MeshStandardNodeMaterial {
   return m;
 }
 
+/** Da tay (TIP-D11b tự dựng): tông rám nắng + biến thiên nhẹ (lỗ chân lông/gân) để KHÔNG bóng lì như đất sét. */
+function skinMaterial(tint = 0xc08a5e): MeshStandardNodeMaterial {
+  const m = new MeshStandardNodeMaterial({ color: tint, roughness: 0.62, metalness: 0.0 });
+  const fine = mx_noise_float(positionLocal.mul(180.0)).mul(0.5).add(0.5); // lỗ chân lông
+  const coarse = mx_noise_float(positionLocal.mul(26.0)).mul(0.5).add(0.5); // vùng sáng/tối trên da
+  m.colorNode = vec4(color(new Color(tint)).mul(coarse.mul(0.16).add(0.9)).mul(fine.mul(0.1).add(0.95)), 1.0);
+  return m;
+}
+
 /** Gộp geometry theo material → 1 mesh/material (ít draw). */
 class GeoBuilder {
   readonly buckets = new Map<MeshStandardNodeMaterial, BufferGeometry[]>();
@@ -92,14 +101,60 @@ class GeoBuilder {
 
 const rbox = (w: number, h: number, d: number, r = 0.004): RoundedBoxGeometry => new RoundedBoxGeometry(w, h, d, 2, Math.min(r, Math.min(w, h, d) / 2.2));
 
-/** Bao tay vải phải (tay cầm) + trái (ốp lót), tại anchor; hệ model (m). Trả về group tay trái (theo băng đạn khi reload). */
-function addGloves(b: GeoBuilder, glove: MeshStandardNodeMaterial, gripR: Vector3, gripL: Vector3, leftGroup: Group): void {
-  b.add(rbox(0.07, 0.06, 0.09, 0.012), glove, gripR.x + 0.005, gripR.y + 0.02, gripR.z - 0.02, -0.3); // tay phải ôm tay cầm
-  b.add(rbox(0.018, 0.02, 0.05, 0.007), glove, gripR.x + 0.03, gripR.y + 0.045, gripR.z - 0.075, -0.4, 0, 0.1); // ngón trỏ trên cò
-  const lb = new GeoBuilder();
-  lb.add(rbox(0.075, 0.055, 0.1, 0.012), glove, gripL.x - 0.01, gripL.y - 0.015, gripL.z, 0.2, 0, -0.35); // tay trái đỡ ốp lót
-  for (let i = 0; i < 4; i++) lb.add(rbox(0.016, 0.016, 0.05, 0.006), glove, gripL.x - 0.04 + i * 0.019, gripL.y + 0.02, gripL.z + 0.01 - i * 0.004, 0.35, 0, -0.2);
-  lb.build(leftGroup);
+/** Trụ thon giữa hai điểm A→B (hệ model). rA = đầu A (bottom), rB = đầu B (top). */
+function cyl(b: GeoBuilder, mat: MeshStandardNodeMaterial, A: Vector3, B: Vector3, rA: number, rB: number, seg = 14): void {
+  const dir = B.clone().sub(A);
+  const len = Math.max(1e-4, dir.length());
+  const q = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir.clone().normalize());
+  const e = new Euler().setFromQuaternion(q);
+  const mid = A.clone().add(B).multiplyScalar(0.5);
+  b.add(new CylinderGeometry(rB, rA, len, seg), mat, mid.x, mid.y, mid.z, e.x, e.y, e.z);
+}
+
+/**
+ * Cẳng tay + bàn tay lính Quân Giải phóng 1971 (TIP-D11b, Chủ nhà chọn "tự dựng"): thay bao-tay hộp cũ.
+ * Bố cục theo hình mẫu FPS — phần LỘ ra chính là CẲNG TAY (thon, có ống tay áo Tô Châu XẮN + măng-sét cuộn),
+ * bàn tay ôm báng/ốp lót (phần lớn khuất sau súng). Tất cả trong hệ súng → theo sway/ADS, KHÔNG rig/IK → không nháy.
+ * side: 'R' tay cầm (báng), 'L' tay đỡ (ốp lót). p = tham số canh (dời khuỷu/cổ tay).
+ */
+function buildArm1971(b: GeoBuilder, skin: MeshStandardNodeMaterial, sleeve: MeshStandardNodeMaterial, grip: Vector3, side: 'R' | 'L'): void {
+  const s = side === 'R' ? 1 : -1; // khuỷu lệch sang phải (tay cầm) / trái (tay đỡ)
+  // cổ tay ~ tại grip; khuỷu lùi-xuống-sang bên (ra ngoài khung phía dưới)
+  const wrist = grip.clone().add(new Vector3(0.01 * s, side === 'R' ? 0.0 : -0.02, side === 'R' ? -0.01 : 0.02));
+  const elbow = grip.clone().add(new Vector3((side === 'R' ? 0.24 : 0.28) * s, -0.30, side === 'R' ? 0.24 : 0.34));
+  const dir = elbow.clone().sub(wrist).normalize();
+  const mid = wrist.clone().addScaledVector(dir, 0.11); // ranh giới da/tay áo (~11 cm từ cổ tay)
+  // cẳng tay trần cổ tay→giữa, thon 0.028→0.038
+  cyl(b, skin, wrist, mid, 0.028, 0.04);
+  // ống tay áo XẮN phủ giữa→khuỷu, to hơn chút
+  cyl(b, sleeve, mid, elbow, 0.05, 0.062, 16);
+  // măng-sét cuộn (vành gấp) ở ranh giới
+  const qc = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir);
+  const ec = new Euler().setFromQuaternion(qc);
+  b.add(new TorusGeometry(0.05, 0.017, 8, 18), sleeve, mid.x, mid.y, mid.z, ec.x + Math.PI / 2, ec.y, ec.z);
+  // BÀN TAY: mu bàn tay (hộp bo) ôm trên báng/ốp; các ngón vắt qua ĐỈNH thân súng rồi cuộn xuống mặt xa (ôm chặt)
+  const handQ = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir);
+  const he = new Euler().setFromQuaternion(handQ);
+  b.add(rbox(0.05, 0.03, 0.08, 0.013), skin, wrist.x, wrist.y + 0.008, wrist.z, he.x, he.y, he.z);
+  // 4 ngón cách nhau DỌC nòng (z), mỗi ngón 2 đốt: vắt qua đỉnh (lên-qua) rồi cuộn xuống mặt xa
+  for (let i = 0; i < 4; i++) {
+    const z0 = wrist.z - 0.028 + i * 0.02;
+    const base = new Vector3(wrist.x + 0.012 * s, wrist.y + 0.02, z0); // mép trên gần lòng bàn tay
+    const knuck = new Vector3(wrist.x - 0.006 * s, wrist.y + 0.012, z0); // vắt qua đỉnh sang mặt xa
+    const tip = new Vector3(wrist.x - 0.02 * s, wrist.y - 0.024, z0 + 0.002); // cuộn xuống mặt xa
+    cyl(b, skin, base, knuck, 0.011, 0.0105, 8);
+    cyl(b, skin, knuck, tip, 0.0098, 0.008, 8);
+  }
+  // ngón cái ôm mặt gần (phía người chơi), chếch xuống
+  const tRoot = new Vector3(wrist.x + 0.024 * s, wrist.y + 0.006, wrist.z + 0.03);
+  const tTip = new Vector3(wrist.x + 0.01 * s, wrist.y - 0.016, wrist.z - 0.005);
+  cyl(b, skin, tRoot, tTip, 0.013, 0.01, 8);
+}
+
+/** Hai cẳng tay + bàn tay (tay cầm báng + tay đỡ ốp lót), hệ model (m). leftGroup giữ để tương thích (reload). */
+function addGloves(b: GeoBuilder, skin: MeshStandardNodeMaterial, sleeve: MeshStandardNodeMaterial, gripR: Vector3, gripL: Vector3, _leftGroup: Group): void {
+  buildArm1971(b, skin, sleeve, gripL, 'L'); // tay đỡ ốp lót — CHÍNH (lộ nhiều)
+  buildArm1971(b, skin, sleeve, gripR, 'R'); // tay cầm báng — phần lớn khuất
 }
 
 /** AR procedural TIP-013 (fallback). Gốc = receiver, nòng −z. */
@@ -109,7 +164,6 @@ function buildProceduralGun(mats: ViewModelMaterials, parent: Object3D, leftHand
   const rail = steelMaterial(mats.steel, 0x15181b, 0.55, 0.7);
   const polymer = polymerMaterial(0x24282c);
   const polymerDark = polymerMaterial(0x1a1d20);
-  const glove = fabricMaterial(0x2f2a25);
   const brass = new MeshStandardNodeMaterial({ color: 0xc9a24a, roughness: 0.3, metalness: 0.95 });
   const b = new GeoBuilder();
   const add = b.add.bind(b);
@@ -142,7 +196,7 @@ function buildProceduralGun(mats: ViewModelMaterials, parent: Object3D, leftHand
   add(new BoxGeometry(0.012, 0.006, 0.03), gunmetal, -0.032, 0.0, 0.06, 0, 0, 0.5); // cần khoá an toàn
   add(new CylinderGeometry(0.007, 0.007, 0.012, 8), gunmetal, 0.032, -0.02, -0.02, 0, 0, Math.PI / 2); // nút tháo băng
   add(new CylinderGeometry(0.004, 0.004, 0.012, 6), brass, 0.028, 0.012, -0.03, 0, 0, Math.PI / 2); // viên đạn lộ ở cửa thoát (đồng)
-  addGloves(b, glove, new Vector3(0, -0.08, 0.12), new Vector3(0, -0.03, -0.3), leftHand);
+  addGloves(b, skinMaterial(), fabricMaterial(0x6f6f4a), new Vector3(0, -0.08, 0.12), new Vector3(0, -0.03, -0.3), leftHand);
   b.build(parent);
   return { muzzle: new Vector3(0, 0.012, -0.655), eject: new Vector3(0.05, 0.02, -0.03), parts: b.parts };
 }
@@ -163,6 +217,10 @@ export class WeaponViewModel {
   /** anchor cho cánh tay FP (TIP-016): gripR (hệ súng) và gripL đi theo tay trái (băng đạn khi reload) */
   readonly fpAnchors: { gripR: Object3D; gripL: Object3D } | null = null;
   private readonly gloveMeshes: Mesh[] = [];
+  /** số mesh cẳng tay/bàn tay 1971 procedural (QA/E2E) */
+  get armMeshCount(): number {
+    return this.gloveMeshes.length;
+  }
   private readonly inst: WeaponInstance | null = null;
   private readonly hip: { pos: Vector3; rot: Euler };
   private readonly ads: { pos: Vector3; rot: Euler };
@@ -213,7 +271,7 @@ export class WeaponViewModel {
       // bao tay vải tại anchor (hệ model, con của inst.root → theo scale)
       const gb = new GeoBuilder();
       const a = weapon.cfg.anchors;
-      addGloves(gb, fabricMaterial(0x23211c), new Vector3(a.gripR[0], a.gripR[1], a.gripR[2]), new Vector3(a.gripL[0], a.gripL[1], a.gripL[2]), this.leftHand);
+      addGloves(gb, skinMaterial(), fabricMaterial(0x6f6f4a), new Vector3(a.gripR[0], a.gripR[1], a.gripR[2]), new Vector3(a.gripL[0], a.gripL[1], a.gripL[2]), this.leftHand);
       this.gloveMeshes.push(...gb.build(inst.root));
       inst.root.add(this.leftHand);
       this.leftHand.traverse((o: Object3D) => {
