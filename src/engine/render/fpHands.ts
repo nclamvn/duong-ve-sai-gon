@@ -2,8 +2,9 @@
  * Cánh tay góc nhìn thứ nhất v2 (TIP-D11b): asset tay RIÊNG (David Fischer "First Person hands rigged", CC-BY-4.0,
  * public/assets/characters/fp_hands.glb — 63 joint đủ đốt ngón; convert-fp-hands.mjs vá rig cẳng tay↔bàn tay ở
  * tầng glTF nên deform đúng). Thay tay Mixamo cũ (soldier_arms, mesh xấu). Đặt CẢ HAI bàn tay lên anchor báng/ốp lót
- * bằng IK 2 khớp (vai→khuỷu→cổ tay, tự nhiên không kéo giãn) + hướng bàn tay theo offset đã canh; NGÓN co theo pose
- * authored (dữ liệu — không phải IK). Đung đưa/nảy/ADS kế thừa từ viewmodel space (cha). Engine thuần (không import game).
+ * bằng IK 2 khớp (vai→khuỷu→cổ tay) MỘT LẦN rồi ĐÓNG BĂNG (bake) — runtime KHÔNG giải IK per-frame (per-frame IK lật
+ * khuỷu ở gần giới hạn với tới → tay "giật nháy loạn xạ", Chủ nhà báo trên Mac). Sau bake: áp pose xương tất định +
+ * bám cứng root theo anchor báng (súng đung đưa/ADS kéo cả tay theo). NGÓN co theo pose authored. Engine thuần.
  */
 import { Group, Object3D, Bone, Mesh, SkinnedMesh, Box3, Vector3, Quaternion, Euler, Color, Matrix4, MeshStandardNodeMaterial } from 'three/webgpu';
 import { createGltfLoader } from './loaders';
@@ -56,6 +57,7 @@ const _e = new Euler();
 const _pos = new Vector3();
 const _sc = new Vector3(1, 1, 1);
 const _pole = new Vector3();
+const _followScale = new Vector3();
 
 export class FpHands {
   readonly root = new Group();
@@ -70,6 +72,11 @@ export class FpHands {
   private pose: FpHandsPose | null = null;
   /** ngón trỏ phải: 0 = duỗi trên cò, 1 = co (bóp cò) */
   triggerFinger = 0.5;
+  /** BAKE (DV-049 fix nháy): giải IK MỘT LẦN rồi đóng băng — runtime không giải IK (per-frame IK lật khuỷu → nháy) */
+  private baked = false;
+  private bakedBones: Array<{ bone: Bone; q: Quaternion }> = [];
+  private readonly followOffset = new Matrix4();
+  private followRef: Object3D | null = null;
 
   constructor(asset: FpHandsAsset, parent: Object3D, opts: { tint?: number; targetReach?: number } = {}) {
     this.rig = skeletonClone(asset.template) as Group;
@@ -131,7 +138,7 @@ export class FpHands {
     return { shoulder: upper.parent ?? upper, upper, fore, hand, lenUpper: su.distanceTo(se), lenFore: se.distanceTo(sw) };
   }
 
-  /** Áp pose: scale + ngón co (authored). Gọi khi đổi pose hoặc calib. Cánh tay do IK đặt mỗi frame trong update(). */
+  /** Áp pose: scale + ngón co (authored) + đặt lại chỗ rig. Đặt baked=false → update() kế nướng IK lại một lần. */
   applyPose(pose: FpHandsPose): void {
     this.pose = pose;
     this.rig.scale.setScalar(this.fit * (pose.scale ?? 1));
@@ -140,6 +147,7 @@ export class FpHands {
       this.root.position.set(pose.place.pos[0], pose.place.pos[1], pose.place.pos[2]);
       this.root.rotation.set(pose.place.euler[0], pose.place.euler[1], pose.place.euler[2]);
     }
+    this.baked = false; // đổi pose → nướng lại ở update kế
     this.applyFingers();
   }
 
@@ -158,13 +166,44 @@ export class FpHands {
     }
   }
 
-  /** Đặt cả hai bàn tay lên gripR/gripL bằng IK 2 khớp, rồi co ngón. Gọi mỗi frame sau khi viewmodel cập nhật anchor. */
+  /**
+   * Lần ĐẦU: giải IK 2 khớp đặt hai cổ tay lên gripR/gripL + ghi offset cứng root↔gripR, rồi ĐÓNG BĂNG.
+   * Các frame sau: KHÔNG giải IK — áp lại pose xương đã nướng (tất định) + bám cứng root theo gripR (súng đung đưa/ADS
+   * kéo cả tay theo, không lật khuỷu → hết nháy). Đổi pose (calib) → `applyPose` đặt baked=false → nướng lại.
+   */
   update(gripR: Object3D, gripL: Object3D): void {
     if (!this.pose || !this.armR || !this.armL) return;
-    this.applyFingers();
-    this.root.updateMatrixWorld(true);
-    this.solve(this.armR, gripR, this.pose.armR);
-    this.solve(this.armL, gripL, this.pose.armL);
+    if (!this.baked) {
+      this.applyFingers();
+      this.root.updateMatrixWorld(true);
+      // đo lại chiều dài đốt ở scale hiện tại (constructor đo trước khi áp pose.scale)
+      this.armR = this.chain('upper_armR', 'forearmR_0', 'handR') ?? this.armR;
+      this.armL = this.chain('upper_armL', 'forearmL_0', 'handL') ?? this.armL;
+      this.solve(this.armR, gripR, this.pose.armR);
+      this.solve(this.armL, gripL, this.pose.armL);
+      this.bakedBones = [];
+      for (const [, b] of this.boneByName) this.bakedBones.push({ bone: b, q: b.quaternion.clone() });
+      // offset cứng: root trong hệ gripR (bám súng)
+      gripR.updateWorldMatrix(true, false);
+      this.root.updateMatrixWorld(true);
+      this.followOffset.copy(gripR.matrixWorld).invert().multiply(this.root.matrixWorld);
+      this.followRef = gripR;
+      this.baked = true;
+    }
+    for (const { bone, q } of this.bakedBones) bone.quaternion.copy(q);
+    if (this.followRef) {
+      this.followRef.updateWorldMatrix(true, false);
+      _m.copy(this.followRef.matrixWorld).multiply(this.followOffset); // root world mong muốn
+      const parent = this.root.parent;
+      if (parent) {
+        parent.updateWorldMatrix(true, false);
+        _m2.copy(parent.matrixWorld).invert().multiply(_m);
+      } else {
+        _m2.copy(_m);
+      }
+      _m2.decompose(this.root.position, this.root.quaternion, _followScale);
+      this.root.scale.set(1, 1, 1); // rig con giữ fit scale; root luôn 1 (chống rò scale từ anchor súng)
+    }
   }
 
   private solve(arm: ArmChain, anchor: Object3D, off: FpArmPose): void {
@@ -196,7 +235,7 @@ export class FpHands {
  * qua `__ht.fp`. Bản canh xong ghi vào content/weapons/ak47.json#fp.handsPose.
  */
 export const DEFAULT_AK_GRIP: FpHandsPose = {
-  scale: 0.92,
+  scale: 0.8,
   place: { pos: [-0.04, -1.32, 0.07], euler: [0, 0, 0] },
   armR: { pos: [0.02, -0.02, 0.02], rot: [-0.3, Math.PI, 0], pole: [1.1, -1.5, -0.2] },
   armL: { pos: [-0.02, 0.0, 0.0], rot: [-1.4, Math.PI, 0.2], pole: [-1.1, -1.5, -0.2] },
