@@ -191,6 +191,11 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
     dump: () => JSON.stringify(game.fpHandsPose),
     tris: () => game.fpHands?.triangles ?? 0,
   };
+  // calib viewmodel rig sẵn (TIP-D11b): co/xoay/dời cả bộ AK+tay
+  api.vm = {
+    has: () => game.viewModel?.hasFpvm?.() ?? false,
+    set: (scale: number, rx: number, ry: number, rz: number, px: number, py: number, pz: number) => game.viewModel?.setFpvmTransform?.(scale, rx, ry, rz, px, py, pz),
+  };
   window.__ht = api;
   return api;
 }

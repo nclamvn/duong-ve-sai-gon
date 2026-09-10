@@ -31,6 +31,7 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "UH-1 B with (half modeled cockpit)" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_uh1b.glb`
 - "M16A1 - Gameasset" (https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/m16a1.glb`
 - "First Person hands rigged" (https://sketchfab.com/3d-models/first-person-hands-rigged-547a45535f0c4fe787948f7a7a6a88db) by David Fischer (davidfischer) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/characters/fp_hands.glb`
+- "AK47 Reload Animation - Free Download" (https://sketchfab.com/3d-models/ak47-reload-animation-free-download-c57b0a289af147c68c4b06d9ef960469) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/ak47_vm.glb`
 
 ## CC0-1.0
 
@@ -114,4 +115,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - font_barlow_condensed (font) — Jeremy Tribby — https://github.com/google/fonts/tree/main/ofl/barlowcondensed
 - font_be_vietnam_pro (font) — Lam Bao, Tony Le — https://github.com/google/fonts/tree/main/ofl/bevietnampro
 
-Tổng: 97 asset, 142.9 MB. Cập nhật 2026-09-08T13:03:36.440Z.
+Tổng: 98 asset, 148.0 MB. Cập nhật 2026-09-10T07:27:55.616628Z.

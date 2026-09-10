@@ -383,7 +383,7 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null);
+    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null, this.assets.fpViewmodel);
     // tay FP v2 (TIP-D11b, Chủ nhà chọn "tự dựng"): cẳng tay 1971 procedural DỰNG SẴN trong viewmodel (tay áo Tô Châu
     // + cẳng tay + bàn tay ôm súng), nằm trong hệ súng → theo sway/ADS, không rig/IK → không nháy. Bật mặc định khi có arms.
     // (Asset tay rig David Fischer/Mixamo giữ trong code làm fallback nghiên cứu, KHÔNG dùng cho người chơi mặc định.)

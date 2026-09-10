@@ -6,7 +6,9 @@
  * hip ↔ ADS lerp theo weapon.ads, sprint lerp theo tốc độ, bob/sway theo CameraRig + chuột, kick khi bắn, dip khi reload.
  * Xuất `muzzleWorld` + `ejectWorld` cho FX. Chỉ render-side. Không Math.random (kick lệch theo dãy vàng).
  */
-import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
+import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, AnimationMixer, type AnimationAction, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
+import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
+import type { FpViewmodelAsset } from '@engine/render/assets';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { texture, uv, vec2, vec4, float, mx_noise_float, positionLocal, saturate, normalMap, mix, color } from 'three/tsl';
@@ -100,6 +102,10 @@ class GeoBuilder {
 }
 
 const rbox = (w: number, h: number, d: number, r = 0.004): RoundedBoxGeometry => new RoundedBoxGeometry(w, h, d, 2, Math.min(r, Math.min(w, h, d) / 2.2));
+
+interface FpvmTransform { scale: number; rx: number; ry: number; rz: number; px: number; py: number; pz: number }
+/** đặt viewmodel rig sẵn (AK+tay DavidFalke) trong viewmodel space — báng (+x asset) → −z, co ~cm→m; calib qua __ht.vm */
+const DEFAULT_FPVM: FpvmTransform = { scale: 0.011, rx: -0.2, ry: Math.PI / 2 + 0.1, rz: -0.06, px: 0.11, py: -0.13, pz: -0.16 };
 
 /** Trụ thon giữa hai điểm A→B (hệ model). rA = đầu A (bottom), rB = đầu B (top). */
 function cyl(b: GeoBuilder, mat: MeshStandardNodeMaterial, A: Vector3, B: Vector3, rA: number, rB: number, seg = 14): void {
@@ -237,6 +243,11 @@ export class WeaponViewModel {
   private reloadDur = 1;
   private boltT = 0;
   private sprintBlend = 0;
+  /** viewmodel rig sẵn (AK+tay DavidFalke, TIP-D11b): nghệ sĩ dựng cảnh cầm AK → không IK/fit/nháy */
+  private fpvmRoot: Group | null = null;
+  private mixer: AnimationMixer | null = null;
+  private reloadAction: AnimationAction | null = null;
+  private reloadClipDur = 1;
   private readonly tmp = new Vector3();
   private readonly tmpE = new Euler();
   private readonly bobBase = new Vector3();
@@ -248,7 +259,7 @@ export class WeaponViewModel {
   /** tri của model (evidence) */
   readonly triangles: number;
 
-  constructor(camera: PerspectiveCamera, mats: ViewModelMaterials = { steel: null }, weapon: WeaponAsset | null = null) {
+  constructor(camera: PerspectiveCamera, mats: ViewModelMaterials = { steel: null }, weapon: WeaponAsset | null = null, fpvm: FpViewmodelAsset | null = null) {
     const gun = new Group();
     gun.name = 'viewmodel_gun';
     if (weapon) {
@@ -314,6 +325,8 @@ export class WeaponViewModel {
     }
     this.leftHandRest.copy(this.leftHand.position);
     this.root.add(gun);
+    // viewmodel rig sẵn (AK+tay): thay súng+tay procedural bằng asset nghệ sĩ dựng cảnh cầm AK (TIP-D11b)
+    if (fpvm) this.setupFpvm(fpvm, gun);
     this.space.name = 'viewmodel_space';
     this.space.add(this.root);
     this.root.position.copy(this.hip.pos);
@@ -328,7 +341,55 @@ export class WeaponViewModel {
 
   /** ẩn bao tay procedural khi có cánh tay FP thật */
   setGlovesVisible(v: boolean): void {
+    if (this.fpvmRoot) return; // dùng viewmodel rig sẵn thì không có bao tay procedural
     for (const m of this.gloveMeshes) m.visible = v;
+  }
+
+  private setupFpvm(fpvm: FpViewmodelAsset, gun: Group): void {
+    gun.visible = false; // ẩn súng + tay procedural, dùng rig nghệ sĩ
+    const rig = skeletonClone(fpvm.scene) as Group;
+    rig.traverse((o: Object3D) => {
+      const m = o as Mesh;
+      if (m.isMesh) {
+        m.castShadow = false;
+        m.receiveShadow = false;
+        m.frustumCulled = false;
+      }
+    });
+    const orient = new Group();
+    orient.name = 'fpvm_orient';
+    orient.add(rig);
+    // (auto-orient theo xương không ổn — xương AK cụm ở receiver; căn bằng Euler cố định DEFAULT_FPVM, calib qua __ht.vm)
+    const holder = new Group();
+    holder.name = 'fpvm';
+    holder.add(orient);
+    this.applyFpvmTransform(holder, DEFAULT_FPVM);
+    this.root.add(holder);
+    this.fpvmRoot = holder;
+    if (fpvm.clips.length) {
+      this.mixer = new AnimationMixer(rig);
+      const clip = fpvm.clips[0]!;
+      this.reloadClipDur = clip.duration;
+      this.reloadAction = this.mixer.clipAction(clip);
+      this.reloadAction.play();
+      this.reloadAction.paused = true; // giữ frame 0 = tư thế nắm súng (idle)
+      this.reloadAction.time = 0;
+      this.mixer.update(0);
+    }
+  }
+
+  private applyFpvmTransform(holder: Group, t: FpvmTransform): void {
+    holder.scale.setScalar(t.scale);
+    holder.rotation.set(t.rx, t.ry, t.rz);
+    holder.position.set(t.px, t.py, t.pz);
+  }
+
+  /** calib viewmodel rig (TIP-D11b) qua __ht.vm: co/xoay/dời cả bộ AK+tay trong khung */
+  setFpvmTransform(scale: number, rx: number, ry: number, rz: number, px: number, py: number, pz: number): void {
+    if (this.fpvmRoot) this.applyFpvmTransform(this.fpvmRoot, { scale, rx, ry, rz, px, py, pz });
+  }
+  hasFpvm(): boolean {
+    return !!this.fpvmRoot;
   }
 
   onShot(): void {
@@ -364,6 +425,11 @@ export class WeaponViewModel {
       dip = Math.sin(Math.min(1, u) * Math.PI);
     }
     this.animateParts(dt, u);
+    // viewmodel rig sẵn: đồng bộ clip reload theo tiến độ reload (tất định, không tích luỹ dt); ngoài reload giữ frame 0 (idle)
+    if (this.reloadAction && this.mixer) {
+      this.reloadAction.time = this.reloadT > 0 ? Math.min(1, u) * this.reloadClipDur : 0;
+      this.mixer.update(0);
+    }
     const p = this.root.position;
     this.bobBase.copy(this.hip.pos).lerp(this.ads.pos, ads).lerp(this.sprint.pos, this.sprintBlend);
     p.copy(this.bobBase);

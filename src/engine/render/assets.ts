@@ -9,6 +9,13 @@ import { loadCharacter, type CharacterAsset } from './characters';
 import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
 import { loadFpArms, type FpArmsAsset } from './fpArms';
 import { loadFpHands, type FpHandsAsset } from './fpHands';
+import type { AnimationClip } from 'three/webgpu';
+
+/** Viewmodel người chơi rig sẵn AK + bàn tay + anim (TIP-D11b, DavidFalke CC-BY) — nghệ sĩ dựng cảnh cầm AK, tránh IK/fit. */
+export interface FpViewmodelAsset {
+  scene: Group;
+  clips: AnimationClip[];
+}
 
 export interface PbrTextureSet {
   id: string;
@@ -33,6 +40,8 @@ export interface LoadedAssets {
   arms: FpArmsAsset | null;
   /** tay FP v2 (TIP-D11b, David Fischer CC-BY, rig riêng); ưu tiên hơn `arms` khi có */
   fpHands: FpHandsAsset | null;
+  /** viewmodel AK + tay rig sẵn (TIP-D11b, DavidFalke CC-BY) — dùng làm viewmodel người chơi khi có */
+  fpViewmodel: FpViewmodelAsset | null;
   bytesHint: number;
 }
 
@@ -43,6 +52,7 @@ const HDRI_ID = 'blue_lagoon_night';
 export const CHARACTER_URL = 'characters/soldier.glb';
 export const ARMS_URL = 'characters/soldier_arms.glb';
 export const FP_HANDS_URL = 'characters/fp_hands.glb';
+export const FP_VIEWMODEL_URL = 'weapons/ak47_vm.glb';
 
 export type TextureId = (typeof TEXTURE_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
@@ -203,7 +213,19 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     pmrem.dispose();
     tick(hdri.id);
   }
-  return { textures, models, environment, sky, character, weapons, arms, fpHands, bytesHint: 0 };
+  let fpViewmodel: FpViewmodelAsset | null = null;
+  if (!opts.lite && !opts.noWeapons && !opts.noArms) {
+    try {
+      const head = await fetch(`${b}${FP_VIEWMODEL_URL}`, { method: 'HEAD' });
+      if (head.ok) {
+        const g = await createGltfLoader().loadAsync(`${b}${FP_VIEWMODEL_URL}`);
+        fpViewmodel = { scene: g.scene as unknown as Group, clips: g.animations };
+      }
+    } catch {
+      fpViewmodel = null;
+    }
+  }
+  return { textures, models, environment, sky, character, weapons, arms, fpHands, fpViewmodel, bytesHint: 0 };
 }
 
 export function assetIds(): { textures: readonly string[]; models: readonly string[]; hdri: string } {

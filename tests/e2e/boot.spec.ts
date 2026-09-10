@@ -136,20 +136,21 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await expectNoErrors(errors);
   });
 
-  test('tay FP v2 (TIP-D11b): cẳng tay 1971 procedural dựng trong viewmodel + hiện khi quality.arms (tĩnh, không rig/IK → không nháy)', async ({ page }) => {
+  test('viewmodel FP (TIP-D11b): dùng rig nghệ sĩ AK+tay (DavidFalke CC-BY) khi có asset — không IK/fit/procedural cho người chơi', async ({ page }) => {
     const errors = await bootGame(page);
     await pauseLoop(page);
     const r = await page.evaluate(() => {
       const g = window.__ht!.game as unknown as {
         fpHands: unknown | null;
         quality: { arms?: boolean };
-        viewModel: { armMeshCount: number };
+        viewModel: { hasFpvm: () => boolean; armMeshCount: number };
       };
-      return { fpHandsNull: g.fpHands === null, arms: !!g.quality.arms, armMeshCount: g.viewModel.armMeshCount };
+      return { fpHandsNull: g.fpHands === null, hasFpvm: g.viewModel.hasFpvm(), arms: !!g.quality.arms, armMeshCount: g.viewModel.armMeshCount };
     });
-    // dùng cẳng tay procedural (không dùng asset rig cho người chơi) — có mesh cẳng tay/bàn tay khi bật arms
+    // asset ak47_vm.glb được commit (bản tối ưu trong public/assets) → viewmodel rig sẵn phải bật
+    expect(r.hasFpvm, 'viewmodel rig AK+tay (ak47_vm.glb) đã nạp').toBe(true);
+    // không dùng FpHands (David Fischer) cho người chơi
     expect(r.fpHandsNull).toBe(true);
-    if (r.arms) expect(r.armMeshCount, 'số mesh cẳng tay procedural').toBeGreaterThan(0);
     await expectNoErrors(errors);
   });
 
