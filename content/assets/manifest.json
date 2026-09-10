@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "generatedAt": "2026-09-10T09:07:59.576Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 150710886,
+  "totalBytes": 150728862,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3795,12 +3795,12 @@
       "files": [
         {
           "path": "assets/weapons/akm_vm.glb",
-          "bytes": 914136,
-          "sha256": "8230314207eb325b5511d86fbee23cac2e0acc6e0e94d86ac47dc6676af0f943"
+          "bytes": 932112,
+          "sha256": "e8e75bc088b99c7ade693e1bb224ca326400f04a820435af3f99fbc410d754bc"
         }
       ],
       "triangles": {
-        "output": 13154
+        "output": 13618
       }
     }
   ]
