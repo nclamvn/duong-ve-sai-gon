@@ -104,8 +104,8 @@ class GeoBuilder {
 const rbox = (w: number, h: number, d: number, r = 0.004): RoundedBoxGeometry => new RoundedBoxGeometry(w, h, d, 2, Math.min(r, Math.min(w, h, d) / 2.2));
 
 interface FpvmTransform { scale: number; rx: number; ry: number; rz: number; px: number; py: number; pz: number }
-/** đặt viewmodel rig sẵn (AK+tay DavidFalke) trong viewmodel space — báng (+x asset) → −z, co ~cm→m; calib qua __ht.vm */
-const DEFAULT_FPVM: FpvmTransform = { scale: 0.011, rx: -0.2, ry: Math.PI / 2 + 0.1, rz: -0.06, px: 0.11, py: -0.13, pz: -0.16 };
+/** đặt viewmodel rig sẵn (AK+tay DavidFalke) trong viewmodel space; calib LIVE trên game Mac (DV-051): quét trục nòng theo xương AK (grip→sight) tìm ry đúng — nòng chĩa vào cảnh (−z), chếch lên ~4°, nằm góc phải-dưới. Tinh chỉnh tiếp qua __ht.vm */
+const DEFAULT_FPVM: FpvmTransform = { scale: 0.011, rx: -0.38, ry: 1.7, rz: -0.06, px: 0.17, py: -0.26, pz: -0.2 };
 
 /** Trụ thon giữa hai điểm A→B (hệ model). rA = đầu A (bottom), rB = đầu B (top). */
 function cyl(b: GeoBuilder, mat: MeshStandardNodeMaterial, A: Vector3, B: Vector3, rA: number, rB: number, seg = 14): void {
