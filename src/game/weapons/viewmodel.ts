@@ -6,7 +6,7 @@
  * hip ↔ ADS lerp theo weapon.ads, sprint lerp theo tốc độ, bob/sway theo CameraRig + chuột, kick khi bắn, dip khi reload.
  * Xuất `muzzleWorld` + `ejectWorld` cho FX. Chỉ render-side. Không Math.random (kick lệch theo dãy vàng).
  */
-import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, AnimationMixer, type AnimationAction, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
+import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, AnimationMixer, type AnimationAction, type AnimationClip, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import type { FpViewmodelAsset } from '@engine/render/assets';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -105,7 +105,7 @@ const rbox = (w: number, h: number, d: number, r = 0.004): RoundedBoxGeometry =>
 
 interface FpvmTransform { scale: number; rx: number; ry: number; rz: number; px: number; py: number; pz: number }
 /** đặt viewmodel rig sẵn (AK+tay DavidFalke) trong viewmodel space; calib LIVE trên game Mac (DV-051): quét trục nòng theo xương AK (grip→sight) tìm ry đúng — nòng chĩa vào cảnh (−z), chếch lên ~4°, nằm góc phải-dưới. Tinh chỉnh tiếp qua __ht.vm */
-const DEFAULT_FPVM: FpvmTransform = { scale: 0.011, rx: -0.38, ry: 1.7, rz: -0.06, px: 0.17, py: -0.26, pz: -0.2 };
+const DEFAULT_FPVM: FpvmTransform = { scale: 0.85, rx: 0, ry: 0, rz: 0, px: 0.12, py: -1.18, pz: -0.04 };
 
 /** Trụ thon giữa hai điểm A→B (hệ model). rA = đầu A (bottom), rB = đầu B (top). */
 function cyl(b: GeoBuilder, mat: MeshStandardNodeMaterial, A: Vector3, B: Vector3, rA: number, rB: number, seg = 14): void {
@@ -248,6 +248,10 @@ export class WeaponViewModel {
   private mixer: AnimationMixer | null = null;
   private reloadAction: AnimationAction | null = null;
   private reloadClipDur = 1;
+  /** clip bắn (recoil) của viewmodel rig sẵn — chạy 1 lần mỗi phát; ngoài lúc bắn/nạp giữ frame 0 = idle */
+  private fireAction: AnimationAction | null = null;
+  private fireClipDur = 1;
+  private fireT = 0;
   private readonly tmp = new Vector3();
   private readonly tmpE = new Euler();
   private readonly bobBase = new Vector3();
@@ -356,10 +360,22 @@ export class WeaponViewModel {
         m.frustumCulled = false;
       }
     });
+    // căn tâm: đưa khớp mắt (FPS_camera_j) về gốc rig — model dựng theo khung camera CHUẨN (-z tiến, +y lên),
+    // nên KHÔNG cần xoay; chỉ cần trùng mắt với gốc rồi co/dời qua DEFAULT_FPVM. (DavidFalke cũ không có khớp này → bỏ qua)
+    rig.updateMatrixWorld(true);
+    let eyeNode: Object3D | null = null;
+    rig.traverse((o: Object3D) => {
+      if (!eyeNode && /FPS_camera/i.test(o.name)) eyeNode = o;
+    });
+    if (eyeNode) {
+      const cp = new Vector3();
+      (eyeNode as Object3D).getWorldPosition(cp);
+      rig.position.sub(cp);
+      rig.updateMatrixWorld(true);
+    }
     const orient = new Group();
     orient.name = 'fpvm_orient';
     orient.add(rig);
-    // (auto-orient theo xương không ổn — xương AK cụm ở receiver; căn bằng Euler cố định DEFAULT_FPVM, calib qua __ht.vm)
     const holder = new Group();
     holder.name = 'fpvm';
     holder.add(orient);
@@ -368,12 +384,20 @@ export class WeaponViewModel {
     this.fpvmRoot = holder;
     if (fpvm.clips.length) {
       this.mixer = new AnimationMixer(rig);
-      const clip = fpvm.clips[0]!;
-      this.reloadClipDur = clip.duration;
-      this.reloadAction = this.mixer.clipAction(clip);
+      // map clip theo tên (BarcodeGames AKM: Draw/Fire/Reload/Reload_Empty/Holster); fallback clip[0]
+      const byName = (re: RegExp): AnimationClip | undefined => fpvm.clips.find((c) => re.test(c.name));
+      const reloadClip = byName(/reload(?!_?empty)/i) ?? byName(/reload/i) ?? fpvm.clips[0]!;
+      const fireClip = byName(/fire|shoot/i) ?? fpvm.clips[0]!;
+      this.reloadClipDur = reloadClip.duration;
+      this.reloadAction = this.mixer.clipAction(reloadClip);
       this.reloadAction.play();
-      this.reloadAction.paused = true; // giữ frame 0 = tư thế nắm súng (idle)
+      this.reloadAction.setEffectiveWeight(0);
       this.reloadAction.time = 0;
+      this.fireClipDur = fireClip.duration;
+      this.fireAction = this.mixer.clipAction(fireClip);
+      this.fireAction.play();
+      this.fireAction.setEffectiveWeight(1); // idle = fireClip@0 (tư thế nâng súng sẵn sàng)
+      this.fireAction.time = 0;
       this.mixer.update(0);
     }
   }
@@ -398,6 +422,7 @@ export class WeaponViewModel {
     // lệch ngang giả-ngẫu nhiên deterministic (AGENTS: không Math.random) — chỉ hình ảnh, không ảnh hưởng gameplay
     this.shotIndex++;
     this.kickSide = (((this.shotIndex * 0.6180339887) % 1) - 0.5) * 0.5;
+    if (this.fpvmRoot) this.fireT = this.fireClipDur; // kích clip bắn (recoil nghệ sĩ) trên rig sẵn
   }
 
   onReload(durationMs: number): void {
@@ -425,9 +450,22 @@ export class WeaponViewModel {
       dip = Math.sin(Math.min(1, u) * Math.PI);
     }
     this.animateParts(dt, u);
-    // viewmodel rig sẵn: đồng bộ clip reload theo tiến độ reload (tất định, không tích luỹ dt); ngoài reload giữ frame 0 (idle)
-    if (this.reloadAction && this.mixer) {
-      this.reloadAction.time = this.reloadT > 0 ? Math.min(1, u) * this.reloadClipDur : 0;
+    // viewmodel rig sẵn: máy trạng thái clip tất định (không tích luỹ dt) — reload > fire > idle
+    if (this.mixer) {
+      if (this.reloadT > 0 && this.reloadAction) {
+        this.reloadAction.setEffectiveWeight(1);
+        this.fireAction?.setEffectiveWeight(0);
+        this.reloadAction.time = Math.min(1, u) * this.reloadClipDur; // đồng bộ theo tiến độ reload
+      } else if (this.fireAction) {
+        this.reloadAction?.setEffectiveWeight(0);
+        this.fireAction.setEffectiveWeight(1);
+        if (this.fireT > 0) {
+          this.fireT = Math.max(0, this.fireT - dt);
+          this.fireAction.time = Math.min(this.fireClipDur, this.fireClipDur - this.fireT); // chạy 0→dur một lần
+        } else {
+          this.fireAction.time = 0; // idle: giữ tư thế nâng súng
+        }
+      }
       this.mixer.update(0);
     }
     const p = this.root.position;

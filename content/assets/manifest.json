@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-10T07:27:55.616628Z",
+  "generatedAt": "2026-09-10T09:07:59.576Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 155177590,
+  "totalBytes": 150710866,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3783,32 +3783,24 @@
       }
     },
     {
-      "id": "fp_viewmodel_ak47",
+      "id": "fp_viewmodel_akm",
       "type": "character",
-      "use": "viewmodel người chơi (TIP-D11b): AK-47 + hai bàn tay trần rig sẵn + anim reload — nghệ sĩ dựng cảnh cầm AK (tránh IK/fit/nháy); tay trần đúng lính QGP 1971",
-      "source": "sketchfab",
-      "url": "https://sketchfab.com/3d-models/ak47-reload-animation-free-download-c57b0a289af147c68c4b06d9ef960469",
+      "use": "viewmodel người chơi (TIP-D11b/DV-053): AKM + cánh tay (cẳng tay + bàn tay TRẦN) rig sẵn một khối + 5 anim (Draw/Fire/Reload/Reload_Empty/Holster) — asset MUA của BarcodeGames; bỏ găng dùng tay trần đúng lính QGP 1971",
+      "source": "fab",
+      "url": "https://www.fab.com/s/7229ee68ca12",
       "authors": [
-        "DavidFalke (davidfalke)"
+        "BarcodeGames"
       ],
-      "license": "CC-BY-4.0",
-      "attribution": "\"AK47 Reload Animation - Free Download\" (https://sketchfab.com/3d-models/ak47-reload-animation-free-download-c57b0a289af147c68c4b06d9ef960469) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "license": "Fab-Standard",
       "files": [
         {
-          "path": "assets/weapons/ak47_vm.glb",
-          "bytes": 5380840,
-          "sha256": "d4002d0a9df23d104ff413afa89351a3f5bc2f02f6ed81b55e834f1ca7b2e05e"
-        }
-      ],
-      "sourceFiles": [
-        {
-          "path": "assets-src/sketchfab/ak47-hands-davidfalke/ak47_hands.glb",
-          "bytes": 7077332,
-          "sha256": "50d0d655a67bab23f86a7cdab5822b7e96225fa5d3b2e9911f403b776325de63"
+          "path": "assets/weapons/akm_vm.glb",
+          "bytes": 914116,
+          "sha256": "b7e94ef5eb74ad2259324740ee9894a97aeed3489b90afb0ace51ac7e175c110"
         }
       ],
       "triangles": {
-        "output": 23724
+        "output": 13154
       }
     }
   ]

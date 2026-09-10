@@ -136,7 +136,7 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await expectNoErrors(errors);
   });
 
-  test('viewmodel FP (TIP-D11b): dùng rig nghệ sĩ AK+tay (DavidFalke CC-BY) khi có asset — không IK/fit/procedural cho người chơi', async ({ page }) => {
+  test('viewmodel FP (TIP-D11b): dùng rig nghệ sĩ AKM+cánh tay (BarcodeGames, Fab) khi có asset — không IK/fit/procedural cho người chơi', async ({ page }) => {
     const errors = await bootGame(page);
     await pauseLoop(page);
     const r = await page.evaluate(() => {

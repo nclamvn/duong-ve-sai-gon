@@ -68,6 +68,7 @@
               "quaternius",
               "sketchfab-cc0",
               "sketchfab",
+              "fab",
               "mixamo",
               "aws-terrain-tiles",
               "procedural",
@@ -91,7 +92,8 @@
               "CC-BY-4.0",
               "CC-BY-3.0",
               "PD-USGov",
-              "OFL-1.1"
+              "OFL-1.1",
+              "Fab-Standard"
             ]
           },
           "files": {

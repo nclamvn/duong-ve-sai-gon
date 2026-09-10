@@ -52,7 +52,7 @@ const HDRI_ID = 'blue_lagoon_night';
 export const CHARACTER_URL = 'characters/soldier.glb';
 export const ARMS_URL = 'characters/soldier_arms.glb';
 export const FP_HANDS_URL = 'characters/fp_hands.glb';
-export const FP_VIEWMODEL_URL = 'weapons/ak47_vm.glb';
+export const FP_VIEWMODEL_URL = 'weapons/akm_vm.glb';
 
 export type TextureId = (typeof TEXTURE_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
