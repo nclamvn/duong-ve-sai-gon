@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-10T09:07:59.576Z",
+  "generatedAt": "2026-09-10T14:32:11.738Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 150728862,
+  "totalBytes": 150720654,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3785,7 +3785,7 @@
     {
       "id": "fp_viewmodel_akm",
       "type": "character",
-      "use": "viewmodel người chơi (TIP-D11b/DV-053): AKM + cánh tay (cẳng tay + bàn tay TRẦN) rig sẵn một khối + 5 anim (Draw/Fire/Reload/Reload_Empty/Holster) — asset MUA của BarcodeGames; bỏ găng dùng tay trần đúng lính QGP 1971",
+      "use": "viewmodel người chơi (TIP-D11b/DV-053): AKM + cánh tay (cẳng tay + bàn tay TRẦN) rig sẵn một khối + 5 anim (Draw/Fire/Reload/Reload_Empty/Holster) — CẮT CÒN BÀN TAY (bỏ cẳng tay, tránh miệng phễu low-poly); bỏ găng dùng tay trần đúng lính QGP 1971",
       "source": "fab",
       "url": "https://www.fab.com/s/7229ee68ca12",
       "authors": [
@@ -3795,12 +3795,12 @@
       "files": [
         {
           "path": "assets/weapons/akm_vm.glb",
-          "bytes": 932112,
-          "sha256": "e8e75bc088b99c7ade693e1bb224ca326400f04a820435af3f99fbc410d754bc"
+          "bytes": 923904,
+          "sha256": "6e1157196513218584f83b402e6d641edfd137e694b81328ba6badc73fe51e1c"
         }
       ],
       "triangles": {
-        "output": 13618
+        "output": 12934
       }
     }
   ]

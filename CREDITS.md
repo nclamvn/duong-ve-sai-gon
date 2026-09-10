@@ -118,4 +118,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - fp_viewmodel_akm (character) — BarcodeGames — https://www.fab.com/s/7229ee68ca12
 
-Tổng: 98 asset, 143.7 MB. Cập nhật 2026-09-10T09:07:59.576Z.
+Tổng: 98 asset, 143.7 MB. Cập nhật 2026-09-10T14:32:11.738Z.
