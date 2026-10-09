@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-10T14:32:11.738Z",
+  "generatedAt": "2026-10-09T15:30:49.962Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 150720654,
+  "totalBytes": 159521466,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3783,25 +3783,24 @@
       }
     },
     {
-      "id": "fp_viewmodel_akm",
+      "id": "fp_viewmodel_ak47",
       "type": "character",
-      "use": "viewmodel người chơi (TIP-D11b/DV-053): AKM + cánh tay (cẳng tay + bàn tay TRẦN) rig sẵn một khối + 5 anim (Draw/Fire/Reload/Reload_Empty/Holster) — CẮT CÒN BÀN TAY (bỏ cẳng tay, tránh miệng phễu low-poly); bỏ găng dùng tay trần đúng lính QGP 1971",
+      "use": "viewmodel người chơi (DV-055): AK-47 báng gỗ + cánh tay (găng da, tay áo) NGUYÊN TRẠNG của nghệ sĩ, súng gắn xương weapon_r, băng đạn gắn xương Magazine; 37 clip FP (idle, walk, sprint, ADS vào/ra/đi, bắn liên thanh hip/ADS, reload, reload hết đạn, lên đạn, kiểm súng, rút/cất, nhảy, ném lựu đạn, bò...). Đổi bằng scripts/convert-ab3dx-vm.mjs, không sửa hình học",
       "source": "fab",
-      "url": "https://www.fab.com/s/7229ee68ca12",
+      "url": "https://www.fab.com/listings/c7984c16-55d5-4f13-bc74-df21e5dd44d5",
       "authors": [
-        "BarcodeGames"
+        "AB3DX"
       ],
       "license": "Fab-Standard",
       "files": [
         {
-          "path": "assets/weapons/akm_vm.glb",
-          "bytes": 923904,
-          "sha256": "6e1157196513218584f83b402e6d641edfd137e694b81328ba6badc73fe51e1c"
+          "path": "assets/weapons/ak47_vm.glb",
+          "bytes": 9724716,
+          "sha256": "aabb01d4630ba836711a16b4a5e3fe77d4f24ef6f1f74b46500d3723a453f854"
         }
       ],
-      "triangles": {
-        "output": 12934
-      }
+      "historical": true,
+      "registryId": "wpn.pavn.type56_rifle"
     }
   ]
 }

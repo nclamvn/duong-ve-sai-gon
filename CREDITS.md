@@ -116,6 +116,6 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 ## Fab-Standard
 
-- fp_viewmodel_akm (character) — BarcodeGames — https://www.fab.com/s/7229ee68ca12
+- fp_viewmodel_ak47 (character) — AB3DX — https://www.fab.com/listings/c7984c16-55d5-4f13-bc74-df21e5dd44d5
 
-Tổng: 98 asset, 143.7 MB. Cập nhật 2026-09-10T14:32:11.738Z.
+Tổng: 98 asset, 152.1 MB. Cập nhật 2026-10-09T15:30:49.962Z.

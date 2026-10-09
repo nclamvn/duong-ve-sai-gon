@@ -393,7 +393,7 @@ export class Game {
     this.fx.ejectWorld = this.fxEject;
     this.fx.botMuzzle = (id, out) => this.bots.get(id)?.dummy.muzzleWorld(out) ?? false;
     this.events.on('WEAPON_FIRED', () => this.viewModel.onShot());
-    this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs));
+    this.events.on('RELOAD_START', () => this.viewModel.onReload(this.weapon.def.reloadMs, this.weapon.snapshot().mag === 0));
     this.events.on('HIT', (e) => {
       const shooterBot = e.shooter && e.shooter !== 'player' ? this.bots.get(e.shooter) : undefined;
       if (e.actorId === 'player') {
@@ -759,7 +759,7 @@ export class Game {
     this.vmCamera.position.copy(this.camera.position);
     this.vmCamera.quaternion.copy(this.camera.quaternion);
     const k = this.viewModelScale;
-    const vmFov = (2 * Math.atan(k * Math.tan((this.camera.fov * Math.PI) / 360)) * 180) / Math.PI;
+    const vmFov = this.viewModel.fovOverride ?? (2 * Math.atan(k * Math.tan((this.camera.fov * Math.PI) / 360)) * 180) / Math.PI;
     if (Math.abs(this.vmCamera.fov - vmFov) > 0.01) {
       this.vmCamera.fov = vmFov;
       this.vmCamera.updateProjectionMatrix();

@@ -6,8 +6,8 @@
  * hip ↔ ADS lerp theo weapon.ads, sprint lerp theo tốc độ, bob/sway theo CameraRig + chuột, kick khi bắn, dip khi reload.
  * Xuất `muzzleWorld` + `ejectWorld` cho FX. Chỉ render-side. Không Math.random (kick lệch theo dãy vàng).
  */
-import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, AnimationMixer, type AnimationAction, type AnimationClip, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
-import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
+import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
+import { ArtistViewmodel } from './artistViewmodel';
 import type { FpViewmodelAsset } from '@engine/render/assets';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -102,10 +102,6 @@ class GeoBuilder {
 }
 
 const rbox = (w: number, h: number, d: number, r = 0.004): RoundedBoxGeometry => new RoundedBoxGeometry(w, h, d, 2, Math.min(r, Math.min(w, h, d) / 2.2));
-
-interface FpvmTransform { scale: number; rx: number; ry: number; rz: number; px: number; py: number; pz: number }
-/** đặt viewmodel rig sẵn (AK+tay DavidFalke) trong viewmodel space; calib LIVE trên game Mac (DV-051): quét trục nòng theo xương AK (grip→sight) tìm ry đúng — nòng chĩa vào cảnh (−z), chếch lên ~4°, nằm góc phải-dưới. Tinh chỉnh tiếp qua __ht.vm */
-const DEFAULT_FPVM: FpvmTransform = { scale: 0.6, rx: 0, ry: Math.PI, rz: 0, px: 0.1, py: -0.88, pz: -0.15 };
 
 /** Trụ thon giữa hai điểm A→B (hệ model). rA = đầu A (bottom), rB = đầu B (top). */
 function cyl(b: GeoBuilder, mat: MeshStandardNodeMaterial, A: Vector3, B: Vector3, rA: number, rB: number, seg = 14): void {
@@ -243,15 +239,10 @@ export class WeaponViewModel {
   private reloadDur = 1;
   private boltT = 0;
   private sprintBlend = 0;
-  /** viewmodel rig sẵn (AK+tay DavidFalke, TIP-D11b): nghệ sĩ dựng cảnh cầm AK → không IK/fit/nháy */
+  /** viewmodel của nghệ sĩ dùng nguyên trạng (DV-055): AK-47 + tay AB3DX, clip chọn theo VmStateMachine */
+  private artist: ArtistViewmodel | null = null;
   private fpvmRoot: Group | null = null;
-  private mixer: AnimationMixer | null = null;
-  private reloadAction: AnimationAction | null = null;
-  private reloadClipDur = 1;
-  /** clip bắn (recoil) của viewmodel rig sẵn — chạy 1 lần mỗi phát; ngoài lúc bắn/nạp giữ frame 0 = idle */
-  private fireAction: AnimationAction | null = null;
-  private fireClipDur = 1;
-  private fireT = 0;
+  private lastAds = 0;
   private readonly tmp = new Vector3();
   private readonly tmpE = new Euler();
   private readonly bobBase = new Vector3();
@@ -350,68 +341,22 @@ export class WeaponViewModel {
   }
 
   private setupFpvm(fpvm: FpViewmodelAsset, gun: Group): void {
-    gun.visible = false; // ẩn súng + tay procedural, dùng rig nghệ sĩ
-    const rig = skeletonClone(fpvm.scene) as Group;
-    rig.traverse((o: Object3D) => {
-      const m = o as Mesh;
-      if (m.isMesh) {
-        m.castShadow = false;
-        m.receiveShadow = false;
-        m.frustumCulled = false;
-      }
-    });
-    // căn tâm: đưa khớp mắt (FPS_camera_j) về gốc rig — model dựng theo khung camera CHUẨN (-z tiến, +y lên),
-    // nên KHÔNG cần xoay; chỉ cần trùng mắt với gốc rồi co/dời qua DEFAULT_FPVM. (DavidFalke cũ không có khớp này → bỏ qua)
-    rig.updateMatrixWorld(true);
-    let eyeNode: Object3D | null = null;
-    rig.traverse((o: Object3D) => {
-      if (!eyeNode && /FPS_camera/i.test(o.name)) eyeNode = o;
-    });
-    if (eyeNode) {
-      const cp = new Vector3();
-      (eyeNode as Object3D).getWorldPosition(cp);
-      rig.position.sub(cp);
-      rig.updateMatrixWorld(true);
-    }
-    const orient = new Group();
-    orient.name = 'fpvm_orient';
-    orient.add(rig);
-    const holder = new Group();
-    holder.name = 'fpvm';
-    holder.add(orient);
-    this.applyFpvmTransform(holder, DEFAULT_FPVM);
-    this.root.add(holder);
-    this.fpvmRoot = holder;
-    if (fpvm.clips.length) {
-      this.mixer = new AnimationMixer(rig);
-      // map clip theo tên (BarcodeGames AKM: Draw/Fire/Reload/Reload_Empty/Holster); fallback clip[0]
-      const byName = (re: RegExp): AnimationClip | undefined => fpvm.clips.find((c) => re.test(c.name));
-      const reloadClip = byName(/reload(?!_?empty)/i) ?? byName(/reload/i) ?? fpvm.clips[0]!;
-      const fireClip = byName(/fire|shoot/i) ?? fpvm.clips[0]!;
-      this.reloadClipDur = reloadClip.duration;
-      this.reloadAction = this.mixer.clipAction(reloadClip);
-      this.reloadAction.play();
-      this.reloadAction.setEffectiveWeight(0);
-      this.reloadAction.time = 0;
-      this.fireClipDur = fireClip.duration;
-      this.fireAction = this.mixer.clipAction(fireClip);
-      this.fireAction.play();
-      this.fireAction.setEffectiveWeight(1); // idle = fireClip@0 (tư thế nâng súng sẵn sàng)
-      this.fireAction.time = 0;
-      this.mixer.update(0);
-    }
+    gun.visible = false; // ẩn súng + tay procedural, dùng nguyên bộ của nghệ sĩ
+    this.artist = new ArtistViewmodel(fpvm);
+    this.root.add(this.artist.root);
+    this.fpvmRoot = this.artist.root;
   }
 
-  private applyFpvmTransform(holder: Group, t: FpvmTransform): void {
-    holder.scale.setScalar(t.scale);
-    holder.rotation.set(t.rx, t.ry, t.rz);
-    holder.position.set(t.px, t.py, t.pz);
+  /** góc nhìn riêng của camera viewmodel khi dùng rig nghệ sĩ; null = theo view.scale của súng */
+  get fovOverride(): number | null {
+    return this.artist?.fov ?? null;
   }
 
-  /** calib viewmodel rig (TIP-D11b) qua __ht.vm: co/xoay/dời cả bộ AK+tay trong khung */
-  setFpvmTransform(scale: number, rx: number, ry: number, rz: number, px: number, py: number, pz: number): void {
-    if (this.fpvmRoot) this.applyFpvmTransform(this.fpvmRoot, { scale, rx, ry, rz, px, py, pz });
+  /** kiểm súng (clip inspect của nghệ sĩ) */
+  inspect(): void {
+    this.artist?.inspect();
   }
+
   hasFpvm(): boolean {
     return !!this.fpvmRoot;
   }
@@ -422,10 +367,14 @@ export class WeaponViewModel {
     // lệch ngang giả-ngẫu nhiên deterministic (AGENTS: không Math.random) — chỉ hình ảnh, không ảnh hưởng gameplay
     this.shotIndex++;
     this.kickSide = (((this.shotIndex * 0.6180339887) % 1) - 0.5) * 0.5;
-    if (this.fpvmRoot) this.fireT = this.fireClipDur; // kích clip bắn (recoil nghệ sĩ) trên rig sẵn
+    this.artist?.onShot(this.lastAds >= 0.5);
   }
 
-  onReload(durationMs: number): void {
+  onReload(durationMs: number, empty = false): void {
+    if (this.artist) {
+      this.artist.onReload(durationMs, empty);
+      return;
+    }
     this.reloadT = durationMs / 1000;
     this.reloadDur = Math.max(0.2, durationMs / 1000);
   }
@@ -438,6 +387,17 @@ export class WeaponViewModel {
     const swayK = 1 - ads * 0.8;
     this.swayX += (Math.max(-30, Math.min(30, -dx)) * 0.0009 * swayK - this.swayX) * Math.min(1, dt * 12);
     this.swayY += (Math.max(-30, Math.min(30, dy)) * 0.0007 * swayK - this.swayY) * Math.min(1, dt * 12);
+    if (this.artist) {
+      // Rig nghệ sĩ: mọi tư thế (hông, ngắm, chạy, nạp, bắn) đến từ clip. Ở đây chỉ còn độ trễ theo chuột
+      // (cả khối súng + tay xoay nhẹ theo quán tính), không cộng bob vì camera đã nhún và clip đi đã có nhún.
+      this.lastAds = ads;
+      this.artist.update(dt, { ads, speed, sprinting });
+      this.root.position.set(this.swayX * 0.6, this.swayY * 0.4, 0);
+      this.root.rotation.set(this.swayY * 0.5, this.swayX * 0.8, this.swayX * 0.4);
+      this.artist.muzzle.getWorldPosition(this.muzzleWorld);
+      this.artist.eject.getWorldPosition(this.ejectWorld);
+      return;
+    }
     this.kick = Math.max(0, this.kick - dt * 9);
     const k = this.kick * this.kick;
     const sprintTarget = sprinting && ads < 0.05 && this.reloadT <= 0 && speed > 3.5 ? 1 : 0;
@@ -450,24 +410,6 @@ export class WeaponViewModel {
       dip = Math.sin(Math.min(1, u) * Math.PI);
     }
     this.animateParts(dt, u);
-    // viewmodel rig sẵn: máy trạng thái clip tất định (không tích luỹ dt) — reload > fire > idle
-    if (this.mixer) {
-      if (this.reloadT > 0 && this.reloadAction) {
-        this.reloadAction.setEffectiveWeight(1);
-        this.fireAction?.setEffectiveWeight(0);
-        this.reloadAction.time = Math.min(1, u) * this.reloadClipDur; // đồng bộ theo tiến độ reload
-      } else if (this.fireAction) {
-        this.reloadAction?.setEffectiveWeight(0);
-        this.fireAction.setEffectiveWeight(1);
-        if (this.fireT > 0) {
-          this.fireT = Math.max(0, this.fireT - dt);
-          this.fireAction.time = Math.min(this.fireClipDur, this.fireClipDur - this.fireT); // chạy 0→dur một lần
-        } else {
-          this.fireAction.time = 0; // idle: giữ tư thế nâng súng
-        }
-      }
-      this.mixer.update(0);
-    }
     const p = this.root.position;
     this.bobBase.copy(this.hip.pos).lerp(this.ads.pos, ads).lerp(this.sprint.pos, this.sprintBlend);
     p.copy(this.bobBase);
@@ -544,6 +486,7 @@ export class WeaponViewModel {
   }
 
   reset(): void {
+    this.artist?.reset();
     this.kick = 0;
     this.shotIndex = 0;
     this.reloadT = 0;
