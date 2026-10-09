@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T15:30:49.962Z",
+  "generatedAt": "2026-10-09T16:17:21.546Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 159521466,
+  "totalBytes": 160255094,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3795,8 +3795,8 @@
       "files": [
         {
           "path": "assets/weapons/ak47_vm.glb",
-          "bytes": 9724716,
-          "sha256": "aabb01d4630ba836711a16b4a5e3fe77d4f24ef6f1f74b46500d3723a453f854"
+          "bytes": 10458344,
+          "sha256": "c2a3b116b46ebb1297c940822d1b6266551e513397c0178e163796dc881507c8"
         }
       ],
       "historical": true,

@@ -17,6 +17,7 @@ import { mergeDocuments, prune, dedup, unpartition, resample } from '@gltf-trans
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import sharp from 'sharp';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 const [IN, TEX, OUT] = process.argv.slice(2);
 if (!IN || !TEX || !OUT) throw new Error('usage: convert-ab3dx-vm.mjs <in> <texDir> <out.glb>');
@@ -50,10 +51,8 @@ weaponR.addChild(gunRootNode);
 // Bỏ phép xoay đổi trục Z-up → Y-up mà FBX2glTF gắn ở gốc file súng: phía tay đã có phép đổi trục này ở `root`,
 // và bên dưới weapon_r mọi thứ đã ở hệ của Unreal. Giữ nguyên thì súng bị xoay hai lần.
 for (const c of gunRootNode.listChildren()) c.setRotation([0, 0, 0, 1]);
-// Phép xoay gắn súng vào xương weapon_r: −90° quanh Z. Tìm bằng cách thử đủ 24 hướng vuông góc và chấm điểm theo
-// chính tư thế của nghệ sĩ trên ba clip (idle, ADS, reload): nòng hướng tới trước, băng đạn quay xuống, tay trái
-// nằm trên ốp lót (cách trục nòng 8 cm), ngón trỏ phải sát cò. Một hướng duy nhất thoả cả ba clip.
-gunRootNode.listChildren().find((c) => c.getName() === 'Root').setRotation([0, 0, -Math.SQRT1_2, Math.SQRT1_2]);
+// Gắn súng thẳng vào weapon_r, không thêm phép xoay nào: chỗ gắn (vị trí + hướng) do nghệ sĩ đặt trong chính
+// kênh hằng của xương weapon_r ở mỗi clip — xem fillConstantChannels.
 gunScene.dispose();
 const gunTop = gunRootNode;
 
@@ -117,6 +116,48 @@ function copyChannels(srcDoc, anim, scope) {
 }
 
 const armsTop = byName('root');
+
+/**
+ * FBX2glTF BỎ các kênh không đổi trong suốt clip. Với gói này đó là lỗi gốc của mọi thứ trông sai:
+ *  - tư thế nắm của ngón tay (trái ôm ốp lót, phải ôm báng cầm) là hằng số trong idle, ngắm, đi... nên bị bỏ,
+ *    ngón tay rơi về tư thế gốc của lưới: xoè thẳng, bàn tay trái giơ lên không đỡ súng;
+ *  - xương `weapon_r` (chỗ gắn súng) có vị trí và hướng HẰNG do nghệ sĩ đặt (lệch 88° và 7 cm so với tư thế gốc),
+ *    cũng bị bỏ, nên súng không nằm đúng trong tay.
+ * Lấp lại: đọc chính file FBX bằng FBXLoader (giữ đủ 161 xương × 3 kênh; giá trị xoay trùng FBX2glTF tới 4 chữ
+ * số, vị trí tính bằng cm nên × 0,01), với mỗi xương trong rig mà clip chưa có kênh, thêm kênh hằng bằng giá trị
+ * của nghệ sĩ.
+ */
+const CM = 0.01;
+function fillConstantChannels(anim, fbxPath) {
+  const buf = readFileSync(fbxPath);
+  const clip = new FBXLoader().parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength), '').animations[0];
+  if (!clip) return 0;
+  const have = new Set(anim.listChannels().map((c) => c.getTargetNode().getName() + '.' + c.getTargetPath()));
+  const dur = Math.max(clip.duration, 1 / 30);
+  let n = 0;
+  for (const t of clip.tracks) {
+    const [bone, prop] = t.name.split('.');
+    if (/^(root|RootNode)$/.test(bone)) continue;
+    const path = prop === 'quaternion' ? 'rotation' : prop === 'position' ? 'translation' : null;
+    if (!path) continue;
+    const node = byName(bone, armsTop);
+    if (!node || have.has(bone + '.' + path)) continue;
+    let v = Array.from(t.values.slice(0, t.getValueSize()));
+    if (path === 'translation') {
+      v = v.map((x) => x * CM);
+      const r = node.getTranslation();
+      if (Math.hypot(v[0] - r[0], v[1] - r[1], v[2] - r[2]) < 1e-4) continue; // trùng tư thế gốc: không cần kênh
+    }
+    const sampler = base.createAnimationSampler()
+      .setInput(base.createAccessor().setType('SCALAR').setArray(new Float32Array([0, dur])).setBuffer(root.listBuffers()[0]))
+      .setOutput(base.createAccessor().setType(path === 'rotation' ? 'VEC4' : 'VEC3').setArray(new Float32Array([...v, ...v])).setBuffer(root.listBuffers()[0]))
+      .setInterpolation('LINEAR');
+    anim.addSampler(sampler);
+    anim.addChannel(base.createAnimationChannel().setTargetNode(node).setTargetPath(path).setSampler(sampler));
+    n++;
+  }
+  return n;
+}
 const armFiles = readdirSync(join(IN, 'arms')).filter((f) => f.endsWith('.glb')).sort();
 const report = [];
 for (const f of armFiles) {
@@ -124,6 +165,7 @@ for (const f of armFiles) {
   const anim = base.createAnimation(clip);
   const armDoc = await io.read(join(IN, 'arms', f));
   copyChannels(armDoc, anim, armsTop);
+  const filled = fillConstantChannels(anim, join(TEX, 'Animations', 'Arms', basename(f, '.glb') + '.fbx'));
   let gunCh = 0;
   const gf = PAIRS[clip];
   if (gf) {
@@ -131,7 +173,7 @@ for (const f of armFiles) {
     copyChannels(await io.read(join(IN, 'gun', gf + '.glb')), anim, gunTop);
     gunCh = anim.listChannels().length - before;
   }
-  report.push(`${clip.padEnd(22)} ${String(anim.listChannels().length).padStart(4)} ch${gunCh ? `  (súng ${gunCh})` : ''}`);
+  report.push(`${clip.padEnd(22)} ${String(anim.listChannels().length).padStart(4)} ch${gunCh ? `  (súng ${gunCh})` : ''}  (+${filled} kênh hằng)`);
 }
 // tư thế nghỉ của súng (bolt/băng đạn về chỗ) — một clip riêng, game phát ở trọng số nhỏ làm nền
 {

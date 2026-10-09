@@ -43,6 +43,7 @@ export const VM_CLIPS = {
   sprint: 'sprint_Loop',
   sprintOut: 'sprint_End',
   adsIn: 'Ads_idle_first',
+  adsIdle: 'Ads_idle',
   adsWalk: 'Ads_walk',
   adsOut: 'Ads_idle_end',
   fireHip: 'Fire_Auto_Loop',
@@ -172,7 +173,8 @@ export class VmStateMachine {
     // 3. nền
     if (this.mode === 'ads') {
       if (moving && this.has(VM_CLIPS.adsWalk)) return { clip: VM_CLIPS.adsWalk, mode: 'loop', fade: 0.2, timeScale: walkScale(inp.speed), token: 0 };
-      // ngắm đứng yên = khung cuối của clip vào ngắm (gói không có clip "ngắm đứng" riêng)
+      // ngắm đứng yên: vòng thở của nghệ sĩ; thiếu clip đó thì giữ khung cuối của clip vào ngắm
+      if (this.has(VM_CLIPS.adsIdle)) return { clip: VM_CLIPS.adsIdle, mode: 'loop', fade: 0.15, timeScale: 1, token: 0 };
       return { clip: VM_CLIPS.adsIn, mode: 'hold', fade: 0.2, timeScale: 1, token: 0 };
     }
     if (this.mode === 'sprint') return { clip: VM_CLIPS.sprint, mode: 'loop', fade: fadeOut, timeScale: 1, token: 0 };

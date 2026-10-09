@@ -60,6 +60,16 @@ describe('VmStateMachine (DV-055: chỉ chọn và trộn clip của nghệ sĩ)
     expect(sm.update(1 / 60, still)?.clip).toBe(VM_CLIPS.adsOut);
   });
 
+  it('ngắm đứng: có clip Ads_idle thì lặp vòng thở của nghệ sĩ sau clip vào ngắm', () => {
+    const sm = new VmStateMachine({ ...DUR, Ads_idle: 2.0 });
+    const ads = { ads: 1, speed: 0, sprinting: false };
+    expect(sm.update(1 / 60, ads)?.clip).toBe(VM_CLIPS.adsIn);
+    let r = null;
+    for (let i = 0; i < 40; i++) r = sm.update(1 / 60, ads) ?? r;
+    expect(r?.clip).toBe(VM_CLIPS.adsIdle);
+    expect(r?.mode).toBe('loop');
+  });
+
   it('mỗi phát đạn phát lại clip bắn từ đầu (token đổi), hết clip thì về nền', () => {
     const sm = new VmStateMachine(DUR);
     run(sm, 2);
