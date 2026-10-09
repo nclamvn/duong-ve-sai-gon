@@ -6,6 +6,7 @@ import { Group, Mesh, BufferGeometry, BufferAttribute, type Scene } from 'three/
 import type { ArenaData, ColliderDef, CoverMarker } from '../render/arena';
 import { buildTerrainProps, navBoxGeometry, type TerrainPropDef, type TerrainPropsBuild } from './props';
 import type { LoadedAssets } from '../render/assets';
+import type { LevelClimate } from '../sky/climate';
 import type { LevelSky, FxDef } from '../level/types';
 import { createAmbientFx, type AmbientFx } from '../render/ambientFx';
 import { TerrainTile } from './tile';
@@ -30,6 +31,8 @@ export interface TerrainLevelDef {
     tint?: number;
   };
   sky: LevelSky;
+  /** DV-057: trời theo registry (preset content/ecology/climate.*.json + ngày/giờ/toạ độ → mặt trời thiên văn) */
+  climate?: LevelClimate;
   /** near lớn hơn arena (0,05) để depth 24-bit đủ chính xác tới far 2–3 km (GTAO/SSR đọc depth: near nhỏ → vạch ngang/ô trên sườn xa) */
   camera: { near: number; far: number };
   /** id texture (manifest) cho 4 lớp splat */

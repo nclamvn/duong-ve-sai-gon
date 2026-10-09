@@ -1,0 +1,13 @@
+<!-- url: https://en.wikipedia.org/wiki/Pygmy_slow_loris | fetched_at: 2026-10-09T17:02:00Z | via WebFetch verbatim-extract -->
+"An adult can grow to around 19 to 23 cm (7.5 to 9.1 in) long and has a very short tail."
+"It weighs about 450 g (1.0 lb)."
+"there is no significant difference in size between the sexes."
+"In adults, the rings circling the eyes are seal brown; they are darker in young individuals."
+"There is a white stripe extending from the nose to the forehead"
+"The pygmy slow loris has buffy flanks, paler than the back."
+"The animal is nocturnal and arboreal, crawling along branches using slow movements in search of prey."
+"it is least active on cold, moonlit nights and is generally active on dark nights"
+"Unlike other primates, it does not leap."
+"Vocalizations of the pygmy slow loris include a short whistle, mother-infant contact calls,"
+"found east of the Mekong River in Vietnam, Laos, eastern Cambodia, and China."
+"In Vietnam, the pygmy slow loris was widespread throughout the country,"

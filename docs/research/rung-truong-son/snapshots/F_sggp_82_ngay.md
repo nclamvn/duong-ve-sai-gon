@@ -1,0 +1,11 @@
+<!-- url: https://www.sggp.org.vn/82-ngay-vuot-truong-son-286171.html | fetched_at: 2026-10-09T17:17:00Z | via WebFetch verbatim-extract -->
+"Ra giữa cầu, nó đung đưa như cái võng."
+"Tối, anh leo lên cây cao mắc võng ngủ."
+"Ban ngày, anh bò sát ra lộ, bờ sông, bờ suối quan sát, nghe ngóng."
+"Lại thêm ruồi vàng, vắt rừng quái ác."
+"Đường mòn chênh vênh vừa lọt một người đi."
+"Anh em ngồi phệt xuống đất, không buồn cởi ba lô ra."
+"Đã thấy không đủ gạo ăn rồi."
+"Một cái tết giữa rừng khá linh đình và rất vui."
+"Chỉ có cây rừng, chim chóc biết cho anh!"
+"Ba Khôi (tên một đồng chí trong đoàn - PV) bắn 3 phát carbine."

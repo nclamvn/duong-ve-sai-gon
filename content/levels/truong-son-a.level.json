@@ -44,21 +44,30 @@
       "mapSize": 2048
     }
   },
+  "climate": {
+    "$comment": "DV-057: trời theo registry rừng Trường Sơn (content/ecology/climate.truong-son.json). Tháng 1/1971, miền Bắc dùng UTC+7 (registry Múi giờ Việt Nam 1971). Giờ vào màn 06:24, mặt trời mọc 06:29 tính thiên văn tại tâm DEM: người chơi vào đúng cửa sổ vượn hót [mọc − 12, mọc + 13] phút (registry, tier A). sky.sun/fog/hdri bên trên chỉ còn là giá trị nền, bị tính lại.",
+    "preset": "m1-jan-dawn",
+    "date": "1971-01-20",
+    "localTime": "06:24",
+    "utcOffsetH": 7,
+    "lat": 17.55,
+    "lon": 106.1
+  },
   "layers": {
-    "leaves": "brown_mud_leaves_01",
-    "mud": "brown_mud_03",
-    "rock": "aerial_rocks_02",
+    "leaves": "forest_leaves_02",
+    "mud": "red_laterite_soil_stones",
+    "rock": "mossy_rock",
     "grass": "aerial_grass_rock"
   },
   "textures": [
-    "brown_mud_leaves_01",
-    "brown_mud_03",
-    "aerial_rocks_02",
+    "forest_leaves_02",
+    "red_laterite_soil_stones",
+    "mossy_rock",
     "aerial_grass_rock"
   ],
   "models": [],
   "vegetation": {
-    "$comment": "TIP-D05 rừng loài thật (content/vegetation/species.json). perHa = cây/ha (bụi: bụi/ha); lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; rect riêng cho tầng thấp (chỉ thấy < 140 m); sink = chôn gốc [m, × tan dốc] (rễ bạnh không trồi trên sườn); noiseId = mọc theo trường noise của loài khác (dây leo trong cụm cây tán). Mật độ chỉnh theo đếm tam giác sandbox (≤ 2,5 M mục tiêu, 4 M đỏ) — bench Mac quyết GO/ADJUST (ADR-D06).",
+    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác.",
     "seed": 1971,
     "cellM": 64,
     "wind": 0.35,
@@ -71,18 +80,22 @@
     "species": [
       {
         "id": "tree_gn",
-        "perHa": 40,
+        "perHa": 14,
         "slope": [
           0,
-          0.55
+          0.35
+        ],
+        "height": [
+          0,
+          0.82
         ],
         "scale": [
-          0.8,
-          1.25
+          0.85,
+          1.2
         ],
         "noise": {
           "scale": 0.006,
-          "min": 0.28
+          "min": 0.3
         },
         "lod": [
           32,
@@ -101,6 +114,38 @@
         ]
       },
       {
+        "id": "tree_canopy",
+        "asset": "tree_gn",
+        "perHa": 110,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.46,
+          0.62
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.22
+        },
+        "lod": [
+          24,
+          70,
+          130,
+          500
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.3,
+          "height": 5
+        },
+        "sink": [
+          0.25,
+          1.5
+        ]
+      },
+      {
         "id": "palm",
         "perHa": 12,
         "slope": [
@@ -112,10 +157,10 @@
           1.2
         ],
         "noise": {
-          "scale": 0.01,
-          "min": 0.4,
-          "offset": 50
+          "scale": 0.006,
+          "max": 0.4
         },
+        "noiseId": "tree_canopy",
         "lod": [
           35,
           90,
@@ -187,10 +232,10 @@
           1.2
         ],
         "noise": {
-          "scale": 0.012,
-          "min": 0.5,
-          "offset": 300
+          "scale": 0.006,
+          "max": 0.36
         },
+        "noiseId": "tree_canopy",
         "lod": [
           30,
           70,
@@ -210,7 +255,7 @@
       },
       {
         "id": "monstera",
-        "perHa": 70,
+        "perHa": 35,
         "slope": [
           0,
           0.5
@@ -243,8 +288,12 @@
       },
       {
         "id": "elephant_ear",
-        "perHa": 250,
+        "perHa": 160,
         "slope": [
+          0,
+          0.45
+        ],
+        "height": [
           0,
           0.5
         ],
@@ -276,7 +325,7 @@
       },
       {
         "id": "fern",
-        "perHa": 900,
+        "perHa": 320,
         "slope": [
           0,
           0.6
@@ -308,8 +357,42 @@
         ]
       },
       {
+        "id": "fern_gap",
+        "asset": "fern",
+        "perHa": 1400,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.35
+        ],
+        "noise": {
+          "scale": 0.006,
+          "max": 0.34
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          12,
+          28,
+          60,
+          60
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.5
+        ]
+      },
+      {
         "id": "fern_grass",
-        "perHa": 700,
+        "perHa": 260,
         "slope": [
           0,
           0.6
@@ -352,10 +435,10 @@
           1.25
         ],
         "noise": {
-          "scale": 0.03,
-          "min": 0.08,
-          "offset": 1700
+          "scale": 0.006,
+          "max": 0.34
         },
+        "noiseId": "tree_canopy",
         "lod": [
           14,
           26,

@@ -1,0 +1,12 @@
+<!-- url: https://en.wikipedia.org/wiki/Firefly | fetched_at: 2026-10-09T17:08:00Z | via WebFetch verbatim-extract -->
+"The light may be yellow, green, or pale red, with wavelengths from 510 to 670 nanometers."
+"are distinguished by the unique courtship flash patterns emitted by flying males in search of females."
+"mainly during twilight, to attract mates."
+"The most commonly known fireflies are nocturnal"
+"Tropical fireflies routinely synchronise their flashes among large groups, particularly in Southeast Asia."
+"At night along river banks in the Malaysian jungles, fireflies synchronize their light emissions precisely."
+"All fireflies glow as larvae, where bioluminescence is an aposematic warning signal to predators."
+"firefly viewing is a special aesthetic pleasure of midsummer"
+"occurs annually near Elkmont, Tennessee, in the Great Smoky Mountains during the first weeks of June."
+"Fireflies are found in temperate and tropical climates."
+"Many live in marshes or in wet, wooded areas where their larvae have abundant sources of food."

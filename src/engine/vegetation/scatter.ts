@@ -9,8 +9,10 @@ import type { TerrainTile } from '../terrain/tile';
 import type { ColliderDef } from '../render/arena';
 
 export interface ScatterRule {
-  /** id loài (khớp file public/assets/vegetation/<id>.glb) */
+  /** id luật đặt (duy nhất trong level); mặc định cũng là tên GLB public/assets/vegetation/<id>.glb */
   id: string;
+  /** GLB dùng chung (DV-057): một loài ở hai tầng (vượt tán, tán chính) với luật khác nhau; thiếu = id */
+  asset?: string;
   /** mật độ (cây/ha = 100 × 100 m); với clump = số bụi/ha */
   perHa: number;
   /** khoảng độ dốc chấp nhận (1 − normal.y): [min, max] */
@@ -19,8 +21,11 @@ export interface ScatterRule {
   height?: [number, number];
   /** tỉ lệ scale ngẫu nhiên [min, max] */
   scale?: [number, number];
-  /** mặt nạ noise: tần số (1/m) và ngưỡng 0..1 — noise < min → bỏ (tạo mảng/khoảng trống) */
-  noise?: { scale: number; min: number; offset?: number };
+  /**
+   * mặt nạ noise: tần số (1/m) và ngưỡng 0..1 — noise < min → bỏ (tạo mảng/khoảng trống);
+   * noise > max → bỏ (DV-057: mọc ở chỗ trường noise thấp, vd. cỏ/bụi ở khoảng trống tán khi dùng chung noiseId với tầng tán)
+   */
+  noise?: { scale: number; min?: number; max?: number; offset?: number };
   /** bụi (tre): mỗi điểm lưới sinh count culm trong bán kính radius */
   clump?: { count: [number, number]; radius: number };
   /** số biến thể trong GLB (chọn ngẫu nhiên đều) */
@@ -144,9 +149,12 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
       if (density < 1 && (jx * 7.0 + jz * 13.0) % 1 >= density) continue;
       if (rule.noise) {
         const n = fbm2(x * rule.noise.scale + (rule.noise.offset ?? 0), z * rule.noise.scale, nseed);
-        if (n < rule.noise.min) continue;
+        const lo = rule.noise.min;
+        const hi = rule.noise.max;
+        if ((lo !== undefined && n < lo) || (hi !== undefined && n > hi)) continue;
         // mật độ mềm: gần ngưỡng thưa dần
-        if (rn > (n - rule.noise.min) / Math.max(0.05, 1 - rule.noise.min) + 0.35) continue;
+        if (lo !== undefined && rn > (n - lo) / Math.max(0.05, 1 - lo) + 0.35) continue;
+        if (hi !== undefined && rn > (hi - n) / Math.max(0.05, hi) + 0.35) continue;
       }
       const yaw = ryaw * Math.PI * 2;
       const s = sc[0] + (sc[1] - sc[0]) * rsc;

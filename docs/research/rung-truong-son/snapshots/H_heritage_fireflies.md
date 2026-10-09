@@ -1,0 +1,10 @@
+<!-- url: https://heritagevietnamairlines.com/en/dance-of-light/ | fetched_at: 2026-10-09T17:19:00Z | via WebFetch verbatim-extract -->
+"Surely everyone's childhood was spent eagerly chasing the flickering lights of tiny fireflies on summer nights."
+"These insects, only present in the summer, are increasingly rare in cities and densely populated areas."
+"Fireflies only glow during the summer"
+"Fireflies hibernate during the larval stage and emerge in the spring."
+"These small, hard-winged insects emit light to attract mates, especially at dusk."
+"Amidst the silent night with only the sounds of birds, insects, and the fireflies' magical light"
+"These insects prefer damp, dark places with plenty of vegetation, away from artificial light, dust, and chemicals."
+"a nature reserve with a rich and diverse ecosystem of flora and fauna"
+"you can witness the dance of thousands of glowing fireflies"

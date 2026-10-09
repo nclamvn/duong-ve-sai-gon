@@ -1,0 +1,12 @@
+<!-- url: https://heritagevietnamairlines.com/en/rediscovering-the-legendary-truong-son-trail/ | fetched_at: 2026-10-09T17:02:22Z | via WebFetch verbatim-extract -->
+"Route 20 Quyet Thang in Bo Trach District, Quang Binh Province, served as the main artery"
+"despite the relentless bombing"
+"They fell at fierce battlegrounds like Tram Ang, Ba Thang Slope, A-ki, Ca Roong, and ATP"
+"(the A-shaped curve, Ta Le Tunnel, and Phu La Nhich Pass)"
+"Route 20 Quyet Thang was the most fiercely contested, with the highest density of bombs dropped per kilometer"
+"various caves and cliffs were transformed into safe shelters for storing weapons and supplies"
+"In late 1966, to “share the fire” and support the transport of troops and supplies to the southern battlefield"
+"Route 20 Quyet Thang alone is home to six."
+"This route runs through the heart of Phong Nha – Ke Bang National Park, a UNESCO World Heritage Site."
+"vast primeval forests, crystal-clear streams winding through mountain ranges"
+"Small villages nestled in misty valleys and streams shimmering in the sunlight"

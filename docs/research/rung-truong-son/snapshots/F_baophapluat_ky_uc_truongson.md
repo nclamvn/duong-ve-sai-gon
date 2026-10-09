@@ -1,0 +1,13 @@
+<!-- url: https://baophapluat.vn/ky-uc-ve-truong-son-post91774.html | fetched_at: 2026-10-09T17:15:00Z | via WebFetch verbatim-extract -->
+"Ở Trường Sơn, xe thường chạy ban đêm, ban ngày thì vào những hang núi hoặc những khu rừng rậm để ẩn nấp."
+"Đến mờ tối lại tiếp tục lên đường và khi chạy thường tắt hết đèn để đề phòng máy bay địch phát hiện."
+"Bên phía vách đá có những cái hang ăn sâu vào trong núi, được công binh cải tạo thành chỗ tránh máy bay cho xe ô-tô."
+"Trên nhiều đoạn đường, tôi thấy một bên là núi đá dựng đứng và một bên là vực sâu hun hút"
+"Lái xe trên đường độc đạo này, nếu bị máy bay địch phát hiện đuổi theo bắn mà chạy được vào hang là coi như thoát."
+"những con đường rẽ ngoặt sang hai bên, đó là đường để các lái xe xử lý đánh lừa địch"
+"Đạn địch nổ phía trước, phía sau khói bay mù mịt."
+"đuổi theo bắn rốc-két xuống như mưa."
+"xe ta cứ bon bon cho đến khi tìm được hang trú ẩn an toàn"
+"Đây là một thiết bị điện tử, có hình dáng, màu sắc giống một loài cây nhỏ ở vùng rừng nhiệt đới"
+"Khi nhận được tín hiệu, lập tức địch ném bom bắn phá."
+"tổ chức thu gom, phá hủy trước mỗi khi có đoàn xe đi qua."

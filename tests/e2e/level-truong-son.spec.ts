@@ -263,9 +263,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         atlasTree: !!g.forest?.atlases['tree_gn'],
       };
     });
-    expect(r.species).toBe(9);
+    // DV-057: 11 luật (tree_gn vượt tán + tree_canopy tán chính cùng GLB; fern_gap cùng GLB fern)
+    expect(r.species).toBe(11);
     expect(r.placed).toBeGreaterThan(10_000);
-    expect(r.perSpecies['tree_gn']).toBeGreaterThan(500);
+    expect(r.perSpecies['tree_gn']).toBeGreaterThan(150);
+    expect(r.perSpecies['tree_canopy']).toBeGreaterThan(2 * r.perSpecies['tree_gn']);
     expect(r.colliders).toBeGreaterThan(1000);
     expect(r.atlasTree).toBe(true);
     for (const s of r.stats) {
@@ -286,6 +288,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(r.nav.checked).toBeGreaterThan(20);
     expect(r.nav.onTrunk, JSON.stringify(r.nav)).toBe(0);
     // đồng đội theo 15 s qua rừng: không mẫu nào trong thân cây, vẫn bám ≤ 12 m (theo) / ≤ 16 m (dẫn)
+    console.log('[DV-057 forest]', JSON.stringify({ perSpecies: r.perSpecies, placed: r.placed, stats: r.stats, cpuMs: r.cpuMs }));
     expect(r.squad.samples).toBeGreaterThan(40);
     expect(r.squad.inTrunk, JSON.stringify(r.squad)).toBe(0);
     expect(r.squad.count).toBe(2);

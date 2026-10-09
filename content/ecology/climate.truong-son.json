@@ -1,0 +1,103 @@
+{
+  "id": "climate-truong-son-1971",
+  "version": 1,
+  "source": "docs/research/rung-truong-son/claims.jsonl",
+  "notes": "DV-057. Preset trời cho M1 (Trường Sơn, tháng 1) và M2 (Đường 9, Nam Lào, tháng 2–3). Mỗi con số nằm trong refs[].supports (có claim) hoặc design[] (Thầu định lượng một mô tả định tính hoặc chọn cho ánh sáng game). Mặt trời KHÔNG nằm ở đây: tính thiên văn từ ngày, giờ, toạ độ của level (src/engine/sky/solar.ts). Kiểm: node scripts/check-soundscape-refs.mjs content/ecology/climate.truong-son.json",
+  "items": [
+    {
+      "id": "m1-jan-dawn",
+      "label": "M1 tháng 1: rạng sáng, mây thấp, sương và mưa phùn tới gần trưa",
+      "months": [1],
+      "hdri": "kloofendal_misty_morning_puresky",
+      "res": "2k",
+      "visibilityM": 600,
+      "cloudBaseM": 150,
+      "fogColor": 10465437,
+      "sunScale": 0.32,
+      "skyScale": 0.85,
+      "envScale": 0.8,
+      "hemiScale": 1.25,
+      "sunColor": 16766424,
+      "minLightElevationDeg": 7,
+      "drizzle": 0.3,
+      "wetness": 0.55,
+      "tempC": [15.8, 22.1],
+      "humidityPct": 90.2,
+      "refs": [
+        { "entity": "Sương mù và mây thấp Khe Sanh", "field": "mua_thoi_tiet", "basis": "quantitative", "supports": ["visibilityM", "cloudBaseM"], "note": "trần mây khoảng 150 m, tầm nhìn dưới 0,8 km (USMC, A); 600 m là giá trị trong khoảng đó" },
+        { "entity": "Mưa phùn", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["drizzle", "wetness"], "note": "mưa phùn và sương lăn từ núi xuống, kéo tới gần trưa (USMC, A); mức 0,3 và độ ướt là định lượng của Thầu" },
+        { "entity": "Khí hậu Bắc Hướng Hóa", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["sunScale", "skyScale", "envScale", "hemiScale"], "note": "tháng 2 nhiều mây nhất, 2,3 giờ nắng/ngày; mùa đông u ám → nắng trực tiếp yếu, ánh sáng trời khuếch tán chiếm ưu thế" },
+        { "entity": "Khí hậu Khe Sanh", "field": "mua_thoi_tiet", "basis": "quantitative", "supports": ["tempC", "humidityPct"], "note": "T1: thấp trung bình 15,8 °C, cao trung bình 22,1 °C; độ ẩm 90,2 % (B)" }
+      ],
+      "design": ["months", "fogColor", "sunScale", "skyScale", "envScale", "hemiScale", "sunColor", "minLightElevationDeg", "drizzle", "wetness"]
+    },
+    {
+      "id": "m2-feb-mar-morning",
+      "label": "M2 tháng 2–3 Nam Lào: sáng sớm sương mặt đất, trần mây thấp",
+      "months": [2, 3],
+      "hdri": "kloofendal_misty_morning_puresky",
+      "res": "2k",
+      "visibilityM": 1600,
+      "fogColor": 11252398,
+      "sunScale": 0.5,
+      "skyScale": 0.9,
+      "envScale": 0.85,
+      "hemiScale": 1.15,
+      "sunColor": 16767440,
+      "minLightElevationDeg": 7,
+      "drizzle": 0,
+      "wetness": 0.35,
+      "tempC": [16.6, 23.9],
+      "humidityPct": 89.7,
+      "refs": [
+        { "entity": "Thời tiết Nam Lào tháng 2–3/1971", "field": "mua_thoi_tiet", "basis": "quantitative", "supports": ["visibilityM"], "note": "sáng sớm sương mặt đất, tầm nhìn 0–2 dặm (0–3,2 km) (A); 1,6 km là giữa khoảng" },
+        { "entity": "Thời tiết Nam Lào tháng 2–3/1971", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["wetness", "sunScale", "skyScale", "envScale", "hemiScale"], "note": "đất laterit còn rất ẩm vì gió mùa vừa dứt; buổi sáng mây và mù" },
+        { "entity": "Khí hậu Khe Sanh", "field": "mua_thoi_tiet", "basis": "quantitative", "supports": ["tempC", "humidityPct"], "note": "T2: thấp trung bình 16,6 °C, cao trung bình 23,9 °C; độ ẩm 89,7 % (B)" }
+      ],
+      "design": ["months", "hdri", "fogColor", "sunScale", "skyScale", "envScale", "hemiScale", "sunColor", "minLightElevationDeg", "drizzle"]
+    },
+    {
+      "id": "m2-feb-mar-noon",
+      "label": "M2 tháng 2–3 Nam Lào: trưa khá quang (cửa sổ bay 10–12 giờ tới giữa chiều)",
+      "months": [2, 3],
+      "hdri": "kloofendal_48d_partly_cloudy_puresky",
+      "res": "2k",
+      "visibilityM": 6000,
+      "fogColor": 11582934,
+      "sunScale": 1,
+      "skyScale": 0.9,
+      "envScale": 0.85,
+      "hemiScale": 1,
+      "sunColor": 16775920,
+      "minLightElevationDeg": 7,
+      "drizzle": 0,
+      "wetness": 0.2,
+      "refs": [
+        { "entity": "Thời tiết Nam Lào tháng 2–3/1971", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["visibilityM", "sunScale"], "note": "trưa khá quang; chỉ thuận lợi cho không quân từ 10–12 giờ đến giữa chiều (A)" }
+      ],
+      "design": ["months", "hdri", "fogColor", "skyScale", "envScale", "hemiScale", "sunColor", "minLightElevationDeg", "drizzle", "wetness"]
+    },
+    {
+      "id": "m2-feb-mar-dusk-haze",
+      "label": "M2 tháng 2–3 Nam Lào: chiều muộn, chập tối mù khói",
+      "months": [2, 3],
+      "hdri": "kloofendal_48d_partly_cloudy_puresky",
+      "res": "2k",
+      "visibilityM": 4000,
+      "fogColor": 12035470,
+      "sunScale": 0.6,
+      "skyScale": 0.75,
+      "envScale": 0.75,
+      "hemiScale": 1,
+      "sunColor": 16761958,
+      "minLightElevationDeg": 5,
+      "drizzle": 0,
+      "wetness": 0.15,
+      "refs": [
+        { "entity": "Thời tiết Nam Lào tháng 2–3/1971", "field": "mua_thoi_tiet", "basis": "quantitative", "supports": ["visibilityM"], "note": "chiều muộn và chập tối mù khói, tầm nhìn dưới 3 dặm (4,8 km) (A)" },
+        { "entity": "Thời tiết Nam Lào tháng 2–3/1971", "field": "hinh_thai_mau_sac", "basis": "qualitative", "supports": ["fogColor"], "note": "bụi Khe Sanh dữ dội: sương mù ngả vàng bụi" }
+      ],
+      "design": ["months", "hdri", "sunScale", "skyScale", "envScale", "hemiScale", "sunColor", "minLightElevationDeg", "drizzle", "wetness"]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<!-- url: https://en.wikipedia.org/wiki/Gaur | fetched_at: 2026-10-09T17:03:00Z | via WebFetch verbatim-extract -->
+"is 142 to 220 cm (56 to 87 in) high at the shoulder"
+"Body mass ranges widely from 440 to 1,000 kg (970 to 2,200 lb) in adult females"
+"The gaur has a head-and-body length of 250 to 330 cm (8 ft 2 in to 10 ft 10 in)"
+"The adult male is dark brown, approaching black in very old individuals."
+"the lower part of the legs is pure white or tan."
+"The horns, of medium size by large bovid standards, grow to a length of 60 to 115 cm (24 to 45 in)."
+"In January and February, gaur live in small herds of eight to 11 individuals, one of which is a bull."
+"In central India, they are most active at night, and are rarely seen in the open after 8 o'clock in the morning."
+"Males make a mating call of clear, resonant tones which may carry for more than 1.6 km (1 mi)."
+"Gaur have also been known to make a whistling snort as an alarm call, and a low, cow-like moo."
+"The current status of the gaur population is poorly known; it may be in serious decline."
+"In Laos, up to 200 individuals were estimated to inhabit protected area boundaries in the mid-1990s."

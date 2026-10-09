@@ -96,6 +96,10 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - brown_mud_03 (texture) — Rob Tuytel — https://polyhaven.com/a/brown_mud_03
 - aerial_rocks_02 (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_rocks_02
 - aerial_grass_rock (texture) — Rob Tuytel — https://polyhaven.com/a/aerial_grass_rock
+- kloofendal_misty_morning_puresky (hdri) — Greg Zaal — https://polyhaven.com/a/kloofendal_misty_morning_puresky
+- forest_leaves_02 (texture) — Rob Tuytel — https://polyhaven.com/a/forest_leaves_02
+- mossy_rock (texture) — Rob Tuytel — https://polyhaven.com/a/mossy_rock
+- red_laterite_soil_stones (texture) — Amal Kumar — https://polyhaven.com/a/red_laterite_soil_stones
 - veg_grass (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 - veg_grass_tall (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 
@@ -118,4 +122,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - fp_viewmodel_ak47 (character) — AB3DX — https://www.fab.com/listings/c7984c16-55d5-4f13-bc74-df21e5dd44d5
 
-Tổng: 98 asset, 152.1 MB. Cập nhật 2026-10-09T15:30:49.962Z.
+Tổng: 102 asset, 160.6 MB. Cập nhật 2026-10-09T17:28:03.121Z.

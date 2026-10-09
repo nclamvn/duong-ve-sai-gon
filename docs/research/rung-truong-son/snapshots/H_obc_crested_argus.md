@@ -1,0 +1,11 @@
+<!-- url: https://static1.squarespace.com/static/5c1a9e03f407b482a158da87/t/657ae1c93efc657a141d91de/1702552010325/Crested-Argus.pdf | fetched_at: 2026-10-09T17:13:00Z | via WebFetch verbatim-extract -->
+"the males possessing some of the largest tail-feathers of any avian species worldwide"
+"nigrescens is darker and has a distinctive pale buffy supercilium and throat patch"
+"Overall the plumage of nigrescens is generally darker, with less densely spaced ocellations"
+"has a longer (about 85 mm) dark crest that is usually not erected"
+"most records of Crested Argus are in tall, lower montane forests between 800 and 1,080m"
+"all the detections of Crested Argus were from survey sites in tall, old-growth and unlogged forests"
+"We infer the current altitudinal range of the species in Malaysia to extend from 850 to nearly 1,400 m"
+"Endemic to mainland South-East Asia, the Crested Argus occurs as two widely separated populations."
+"in Laos it is restricted to small pockets west of the Annamite Mountains"
+"is suffering rapid declines in both Vietnam and Laos due to intensive hunting pressure and habitat loss"

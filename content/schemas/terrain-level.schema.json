@@ -250,8 +250,7 @@
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
-                  "scale",
-                  "min"
+                  "scale"
                 ],
                 "properties": {
                   "scale": {
@@ -265,6 +264,12 @@
                   },
                   "offset": {
                     "type": "number"
+                  },
+                  "max": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "DV-057: noise > max → bỏ (mọc ở chỗ trường noise THẤP, vd. bụi/cỏ ở khoảng trống tán theo noiseId của tầng tán)"
                   }
                 }
               },
@@ -335,6 +340,11 @@
                 "type": "number",
                 "minimum": 0,
                 "maximum": 1
+              },
+              "asset": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$",
+                "description": "DV-057: GLB loài dùng chung (public/assets/vegetation/<asset>.glb); thiếu = id. Cho phép một loài xuất hiện ở hai tầng (vượt tán, tán chính) với luật đặt khác nhau"
               }
             }
           }
@@ -632,6 +642,44 @@
             "type": "number",
             "minimum": 0.1
           }
+        }
+      }
+    },
+    "climate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset",
+        "date",
+        "localTime",
+        "utcOffsetH",
+        "lat",
+        "lon"
+      ],
+      "description": "DV-057: trời theo registry (content/ecology/climate.truong-son.json): mặt trời thiên văn từ ngày/giờ/toạ độ, preset sương, mây, mưa phùn. Có climate thì sky.sun và sky.fog bị tính lại",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "preset": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "localTime": {
+          "type": "string",
+          "pattern": "^\\d{1,2}:\\d{2}$"
+        },
+        "utcOffsetH": {
+          "type": "number"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
         }
       }
     }

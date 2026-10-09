@@ -1,9 +1,9 @@
 /**
- * Audio (PRD AUD-001 [S12]): Web Audio, bus master/sfx/dialogue/radio/music (GainNode), ducking theo priority,
+ * Audio (PRD AUD-001 [S12]): Web Audio, bus master/sfx/dialogue/radio/music/ambience (GainNode), ducking theo priority,
  * PannerNode cho nguồn 3D. G0: SFX placeholder sinh bằng code (noise burst / oscillator) — không file, không license.
  * Voice counter cho budget audio_voices (≤ 32).
  */
-export type Bus = 'master' | 'sfx' | 'dialogue' | 'radio' | 'music';
+export type Bus = 'master' | 'sfx' | 'dialogue' | 'radio' | 'music' | 'ambience';
 
 export class AudioEngine {
   ctx: AudioContext | null = null;
@@ -26,15 +26,18 @@ export class AudioEngine {
       const mk = (): GainNode => ctx.createGain();
       const master = mk();
       master.connect(ctx.destination);
-      const buses: Record<Bus, GainNode> = { master, sfx: mk(), dialogue: mk(), radio: mk(), music: mk() };
+      const buses: Record<Bus, GainNode> = { master, sfx: mk(), dialogue: mk(), radio: mk(), music: mk(), ambience: mk() };
       buses.sfx.gain.value = 0.5;
       buses.dialogue.gain.value = 1;
       buses.radio.gain.value = 0.9;
       buses.music.gain.value = 0.6;
+      // bus nền rừng (TIP soundscape): không bị duck, mức thấp hơn SFX
+      buses.ambience.gain.value = 0.7;
       buses.sfx.connect(master);
       buses.dialogue.connect(master);
       buses.radio.connect(master);
       buses.music.connect(master);
+      buses.ambience.connect(master);
       // noise buffer 1 s
       const len = ctx.sampleRate;
       const buf = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -77,6 +80,22 @@ export class AudioEngine {
       (l as unknown as { setPosition(x: number, y: number, z: number): void }).setPosition(px, py, pz);
       (l as unknown as { setOrientation(...a: number[]): void }).setOrientation(fx, fy, fz, 0, 1, 0);
     }
+  }
+
+  /** Node bus để module ngoài (Soundscape) nối đồ thị riêng; null khi chưa init. */
+  busNode(bus: Bus): GainNode | null {
+    return this.buses ? this.buses[bus] : null;
+  }
+
+  /** Giữ một voice trong budget audio_voices cho nguồn tự dựng ngoài engine; false khi hết chỗ/chưa init/tắt. */
+  acquireVoice(): boolean {
+    if (!this.enabled || !this.ctx) return false;
+    return this.voiceStart();
+  }
+
+  /** Trả voice đã giữ bằng acquireVoice(). */
+  releaseVoice(): void {
+    this.voiceEnd();
   }
 
   private voiceStart(): boolean {

@@ -1,0 +1,13 @@
+<!-- url: https://baophapluat.vn/bai-1-long-dai-chao-lua-giu-mach-mau-truong-son.html | fetched_at: 2026-10-09T17:39:00Z | via WebFetch verbatim-extract -->
+"Ban ngày, phà được kéo giấu dưới những tán cây ven sông"
+"đêm xuống, bộ đội công binh, thanh niên xung phong và dân công hỏa tuyến lại khẩn trương lắp ráp cầu phà"
+"Có những đêm pháo sáng phủ kín bầu trời, xe phải nằm im chờ thời cơ."
+"Chỉ một tiếng động cơ cũng có thể kéo theo những đợt oanh tạc dữ dội."
+"Ngoài khơi, pháo từ Hạm đội 7 cũng ngày đêm bắn cấp tập vào khu vực bến phà."
+"Chỉ cần phát hiện dấu hiệu hoạt động, pháo khói lập tức được bắn xuống đánh dấu mục tiêu"
+"Bom vừa dứt đợt này, đợt khác lại nối tiếp."
+"Để bảo đảm giao thông, lực lượng ta mở thêm Bến phà II cách bến chính gần một kilômét về phía thượng nguồn"
+"từng hứng chịu hàng vạn tấn bom đạn của quân đội Mỹ trong giai đoạn 1965-1972"
+"trở thành mục tiêu đánh phá trọng điểm của không quân và hải quân Mỹ"
+"Nhà cửa bị bom đánh sập, họ sẵn sàng tháo những cột gỗ còn nguyên để lót đường."
+"Hố bom vừa hình thành, dân làng cùng lực lượng làm đường lập tức mang đất đá san lấp."

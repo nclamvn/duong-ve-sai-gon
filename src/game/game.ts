@@ -62,6 +62,11 @@ import { LAYER } from '@engine/physics/layers';
 import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
+import climateJson from '@content/ecology/climate.truong-son.json';
+import soundscapeJson from '@content/ecology/soundscape.truong-son.json';
+import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelClimate } from '@engine/sky/climate';
+import { Soundscape } from '@engine/audio/soundscape';
+import { parseSoundscapeConfig, type AmbientState } from '@engine/audio/soundscapePlan';
 import type { MissionEvents } from '@game/mission/types';
 
 export interface GameEvents extends WeaponEvents, BotEvents, MissionEvents {
@@ -112,6 +117,14 @@ export class Game {
   sky: SkyTraffic | null = null;
   /** gió xoáy trực thăng hiện tại 0..1 (telemetry/debug) */
   skyGust = 0;
+  /** trời theo registry (DV-057): mặt trời thiên văn + preset sương/mây/mưa phùn — null khi level không khai `climate` */
+  climate: ResolvedClimate | null = null;
+  /** cảnh âm rừng thủ tục theo giờ/mùa/mưa (DV-057) — null khi level không có climate hoặc `?amb=0` */
+  soundscape: Soundscape | null = null;
+  /** đồng hồ địa phương của cảnh âm: phút từ 0h, tăng theo thời gian chơi */
+  readonly amb: AmbientState = { localMin: 0, sunriseMin: 390, sunsetMin: 1063, month: 1, rain: 0, wind: 0 };
+  private ambElapsedS = 0;
+  private ambWindBase = 0.35;
   /** súng người chơi (TIP-D10): mặc định AK-47 1971; `?weapon=ak74m` giữ khẩu HT-MB để so sánh/calib cũ */
   playerWeaponId = 'ak47';
   /** súng của bot/dummy: HK416 (fixture HT-MB) — `?botWeapon=ak47` để calib tay theo khẩu người chơi (?calib=soldier) hoặc lính QGP cầm AK (D11) */
@@ -220,7 +233,12 @@ export class Game {
     const botWeaponParam = this.params.get('botWeapon');
     this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' || botWeaponParam === 'm16a1' ? botWeaponParam : null;
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
-    const terrainDef = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : this.levelId === 'diem-cao-31' ? (diemCao31LevelJson as unknown as TerrainLevelDef) : null;
+    const terrainDef0 = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : this.levelId === 'diem-cao-31' ? (diemCao31LevelJson as unknown as TerrainLevelDef) : null;
+    // Trời theo registry (DV-057): level có `climate` → mặt trời tính thiên văn, sương/mây/mưa phùn theo preset. `?climate=0` giữ trời đặt tay cũ (A/B).
+    const climateDef: LevelClimate | undefined = terrainDef0?.climate;
+    this.climate = terrainDef0 && climateDef && this.params.get('climate') !== '0' ? resolveClimate(terrainDef0.sky, climateDef, parseClimatePresets(climateJson)) : null;
+    const terrainDef: TerrainLevelDef | null =
+      terrainDef0 && this.climate ? { ...terrainDef0, sky: this.climate.sky, terrain: { ...terrainDef0.terrain, wetness: this.climate.wetness } } : terrainDef0;
     const skyDef = levelDef?.sky ?? terrainDef?.sky ?? null;
     if (terrainDef) {
       this.camera.near = terrainDef.camera.near;
@@ -296,7 +314,18 @@ export class Game {
         shadowMapSize: this.quality.shadowMapSize,
         csm: this.quality.shadows && this.params.get('csm') !== '0',
       });
-      if (this.params.get('rain') === null) this.quality.rainCount = 0;
+      // mưa phùn theo preset (giữ số hạt của tier, chỉ hiện một phần qua rain.intensity bên dưới); không preset → tạnh
+      if (this.params.get('rain') === null && !(this.climate && this.climate.drizzle > 0)) this.quality.rainCount = 0;
+      if (this.climate && this.params.get('amb') !== '0') {
+        this.soundscape = new Soundscape(this.audio, parseSoundscapeConfig(soundscapeJson as unknown), (this.seed ^ 0x5a17) >>> 0);
+        this.amb.month = this.climate.month;
+        this.amb.sunriseMin = this.climate.sunriseMin;
+        this.amb.sunsetMin = this.climate.sunsetMin;
+        this.amb.localMin = this.climate.localMin;
+        this.amb.rain = this.climate.drizzle;
+        this.ambElapsedS = 0;
+        this.ambWindBase = terrainDef.vegetation?.wind ?? 0.35;
+      }
     } else if (levelDef) {
       this.level = buildLevel(this.scene, levelDef, { assets: this.assets, maxFxLights: this.quality.tier === 'low' ? 4 : 6 });
       this.arena = this.level;
@@ -319,6 +348,7 @@ export class Game {
     this.rain = createRain(Math.max(1, this.quality.rainCount), 70, 24, this.lights.lampArray, Math.max(1, this.quality.splashCount));
     this.rain.mesh.visible = this.quality.rainCount > 0;
     this.rain.splash.visible = this.quality.rainCount > 0 && this.quality.splashCount > 0;
+    if (this.climate && this.climate.drizzle > 0 && this.params.get('rain') === null) this.rain.intensity.value = this.climate.drizzle;
     this.scene.add(this.rain.mesh, this.rain.splash);
     this.vmScene.add(this.vmCamera);
     this.vmScene.environment = this.scene.environment;
@@ -790,6 +820,13 @@ export class Game {
     if (this.audio.ctx) {
       this.v3.set(0, 0, -1).applyQuaternion(this.camera.quaternion);
       this.audio.setListener(this.camera.position.x, this.camera.position.y, this.camera.position.z, this.v3.x, this.v3.y, this.v3.z);
+    }
+    if (this.soundscape && this.climate) {
+      // đồng hồ cảnh âm tăng theo thời gian chơi (vượn hót quanh bình minh, tắc kè chạng vạng...)
+      this.ambElapsedS += dt;
+      this.amb.localMin = (this.climate.localMin + this.ambElapsedS / 60) % 1440;
+      this.amb.wind = Math.min(1, this.ambWindBase + this.skyGust * 0.9);
+      this.soundscape.update(dt, this.amb, this.camera.position);
     }
     this.lights.followTarget(this.camera);
     if (this.terrain) this.terrain.mesh.update(this.camera);

@@ -1,0 +1,13 @@
+<!-- url: https://lsvn.vn/coc-tieu-song-tren-toa-do-lua-truong-bon-1689163417-a132788.html | fetched_at: 2026-10-09T17:41:00Z | via WebFetch verbatim-extract -->
+"nơi các cô gái thanh niên xung phong (TNXP) lấy thân mình làm “cọc tiêu sống” cho xe qua."
+"có từng tốp từ 10 đến 12 cô gái TNXP mặc áo đông xuân trắng làm cọc tiêu sống cho xe qua"
+"làm “cọc tiêu sống” cho xe qua giữa tiếng gầm thét của máy bay, bom đạn kẻ thủ."
+"Nhờ những cọc tiêu sống đó mà có đêm hàng trăm xe qua Truông Bồn an toàn."
+"lấy bẹ chuối rải hai bên đường cho chiến sĩ lái xe căn đường mà đi."
+"Nhưng bom đạn đánh phá ác liệt, bẹ chuối cũng bị đất đá vùi lấp."
+"san lấp hố bom trong trường hợp khẩn cấp."
+"suốt cung đường dọc Truông Bồn có chiều dài khoảng 5km đêm đêm đều có mặt các chiến sĩ TNXP"
+"Năm 1968 là năm kẻ thù đánh phá khốc liệt nhất."
+"máy bay và tàu chiến Mỹ đã trút xuống nơi đây 2692 quả bom đạn các loại."
+"đảm bảo giao thông cho đoàn xe quân sự qua Truông Bồn vào miền Nam."
+"13 chiến sĩ hy sinh đều tuổi đời còn rất trẻ 17 đến 22 tuổi."

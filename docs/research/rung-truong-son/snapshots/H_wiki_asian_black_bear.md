@@ -1,0 +1,12 @@
+<!-- url: https://en.wikipedia.org/wiki/Asian_black_bear | fetched_at: 2026-10-09T17:03:00Z | via WebFetch verbatim-extract -->
+"Adults measure 70–100 cm (28–39 in) at the shoulder, and 120–190 cm (47–75 in) in length."
+"Adult males weigh 60–200 kg (130–440 lb) with an average weight of about 135 kg (298 lb)."
+"The Asian black bear has black fur, a light brown muzzle,"
+"a distinct whitish or creamy patch on the chest, which is sometimes V-shaped."
+"Asian black bears are diurnal, though they become nocturnal near human habitations."
+"They are good climbers of rocks and trees, and will climb to feed, rest, sun, elude enemies and hibernate."
+"Asian black bears will rest for short periods in nests on trees standing fifteen feet or higher."
+"Asian black bears have a wide range of vocalizations, including grunts, whines, roars, slurping sounds"
+"The Red Book of Vietnam lists Vietnamese black bears as endangered."
+"Asian black bears are also popular as pets in Vietnam."
+"the Indochinese subspecies (U. thibetanus mupinensis)"

@@ -1,0 +1,10 @@
+<!-- url: https://www.sggp.org.vn/hang-7-tang-hoi-uc-trong-long-da-post802454.html | fetched_at: 2026-10-09T17:21:00Z | via WebFetch verbatim-extract -->
+"Giữa vùng lõi Phong Nha – Kẻ Bàng (xã Phong Nha, tỉnh Quảng Trị), nơi rừng tái sinh gối đầu lên đá vôi cổ"
+"con đường ngoằn ngoèo chừng hơn ba cây số"
+"Không gian mở ra rộng hàng trăm mét vuông, cao đến cả trăm mét."
+"Nó từng là một hang lớn cao gần trăm mét nhưng được cải tạo thành bảy tầng công sự khác nhau"
+"Trong ba tháng, bảy tầng lần lượt hình thành."
+"Chính tại đây, Tư lệnh Đồng Sỹ Nguyên đã đặt Sở chỉ huy Bộ Tư lệnh Bộ đội Trường Sơn trong một thời gian dài"
+"Những cuộc họp quan trọng nhất được tổ chức tại tầng bảy."
+"Hai bên đường, những hố bom vẫn trũng xuống như miệng ký ức chưa khép."
+"Hang không nằm sâu dưới lòng đất như địa đạo ở Củ Chi, mà nằm lồng lộng trong lòng núi"

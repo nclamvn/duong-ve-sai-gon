@@ -32,7 +32,7 @@ export const VEG_QUALITY: Record<'low' | 'medium' | 'high', VegetationQuality> =
 };
 
 export async function buildForest(renderer: Renderer, tile: TerrainTile, def: VegetationDef, opts: ForestOptions): Promise<ForestBuild> {
-  const ids = [...new Set(def.species.map((s) => s.id))];
+  const ids = [...new Set(def.species.map((s) => s.asset ?? s.id))];
   const t0 = performance.now();
   let done = 0;
   const assets: Record<string, SpeciesAsset> = {};
@@ -52,9 +52,10 @@ export async function buildForest(renderer: Renderer, tile: TerrainTile, def: Ve
   const atlases: Record<string, ImpostorAtlas | null> = {};
   if (!opts.noImpostor) {
     for (const rule of def.species) {
-      const a = assets[rule.id];
-      if (!a || atlases[rule.id] !== undefined) continue;
-      atlases[rule.id] = rule.lod[3] > rule.lod[2] ? await bakeImpostorAtlas(renderer, a) : null;
+      const key = rule.asset ?? rule.id;
+      const a = assets[key];
+      if (!a || atlases[key] !== undefined) continue;
+      atlases[key] = rule.lod[3] > rule.lod[2] ? await bakeImpostorAtlas(renderer, a) : null;
     }
   }
   const bakeMs = performance.now() - t1;

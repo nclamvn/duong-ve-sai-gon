@@ -1,0 +1,11 @@
+<!-- url: https://www.thiennhienviet.org.vn/sourcebook/IBA/IBA_dir/BirdLife%20ENG/BM%20VN026%20E.doc | fetched_at: 2026-10-09T17:14:00Z | via WebFetch verbatim-extract -->
+"Crested Argus Rheinardia ocellata, a globally vulnerable species, which occurs at the site in high densities."
+"During January and February 1990, at least 75 birds were heard and a single male was seen"
+"At least 21 birds were heard during April and May 1991"
+"The most recent documented record of this species at Bach Ma was made in March 1999"
+"The IBA supports a range of habitat types, including lowland evergreen forest below 900 m asl,"
+"and montane evergreen forest above this elevation."
+"Altitude Range: 20-1,448 m asl"
+"At lower elevations, the natural forest has been extensively cleared and replaced by scrub and grassland."
+"The species has been recorded in lowland and hill evergreen forest at the site"
+"At least two birds were seen, and another was heard, at c.700 m asl in February 1990"

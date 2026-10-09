@@ -1,0 +1,13 @@
+<!-- url: https://baophapluat.vn/lung-lay-duong-20-quyet-thang-post124791.html | fetched_at: 2026-10-09T17:02:22Z | via WebFetch verbatim-extract -->
+"Tuyến đường dài 125km (có hơn 40km là núi đá), nhưng phải làm xong trong vòng 105 ngày"
+"các con đường đã mở thường bị ngập nước vào mùa mưa"
+"Quân ủy Trung ương quyết định mở tuyến đường từ Phong Nha (Quảng Bình) đến ngã ba Lùm Bùm (Nam Lào)."
+"Sau 77 ngày đêm không nghỉ, hai hướng thi công đã gặp nhau tại km 65 trên biên giới Việt-Lào"
+"đánh bộc phá nhỏ liên tục và đã sử dụng 270 tấn thuốc nổ TNT, phá hơn 1 triệu m3 đá"
+"công binh phải dùng 3 chiếc thang tre nối với nhau để trèo lên đục lỗ, đặt mìn"
+"Tại km 12, địch dùng bom, tên lửa bắn vào vách đá dựng đứng để núi sập xuống lấp đường."
+"Chúng dùng bom dây, bom từ trường, “cây nhiệt đới”… rải dọc tuyến đường"
+"Ngầm Ta Lê trên đường 20 Quyết thắng, một trọng điểm bắn phá của máy bay địch."
+"Ở những đoạn núi cao, rừng rậm thì kéo buộc những ngọn cây cao hai bên đường lại với nhau"
+"Mở đường đến đâu, dùng cây lá ngụy trang đến đó."
+"Đến năm 1972, đường 20 Quyết thắng đã trở thành “trận địa bát quái xuyên rừng rậm”"

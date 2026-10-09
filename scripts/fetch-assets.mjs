@@ -83,6 +83,15 @@ const ASSETS = [
   { id: 'brown_mud_03', type: 'texture', res: '1k', use: 'terrain lớp đất ướt đường mòn' },
   { id: 'aerial_rocks_02', type: 'texture', res: '1k', use: 'terrain lớp đá dốc (triplanar)' },
   { id: 'aerial_grass_rock', type: 'texture', res: '1k', use: 'terrain lớp cỏ tranh/rêu đồi cao' },
+  // ---- DV-057: rừng Trường Sơn theo registry refinery (docs/research/rung-truong-son) ----
+  // HDRI sáng sớm sương mù, trời u ám, không mặt đất: M1 tháng 1 (mây thấp, mưa phùn, sương tới gần trưa; USMC, Frontier BHH)
+  { id: 'kloofendal_misty_morning_puresky', type: 'hdri', res: '2k', use: 'trời sáng sớm sương mù tháng 1 (M1 Trường Sơn)' },
+  // nền rừng: lá rụng, rêu, cành nhỏ (thay mùn lá chung chung)
+  { id: 'forest_leaves_02', type: 'texture', res: '1k', use: 'terrain lớp lá rụng nền rừng già' },
+  // sườn dốc: đá nứt có địa y và mảng rêu (rừng ẩm, mây phủ)
+  { id: 'mossy_rock', type: 'texture', res: '1k', use: 'terrain lớp đá dốc phủ rêu (triplanar)' },
+  // chỗ trũng, đường mòn: đất feralit đỏ lẫn sỏi (đất đỏ vàng Trường Sơn, đất đỏ Khe Sanh)
+  { id: 'red_laterite_soil_stones', type: 'texture', res: '1k', use: 'terrain lớp đất đỏ feralit lẫn sỏi (đường mòn, chỗ trũng)' },
 ];
 const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 

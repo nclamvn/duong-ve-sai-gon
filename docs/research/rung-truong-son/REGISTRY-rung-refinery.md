@@ -1,6 +1,6 @@
 # Registry cào–lọc · Rừng Trường Sơn cho Đường về Sài Gòn
 
-*Mẻ 1, ngày 2026-10-09. Năm mũi cào song song (thực vật, địa hình và khí hậu, động vật và âm thanh, dấu vết chiến tranh 1971, nguồn asset sạch giấy phép). Kỷ luật refinery: mỗi giá trị có tier và nguồn, giá trị lệch nhau giữ nguyên trạng thái tranh chấp, ô thiếu nguồn ghi honest-null, không lấp bằng phỏng đoán.*
+*Mẻ 1 và mẻ 2, ngày 2026-10-09. Mẻ 2 thêm ba mũi: Cổng Trời và đường 20/đường 12 cùng công sự (F), bảng ảnh tham chiếu (G), loài còn thiếu (H). Năm mũi cào song song (thực vật, địa hình và khí hậu, động vật và âm thanh, dấu vết chiến tranh 1971, nguồn asset sạch giấy phép). Kỷ luật refinery: mỗi giá trị có tier và nguồn, giá trị lệch nhau giữ nguyên trạng thái tranh chấp, ô thiếu nguồn ghi honest-null, không lấp bằng phỏng đoán.*
 
 Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo tồn, bài khoa học, IUCN, PROSEA, CIFOR, hồi ký nhân chứng, chuyên khảo quân sử, trang giấy phép chính thức). **B** = thứ cấp uy tín (Wikipedia, WWF ecoregion, báo lớn). **C** = blog, du lịch, lời kể chưa kiểm.
 
@@ -8,10 +8,10 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 
 | Chỉ số | Giá trị |
 |---|---|
-| Snapshot | 177 trích đoạn (A 39, B 25, C 27, D 41, E 45) |
-| Claim | 759 (tier A 378 · B 356 · C 25); 7 giữ nguyên văn, 711 chuẩn hoá (phần lớn là dịch sang tiếng Việt), 41 suy luận |
-| Thực thể | 179 trên mẫu số ước lượng 200 (coverage 89,5 %) |
-| Cổng | VALIDATION PASSED. Bite suite: 6/6 cổng cắn (CAPTURE_MISSING, SPAN_NOT_FOUND, SOURCED_ATTR, AMBIGUOUS_MERGE_UNFLAGGED, DISTRIBUTION_NO_DENOMINATOR, IDEMPOTENT). Build tất định, auditor dựng lại khớp |
+| Snapshot | 350 trích đoạn (mẻ 1: A 39, B 25, C 27, D 41, E 45; mẻ 2: F 39, G 75, H 59) |
+| Claim | 1.120 (tier A 481 · B 581 · C 58); 19 giữ nguyên văn, 1.043 chuẩn hoá (phần lớn là dịch sang tiếng Việt), 58 suy luận |
+| Thực thể | 229 trên mẫu số ước lượng 260 (coverage 88,1 %). Mẫu số đã sửa hai lần, ghi trong domain.yaml |
+| Cổng | VALIDATION PASSED. Bite suite: 6/6 cổng cắn. Build tất định, auditor dựng lại khớp |
 | Kiểm chéo bằng tay | Đối chiếu ngẫu nhiên 3 nguồn với trang gốc (ambientCG license, báo cáo Bắc Hướng Hóa, bài vượn hót Nakai–Nam Theun): 5/5 câu khớp nguyên văn |
 
 **Giới hạn phải biết:**
@@ -147,6 +147,39 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 | Trực thăng | Bay rà thấp, gió cánh quạt làm nghiêng ngọn cây; ở cứ điểm 543 máy bay "gầm thét như chuồn chuồn mùa hè" | A | Hồi ức cựu chiến binh |
 | Mùi | "Nồng nặc mùi cỏ cháy, mùi thuốc súng" | A | Cựu chiến binh trận Đồi Không Tên |
 
+## 6b. Mẻ 2: Cổng Trời, đường 20, công sự, loài bổ sung
+
+**Phát hiện quan trọng cho M1:** không nguồn nào ghi có "Cổng Trời" trên đường 20 Quyết Thắng. Cổng Trời được nhắc trên tuyến **đường 12 (nay QL12A), Cha Lo, Minh Hóa, Quảng Bình**: "ngã ba Khe Ve vượt Cổng Trời lên Cha Lo đến Khăm Muộn" (B, Báo Pháp luật), khoảng Km 34,5 đường 12A (C). Cảnh: một bên vực, một bên núi cao, rừng tầng tầng lớp lớp, lan rừng bám dày, mây mù quanh năm; bị không kích 1965–1973; có kho trung chuyển, kho xăng, trận địa pháo phòng không (B). Ô DEM hiện tại (17,55°N 106,10°E) nằm ở vùng đường 20, cách Mụ Giạ khoảng 37 km. **Chủ nhà quyết**: giữ toạ độ (cảnh thực chất là đường 20) hay dời ô DEM lên Cha Lo.
+
+| Hạng mục | Giá trị | Tier | Nguồn |
+|---|---|---|---|
+| Đường 20 Quyết Thắng | Dài 125 km, hơn 40 km xuyên núi đá; Km 0 Phong Nha → dốc Ba Thang → Km 12 Trạ Ang (hang Chỉ huy) → hang Tám Cô Km 16+200 → … → cụm Cà Roòng–ATP Km 63–65 | B | Báo Pháp luật, Tuổi Trẻ, Nhân Dân |
+| Vách đường 20 | Một bên vách đá dựng đứng, một bên vực; hang trong vách cải tạo giấu xe; ta-luy đá tai mèo chênh vênh; bom và tên lửa bắn vào vách cho núi sập lấp đường | A/B | Hồi ức lái xe, Báo Pháp luật |
+| Ngụy trang đường | Kéo buộc ngọn cây hai bên vào nhau; buộc đá vào cành tre uốn cong thành đường hầm lá; treo giỏ cây ở đoạn trống | B | Báo Pháp luật, Arcadia |
+| Ngầm Ta Lê, sông Chà Là | Nước chảy rất xiết; tháng 5/1968 ngầm Ta Lê còn 6 hố bom sâu chưa lấp | B | |
+| Cầu ngầm | Gỗ, cát, đất ngay dưới mặt nước; nước giảm sức nổ | B | Wikipedia |
+| Hầm chữ A (mẫu phục dựng) | Sâu 1–1,2 m, rộng 1 m, dài 1,5 m, khung tre gỗ ghép chữ A, cửa có thể thông hai đầu | B | |
+| Lán | Mái lợp lá trung quân màu vàng như rơm rạ | A | Hồi ức nữ chiến sĩ (SGGP) |
+| Trang bị cá nhân | Tăng, võng bạt, mũ cối, mũ tai bèo, quần áo gabađin, AK47; bọc võng bằng vải dù pháo sáng | A | Báo Quốc tế |
+| Đêm trên tuyến | Chỉ còn tiếng côn trùng và tiếng hú xa của thú rừng; sức ép bom thổi phần phật ép người vào vách hầm | A | Hồi ức |
+| Cầu treo dây rừng | Dài cả trăm mét, ra giữa cầu đung đưa như võng | A/B | |
+| Cảm biến "cây nhiệt đới" | Hình dáng và màu như cây nhỏ | A | |
+| Mang (hoẵng) | Lưng vàng rám nắng, bụng trắng, mặt và chân nâu sẫm, cao vai 40–65 cm; thấy thú săn mồi thì sủa như chó, có thể liền hơn một giờ | B | ADW |
+| Khỉ vàng | Lông nâu hoặc xám, mặt hồng trụi lông, đàn 20–200 con; bị đe doạ sủa chói cao; có ở Bắc Hướng Hóa | B/A | Wikipedia, Frontier |
+| Cu li | Đêm, bò chậm, mắt phản quang cam dưới đèn; con cái gọi bằng tiếng huýt to | B/A | |
+| Lợn rừng | Hoảng thì khịt "ukh ukh" hoặc rít; lợn con có sọc; để lại vết ủi đất và vũng đầm | B | |
+| Gấu ngựa, gấu chó | Gấu ngựa đen có vệt V trắng kem ở ngực; gấu chó để vết cào trên thân cây, ngủ trên cây 2–7 m | B/A | |
+| Trĩ sao | Con đực hú to, kéo dài mùa sinh sản; **Bạch Mã tháng 1–2/1990 nghe ít nhất 75 con kêu** (đúng tháng M1); bãi múa là khoảnh được dọn sạch lá rụng | B/A | eBird, BirdLife IBA |
+| Kiến vàng | Thợ màu cam, tổ là chùm lá khâu tơ, có tổ dài hơn nửa mét; cắn đau, phun axit formic | B | |
+| Đom đóm | Ở VN chủ yếu cuối xuân và mùa hè: tháng 1–3 rất ít | B/C | |
+| Bướm | Bạch Mã 361 loài, nhiều ở trảng cỏ, ít trong rừng kín; Phong Nha hơn 250 loài | A | |
+| Độ tàn che rừng già | Pù Mát 0,76; Cúc Phương 0,90; Xuân Sơn 0,66; cây cao trung bình 15–17 m | A | |
+| Chuối rừng | *Musa balbisiana* có quần thể bản địa miền Trung; *M. acuminata* chiếm nhanh chỗ vừa cháy | A/B | |
+| Táu, dẻ, re hương | Táu *Vatica* ưu thế ở Pù Mát; dẻ *Castanopsis* đấu đầy gai; re hương vỏ nâu lục nứt sâu, cả cây mùi long não | A/B | |
+| Địa y trên vỏ cây (VN) | Dạng vảy đến dạng lá, xám, hơi vàng hoặc xanh lục nhạt, sũng nước khi ướt | A | Taiwania |
+
+**Bảng ảnh tham chiếu** (mũi G, 75 ảnh, tách thành tài liệu `REFERENCE-PHOTOS.md`): Wikimedia Commons không mở được trong môi trường này, nên ảnh lấy từ picryl (bản sao Commons, NARA, USAF), Flickr USMC Archives (CC BY 2.0), Unsplash, Pexels. 23 ảnh All rights reserved chỉ để xem, không sao chép. Nhóm còn yếu: rễ bạnh, dây leo, dương xỉ thân gỗ chụp tại Trường Sơn; đất bazan đỏ cận cảnh; ngầm thời chiến.
+
 ## 7. Mâu thuẫn số liệu thật (giữ nguyên, không chọn hộ)
 
 | Hạng mục | Các giá trị | Ghi chú |
@@ -164,17 +197,23 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 | Lượng mưa năm Khe Sanh | 2.113 mm (Wikipedia) · khoảng 2.030 mm (USMC) · 2.400–2.800 mm (BHH) | |
 | Phân loại vượn | Đakrông ghi "vượn đen má hung *Hylobates leucogenys*" (cũ) · Wikipedia: Trung VN là vượn siki, *N. leucogenys* chỉ còn ở bắc | Cụm mơ hồ, cấm gộp |
 | Khỉ đuôi lợn | *Macaca nemestrina* (Đakrông) · *M. leonina* (phân loại hiện nay) | |
+| Đường 20: thời gian làm, ngày thông | 105 ngày · 127 ngày · "77 ngày đêm"; 5/5/1966 · hai mũi gặp nhau Km 65 ngày 14/4/1966 | Mẻ 2 |
+| Đá lấp hang Tám Cô | "hàng trăm tấn" · "hàng ngàn tấn" (cùng Tuổi Trẻ, khác bài) | |
+| Độ cao Trạ Ang | "điểm cao 150 m, dài 5 km" · "núi cao 400–600 m" | |
+| Lông đuôi trĩ sao | 1,73 m (Wikipedia) · 150 cm (C) | |
+| Re hương cao | 10–20 m · tới 50 m (cùng trang Wikipedia) | |
+| Lồ ô | *Bambusa procera* (mẻ 1) · *Schizostachyum zollingeri* (DTIC 1974) | |
 
 ## 8. Honest-null: đã tìm, chưa có nguồn đạt chuẩn
 
-- **Cổng Trời (M1)**: không tìm thấy nguồn mô tả trọng điểm này; tên có thể trùng nhiều nơi. Cần Chủ nhà xác định toạ độ trên tuyến.
+- **Toạ độ và độ cao Cổng Trời Cha Lo** (mẻ 2 tìm được vị trí theo tuyến, chưa có toạ độ). Không có Cổng Trời nào trên đường 20, đường 15 hay phía Lào trong nguồn đã đọc.
 - Hình thái suối nhỏ: bề rộng, nước trong hay đục theo mùa, đá tảng lòng suối, rêu, thác cụ thể. Nguồn chỉ nói chung "streams, springs and waterfalls". **Đây là lỗ hổng lớn nhất cho cảnh "như phim"**, cần ảnh tham chiếu.
 - Ngầm thời chiến: độ sâu nước, vật liệu, cọc mốc (chỉ có "vài cm dưới mặt nước"). Ngầm Ta Lê chỉ có tên.
 - Độ dày lớp lá rụng (cm) ở Trường Sơn; % độ tàn che và % ánh sáng đo riêng ở Trường Sơn.
 - Độ cao rễ bạnh đo ở Trường Sơn; màu vỏ chò chỉ; mô tả táu, re, dẻ; chuối rừng, tre le, loài rêu và địa y cụ thể.
 - Kích thước hầm chữ A, lán, hào giao thông, bếp Hoàng Cầm; cầu phao; "đường kéo pháo"; hình dạng đồi 31.
 - Mô tả tiếng trĩ sao, âm sắc tiếng mang sủa (xeno-canto chặn công cụ đọc).
-- Khỉ vàng, culi, bò tót, gấu, lợn rừng, nhím, trăn, đom đóm, kiến, bướm: chưa cào kịp trong mẻ này.
+- Mẻ 2 đã bù khỉ vàng, cu li, lợn rừng, gấu, bò tót, nhím, trăn, đom đóm, kiến, bướm. Còn thiếu: tiếng sóc chuột, tiếng nhím, kích thước lợn rừng riêng Đông Dương, màu vỏ và rễ bạnh chò chỉ, tên khoa học của "le", rêu và địa y riêng Trường Sơn, độ dày thảm lá rụng ở Trường Sơn, kích thước bếp Hoàng Cầm và hào giao thông, hầm tăng xê.
 - Bản ghi âm CC0 của vượn *Nomascus* Trường Sơn, trĩ sao, ve sầu Việt Nam: không tìm thấy.
 - Gói Megascans tropical cụ thể trên Fab (trang tìm kiếm Fab chặn công cụ đọc); không gói Fab nào ghi Đông Nam Á.
 
@@ -195,13 +234,15 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 | BOOM Library | Giấy phép một người dùng, không mở rộng cho công ty; gói Tropical Jungle có khỉ rú **châu Mỹ**, sai lục địa | A/B |
 | Freesound, xeno-canto, Macaulay | Freesound: CC0 dùng được, Noncommercial thì không. xeno-canto: giấy phép từng bản, nhiều bản phi thương mại. Macaulay: thương mại cần hợp đồng | A/B |
 
-## 10. Đề xuất bước tiếp (Chủ nhà quyết)
+## 10. Đã triển khai vào game (DV-057, 2026-10-09)
 
-1. **Xác định toạ độ Cổng Trời** của M1 để chốt sườn núi, độ cao, loại rừng (rừng đất thấp hay núi thấp) và khí hậu áp dụng.
-2. **Bù lỗ hổng suối và nền rừng bằng ảnh tham chiếu**: mẻ cào ảnh có giấy phép rõ (Wikimedia Commons CC, ảnh tư liệu có chú thích) cho suối đá, ngầm, nền rừng Trường Sơn. Ảnh chỉ làm tham chiếu cho hoạ sĩ, không đưa vào game.
-3. **Biến registry thành dữ liệu game**: bảng loài cho `content/vegetation/species.json` (chiều cao, tầng, mật độ theo loại rừng), lịch âm thanh theo giờ (vượn quanh bình minh, tắc kè chạng vạng, không ve tháng 1), preset thời tiết M1 và M2.
-4. **Chọn asset**: thử một gói Fab rừng nhiệt đới photoscan kết hợp CC0 (Poly Haven, ambientCG) cho đất, đá, rêu. Thay thực vật Nam Mỹ bằng loài Trường Sơn ở tầng gần camera.
-5. **Cào mẻ 2** cho các loài còn honest-null (khỉ vàng, culi, lợn rừng, trăn, đom đóm) và lớp hầm, lán, hào.
+1. **Trời tháng 1 theo registry**: mặt trời tính thiên văn từ ngày 20/1/1971, 06:24 giờ UTC+7, toạ độ tâm DEM (mọc 06:29). Preset `m1-jan-dawn`: HDRI sáng sớm sương mù (Poly Haven CC0), tầm nhìn 600 m (registry: dưới 0,8 km), nắng yếu, ánh sáng trời khuếch tán, mưa phùn nhẹ, đất ướt. Preset M2 (sáng, trưa, chiều mù khói) đã có dữ liệu, chưa gắn vào level đêm Điểm cao 31.
+2. **Tầng rừng**: vượt tán 20–29 m thưa, không mọc trên sườn dốc và đỉnh; tán chính 11–15 m dày; nền dưới tán thưa; cỏ, chuối rừng, cọ, dương xỉ dày dồn vào khoảng trống tán; ráy ở chỗ trũng. Navmesh và bản đồ giấy bake lại.
+3. **Mặt đất CC0**: lá rụng nền rừng, đá phủ rêu, đất đỏ feralit lẫn sỏi (Poly Haven).
+4. **Cảnh âm thanh thủ tục**: vượn hót đôi trong cửa sổ [mọc − 12, mọc + 13] phút, hồng hoàng, bìm bịp, gà rừng, tắc kè, ếch khi mưa đêm, mưa phùn, không ve tháng 1; mang và voọc chỉ kêu khi báo động.
+5. **Dữ liệu SOT**: `content/ecology/*.json`, mọi con số có ref về registry hoặc khai là thiết kế; script và unit test chặn ref sai.
+
+**Còn chờ Chủ nhà:** chốt vị trí Cổng Trời (giữ đường 20 hay dời ô DEM lên Cha Lo, đường 12); duyệt hình và tiếng trên Mac; quyết mua một gói cây nhiệt đới photoscan trên Fab nếu muốn thân cột thẳng, tán khép kín (cây tán hiện có là mô hình CC-BY dáng cành vặn, giới hạn lớn nhất còn lại về độ thật).
 
 ---
 
@@ -209,7 +250,7 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 
 Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô được giữ cả, không chọn hộ.
 
-### tang_tan (9)
+### tang_tan (10)
 
 **Rừng khộp (rừng dầu rụng lá)**
 - tên khoa học: Shorea siamensis, S. obtusa, Dipterocarpus obtusifolius, D. tuberculatus [B·ecoregions.worldwildlife.org]
@@ -222,14 +263,19 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 **Rừng kín thường xanh nhiệt đới đất thấp**
 - phân bố: Phong Điền cùng Đakrông còn một trong những diện tích rừng thường xanh đất thấp lớn nhất [A·thiennhienviet.org.vn]
 - độ cao: Rừng thường xanh đất thấp dưới 900 m (Bạch Mã) [A·thiennhienviet.org.vn] · Rừng thường xanh đất thấp dưới 600 m (Bắc Hướng Hóa) [A·locjkt.or.id] · Rừng rậm nhiệt đới ẩm lá rộng thường xanh ở dưới 700 m (miền Bắc), 1000 m (miền Nam) [C·luatminhkhue.vn]
-- kích thước: Rừng nguyên sinh 3 tầng tán, cao 25–35 m, cây vượt tán đôi khi 45 m [B·ecoregions.worldwildlife.org] · Cây vượt tán cao tới 45 m [B·en.wikipedia.org]
-- hình thái, màu: Cây vượt tán lớn nhô trên tán tạo mặt tán gồ ghề [B·ecoregions.worldwildlife.org] · Cấu trúc 3–5 tầng: tầng trội, tầng tán, dưới tán, cây bụi, cỏ quyết [C·luatminhkhue.vn] · Cây gỗ khổng lồ có rễ bạnh, cây cao tới 50 m, có dây leo thân gỗ, tầng tán và tầng dưới tán (Phong Nha) [A·thesalmons.org]
-- mật độ, license: Đakrông có diện tích rừng thường xanh đất thấp còn lại lớn nhất miền Trung [A·thiennhienviet.org.vn] · Rừng nguyên sinh chỉ chiếm khoảng 60% diện tích Đakrông [A·thiennhienviet.org.vn]
+- kích thước: Rừng nguyên sinh 3 tầng tán, cao 25–35 m, cây vượt tán đôi khi 45 m [B·ecoregions.worldwildlife.org] · Cây vượt tán cao tới 45 m [B·en.wikipedia.org] · Chiều cao cây trung bình rừng già 15,3–16,6 m (Xuân Sơn, Cúc Phương, Pù Mát) [A·journal.vnuf.edu.vn]
+- hình thái, màu: Cây vượt tán lớn nhô trên tán tạo mặt tán gồ ghề [B·ecoregions.worldwildlife.org] · Cấu trúc 3–5 tầng: tầng trội, tầng tán, dưới tán, cây bụi, cỏ quyết [C·luatminhkhue.vn] · Cây gỗ khổng lồ có rễ bạnh, cây cao tới 50 m, có dây leo thân gỗ, tầng tán và tầng dưới tán (Phong Nha) [A·thesalmons.org] · Rừng tốt cấu trúc ổn định, rất ít ánh sáng xuống nền rừng (Bắc Hướng Hóa) [A·locjkt.or.id]
+- mật độ, license: Đakrông có diện tích rừng thường xanh đất thấp còn lại lớn nhất miền Trung [A·thiennhienviet.org.vn] · Rừng nguyên sinh chỉ chiếm khoảng 60% diện tích Đakrông [A·thiennhienviet.org.vn] · Độ tàn che rừng già: Pù Mát 0,76; Cúc Phương 0,90; Xuân Sơn 0,66 [A·journal.vnuf.edu.vn]
 - honest-null: tên khoa học, hành vi, âm thanh, mùa, thời tiết
+
+**Rừng lùn rêu đỉnh núi**
+- độ cao: Pù Mát (Nghệ An): rừng lùn chủ yếu trên 1.500 m [A·ir.xtbg.ac.cn]
+- hình thái, màu: Rừng lùn phủ rêu với cây bụi họ Mua, Đỗ quyên (Vaccinium), Chè (Tam Đảo) [A·real.mtak.hu]
+- honest-null: tên khoa học, phân bố, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Rừng thường xanh núi thấp (á nhiệt đới)**
 - tên khoa học: Họ ưu thế: Sim, Dẻ, Côm, Long não; có họ Kim giao [B·ecoregions.worldwildlife.org]
-- độ cao: 800–1.200 m, tán 2 tầng [B·ecoregions.worldwildlife.org] · Bạch Mã: rừng thường xanh núi trên 900 m [A·thiennhienviet.org.vn] · Bắc Hướng Hóa: rừng á nhiệt đới núi trung bình trên 600 m [A·locjkt.or.id]
+- độ cao: 800–1.200 m, tán 2 tầng [B·ecoregions.worldwildlife.org] · Bạch Mã: rừng thường xanh núi trên 900 m [A·thiennhienviet.org.vn] · Bắc Hướng Hóa: rừng á nhiệt đới núi trung bình trên 600 m [A·locjkt.or.id] · Bạch Mã: rừng thường xanh đất thấp dưới 900 m, rừng thường xanh núi trên 900 m (vùng 20–1.448 m) [A·thiennhienviet.org.vn]
 - kích thước: Tán cao khoảng 15–25 m [B·en.wikipedia.org]
 - hình thái, màu: Thung lũng 5 tầng; sườn dốc và đỉnh không có tầng vượt tán, chỉ 4 tầng [A·locjkt.or.id] · Phụ sinh, nhất là phong lan, rất nhiều [B·ecoregions.worldwildlife.org] · Bạch Mã trên 1.000 m: cổ thụ mọc trên tầng rêu dày, mây phủ quanh năm [B·tuoitre.vn]
 - mùa, thời tiết: Đỉnh núi cao quanh năm mây phủ [B·tuoitre.vn]
@@ -238,7 +284,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 
 **Rừng thứ sinh sau nương rẫy**
 - kích thước: Rừng thứ sinh thấp hình thành 8–10 năm sau nương rẫy [A·locjkt.or.id]
-- hình thái, màu: Tầng trên là cây ưa sáng mọc từ gốc chồi hoặc hạt [A·locjkt.or.id] · Tầng dưới là dương xỉ, cỏ, gừng, ráy [A·locjkt.or.id]
+- hình thái, màu: Tầng trên là cây ưa sáng mọc từ gốc chồi hoặc hạt [A·locjkt.or.id] · Tầng dưới là dương xỉ, cỏ, gừng, ráy [A·locjkt.or.id] · Rừng thứ sinh rất ít dây leo, ít dương xỉ, thường không có phong lan và dương xỉ trên cây [A·locjkt.or.id]
 - mật độ, license: A Lưới: loài ưu thế phần lớn ưa sáng, mọc nhanh, gỗ kém, rừng đang phục hồi [A·csdlkhoahoc.hueuni.edu.vn]
 - honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
 
@@ -266,11 +312,12 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 
 **Tầng vượt tán**
 - tên khoa học: Loài điển hình: Canarium subulatum, Canarium album (họ Trám Burseraceae) [A·locjkt.or.id]
-- kích thước: Bắc Hướng Hóa: cây vượt tán tới 30 m, thường 20–25 m [A·locjkt.or.id] · Thường không quá 20–25 m [A·locjkt.or.id] · Đường kính thân 40–80 cm, cá biệt 120 cm [A·locjkt.or.id] · Rừng mưa nhiệt đới nói chung: vượt tán 45–55 m, hiếm khi 70–80 m (số liệu toàn cầu, không riêng Trường Sơn) [B·en.wikipedia.org]
-- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- kích thước: Bắc Hướng Hóa: cây vượt tán tới 30 m, thường 20–25 m [A·locjkt.or.id] · Thường không quá 20–25 m [A·locjkt.or.id] · Đường kính thân 40–80 cm, cá biệt 120 cm [A·locjkt.or.id] · Rừng mưa nhiệt đới nói chung: vượt tán 45–55 m, hiếm khi 70–80 m (số liệu toàn cầu, không riêng Trường Sơn) [B·en.wikipedia.org] · Đường kính 40–80 cm, có cây tới 120 cm [A·locjkt.or.id]
+- mật độ, license: Bắc Hướng Hóa: cây vượt tán ít, chỉ chiếm 15–20% diện tích [A·locjkt.or.id]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 
-### cay_go (14)
+### cay_go (22)
 
 **Bách xanh đá**
 - tên khoa học: Calocedrus rupestris [A·thesalmons.org]
@@ -305,6 +352,23 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mật độ, license: Rừng bị khai thác: cọ tăng ưu thế lên tầng trên, xuất hiện Knema erratica [B·ecoregions.worldwildlife.org]
 - honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Dẻ (Castanopsis hystrix)**
+- phân bố: Đông Dương (gồm Lào, Việt Nam); đất ẩm, hay mọc cùng cây họ Long não [B·en.wikipedia.org]
+- kích thước: Cao tới 30 m [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Dẻ gai (chi Castanopsis)**
+- phân bố: Pù Mát: Castanopsis và Lithocarpus nằm trong các chi nhiều loài; họ Dẻ 4 chi/50 loài [A·ir.xtbg.ac.cn]
+- hình thái, màu: Đấu (vỏ bọc hạt) cứng như hạt dẻ gai châu Âu và có gai như hạt dẻ [B·en.wikipedia.org]
+- mật độ, license: Khoảng 140 loài; phổ biến trong rừng núi ưu thế bộ Dẻ [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
+
+**Dẻ đá (chi Lithocarpus)**
+- phân bố: Bắc Hướng Hóa có Lithocarpus fenestratus và L. haemispherica (VU) [A·locjkt.or.id]
+- độ cao: Ưu thế ở vùng cao trên 1.000 m; không chịu được khô hạn theo mùa [B·en.wikipedia.org]
+- hình thái, màu: Cây thường xanh, lá dai như da mọc so le; hạt bọc vỏ gỗ cứng, đấu ôm phần gốc quả [B·en.wikipedia.org]
+- honest-null: tên khoa học, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Gụ (chi Sindora)**
 - kích thước: Cao 20–35 (46) m, đường kính tới 100 (180) cm (mô tả cấp chi) [A·uses.plantnet-project.org]
 - hình thái, màu: Vỏ nhẵn mỏng, xám tía sẫm, lốm đốm xanh/nâu/vàng; rụng lá ngắn [A·uses.plantnet-project.org]
@@ -325,6 +389,18 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hình thái, màu: Thân tròn, vỏ nâu sẫm nứt ô vuông, nhiều bì khổng; gốc có bạnh nhỏ [A·cifor-icraf.org] · Gốc có bạnh nhỏ [A·cifor-icraf.org] · Tán lá dày xanh quanh năm, lá kép lông chim 2 lần [A·cifor-icraf.org]
 - mùa, thời tiết: Hoa trắng nhỏ nở tháng 3–4; quả đậu dài 15–30 cm chín tháng 12–1, màu nâu đến đen xám [A·cifor-icraf.org]
 - honest-null: hành vi, âm thanh, mật độ, license
+
+**Re (Cinnamomum balansae)**
+- phân bố: Ghi nhận ở Bắc Hướng Hóa (Quảng Trị), mức VU/EN [A·locjkt.or.id]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Re hương**
+- tên khoa học: Cinnamomum parthenoxylon (nay Camphora parthenoxylon) [B·en.wikipedia.org]
+- kích thước: Cao 10–20 m [B·en.wikipedia.org] · Có thể cao tới 50 m, thân tới 60 cm [B·en.wikipedia.org]
+- hình thái, màu: Vỏ nâu lục, nứt sâu, bong thành mảng nhỏ; lá xanh bóng hình bầu dục 7–10 cm có mũi nhọn [B·en.wikipedia.org]
+- hành vi, âm thanh: Toàn cây toả mùi long não mạnh [B·en.wikipedia.org]
+- mật độ, license: Cực kỳ nguy cấp ở Việt Nam; Bắc Hướng Hóa ghi nhận (CR) [A·locjkt.or.id]
+- honest-null: phân bố, độ cao, mùa, thời tiết
 
 **Rễ bạnh**
 - kích thước: Có thể cao tới 9 m, lan 30 m trên mặt đất (số liệu chung toàn cầu) [B·en.wikipedia.org]
@@ -353,8 +429,41 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - độ cao: Nơi khô, đất mỏng/đá tới 1.500 m, cao 20–30 m, hay cháy [B·en.wikipedia.org]
 - honest-null: phân bố, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Táu (Vatica odorata)**
+- tên khoa học: Vatica odorata (phân loài brevipetiolata ở Việt Nam) [B·en.wikipedia.org]
+- độ cao: Rừng hỗn giao họ Dầu, tới 1.900 m [B·en.wikipedia.org]
+- kích thước: Cây tầng tán cao tới 40 m, đường kính tới 60 cm [B·en.wikipedia.org]
+- hình thái, màu: Lá dai như da, hình trứng đến elip, dài tới 16 cm; hoa thơm [B·en.wikipedia.org]
+- mật độ, license: Là loài đặc trưng lâm phần rừng già Xuân Sơn (IVI 26,3) [A·journal.vnuf.edu.vn]
+- honest-null: phân bố, hành vi, âm thanh, mùa, thời tiết
 
-### cay_bui_tham_tuoi (5)
+**Táu (Vatica tonkinensis)**
+- tên khoa học: Vatica tonkinensis A.Chev. [A·journal.vnuf.edu.vn]
+- mật độ, license: Loài ưu thế lâm phần rừng già Pù Mát (Nghệ An, Bắc Trung Bộ), IVI 41,3 [A·journal.vnuf.edu.vn]
+- honest-null: phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Táu (chi Vatica)**
+- phân bố: Từ Ấn Độ, nam Trung Quốc qua Đông Dương tới Indonesia, Philippines; 78 loài [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+
+### cay_bui_tham_tuoi (8)
+
+**Chuối hột rừng (Musa balbisiana)**
+- tên khoa học: Musa balbisiana [A·doaj.org]
+- phân bố: Có quần thể bản địa ở miền Trung Việt Nam (rìa phía nam vùng phân bố, đa dạng di truyền cao) [A·doaj.org]
+- honest-null: độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Chuối rừng (Musa acuminata)**
+- phân bố: Bản địa Malesia và phần lớn lục địa Đông Dương [B·en.wikipedia.org]
+- hình thái, màu: Thân giả mảnh; lá xanh sẫm có thể có mảng đỏ sẫm; quả nhiều hạt (15–62 hạt/quả) [B·en.wikipedia.org]
+- mật độ, license: Chiếm nhanh vùng mới xáo trộn như chỗ vừa cháy rừng [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
+
+**Chuối rừng (chi Musa)**
+- độ cao: Bắc Việt Nam: M. itinerans 136–1.331 m, M. acuminata 136–989 m, M. balbisiana 108–981 m [A·link.springer.com]
+- mật độ, license: M. itinerans phân bố rộng nhất, mọc thành khóm lớn; một số loài ở chỗ trống ít cạnh tranh ánh sáng [A·link.springer.com]
+- honest-null: tên khoa học, phân bố, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Dương xỉ thân gỗ (chi Cyathea)**
 - tên khoa học: Cyathea; tên Việt ráng tiên tọa [A·uses.plantnet-project.org]
@@ -386,7 +495,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 
-### day_leo_bieu_sinh (5)
+### day_leo_bieu_sinh (7)
 
 **Dây leo thân gỗ**
 - kích thước: Nhiều dây leo lớn dài tới 30 m, đường kính 10 cm [A·locjkt.or.id]
@@ -403,6 +512,12 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mật độ, license: Phong Nha: họ Lan 24 loài, có hài Paphiopedilum dianthum [A·thesalmons.org]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Rêu và địa tiền biểu sinh**
+- độ cao: Rừng mưa núi 1.015–1.185 m và rừng lùn phủ rêu trên đỉnh (Tam Đảo) [A·real.mtak.hu]
+- hình thái, màu: Địa tiền dán sát mặt lá cây bụi và dứa dại; dọc suối nhỏ rất nhiều rêu [A·real.mtak.hu]
+- mật độ, license: Tam Đảo: 38 loài địa tiền mọc trên mặt lá; rừng ẩm nguyên vẹn giàu rêu (dữ liệu miền Bắc) [A·real.mtak.hu]
+- honest-null: tên khoa học, phân bố, kích thước, hành vi, âm thanh, mùa, thời tiết
+
 **Song mây (chi Calamus)**
 - độ cao: Sườn dốc rừng mưa đất thấp 500–800 m [A·palms.org]
 - kích thước: Thân leo dài tới 70 m, đường kính 4–5,5 cm (loài mới ở VN) [A·palms.org]
@@ -416,8 +531,14 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hình thái, màu: Hạt nảy mầm trên cây chủ, rễ buông xuống ôm lấy thân cây chủ [B·en.wikipedia.org] · Cây chủ chết mục, cây đa thành cột rỗng ruột [B·en.wikipedia.org]
 - honest-null: độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Địa y**
+- phân bố: Mẫu thu trên vỏ cây phơi sáng, cành cây trong rừng thứ sinh và rừng lá rộng thường xanh (Lâm Đồng, TP.HCM) [A·taiwania.ntu.edu.tw]
+- hình thái, màu: Tản dạng vảy bám (crustose) đến dạng lá; màu xám, hơi vàng hoặc xanh lục nhạt [A·taiwania.ntu.edu.tw] · Có loài dạng lá nhăn, sũng nước khi ướt, màu xám [A·taiwania.ntu.edu.tw]
+- mật độ, license: Việt Nam đã ghi nhận 275 loài, ước tổng khoảng 1.000 loài [A·taiwania.ntu.edu.tw]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
-### tre_nua_co (9)
+
+### tre_nua_co (10)
 
 **Chít (Thysanolaena latifolia)**
 - phân bố: Đồi dốc, bờ cát sông, bờ khe ẩm [B·en.wikipedia.org]
@@ -437,9 +558,10 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Lồ ô (Bambusa procera)**
+- tên khoa học: Báo cáo 1974 gọi 'Lo-o' là Schizostachyum zollingeri (khác tên khoa học mẻ 1) [A·apps.dtic.mil]
 - phân bố: Campuchia và Việt Nam [B·en.wikipedia.org]
 - kích thước: Cao 8–12 m, lóng dài tới 55 cm, đường kính 5,5 cm, vách mỏng [B·en.wikipedia.org]
-- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- honest-null: độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Nứa (Neohouzeaua dulloa)**
 - độ cao: Mọc hoang trong rừng thường xanh 300–700 m [A·uses.plantnet-project.org]
@@ -447,9 +569,15 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hình thái, màu: Cụm thưa, thân đứng hoặc ngả dựa cây bên cạnh [A·uses.plantnet-project.org]
 - honest-null: tên khoa học, phân bố, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Tre chi Oxytenanthera**
+- tên khoa học: Nay xếp vào chi Gigantochloa [A·vjs.vjs.ac.vn]
+- phân bố: Mẫu chuẩn O. polanei thu ở Quảng Trị (Poilane 1920); mẫu khác ở Paka, Quảng Trị [A·vjfs.vafs.gov.vn]
+- mật độ, license: O. dinhensis là loài phổ biến nhất của chi trong vùng khảo sát 1974 [A·apps.dtic.mil]
+- honest-null: độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
 **Tre gai (Bambusa blumeana)**
 - phân bố: Ở VN là cây trồng; mọc hoang dưới 300 m ven sông suối [A·prosea-bamboos.linnaeus.naturalis.nl]
-- kích thước: Thân cao 15–25 m, đường kính tới 20 cm, bụi 10–40 cây [A·prosea-bamboos.linnaeus.naturalis.nl]
+- kích thước: Thân cao 15–25 m, đường kính tới 20 cm, bụi 10–40 cây [A·prosea-bamboos.linnaeus.naturalis.nl] · Ở bìa rừng đất tốt, khóm lớn rõ ràng, thân tới 75 ft (~23 m) (báo cáo 1974, miền Nam VN) [A·apps.dtic.mil]
 - hình thái, màu: Cành gốc có gai đan thành bờ rào dày cao 2–3 m [A·prosea-bamboos.linnaeus.naturalis.nl]
 - honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
@@ -459,8 +587,9 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Tre nứa sau xáo trộn**
-- mật độ, license: Bụi tre Chimonobambusa, Dendrocalamus mọc ở nơi bị xáo trộn [B·en.wikipedia.org] · Bão mở tán thường xuyên thúc đẩy tre phát triển [B·ecoregions.worldwildlife.org]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+- hình thái, màu: Có loài mọc thành bụi không rõ ranh giới, thấp; có loài thành khóm lớn [A·apps.dtic.mil]
+- mật độ, license: Bụi tre Chimonobambusa, Dendrocalamus mọc ở nơi bị xáo trộn [B·en.wikipedia.org] · Bão mở tán thường xuyên thúc đẩy tre phát triển [B·ecoregions.worldwildlife.org] · Miền Nam VN (1974): ước 1,4 triệu acre tre đã chiếm ưu thế; rừng thứ sinh thành 'biển tre' kéo dài cả thế kỷ [A·apps.dtic.mil] · Tán rừng bị mở làm tre tăng; cháy theo mùa cản cây gỗ tái sinh [A·apps.dtic.mil]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 **Trảng cỏ cây bụi thứ sinh**
 - tên khoa học: Sim Rhodomyrtus tomentosa, mua Melastoma candidum, cỏ tranh Imperata cylindrica [A·thiennhienviet.org.vn] · Cỏ ưu thế: Miscanthus floridulus, Thysanolaena maxima, Saccharum spontaneum, Imperata cylindrica, I. conferta [A·locjkt.or.id]
@@ -472,12 +601,15 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 ### dat_tham_la (8)
 
 **Bãi lầy Khe Ve**
+- kích thước: Phuy xăng 200 lít, 4 chiến sĩ khiêng qua bãi lầy [B·special.nhandan.vn]
 - hình thái, màu: Trời mưa cả vùng Khe Ve thành bãi lầy, phải lội bùn [B·special.nhandan.vn]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Lớp lá rụng nền rừng nhiệt đới**
+- kích thước: Đồng Nai (rừng kín thường xanh): độ dày thảm khô rừng giàu 21,3 cm, trung bình 38,3 cm, nghèo 59,0 cm (số liệu bảng, cần đối chiếu đơn vị) [A·journal.vnuf.edu.vn] · Panama và Peru: độ dày lá rụng chênh 16 lần giữa 28 lâm phần; dày hơn trên đất cát [A·repository.si.edu]
 - hình thái, màu: Lá rụng phân huỷ nhanh do nóng ẩm, mùn không tích tụ dày (mô tả chung rừng nhiệt đới) [B·en.wikipedia.org]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- mật độ, license: Thảm khô dày nhất ở rừng nghèo, mỏng nhất ở rừng giàu [A·journal.vnuf.edu.vn]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
 
 **Đất feralit vàng nhiều cát**
 - hình thái, màu: Vàng nhạt, nhiều cát, thô ráp [A·locjkt.or.id]
@@ -547,7 +679,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 **Đá vôi karst Phong Nha – Kẻ Bàng – Hin Nam No**
 - phân bố: Vắt qua biên giới Việt Nam – Lào [A·whc.unesco.org]
 - độ cao: Đỉnh Co Preu 1.213 m, Co Rilata 1.128 m [B·en.wikipedia.org]
-- kích thước: Hơn 220 km hang và sông ngầm đã khảo sát [A·whc.unesco.org] · Vùng không karst chia cắt sâu, độ dốc 25–30° [B·en.wikipedia.org]
+- kích thước: Hơn 220 km hang và sông ngầm đã khảo sát [A·whc.unesco.org] · Vùng không karst chia cắt sâu, độ dốc 25–30° [B·en.wikipedia.org] · Đường 20 có hơn 40 km xuyên núi đá [B·baophapluat.vn]
 - hình thái, màu: Vách đá dựng, hố sụt sâu, mạng sông ngầm [A·whc.unesco.org] · Đá vôi xen kẹp đá phiến sét, sa thạch và granit [A·whc.unesco.org] · Cây con chỉ mọc trong hốc, khe đá vôi có đất tích tụ [B·en.wikipedia.org]
 - mùa, thời tiết: Mưa năm khoảng 2.000–2.500 mm [B·en.wikipedia.org] · 88% lượng mưa rơi tháng 7–12 [B·en.wikipedia.org] · Tháng 12–2 lạnh nhất, trung bình 18°C [B·en.wikipedia.org]
 - honest-null: tên khoa học, hành vi, âm thanh, mật độ, license
@@ -670,13 +802,39 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 
-### linh_truong (10)
+### linh_truong (13)
+
+**Cu li lớn**
+- tên khoa học: Nycticebus bengalensis (khảo sát Bắc Hướng Hóa ghi theo tên cũ Nycticebus coucang) [A·locjkt.or.id]
+- phân bố: Ghi nhận ở Bắc Hướng Hóa (Quảng Trị) [A·locjkt.or.id] · Có ở 24 khu bảo tồn Việt Nam và 14 khu bảo tồn Lào [B·en.wikipedia.org]
+- kích thước: Dài 26–38 cm, nặng 1–2,1 kg [B·en.wikipedia.org]
+- hình thái, màu: Lông dày như len, lưng nâu xám, bụng trắng; cẳng tay và bàn tay gần trắng [B·en.wikipedia.org] · Mắt phản quang màu cam sáng dưới đèn [B·en.wikipedia.org]
+- hành vi, âm thanh: Hoạt động đêm, sống trên cây, ở cả rừng thường xanh và rụng lá [B·en.wikipedia.org] · Con cái động dục gọi con đực bằng tiếng huýt to [B·en.wikipedia.org]
+- mật độ, license: IUCN xếp Nguy cấp (EN), đánh giá 2020 [B·en.wikipedia.org]
+- honest-null: độ cao, mùa, thời tiết
+
+**Cu li nhỏ**
+- tên khoa học: Nycticebus pygmaeus [A·locjkt.or.id]
+- phân bố: Ghi nhận ở Bắc Hướng Hóa; phân bố phía đông sông Mê Kông (Việt Nam, Lào, đông Campuchia, Trung Quốc) [B·en.wikipedia.org]
+- kích thước: Dài khoảng 19–23 cm, đuôi rất ngắn, nặng khoảng 450 g [B·en.wikipedia.org]
+- hình thái, màu: Vòng quanh mắt nâu sẫm, sọc trắng từ mũi lên trán, hai bên sườn vàng nhạt hơn lưng [B·en.wikipedia.org]
+- hành vi, âm thanh: Hoạt động đêm, bò chậm trên cành, không nhảy; ít hoạt động đêm lạnh có trăng [B·en.wikipedia.org] · Tiếng kêu gồm tiếng huýt ngắn và tiếng gọi mẹ con [B·en.wikipedia.org]
+- honest-null: độ cao, mùa, thời tiết, mật độ, license
 
 **Khỉ mặt đỏ**
 - tên khoa học: Macaca arctoides [A·thiennhienviet.org.vn]
 - kích thước: đuôi cụt 32–69 mm; đực 51,7–65 cm, 9,7–10,2 kg [B·en.wikipedia.org]
 - hình thái, màu: lông dài dày, xám/nâu/đỏ/đen; mặt hồng-đỏ, già thì sẫm nâu-đen, rụng lông [B·en.wikipedia.org]
 - honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Khỉ vàng**
+- tên khoa học: Macaca mulatta [A·locjkt.or.id]
+- phân bố: Có trong danh lục thú Khu BTTN Bắc Hướng Hóa (Quảng Trị) [A·locjkt.or.id] · Phân loài Đông Dương có ở Myanmar, bắc Thái Lan và Việt Nam [B·en.wikipedia.org]
+- kích thước: Con đực trưởng thành dài trung bình khoảng 53 cm, nặng khoảng 7,7 kg [B·en.wikipedia.org]
+- hình thái, màu: Lông nâu hoặc xám, mặt hồng không có lông [B·en.wikipedia.org]
+- hành vi, âm thanh: Hoạt động ban ngày, cả trên cây lẫn mặt đất [B·en.wikipedia.org] · Khi bị đe doạ phát một tiếng sủa đơn, to, cao, chói (shrill bark) [B·en.wikipedia.org]
+- mật độ, license: Đàn gồm 20–200 cá thể đực và cái [B·en.wikipedia.org]
+- honest-null: độ cao, mùa, thời tiết
 
 **Khỉ đuôi lợn**
 - tên khoa học: Macaca nemestrina (tên ghi trong nguồn 2000s; nay khỉ đuôi lợn phương bắc là M. leonina) [A·thiennhienviet.org.vn]
@@ -757,14 +915,16 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 
 **Trĩ sao**
 - tên khoa học: Rheinardia ocellata [A·thiennhienviet.org.vn]
-- phân bố: Đakrông (Quảng Trị) và Phong Nha–Kẻ Bàng [A·thiennhienviet.org.vn]
-- kích thước: lông phủ đuôi đến 1,73 m; tổng dài 1,9–2,39 m [B·en.wikipedia.org]
+- phân bố: Đakrông (Quảng Trị) và Phong Nha–Kẻ Bàng [A·thiennhienviet.org.vn] · Thừa Thiên Huế: Bạch Mã, Phong Điền, KBT Sao La; phát hiện qua bẫy ảnh và máy ghi âm thụ động [B·tienphong.vn]
+- kích thước: lông phủ đuôi đến 1,73 m; tổng dài 1,9–2,39 m [B·en.wikipedia.org] · Lông đuôi con đực dài tới 150 cm [C·pierrewildlife.com]
 - hình thái, màu: lông đen và vàng da bò lốm đốm nâu sẫm; mỏ hồng to; da quanh mắt xanh lam [B·en.wikipedia.org]
-- hành vi, âm thanh: nhút nhát, khó gặp; làm tổ trên dốc đứng giữa lớp lá rụng [B·en.wikipedia.org]
-- honest-null: độ cao, mùa, thời tiết, mật độ, license
+- hành vi, âm thanh: nhút nhát, khó gặp; làm tổ trên dốc đứng giữa lớp lá rụng [B·en.wikipedia.org] · Con đực phát tiếng hú to, kéo dài vào mùa sinh sản [B·ebird.org] · Thường chỉ thấy ở bãi múa, nơi con đực dọn sạch lá rụng [B·ebird.org]
+- mùa, thời tiết: Bạch Mã tháng 1–2/1990 nghe ít nhất 75 con kêu (tháng 4–5/1991: 21 con) [A·thiennhienviet.org.vn]
+- mật độ, license: Bạch Mã là nơi trĩ sao có mật độ cao [A·thiennhienviet.org.vn] · Suy giảm nhanh ở Việt Nam và Lào do săn bắt và mất sinh cảnh [B·static1.squarespace.com]
+- honest-null: độ cao
 
 
-### gam_nhan (2)
+### gam_nhan (5)
 
 **Dúi mốc lớn**
 - hình thái, màu: lông lưng nâu xám hoặc nâu sẫm; hang một lối vào đánh dấu bằng ụ đất [B·en.wikipedia.org]
@@ -776,8 +936,23 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hành vi, âm thanh: ban ngày, trên tán; tổ lá cao 7–18 m; kêu báo động khi có thú săn, vây rắn [B·en.wikipedia.org]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết, mật độ, license
 
+**Sóc chuột (Tamiops maritimus)**
+- phân bố: Lào và Việt Nam phía đông sông Mê Kông [B·en.wikipedia.org]
+- hành vi, âm thanh: Hoạt động ngày, sống rất nhiều trên cây; ăn quả, hạt, côn trùng, mật hoa gừng [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, mùa, thời tiết, mật độ, license
 
-### bo_sat_luong_cu (5)
+**Sóc chuột (Tamiops rodolphii)**
+- phân bố: Đông Thái Lan, Campuchia, nam Lào, nam Việt Nam (không phải loài chính ở Trường Sơn Bắc) [B·en.wikipedia.org]
+- hành vi, âm thanh: Ở tầng dưới tán và tán thấp; kiếm ăn dọc mặt vỏ cây thẳng đứng [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, mùa, thời tiết, mật độ, license
+
+**Sóc chuột (chi Tamiops)**
+- kích thước: Dài đầu-thân 10–13 cm [B·en.wikipedia.org]
+- hình thái, màu: Sọc đen dọc giữa lưng, các sọc nhạt xen sọc nâu sẫm; sọc má đứt ở vai [B·en.wikipedia.org]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+
+### bo_sat_luong_cu (9)
 
 **Cạp nong**
 - hình thái, màu: khoanh đen và vàng xen kẽ bao quanh thân; dài tối đa trên 2 m [B·en.wikipedia.org]
@@ -790,11 +965,36 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hành vi, âm thanh: tiếng 'gầm' trầm, tần số trội ~600 Hz, dưới 2.500 Hz [B·en.wikipedia.org] · hoảng thì dựng nửa thân, bạnh mang, phì to; săn ban ngày [B·en.wikipedia.org]
 - honest-null: tên khoa học, phân bố, độ cao, mùa, thời tiết, mật độ, license
 
+**Rắn hổ mang (Naja sp., Bắc Hướng Hóa)**
+- tên khoa học: Khảo sát Bắc Hướng Hóa ghi 'Indochinese Cobra Naja naja' (tên cũ, loài chưa phân định) [A·locjkt.or.id]
+- honest-null: phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Rắn hổ mang một mắt kính**
+- phân bố: Từ Ấn Độ tới Trung Quốc, Việt Nam, Campuchia; có ở Lào [B·en.wikipedia.org]
+- kích thước: Trưởng thành dài 1,35–1,5 m [B·en.wikipedia.org]
+- hình thái, màu: Lưng vàng, nâu, xám hoặc đen nhạt; mang bành có vòng hình chữ O (một mắt kính) [B·en.wikipedia.org]
+- hành vi, âm thanh: Sống trên mặt đất, hoạt động mạnh nhất lúc chạng vạng; phì to rồi mổ khi bị dồn [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, mùa, thời tiết, mật độ, license
+
+**Rắn hổ mang phun nọc Đông Dương**
+- phân bố: Thái Lan, Campuchia, Việt Nam, Lào [B·en.wikipedia.org]
+- kích thước: Trưởng thành dài trung bình 0,9–1,2 m [B·en.wikipedia.org]
+- hình thái, màu: Xám đến nâu đến đen có đốm hoặc sọc trắng; dấu mang bành hình kính, không đều hoặc không có [B·en.wikipedia.org]
+- hành vi, âm thanh: Chủ yếu hoạt động đêm; phun nọc thành dạng sương chứ không thành tia [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, mùa, thời tiết, mật độ, license
+
 **Rắn lục mép trắng**
 - kích thước: dài tối đa đực 60 cm, cái 81 cm [B·en.wikipedia.org]
 - hình thái, màu: lưng xanh lục; hai bên đầu dưới mắt vàng/trắng/xanh nhạt sáng hơn [B·en.wikipedia.org]
 - hành vi, âm thanh: nọc chủ yếu độc máu; nhiều vụ cắn, ít tử vong [B·en.wikipedia.org]
 - honest-null: tên khoa học, phân bố, độ cao, mùa, thời tiết, mật độ, license
+
+**Trăn đất**
+- tên khoa học: Python bivittatus (tách khỏi trăn Ấn Độ từ 2009) [B·en.wikipedia.org] · Bắc Hướng Hóa ghi Python molurus (tên cũ) [A·locjkt.or.id]
+- kích thước: Ngoài tự nhiên thường dài tới 5 m, trung bình 3,7 m; con 5 m nặng 75 kg [B·en.wikipedia.org]
+- hình thái, màu: Nền sẫm với nhiều mảng nâu viền đen dọc lưng [B·en.wikipedia.org]
+- hành vi, âm thanh: Chủ yếu hoạt động đêm; bơi và leo giỏi, cần nguồn nước thường xuyên, lặn được tới nửa giờ [B·en.wikipedia.org]
+- honest-null: phân bố, độ cao, mùa, thời tiết, mật độ, license
 
 **Tắc kè**
 - kích thước: dài 25–30 cm (cả đuôi), có con đến 40 cm [B·en.wikipedia.org]
@@ -806,10 +1006,34 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mùa, thời tiết, mật độ, license
 
 
-### con_trung_khac (4)
+### con_trung_khac (9)
+
+**Bướm ngày (Rhopalocera)**
+- độ cao: Bạch Mã: đa dạng loài dưới 1.000 m cao hơn trên 1.000 m [A·jos.hueuni.edu.vn]
+- mật độ, license: Bạch Mã: 361 loài bướm ngày; họ Bướm giáp (Nymphalidae) nhiều loài nhất [A·jos.hueuni.edu.vn] · Bạch Mã: trảng cỏ nhiều loài nhất, rừng kín tự nhiên ít nhất [A·jos.hueuni.edu.vn] · Phong Nha–Kẻ Bàng: hơn 250 loài bướm (khảo sát 1999, 2022–2023) [A·gbif.org] · Phong Nha–Kẻ Bàng: hơn 270 loài bướm (nguồn du lịch) [C·discoveryhotels.com.vn] · 36 loài bướm phượng (Papilionidae) ở Bạch Mã, Phong Điền, Sao La (Thừa Thiên Huế) [A·journal.vnuf.edu.vn]
+- honest-null: tên khoa học, phân bố, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Bướm phượng cánh chim chấm liền**
+- tên khoa học: Troides helena [A·journal.vnuf.edu.vn]
+- phân bố: Ghi nhận ở các khu bảo tồn Thừa Thiên Huế; có trong Sách Đỏ Việt Nam 2007 [A·journal.vnuf.edu.vn]
+- hình thái, màu: Cánh trước đen nhung có vệt nhạt dọc gân; cánh sau vàng óng như lụa, gân đen mảnh [B·en.wikipedia.org]
+- honest-null: độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Kiến vàng**
+- tên khoa học: Oecophylla smaragdina [B·en.wikipedia.org]
+- kích thước: Kiến thợ dài 5–7 mm [B·en.wikipedia.org] · Kiến thợ lớn dài khoảng 8–10 mm (trang chi Oecophylla) [B·en.wikipedia.org] · Tổ lớn dài hơn nửa mét [B·en.wikipedia.org]
+- hình thái, màu: Thợ chủ yếu màu cam; tổ làm từ lá khâu bằng tơ của ấu trùng, nằm giữa tán lá [B·en.wikipedia.org]
+- hành vi, âm thanh: Không đốt nhưng cắn đau và tiết/phun axit formic; bảo vệ lãnh thổ hung hăng [B·en.wikipedia.org]
+- mật độ, license: Một tập đoàn có thể chiếm 151 tổ trên 12 cây, tới nửa triệu cá thể [B·en.wikipedia.org]
+- honest-null: phân bố, độ cao, mùa, thời tiết
 
 **Muỗi Anopheles dirus**
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Mùa bướm trắng Phong Nha**
+- hành vi, âm thanh: Đẹp nhất 8–10 giờ sáng và 3–5 giờ chiều; từng đàn bay dọc sông Son, sông Chày [C·discoveryhotels.com.vn]
+- mùa, thời tiết: Tháng 3 đến tháng 5 hằng năm [C·discoveryhotels.com.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mật độ, license
 
 **Sốt rét rừng**
 - mật độ, license: nhân chứng đi bộ Trường Sơn 1967–69 bị sốt rét rừng liên tục [B·baovanhoa.vn]
@@ -826,17 +1050,71 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mùa, thời tiết: khi trời mưa muỗi, vắt bám khắp nơi (nhân chứng 1967–69) [B·baovanhoa.vn]
 - honest-null: phân bố, độ cao, kích thước, hình thái, màu, mật độ, license
 
+**Đom đóm**
+- phân bố: Ven suối, bụi thấp, khoảng rừng ẩm tối, nơi ẩm và ít ánh sáng nhân tạo [B·baophapluat.vn]
+- hình thái, màu: Ánh sáng vàng, xanh lục hoặc đỏ nhạt (510–670 nm); ấu trùng cũng phát sáng [B·en.wikipedia.org]
+- hành vi, âm thanh: Con đực bay nháy sáng tìm bạn, chủ yếu lúc chạng vạng; ở Đông Nam Á nhiều đàn nháy đồng bộ ven sông [B·en.wikipedia.org]
+- mùa, thời tiết: Ở Cúc Phương xuất hiện những đêm cuối xuân đầu hè [B·baophapluat.vn] · Chỉ phát sáng mùa hè; trải đông ở dạng ấu trùng, ra vào mùa xuân [C·heritagevietnamairlines.com]
+- honest-null: tên khoa học, độ cao, kích thước, mật độ, license
 
-### thu_lon (4)
+
+### thu_lon (10)
+
+**Bò tót**
+- tên khoa học: Bos gaurus (khảo sát Bắc Hướng Hóa ghi Bos frontalis) [A·locjkt.or.id]
+- kích thước: Cao vai 142–220 cm, dài đầu-thân 250–330 cm; con cái 440–1.000 kg [B·en.wikipedia.org]
+- hình thái, màu: Con đực nâu sẫm gần đen; cẳng chân dưới trắng hoặc vàng nâu như đi tất; sừng dài 60–115 cm [B·en.wikipedia.org]
+- hành vi, âm thanh: Báo động bằng tiếng khịt huýt, kêu trầm như bò nhà; tiếng gọi động dục vang xa hơn 1,6 km [B·en.wikipedia.org]
+- mật độ, license: Tháng 1–2 sống đàn nhỏ 8–11 con với một bò đực (số liệu Ấn Độ) [B·en.wikipedia.org] · Lào giữa thập niên 1990 ước tới 200 cá thể trong các khu bảo tồn [B·en.wikipedia.org]
+- honest-null: phân bố, độ cao, mùa, thời tiết
+
+**Gấu chó**
+- tên khoa học: Helarctos malayanus [A·locjkt.or.id]
+- kích thước: Dài đầu-thân 100–140 cm, cao vai gần 70 cm, nặng 25–65 kg [B·en.wikipedia.org]
+- hình thái, màu: Lông thường đen tuyền; mảng ngực từ cam, vàng đất tới kem hay trắng; mõm xám, bạc hoặc cam [B·en.wikipedia.org] · Vuốt hình lưỡi liềm, vuốt trước dài nặng; để lại vết cào trên thân cây đã leo [B·en.wikipedia.org]
+- hành vi, âm thanh: Chủ yếu hoạt động ngày; leo giỏi, phơi nắng hoặc ngủ trên cây cao 2–7 m [B·en.wikipedia.org]
+- mật độ, license: Quần thể Việt Nam lo ngại giảm 50–80% trong 30 năm tới [B·en.wikipedia.org]
+- honest-null: phân bố, độ cao, mùa, thời tiết
+
+**Gấu ngựa**
+- tên khoa học: Ursus thibetanus [A·locjkt.or.id]
+- kích thước: Cao vai 70–100 cm, dài 120–190 cm; con đực 60–200 kg [B·en.wikipedia.org]
+- hình thái, màu: Lông đen, mõm nâu nhạt, mảng trắng kem ở ngực đôi khi hình chữ V [B·en.wikipedia.org]
+- hành vi, âm thanh: Hoạt động ngày, chuyển sang đêm gần nơi có người; leo cây giỏi, nằm nghỉ trên ổ trên cây [B·en.wikipedia.org] · Tiếng kêu đa dạng: gầm gừ, rên, gầm, tiếng chép [B·en.wikipedia.org]
+- mật độ, license: Thợ săn ở Bắc Hướng Hóa cho biết gấu chó hiếm hơn gấu ngựa [A·locjkt.or.id]
+- honest-null: phân bố, độ cao, mùa, thời tiết
 
 **Hổ**
 - mật độ, license: Phong Nha–Kẻ Bàng hiện không còn ý nghĩa bảo tồn hổ [A·thiennhienviet.org.vn] · lời đồn bộ đội 1967–69: núi Răng Cưa nhiều hang đá, cọp sống thành đàn (truyền miệng, chưa kiểm) [B·baovanhoa.vn]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Lợn rừng**
+- tên khoa học: Sus scrofa [B·en.wikipedia.org]
+- phân bố: Một phân loài phân bố từ ven biển Trung Quốc xuống Việt Nam [B·en.wikipedia.org]
+- kích thước: Con đực trung bình 75–100 kg, cao vai 75–80 cm, thân dài 150 cm (số liệu chung, không riêng Đông Dương) [B·en.wikipedia.org] · Nanh dưới lộ ra dài 10–12 cm [B·en.wikipedia.org]
+- hình thái, màu: Lợn con lông nâu nhạt hoặc nâu gỉ sắt với các sọc nhạt dọc sườn và lưng [B·en.wikipedia.org]
+- hành vi, âm thanh: Gọi nhau bằng tiếng ủn ỉn; khi hoảng phát tiếng khịt 'ukh! ukh!' hoặc rít 'gu-gu-gu' [B·en.wikipedia.org] · Sống theo bầy do lợn cái già đầu đàn dẫn dắt; để lại dấu ủi đất, giẫm và vũng đầm [B·en.wikipedia.org]
+- honest-null: độ cao, mùa, thời tiết, mật độ, license
+
+**Mang lớn**
+- tên khoa học: Muntiacus vuquangensis (Megamuntiacus vuquangensis) [A·locjkt.or.id]
+- phân bố: Ghi nhận ở Bắc Hướng Hóa và Đakrông (Quảng Trị) [A·thiennhienviet.org.vn]
+- honest-null: độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Mang đỏ phương bắc**
-- hình thái, màu: đực có gạc ngắn và răng nanh trên dài [B·en.wikipedia.org]
-- hành vi, âm thanh: tiếng kêu như tiếng sủa, dùng báo động và liên lạc [B·en.wikipedia.org]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết, mật độ, license
+- phân bố: Trung Quốc, Campuchia, Lào, Thái Lan, Việt Nam [B·en.wikipedia.org]
+- kích thước: Thân dài 89–135 cm, cao vai 40–65 cm, đuôi 13–23 cm, nặng 14–35 kg (M. muntjak nghĩa rộng) [B·animaldiversity.org]
+- hình thái, màu: đực có gạc ngắn và răng nanh trên dài [B·en.wikipedia.org] · Lưng vàng nâu như vàng rám, bụng trắng, chân và mặt nâu sẫm [B·animaldiversity.org] · Răng nanh trên con đực như ngà dài khoảng 1 inch (2,5 cm) [B·animaldiversity.org]
+- hành vi, âm thanh: tiếng kêu như tiếng sủa, dùng báo động và liên lạc [B·en.wikipedia.org] · Tiếng kêu như chó sủa khi phát hiện thú săn mồi; có thể sủa hơn một giờ liền [B·animaldiversity.org] · Hoạt động cả ngày lẫn đêm; con trưởng thành sống đơn độc [B·animaldiversity.org]
+- honest-null: tên khoa học, độ cao, mùa, thời tiết, mật độ, license
+
+**Nhím (Hystrix brachyura)**
+- tên khoa học: Hystrix brachyura [A·locjkt.or.id]
+- phân bố: Bắc Hướng Hóa: xác nhận qua dấu chân, lông gai và một con nuôi nhốt [A·locjkt.or.id]
+- kích thước: Đầu-thân 56–74 cm, đuôi 6–11 cm, nặng 10–18 kg [B·en.wikipedia.org]
+- hình thái, màu: Lông gai phần trên thân đen với khoanh trắng hoặc vàng [B·en.wikipedia.org]
+- hành vi, âm thanh: Kiếm ăn ban đêm, ngày nghỉ trong hang có lối mòn toả ra xung quanh [B·en.wikipedia.org]
+- honest-null: độ cao, mùa, thời tiết, mật độ, license
 
 **Sao la**
 - tên khoa học: Pseudoryx nghetinhensis [A·thiennhienviet.org.vn]
@@ -850,7 +1128,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 
-### dau_vet_chien_tranh (33)
+### dau_vet_chien_tranh (47)
 
 **Bãi giấu xe**
 - hành vi, âm thanh: Tài xế vội vào bãi giấu xe trước bình minh [B·en.wikipedia.org]
@@ -867,10 +1145,16 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mật độ, license: Nơi bị ném bom nhiều nhất thế giới tính theo đầu người (nguồn blog) [C·thehochiminhtrail.com]
 - honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Bến phà Long Đại**
+- hình thái, màu: Pháo sáng phủ kín trời, xe nằm im chờ [B·baophapluat.vn]
+- hành vi, âm thanh: Ngày giấu phà dưới tán cây ven sông, đêm lắp ráp cầu phà [B·baophapluat.vn] · Pháo khói bắn xuống đánh dấu mục tiêu khi phát hiện hoạt động [B·baophapluat.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết, mật độ, license
+
 **Bếp Hoàng Cầm**
 - phân bố: Dùng dọc đường Trường Sơn: 'ngày không khói, đêm không lửa' [B·vietnamnews.vn]
-- hình thái, màu: Bếp đào vào chân đồi, rãnh khói tỏa ra như vòi mực [B·vietnamnews.vn] · Rãnh khói phủ cành cây và đất ẩm [B·vietnamnews.vn] · Khói thoát lên trông như sương sớm rồi tan nhanh, là sát mặt đất [B·vietnamnews.vn] · Hố sâu có nắp, ống tre dài ngầm dưới đất tản khói [B·en.wikipedia.org]
-- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- hình thái, màu: Bếp đào vào chân đồi, rãnh khói tỏa ra như vòi mực [B·vietnamnews.vn] · Rãnh khói phủ cành cây và đất ẩm [B·vietnamnews.vn] · Khói thoát lên trông như sương sớm rồi tan nhanh, là sát mặt đất [B·vietnamnews.vn] · Hố sâu có nắp, ống tre dài ngầm dưới đất tản khói [B·en.wikipedia.org] · Hố lớn trước bếp phủ tấm che, làm buồng khói/buồng gió [B·vietnamnews.vn] · Nhiều đường rãnh tản khói ra mặt đất [B·vietnamnews.vn]
+- mùa, thời tiết: Đặt tên chính thức tháng 10/1952 [B·vietnamnews.vn]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mật độ, license
 
 **Cháy rừng do napalm và bom cháy**
 - hình thái, màu: Phun rụng lá cho khô, rồi ném napalm đốt lớp lá rụng [A·openvault.wgbh.org] · Nền đất quanh cứ điểm trên đồi lóe lửa napalm từ Phantom bổ nhào xuống rừng (Nam Lào 1971) [B·warfarehistorynetwork.com]
@@ -879,9 +1163,13 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, mật độ, license
 
 **Cua chữ A**
-- phân bố: Thuộc Đường 20 Quyết Thắng, cùng cụm với ngầm Ta Lê, đèo Phu La Nhích [B·baolaichau.vn]
+- phân bố: Thuộc Đường 20 Quyết Thắng, cùng cụm với ngầm Ta Lê, đèo Phu La Nhích [B·baolaichau.vn] · Chữ A trong ATP; đại đội C5 phụ trách cua chữ A [B·baophapluat.vn]
 - hình thái, màu: Khúc cua biến mất, còn lại hàng trăm hố bom và cồn đất đỏ [C·nguoiquansat.vn] · Ban đêm mịt mù pháo sáng [B·sggp.org.vn]
 - honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Cảm biến 'cây nhiệt đới'**
+- hình thái, màu: Thiết bị điện tử có hình dáng, màu sắc giống cây nhỏ rừng nhiệt đới [A·baophapluat.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Cầu cáp tháo lắp**
 - hình thái, màu: Trụ sẵn hai bờ, chạng vạng căng 4 dây cáp, bắc gỗ, sáng tháo cất [B·baophapluat.vn]
@@ -892,8 +1180,24 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 **Cầu ngầm (cầu dưới mặt nước)**
 - phân bố: Bến lội Ban Laboy có bến phụ thượng nguồn với cầu ngầm [C·thehochiminhtrail.com]
 - kích thước: Mặt cầu nằm dưới mặt nước vài cm ('cầu chìm', 'cầu tàng hình') [B·nhandan.vn]
-- hình thái, màu: Cầu thô sơ dựng dưới mặt nước [B·en.wikipedia.org] · Chuyển từ cầu nổi sang cầu dưới mặt nước [B·vnexpress.net]
-- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- hình thái, màu: Cầu thô sơ dựng dưới mặt nước [B·en.wikipedia.org] · Chuyển từ cầu nổi sang cầu dưới mặt nước [B·vnexpress.net] · Làm bằng gỗ, cát, đất ngay dưới mặt nước; xe nặng lội nước nông qua [B·en.wikipedia.org]
+- mật độ, license: Nước cách ly sức nổ nên bom khó phá [B·en.wikipedia.org]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Cầu treo dây rừng**
+- kích thước: Toàn bằng dây và cây rừng, dài cả trăm mét [A·baoquocte.vn]
+- hành vi, âm thanh: Ra giữa cầu đung đưa như cái võng [B·sggp.org.vn]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, mùa, thời tiết, mật độ, license
+
+**Cọc tiêu dẫn đường**
+- hình thái, màu: "Cọc tiêu sống": tốp 10–12 nữ TNXP mặc áo đông xuân trắng đứng dẫn xe (Truông Bồn, Nghệ An, 1968) [B·lsvn.vn] · Bẹ chuối rải hai bên đường làm vạch cho lái xe ban đêm [B·lsvn.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Cổng Trời Cha Lo**
+- phân bố: Trên đường 12 (nay QL12A), không phải đường 20: Khe Ve – Cổng Trời – Cha Lo – Khăm Muộn [B·baophapluat.vn] · Cột mốc Km 34,5 đường 12A, xã Dân Hóa (Minh Hóa cũ), cách Đồng Hới ~150 km [C·vinpearl.com] · Thuộc quần thể VQG Phong Nha – Kẻ Bàng (theo Nhân Dân) [B·nhandan.vn]
+- hình thái, màu: Một bên vực, một bên núi cao [C·vinpearl.com] · Rừng chen chúc tầng tầng lớp lớp, núi sừng sững vút cao [B·nhandan.vn] · Lan rừng bám chi chít trên cành, thân cây [B·nhandan.vn] · Có kho trung chuyển, kho xăng dầu, công sự ngầm, đồn biên phòng [C·vinpearl.com] · 1965–1973 là trận địa pháo phòng không Tiểu đoàn Nguyễn Viết Xuân [B·nhandan.vn]
+- mùa, thời tiết: Mây mù phủ kín quanh năm [C·vinpearl.com] · Dưới chân dãy Giăng Màn quanh năm mờ sương [B·thoibaotaichinhvietnam.vn] · Bị không kích ác liệt 1965–1973 [C·vinpearl.com]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mật độ, license
 
 **Cứ điểm 31 (Hill 31)**
 - phân bố: Bãi đáp 31 cách Bản Đông khoảng 8 km về phía bắc [A·apps.dtic.mil]
@@ -905,11 +1209,35 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hành vi, âm thanh: Máy bay địch gầm thét trên đầu như chuồn chuồn mùa hè [A·baodautu.vn]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết, mật độ, license
 
+**Dốc Ba Thang**
+- hình thái, màu: Công binh treo mình trên vách đá thi công [B·baovanhoa.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Giàn ngụy trang và đường kín**
-- hình thái, màu: Giàn tre công phu dọc đường để che dấu vết [B·historynet.com] · 'Đường kín': trồng cây, kết tán lá che kín cung đường [B·nhandan.vn]
+- hình thái, màu: Giàn tre công phu dọc đường để che dấu vết [B·historynet.com] · 'Đường kín': trồng cây, kết tán lá che kín cung đường [B·nhandan.vn] · Đoạn núi cao rừng rậm: kéo buộc ngọn cây hai bên đường vào nhau [B·baophapluat.vn] · Buộc đá nặng vào cành tre uốn cong ngang đường thành đường hầm lá [B·environmentandsociety.org] · Treo giỏ cây trồng chậu dọc đoạn trống thưa cây [B·environmentandsociety.org] · Mở đường đến đâu ngụy trang cây lá đến đó [B·baophapluat.vn]
 - hành vi, âm thanh: Đội làm đường lùa đàn gia súc đi lại trên đường để xoá vết [B·historynet.com]
 - mật độ, license: Đến 1973 xe chạy suốt tuyến dưới tán rừng, chỉ ra khỏi tán khi lội suối [B·en.wikipedia.org]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết
+
+**Hang Chỉ huy (hang 7 tầng)**
+- phân bố: Km12 đường 20, vùng lõi Phong Nha – Kẻ Bàng [C·oxalisadventure.com]
+- kích thước: Hang cao gần trăm mét, cải tạo thành 7 tầng trong 3 tháng [B·sggp.org.vn] · Rộng khoảng 150 m, cao hơn 100 m [C·oxalisadventure.com]
+- hình thái, màu: Rừng tái sinh trên đá vôi cổ quanh hang [B·sggp.org.vn]
+- mật độ, license: Khu Km12 hứng hơn 16.000 quả bom trong 3 tháng [C·oxalisadventure.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Hang Tám Cô**
+- phân bố: Km 16+200 đường 20 (hang ở km 16,5) [B·tuoitre.vn]
+- kích thước: Tảng đá lấp cửa hang nặng hàng trăm tấn [B·tuoitre.vn] · Tảng đá lấp cửa hang nặng hàng ngàn tấn [B·tuoitre.vn]
+- hình thái, màu: Km 16 bị quật nát, đất đá bật tung [B·tuoitre.vn]
+- mùa, thời tiết: Chiều 14/11/1972 B-52 rải thảm từ km 16 [B·tuoitre.vn]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mật độ, license
+
+**Hầm chữ A**
+- kích thước: Sâu 1–1,2 m, rộng 1 m, dài 1,5 m (mẫu phục dựng Hỏa Lò) [B·baovanhoa.vn]
+- hình thái, màu: Khung chịu lực tre, gỗ ghép hình chữ A; cửa có thể thông hai đầu [B·baovanhoa.vn]
+- hành vi, âm thanh: Người trong hầm ngồi xổm, cúi đầu, tay che tai [B·baovanhoa.vn]
+- honest-null: tên khoa học, phân bố, độ cao, mùa, thời tiết, mật độ, license
 
 **Hố bom**
 - kích thước: Một hố bom ở Lào ngày nay dùng làm ao: rộng khoảng 20 ft (≈6 m), sâu 3 ft (≈0,9 m) [B·undark.org]
@@ -941,8 +1269,20 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hình thái, màu: Năm 1971 vẫn còn xác xe tăng Liên Xô cháy từ trận 1968 [A·thedaysforward.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Lán trại bộ đội**
+- hình thái, màu: Mái lán lợp lá trung quân, màu vàng như rơm rạ [A·sggp.org.vn] · Dựng lán trại chỉ với con dao nhỏ [A·baonghean.vn] · Mưa rừng không có củi khô, phải tước thân bằng lăng tươi làm củi [A·baoquocte.vn]
+- hành vi, âm thanh: Đêm chỉ còn tiếng côn trùng và tiếng hú xa của thú rừng [A·baoquocte.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, mùa, thời tiết, mật độ, license
+
+**Ngã ba Khe Ve**
+- phân bố: Ngã ba trên đường 12 (QL12A), Minh Hóa; đầu dốc lên Cổng Trời, Cha Lo [B·baophapluat.vn]
+- hình thái, màu: Binh trạm 12 đóng tại Khe Ve, giữ kho xăng lớn [B·special.nhandan.vn]
+- honest-null: tên khoa học, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Ngầm Ta Lê**
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- hình thái, màu: Sông Ta Lê nước chảy rất xiết [B·baovanhoa.vn]
+- mật độ, license: Tháng 5/1968 có 6 hố bom sâu chưa san lấp, xe ùn tắc phía sau [B·baophapluat.vn] · Trọng điểm bắn phá của máy bay [B·baophapluat.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 **Rừng bị rải chất độc và bom (Trường Sơn Bắc)**
 - mật độ, license: Bạch Mã: diện tích rừng lớn bị chất làm rụng lá, bom và máy hạng nặng phá hủy [A·thiennhienviet.org.vn] · Đakrông: chất làm rụng lá là yếu tố chính làm suy giảm, chia cắt rừng [A·thiennhienviet.org.vn] · Bắc Hướng Hóa: bị phun rải từ máy bay trong chiến tranh [A·locjkt.or.id] · Phong Nha: phần lớn rừng nguyên sinh bị cháy hư hại nặng trong chiến tranh [A·thesalmons.org]
@@ -960,7 +1300,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - kích thước: Vệt phun rõ nét rộng khoảng 85 m, dài 15 km [A·nal.usda.gov]
 - hình thái, màu: Phun vào rừng ba tầng, thuốc thường tan ở tán trên; rừng như vậy thường tái sinh nhanh [B·cia.gov] · Ven đường Huế – A Lưới: sườn đồi trơ trụi phía trước, rừng không bị phun phía sau [A·hatfieldgroup.com] · Mất rừng giữ đất, sạt lở nhiều dọc đường vào A Lưới [A·hatfieldgroup.com] · Cây chết đứng do chiến tranh còn thấy nhiều nơi [A·digitalrepository.unm.edu]
 - mùa, thời tiết: Lá rụng 3–6 tuần sau khi phun; cây sống sót ra lá lại trong vòng một năm [A·nal.usda.gov] · Rụng lá, hoa, quả trong 2–3 tuần sau phun [C·chm.bris.ac.uk]
-- mật độ, license: Phun một lần chết 10–20% cây gỗ; hai lần liên tiếp chết 50–100% [A·nal.usda.gov] · Vùng bị phun nặng: 85–100% cây gỗ chết [A·digitalrepository.unm.edu]
+- mật độ, license: Phun một lần chết 10–20% cây gỗ; hai lần liên tiếp chết 50–100% [A·nal.usda.gov] · Vùng bị phun nặng: 85–100% cây gỗ chết [A·digitalrepository.unm.edu] · Đến giữa 1966 ước 1.500 km đường bị phun 200.000 gallon thuốc diệt cỏ [B·environmentandsociety.org]
 - honest-null: độ cao, hành vi, âm thanh
 
 **Săn bắn và bẫy thú**
@@ -981,32 +1321,58 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh
 
 **Trọng điểm (tọa độ lửa)**
-- hình thái, màu: Đồi bị bạt thấp, mặt đường cày xới, cây cháy rụi, rừng già thành đồi trọc [B·baolaichau.vn] · Cảnh hoang tàn như vùng đất chết [B·baolaichau.vn] · Ban đêm pháo sáng sáng rực suốt đêm [B·sggp.org.vn] · Núi rừng rực đỏ bởi pháo sáng và bom đạn ban đêm [B·sggp.org.vn]
+- hình thái, màu: Đồi bị bạt thấp, mặt đường cày xới, cây cháy rụi, rừng già thành đồi trọc [B·baolaichau.vn] · Cảnh hoang tàn như vùng đất chết [B·baolaichau.vn] · Ban đêm pháo sáng sáng rực suốt đêm [B·sggp.org.vn] · Núi rừng rực đỏ bởi pháo sáng và bom đạn ban đêm [B·sggp.org.vn] · Mặt đường cày xới, cây cối cháy rụi, đồi bị san phẳng [A·sggp.org.vn] · Rừng núi trơ trụi tan hoang vì bom chà đi xát lại [B·baophapluat.vn]
 - mật độ, license: Hàng ngàn trọng điểm, tập đoàn trọng điểm trên mọi đường dọc, ngang [B·vnexpress.net]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 **Trọng điểm A-T-P (Cà Roòng)**
-- mật độ, license: 15 ngày, Mỹ ném 17.625 tấn bom xuống ATP [C·nguoiquansat.vn] · Hơn 10.000 lần ném bom, bắn phá, trong đó 2.450 lần B-52 [B·sggp.org.vn]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+- phân bố: Nay ở Km 63+900 Tỉnh lộ 562, xã Thượng Trạch, Bố Trạch [B·nhandan.vn]
+- mật độ, license: 15 ngày, Mỹ ném 17.625 tấn bom xuống ATP [C·nguoiquansat.vn] · Hơn 10.000 lần ném bom, bắn phá, trong đó 2.450 lần B-52 [B·sggp.org.vn] · Mỗi ngày 30–40 trận, có tuần ném 50.000 quả bom [C·phongnhasmiletravel.com] · Trung bình 2.203 tấn bom mỗi km (2,2 tấn mỗi mét) [B·baovanhoa.vn] · Hơn 10.000 lần ném bom, 2.450 lần B-52 rải thảm (SGGP gán cho ATP) [A·sggp.org.vn]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Trọng điểm Trạ Ang**
-- hình thái, màu: Km12 Đường 20, 8/1968: đỉnh núi sụp, lòng đường hiện ra dưới pháo sáng [B·sggp.org.vn]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- phân bố: Đoạn Km12–Km14 đường 20 [C·discoveryhotels.com.vn] · Cửa khẩu Trà Ang ở km 12 và km 16 đường 20 [B·vnexpress.net] · Ngã tư Trạ Ang sau Km 0–Km 15 [B·tuoitre.vn]
+- độ cao: Ở điểm cao 150 m, dài 5 km [C·phongnhasmiletravel.com] · Đường vắt trên núi cao 400–600 m nhìn xuống vực Trạ Ang [C·discoveryhotels.com.vn]
+- hình thái, màu: Km12 Đường 20, 8/1968: đỉnh núi sụp, lòng đường hiện ra dưới pháo sáng [B·sggp.org.vn] · Có cầu Trạ Ang bắc qua suối cùng tên; xăng được kéo ngược suối Trà Ang [B·vnexpress.net]
+- mật độ, license: Bị đánh liên tục 87 ngày đêm, có ngày 27 B-52 và 30 máy bay khác [C·discoveryhotels.com.vn]
+- honest-null: tên khoa học, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 **Trực thăng trên chiến trường Đường 9**
 - hành vi, âm thanh: Trực thăng bị bắn bốc cháy quầng lửa đỏ, mảnh đạn văng vù vù [A·baohatinh.vn]
 - mùa, thời tiết: Sáng 13/2/1971 bầu trời rợp máy bay địch [A·baohatinh.vn]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mật độ, license
 
+**Võng và tăng bộ đội**
+- hình thái, màu: Trang bị: quần áo gabađin, AK47, mũ cối, mũ tai bèo, tăng, võng bạt [A·baoquocte.vn] · Bọc võng bằng vải dù pháo sáng lót dưới lưng cho ấm [A·sggp.org.vn]
+- hành vi, âm thanh: Trinh sát leo lên cây cao mắc võng ngủ [B·sggp.org.vn]
+- mùa, thời tiết: Được hướng dẫn mắc võng tránh mưa rừng [A·baoquocte.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, mật độ, license
+
+**Đèo Ban Karai**
+- phân bố: 17°19′48″B 106°12′7″Đ, biên giới Việt–Lào, ~60 km tây nam Đồng Hới [B·en.wikipedia.org]
+- độ cao: 418 m (trùng số với Mụ Giạ trên Wikipedia, cần kiểm) [B·en.wikipedia.org]
+- mật độ, license: 19/4–24/6/1968 chiến dịch Turnpike, có B-52 [B·en.wikipedia.org]
+- honest-null: tên khoa học, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Đèo Mụ Giạ**
+- phân bố: 17°39′53″B 105°45′45″Đ, ~90 km tây bắc Đồng Hới; nối QL15 (Tân Ấp) với đường 12 Lào [B·en.wikipedia.org]
+- độ cao: 418 m [B·en.wikipedia.org]
+- hình thái, màu: Bên trái đỉnh đá vôi răng cưa, bên phải cao nguyên đỉnh bằng [B·en.wikipedia.org] · Rừng mưa nhiệt đới rậm phủ kín, gần như cản trinh sát đường không [B·en.wikipedia.org]
+- mật độ, license: 12/4/1966: 29 B-52 lần đầu đánh đèo [B·en.wikipedia.org]
+- honest-null: tên khoa học, kích thước, hành vi, âm thanh, mùa, thời tiết
+
 **Đèo Phu La Nhích**
-- hình thái, màu: Đèo bị bóc hết cây, hàng ngàn mét đường khoét sâu vào taluy [C·nguoiquansat.vn]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- hình thái, màu: Đèo bị bóc hết cây, hàng ngàn mét đường khoét sâu vào taluy [C·nguoiquansat.vn] · Dốc dựng đứng [B·baovanhoa.vn] · Nằm trong bối cảnh núi đá vôi karst [C·thehochiminhtrail.com]
+- mật độ, license: Gần 10.000 lần đánh phá, khoảng 2.450 lần B-52 (Báo Pháp luật gán riêng cho đèo) [B·baophapluat.vn] · Mỗi người chốt giữ hứng bình quân ~1.900 quả bom [B·baophapluat.vn]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
 
 **Đường 20 Quyết Thắng**
-- phân bố: Từ Phong Nha bên sông Son đến ngã ba Lùm Phùm [C·nguoiquansat.vn]
-- kích thước: Đoạn đường 20 hiện dài khoảng 70 km [C·nguoiquansat.vn]
-- mật độ, license: Trục ngang có mật độ bom trên 1 km đường cao nhất Trường Sơn [C·nguoiquansat.vn]
-- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+- phân bố: Từ Phong Nha bên sông Son đến ngã ba Lùm Phùm [C·nguoiquansat.vn] · Từ Phong Nha (Quảng Bình) sang ngã ba Lùm Bùm (Nam Lào) [B·baophapluat.vn] · Km 00 ở thôn Phong Nha, xã Sơn Trạch, Bố Trạch; nối đường 9 qua ngã ba Lùm Bùm (Khăm Muộn, Lào) [C·phongnhasmiletravel.com] · Km 0 cách di tích phà Xuân Sơn chừng 2 km ngược lên [B·tuoitre.vn] · Nằm giữa đường 12 (phía bắc) và đường 18 (phía nam) [C·thehochiminhtrail.com]
+- kích thước: Đoạn đường 20 hiện dài khoảng 70 km [C·nguoiquansat.vn] · Dài 125 km, trong đó hơn 40 km qua núi đá [B·baophapluat.vn] · Dùng 270 tấn TNT, phá hơn 1 triệu m3 đá [B·baophapluat.vn]
+- hình thái, màu: Công binh nối 3 thang tre leo vách đá để đục lỗ đặt mìn [B·baophapluat.vn] · Km 12: bom, tên lửa bắn vào vách đá dựng đứng cho sập núi lấp đường [B·baophapluat.vn] · Không phải một đường mà nhiều đường, có đường tránh và đường K bí mật [C·thehochiminhtrail.com] · Bối cảnh núi đá vôi karst bao quanh đèo Phu La Nhích [C·thehochiminhtrail.com] · Các trọng điểm: Km 00 đến Km 10, Km 14 (cùng Trà Ang, ATP) [C·phongnhasmiletravel.com] · Trọng điểm: ngầm Trạ Ang, Km14, Km16, phà Xuân Sơn [B·baovanhoa.vn] · Trọng điểm: dốc Ba Thang, tổng kho NH, hang Thông Tin, hang Y Tá [B·tuoitre.vn] · Điểm thi công khó: dốc Đồng Tiền, U Bò, Khe Diêm [B·baovanhoa.vn] · Sông Chà Là, Ta Lê nước chảy rất xiết; đèo Phu La Nhích dốc dựng đứng [B·baovanhoa.vn] · Hang động, vách đá cải tạo thành nơi cất vũ khí, hàng [C·heritagevietnamairlines.com]
+- mùa, thời tiết: Khởi công tháng 12/1965 bằng loạt bộc phá hạ dốc Ba Thang [C·phongnhasmiletravel.com] · Khai thông ngày 5/5/1966 [C·phongnhasmiletravel.com] · Hai mũi thi công gặp nhau tại Km65 ngày 14/4/1966 [B·baovanhoa.vn] · Thời gian thi công: kế hoạch 105 ngày [B·baophapluat.vn] · Thời gian thi công: 127 ngày [C·phongnhasmiletravel.com] · Hai hướng gặp nhau tại km 65 biên giới Việt–Lào sau 77 ngày đêm [B·baophapluat.vn] · Đường mở thường bị ngập nước mùa mưa [B·baophapluat.vn]
+- mật độ, license: Trục ngang có mật độ bom trên 1 km đường cao nhất Trường Sơn [C·nguoiquansat.vn] · Mật độ bom trên 1 km đường thuộc loại cao nhất Trường Sơn [B·baovanhoa.vn] · Tên lóng "Sa mạc lửa", bị ném bom ngày đêm [C·thehochiminhtrail.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh
 
 **Đường 9**
 - độ cao: Dãy đồi phía bắc Đường 9: nhiều đỉnh 500–850 m [A·apps.dtic.mil]
@@ -1017,14 +1383,14 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 
 **Đường xe Trường Sơn**
 - kích thước: Đường đất rộng 5,5 m (18 ft), có đoạn rải sỏi hoặc lát gỗ ngang [B·en.wikipedia.org] · Đường ngụy trang rộng 18 ft [B·historynet.com] · Đến cuối chiến tranh: 5 trục dọc, 21 trục ngang, tổng 20.000 km [B·vnexpress.net]
-- hình thái, màu: Đường dã chiến thiếu đường rải đá, mặt cứng [B·vnexpress.net] · Đoạn đường một bên vách đá dựng đứng, một bên vực sâu [A·baophapluat.vn] · Hang trong vách đá được công binh cải tạo làm chỗ xe tránh máy bay [A·baophapluat.vn] · Có đường tránh, đường song song vòng qua trọng điểm [B·vnexpress.net] · Lát đá làm mặt đường trong bom đạn, kiểm tra ban đêm bằng đèn dầu [B·sggp.org.vn]
-- hành vi, âm thanh: Xe chạy đêm, ngày vào hang hoặc rừng rậm ẩn [A·baophapluat.vn] · Trăng sáng thì không bật đèn gầm; qua sông, lên dốc tắt hết đèn [B·baolaichau.vn] · Qua sông tắt đèn vì ánh sáng phản chiếu mặt nước [B·baolaichau.vn] · Xe bắt đầu chạy ngay sau hoàng hôn, thưa dần 3–6 giờ sáng [B·historynet.com]
-- mùa, thời tiết: Mùa mưa biến đường mòn thành bùn, suối tràn bờ [A·apps.dtic.mil] · Mùa khô (khoảng tháng 11–4) mới thi công lớn được [A·apps.dtic.mil]
+- hình thái, màu: Đường dã chiến thiếu đường rải đá, mặt cứng [B·vnexpress.net] · Đoạn đường một bên vách đá dựng đứng, một bên vực sâu [A·baophapluat.vn] · Hang trong vách đá được công binh cải tạo làm chỗ xe tránh máy bay [A·baophapluat.vn] · Có đường tránh, đường song song vòng qua trọng điểm [B·vnexpress.net] · Lát đá làm mặt đường trong bom đạn, kiểm tra ban đêm bằng đèn dầu [B·sggp.org.vn] · Trọng điểm thường là núi cao, cua gấp, đường độc đạo [A·baophapluat.vn] · Một bên vách ta-luy đá tai mèo, một bên thung lũng sâu [B·baophapluat.vn] · Đường rẽ ngoặt sang hai bên để lái xe né, đánh lừa máy bay [A·baophapluat.vn] · Dùng xe ủi đẩy bom nổ chậm xuống vực; mặt đường lấp ~500 m3 đá [B·baophapluat.vn]
+- hành vi, âm thanh: Xe chạy đêm, ngày vào hang hoặc rừng rậm ẩn [A·baophapluat.vn] · Trăng sáng thì không bật đèn gầm; qua sông, lên dốc tắt hết đèn [B·baolaichau.vn] · Qua sông tắt đèn vì ánh sáng phản chiếu mặt nước [B·baolaichau.vn] · Xe bắt đầu chạy ngay sau hoàng hôn, thưa dần 3–6 giờ sáng [B·historynet.com] · Đêm có trăng sao tắt hết đèn, đêm tối trời chỉ bật đèn gầm [A·baophapluat.vn] · Mỗi ngày một lái xe thường chỉ chạy được 1 chuyến [A·sggp.org.vn]
+- mùa, thời tiết: Mùa mưa biến đường mòn thành bùn, suối tràn bờ [A·apps.dtic.mil] · Mùa khô (khoảng tháng 11–4) mới thi công lớn được [A·apps.dtic.mil] · Mùa mưa đường đất nhầy nhụa, mùa khô nắng cháy, gió Lào [B·dantri.com.vn]
 - honest-null: tên khoa học, phân bố, độ cao, mật độ, license
 
 **Đường ống xăng dầu Trường Sơn**
-- kích thước: Ống nhựa, có trạm bơm nhỏ; 4 tuyến, lớn nhất đường kính 20 cm [B·en.wikipedia.org]
-- hình thái, màu: Ống và trạm bơm chôn ngầm hoặc giấu trong hang; qua suối cố định như cầu treo [B·special.nhandan.vn] · Có chỗ nối bằng ống lồ ô khoét rỗng; bể chứa là phuy 200 lít trên đỉnh đèo [B·vnexpress.net]
+- kích thước: Ống nhựa, có trạm bơm nhỏ; 4 tuyến, lớn nhất đường kính 20 cm [B·en.wikipedia.org] · Xăng bọc túi nilon 20 lít, cõng qua trọng điểm [B·special.nhandan.vn]
+- hình thái, màu: Ống và trạm bơm chôn ngầm hoặc giấu trong hang; qua suối cố định như cầu treo [B·special.nhandan.vn] · Có chỗ nối bằng ống lồ ô khoét rỗng; bể chứa là phuy 200 lít trên đỉnh đèo [B·vnexpress.net] · Ban đầu ống tôn cuộn nối chốt cao su [B·special.nhandan.vn]
 - honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Đồi Không Tên (Cha Phi)**

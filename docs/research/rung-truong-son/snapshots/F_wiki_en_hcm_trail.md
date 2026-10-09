@@ -1,0 +1,13 @@
+<!-- url: https://en.wikipedia.org/wiki/Ho_Chi_Minh_trail | fetched_at: 2026-10-09T17:19:00Z | via WebFetch verbatim-extract -->
+"The system developed into an intricate maze of 5.5-metre-wide (18 ft) dirt roads"
+"paved with gravel and corduroyed in some areas"
+"trucks could drive the entire length of the trail without emerging from the canopy"
+"cross them on crude bridges built beneath the water's surface"
+"all concealed from aerial observation by an intricate system of natural and man-made camouflage"
+"Usually located one day's march from one another"
+"Human labour, pushing heavily laden bicycles, driving oxcarts, or acting as human pack animals"
+"Initially, fuel was carried by porters, but this was inefficient and time-consuming"
+"rugged mountains 500–2,400 metres (1,500–8,000 ft) in elevation"
+"triple-canopy jungle"
+"brought heavy precipitation (70% of 3,800 mm (150 in) per year)"
+"In 1969, 433,000 tonnes of ordnance fell on Laos."

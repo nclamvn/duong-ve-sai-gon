@@ -18,8 +18,8 @@ schema:
 rollup_field: nhom
 
 universe:
-  estimate: 200
-  basis: "Sửa sau mẻ đầu (mẫu số 120 ban đầu quá thấp vì chưa tính nguồn asset). Ước lượng số thành phần cảnh đáng dựng cho M1–M2 (rừng già Trường Sơn, Đường 9): ~40 loài/nhóm thực vật, ~35 loài/nhóm động vật, ~25 yếu tố địa hình/nước/khí hậu, ~20 dấu vết chiến tranh, ~40 nguồn asset/âm thanh, ~40 địa danh và khí hậu cục bộ"
+  estimate: 260
+  basis: "Sửa hai lần (120 → 200 sau mẻ 1 vì chưa tính nguồn asset; 200 → 260 sau mẻ 2 vì thêm công sự, trọng điểm đường 12 và 20, loài bổ sung). Ước lượng số thành phần cảnh đáng dựng cho M1–M2 (rừng già Trường Sơn, Đường 9): ~40 loài/nhóm thực vật, ~35 loài/nhóm động vật, ~25 yếu tố địa hình/nước/khí hậu, ~20 dấu vết chiến tranh, ~40 nguồn asset/âm thanh, ~40 địa danh và khí hậu cục bộ"
 
 refresh_days:
   default: 3650

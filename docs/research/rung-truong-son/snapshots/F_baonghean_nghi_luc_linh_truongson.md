@@ -1,0 +1,11 @@
+<!-- url: https://baonghean.vn/en/nghi-luc-cua-nguoi-linh-truong-son-10059603.html | fetched_at: 2026-10-09T17:25:00Z | via WebFetch verbatim-extract -->
+"Our convoy traveled through the vast forests and mountains at night, often resting during the day to avoid planes."
+"set up temporary camps to cook rice, cooking while keeping an eye out for planes."
+"cooking rice without smoke, avoiding the enemy"
+"building huts and camps with just a small knife"
+"driving through the “silver tunnel” in the dark…"
+"driving in the rain of bombs and bullets"
+"Detected by the enemy aircraft, a vehicle carrying weapons in the convoy was hit and the vehicle burst into flames."
+"Other vehicles were buried under the earth, and we fainted from the pressure of the bombs."
+"the drivers crawled under the vehicle to rest and regain strength to continue."
+"the group marched for months."

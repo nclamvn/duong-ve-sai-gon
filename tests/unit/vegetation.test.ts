@@ -198,16 +198,39 @@ describe('TIP-D05 scatter (VEG-001)', () => {
     const ajv = new Ajv({ allErrors: true, strict: false });
     expect(ajv.validate(schema, level), JSON.stringify(ajv.errors)).toBe(true);
     const manifest = JSON.parse(readFileSync('content/assets/manifest.json', 'utf8')) as { assets: Array<{ id: string; license?: string; attribution?: string; files: Array<{ path: string }> }> };
-    for (const s of level.vegetation.species as Array<{ id: string; lod: number[] }>) {
-      const a = manifest.assets.find((x) => x.id === `veg_${s.id}`);
-      expect(a, `manifest veg_${s.id}`).toBeTruthy();
-      expect(a!.files.some((f) => f.path === `assets/vegetation/${s.id}.glb`)).toBe(true);
-      expect(readFileSync(`public/assets/vegetation/${s.id}.glb`).byteLength).toBeGreaterThan(1000);
+    const ruleIds = new Set<string>();
+    for (const s of level.vegetation.species as Array<{ id: string; asset?: string; lod: number[] }>) {
+      // DV-057: id luật duy nhất; GLB = asset ?? id (một loài ở hai tầng)
+      expect(ruleIds.has(s.id), `rule id trùng ${s.id}`).toBe(false);
+      ruleIds.add(s.id);
+      const g = s.asset ?? s.id;
+      const a = manifest.assets.find((x) => x.id === `veg_${g}`);
+      expect(a, `manifest veg_${g}`).toBeTruthy();
+      expect(a!.files.some((f) => f.path === `assets/vegetation/${g}.glb`)).toBe(true);
+      expect(readFileSync(`public/assets/vegetation/${g}.glb`).byteLength).toBeGreaterThan(1000);
       if (a!.license?.startsWith('CC-BY')) expect(a!.attribution ?? '').toMatch(/sketchfab|by/i);
       else expect(a!.license).toBe('CC0-1.0'); // cỏ procedural (gen-grass.mjs)
       expect(s.lod[0]!).toBeLessThan(s.lod[1]!);
       expect(s.lod[1]!).toBeLessThan(s.lod[2]!);
       expect(s.lod[2]!).toBeLessThanOrEqual(s.lod[3]!);
+    }
+  });
+
+  it('DV-057 noise.max: luật dùng chung trường noise của tầng tán chỉ mọc ở chỗ tán thưa (bù trừ với tầng tán)', () => {
+    const tile = flatTile(201, 2, 5);
+    const rect = { x: 0, z: 0, w: 400, h: 400 };
+    const canopy = scatterSpecies(tile, rect, { id: 'tree_canopy', perHa: 400, noise: { scale: 0.01, min: 0.5 }, lod: [10, 20, 30, 40] }, 1971, 64);
+    const gap = scatterSpecies(tile, rect, { id: 'grass_gap', perHa: 400, noise: { scale: 0.01, max: 0.5 }, noiseId: 'tree_canopy', lod: [10, 20, 30, 40] }, 1971, 64);
+    expect(canopy.count).toBeGreaterThan(50);
+    expect(gap.count).toBeGreaterThan(50);
+    const nseed = (hashString('tree_canopy', 1971) & 0xffff) >>> 0;
+    for (let k = 0; k < gap.count; k++) {
+      const x = gap.pos[k * 3]!;
+      const z = gap.pos[k * 3 + 2]!;
+      expect(fbm2(x * 0.01, z * 0.01, nseed)).toBeLessThanOrEqual(0.5);
+    }
+    for (let k = 0; k < canopy.count; k++) {
+      expect(fbm2(canopy.pos[k * 3]! * 0.01, canopy.pos[k * 3 + 2]! * 0.01, nseed)).toBeGreaterThanOrEqual(0.5);
     }
   });
 });

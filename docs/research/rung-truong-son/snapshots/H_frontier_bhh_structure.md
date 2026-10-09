@@ -1,0 +1,20 @@
+<!-- url: https://www.locjkt.or.id/application/docliblcjkt/upload/The%20Biodiversity%20of%20Bac%20Huong%20Hoa%20Nature%20Reserve,%20Quang%20Tri%20Province,%20Vietnam.pdf | fetched_at: 2026-10-09T17:23:00Z | via WebFetch verbatim-extract -->
+"Emergent layer: This layer is characterised by large trees which can reach a height of 30 metres,"
+"Trees in this layer exhibit diameters of 40-80 cm, although some reach up to 120 cm."
+"However, these large trees are relatively scarce and despite their size,"
+"this layer accounts for just 15-20% of the total area."
+"Canopy layer: The canopy layer is dominated by trees of 10-15 metres."
+"These trees are relatively uniform in height; they have round canopies and trunks of 30-40 cm in diameter."
+"Typical species on this layer are: Canarium subulatum, Canarium album, and trees from the family Burceraceae."
+"Mid-story: This layer is dominated by small tree species of 7-10 m in height,"
+"Understory: This layer is composed of small shrubs and saplings of taller species below five metres in height."
+"Ground flora: This layer is composed of ferns and herbaceous plants,"
+"High quality forest is relatively stable in structure and very little light reaches the forest floor."
+"There are very few lianas in secondary forest, fern diversity is low and orchids and arboreal ferns are typically absent."
+"At elevations of 700-1200 metres, degraded land is colonised by the large bamboo species"
+"Arundiunria peteloti. It reaches 3-5 metres in height and grows in dense stands."
+"Hunters regard this species as fairly common in evergreen forest in Bac Huong Hoa Nature Reserve."
+"Hunters reported the presence of this species in Bac Huong Hoa Nature Reserve"
+"Tracks, quills and a captive individual of this species indicate its presence in Bac Huong Hoa"
+
+Note: The document does not mention mosses, bananas (Musa), Wild Pig, Red Muntjac, Tamiops, Callosciurus, Atherurus, or wild banana. The muntjac, squirrel, and porcupine quotes refer to Large-antlered Muntjac, Black Giant Squirrel, and Malayan Porcupine.

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T16:17:21.546Z",
+  "generatedAt": "2026-10-09T17:41:35.568Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 160255094,
+  "totalBytes": 168831898,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -2604,6 +2604,112 @@
       ]
     },
     {
+      "id": "kloofendal_misty_morning_puresky",
+      "type": "hdri",
+      "resolution": "2k",
+      "use": "trời sáng sớm sương mù tháng 1 (M1 Trường Sơn)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/kloofendal_misty_morning_puresky",
+      "authors": [
+        "Greg Zaal"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/hdris/kloofendal_misty_morning_puresky/kloofendal_misty_morning_puresky_2k.hdr",
+          "bytes": 2958072,
+          "sha256": "a59683cd08861fb18d69ee8f3938f50ec81c6feda5381e8b8576f340d5a25bb1"
+        }
+      ]
+    },
+    {
+      "id": "forest_leaves_02",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp lá rụng nền rừng già",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/forest_leaves_02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/forest_leaves_02/forest_leaves_02_diff_1k.ktx2",
+          "bytes": 241476,
+          "sha256": "50d7c605854e57afb23deaf3b8b03360b968f41f4a322ca561b51bf23f1b99ef"
+        },
+        {
+          "path": "assets/textures/forest_leaves_02/forest_leaves_02_nor_gl_1k.ktx2",
+          "bytes": 1368582,
+          "sha256": "39c96ef963a27bb69fae32da1cf2a7c2726b098b8cff4f59e46b3acc14d1380b"
+        },
+        {
+          "path": "assets/textures/forest_leaves_02/forest_leaves_02_arm_1k.ktx2",
+          "bytes": 164696,
+          "sha256": "dfc63e8a483091d535651c8a7ba5a25529da5094f20b78ad80250bb44844384c"
+        }
+      ]
+    },
+    {
+      "id": "mossy_rock",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp đá dốc phủ rêu (triplanar)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/mossy_rock",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/mossy_rock/mossy_rock_diff_1k.ktx2",
+          "bytes": 226625,
+          "sha256": "5f0ab385a41d8d920a1f24b8711bb6d895574c7338677c69189925f2f8aa0c32"
+        },
+        {
+          "path": "assets/textures/mossy_rock/mossy_rock_nor_gl_1k.ktx2",
+          "bytes": 1329554,
+          "sha256": "eeecf7286d494c9f33a102281b6e9c6b19e43d13e474418ffaf3f930e709a893"
+        },
+        {
+          "path": "assets/textures/mossy_rock/mossy_rock_arm_1k.ktx2",
+          "bytes": 154124,
+          "sha256": "1ba3761e8c703e0ef6e8ff13211af0194ef4e4028735ff204147c06612f46046"
+        }
+      ]
+    },
+    {
+      "id": "red_laterite_soil_stones",
+      "type": "texture",
+      "resolution": "1k",
+      "use": "terrain lớp đất đỏ feralit lẫn sỏi (đường mòn, chỗ trũng)",
+      "source": "polyhaven",
+      "url": "https://polyhaven.com/a/red_laterite_soil_stones",
+      "authors": [
+        "Amal Kumar"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/textures/red_laterite_soil_stones/red_laterite_soil_stones_diff_1k.ktx2",
+          "bytes": 192862,
+          "sha256": "5f117ce2d485984fc1441f943ddd6b2537d5751a58651d5da872fced7c7d05ab"
+        },
+        {
+          "path": "assets/textures/red_laterite_soil_stones/red_laterite_soil_stones_nor_gl_1k.ktx2",
+          "bytes": 1363158,
+          "sha256": "dc35fc78b5c069322eb7afeb1f1f0280fc93c4a624ccea8aa439c79ad8fc4b8c"
+        },
+        {
+          "path": "assets/textures/red_laterite_soil_stones/red_laterite_soil_stones_arm_1k.ktx2",
+          "bytes": 141344,
+          "sha256": "a7f3690df817a741bd3fa00171b127746083b3fb40a0584146c2bfbea0c9acd1"
+        }
+      ]
+    },
+    {
       "id": "soldier_mixamo",
       "type": "character",
       "use": "lính Quân Giải phóng 1971 (dummy + bot) — Mixamo Swat Guy, Chủ nhà tải, convert scripts/convert-mixamo.mjs → bỏ gear + sơn lại atlas bằng scripts/retexture-1971.mjs (vải Tô Châu, tay trần; đầu/giày tạm — D11b)",
@@ -3123,13 +3229,13 @@
         },
         {
           "path": "assets/terrain/truong-son-a/nav.bin",
-          "bytes": 768456,
-          "sha256": "d4e85fdc901ab2d90d14f6c02adfafefe23557c0d26b2d1965c9b2144bc47548"
+          "bytes": 1211312,
+          "sha256": "7e80be116595ad50860023630b7067c1d2fa05e66532ce6b6ff37d02072c9f85"
         },
         {
           "path": "assets/terrain/truong-son-a/map.png",
-          "bytes": 834461,
-          "sha256": "b8734fb379b0a83f762e50d7a744b76b4761d8d3cbf842a37afe4c938e2a22b1"
+          "bytes": 827916,
+          "sha256": "c1a71966a0c7922ae404eb7bfdf4abdf7161f5b3a653623366bf944e836b4c05"
         }
       ],
       "sourceFiles": [

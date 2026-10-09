@@ -1,0 +1,13 @@
+<!-- url: https://baophapluat.vn/ky-tich-tu-y-chi-va-khat-vong-doc-lap-post410814.html | fetched_at: 2026-10-09T17:33:00Z | via WebFetch verbatim-extract -->
+"từ ngã ba Khe Ve vượt Cổng Trời lên Cha Lo đến tỉnh Khăm Muộn (Lào)"
+"Đường 20 khởi đầu từ Phong Nha (huyện Bố Trạch, tỉnh Quảng Bình)"
+"Đường 20 Quyết Thắng là một con đường đặc biệt thuộc hệ thống đường mòn Trường Sơn."
+"Tháng 5/1966, khi cuộc chiến vào lúc ác liệt, máy bay Mỹ phát hiện ra đường 20."
+"Trên đường 20, đèo Phu La Nhích bị máy bay Mỹ đánh phá gần 10.000 lần, trong đó khoảng 2.450 lần B52."
+"Mỗi bộ đội, TNXP chốt giữ tại đây hứng chịu bình quân khoảng… 1.900 quả bom các loại."
+"Tháng 3/1973, khi đến thăm trọng điểm Phu La Nhích"
+"Nhiều trọng điểm, bom đạn Mỹ bắn phá san phẳng thành bình địa."
+"C5 phụ trách cua chữ A."
+"Cả một vùng rừng núi trơ trốc tan hoang vì bom Mỹ chà đi xát lại."
+"tháng 5/1965, máy bay địch tăng cường tần suất đánh phá"
+"Để xẻ ngang dãy Trường Sơn hùng vĩ, mở 125km đường"

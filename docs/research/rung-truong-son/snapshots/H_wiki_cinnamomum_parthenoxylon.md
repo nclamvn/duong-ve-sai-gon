@@ -1,0 +1,11 @@
+<!-- url: https://en.wikipedia.org/wiki/Cinnamomum_parthenoxylon | fetched_at: 2026-10-09T17:48:00Z | via WebFetch verbatim-extract -->
+"Camphora parthenoxylon is an evergreen tree in the genus Camphora, 10–20 m (33–66 ft) tall."
+"Camphora parthenoxylon is an evergreen tree that can grows up to 50 metres tall."
+"with a trunk to 60 cm in diameter."
+"The tree has greenish brown bark with deep fissures that peels off in small flakes."
+"The entire tree emits a strong camphora-scent."
+"The wood and fruit emit a strong camphor scent that repels insects"
+"Its leaves are glossy green ovals 7–10 cm long with a point at the end."
+"In Vietnamese it is called re hương"
+"Indonesia, Laos, Malaysia, Nepal, Philippines, Thailand, and Vietnam"
+"In Vietnam the tree is considered critically endangered."

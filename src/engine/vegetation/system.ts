@@ -97,7 +97,7 @@ export class VegetationSystem {
     this.wind.strength.value = def.wind ?? 0.35;
     let placed = 0;
     for (const rule0 of def.species) {
-      const asset = assets[rule0.id];
+      const asset = assets[rule0.asset ?? rule0.id];
       if (!asset) continue;
       this.assetHeight.set(asset.id, asset.height);
       const rule: ScatterRule = { ...rule0, variants: asset.variants.length, lod: rule0.lod.map((d) => d * quality.lodScale) as ScatterRule['lod'] };
@@ -136,7 +136,7 @@ export class VegetationSystem {
           ),
         );
       }
-      const atlas = atlases[rule.id] ?? null;
+      const atlas = atlases[rule.asset ?? rule.id] ?? null;
       const impostor = atlas && rule.lod[3] > rule.lod[2] ? createImpostorBatch(atlas, Math.min(n, capDisc), this.wind, asset) : null;
       if (impostor) this.group.add(impostor.mesh);
       this.species.push({ placement, asset, rule, batches, cellLod: new Map(), impostor, rot, maxScale: sc[1] });

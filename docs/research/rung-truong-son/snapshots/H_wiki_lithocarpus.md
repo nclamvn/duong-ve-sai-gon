@@ -1,0 +1,11 @@
+<!-- url: https://en.wikipedia.org/wiki/Lithocarpus | fetched_at: 2026-10-09T17:48:00Z | via WebFetch verbatim-extract -->
+"Trees in this genus are commonly known as the stone oaks"
+"At current, around 340 species have been described"
+"evergreen trees with leathery, alternate leaves"
+"The seeds are often protected by a hard woody shell"
+"with a cupule enclosing the basal part of the fruit"
+"mostly restricted to Southeast Asia"
+"The species extend from the foothills of the Hengduan Mountains"
+"through Indochina and the Malayan Archipelago"
+"these trees are most dominant in the uplands (more than 1,000 m or 3,300 ft above sea level)"
+"These trees are intolerant of seasonal droughts"

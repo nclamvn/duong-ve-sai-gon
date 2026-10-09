@@ -1,0 +1,247 @@
+{
+  "id": "truong-son-1971",
+  "version": 1,
+  "source": "docs/research/rung-truong-son/claims.jsonl",
+  "notes": "Cảnh âm rừng Trường Sơn thủ tục (không file mẫu). Mỗi con số trong voice phải nằm trong refs[].supports (có claim) hoặc design[] (Thợ chọn để tổng hợp/định lượng một mô tả định tính). basis=quantitative: con số lấy thẳng từ claim; basis=qualitative: claim chỉ nói định tính, con số là định lượng của Thợ. Kiểm: node scripts/check-soundscape-refs.mjs",
+  "voices": [
+    {
+      "id": "gibbon-nomascus",
+      "kind": "gibbon",
+      "model": "bout",
+      "windows": [{ "start": { "anchor": "sunrise", "min": -12 }, "end": { "anchor": "sunrise", "min": 13 }, "weight": 1 }],
+      "windowJitterMin": 4,
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "seasonWeight": { "months": [11, 12, 1, 2], "inSeason": 1, "offSeason": 0.6 },
+      "rain": "any",
+      "rainFactor": 0.3,
+      "bout": { "meanMin": 16, "sdMin": 4, "minMin": 4, "windShorten": 0.5 },
+      "groups": [1, 3],
+      "greatCallEveryMin": [1, 2],
+      "distance": [400, 1500],
+      "elevationM": [40, 200],
+      "gainDb": -4,
+      "wet": 0.7,
+      "synth": { "greatNotes": [8, 14], "greatHz": [600, 1600], "introNotes": [3, 6], "codaNotes": [3, 6], "interludeEveryMin": [0.2, 0.35] },
+      "refs": [
+        { "entity": "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)", "field": "hanh_vi_am_thanh", "basis": "quantitative", "supports": ["windows[0].start.min"], "note": "con đực đầu tiên hót trung bình 12 phút trước mặt trời mọc" },
+        { "entity": "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)", "field": "hanh_vi_am_thanh", "basis": "quantitative", "supports": ["windows[0].end.min"], "note": "mọi tiếng hót tắt trung bình 13 phút sau mặt trời mọc" },
+        { "entity": "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)", "field": "hanh_vi_am_thanh", "basis": "quantitative", "supports": ["bout.meanMin"], "note": "hồi hót đôi trung bình 16 phút" },
+        { "entity": "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["bout.windShorten"], "note": "ngắn lại khi có gió; mức rút 50 % ở gió 1,0 là định lượng của Thợ" },
+        { "entity": "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["seasonWeight", "rainFactor"], "note": "hót nhiều hơn mùa khô lạnh, nhiều hơn ngày không mưa; tháng mùa khô lạnh và hệ số là định lượng của Thợ" },
+        { "entity": "Vượn đen má vàng phía nam", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["greatCallEveryMin", "synth"], "note": "cấu trúc: nốt mở đầu của cả hai, great call con cái, con đực chèn coda, hót xen tới great call kế; nhịp 1–2 phút và tần số là thiết kế (TIP)" }
+      ],
+      "design": ["windows[0].weight", "windowJitterMin", "months", "seasonWeight", "rainFactor", "bout.sdMin", "bout.minMin", "bout.windShorten", "groups", "greatCallEveryMin", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "hornbill-duet",
+      "kind": "hornbill",
+      "variant": "duet",
+      "model": "poisson",
+      "windows": [
+        { "start": { "anchor": "sunrise", "min": 15 }, "end": { "anchor": "sunrise", "min": 240 }, "weight": 1 },
+        { "start": { "anchor": "sunset", "min": -150 }, "end": { "anchor": "sunset", "min": -20 }, "weight": 0.6 }
+      ],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "rainFactor": 0.5,
+      "ratePerHour": 3,
+      "distance": [200, 900],
+      "elevationM": [20, 60],
+      "gainDb": -8,
+      "wet": 0.5,
+      "synth": { "count": [6, 12], "kokPerSecond": 1 },
+      "refs": [
+        { "entity": "Hồng hoàng", "field": "hanh_vi_am_thanh", "basis": "quantitative", "supports": ["synth.kokPerSecond"], "note": "hót đôi: con đực kok khoảng 1 lần/giây, con cái nhập vào, thành hỗn hợp gầm và sủa" }
+      ],
+      "design": ["windows", "months", "rainFactor", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth.count"]
+    },
+    {
+      "id": "hornbill-wings",
+      "kind": "hornbill",
+      "variant": "wingbeat",
+      "model": "poisson",
+      "windows": [{ "start": { "anchor": "sunrise", "min": 60 }, "end": { "anchor": "sunset", "min": -60 }, "weight": 1 }],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "dry",
+      "dryMax": 0.3,
+      "ratePerHour": 2,
+      "distance": [60, 400],
+      "elevationM": [30, 80],
+      "gainDb": -10,
+      "wet": 0.3,
+      "synth": { "count": [8, 16], "puffGapS": [0.45, 0.3] },
+      "refs": [
+        { "entity": "Hồng hoàng", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["distance", "synth.puffGapS"], "note": "vỗ cánh nặng, nghe từ xa, như đầu máy hơi nước khởi động (nhịp phì nhanh dần là diễn giải của Thợ)" }
+      ],
+      "design": ["windows", "months", "dryMax", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "coucal",
+      "kind": "coucal",
+      "model": "poisson",
+      "windows": [
+        { "start": { "anchor": "sunrise", "min": 0 }, "end": { "anchor": "sunrise", "min": 180 }, "weight": 1 },
+        { "start": { "anchor": "sunset", "min": -150 }, "end": { "anchor": "sunset", "min": 10 }, "weight": 1 }
+      ],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "rainFactor": 0.6,
+      "ratePerHour": 10,
+      "distance": [40, 300],
+      "elevationM": [0, 4],
+      "gainDb": -8,
+      "wet": 0.35,
+      "synth": { "count": [6, 12], "coopHz": [300, 450] },
+      "refs": [
+        { "entity": "Bìm bịp lớn", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["windows", "synth"], "note": "tiếng coop-coop trầm vang lặp lại; hoạt động sáng ấm và chiều muộn; tần số 300–450 Hz là thiết kế (TIP)" }
+      ],
+      "design": ["windows", "months", "rainFactor", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "junglefowl-crow",
+      "kind": "junglefowl",
+      "variant": "crow",
+      "model": "poisson",
+      "windows": [{ "start": { "anchor": "sunrise", "min": -45 }, "end": { "anchor": "sunrise", "min": 60 }, "weight": 1 }],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "rainFactor": 0.5,
+      "ratePerHour": 15,
+      "distance": [60, 400],
+      "elevationM": [0, 3],
+      "gainDb": -9,
+      "wet": 0.3,
+      "synth": { "count": [1, 2] },
+      "refs": [
+        { "entity": "Gà rừng", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["synth"], "note": "gáy ngắn hơn gà nhà, tắt đột ngột ở cuối" }
+      ],
+      "design": ["windows", "months", "rainFactor", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "junglefowl-roost",
+      "kind": "junglefowl",
+      "variant": "roost",
+      "model": "poisson",
+      "windows": [{ "start": { "anchor": "sunset", "min": -20 }, "end": { "anchor": "sunset", "min": 10 }, "weight": 1 }],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "rainFactor": 0.7,
+      "ratePerHour": 6,
+      "distance": [30, 200],
+      "elevationM": [2, 12],
+      "gainDb": -12,
+      "wet": 0.2,
+      "synth": { "count": [6, 14] },
+      "refs": [
+        { "entity": "Gà rừng", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["windows", "elevationM"], "note": "chỉ bay lên cây ngủ lúc hoàng hôn" }
+      ],
+      "design": ["windows", "months", "rainFactor", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "gecko",
+      "kind": "gecko",
+      "model": "poisson",
+      "windows": [
+        { "start": { "anchor": "sunset", "min": -10 }, "end": { "anchor": "sunset", "min": 120 }, "weight": 1 },
+        { "start": { "anchor": "sunset", "min": 120 }, "end": { "anchor": "sunrise", "min": -90 }, "weight": 0.2 },
+        { "start": { "anchor": "sunrise", "min": -90 }, "end": { "anchor": "sunrise", "min": -10 }, "weight": 0.5 }
+      ],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "rainFactor": 0.7,
+      "ratePerHour": 6,
+      "distance": [8, 80],
+      "elevationM": [1, 10],
+      "gainDb": -6,
+      "wet": 0.2,
+      "synth": { "count": [4, 8], "clicks": [6, 10] },
+      "refs": [
+        { "entity": "Tắc kè", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["windows", "synth"], "note": "tiếng đực to-ke mở đầu bằng tràng lách cách nhanh, trầm; nhiều nhất chạng vạng, đỉnh thứ hai rạng sáng" }
+      ],
+      "design": ["windows", "months", "rainFactor", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "frogs-rain",
+      "kind": "frogs",
+      "model": "poisson",
+      "windows": [{ "start": { "anchor": "sunset", "min": 0 }, "end": { "anchor": "sunrise", "min": 0 }, "weight": 1 }],
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "wet",
+      "rainMin": 0.15,
+      "ratePerHour": 240,
+      "distance": [10, 150],
+      "elevationM": [0, 1],
+      "gainDb": -10,
+      "wet": 0.25,
+      "synth": { "count": [4, 12], "croakHz": [150, 450] },
+      "refs": [
+        { "entity": "Ếch nhái (nhiều loài)", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["rainMin", "ratePerHour", "windows"], "note": "khi mưa, ếch nhái như bản hợp xướng (nhân chứng 1967–69)" }
+      ],
+      "design": ["windows", "months", "rainMin", "ratePerHour", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "muntjac-alarm",
+      "kind": "muntjac",
+      "model": "alarm",
+      "alarmOnly": true,
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "distance": [30, 150],
+      "gainDb": -4,
+      "wet": 0.3,
+      "synth": { "count": [1, 3] },
+      "refs": [
+        { "entity": "Mang đỏ phương bắc", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["synth"], "note": "tiếng kêu như tiếng sủa, dùng báo động" }
+      ],
+      "design": ["months", "distance", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "douc-alarm",
+      "kind": "douc",
+      "model": "alarm",
+      "alarmOnly": true,
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "any",
+      "distance": [20, 120],
+      "elevationM": [15, 35],
+      "gainDb": -5,
+      "wet": 0.3,
+      "synth": { "count": [2, 4], "crackleS": 1.5 },
+      "refs": [
+        { "entity": "Voọc chà vá chân nâu", "field": "hanh_vi_am_thanh", "basis": "qualitative", "supports": ["synth"], "note": "giật mình thì sủa to và đập cành" }
+      ],
+      "design": ["months", "distance", "elevationM", "gainDb", "wet", "synth"]
+    },
+    {
+      "id": "cicada-summer",
+      "kind": "cicada",
+      "model": "bed",
+      "windows": [{ "start": { "anchor": "local", "min": 600 }, "end": { "anchor": "local", "min": 1080 }, "weight": 1, "rampMin": 120 }],
+      "months": [4, 5, 6, 7, 8],
+      "rain": "dry",
+      "dryMax": 0.3,
+      "gainDb": -16,
+      "sourceDbSpl": 120,
+      "synth": { "bandHz": 4800, "buzzHz": 28 },
+      "refs": [
+        { "entity": "Ve sầu", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["months", "windows"], "note": "kêu mạnh nhất giờ nóng nhất ngày hè; tháng 1 không có ve (registry mục 5)" },
+        { "entity": "Ve sầu", "field": "hanh_vi_am_thanh", "basis": "quantitative", "supports": ["sourceDbSpl"], "note": "tới 120 dB SPL; gainDb trong mix là thiết kế, không phải SPL" }
+      ],
+      "design": ["months", "windows", "dryMax", "gainDb", "synth"]
+    },
+    {
+      "id": "drizzle-canopy",
+      "kind": "drizzle",
+      "model": "bed",
+      "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "rain": "wet",
+      "rainMin": 0,
+      "gainDb": -12,
+      "synth": { "hissHz": [500, 7000], "patterHz": 1800 },
+      "refs": [
+        { "entity": "Mưa phùn", "field": "mua_thoi_tiet", "basis": "qualitative", "supports": ["rainMin"], "note": "mưa phùn và sương lăn từ núi xuống ở Khe Sanh" }
+      ],
+      "design": ["months", "rainMin", "gainDb", "synth"]
+    }
+  ]
+}

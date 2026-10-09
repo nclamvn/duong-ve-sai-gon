@@ -1,0 +1,10 @@
+<!-- url: https://en.wikipedia.org/wiki/Monocled_cobra | fetched_at: 2026-10-09T17:05:00Z | via WebFetch verbatim-extract -->
+"Adult monocled cobras reach a length of 1.35 to 1.5 m (4.4 to 4.9 ft) with a tail length of 23 cm (9.1 in)."
+"The dorsal surface may be yellow, brown, gray, or blackish, with or without ragged or clearly defined cross bands."
+"It is characterized by a distinctive circular or "monocle"-shaped marking on the hood"
+"The monocled cobra has an O-shaped, or monocellate hood pattern"
+"The monocled cobra is terrestrial and most active at dusk."
+"usually hisses loudly and strikes in an attempt to bite and defend itself."
+"It occupies a wide range of habitats, including forests, agricultural land, and areas near human settlements."
+"The monocled cobra is distributed from India in the west through to China, Vietnam and Cambodia."
+"native to West Bengal, Bangladesh, Bhutan, Myanmar, Laos, Nepal, and Thailand."

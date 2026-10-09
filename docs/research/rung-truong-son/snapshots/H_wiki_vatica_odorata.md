@@ -1,0 +1,10 @@
+<!-- url: https://en.wikipedia.org/wiki/Vatica_odorata | fetched_at: 2026-10-09T17:50:00Z | via WebFetch verbatim-extract -->
+"Vatica odorata grows as a canopy tree up to 40 metres (130 ft) tall"
+"with a trunk diameter of up to 60 cm (24 in)"
+"The leathery leaves are"
+"ovate to elliptic and measure up to 16 cm (6 in) long."
+"The specific epithet odorata means 'scented', referring to the flowers."
+"Vatica odorata is native to an area from northeastern India to Indochina and south to Malesia"
+"Vatica odorata subsp. brevipetiolata P.H.Hô – Vietnam"
+"Its habitat is mixed dipterocarp forests, to elevations of 1,900 m (6,200 ft)."
+"Conservation status: Least Concern (IUCN 3.1)"
