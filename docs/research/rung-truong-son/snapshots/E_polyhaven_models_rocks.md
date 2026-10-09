@@ -1,0 +1,10 @@
+<!-- url: https://api.polyhaven.com/assets?type=models&categories=rocks | fetched_at: 2026-10-09T16:47:20Z | via WebFetch verbatim-extract (subset of lines kept verbatim; coastal/lunar/karoo lines omitted) -->
+boulder_01 | Boulder 01 | ["rocks","boulder","lichen","landscape","rock","geology","formation","weathered","rock face","cliff"]
+mountainside | Mountainside | ["cliff","rock face","formation","landscape","geology","rock","weathered","lichen","rocky surface","boulder","terrain","mountain"]
+rock_07 | Rock 07 | ["rock","stones","landscape","geology","formation","weathered","boulder"]
+rock_09 | Rock 09 | ["rock","landscape","geology","formation","weathered","stone","dirt","boulder","terrain"]
+rock_face_01 | Rock Face 01 | ["cliff","landscape","rock face","rock","formation","geology","weathered","lichen","rugged","outdoors","rocky surface","environment","natural"]
+rock_face_02 | Rock Face 02 | ["cliff","landscape","rock face","rock","formation","geology","rocks","weathered","lichen","rugged","outdoors","natural","environment","rocky surface"]
+rock_moss_set_01 | Rock Moss Set 01 | ["rocks","outdoor","stones","pebbles","rock","dirt"]
+rock_moss_set_02 | Rock Moss Set 02 | ["rocks","outdoor","stones","pebbles","rock","dirt"]
+stone_01 | Stone 01 | ["rock","stone","pebbles","dirt","terrain","gravel","quartz"]

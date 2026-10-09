@@ -1,0 +1,11 @@
+<!-- url: https://en.wikipedia.org/wiki/Thạch_Hãn_River | fetched_at: 2026-10-09T16:49:00Z | via WebFetch verbatim-extract -->
+"It rises in the Annamite Mountains, and enters the South China Sea east of Đông Hà."
+"Length: 170 km (110 mi)"
+"It is approximately 270 kilometres (170 mi) long, with two main tributaries and with several branches to the sea."
+"The Thạch Hãn river is formed by the confluence of two rivers which rise in the western highlands of Vietnam;"
+"the Đakrông, which flows from the south-west through"
+"and the Rào Quán, which rises in the mountains north of Khe Sanh."
+"In the plains the river is joined by three main left bank tributaries;"
+"The river enters the sea at Cửa Việt, east of Đông Hà city."
+"The Thạch Hãn is also connected by distributaries to the Bến Hải River to the north"
+"the Ô Lâu to the south, which reaches the sea at the Tam Giang lagoon."

@@ -1,0 +1,2174 @@
+════════════════════════════════════════════════════════════════
+REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới Trường Sơn (1971, cho game Đường về Sài Gòn)
+════════════════════════════════════════════════════════════════
+
+▸ Artlist Vietnam Ambiences (Echoto Sound)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Rừng có vượn hót và ve sầu kêu; rừng chạng vạng có chim và ve [✓A]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Giấy phép Artlist Pro: game/app cần giấy phép doanh nghiệp riêng [✓A]
+    ghi_chu_game    : —
+
+▸ BOOM Library Tropical Jungle  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Có khỉ rú (howler monkey, loài châu Mỹ): không đúng Đông Nam Á [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Bách xanh đá  (cay_go)
+    ten_khoa_hoc    : Calocedrus rupestris [✓A]
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Khoảng 2.500 cây trên 50 km² đá vôi Phong Nha, tuổi 500–600 năm [✓A]
+    ghi_chu_game    : —
+
+▸ Bãi giấu xe  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Tài xế vội vào bãi giấu xe trước bình minh [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Khoảng 100 binh trạm, cách nhau một ngày đường, có hầm kho lớn [✓A]
+    ghi_chu_game    : —
+
+▸ Bãi lầy Khe Ve  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Trời mưa cả vùng Khe Ve thành bãi lầy, phải lội bùn [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Bìm bịp lớn  (chim)
+    ten_khoa_hoc    : —
+    nhom            : chim [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: đầu và thân đen ánh tím, lưng và cánh nâu hạt dẻ, mắt đỏ hồng ngọc; dài 48 cm [✓B]
+    hanh_vi_am_thanh: DISPUTED{ bay yếu, leo trèo trong bụi hoặc đi bộ dưới đất; hoạt động sáng ấm và chiều muộn [B·en.wikipedia.org] | tiếng 'búp-búp-búp' trầm vang lặp lại, đôi khi song ca [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Bản Đông (A Lưới, Lào)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : Mục tiêu A Lưới, tên địa lý Bản Đông, trên Đường 9 ở Lào [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Cánh quân thiết giáp dừng khoảng 5 km tây Bản Đông [✓B]
+    ghi_chu_game    : —
+
+▸ Bến lội Ban Laboy  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓C]
+    vung_phan_bo    : Lối vào Lào qua đèo Ban Karai, tới bến lội Ban Laboy [✓C]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Nơi bị ném bom nhiều nhất thế giới tính theo đầu người (nguồn blog) [✓C]
+    ghi_chu_game    : —
+
+▸ Bếp Hoàng Cầm  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : Dùng dọc đường Trường Sơn: 'ngày không khói, đêm không lửa' [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Bếp đào vào chân đồi, rãnh khói tỏa ra như vòi mực [B·vietnamnews.vn] | Hố sâu có nắp, ống tre dài ngầm dưới đất tản khói [B·en.wikipedia.org] | Khói thoát lên trông như sương sớm rồi tan nhanh, là sát mặt đất [B·vietnamnews.vn] | Rãnh khói phủ cành cây và đất ẩm [B·vietnamnews.vn] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Chi Sao (Hopea)  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Kẻ Gỗ: trên 300 m hệ cây gỗ ưu thế là Hopea [✓A]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Một loài Hopea cùng Castanopsis hystrix và Madhuca pasquieri ưu thế tán trên [✓B]
+    ghi_chu_game    : —
+
+▸ Cháy rừng do napalm và bom cháy  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Nền đất quanh cứ điểm trên đồi lóe lửa napalm từ Phantom bổ nhào xuống rừng (Nam Lào 1971) [B·warfarehistorynetwork.com] | Phun rụng lá cho khô, rồi ném napalm đốt lớp lá rụng [A·openvault.wgbh.org] }
+    hanh_vi_am_thanh: Không khí nồng mùi cỏ cháy, mùi thuốc súng (Đồi Không Tên, Đường 9) [✓A]
+    mua_thoi_tiet   : DISPUTED{ Mùa khô, lửa cũng không xuyên vào loại rừng như thế [A·openvault.wgbh.org] | Rừng ẩm nhiệt đới không bắt lửa thành 'bão lửa' dù đã phun khô và rải bom cháy M35 bằng B-52 (Pink Rose 1967) [C·globalsecurity.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Chít (Thysanolaena latifolia)  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : Đồi dốc, bờ cát sông, bờ khe ẩm [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Mọc thành bụi; bông chín xanh nhạt hoặc đỏ, thu hái tháng 1–3 [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Chò chỉ  (cay_go)
+    ten_khoa_hoc    : Parashorea chinensis [✓B]
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : Nam Trung Quốc, bắc Lào và Việt Nam [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : Cao 40–72 m [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Chò nâu  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Rừng núi thường xanh đến nửa rụng lá 800–1.500 m, xuống tới 100 m [✓A]
+    kich_thuoc      : Cao tới 48 m; thân tròn thẳng không cành 15–20 m, đường kính tới 150 cm [✓A]
+    hinh_thai_mau_sac: Vỏ xám, hơi nứt; lá to 16–28 cm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Chò đen  (cay_go)
+    ten_khoa_hoc    : Parashorea stellata [✓A]
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : Rừng kín thường xanh núi thấp A Lưới, tuyến 500–910 m [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : A Lưới (A Roàng): mật độ 89 cây/ha, IVI cao nhất 29,6% [✓A]
+    ghi_chu_game    : —
+
+▸ Cua chữ A  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : Thuộc Đường 20 Quyết Thắng, cùng cụm với ngầm Ta Lê, đèo Phu La Nhích [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Ban đêm mịt mù pháo sáng [B·sggp.org.vn] | Khúc cua biến mất, còn lại hàng trăm hố bom và cồn đất đỏ [C·nguoiquansat.vn] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Cạp nong  (bo_sat_luong_cu)
+    ten_khoa_hoc    : —
+    nhom            : bo_sat_luong_cu [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: khoanh đen và vàng xen kẽ bao quanh thân; dài tối đa trên 2 m [✓B]
+    hanh_vi_am_thanh: chủ yếu ban đêm; ngày lờ đờ, giấu đầu dưới khoanh thân [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Cầu cáp tháo lắp  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Trụ sẵn hai bờ, chạng vạng căng 4 dây cáp, bắc gỗ, sáng tháo cất [✓B]
+    hanh_vi_am_thanh: Xe qua cầu lắc lư, có xe trượt rơi xuống sông [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Đường 12 (Khe Ve – đèo Mụ Giạ) dài 45 km có hơn 10 cầu; có cả cầu giả nhử bom [✓B]
+    ghi_chu_game    : —
+
+▸ Cầu ngầm (cầu dưới mặt nước)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : Bến lội Ban Laboy có bến phụ thượng nguồn với cầu ngầm [✓C]
+    dai_cao_do      : —
+    kich_thuoc      : Mặt cầu nằm dưới mặt nước vài cm ('cầu chìm', 'cầu tàng hình') [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Chuyển từ cầu nổi sang cầu dưới mặt nước [B·vnexpress.net] | Cầu thô sơ dựng dưới mặt nước [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Cọ (Livistona saribus)  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cọ lá quạt dưới tán ở khoảng trống nhỏ, cao tới 20 m [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Rừng bị khai thác: cọ tăng ưu thế lên tầng trên, xuất hiện Knema erratica [✓B]
+    ghi_chu_game    : —
+
+▸ Cỏ tranh  (tre_nua_co)
+    ten_khoa_hoc    : Imperata cylindrica [✓B]
+    nhom            : tre_nua_co [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Thân 0,1–1,2 m, có khi 3 m; lá dài 10–180 cm [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Bông có túm lông tơ trắng dài tới 2,5 cm [A·uses.plantnet-project.org] | Lá già mép cứng sắc cứa tay, gân giữa trắng [A·uses.plantnet-project.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Lửa đốt thúc đẩy thành thảm gần như thuần loài [✓A]
+    ghi_chu_game    : —
+
+▸ Cứ điểm 31 (Hill 31)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : Bãi đáp 31 cách Bản Đông khoảng 8 km về phía bắc [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đồi dốc đến mức xe tăng không tấn công lên được [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Cứ điểm 543  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Quả đồi cao rộng hàng mẫu, đất đá cày xới; địch bắn ra từ hầm, thông hào [✓A]
+    hanh_vi_am_thanh: Máy bay địch gầm thét trên đầu như chuồn chuồn mùa hè [✓A]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Dây leo thân gỗ  (day_leo_bieu_sinh)
+    ten_khoa_hoc    : —
+    nhom            : day_leo_bieu_sinh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Nhiều dây leo lớn dài tới 30 m, đường kính 10 cm [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Rừng thứ sinh rất ít dây leo, không có phong lan và dương xỉ thân gỗ [✓A]
+    ghi_chu_game    : —
+
+▸ Dãy Trường Sơn  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓B]
+    vung_phan_bo    : Phần lớn đỉnh nằm phía Lào [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Sườn tây (Lào) thoải hơn, tạo cao nguyên rồi xuống sông Mê Kông [B·en.wikipedia.org] | Sườn đông dốc đứng lên từ đồng bằng, nhiều sông ngắn [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Dúi mốc lớn  (gam_nhan)
+    ten_khoa_hoc    : —
+    nhom            : gam_nhan [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: lông lưng nâu xám hoặc nâu sẫm; hang một lối vào đánh dấu bằng ụ đất [✓B]
+    hanh_vi_am_thanh: ra ngoài ban đêm kiếm thực vật; sống bụi tre, ven rừng [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Dương xỉ thân gỗ (chi Cyathea)  (cay_bui_tham_tuoi)
+    ten_khoa_hoc    : Cyathea; tên Việt ráng tiên tọa [✓A]
+    nhom            : cay_bui_tham_tuoi [✓A]
+    vung_phan_bo    : Dưới tán rừng ẩm, khe suối; vài loài ưa nơi trống, bìa rừng ven đường [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Thân cao dưới 5 cm đến 15 (20) m, đường kính 2–24 cm (cấp chi) [✓A]
+    hinh_thai_mau_sac: Lá xếp hoa thị trên đỉnh thân; cuống to, nhiều gai, gốc tím có vảy [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Dương xỉ tổ chim  (day_leo_bieu_sinh)
+    ten_khoa_hoc    : Asplenium nidus [✓A]
+    nhom            : day_leo_bieu_sinh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Lá đơn dài 90–125 cm, rộng 8,5–15 cm, xanh bóng [✓A]
+    hinh_thai_mau_sac: Lá xếp hoa thị như cái tổ hứng nước mưa và rác lá [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Echoto Jungle Adventure Vietnam  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: DISPUTED{ Ve sầu tần số cao, mic gần, tách riêng [B·asoundeffect.com] | Vượn đực hót, góc gần, nền rừng nhẹ [B·asoundeffect.com] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Evermotion Standard Licence  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Cho phép dùng để tạo trò chơi máy tính và phần mềm [A·evermotion.org] | Cấm đặt file chứa sản phẩm tách rời được lên website/máy chủ để bên thứ ba lấy: rủi ro với game web tải GLB [A·evermotion.org] }
+    ghi_chu_game    : —
+
+▸ Freesound  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Noncommercial: không được kiếm tiền từ sản phẩm tạo ra, cấm ship trong game thương mại [A·freesound.org] | Âm CC0 không có hạn chế [A·freesound.org] }
+    ghi_chu_game    : —
+
+▸ Giàn ngụy trang và đường kín  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ 'Đường kín': trồng cây, kết tán lá che kín cung đường [B·nhandan.vn] | Giàn tre công phu dọc đường để che dấu vết [B·historynet.com] }
+    hanh_vi_am_thanh: Đội làm đường lùa đàn gia súc đi lại trên đường để xoá vết [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Đến 1973 xe chạy suốt tuyến dưới tán rừng, chỉ ra khỏi tán khi lội suối [✓B]
+    ghi_chu_game    : —
+
+▸ Gió Tây khô nóng (gió Lào)  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Tháng 6–7 gió phơn làm độ ẩm có lúc dưới 30% [A·www.locjkt.or.id] | Tháng 6–7 nhiệt độ trung bình 29°C, thường lên 39°C khi gió phơn thổi [A·www.locjkt.or.id] | Ở Bắc Hướng Hóa thổi tháng 3–6 [A·www.locjkt.or.id] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Giấy phép BOOM Library  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Một người dùng duy nhất, không mở rộng cho công ty [A·boomlibrary.com] | Phải kết hợp với yếu tố khác; cấm dùng 'trần' hay như sản phẩm rời [A·boomlibrary.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép Fab Standard License  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Ngưỡng bậc giá: doanh thu gộp 100.000 USD trong 12 tháng gần nhất [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Bậc Reference-Only (UEFN) không cấp file định dạng nguồn, không hợp cho three.js [A·fab.com] | Cấm bán lại hoặc phân phối lại asset dưới dạng rời (standalone) [A·fab.com] | Dùng được với mọi công cụ tương thích, không giới hạn ở Unreal Engine [A·fab.com] | Epic đang loại bỏ dần giấy phép UE Marketplace; sản phẩm mới không phát hành theo giấy phép đó [A·dev.epicgames.com] | Được phân phối thương mại dự án có tích hợp asset Fab [A·fab.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép Poly Haven CC0  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : CC0: dùng mọi mục đích kể cả thương mại, không bắt buộc ghi công [✓A]
+    ghi_chu_game    : —
+
+▸ Giấy phép ambientCG CC0  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Được đưa file thô vào dự án, ví dụ trò chơi điện tử; không bắt buộc ghi công [✓A]
+    ghi_chu_game    : —
+
+▸ Giờ mặt trời mọc lặn Huế tháng 1–3  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓C]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Tháng 1: mọc 6:22, lặn 17:37, ngày dài 11h15 (giờ UTC+7 hiện nay) [C·solarwatch.app] | Tháng 2: mọc 6:17, lặn 17:53, ngày dài 11h36 [C·solarwatch.app] | Tháng 3: mọc 5:59, lặn 18:00, ngày dài 12h01 [C·solarwatch.app] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gà lôi lam mào trắng  (chim)
+    ten_khoa_hoc    : Lophura edwardsi [✓A]
+    nhom            : chim [✓A]
+    vung_phan_bo    : đặc hữu miền Trung VN: Hà Tĩnh, Quảng Bình, Quảng Trị, Thừa Thiên Huế [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: trống xanh-đen có mào; mái nâu xỉn; dài 58–65 cm [✓B]
+    hanh_vi_am_thanh: tiếng báo động trầm khàn 'uk uk uk uk uk'; hay nấp ở tầng thấp [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ IUCN: cực kỳ nguy cấp, có thể đã tuyệt chủng ngoài tự nhiên; không thấy ngoài tự nhiên từ 2000 [B·en.wikipedia.org] | tìm lại năm 1996 ở Đakrông và Phong Điền [A·www.thiennhienviet.org.vn] }
+    ghi_chu_game    : —
+
+▸ Gà rừng  (chim)
+    ten_khoa_hoc    : —
+    nhom            : chim [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: trống có lông cổ dài vàng óng; đuôi 14 lông ánh xanh-tím-lục [✓B]
+    hanh_vi_am_thanh: DISPUTED{ tiếng gáy ngắn hơn gà nhà, tắt đột ngột ở cuối [B·en.wikipedia.org] | đàn 1–vài trống với nhiều mái; chỉ bay lên cây ngủ lúc hoàng hôn; ưa ven rừng [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab FANTASTIC Lost Jungle (Tidal Flask Studios)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 49,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab Jungle Pack (A. zoOmika)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Cây, bụi, dương xỉ, dây leo, đá, tán lá cho rừng rậm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab MW Tropical Rainforest Biome (MAWI United)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 324,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab POLYGON Tropical Jungle (Synty Studios)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Low-poly phong cách: cọ, cây rừng, bụi, dương xỉ, hoa, cỏ, đá, vách, thác [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab Rain Forest Pack (Kaizen Digital Interactive)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá từ 79,99 USD [A·fab.com] | Hơn 120 asset, bản đồ mẫu 1 km2, texture tới 4K, Nanite UE 5.1+ [A·fab.com] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab Tropical Jungle (Dokyo)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Nguồn thực vật từ Costa Rica (Trung Mỹ), không phải Đông Nam Á [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab Tropical Jungle Pack (Kaizen Digital Interactive)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 49,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Sonniss GDC Game Audio Bundle  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Không được phân phối dưới dạng file rời hay trong thư viện âm thanh; cấm huấn luyện AI/ML [A·sonniss.com] | Royalty-free, dùng thương mại, không bắt buộc ghi công, vĩnh viễn [A·sonniss.com] }
+    ghi_chu_game    : —
+
+▸ Gụ (chi Sindora)  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cao 20–35 (46) m, đường kính tới 100 (180) cm (mô tả cấp chi) [✓A]
+    hinh_thai_mau_sac: Vỏ nhẵn mỏng, xám tía sẫm, lốm đốm xanh/nâu/vàng; rụng lá ngắn [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Hố bom  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Một hố bom ở Lào ngày nay dùng làm ao: rộng khoảng 20 ft (≈6 m), sâu 3 ft (≈0,9 m) [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Hố bom ở căn cứ Tà Bạt sau chiến tranh bị cây bụi rậm phủ [A·hatfieldgroup.com] | Hố bom ở trọng điểm được san lấp và biến thành hố nghi binh ngụy trang [B·vnexpress.net] | Nơi mực nước ngầm nông dưới 5 ft, hố bom đầy nước rất nhanh thành ao [B·cia.gov] | Đường 9 phía Lào bị hố bom và mương cắt đứt nhiều chỗ (2/1971) [A·apps.dtic.mil] | Đường Trường Sơn bị bom cày xới, hố bom chi chít, đồi bị san phẳng [B·sggp.org.vn] | Đường mòn bị bom làm lỗ chỗ, mưa mùa làm hằn rãnh [B·airandspaceforces.com] | Đất trong hố bom sẫm và ẩm hơn bên ngoài, ít gió hơn [B·undark.org] }
+    hanh_vi_am_thanh: DISPUTED{ Ao hố bom thành nơi muỗi sốt rét sinh sản [B·cia.gov] | Xe phải dừng hàng loạt sau chỗ sạt lở hoặc hố bom [A·apps.dtic.mil] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Hơn 21 triệu hố bom, phủ khoảng 345.000 acre (con số báo chí 1972) [B·cia.gov] | Khoảng 26 triệu hố bom trên cảnh quan [B·undark.org] | Ước tính 10–15 triệu hố bom lớn ở miền Nam Việt Nam [A·digitalrepository.unm.edu] }
+    ghi_chu_game    : —
+
+▸ Hố bom B-52  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓C]
+    vung_phan_bo    : Có hố bom B-52 ở Quảng Trị từ 8/1965 [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Hố bom lớn ở Đông Dương mỗi hố khoảng 30 ft (≈9 m) đường kính, sâu hơn 5 ft (≈1,5 m) [B·cia.gov] | Hố mỗi quả bom khoảng 30 ft (≈9 m) rộng, 15 ft (≈4,5 m) sâu (lời kể phi công B-52, 1965) [C·war-stories.com] }
+    hinh_thai_mau_sac: DISPUTED{ Hố bom bị che bởi cỏ rậm và tre, khó thấy từ trên cao [B·warfarehistorynetwork.com] | Ảnh gốc Quảng Trị 8/1965: hàng bộ đội đứng quanh miệng một hố bom lớn, núi phía sau [A·archives-spec.unl.edu] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Cả vùng Đường 9 bên Lào đầy hố bom lớn bị cỏ và tre che khuất, trinh sát trên không không thấy [✓B]
+    ghi_chu_game    : —
+
+▸ Hồng hoàng  (chim)
+    ten_khoa_hoc    : —
+    nhom            : chim [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : dài 95–130 cm, sải cánh 152 cm; đực ~3 kg [✓B]
+    hinh_thai_mau_sac: mũ sừng vàng tươi và đen trên mỏ đồ sộ, nhìn trước hình chữ U [✓B]
+    hanh_vi_am_thanh: DISPUTED{ hót đôi: con đực 'kok' khoảng 1 lần/giây, con cái nhập vào, thành hỗn hợp gầm và sủa [B·en.wikipedia.org] | vỗ cánh nặng, nghe từ xa, như đầu máy hơi nước khởi động [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Hổ  (thu_lon)
+    ten_khoa_hoc    : —
+    nhom            : thu_lon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Phong Nha–Kẻ Bàng hiện không còn ý nghĩa bảo tồn hổ [A·www.thiennhienviet.org.vn] | lời đồn bộ đội 1967–69: núi Răng Cưa nhiều hang đá, cọp sống thành đàn (truyền miệng, chưa kiểm) [B·baovanhoa.vn] }
+    ghi_chu_game    : —
+
+▸ Hổ mang chúa  (bo_sat_luong_cu)
+    ten_khoa_hoc    : —
+    nhom            : bo_sat_luong_cu [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : trưởng thành 3,18–4 m; dài nhất ghi nhận 5,85 m [✓B]
+    hinh_thai_mau_sac: da xanh ô-liu, khoang đen-trắng hội về đầu; con non đen vạch chữ V trắng/vàng [✓B]
+    hanh_vi_am_thanh: DISPUTED{ hoảng thì dựng nửa thân, bạnh mang, phì to; săn ban ngày [B·en.wikipedia.org] | tiếng 'gầm' trầm, tần số trội ~600 Hz, dưới 2.500 Hz [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khe Sanh (căn cứ, 1971)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Độ cao 490 m (1.608 ft) trên cao nguyên Xóm Chàm [✓B]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Nền đất sét laterit hoặc đá phong hoá sắt/nhôm, có lộ đá bazan [B·en.wikipedia.org] | Trước chiến tranh quanh Khe Sanh là rừng mưa ba tầng tán dày; gần như không còn [B·undark.org] | Đầu 1971 cỏ cao phủ căn cứ cũ, phải ủi dọn, còn mìn chống tăng [A·thedaysforward.com] }
+    hanh_vi_am_thanh: Hàng trăm trực thăng vận tải lớn CH-47, CH-54 hoạt động [✓A]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Tái kích hoạt ngày 30/1/1971 cho Lam Sơn 719 [✓B]
+    ghi_chu_game    : —
+
+▸ Khí hậu Bắc Hướng Hóa  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Gió Lào (Phơn) khô nóng tháng 3–6; tháng 6–7 có thể 39°C, độ ẩm dưới 30% [A·www.locjkt.or.id] | Lượng mưa năm 2.400–2.800 mm [A·www.locjkt.or.id] | Mùa ẩm tháng 8–5, độ ẩm 85–90% [A·www.locjkt.or.id] | Mưa năm 2.400–2.800 mm [A·www.locjkt.or.id] | Tháng 12–1 lạnh nhất ~20°C, có khi 15°C trên 500 m [A·www.locjkt.or.id] | Tháng 12–1 ở nơi trên 500 m nhiệt độ có lúc xuống 15°C [A·www.locjkt.or.id] | Tháng 2 nhiều mây nhất, trung bình 2,3 giờ nắng/ngày [A·www.locjkt.or.id] | Tháng 2–3 mưa nhẹ; tháng 12–1 khô nhất [A·www.locjkt.or.id] | Tháng 2–3 mưa nhẹ; tháng 12–1 khô nhất [A·www.locjkt.or.id] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khí hậu Khe Sanh  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Trạm khí hậu Khe Sanh ở 367 m [✓B]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Biên độ nhiệt ngày đêm khoảng 7–9°C [B·www.vietnamplus.vn] | Giờ nắng T1 125,2; T2 124,6; T3 164,5 [B·en.wikipedia.org] | Mưa T1 18,4 mm, T2 18,4 mm, T3 38,4 mm (mùa khô) [B·en.wikipedia.org] | Mưa T7–T12: 223,0 / 283,2 / 376,6 / 456,8 / 197,3 / 62,8 mm; cả năm 2.113,1 mm [B·en.wikipedia.org] | Nhiệt độ tối thiểu trung bình T1 15,8°C, T2 16,6°C, T3 18,6°C [B·en.wikipedia.org] | Nhiệt độ tối đa trung bình T1 22,1°C, T2 23,9°C, T3 27,5°C [B·en.wikipedia.org] | Số ngày mưa T1 10,0; T2 7,4; T3 8,3 [B·en.wikipedia.org] | Thấp kỷ lục T1 8,2°C, T2 9,2°C, T3 8,6°C [B·en.wikipedia.org] | Độ ẩm T1 90,2%, T2 89,7%, T3 86,0% [B·en.wikipedia.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khí hậu Phong Nha – Kẻ Bàng  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ 2.000–2.500 mm/năm, 88% rơi tháng 7–12, mưa trên 160 ngày/năm [A·thesalmons.org] | Tháng 12–2 lạnh nhất TB 18°C; tối thấp 6°C [A·thesalmons.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khí hậu Đông Hà  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Giờ nắng T1 95,3; T2 88,9; T3 123,4 [B·en.wikipedia.org] | Mùa khô tháng 1–7, có đỉnh mưa phụ tháng 5 [B·en.wikipedia.org] | Mùa mưa tháng 8–12 do gió mùa đông bắc, đỉnh tháng 10 [B·en.wikipedia.org] | Mưa T1 52,9 mm, T2 32,0 mm, T3 35,2 mm [B·en.wikipedia.org] | Số ngày mưa T1 14,0; T2 11,4; T3 11,3 [B·en.wikipedia.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khỉ mặt đỏ  (linh_truong)
+    ten_khoa_hoc    : Macaca arctoides [✓A]
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : đuôi cụt 32–69 mm; đực 51,7–65 cm, 9,7–10,2 kg [✓B]
+    hinh_thai_mau_sac: lông dài dày, xám/nâu/đỏ/đen; mặt hồng-đỏ, già thì sẫm nâu-đen, rụng lông [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Khỉ đuôi lợn  (linh_truong)
+    ten_khoa_hoc    : Macaca nemestrina (tên ghi trong nguồn 2000s; nay khỉ đuôi lợn phương bắc là M. leonina) [✓A]
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: lông xám tròn quanh má; vệt đỏ ở mỗi khoé mắt ngoài; đuôi mảnh đen [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : đàn khá lớn, có thể trên 150 con [✓B]
+    ghi_chu_game    : —
+
+▸ Kiền kiền  (cay_go)
+    ten_khoa_hoc    : Hopea pierrei [✓A]
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Rừng mưa thường xanh đất thấp Đông Dương tới khoảng 1.000 m [✓A]
+    kich_thuoc      : Cao tới 25 m, đường kính tới 50 cm, thân thường cong vặn [✓A]
+    hinh_thai_mau_sac: Rễ bạnh mỏng hoặc rễ chống, vỏ nhẵn sẫm có đốm sáng [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ LZ Lolo  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Trên đỉnh cao nhất của vách núi phía nam, 13 km đông nam Sê Pôn [✓B]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : 11 trực thăng bị bắn rơi, 44 chiếc hỏng khi đổ một tiểu đoàn [✓B]
+    ghi_chu_game    : —
+
+▸ Lim xanh  (cay_go)
+    ten_khoa_hoc    : Erythrophleum fordii [✓A]
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : Có ở Quảng Bình, Quảng Trị, Nghệ An, Quảng Nam… [✓A]
+    dai_cao_do      : DISPUTED{ 300–900 m [A·cifor-icraf.org] | Kẻ Gỗ: dưới 300 m ưu thế Michelia, Cinnamomum, Madhuca pasquieri và lim xanh [A·www.thiennhienviet.org.vn] }
+    kich_thuoc      : DISPUTED{ Cao 37–45 m, đường kính 200–250 cm (CIFOR) [A·cifor-icraf.org] | Cao khoảng 10 m, đôi khi 30 m (Wikipedia, mâu thuẫn với CIFOR) [B·en.wikipedia.org] }
+    hinh_thai_mau_sac: DISPUTED{ Gốc có bạnh nhỏ [A·cifor-icraf.org] | Thân tròn, vỏ nâu sẫm nứt ô vuông, nhiều bì khổng; gốc có bạnh nhỏ [A·cifor-icraf.org] | Tán lá dày xanh quanh năm, lá kép lông chim 2 lần [A·cifor-icraf.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Hoa trắng nhỏ nở tháng 3–4; quả đậu dài 15–30 cm chín tháng 12–1, màu nâu đến đen xám [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Làng Vây  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Năm 1971 vẫn còn xác xe tăng Liên Xô cháy từ trận 1968 [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Lá nón  (cay_bui_tham_tuoi)
+    ten_khoa_hoc    : Lanonia centralis (trước nhầm là Licuala spinosa) [✓B]
+    nhom            : cay_bui_tham_tuoi [✓B]
+    vung_phan_bo    : Thu mẫu ở VQG Bạch Mã, gần Huế [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Lách (Saccharum spontaneum)  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : Bụi lớn ven sông, mương, tới 1.700 m [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Thân 1–4 m hoặc hơn; bẹ lá thường tím [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Lũ quét  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : Vùng núi, trung du Quảng Trị [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Lồ ô (Bambusa procera)  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓B]
+    vung_phan_bo    : Campuchia và Việt Nam [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : Cao 8–12 m, lóng dài tới 55 cm, đường kính 5,5 cm, vách mỏng [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Lớp lá rụng nền rừng nhiệt đới  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Lá rụng phân huỷ nhanh do nóng ẩm, mùn không tích tụ dày (mô tả chung rừng nhiệt đới) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Macaulay Library  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Mọi dùng thương mại cần hợp đồng license, có thể tính phí [✓A]
+    ghi_chu_game    : —
+
+▸ Mang đỏ phương bắc  (thu_lon)
+    ten_khoa_hoc    : —
+    nhom            : thu_lon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: đực có gạc ngắn và răng nanh trên dài [✓B]
+    hanh_vi_am_thanh: tiếng kêu như tiếng sủa, dùng báo động và liên lạc [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Maxtree Plant Models  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Theo CG Channel: file được cấp phép dùng thương mại (chưa thấy trang license chính thức) [✓B]
+    ghi_chu_game    : —
+
+▸ Muỗi Anopheles dirus  (con_trung_khac)
+    ten_khoa_hoc    : —
+    nhom            : con_trung_khac [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Móc, đùng đình (chi Caryota)  (cay_bui_tham_tuoi)
+    ten_khoa_hoc    : Caryota; tên Việt: móc, đùng đình, móc đen [✓A]
+    nhom            : cay_bui_tham_tuoi [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Từ mực nước biển đến khoảng 2.000 m, rừng nguyên sinh và thứ sinh [✓A]
+    kich_thuoc      : DISPUTED{ C. mitis mọc cụm, cao 5–12 m, thân 5–15 cm, lá 2–4 m, quả cam đến đỏ sẫm [A·uses.plantnet-project.org] | Loài thân đơn lớn cao 10–25 m, thân 20–45 cm (C. rumphiana) [A·uses.plantnet-project.org] }
+    hinh_thai_mau_sac: Lá kép lông chim 2 lần, lá chét hình nêm xéo (đuôi cá) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Múi giờ Việt Nam 1971  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓B]
+    vung_phan_bo    : DISPUTED{ Miền Bắc dùng UTC+7 từ 1/1/1968 [B·en.wikipedia.org] | Miền Nam (VNCH) dùng UTC+8 từ 1/1/1960 đến 12/6/1975 [B·en.wikipedia.org] }
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Mưa Quảng Trị – Huế  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ A Lưới 3.400–3.800 mm/năm, nhiệt độ TB 22–24,5°C [A·csdlkhoahoc.hueuni.edu.vn] | Huế khoảng 3.000 mm/năm [B·ecoregions.worldwildlife.org] | Mùa mưa rõ từ tháng 9 đến tháng 1; không tháng nào dưới 60 mm [B·ecoregions.worldwildlife.org] | Quảng Trị khoảng 2.500 mm/năm, đỉnh mưa tháng 10–11 [B·ecoregions.worldwildlife.org] | Toàn vùng Bạch Mã bình quân 3.440 mm/năm (mâu thuẫn số với đỉnh 7.977 mm vì khác điểm đo) [B·tuoitre.vn] | Đỉnh Bạch Mã 7.977 mm/năm, có lẽ nơi mưa nhiều nhất VN [A·thiennhienviet.org.vn] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Mưa phùn  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Ở Khe Sanh mưa phùn và sương lăn từ núi xuống, kéo đến gần trưa hôm sau mới tan [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Ngầm Ta Lê  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Ngầm tràn  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Nguy hiểm khi nước dâng hoặc chảy xiết, cấm qua [✓B]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Núi đá vôi Bắc Hướng Hóa  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Đỉnh đá vôi Sa Mu 1.550 m, núi Voi Mẹp 1.771 m [✓A]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Tầng đất rất mỏng trên đồi đá vôi [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Nứa (Neohouzeaua dulloa)  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Mọc hoang trong rừng thường xanh 300–700 m [✓A]
+    kich_thuoc      : Thân cao 7–9 m, mảnh, vách mỏng, đường kính tới 1 cm, lóng 40–60 cm [✓A]
+    hinh_thai_mau_sac: Cụm thưa, thân đứng hoặc ngả dựa cây bên cạnh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Phong lan  (day_leo_bieu_sinh)
+    ten_khoa_hoc    : —
+    nhom            : day_leo_bieu_sinh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Phong Nha: họ Lan 24 loài, có hài Paphiopedilum dianthum [✓A]
+    ghi_chu_game    : —
+
+▸ Poly Haven Anthurium Botany 01  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Cây bụi lá rộng bóng, ánh ướt, gân lá rõ, mọc thành khóm thấp [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Bamboo Tunnel (HDRI)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: HDRI đường hầm tre khô giữa trưa, tán vòm dày, nắng ấm lốm đốm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Brown Mud Rocks 01  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Bùn nâu lẫn sỏi, đá, rêu, cỏ dại; bờ suối, đất ướt [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Fern 02  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Bốn khóm dương xỉ, lá có răng cưa, xanh lốm đốm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Forest Leaves 02  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Nền rừng phủ rêu: mảng rêu gồ, lá rụng, cành nhỏ, mùn [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Mossy Rock  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đá phong hoá có vân, nứt, địa y lốm đốm và mảng rêu xanh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Pachira Aquatica 01  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rainforest Ambience Phong Nha Vietnam (Libby và Marcel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : Ghi ở Phong Nha: vườn thực vật và gần động Thiên Đường bên sông [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 30 file, 93 phút, WAV 192 kHz/24-bit, giá 5 USD [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Tiếng chim, ếch kêu, thác nước [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Ghi 'Royalty-free' nhưng chưa đọc được văn bản License Agreement (game/thương mại chưa rõ) [✓B]
+    ghi_chu_game    : —
+
+▸ Ráy (Alocasia odora)  (cay_bui_tham_tuoi)
+    ten_khoa_hoc    : —
+    nhom            : cay_bui_tham_tuoi [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cao 0,5–1,6 m, cuống lá 0,3–1 m [✓B]
+    hinh_thai_mau_sac: Lá to hình mũi giáo/giọt nước [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rắn lục mép trắng  (bo_sat_luong_cu)
+    ten_khoa_hoc    : —
+    nhom            : bo_sat_luong_cu [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : dài tối đa đực 60 cm, cái 81 cm [✓B]
+    hinh_thai_mau_sac: lưng xanh lục; hai bên đầu dưới mắt vàng/trắng/xanh nhạt sáng hơn [✓B]
+    hanh_vi_am_thanh: nọc chủ yếu độc máu; nhiều vụ cắn, ít tử vong [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rễ bạnh  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Có thể cao tới 9 m, lan 30 m trên mặt đất (số liệu chung toàn cầu) [✓B]
+    hinh_thai_mau_sac: Rễ bạnh lớn hơn ở phía đối diện hướng tán lệch [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rừng bị rải chất độc và bom (Trường Sơn Bắc)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Bạch Mã: diện tích rừng lớn bị chất làm rụng lá, bom và máy hạng nặng phá hủy [A·thiennhienviet.org.vn] | Bắc Hướng Hóa: bị phun rải từ máy bay trong chiến tranh [A·www.locjkt.or.id] | Phong Nha: phần lớn rừng nguyên sinh bị cháy hư hại nặng trong chiến tranh [A·thesalmons.org] | Đakrông: chất làm rụng lá là yếu tố chính làm suy giảm, chia cắt rừng [A·www.thiennhienviet.org.vn] }
+    ghi_chu_game    : —
+
+▸ Rừng dọc tuyến Trường Sơn  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Núi hiểm trở 500–2.400 m [✓B]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Rừng ba tầng tán; trực thăng cứu hộ không thấy được người dưới đất [B·airandspaceforces.com] | Suối chảy xiết khoét đá vôi thành hang và cột karst [A·apps.dtic.mil] | Tre mọc dày ở độ cao thấp dưới tán; trên khoảng 730 m (2.400 ft) là cây thường xanh cao vút [A·apps.dtic.mil] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Gió mùa tây nam (giữa tháng 5 – giữa tháng 9) mưa nặng, trời thường u ám [B·en.wikipedia.org] | Mùa khô (giữa tháng 10 – giữa tháng 3) tương đối khô, mát hơn [B·en.wikipedia.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rừng khộp (rừng dầu rụng lá)  (tang_tan)
+    ten_khoa_hoc    : Shorea siamensis, S. obtusa, Dipterocarpus obtusifolius, D. tuberculatus [✓B]
+    nhom            : tang_tan [✓B]
+    vung_phan_bo    : Ở VN: cao nguyên thượng nguồn Sê San và Srêpốk [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : Cây thấp 5–8 m, độ che phủ 50–80%, cây vượt tán 10–12 m [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Cây ưu thế có vỏ dày như bần chịu lửa [B·ecoregions.worldwildlife.org] | Tầng dưới mở, ưu thế cỏ; có thiên tuế [B·ecoregions.worldwildlife.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Cháy dưới tán chủ yếu tháng 12–đầu tháng 3; mưa 1.000–1.500 mm, 5–7 tháng khô [✓B]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rừng kín thường xanh nhiệt đới đất thấp  (tang_tan)
+    ten_khoa_hoc    : —
+    nhom            : tang_tan [✓B]
+    vung_phan_bo    : Phong Điền cùng Đakrông còn một trong những diện tích rừng thường xanh đất thấp lớn nhất [✓A]
+    dai_cao_do      : DISPUTED{ Rừng rậm nhiệt đới ẩm lá rộng thường xanh ở dưới 700 m (miền Bắc), 1000 m (miền Nam) [C·luatminhkhue.vn] | Rừng thường xanh đất thấp dưới 600 m (Bắc Hướng Hóa) [A·www.locjkt.or.id] | Rừng thường xanh đất thấp dưới 900 m (Bạch Mã) [A·thiennhienviet.org.vn] }
+    kich_thuoc      : DISPUTED{ Cây vượt tán cao tới 45 m [B·en.wikipedia.org] | Rừng nguyên sinh 3 tầng tán, cao 25–35 m, cây vượt tán đôi khi 45 m [B·ecoregions.worldwildlife.org] }
+    hinh_thai_mau_sac: DISPUTED{ Cây gỗ khổng lồ có rễ bạnh, cây cao tới 50 m, có dây leo thân gỗ, tầng tán và tầng dưới tán (Phong Nha) [A·thesalmons.org] | Cây vượt tán lớn nhô trên tán tạo mặt tán gồ ghề [B·ecoregions.worldwildlife.org] | Cấu trúc 3–5 tầng: tầng trội, tầng tán, dưới tán, cây bụi, cỏ quyết [C·luatminhkhue.vn] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Rừng nguyên sinh chỉ chiếm khoảng 60% diện tích Đakrông [A·www.thiennhienviet.org.vn] | Đakrông có diện tích rừng thường xanh đất thấp còn lại lớn nhất miền Trung [A·www.thiennhienviet.org.vn] }
+    ghi_chu_game    : —
+
+▸ Rừng lá kim núi cao (Pơ mu)  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : 1.200–1.800 m, ưu thế Pơ mu Fokienia hodginsii [✓B]
+    kich_thuoc      : Pơ mu cao 40–50 m, đường kính 1,5 m [✓B]
+    hinh_thai_mau_sac: Rừng mát ẩm, phụ sinh rêu/địa y dày, lớp thảm mục dày [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Rừng thường xanh núi thấp (á nhiệt đới)  (tang_tan)
+    ten_khoa_hoc    : Họ ưu thế: Sim, Dẻ, Côm, Long não; có họ Kim giao [✓B]
+    nhom            : tang_tan [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : DISPUTED{ 800–1.200 m, tán 2 tầng [B·ecoregions.worldwildlife.org] | Bạch Mã: rừng thường xanh núi trên 900 m [A·thiennhienviet.org.vn] | Bắc Hướng Hóa: rừng á nhiệt đới núi trung bình trên 600 m [A·www.locjkt.or.id] }
+    kich_thuoc      : Tán cao khoảng 15–25 m [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Bạch Mã trên 1.000 m: cổ thụ mọc trên tầng rêu dày, mây phủ quanh năm [B·tuoitre.vn] | Phụ sinh, nhất là phong lan, rất nhiều [B·ecoregions.worldwildlife.org] | Thung lũng 5 tầng; sườn dốc và đỉnh không có tầng vượt tán, chỉ 4 tầng [A·www.locjkt.or.id] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Đỉnh núi cao quanh năm mây phủ [✓B]
+    mat_do_pho_bien : Họ Dẻ chiếm tới 60% số cây ở nơi điều kiện ít khắc nghiệt [✓A]
+    ghi_chu_game    : —
+
+▸ Rừng thứ sinh sau nương rẫy  (tang_tan)
+    ten_khoa_hoc    : —
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Rừng thứ sinh thấp hình thành 8–10 năm sau nương rẫy [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Tầng dưới là dương xỉ, cỏ, gừng, ráy [A·www.locjkt.or.id] | Tầng trên là cây ưa sáng mọc từ gốc chồi hoặc hạt [A·www.locjkt.or.id] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : A Lưới: loài ưu thế phần lớn ưa sáng, mọc nhanh, gỗ kém, rừng đang phục hồi [✓A]
+    ghi_chu_game    : —
+
+▸ Rừng trên núi đá vôi  (tang_tan)
+    ten_khoa_hoc    : Loài phổ biến: Hopea hainanensis, Garcinia fragraeoides, Burretiodendron hsienmu, Chukrasia tabularis [✓A]
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cây cao 10–15 m, đường kính 50 cm, tán thưa hơn [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Đá vôi gần như phủ kín rừng trừ vách dựng đứng [A·www.thiennhienviet.org.vn] | Đất rất mỏng, cây non chỉ mọc trong khe đá, còi [A·thesalmons.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Phong Nha: ~75% là rừng thường xanh đất thấp trên đá [✓A]
+    ghi_chu_game    : —
+
+▸ Rừng trúng chất độc da cam  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : Agent Orange (2,4-D + 2,4,5-T), vừa làm rụng lá vừa diệt cây lá rộng và thân gỗ [✓A]
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : DISPUTED{ Không quân Mỹ phun rải dọc đường mòn ở Lào từ 12/1965 [B·en.wikipedia.org] | Thung lũng A Lưới bị phun nặng khoảng 1965–1970, chủ yếu chất da cam [A·hatfieldgroup.com] }
+    dai_cao_do      : —
+    kich_thuoc      : Vệt phun rõ nét rộng khoảng 85 m, dài 15 km [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Cây chết đứng do chiến tranh còn thấy nhiều nơi [A·digitalrepository.unm.edu] | Mất rừng giữ đất, sạt lở nhiều dọc đường vào A Lưới [A·hatfieldgroup.com] | Phun vào rừng ba tầng, thuốc thường tan ở tán trên; rừng như vậy thường tái sinh nhanh [B·cia.gov] | Ven đường Huế – A Lưới: sườn đồi trơ trụi phía trước, rừng không bị phun phía sau [A·hatfieldgroup.com] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Lá rụng 3–6 tuần sau khi phun; cây sống sót ra lá lại trong vòng một năm [A·nal.usda.gov] | Rụng lá, hoa, quả trong 2–3 tuần sau phun [C·chm.bris.ac.uk] }
+    mat_do_pho_bien : DISPUTED{ Phun một lần chết 10–20% cây gỗ; hai lần liên tiếp chết 50–100% [A·nal.usda.gov] | Vùng bị phun nặng: 85–100% cây gỗ chết [A·digitalrepository.unm.edu] }
+    ghi_chu_game    : —
+
+▸ Sao la  (thu_lon)
+    ten_khoa_hoc    : Pseudoryx nghetinhensis [✓A]
+    nhom            : thu_lon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: lông nâu sô-cô-la, mảng trắng ở mặt, họng, hai bên cổ; sừng nâu sẫm/đen dài 35–50 cm [✓B]
+    hanh_vi_am_thanh: hoạt động cả ngày lẫn đêm (theo dân địa phương); đơn độc hoặc 2–3 con [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : khoa học công bố 17/7/1992 (tức chưa được biết năm 1971); ước 50–300 cá thể (2015); nhà khoa học chưa từng quan sát ngoài tự nhiên [✓B]
+    ghi_chu_game    : —
+
+▸ Sao đen  (cay_go)
+    ten_khoa_hoc    : Hopea odorata [✓A]
+    nhom            : cay_go [✓A]
+    vung_phan_bo    : Ven suối, đất sâu dưới 600 m; PROSEA ghi phân bố ở NAM Việt Nam [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Cao tới 45 m; thân thẳng không cành tới 25 m, đường kính 120 cm, rễ bạnh rõ [✓A]
+    hinh_thai_mau_sac: Vỏ bong vảy, nâu sẫm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Song mây (chi Calamus)  (day_leo_bieu_sinh)
+    ten_khoa_hoc    : —
+    nhom            : day_leo_bieu_sinh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Sườn dốc rừng mưa đất thấp 500–800 m [✓A]
+    kich_thuoc      : Thân leo dài tới 70 m, đường kính 4–5,5 cm (loài mới ở VN) [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Gai xanh chĩa xuống dài tới 1 cm; roi leo dài tới 5 m [A·palms.org] | Roi (flagellum) dài tới 5 m [A·palms.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : 18 loài Calamus ở Việt Nam (Evans et al.) [✓A]
+    ghi_chu_game    : —
+
+▸ Sonniss Tropical Ambiences (Stéphane Fufa Dufour)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: DISPUTED{ Suối rừng mưa chảy lớn với tiếng chim lác đác [A·sonniss.com] | Đêm rừng mưa: suối sương mù ban đêm, mưa đêm có giọt rơi từ lá [A·sonniss.com] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ SpeedTree Library Asset  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Library Asset chỉ được dùng như thành phần nhúng của sản phẩm được cấp phép [A·unity.com] | Licensed Production là sản phẩm định danh bằng tên trong Order Form [A·unity.com] | SpeedTree Cinema không được dùng cho sản phẩm tương tác/thời gian thực [A·unity.com] }
+    ghi_chu_game    : —
+
+▸ Suối vùng Khe Sanh  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Lội qua được mùa khô, không qua được sau mưa lớn [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sóc bụng đỏ  (gam_nhan)
+    ten_khoa_hoc    : —
+    nhom            : gam_nhan [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: lưng nâu, bụng ngả đỏ, đuôi thường có ít đen [✓B]
+    hanh_vi_am_thanh: ban ngày, trên tán; tổ lá cao 7–18 m; kêu báo động khi có thú săn, vây rắn [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Bến Hải  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : Đoạn trên núi gọi là Rào Thanh [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : Dài khoảng 100 km, chỗ rộng nhất khoảng 200 m [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Rào Quán  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Chảy hướng tây bắc – đông nam, phía bắc căn cứ Khe Sanh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Sê Băng Hiêng  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Rộng 30 m nhưng phần lớn năm chỉ sâu 1 m [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Sê Pôn  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Bờ sông dốc đứng [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Thạch Hãn  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓B]
+    vung_phan_bo    : Nhánh Rào Quán bắt nguồn từ núi phía bắc Khe Sanh [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Dài 170 km (hộp thông tin) [B·en.wikipedia.org] | Dài khoảng 270 km (thân bài) [B·en.wikipedia.org] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông suối vùng Bắc Hướng Hóa  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Sông ngắn, dốc, chảy về phía đông, đông bắc [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sông Đakrông  (suoi_nuoc)
+    ten_khoa_hoc    : —
+    nhom            : suoi_nuoc [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Mưa lớn gây lũ quét và xói mòn mạnh [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Săn bắn và bẫy thú  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : săn bắn là đe doạ lớn nhất ở Phong Nha–Kẻ Bàng; săn linh trưởng không bền vững [✓A]
+    ghi_chu_game    : —
+
+▸ Sương mù và mây thấp Khe Sanh  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Mây thấp và sương bao phủ từ sáng sớm đến khoảng trưa [B·en.wikipedia.org] | Mùa gió đông bắc: mây thấp, trời u ám, sương dày [A·www.usmcu.edu] | Mỗi đợt kéo dài 3–5 ngày [A·www.usmcu.edu] | Thời tiết quang hơn vào tháng 3 [B·en.wikipedia.org] | Trần mây xuống tới khoảng 150 m (500 ft), tầm nhìn dưới 0,8 km [A·www.usmcu.edu] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Sến mật (Madhuca pasquieri)  (cay_go)
+    ten_khoa_hoc    : —
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Một trong các loài ưu thế tầng cao nhất rừng thường xanh đất thấp Bắc Trung Bộ [✓B]
+    ghi_chu_game    : —
+
+▸ Sốt rét rừng  (con_trung_khac)
+    ten_khoa_hoc    : —
+    nhom            : con_trung_khac [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : nhân chứng đi bộ Trường Sơn 1967–69 bị sốt rét rừng liên tục [✓B]
+    ghi_chu_game    : —
+
+▸ Thung lũng A Lưới (A Sầu)  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : DISPUTED{ da_dia_chat [B·en.wikipedia.org] | dau_vet_chien_tranh [A·hatfieldgroup.com] }
+    vung_phan_bo    : 65 km tây Huế, sát biên giới Lào, thuộc đường Hồ Chí Minh [✓A]
+    dai_cao_do      : Hai dãy núi hai bên cao 900–1.800 m [✓B]
+    kich_thuoc      : DISPUTED{ Dài 40 km theo hướng bắc – nam [B·en.wikipedia.org] | Đáy phẳng rộng 1,5 km, phủ cỏ voi cao [B·en.wikipedia.org] }
+    hinh_thai_mau_sac: DISPUTED{ Còn dấu vết đường băng cũ ở căn cứ A So, Tà Bạt [A·hatfieldgroup.com] | Ven đường từ Huế vào: sườn đồi trơ trụi [A·hatfieldgroup.com] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Thung lũng Sê Pôn  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓B]
+    vung_phan_bo    : Bắt đầu ngay phía tây Khe Sanh [✓B]
+    dai_cao_do      : Sê Pôn (Tchepone) ở độ cao 170 m [✓B]
+    kich_thuoc      : Lòng máng rộng 3,5–5 km giữa hai dãy núi cao [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Vùng bằng có bụi rậm xen mảng rừng, có đồi cao phía bắc [B·en.wikipedia.org] | Vùng đồi núi gãy khúc, phủ rừng [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Mùa khô Lào từ tháng 10 đến tháng 3 [B·en.wikipedia.org] | Mùa mưa bắt đầu đầu tháng 5 [B·en.wikipedia.org] | Mùa mưa tháng 7–9, 410–510 mm/tháng [B·en.wikipedia.org] | Mưa trung bình năm 1.890 mm [B·en.wikipedia.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Thông ba lá  (cay_go)
+    ten_khoa_hoc    : Pinus kesiya [✓B]
+    nhom            : cay_go [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : Nơi khô, đất mỏng/đá tới 1.500 m, cao 20–30 m, hay cháy [✓B]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Thư viện Quixel Megascans trên Fab  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá lẻ từ 0,99 USD (asset 2D/3D), 4,99 USD (kit thủ tục), 24,99 USD (gói) [B·cgchannel.com] | Từ 2025: gói khởi đầu miễn phí hơn 1.500 asset chọn lọc, cho mọi engine [A·unrealengine.com] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Megascans tải qua Bridge theo Epic Content License cũ chỉ được dùng miễn phí trong Unreal Engine: CẤM cho three.js [B·cgchannel.com] | Miễn phí cho mọi engine đến hết 2024 (phải nhận vào thư viện Fab) [A·unrealengine.com] | Từ 2025 phần lớn Megascans không còn miễn phí, kể cả trong Unreal Engine [B·cgchannel.com] }
+    ghi_chu_game    : —
+
+▸ Thảm bom B-52  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ B-52 bay theo tốp 3 chiếc gọi là 'cell' [B·en.wikipedia.org] | B-52D mang 108 quả bom 500 lb, hoặc 84 quả 500 lb + 24 quả 750 lb [B·en.wikipedia.org] | Một phi đội rải kín một khu khoảng 1.100 × 2.200 yard (≈1 × 2 km) [C·war-stories.com] }
+    hinh_thai_mau_sac: Thảm bom xẻ thành rãnh dài qua rừng cây cao cỡ nhà 20 tầng, dài khoảng 1,5 dặm [✓C]
+    hanh_vi_am_thanh: DISPUTED{ Sóng xung kích bom 750 lb giết người trong hầm ngay tức khắc [C·themightyninth.sdsu.edu] | Thả từ tầng bình lưu, dưới đất không thấy không nghe máy bay [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Trọng điểm A-T-P (Đường 20) bị B-52 rải thảm 2.450 lần [B·sggp.org.vn] | Đường 20: mỗi ngày khoảng 30 lần B-52, 50 lần cường kích [C·nguoiquansat.vn] }
+    ghi_chu_game    : —
+
+▸ Thời tiết Nam Lào tháng 2–3/1971  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Trần mây 2.500 ft ở đồng bằng chỉ cho bay ở 1.000 ft trên vùng tác chiến [✓A]
+    hinh_thai_mau_sac: Bụi Khe Sanh dữ dội, mất kính bảo hộ thì như bị phun cát vào mắt [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Bầu trời xám, mây thấp trên miền đông Lào [B·warfarehistorynetwork.com] | Chiều muộn và chập tối mù khói, tầm nhìn dưới 3 dặm [A·catkillers.org] | Chỉ thuận lợi cho không quân từ 10–12 giờ đến giữa chiều; buổi sáng mây và mù [A·apps.dtic.mil] | Khói, bụi, mù che tầm nhìn máy bay trinh sát FAC (bay trên 4.000 ft) [B·warfarehistorynetwork.com] | Mưa lớn hạn chế hoạt động không quân [B·en.wikipedia.org] | Ngày 4–5/2/1971 mây thấp xen mưa làm hoãn đổ quân [A·apps.dtic.mil] | Sáng sớm sương mặt đất, trần mây thấp, tầm nhìn 0–2 dặm; trưa khá quang [A·catkillers.org] | Thời tiết xấu huỷ đổ quân ngày thứ hai, cản không kích; Khe Sanh có lúc bị cấm bay [A·ac119gunships.com] | Đất laterit còn rất ẩm vì gió mùa vừa dứt; sau đó khô và bụi kinh khủng (Khe Sanh) [A·thedaysforward.com] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tre gai (Bambusa blumeana)  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : Ở VN là cây trồng; mọc hoang dưới 300 m ven sông suối [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Thân cao 15–25 m, đường kính tới 20 cm, bụi 10–40 cây [✓A]
+    hinh_thai_mau_sac: Cành gốc có gai đan thành bờ rào dày cao 2–3 m [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tre núi Arundinaria peteloti  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Đất thoái hóa 700–1.200 m [✓A]
+    kich_thuoc      : Cao 3–5 m, mọc dày đặc [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tre nứa sau xáo trộn  (tre_nua_co)
+    ten_khoa_hoc    : —
+    nhom            : tre_nua_co [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Bão mở tán thường xuyên thúc đẩy tre phát triển [B·ecoregions.worldwildlife.org] | Bụi tre Chimonobambusa, Dendrocalamus mọc ở nơi bị xáo trộn [B·en.wikipedia.org] }
+    ghi_chu_game    : —
+
+▸ Trĩ sao  (chim)
+    ten_khoa_hoc    : Rheinardia ocellata [✓A]
+    nhom            : chim [✓A]
+    vung_phan_bo    : Đakrông (Quảng Trị) và Phong Nha–Kẻ Bàng [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : lông phủ đuôi đến 1,73 m; tổng dài 1,9–2,39 m [✓B]
+    hinh_thai_mau_sac: lông đen và vàng da bò lốm đốm nâu sẫm; mỏ hồng to; da quanh mắt xanh lam [✓B]
+    hanh_vi_am_thanh: nhút nhát, khó gặp; làm tổ trên dốc đứng giữa lớp lá rụng [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Trảng cỏ cây bụi thứ sinh  (tre_nua_co)
+    ten_khoa_hoc    : DISPUTED{ Cỏ ưu thế: Miscanthus floridulus, Thysanolaena maxima, Saccharum spontaneum, Imperata cylindrica, I. conferta [A·www.locjkt.or.id] | Sim Rhodomyrtus tomentosa, mua Melastoma candidum, cỏ tranh Imperata cylindrica [A·thiennhienviet.org.vn] }
+    nhom            : tre_nua_co [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đỉnh núi đất mỏng, nắng gió: chỉ 3 tầng, ưu thế họ Hòa thảo [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Phục hồi chậm vì bị đốt định kỳ [A·thiennhienviet.org.vn] | Đakrông bị cô lập bởi đất nông nghiệp, cây bụi, trảng cỏ rộng [A·www.thiennhienviet.org.vn] }
+    ghi_chu_game    : —
+
+▸ Trảng cỏ thoái hoá sau chiến tranh  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Cỏ xâm lấn chiếm chỗ, ngăn rừng tái sinh sau rửa trôi đất mặt [B·pulitzercenter.org] | Sau phun nhẹ là cây gỗ thấp; sau phun nặng là trảng cỏ thoái hoá [A·openvault.wgbh.org] | Vùng hư hại nặng thay bằng gần như toàn cỏ thân thảo [A·digitalrepository.unm.edu] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Trảng cỏ cháy định kỳ, có lẽ hằng năm, nên không trở lại rừng [✓A]
+    mat_do_pho_bien : Vùng phun ghi nhận cỏ tăng, dự báo tre cũng tăng [✓A]
+    ghi_chu_game    : —
+
+▸ Trọng điểm (tọa độ lửa)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Ban đêm pháo sáng sáng rực suốt đêm [B·sggp.org.vn] | Cảnh hoang tàn như vùng đất chết [B·baolaichau.vn] | Núi rừng rực đỏ bởi pháo sáng và bom đạn ban đêm [B·sggp.org.vn] | Đồi bị bạt thấp, mặt đường cày xới, cây cháy rụi, rừng già thành đồi trọc [B·baolaichau.vn] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Hàng ngàn trọng điểm, tập đoàn trọng điểm trên mọi đường dọc, ngang [✓B]
+    ghi_chu_game    : —
+
+▸ Trọng điểm A-T-P (Cà Roòng)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ 15 ngày, Mỹ ném 17.625 tấn bom xuống ATP [C·nguoiquansat.vn] | Hơn 10.000 lần ném bom, bắn phá, trong đó 2.450 lần B-52 [B·sggp.org.vn] }
+    ghi_chu_game    : —
+
+▸ Trọng điểm Trạ Ang  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Km12 Đường 20, 8/1968: đỉnh núi sụp, lòng đường hiện ra dưới pháo sáng [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Trực thăng trên chiến trường Đường 9  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Trực thăng bị bắn bốc cháy quầng lửa đỏ, mảnh đạn văng vù vù [✓A]
+    mua_thoi_tiet   : Sáng 13/2/1971 bầu trời rợp máy bay địch [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tầng cây bụi  (tang_tan)
+    ten_khoa_hoc    : —
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cây bụi và cây tái sinh dưới 5 m [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tầng dưới tán  (tang_tan)
+    ten_khoa_hoc    : —
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Cây gỗ nhỏ cao 7–10 m và cây non của các tầng trên [✓A]
+    hinh_thai_mau_sac: Cây tầng dưới thường có lá to hơn để thích nghi ánh sáng yếu (chung cho rừng mưa) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tầng thảm tươi  (cay_bui_tham_tuoi)
+    ten_khoa_hoc    : —
+    nhom            : cay_bui_tham_tuoi [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Dương xỉ và cây thân thảo: Ráy, Gừng, Lá dong, Gai, Thài lài, Cỏ [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Rừng chưa bị tác động: tầng dưới thưa vì tán dày ít ánh sáng xuống đất [✓B]
+    ghi_chu_game    : —
+
+▸ Tầng tán chính  (tang_tan)
+    ten_khoa_hoc    : Họ ưu thế: Dẻ, Long não, Đậu, Xoan, Bồ hòn [✓A]
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Bắc Hướng Hóa: cây tầng tán chính cao 10–15 m [✓A]
+    hinh_thai_mau_sac: Chiều cao khá đều, tán tròn, thân 30–40 cm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tầng vượt tán  (tang_tan)
+    ten_khoa_hoc    : Loài điển hình: Canarium subulatum, Canarium album (họ Trám Burseraceae) [✓A]
+    nhom            : tang_tan [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Bắc Hướng Hóa: cây vượt tán tới 30 m, thường 20–25 m [A·www.locjkt.or.id] | Rừng mưa nhiệt đới nói chung: vượt tán 45–55 m, hiếm khi 70–80 m (số liệu toàn cầu, không riêng Trường Sơn) [B·en.wikipedia.org] | Thường không quá 20–25 m [A·www.locjkt.or.id] | Đường kính thân 40–80 cm, cá biệt 120 cm [A·www.locjkt.or.id] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Tắc kè  (bo_sat_luong_cu)
+    ten_khoa_hoc    : —
+    nhom            : bo_sat_luong_cu [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : dài 25–30 cm (cả đuôi), có con đến 40 cm [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: DISPUTED{ kêu nhiều nhất lúc chạng vạng, đỉnh thứ hai lúc rạng sáng; đêm đi săn côn trùng [B·en.wikipedia.org] | tiếng đực to như 'tô-kê', thường mở đầu bằng tràng lách cách nhanh, trầm [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Ve sầu  (con_trung_khac)
+    ten_khoa_hoc    : —
+    nhom            : con_trung_khac [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: đến 120 dB, trong số tiếng côn trùng to nhất; đôi khi đồng ca [✓B]
+    mua_thoi_tiet   : kêu mạnh nhất giờ nóng nhất ngày hè; cần nhiệt bên ngoài; vài loài kêu lúc chạng vạng [✓B]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Voi châu Á  (thu_lon)
+    ten_khoa_hoc    : —
+    nhom            : thu_lon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Phong Nha–Kẻ Bàng hiện không còn ý nghĩa bảo tồn voi [✓A]
+    ghi_chu_game    : —
+
+▸ Voọc Hà Tĩnh  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : DISPUTED{ có quần thể ở Phong Nha–Kẻ Bàng [A·www.thiennhienviet.org.vn] | vách đá vôi dốc miền Trung VN và nam Lào; không có ở tỉnh Hà Tĩnh [B·en.wikipedia.org] }
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: trưởng thành gần như đen tuyền, má trắng kéo qua tai xuống cổ; con sơ sinh lông vàng [✓B]
+    hanh_vi_am_thanh: ngủ trong hang, khe vách đá vôi; rời hang lúc rạng sáng, về đầu buổi chiều [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : đàn thường 2–15 con, tối đa 30 [✓B]
+    ghi_chu_game    : —
+
+▸ Voọc chà vá chân nâu  (linh_truong)
+    ten_khoa_hoc    : Pygathrix nemaeus [✓A]
+    nhom            : linh_truong [✓B]
+    vung_phan_bo    : Việt Nam từ Nghệ An đến Gia Lai; nam Lào [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ mặt vàng nâu, mí mắt xanh nhạt; vòng cổ cam có dải đen [B·en.wikipedia.org] | đỉnh đầu bạc, thái dương lông đỏ, trán đen [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: DISPUTED{ giật mình thì sủa to và đập cành [B·en.wikipedia.org] | gầm gừ trầm khi đe doạ; tiếng rít ngắn chói khi hoảng [B·en.wikipedia.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ đàn trung bình 18 con (đơn vị ~6,5 con); có đàn đến 50 [B·en.wikipedia.org] | ở Phong Nha có thể đã suy giảm mạnh [A·www.thiennhienviet.org.vn] }
+    ghi_chu_game    : —
+
+▸ Vượn (loài không xác định, lời nhân chứng 1967–69)  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: đoàn đi bộ Trường Sơn nghe vượn kêu hú suốt ngày; đêm có tiếng sột soạt lạ [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Vượn đen má hung  (linh_truong)
+    ten_khoa_hoc    : Hylobates leucogenys (tên ghi trong nguồn, phân loại cũ) [✓A]
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Vượn đen má trắng  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓B]
+    vung_phan_bo    : chỉ còn ở bắc Việt Nam và bắc Lào [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: đực đen toàn thân, mảng trắng rõ ở má [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : nhóm tối đa 6 con [✓B]
+    ghi_chu_game    : —
+
+▸ Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : Nakai–Nam Theun, Trường Sơn phía Lào (giáp Quảng Bình/Hà Tĩnh) [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: DISPUTED{ mọi tiếng hót tắt trung bình 13 phút sau khi mặt trời mọc [A·kirim.kmutt.ac.th] | một hồi hót đôi kéo dài trung bình 16 phút; ngắn lại khi có gió [A·kirim.kmutt.ac.th] | tiếng hót đực đầu tiên bắt đầu trung bình 12 phút trước khi mặt trời mọc [A·kirim.kmutt.ac.th] }
+    mua_thoi_tiet   : hót nhiều hơn vào mùa khô lạnh; hót nhiều hơn ngày không mưa [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Vượn đen má trắng siki  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓B]
+    vung_phan_bo    : nguyên thuỷ: miền Trung Việt Nam và miền Trung Lào [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ mảng lông trắng lớn quanh mép miệng [B·en.wikipedia.org] | đực trưởng thành đen, cái nâu; con non nâu nhạt rồi đen [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Vượn đen má vàng phía nam  (linh_truong)
+    ten_khoa_hoc    : —
+    nhom            : linh_truong [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: DISPUTED{ cấu trúc: vài nốt mở đầu của cả hai, rồi 'great call' của con cái, con đực im rồi thêm đoạn coda [A·www.frontiersin.org] | cặp đực-cái hót đôi buổi sáng 5:00–10:00, dài khoảng 10–25 phút (cá thể nuôi) [A·www.frontiersin.org] }
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Vắt rừng  (con_trung_khac)
+    ten_khoa_hoc    : Haemadipsa sylvestris (Ấn Độ, Đông Dương, Malesia) [✓B]
+    nhom            : con_trung_khac [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: hút máu; vết cắn chảy máu lâu [✓B]
+    mua_thoi_tiet   : khi trời mưa muỗi, vắt bám khắp nơi (nhân chứng 1967–69) [✓B]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ ZapSplat Thailand jungle ambiences  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: Ghi ban đêm: côn trùng, ve sầu lớn, ếch, mưa nhỏ nhỏ giọt từ tán [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Giấy phép ZapSplat cho game/app; bản miễn phí phải ghi công 'ZapSplat', Premium thì không [✓A]
+    ghi_chu_game    : —
+
+▸ ambientCG Ground037  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Nền rừng ẩm, rêu xanh, cỏ mọc um [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ ambientCG Ground106  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đất nâu be, lá rụng, bùn, lòng suối, gồ ghề [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ xeno-canto  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Mọi bản ghi theo một giấy phép Creative Commons, mỗi bản một loại: phải kiểm từng bản [✓B]
+    ghi_chu_game    : —
+
+▸ Ánh sáng nền rừng nhiệt đới  (khi_hau_anh_sang)
+    ten_khoa_hoc    : —
+    nhom            : khi_hau_anh_sang [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Nền rừng tương đối quang, ít cây bụi do thiếu sáng [B·en.wikipedia.org] | Xa bờ suối và khoảng trống, nền rừng khá trống cây [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Khoảng 5% ánh nắng xuyên tán tới tầng dưới [B·en.wikipedia.org] | Khoảng 5% ánh sáng tới tầng dưới tán [B·en.wikipedia.org] | Nền rừng mưa nhận khoảng 2% ánh nắng; tầng dưới tán khoảng 5% (số liệu chung rừng mưa) [B·en.wikipedia.org] | Nền rừng nhận khoảng 2% ánh sáng mặt trời [B·en.wikipedia.org] }
+    ghi_chu_game    : —
+
+▸ Đa, si, sung (chi Ficus) và cây bóp cổ  (day_leo_bieu_sinh)
+    ten_khoa_hoc    : Loài bóp cổ châu Á: Ficus altissima, F. benjamina, F. microcarpa, F. virens… [✓B]
+    nhom            : day_leo_bieu_sinh [✓B]
+    vung_phan_bo    : DISPUTED{ Ficus mọc trên vách đá vôi trơ [A·www.locjkt.or.id] | Thung lũng ẩm Bắc Hướng Hóa có Ficus, Moraceae, dương xỉ thân gỗ [A·www.locjkt.or.id] }
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Cây chủ chết mục, cây đa thành cột rỗng ruột [B·en.wikipedia.org] | Hạt nảy mầm trên cây chủ, rễ buông xuống ôm lấy thân cây chủ [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đá granit Bạch Mã  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Đỉnh Bạch Mã 1.448 m [✓A]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Địa hình dốc, hiểm trở, bị nước mặt chia cắt mạnh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ Mưa năm ở đỉnh Bạch Mã 7.977 mm [A·www.thiennhienviet.org.vn] | Mưa đỉnh Bạch Mã hơn 9.900 mm/năm; toàn vùng 3.440 mm [B·tuoitre.vn] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đá tai mèo  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Mỏm đá tai mèo nhọn trên tuyến đường ống Trường Sơn, phải ghép cây làm cầu vượt [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đá vôi karst Phong Nha – Kẻ Bàng – Hin Nam No  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : Vắt qua biên giới Việt Nam – Lào [✓A]
+    dai_cao_do      : Đỉnh Co Preu 1.213 m, Co Rilata 1.128 m [✓B]
+    kich_thuoc      : DISPUTED{ Hơn 220 km hang và sông ngầm đã khảo sát [A·whc.unesco.org] | Vùng không karst chia cắt sâu, độ dốc 25–30° [B·en.wikipedia.org] }
+    hinh_thai_mau_sac: DISPUTED{ Cây con chỉ mọc trong hốc, khe đá vôi có đất tích tụ [B·en.wikipedia.org] | Vách đá dựng, hố sụt sâu, mạng sông ngầm [A·whc.unesco.org] | Đá vôi xen kẹp đá phiến sét, sa thạch và granit [A·whc.unesco.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : DISPUTED{ 88% lượng mưa rơi tháng 7–12 [B·en.wikipedia.org] | Mưa năm khoảng 2.000–2.500 mm [B·en.wikipedia.org] | Tháng 12–2 lạnh nhất, trung bình 18°C [B·en.wikipedia.org] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đèo Phu La Nhích  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đèo bị bóc hết cây, hàng ngàn mét đường khoét sâu vào taluy [✓C]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đường 20 Quyết Thắng  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓C]
+    vung_phan_bo    : Từ Phong Nha bên sông Son đến ngã ba Lùm Phùm [✓C]
+    dai_cao_do      : —
+    kich_thuoc      : Đoạn đường 20 hiện dài khoảng 70 km [✓C]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Trục ngang có mật độ bom trên 1 km đường cao nhất Trường Sơn [✓C]
+    ghi_chu_game    : —
+
+▸ Đường 9  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓✓A/B]
+    vung_phan_bo    : —
+    dai_cao_do      : Dãy đồi phía bắc Đường 9: nhiều đỉnh 500–850 m [✓A]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Bãi đáp trực thăng tự nhiên hiếm, thường bị phòng thủ [B·en.wikipedia.org] | Các bãi đáp trên sống núi cao phía nam, nhìn xuống Đường 9 [A·ac119gunships.com] | Cây bụi rậm dọc đường; đường xấu, mưa lớn cản hành quân [A·ac119gunships.com] | Khói, bụi và mù che tầm quan sát trên không [B·en.wikipedia.org] | Mặt đường lỗ chỗ, ổ gà xói, cỏ mọc kín từng đoạn, đá lở lấp một phần [A·www.usmcu.edu] | Quanh Sê Pôn địa hình thấp, cây thưa [A·apps.dtic.mil] | Rừng rậm hai bên đường [A·apps.dtic.mil] | Thung lũng Sê Pôn tương đối bằng, cây bụi xen mảng rừng lớn; núi cao phía bắc và nam [B·warfarehistorynetwork.com] | Trung du khô cằn, cây không cao quá đầu người [A·apps.dtic.mil] | Vùng núi Quảng Trị: rừng hai–ba tầng tán, tầng dưới rất rậm; trung du khô, cây không cao quá đầu người [A·apps.dtic.mil] | Đường bị vách núi cao phía nam khống chế, dễ bị chặn [A·apps.dtic.mil] | Đường đất một làn bỏ hoang 40 năm, lề cao hai bên, không chỗ xoay xở [B·warfarehistorynetwork.com] | Đường đất một làn, mặt gồ ghề, cầu cống bị phá [A·apps.dtic.mil] | Đầu 1971 hư hỏng nặng, chỉ xe xích và jeep đi được [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Mùa mưa (tháng 6–11) đường thường không đi được [✓A]
+    mat_do_pho_bien : Cuối chiến dịch: Đường 9 ngổn ngang xe tăng, xe cộ hỏng cháy [✓B]
+    ghi_chu_game    : —
+
+▸ Đường xe Trường Sơn  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Đường ngụy trang rộng 18 ft [B·historynet.com] | Đường đất rộng 5,5 m (18 ft), có đoạn rải sỏi hoặc lát gỗ ngang [B·en.wikipedia.org] | Đến cuối chiến tranh: 5 trục dọc, 21 trục ngang, tổng 20.000 km [B·vnexpress.net] }
+    hinh_thai_mau_sac: DISPUTED{ Có đường tránh, đường song song vòng qua trọng điểm [B·vnexpress.net] | Hang trong vách đá được công binh cải tạo làm chỗ xe tránh máy bay [A·baophapluat.vn] | Lát đá làm mặt đường trong bom đạn, kiểm tra ban đêm bằng đèn dầu [B·sggp.org.vn] | Đoạn đường một bên vách đá dựng đứng, một bên vực sâu [A·baophapluat.vn] | Đường dã chiến thiếu đường rải đá, mặt cứng [B·vnexpress.net] }
+    hanh_vi_am_thanh: DISPUTED{ Qua sông tắt đèn vì ánh sáng phản chiếu mặt nước [B·baolaichau.vn] | Trăng sáng thì không bật đèn gầm; qua sông, lên dốc tắt hết đèn [B·baolaichau.vn] | Xe bắt đầu chạy ngay sau hoàng hôn, thưa dần 3–6 giờ sáng [B·historynet.com] | Xe chạy đêm, ngày vào hang hoặc rừng rậm ẩn [A·baophapluat.vn] }
+    mua_thoi_tiet   : DISPUTED{ Mùa khô (khoảng tháng 11–4) mới thi công lớn được [A·apps.dtic.mil] | Mùa mưa biến đường mòn thành bùn, suối tràn bờ [A·apps.dtic.mil] }
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đường ống xăng dầu Trường Sơn  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Ống nhựa, có trạm bơm nhỏ; 4 tuyến, lớn nhất đường kính 20 cm [✓B]
+    hinh_thai_mau_sac: DISPUTED{ Có chỗ nối bằng ống lồ ô khoét rỗng; bể chứa là phuy 200 lít trên đỉnh đèo [B·vnexpress.net] | Ống và trạm bơm chôn ngầm hoặc giấu trong hang; qua suối cố định như cầu treo [B·special.nhandan.vn] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất feralit vàng nhiều cát  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Vàng nhạt, nhiều cát, thô ráp [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất feralit vàng nâu trên đá phiến mica  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓A]
+    vung_phan_bo    : Đồi và núi thấp Bắc Hướng Hóa [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Vàng nâu, phong hoá từ đá phiến mica, mặt mịn như lụa [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất feralit đỏ vàng mùn  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓A]
+    vung_phan_bo    : Núi nhỏ và trung bình [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đỏ vàng, mịn, nhiều chất hữu cơ hơn [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất trên đồi quanh Khe Sanh  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đất pha cát, nhiều đá, tầng mỏng, khó đào [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất đỏ bazan Khe Sanh  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓A]
+    vung_phan_bo    : Triền đất đỏ bazan ở Khe Sanh, Hướng Phùng, Tân Lập, A Dơi [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Khi khô thành bụi mịn như phấn bay mù không khí [A·www.usmcu.edu] | Khi mưa sét đỏ trơn như băng [A·www.usmcu.edu] | Sét laterit hoặc đá sắt/nhôm phong hoá [B·en.wikipedia.org] | Sét đỏ nâu phong hoá sâu lẫn bazan [A·www.usmcu.edu] | Đỏ đến mức mọi thứ (quần áo, lều, xe) đều nhuốm đỏ [A·www.usmcu.edu] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đất đỏ nhiệt đới (mô tả chung)  (dat_tham_la)
+    ten_khoa_hoc    : —
+    nhom            : dat_tham_la [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: DISPUTED{ Màu đỏ do nóng ẩm (mô tả chung, không riêng Trường Sơn) [B·en.wikipedia.org] | Đất rừng mưa thường mỏng, bị rửa trôi khoáng [B·en.wikipedia.org] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Địa hình Bắc Hướng Hóa  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Từ 150 đến 1.700 m [✓A]
+    kich_thuoc      : Sườn phía Quảng Bình dốc 15–25°, có chỗ dốc hơn [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : Mưa lớn trên sườn bất ổn gây sạt lở thường xuyên [✓A]
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Địa hình quanh Khe Sanh  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : DISPUTED{ Căn cứ Khe Sanh ở 490 m [B·en.wikipedia.org] | Núi Động Tri 1.015 m, đỉnh cao nhất khu vực [A·www.usmcu.edu] }
+    kich_thuoc      : Rừng 2–3 tầng tán cao 18–27 m (60–90 ft) [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Đồi 861: chỏm trọc đầy hố bom, rộng 50–60 m ở đỉnh [A·www.usmcu.edu] | Đồi dốc, thung lũng, rừng nhiều tầng, cây bụi rậm [A·www.usmcu.edu] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Địa hình Đakrông  (da_dia_chat)
+    ten_khoa_hoc    : —
+    nhom            : da_dia_chat [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : Đỉnh Động Ba Le 1.102 m; phần lớn dưới 500 m [✓A]
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Núi thấp, chia cắt mạnh, độ dốc khá lớn [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Đồi Không Tên (Cha Phi)  (dau_vet_chien_tranh)
+    ten_khoa_hoc    : —
+    nhom            : dau_vet_chien_tranh [✓A]
+    vung_phan_bo    : Ngã ba Cha Phi, án ngữ Đường 16 xuống cụm cứ điểm Bản Đông [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Xác trực thăng Mỹ bị bắn rơi nằm trên đồi [✓A]
+    hanh_vi_am_thanh: Trực thăng bay rà thấp, gió cánh quạt làm nghiêng ngả ngọn cây [✓A]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Ếch nhái (nhiều loài)  (bo_sat_luong_cu)
+    ten_khoa_hoc    : —
+    nhom            : bo_sat_luong_cu [✓B]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: khi mưa, tiếng ếch nhái và muông thú như bản hợp xướng (nhân chứng 1967–69) [✓B]
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+Phân bố theo nhom (n=179 / universe≈200 · coverage 89.5%):
+    asset_nguon: 34
+    bo_sat_luong_cu: 5
+    cay_bui_tham_tuoi: 5
+    cay_go: 14
+    chim: 5
+    con_trung_khac: 4
+    da_dia_chat: 9
+    dat_tham_la: 8
+    dau_vet_chien_tranh: 33
+    day_leo_bieu_sinh: 5
+    gam_nhan: 2
+    khi_hau_anh_sang: 12
+    linh_truong: 10
+    suoi_nuoc: 10
+    tang_tan: 9
+    thu_lon: 4
+    tranh chấp: 1
+    tre_nua_co: 9
+
+build digest = 88d49e44a53a103b  · idempotent OK · auditor OK
+VALIDATION PASSED · 0 gate bites

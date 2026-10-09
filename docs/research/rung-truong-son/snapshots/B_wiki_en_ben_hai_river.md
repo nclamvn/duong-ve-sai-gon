@@ -1,0 +1,10 @@
+<!-- url: https://en.wikipedia.org/wiki/Bến_Hải_River | fetched_at: 2026-10-09T16:49:00Z | via WebFetch verbatim-extract -->
+"The Bến Hải River has a total length of about 100 kilometers"
+"its source is located in the Annamite Mountains along the border with Laos"
+"In the mountains, the river is named "Rao Thanh"."
+"It flows from west to east just south of the 17th parallel and close to the northern border of Quảng Trị Province"
+"it flows into the South China Sea at Cua Tung (Tung River mouth)."
+"At its widest point, the river is about 200 meters wide."
+"Length: 100 km (62 mi)"
+"The demilitarized zone (DMZ) separating the two parts extended about 5 kilometers (3.1 mi)"
+"extended about 5 kilometers (3.1 mi) from either side of the river."

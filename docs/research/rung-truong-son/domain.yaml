@@ -1,0 +1,38 @@
+domain: rung_truong_son
+entity_label: "Thành phần cảnh rừng nhiệt đới Trường Sơn (1971, cho game Đường về Sài Gòn)"
+
+schema:
+  type_field: nhom
+  fields:
+    - ten_khoa_hoc        # tên Latin (thực vật, động vật) hoặc thuật ngữ chuẩn (địa hình)
+    - nhom                # tang_tan | cay_go | cay_bui_tham_tuoi | day_leo_bieu_sinh | tre_nua_co | dat_tham_la | da_dia_chat | suoi_nuoc | khi_hau_anh_sang | linh_truong | chim | gam_nhan | bo_sat_luong_cu | con_trung_khac | thu_lon | dau_vet_chien_tranh
+    - vung_phan_bo        # nơi có ở Trường Sơn/Quảng Trị/Quảng Bình/Thừa Thiên/Lào (đông/tây Trường Sơn)
+    - dai_cao_do          # mét so với mực nước biển
+    - kich_thuoc          # chiều cao, đường kính, chiều dài thân, khối lượng, độ dốc, độ sâu...
+    - hinh_thai_mau_sac   # thứ mắt thấy: hình dáng, màu, kết cấu bề mặt (dữ liệu cho hoạ sĩ)
+    - hanh_vi_am_thanh    # hoạt động lúc nào, tiếng kêu/âm thanh, ở tầng nào
+    - mua_thoi_tiet       # mùa mưa/khô, tháng, lượng mưa, nhiệt độ, độ ẩm, sương
+    - mat_do_pho_bien     # dày/thưa/hiếm, mật độ, % che phủ, tình trạng 1971 nếu có
+    - ghi_chu_game        # cố ý để trống khi chưa có nguồn: honest-null
+
+rollup_field: nhom
+
+universe:
+  estimate: 200
+  basis: "Sửa sau mẻ đầu (mẫu số 120 ban đầu quá thấp vì chưa tính nguồn asset). Ước lượng số thành phần cảnh đáng dựng cho M1–M2 (rừng già Trường Sơn, Đường 9): ~40 loài/nhóm thực vật, ~35 loài/nhóm động vật, ~25 yếu tố địa hình/nước/khí hậu, ~20 dấu vết chiến tranh, ~40 nguồn asset/âm thanh, ~40 địa danh và khí hậu cục bộ"
+
+refresh_days:
+  default: 3650
+
+alias_map:
+  "Thung lũng A Sầu": "Thung lũng A Lưới (A Sầu)"
+  "Ánh sáng nền rừng": "Ánh sáng nền rừng nhiệt đới"
+  "Khí hậu Bắc Hướng Hóa (Đường 9)": "Khí hậu Bắc Hướng Hóa"
+  "Đường 9 (Khe Sanh – Sê Pôn, 1971)": "Đường 9"
+
+# Cụm mơ hồ: tên gọi dân gian trùng nhiều loài, KHÔNG tự gộp
+ambiguous_clusters:
+  - ["khỉ vàng", "khỉ đuôi lợn", "khỉ mặt đỏ"]
+  - ["tre", "nứa", "lồ ô", "vầu"]
+  - ["Vượn đen má trắng", "Vượn đen má trắng siki", "Vượn đen má vàng phía nam", "Vượn đen má hung", "Vượn đen má trắng (Nomascus sp., Nakai–Nam Theun)"]
+  - ["rắn lục xanh", "rắn lục mép trắng"]

@@ -1,0 +1,11 @@
+<!-- url: https://en.wikipedia.org/wiki/Time_in_Vietnam | fetched_at: 2026-10-09T16:47:00Z | via WebFetch verbatim-extract -->
+"South Vietnam time zone was changed to UTC+08:00 from 23:00, 31 December 1959, passing 60 minutes."
+"North Vietnam confirmed official UTC+07:00 from 1 January 1968."
+"reunified Vietnam then observes UTC+07:00 with Saigon (and other southern parts) delaying 60 minutes on 13 June 1975."
+"South Vietnam adopted UTC+07:00 from 00:00, 1 July 1955."
+"the then under-attack regions of Vietnam, Laos and Cambodia adopted UTC+08:00"
+"Hanoi from October 1954, Haiphong from May 1955."
+"1 July 1955 – 31 December 1959 | UTC+07:00 | Saigon Standard Time"
+"1 January 1960 – 12 June 1975 | UTC+08:00 | Saigon Standard Time"
+"1 January 1968 – 12 June 1975 | UTC+07:00 | Hanoi Time Zone"
+"For timestamps in North Vietnam back to 1970 (database cutoff), the database uses the Asia/Bangkok entry."
