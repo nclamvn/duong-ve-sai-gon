@@ -301,7 +301,8 @@ for (const [id, sp] of Object.entries(SPEC.species)) {
           matCache.set(mkey, mat);
         }
         const prim = addPrimitive(out, buffer, mesh, gk, mat, { height: (bbox.maxY - bbox.minY) * scale, radius: (Math.max(bbox.maxX - bbox.minX, bbox.maxZ - bbox.minZ) * scale) / 2, leaf: cls === 'leaf' });
-        if (k > 0 && simplifyLater > 0 && simplifyLater < 0.999) prim.setName(`simplify:${simplifyLater}`);
+        // DV-059: cả LOD0 cũng simplify khi tỉ lệ < 1 (scan Poly Haven 40–225 k tam giác → LOD0 web)
+        if (simplifyLater > 0 && simplifyLater < 0.999) prim.setName(`simplify:${simplifyLater}`);
         tris.lod[k] += gk.idx.length / 3;
       }
     }
@@ -309,8 +310,6 @@ for (const [id, sp] of Object.entries(SPEC.species)) {
   // gộp đỉnh; simplify thân theo LOD (lá đã tỉa)
   await out.transform(weld({ tolerance: 0.0001 }));
   for (const mesh of out.getRoot().listMeshes()) {
-    const k = Number(mesh.getName().slice(-1));
-    if (k === 0) continue;
     for (const p of mesh.listPrimitives()) {
       const tag = /^simplify:([0-9.]+)$/.exec(p.getName() || '');
       const ratio = tag ? Number(tag[1]) : 1;
@@ -351,18 +350,24 @@ for (const [id, sp] of Object.entries(SPEC.species)) {
   const bytes = statSync(outPath).size;
   log(`  → ${outPath} ${(bytes / 1048576).toFixed(2)} MB`);
   const sf = sp.sketchfab;
+  const ph = sp.polyhaven;
   const entry = {
     id: sp.asset,
     type: 'model',
     use: `thực vật rừng (TIP-D05, VEG-001) — ${sp.label}: ${nVar} biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs`,
-    source: 'sketchfab',
-    url: sf.url,
-    authors: [sf.author],
-    license: 'CC-BY-4.0',
-    attribution: `"${sf.name}" (${sf.url}) by ${sf.author} is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)`,
+    // DV-059: nguồn CC0 Poly Haven (source khác 'polyhaven' để fetch-assets không gỡ entry khi chạy lại)
+    ...(ph
+      ? { source: 'polyhaven-vegetation', url: `https://polyhaven.com/a/${ph.id}`, authors: ph.authors, license: 'CC0-1.0' }
+      : {
+          source: 'sketchfab',
+          url: sf.url,
+          authors: [sf.author],
+          license: 'CC-BY-4.0',
+          attribution: `"${sf.name}" (${sf.url}) by ${sf.author} is licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)`,
+        }),
     files: [{ path: outPath.replace(/^public\//, ''), bytes, sha256: sha256(outPath) }],
     sourceFiles: [{ path: sp.src, bytes: statSync(sp.src).size, sha256: sha256(sp.src) }],
-    triangles: { source: sf.faces ?? 0, output: Math.round(triOut[0] / nVar) },
+    triangles: { source: sf?.faces ?? ph?.faces ?? 0, output: Math.round(triOut[0] / nVar) },
   };
   if (sp.registryId) {
     entry.historical = true;

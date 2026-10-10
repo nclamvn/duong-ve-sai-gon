@@ -1,0 +1,13 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/082a6c1d-195f-4724-b43b-856b28cbb5e2/ | fetched_at: 2026-10-10T01:18:00Z | via WebFetch verbatim-extract -->
+"Banyan Tree"
+"REAL SCANS"
+"Royalty free"
+"Free"
+"This high-fidelity 3D scan captures the intricate and dramatic details of a mature tree base"
+"a dense web of hanging aerial roots and a sprawling root system at the ground."
+"Perfect for tropical forest scenes, jungle environments, or fantasy landscapes"
+"The model is optimized for high-quality rendering and serves as an exceptional focal point."
+"Polygon count 53,777"
+"file size 22.0 MiB"
+"tree roots banyan jungle forest nature photogrammetry wood"
+"Banyan Tree by REAL SCANS - free Blender model | Blendkit"

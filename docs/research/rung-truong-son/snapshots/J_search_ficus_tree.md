@@ -1,0 +1,30 @@
+<!-- url: https://api.sketchfab.com/v3/search?type=models&downloadable=true&q=ficus%20tree&count=24 | fetched_at: 2026-10-10T01:06:30Z | via WebFetch verbatim-extract -->
+"Chinese Banyan (Ficus Microcarpa)" | user "Valery.Li" | license "CC Attribution" | "111392" | "https://sketchfab.com/3d-models/none-2a0dbcdf8f5d48f5ad79987c7a8170ce" | "All Hi! Chinese Banyan (Ficus Microcarpa). Chinese Banyan is a native to Sri Lanka, India, Taiwan, the Malay Archipelago" | tree, natural, ficus, wood
+
+"Ficus ginseng" | user "thesidekick" | license "CC Attribution" | "329567" | "https://sketchfab.com/3d-models/none-88b1bf03a6254dc2b56cec4dce3f22f1" | "A Ficus ginseng with quite masculine features.\n\nPhotos taken with D5300 + 40mm Micro Nikkor\n\nProcessed with Metashape +" | trees, tree, plant, plants, photogrammetry, noai
+
+"AS06 Ficus Benghalensis (Banyan)" | user "xfrog" | license "CC Attribution-NonCommercial-NoDerivs" | "372214" | "https://sketchfab.com/3d-models/none-dd3c04d489b14663ac92063b3d235063" | "This XfrogPlants Banyan 3D model features one highly detailed, free, fully textured variation of the plant. Tree, evergr" | tree, plant, plants, garden, tropical, branches, unreal, leaf, fbx, trunk, bark, midpoly, nature, sacred, jungle, game-assets, environment-assets, banyan, ficus, unity, blender, leaves, highpoly, environment, temple, nature-assets, ficus-bengalensis
+
+"AS08 Ficus Elastica (Rubber Fig)" | user "xfrog" | license "CC Attribution-NonCommercial-NoDerivs" | "20332" | "https://sketchfab.com/3d-models/none-836da8349e3b451e996567df8a90fae1" | "This XfrogPlants Rubber Fig 3D model collection contains one highly detailed, fully textured variation of the species." | trees, tree, plant, forest, plants, tropical, unreal, midpoly, nature, jungle, ue4, game-assets, fig, environment-assets, ficus, unity, blender, highpoly, environment, nature-assets, rubber-tree, rubber-fig, fig-tree, ficus-elastica
+
+"Curtain Fig Tree, Yungaburra" | user "kungphil" | license "CC Attribution" | "0" | "https://sketchfab.com/3d-models/none-8e97a71270be4bf58fd1ec63db84b2e1" | "This model is of the majestic [Curatin Fig Tree](https://en.wikipedia.org/wiki/Curtain_Fig_Tree), a strangler fig (*Ficu" | tree, lidar, meta_geo, natural-history, geo_rhzt8t7g3jzc
+
+"Ficus Lyrata - Plants" | user "ladycris" | license "CC Attribution" | "767808" | "https://sketchfab.com/3d-models/none-161df9b2f7124549a2cfa4c33104046e" | "We're starting a series of 3D plants! \n\nToday we are going with the **Ficus Lyrata**, it is a tropical plant from Africa" | tree, plant, plants, pot, indoor, exotic, natural, potted, nature, ficus, lyrata, nature-plants, decoration, leaves, interior, plantas-3d
+
+"Ficus carica" | user "ezda.zvezda" | license "CC Attribution" | "772814" | "https://sketchfab.com/3d-models/none-a4da6d8594f5454e950acf2dc7d6d15c" | "Great tree of a Ficus carica, for landscape design, nature scenes, open world" | tree, plant, fruit, flora, garden, foliage, vegetable, ficus, carica
+
+"2024-01-22 Ficus hut" | user "feklee" | license "CC Attribution" | "7749999" | "https://sketchfab.com/3d-models/none-0646fbfbdaad4d02914cad2db1e70b6b" | "Ficus hut at [Bios no Oka][1] in Okinawa, Japan.\n\nGeolocation: 26°25'18.2\"N 127°47'51.0\"E\n\nPhotogrammetry with Agisoft M" | tree, living, gardening, topiary, banyan, ficus, architecture, photogrammetry, art, sculpture, arborsculpture
+
+"Port Jackson Fig" | user "Landy42" | license "CC Attribution" | "7609654" | "https://sketchfab.com/3d-models/none-ebbf75b68f5740ae84351beb41e398f0" | "This Port Jackson Fig tree (Ficus rubiginosa) is a large specimen in Wallsend Park (western Newcastle, Australia). It di" | botany, moreton-bay-fig, ficus-macrophylla
+
+"2023-09-05 Tree gate" | user "feklee" | license "CC Attribution" | "3395518" | "https://sketchfab.com/3d-models/none-842f0d83577a4d7996b99fafa24d872c" | "These two inosculating trees are found near Taman Festival Bali, Padang Galak, Bali, Indonesia. The wooden bar was insta" | trees, nature, photogrammetry, living-architecture, inosculation
+
+"Ficus Ginseng - cuted" | user "fienchenlumpi" | license "CC Attribution" | "97880" | "https://sketchfab.com/3d-models/none-1ef52ecd7c2f40a6aca167c18ffbc80c" | "- mitten in der Nacht\n- indoor und Kunstlicht\n\n- - mit Blitzlicht gearbeitet im Auto-ISO mode mit meiner guten alten Lum" | tree, baum, nature, bonsai, ficus, photogrammetry
+
+"Realistic HD Common fig tree (26/30)" | user "PlantCatalog" | license "CC Attribution" | "37403" | "https://sketchfab.com/3d-models/none-3a0e18aff86f4b0daf02ff75745a0ae0" | "**Model specs:**\n\n* Species Latin name: Ficus carica\n\n* Species Common name: Common fig tree\n\n* Preset name: Wild no fru" | trees, tree, plant, plants, africa, asia, vegetation, outdoor, foliage, nature, agricultural, europe, middle-east, savana, vegetations, scrubland, broadleaf-tree
+
+"Realistic HD Common fig tree (30/30)" | user "PlantCatalog" | license "CC Attribution" | "207248" | "https://sketchfab.com/3d-models/none-2e6b64be3c6a466eb6b86591d9ef2ebc" | "**Model specs:**\n\n* Species Latin name: Ficus carica\n\n* Species Common name: Common fig tree\n\n* Preset name: Wild no fru" | trees, tree, plant, plants, africa, asia, vegetation, outdoor, foliage, nature, agricultural, europe, middle-east, savana, vegetations, scrubland, broadleaf-tree
+
+"Realistic HD Common fig tree (9/30)" | user "PlantCatalog" | license "CC Attribution" | "185278" | "https://sketchfab.com/3d-models/none-7285c0c46fb44d17a2283f436e9271bf" | "**Model specs:**\n\n* Species Latin name: Ficus carica\n\n* Species Common name: Common fig tree\n\n* Preset name: Urban mat 7" | trees, tree, plant, plants, africa, asia, vegetation, outdoor, foliage, nature, agricultural, europe, middle-east, savana, vegetations, scrubland, broadleaf-tree
+
+"Realistic HD Common fig tree (27/30)" | user "PlantCatalog" | license "[not in provided content]" | "[not in provided content]" | "https://sketchfab.com/3d-models/none-a7f5dbc225bf46859cfb20adb052ae7f" | "[not in provided content]" | "[not in provided content]"

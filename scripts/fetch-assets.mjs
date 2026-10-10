@@ -92,6 +92,15 @@ const ASSETS = [
   { id: 'mossy_rock', type: 'texture', res: '1k', use: 'terrain lớp đá dốc phủ rêu (triplanar)' },
   // chỗ trũng, đường mòn: đất feralit đỏ lẫn sỏi (đất đỏ vàng Trường Sơn, đất đỏ Khe Sanh)
   { id: 'red_laterite_soil_stones', type: 'texture', res: '1k', use: 'terrain lớp đất đỏ feralit lẫn sỏi (đường mòn, chỗ trũng)' },
+  // ---- DV-059: nguồn thực vật/nền rừng CC0 (type vegsrc: chỉ tải nguồn glTF vào assets-src/polyhaven/models, GLB loài do
+  //      scripts/convert-vegetation.mjs làm và ghi manifest; registry asset docs/research/rung-truong-son mũi K) ----
+  { id: 'fern_02', type: 'vegsrc', res: '1k', use: 'dương xỉ photoscan (thảm tươi)' },
+  { id: 'calathea_orbifolia_01', type: 'vegsrc', res: '1k', use: 'lá rộng thay tạm lá dong (thảm tươi)' },
+  { id: 'dead_tree_trunk_02', type: 'vegsrc', res: '1k', use: 'thân cây đổ phủ rêu (nền rừng)' },
+  { id: 'tree_stump_01', type: 'vegsrc', res: '1k', use: 'gốc cây có rêu (nền rừng)' },
+  { id: 'rock_moss_set_01', type: 'vegsrc', res: '1k', use: 'đá phủ rêu (sườn, ven suối)' },
+  { id: 'dry_branches_medium_01', type: 'vegsrc', res: '1k', use: 'cành khô rụng (nền rừng)' },
+  { id: 'root_cluster_01', type: 'vegsrc', res: '1k', use: 'cụm rễ trồi (nền rừng)' },
 ];
 const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 
@@ -201,6 +210,16 @@ else {
     const prev = prevAssets.find((x) => x.id === a.id && x.source === 'polyhaven');
     if (prev && !force.has(a.id)) {
       assets.push(prev);
+      continue;
+    }
+    if (a.type === 'vegsrc') {
+      // chỉ nguồn: GLB loài + entry manifest do convert-vegetation.mjs làm (source 'polyhaven-vegetation')
+      const f = await getJson(`${API}/files/${a.id}`);
+      const g = f.gltf[a.res].gltf;
+      const dir = join(SRC_ROOT, a.id);
+      let n = (await download(g.url, join(dir, `${a.id}_${a.res}.gltf`), g.size)) ? 1 : 0;
+      for (const [rel, e] of Object.entries(g.include)) n += (await download(e.url, join(dir, rel), e.size)) ? 1 : 0;
+      console.log(`[assets] vegsrc ${a.id} ${a.res}: ${n} file mới → ${dir}`);
       continue;
     }
     process.stdout.write(`[assets] ${a.type} ${a.id} ${a.res} … `);

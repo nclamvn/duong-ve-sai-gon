@@ -1,0 +1,11 @@
+<!-- url: https://80.lv/articles/create-lush-nanite-foliage-ready-forests-with-this-free-quixel-asset-pack | fetched_at: 2026-10-10T01:07:16Z | via WebFetch verbatim-extract -->
+"Free Quixel Vegetation Assets Now Available For UE5.7"
+"you can use the PVE with the new Quixel Megaplants assets, now available on Fab"
+"now available on Fab and ready to download directly into your Content Browser"
+"The first collection includes five distinct species, each offering multiple sizes and structure variations:"
+"Black Alder, Norway Maple Forest, Common Hazel, European Aspen, and European Beech."
+"Each Megaplant comes with editable presets"
+"they also support Nanite Foliage workflows for high-performance rendering"
+"future updates will bring hundreds of ready-made vegetation assets, from trees and shrubs to grasses."
+"With the launch of Unreal Engine 5.7"
+"13 November 2025"

@@ -1,0 +1,10 @@
+<!-- url: https://help.sketchfab.com/en/articles/16152669-gltf-glb-and-usdz | fetched_at: 2026-10-10T01:16:45Z | via WebFetch verbatim-extract -->
+"When possible, Sketchfab automatically converts every downloadable model to glTF and USDZ formats."
+"These files can be downloaded for free for use in your own applications."
+"Sketchfab takes your original 3D data (meshes, objects, animations, etc.) combined with all the material information in 3D Settings, and converts it to the glTF format using PBR materials and textures."
+"Then, we convert that glTF file into a USDZ file with as much of the same data as possible."
+"We also generate several versions of GLB with different maximum texture resolutions:"
+"Original, full-sized, source textures"
+"4k textures (4096×4096 px)"
+"1k textures (1024×1024 px)"
+"We only generate each version when necessary."

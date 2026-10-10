@@ -1,0 +1,11 @@
+<!-- url: https://kenney.nl/assets/nature-kit | fetched_at: 2026-10-10T01:22:30Z | via WebFetch verbatim-extract -->
+"Nature Kit · Kenney"
+"Download this package (330 assets) for free, CC0 licensed!"
+"330×"
+"Creative Commons CC0"
+"The game assets you're about to download are available for free"
+"Get All-in-1 to download *everything* at once, plus free updates!"
+"nature"
+"tree"
+"rock"
+"foliage"

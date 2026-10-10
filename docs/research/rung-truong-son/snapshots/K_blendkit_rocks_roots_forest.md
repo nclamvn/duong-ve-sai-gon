@@ -1,0 +1,12 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/b9118361-e3e2-4572-80d6-afca2b623d6f/ | fetched_at: 2026-10-10T01:19:00Z | via WebFetch verbatim-extract -->
+"Rocks, Tree Roots In Forest"
+"EB Adventure Photoscans"
+"Royalty free"
+"Free"
+"Free Plan"
+"Full Plan"
+"Rocks and Tree Roots on the Hiking Trail Ground in the Rain Forest. Photoscan. Taken in British Columbia, Canada."
+"Polygon count 349,849"
+"file size 386.5 MiB"
+"photoscan nature natural outdoors roots rocks ground dirt trail"
+"High-detail 3D scanned rocks and roots model for forest environments, compatible with Blender."

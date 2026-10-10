@@ -1,0 +1,13 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/d155c032-2d5c-4a6f-9e20-bd74b520bc56/ | fetched_at: 2026-10-10T01:18:00Z | via WebFetch verbatim-extract -->
+"Banyan Tree Trunk With Roots"
+"REAL SCANS"
+"Royalty free"
+"Free"
+"A highly detailed 3D scan of the lower section of a Banyan tree trunk"
+"showcasing its signature complex network of aerial roots and a weathered, realistic base."
+"This photorealistic asset captures the intricate textures of the bark and soil,"
+"making it perfect for creating natural forest or jungle environments, historical scenes,"
+"Polygon count 265,637"
+"file size 40.6 MiB"
+"Tree Banyan Roots Trunk Nature Forest Jungle Organic Photogrammetry Realistic"
+"Get this model"

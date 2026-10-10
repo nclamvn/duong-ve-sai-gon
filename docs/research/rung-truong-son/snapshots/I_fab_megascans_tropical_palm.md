@@ -1,0 +1,20 @@
+<!-- url: https://www.fab.com/listings/a14792bb-cc06-4bfc-b657-ea85cca903d7 | fetched_at: 2026-10-10T01:17:47Z | via WebFetch verbatim-extract -->
+"Tropical Palm"
+"Quixel Megascans"
+"Prices shown don’t include taxes"
+"Included formats"
+"fbx"
+"gltf"
+"License"
+"Select a license"
+"Select a License"
+"Sub"
+"Tropical"
+"Healthy"
+"Front"
+"Fresh"
+"Palm"
+"Growing"
+"Maps: Gloss Bump Translucency Opacity Displacement Normal Specular Basecolor Roughness"
+
+The page does not include species, physical size, texel density, polycount, LOD, or variations, and no actual price appears (only a placeholder).

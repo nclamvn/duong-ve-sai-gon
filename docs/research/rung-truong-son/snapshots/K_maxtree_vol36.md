@@ -1,0 +1,11 @@
+<!-- url: https://maxtree.org/products/plant-models-vol-36/ | fetched_at: 2026-10-10T01:27:30Z | via WebFetch verbatim-extract (note: https://maxtree.org/eula/ and https://maxtree.org/license returned SERVER_ERROR at 2026-10-10T01:27Z) -->
+"Maxtree 3D plant models featuring Amygdalus persica"
+"7. Mangifera indica[Mango tree]"
+"Ready for Animation, Games, ArchViz & VFX."
+"This format only supports a limited number of texture channels and cannot store material parameters."
+"To save storage space, we did not pack texture maps in the"
+"models have a higher polygon count(from hundreds of thousands to millions of polygons)"
+"Price range: $125 through $1,770"
+"Low-poly models are not suitable for use in games."
+"These models are not intended for use in games."
+"However, with the emergence of Nanite technology, they can also be effectively used in Unreal Engine 5."

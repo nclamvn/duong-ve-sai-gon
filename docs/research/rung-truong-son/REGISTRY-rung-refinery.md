@@ -1,6 +1,6 @@
 # Registry cào–lọc · Rừng Trường Sơn cho Đường về Sài Gòn
 
-*Mẻ 1 và mẻ 2, ngày 2026-10-09. Mẻ 2 thêm ba mũi: Cổng Trời và đường 20/đường 12 cùng công sự (F), bảng ảnh tham chiếu (G), loài còn thiếu (H). Năm mũi cào song song (thực vật, địa hình và khí hậu, động vật và âm thanh, dấu vết chiến tranh 1971, nguồn asset sạch giấy phép). Kỷ luật refinery: mỗi giá trị có tier và nguồn, giá trị lệch nhau giữ nguyên trạng thái tranh chấp, ô thiếu nguồn ghi honest-null, không lấp bằng phỏng đoán.*
+*Mẻ 1, mẻ 2 (2026-10-09) và mẻ asset (2026-10-10, mũi I Fab/Megascans, J Sketchfab, K Poly Haven/BlenderKit/khác; danh sách chọn ở `ASSET-SHORTLIST-rung.md`). Mẻ 2 thêm ba mũi: Cổng Trời và đường 20/đường 12 cùng công sự (F), bảng ảnh tham chiếu (G), loài còn thiếu (H). Năm mũi cào song song (thực vật, địa hình và khí hậu, động vật và âm thanh, dấu vết chiến tranh 1971, nguồn asset sạch giấy phép). Kỷ luật refinery: mỗi giá trị có tier và nguồn, giá trị lệch nhau giữ nguyên trạng thái tranh chấp, ô thiếu nguồn ghi honest-null, không lấp bằng phỏng đoán.*
 
 Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo tồn, bài khoa học, IUCN, PROSEA, CIFOR, hồi ký nhân chứng, chuyên khảo quân sử, trang giấy phép chính thức). **B** = thứ cấp uy tín (Wikipedia, WWF ecoregion, báo lớn). **C** = blog, du lịch, lời kể chưa kiểm.
 
@@ -8,9 +8,9 @@ Tier: **A** = nguồn gốc hoặc chuyên môn (báo cáo khảo sát khu bảo
 
 | Chỉ số | Giá trị |
 |---|---|
-| Snapshot | 350 trích đoạn (mẻ 1: A 39, B 25, C 27, D 41, E 45; mẻ 2: F 39, G 75, H 59) |
-| Claim | 1.120 (tier A 481 · B 581 · C 58); 19 giữ nguyên văn, 1.043 chuẩn hoá (phần lớn là dịch sang tiếng Việt), 58 suy luận |
-| Thực thể | 229 trên mẫu số ước lượng 260 (coverage 88,1 %). Mẫu số đã sửa hai lần, ghi trong domain.yaml |
+| Snapshot | 504 trích đoạn (mẻ 1: A 39, B 25, C 27, D 41, E 45; mẻ 2: F 39, G 75, H 59; mẻ asset: I 79, J 21, K 54) |
+| Claim | 1.909 (tier A 1.168 · B 680 · C 61); 101 giữ nguyên văn, 1.666 chuẩn hoá (phần lớn là dịch sang tiếng Việt), 142 suy luận |
+| Thực thể | 397 trên mẫu số ước lượng 420 (coverage 94,5 %). Mẫu số đã sửa ba lần, ghi trong domain.yaml |
 | Cổng | VALIDATION PASSED. Bite suite: 6/6 cổng cắn. Build tất định, auditor dựng lại khớp |
 | Kiểm chéo bằng tay | Đối chiếu ngẫu nhiên 3 nguồn với trang gốc (ambientCG license, báo cáo Bắc Hướng Hóa, bài vượn hót Nakai–Nam Theun): 5/5 câu khớp nguyên văn |
 
@@ -1400,7 +1400,7 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, độ cao, kích thước, mùa, thời tiết, mật độ, license
 
 
-### asset_nguon (34)
+### asset_nguon (202)
 
 **Artlist Vietnam Ambiences (Echoto Sound)**
 - hành vi, âm thanh: Rừng có vượn hót và ve sầu kêu; rừng chạng vạng có chim và ve [A·artlist.io]
@@ -1411,6 +1411,82 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hành vi, âm thanh: Có khỉ rú (howler monkey, loài châu Mỹ): không đúng Đông Nam Á [B·thomannmusic.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mùa, thời tiết, mật độ, license
 
+**Blender Sapling Tree Gen (cộng đồng Blender)**
+- mật độ, license: Add-on GPL v3 trở lên, cho Blender 4.4+, hỗ trợ hạn chế [A·extensions.blender.org] · Đầu ra tạo trong Blender thuộc sở hữu người dùng [A·blender.org]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Ancient Banyan Tree Trunk Scan (Scarit Editz)**
+- tên khoa học: Đa (banyan, chi Ficus); trang không ghi loài cụ thể [A·blendkit.com]
+- kích thước: 1.416.713 poly; file 564,8 MiB (rất nặng cho web) [A·blendkit.com]
+- hình thái, màu: Photoscan gốc đa cổ thụ: vân vỏ, rễ, rêu nhẹ [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí (rủi ro trích xuất trên web) [A·blendkit.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Bamboo Trees (Jan Hecl)**
+- kích thước: 108.937 poly; 56,1 MiB [A·blendkit.com]
+- hình thái, màu: Bụi tre thực tế, lá xanh tươi [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí; mô tả nói hợp môi trường game [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Banyan Tree (REAL SCANS, 204.774 poly)**
+- kích thước: 204.774 poly; 37,0 MiB [A·blendkit.com]
+- hình thái, màu: Scan hai đoạn cây đa, hệ rễ phức tạp, vỏ sần [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Banyan Tree (REAL SCANS, 53.777 poly)**
+- phân bố: Mô tả hướng tới cảnh rừng nhiệt đới; không ghi nơi chụp [A·blendkit.com]
+- kích thước: 53.777 poly; 22,0 MiB [A·blendkit.com]
+- hình thái, màu: Scan gốc đa trưởng thành, lưới rễ khí sinh buông dày, hệ rễ toả trên mặt đất [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí [A·blendkit.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Banyan Tree Trunk With Roots (REAL SCANS)**
+- kích thước: 265.637 poly; 40,6 MiB [A·blendkit.com]
+- hình thái, màu: Scan đoạn dưới thân đa, mạng rễ khí sinh, gốc phong hoá [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Ceiba Tree (Jordi Se-Cam)**
+- tên khoa học: Ceiba (cây bông gòn rừng, kapok); tag 'amazona' gợi gốc Amazon [A·blendkit.com]
+- phân bố: Kiểu Amazon (Nam Mỹ) theo tag; dáng cây vượt tán có thể mượn tạm [A·blendkit.com]
+- kích thước: Cao 25 m; 533.080 poly; 194,6 MiB [A·blendkit.com]
+- hình thái, màu: Cây rừng lớn có lớp texture rêu [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí [A·blendkit.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Rocks, Tree Roots In Forest (EB Adventure Photoscans)**
+- phân bố: Photoscan rừng mưa ôn đới British Columbia, Canada (không phải nhiệt đới) [A·blendkit.com]
+- kích thước: 349.849 poly; 386,5 MiB [A·blendkit.com]
+- hình thái, màu: Đá và rễ cây trên lối mòn rừng mưa [A·blendkit.com]
+- mật độ, license: Royalty free [A·blendkit.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Tall Forest Fern (Crazy0_0Cat)**
+- kích thước: Trang ghi 64 poly (nghi lỗi số liệu); 8,7 MiB [A·blendkit.com]
+- mật độ, license: Royalty free; trang hiện cả nhãn Free và Full Plan (mâu thuẫn) [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**BlenderKit Tree Fern Large (Amanpreet Bajwa)**
+- kích thước: 48.755 poly; 16,6 MiB; PBR [A·blendkit.com]
+- hình thái, màu: Dương xỉ thân gỗ lớn, PBR, tối ưu [A·blendkit.com]
+- mật độ, license: Royalty free, miễn phí [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Chương trình Fab Limited-Time Free**
+- mật độ, license: Đợt 6 đến 20/10/2026: Ready Map Vol 2, AdaptivePathfindingSystem, Stylized Harvest Farm; không có gói rừng nhiệt đới [A·fab.com] · Đợt 8 đến 22/9/2026 có Sharur's Normandy Village + PCG Plants (cây châu Âu) [C·forums.unrealengine.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Danh mục Atlas ambientCG**
+- kích thước: 61 atlas; nhóm lá gồm Foliage001–008 và LeafSet001–030 [A·ambientcg.com]
+- hình thái, màu: Atlas lá là texture (ảnh PBR), không phải mesh 3D; tag chủ yếu lá ôn đới (maple, ivy, needles, autumn) [A·ambientcg.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**EZ-Tree (Daniel Greenheck)**
+- hình thái, màu: Chỉ hai kiểu cây: rụng lá (deciduous) và thường xanh (evergreen); lá/vỏ mặc định kiểu Oak [A·github.com]
+- mật độ, license: Mã nguồn MIT [A·github.com] · Web app xuất .PNG hoặc .GLB; gói npm @dgreenheck/ez-tree [A·github.com] · README không ghi nguồn/giấy phép texture lá, vỏ (honest-null, phải kiểm trước khi dùng) [A·github.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
+
 **Echoto Jungle Adventure Vietnam**
 - hành vi, âm thanh: Vượn đực hót, góc gần, nền rừng nhẹ [B·asoundeffect.com] · Ve sầu tần số cao, mic gần, tách riêng [B·asoundeffect.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mùa, thời tiết, mật độ, license
@@ -1418,6 +1494,260 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 **Evermotion Standard Licence**
 - mật độ, license: Cho phép dùng để tạo trò chơi máy tính và phần mềm [A·evermotion.org] · Cấm đặt file chứa sản phẩm tách rời được lên website/máy chủ để bên thứ ba lấy: rủi ro với game web tải GLB [A·evermotion.org]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab AD Dipterocarpus turbinatus Trunk 01 (anydrafts official)**
+- tên khoa học: Dipterocarpus turbinatus (dầu rái) [A·fab.com]
+- kích thước: Đoạn thân/gốc 233 x 219 x 296 cm, texture 8K, có HIGH và LOD0 đến LOD5 [A·fab.com] · Kích thước vật lý 233*219*296 cm [A·fab.com] · Giá từ 2,99 USD [A·fab.com]
+- mật độ, license: Định dạng Blender và fbx; Generated with AI: No (trang không nói photoscan) [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Alexandra Palm (Quixel Megascans)**
+- phân bố: Cau Alexandra (Archontophoenix, gốc Úc): cọ cảnh quan ven biển, không phải loài Trường Sơn [A·fab.com]
+- kích thước: Miễn phí [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf [A·fab.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Alocasia macrorrhiza Elephant Ears (3DTree)**
+- tên khoa học: Alocasia macrorrhiza (ráy) [A·fab.com]
+- kích thước: Giá từ 11,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Ancient Banyan Tree Pack (WonderFuel)**
+- kích thước: 19 asset, low-poly 9.000 đến 28.000 tam giác, FBX + GLB; giá từ 18,99 USD [A·fab.com] · Giá từ 18,99 USD [A·fab.com]
+- hình thái, màu: Biến thể đa: bóp cổ (Strangler Fig), rễ phụ cao, cây đổ, phủ rêu [A·fab.com]
+- mật độ, license: Nhãn Generated with AI có giá trị Yes (dòng kế tiếp trong snapshot); phong cách stylized/fantasy [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Arjun Tree with Buttressed Roots (Vfx shashwat)**
+- tên khoa học: Terminalia arjuna (chi Chiêu liêu, gốc Ấn Độ) [A·fab.com]
+- kích thước: Giá từ 24,99 USD [A·fab.com]
+- hình thái, màu: Gốc có rễ bạnh rõ, tán tròn nhiều tầng lá bóng [A·fab.com]
+- mật độ, license: Định dạng obj, glb, fbx; mô tả còn nguyên chỗ trống mẫu "[confirm before listing]": cảnh báo chất lượng [A·fab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Asplenium Nidus Bird's Nest Fern (3DTree)**
+- tên khoa học: Asplenium nidus (tổ chim) [A·fab.com]
+- phân bố: Có tag "Vietnam" [A·fab.com]
+- kích thước: Giá từ 10,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi [A·fab.com]
+- honest-null: độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Bamboo Bambusa lako (3DTree)**
+- tên khoa học: Bambusa lako (tre Timor, Đông Nam Á hải đảo) [A·fab.com]
+- kích thước: Giá từ 8,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Banana Tree (Inventive World)**
+- mật độ, license: Định dạng obj, fbx, glb, usdz [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Banyan Tree with Aerial Roots (Vfx shashwat)**
+- tên khoa học: Ficus benghalensis (đa) [A·fab.com]
+- phân bố: Mô tả hướng tới môi trường Nam/Đông Nam Á [A·fab.com]
+- kích thước: Giá từ 40,99 USD [A·fab.com]
+- hình thái, màu: Tán dày, mạng rễ phụ thõng xuống dày đặc [A·fab.com]
+- mật độ, license: Định dạng glb, fbx, obj; trang ghi Generated with AI: No [A·fab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Beech Fern (Quixel Megascans)**
+- kích thước: From Free (dương xỉ ôn đới) [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Fab Broadleaf Lady Palm (Quixel Megascans)**
+- tên khoa học: Cọ lá rộng lady palm (thường là Rhapis excelsa, trang không ghi Latin) [A·fab.com]
+- kích thước: Từ 3,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Caryota mitis Fishtail Palm Tukas (3DTree)**
+- tên khoa học: Caryota mitis (đùng đình) [A·fab.com]
+- kích thước: Giá từ 10,99 USD; không ghi poly/LOD [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Chinese Banyan Tree #01 (Antonio Kowatsch)**
+- kích thước: Giá từ 14,99 USD mỗi cây (#01 đến #10) [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Chinese Fan Palm (Quixel Megascans)**
+- tên khoa học: Cọ quạt Trung Hoa (Livistona chinensis theo tên thường, trang không ghi tên Latin) [A·fab.com]
+- kích thước: Từ 3,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Coconut (Quixel Megascans)**
+- kích thước: From Free [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Fab Common Fern (Quixel Megascans)**
+- kích thước: Từ 3,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Cyathea cooperi Australian Tree Fern 01 (3DTree)**
+- tên khoa học: Cyathea cooperi (dương xỉ thân gỗ Úc, cùng chi với loài VN) [A·fab.com]
+- kích thước: Giá từ 8,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx và GLB/glTF chuyển đổi; Generated with AI: No [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Fan Palm Stems (Quixel Megascans)**
+- kích thước: Vùng scan 0,41 x 0,41 m, texel 9990 px/m [A·fab.com]
+- mật độ, license: Chỉ là texture set (atlas cuống lá cọ quạt), không có mesh 3D [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Ficus Microcarpa Tree Trunk (Quixel Megascans)**
+- tên khoa học: Ficus microcarpa (si, gừa) [A·fab.com]
+- kích thước: Thân/gốc si 0,82 x 1,49 x 2,31 m, texel 5751 px/m; từ 2,99 USD [A·fab.com]
+- hình thái, màu: Thân cây lớn phủ rêu, tag Tropical/Subtropical, photoscan [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, GLB chuyển đổi [A·fab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Ficus benghalensis (3DTree)**
+- tên khoa học: Ficus benghalensis [A·fab.com]
+- kích thước: Giá từ 10,99 USD; không ghi poly [A·fab.com]
+- mật độ, license: Định dạng fbx (3ds Max) và GLB/glTF chuyển đổi; hướng archviz (Vray/Corona) [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Foliage VOL.42 Dicranopteris Ferns (Dekogon Studios)**
+- tên khoa học: Dicranopteris (guột, dương xỉ đất trống phổ biến ở Việt Nam) [A·fab.com]
+- kích thước: 13 mesh, texture 4K, dựng Nanite (poly cao); giá từ 12,99 USD [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine", tối ưu Nanite: không hợp web [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Lady Fern (Quixel Megascans)**
+- phân bố: Dương xỉ ôn đới (lady fern), có tag "Jungle" nhưng không phải loài Đông Nam Á [A·fab.com]
+- kích thước: Miễn phí [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf; Fab Standard License [A·fab.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Large Fallen Tree (Quixel Megascans)**
+- phân bố: Tag gồm cả Temperate và Jungle: nguồn gốc vùng không ghi [A·fab.com]
+- kích thước: Miễn phí; thân đổ 1,5 x 7,11 x 2,38 m; mật độ texel 5476 px/m [A·fab.com] · Giá: Free [A·fab.com]
+- hình thái, màu: Thân cây lá rộng đổ, phủ rêu, mục, khô; photoscan [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, bản chuyển GLB/glTF/USDZ: dùng được cho three.js [A·fab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Licuala Palm Tree Pack (Srayt)**
+- kích thước: 3 mẫu, khoảng 200k poly mỗi cây, film-ready; texture PNG 2k/4k; giá từ 8,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, usd, Blender; tác giả nói không thân thiện engine thời gian thực [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Long Liana Stem (Quixel Megascans)**
+- kích thước: Thân dây leo dài 2,32 m; texel 5493 px/m; danh mục ghi "From Free" [A·fab.com] · Giá trên trang danh mục: From Free [A·fab.com]
+- hình thái, màu: Thân dây leo gỗ, rêu, nhám, tag Tropical/Vine [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, GLB chuyển đổi; có bậc UEFN Reference [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Megaplants (Quixel Megaplants)**
+- phân bố: Bộ đầu (11/2025) gồm 5 loài châu Âu: Black Alder, Norway Maple, Common Hazel, European Aspen, European Beech [B·80.lv] · Loài phát hành 2026 phần lớn ôn đới (Silver Birch, Norway Spruce, Japanese Cypress...) [A·quixel.com]
+- mật độ, license: Thiết kế cho Procedural Vegetation Editor của UE 5.7: gắn chặt Unreal [A·quixel.com] · Megaplants mới từ 7/2026 chỉ tương thích UE 5.8 trở lên [A·quixel.com]
+- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Megaplants: Giant Bamboo (Quixel Megaplants)**
+- tên khoa học: Dendrocalamus giganteus (mai/luồng khổng lồ, tre Đông Nam Á) [A·fab.com]
+- kích thước: Miễn phí [A·fab.com]
+- hình thái, màu: Photogrammetry, gồm mesh cành lá, texture, material instance và preset PVE [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine": KHÔNG dùng được cho three.js [A·fab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Military Trench Megascans Sample (Quixel Megascans)**
+- kích thước: Miễn phí [A·fab.com]
+- hình thái, màu: Chiến hào: gỗ súc, bao cát, ván, ụ đất, dây thép gai (photogrammetry) [A·fab.com]
+- mật độ, license: Dự án mẫu chỉ "Unreal Engine"; asset rời thuộc bộ Trenches phải mua lẻ [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Mossy Rock (Quixel Megascans)**
+- kích thước: Đá nhỏ 0,43 x 0,43 x 0,35 m, texel 4891 px/m [A·fab.com]
+- hình thái, màu: Đá có địa y và rêu, bề mặt nhám [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, GLB chuyển đổi [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Mossy Rock Formation (Quixel Megascans)**
+- kích thước: Khối đá lớn 1,63 x 3,28 x 1,41 m, texel 5534 px/m [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, GLB chuyển đổi, UEFN [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Pack 12 Rock Moss RainForest (KidsGame)**
+- hình thái, màu: Đá phủ rêu xanh, điêu khắc tay (không phải scan) [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine"; giá từ 5,99 USD [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Photorealistic Tropical Rainforest Foliage Pack (Ultima Store)**
+- kích thước: Giá từ 9,99 USD [A·fab.com]
+- mật độ, license: Nhãn "Generated with AI: Yes"; định dạng chỉ Unreal Engine [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Rainforest Assets Pack (Dario E)**
+- kích thước: Giá 34,99 USD [A·fab.com]
+- mật độ, license: Giấy phép "UE Marketplace License" (chỉ cho Unreal): CẤM theo luật dự án [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Ready Map Vol 2 Bridge Environment (Six Sides Studios)**
+- mật độ, license: Định dạng chỉ "Unreal Engine"; cảnh hậu tận thế, thực vật mùa ôn đới [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Realistic Tropical Trees 1 (Defuse Studios)**
+- kích thước: 33 mesh cây, mỗi cây 3 LOD; giá từ 9,99 USD [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine" [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Sago Palm (Quixel Megascans)**
+- mật độ, license: Chỉ texture set (atlas lá), không có mesh [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Shorea Roxburghii White Meranti (3DGardenPlants)**
+- tên khoa học: Shorea roxburghii (chai/sến trắng, họ Dầu) [A·fab.com]
+- kích thước: Low-poly 10.000 đến 100.000 polygon; high-poly 100.000 đến 1.500.000 [A·fab.com] · Giá từ 29,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, GLB/glTF chuyển đổi, Unreal, 3ds Max, Blender, Maya, C4D [A·fab.com]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Subtropical flora (SergeiZhuchenko)**
+- kích thước: 71 asset: 8 cây, 6 cọ, 4 chuối, cây bụi [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine" [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Tree Stump (Quixel Megascans)**
+- kích thước: Gốc cây 3,65 x 3,76 x 2,72 m; từ 2,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf, GLB chuyển đổi [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Tropical Amazon Rainforest Jungle Vegetation (FaxLab3D)**
+- phân bố: Chủ đề Amazon, gộp từ dự án Nuke Island/Drift Islands [A·fab.com]
+- kích thước: Giá từ 14,99 USD; LOD billboard cho cây xa [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine" [A·fab.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Tropical Island Plant Collection (HKhalife)**
+- kích thước: Tổng 1.035.377 poly [A·fab.com]
+- hình thái, màu: Cọ, chuối, cây bụi hoa (Ixora, Bougainvillea...), lan, dương xỉ: cây vườn đảo [A·fab.com]
+- mật độ, license: Định dạng Blender, GLB, glTF, USDZ [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Tropical Palm (Quixel Megascans)**
+- kích thước: Từ 3,99 USD [A·fab.com]
+- mật độ, license: Định dạng fbx, gltf [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab Tropical South-East Asia Jungle Pack (STF3d)**
+- phân bố: Nhắm rừng nhiệt đới Đông Nam Á (tag lại lẫn Africa, Brasil, Caribbean) [A·fab.com]
+- kích thước: 82 mesh: chuối, cây, dương xỉ, đá, thân, tre... [A·fab.com] · Phần lớn asset 50 đến 8000 đỉnh (low-poly) [A·fab.com] · Giá từ 50,99 USD [A·fab.com]
+- hình thái, màu: Trộn dựng tay và photogrammetry; dây leo, cọ, tre, cây [A·fab.com]
+- mật độ, license: Định dạng trên listing chỉ "Unreal Engine": không dùng được trực tiếp cho three.js [A·fab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Fab UCreate Tropical Trees and Palms (MichalSornat)**
+- kích thước: 32 mesh, texture 4K, billboard LOD; giá từ 49,99 USD [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine"; không ghi loài [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Fab tropical Vegetation: Banana Plants (Project Nature)**
+- kích thước: Miễn phí; 14 mesh chuối các giai đoạn lớn [A·fab.com]
+- hình thái, màu: Từng bộ phận cây được photoscan riêng rồi dựng lại [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine": free nhưng không dùng được cho three.js [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
 
 **Freesound**
 - mật độ, license: Âm CC0 không có hạn chế [A·freesound.org] · Noncommercial: không được kiếm tiền từ sản phẩm tạo ra, cấm ship trong game thương mại [A·freesound.org]
@@ -1427,30 +1757,63 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mật độ, license: Một người dùng duy nhất, không mở rộng cho công ty [A·boomlibrary.com] · Phải kết hợp với yếu tố khác; cấm dùng 'trần' hay như sản phẩm rời [A·boomlibrary.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Giấy phép BlenderKit (Blendkit)**
+- kích thước: Có gói Free Plan và Full Plan (trả phí), Full Plan 2 GB lưu trữ [A·blendkit.com]
+- mật độ, license: Chỉ có 2 giấy phép: Royalty Free và CC0; BlenderKit đã đổi tên Blendkit [A·blendkit.com] · Royalty Free: dùng thương mại không ghi công, cấm bán lại asset ở dạng gốc [A·blendkit.com] · Bán game dùng model Blendkit được, NẾU người dùng không trích xuất model dễ dàng [A·blendkit.com] · Asset trong bản phân phối không được để trích xuất trực tiếp: GLB tải qua HTTP trong game web dễ bị lấy ra, nên Royalty Free rủi ro cho three.js [A·blendkit.com] · Asset CC0 trên Blendkit: làm gì cũng được về mặt kỹ thuật [A·blendkit.com] · Trang FAQ không nêu định dạng tải (.blend/FBX/glTF); honest-null, cần Blender để xuất GLB [A·blendkit.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Giấy phép CGTrader Royalty Free**
+- mật độ, license: Dùng trong game chỉ khi model nằm trong định dạng độc quyền [A·cgtrader.com] · Phải ngăn người dùng cuối truy cập file model: GLB tải HTTP trong game web khó thoả [A·cgtrader.com] · Model miễn phí theo giấy phép người bán chọn (phải đọc từng trang) [A·cgtrader.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
 **Giấy phép Fab Standard License**
 - kích thước: Ngưỡng bậc giá: doanh thu gộp 100.000 USD trong 12 tháng gần nhất [A·dev.epicgames.com]
 - mật độ, license: Dùng được với mọi công cụ tương thích, không giới hạn ở Unreal Engine [A·fab.com] · Được phân phối thương mại dự án có tích hợp asset Fab [A·fab.com] · Cấm bán lại hoặc phân phối lại asset dưới dạng rời (standalone) [A·fab.com] · Bậc Reference-Only (UEFN) không cấp file định dạng nguồn, không hợp cho three.js [A·fab.com] · Epic đang loại bỏ dần giấy phép UE Marketplace; sản phẩm mới không phát hành theo giấy phép đó [A·dev.epicgames.com]
 - honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Giấy phép Poly Haven CC0**
-- mật độ, license: CC0: dùng mọi mục đích kể cả thương mại, không bắt buộc ghi công [A·polyhaven.com]
+- mật độ, license: CC0: dùng mọi mục đích kể cả thương mại, không bắt buộc ghi công [A·polyhaven.com] · CC0: dùng mọi mục đích kể cả thương mại [A·polyhaven.com] · Được phân phối lại, chia sẻ (file GLB nằm lộ trên web không vi phạm) [A·polyhaven.com] · Không bắt buộc ghi công [A·polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Giấy phép Sketchfab CC Attribution**
+- mật độ, license: Bắt buộc ghi công tác giả ở mọi nơi dùng công khai (trừ CC0) [A·help.sketchfab.com] · Mẫu dòng ghi công CC BY 4.0 [A·help.sketchfab.com] · Được chia sẻ, sửa, dùng nhưng phải ghi công [A·help.sketchfab.com] · Biến thể NonCommercial cấm dùng thương mại (loại) [A·help.sketchfab.com] · Biến thể NoDerivs cấm sửa đổi (loại) [A·help.sketchfab.com] · Biến thể ShareAlike buộc tác phẩm phái sinh cùng license [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Giấy phép Sketchfab Standard**
+- mật độ, license: Standard không bắt ghi công (ngoài phạm vi CC0/CC-BY của mũi J, Chủ nhà quyết) [A·help.sketchfab.com] · Dùng toàn cầu mọi loại hình, thương mại hoặc không [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Giấy phép Superhive Standard Royalty-Free**
+- mật độ, license: Phân phối lại chỉ khi được phép (w/p); dùng thương mại có; không cần ghi công [A·support.blendermarket.com] · Trang không nói về game hay việc lộ file cho người dùng cuối (honest-null) [A·support.blendermarket.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Giấy phép TurboSquid Standard 3D Model License**
+- mật độ, license: Cho phép game web, PC, console, mobile [A·blog.turbosquid.com] · Model phải nằm trong định dạng độc quyền, không mở/nhập được: GLB chuẩn không thoả [A·blog.turbosquid.com] · Cấm đưa file model cho người dùng cuối [A·blog.turbosquid.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Giấy phép ambientCG CC0**
-- mật độ, license: Được đưa file thô vào dự án, ví dụ trò chơi điện tử; không bắt buộc ghi công [A·docs.ambientcg.com]
+- mật độ, license: Được đưa file thô vào dự án, ví dụ trò chơi điện tử; không bắt buộc ghi công [A·docs.ambientcg.com] · Mọi asset CC0, tự do dùng không ghi công (xác nhận lại trên trang asset 2026-10-10) [A·ambientcg.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Gói Fab FANTASTIC Lost Jungle (Tidal Flask Studios)**
 - kích thước: Giá từ 49,99 USD [A·fab.com]
 - honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Gói Fab Jungle Lowpoly Foliage Pack (Green Stream)**
+- kích thước: Giá từ 19,99 USD [A·fab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Gói Fab Jungle Pack (A. zoOmika)**
+- kích thước: Giá từ 34,99 USD [A·fab.com]
 - hình thái, màu: Cây, bụi, dương xỉ, dây leo, đá, tán lá cho rừng rậm [A·fab.com]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Gói Fab MW Tropical Rainforest Biome (MAWI United)**
+- phân bố: Tag Amazon, Mangrove: thiên về rừng mưa Nam Mỹ [A·fab.com]
 - kích thước: Giá từ 324,99 USD [A·fab.com]
-- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- hình thái, màu: Hàng trăm scan thực vật: cây, cây bụi, asset rừng; photogrammetry [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine" (biome PCG cho UE5) [A·fab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
 
 **Gói Fab POLYGON Tropical Jungle (Synty Studios)**
 - hình thái, màu: Low-poly phong cách: cọ, cây rừng, bụi, dương xỉ, hoa, cỏ, đá, vách, thác [A·fab.com]
@@ -1462,14 +1825,26 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 
 **Gói Fab Tropical Jungle (Dokyo)**
 - phân bố: Nguồn thực vật từ Costa Rica (Trung Mỹ), không phải Đông Nam Á [A·fab.com]
-- honest-null: tên khoa học, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- kích thước: Giá từ 9,99 USD [A·fab.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Gói Fab Tropical Jungle Pack (Kaizen Digital Interactive)**
-- kích thước: Giá từ 49,99 USD [A·fab.com]
-- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- phân bố: 63 asset, từ cây đa (banyan) đến dương xỉ, nguồn từ nhiệt đới Đông Nam Á [A·fab.com]
+- kích thước: Giá từ 49,99 USD [A·fab.com] · Texture trung bình 2048x2048 [A·fab.com] · Giá từ 49,99 USD [A·fab.com]
+- mật độ, license: Định dạng chỉ "Unreal Engine" [A·fab.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Gói Sonniss GDC Game Audio Bundle**
 - mật độ, license: Royalty-free, dùng thương mại, không bắt buộc ghi công, vĩnh viễn [A·sonniss.com] · Không được phân phối dưới dạng file rời hay trong thư viện âm thanh; cấm huấn luyện AI/ML [A·sonniss.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Kenney Nature Kit (Kenney)**
+- kích thước: 330 asset [A·kenney.nl]
+- mật độ, license: Miễn phí, CC0 [A·kenney.nl]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Laubwerk Plant Kits (Maxon)**
+- mật độ, license: Laubwerk đã về Maxon (6/1/2025); cây chỉ phát qua gói Maxon One, sẵn cho Redshift [A·maxon.net]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Macaulay Library**
@@ -1477,35 +1852,164 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Maxtree Plant Models**
-- mật độ, license: Theo CG Channel: file được cấp phép dùng thương mại (chưa thấy trang license chính thức) [B·cgchannel.com]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+- tên khoa học: Vol 36 có Mangifera indica (xoài) [A·maxtree.org]
+- kích thước: Từ hàng trăm nghìn tới hàng triệu polygon; giá 125–1.770 USD [A·maxtree.org] · Giá 125–1.770 USD [A·maxtree.org]
+- mật độ, license: Theo CG Channel: file được cấp phép dùng thương mại (chưa thấy trang license chính thức) [B·cgchannel.com] · Trang sản phẩm Maxtree: model không dành cho game [A·maxtree.org]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Poly Haven Anthurium Botany 01**
+- kích thước: 4.134 poly; scan [A·api.polyhaven.com]
 - hình thái, màu: Cây bụi lá rộng bóng, ánh ướt, gân lá rõ, mọc thành khóm thấp [A·api.polyhaven.com]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Poly Haven Bamboo Tunnel (HDRI)**
 - hình thái, màu: HDRI đường hầm tre khô giữa trưa, tán vòm dày, nắng ấm lốm đốm [A·api.polyhaven.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Poly Haven Boulder 01 (Rico Cilliers)**
+- kích thước: 123.976 poly [A·api.polyhaven.com]
+- hình thái, màu: Tảng đá lớn có địa y, phong hoá, dạng vách [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Poly Haven Brown Mud Rocks 01**
 - hình thái, màu: Bùn nâu lẫn sỏi, đá, rêu, cỏ dại; bờ suối, đất ướt [A·api.polyhaven.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Poly Haven Calathea Orbifolia 01 (Rob Tuytel, Rico Cilliers)**
+- tên khoa học: Calathea orbifolia (họ Dong Marantaceae, gốc Nam Mỹ) [A·api.polyhaven.com]
+- kích thước: 16.688 poly; scan; 8K [A·api.polyhaven.com]
+- hình thái, màu: Bụi lá rộng bóng, có gân, hình tim, xanh đậm (gần dáng lá dong) [A·api.polyhaven.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Dead Tree Trunk (Rob Tuytel)**
+- kích thước: 101.802 poly; dài ~3,05 m [A·api.polyhaven.com]
+- hình thái, màu: Khúc gỗ chết dài, vỏ nứt mục, vân gỗ rõ, đầu gãy, mảng rêu xanh [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Dead Tree Trunk 02 (Jenelle van Heerden, Rico Cilliers)**
+- kích thước: 155.864 poly; có LOD; dài ~4,05 m, đường kính ~1,06 m [A·api.polyhaven.com]
+- hình thái, màu: Thân cây chết mục, khô, vỏ thô, địa y, gốc gãy [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Dry Branches Medium 01 (Rico Cilliers)**
+- kích thước: 16.803 poly [A·api.polyhaven.com]
+- hình thái, màu: Cành khô chết, que, nhánh nhỏ [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Poly Haven Fern 02**
+- kích thước: 6.232 poly; scan [A·api.polyhaven.com]
 - hình thái, màu: Bốn khóm dương xỉ, lá có răng cưa, xanh lốm đốm [A·api.polyhaven.com]
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- mật độ, license: Có bản glTF 1k tải trực tiếp (cùng blend, fbx, usd) [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
 
 **Poly Haven Forest Leaves 02**
 - hình thái, màu: Nền rừng phủ rêu: mảng rêu gồ, lá rụng, cành nhỏ, mùn [A·api.polyhaven.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Poly Haven Island Tree 01 (Rob Tuytel, Rico Cilliers)**
+- phân bố: Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [A·api.polyhaven.com]
+- kích thước: 3.729.692 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] · Hộp bao ~12,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com]
+- hình thái, màu: Thân vặn xoắn, rễ lộ, tán dày uốn theo gió biển (cây ven biển) [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Island Tree 02 (Rob Tuytel, Rico Cilliers)**
+- phân bố: Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [A·api.polyhaven.com]
+- kích thước: 1.762.064 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] · Hộp bao ~8,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com]
+- hình thái, màu: Cây đảo nhỏ ven biển, thân vặn phong hoá, tán xanh dày xoè [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Island Tree 03 (Rob Tuytel, Rico Cilliers)**
+- phân bố: Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [A·api.polyhaven.com]
+- kích thước: 4.760.490 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] · Hộp bao ~8,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com]
+- hình thái, màu: Cây thấp ven biển bị gió quật, nhiều thân vặn, rễ lộ trên nền cát [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Jacaranda Tree (Rico Cilliers)**
+- tên khoa học: Jacaranda (chi Jacaranda, gốc Nam Mỹ; trang không ghi loài) [A·api.polyhaven.com]
+- phân bố: Cây Jacaranda (gốc Nam Mỹ), không phải loài Đông Nam Á; dựng tay (Rico Cilliers: All), không phải photoscan [A·api.polyhaven.com]
+- kích thước: 312.356 poly; có LOD; texture tối đa 8K [A·api.polyhaven.com] · Hộp bao khoảng 24,2 x 18,0 x 19,8 m (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com]
+- hình thái, màu: Tán rộng, lá dày, nhiều thân (multi-trunk), vỏ chi tiết [A·api.polyhaven.com]
+- mật độ, license: CC0 Poly Haven; tải được glTF/FBX/blend qua API (script fetch-assets của repo) [A·api.polyhaven.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Poly Haven Moss 01 (Rob Tuytel)**
+- kích thước: 246.170 poly; geometry nodes [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Poly Haven Mossy Rock**
 - hình thái, màu: Đá phong hoá có vân, nứt, địa y lốm đốm và mảng rêu xanh [A·api.polyhaven.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
+**Poly Haven Mountainside (Dario Barresi, Rico Cilliers)**
+- kích thước: 287.755 poly [A·api.polyhaven.com]
+- hình thái, màu: Vách núi, mặt đá có địa y, tảng đá, địa hình [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
 **Poly Haven Pachira Aquatica 01**
-- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+- kích thước: 76.914 poly; scan (Rob Tuytel) [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Rock Face 01 (Dario Barresi)**
+- kích thước: 20.174 poly (nhẹ, hợp web) [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Rock Moss Set 01 (Kless Gyzen)**
+- kích thước: 63.127 poly cho cả bộ 6 hòn [A·api.polyhaven.com]
+- hình thái, màu: Bộ 6 hòn đá rừng phong hoá, rêu xanh nhạt, đất [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Rock Moss Set 02 (Kless Gyzen)**
+- kích thước: 57.647 poly [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Root Cluster 01 (Jenelle van Heerden, Rico Cilliers)**
+- phân bố: Photoscan (Photography), không ghi loài/vùng [A·api.polyhaven.com]
+- kích thước: 225.261 poly; ~4,1 m dài; 8K [A·api.polyhaven.com]
+- hình thái, màu: Cụm rễ rối, vỏ chi tiết, lá nền rừng phủ lớp [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Root Cluster 02 (Jenelle van Heerden)**
+- kích thước: 339.641 poly; khá dẹt (~2,4 x 2,7 x 0,2 m) [A·api.polyhaven.com]
+- hình thái, màu: Cụm rễ cây chết phong hoá, mảnh nền rừng dạng module [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Shrub 02 (Rico Cilliers)**
+- kích thước: 52.317 poly [A·api.polyhaven.com]
+- hình thái, màu: Cây non/bụi tầng thấp lá xanh [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Single Root (Jenelle van Heerden)**
+- kích thước: 114.424 poly [A·api.polyhaven.com]
+- hình thái, màu: Một rễ cây trồi trên nền rừng [A·api.polyhaven.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Tree Small 02 (Rico Cilliers)**
+- tên khoa học: Burkea africana (wild syringa), cây Nam Phi [A·api.polyhaven.com]
+- phân bố: Loài châu Phi (Burkea africana), không phải Đông Nam Á [A·api.polyhaven.com]
+- kích thước: 4.652.585 poly; có LOD; 8K [A·api.polyhaven.com]
+- hình thái, màu: Cây nhỏ thân mảnh cong, tán thưa thoáng lá chùm [A·api.polyhaven.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Tree Stump 01 (Rob Tuytel)**
+- phân bố: Gốc cây từ bộ sưu tập rừng thông (pine_forest), có rêu; ôn đới [A·api.polyhaven.com]
+- kích thước: 41.046 poly [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Poly Haven Tree Stump 02 (Rob Tuytel)**
+- phân bố: Gốc cây từ bộ sưu tập rừng thông (pine_forest), có rêu; ôn đới [A·api.polyhaven.com]
+- kích thước: 62.345 poly [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**Quaternius Stylized Nature MegaKit (Quaternius)**
+- kích thước: 116 model: 40 cây, 35 cây/hoa, 27 đá [A·quaternius.com]
+- hình thái, màu: Phong cách stylized kiểu Ghibli, không photoreal [A·quaternius.com]
+- mật độ, license: CC0; FBX, OBJ, glTF + .blend [A·quaternius.com] · Dùng thương mại tự do (CC0); 60–70% gói miễn phí [A·quaternius.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Quaternius Ultimate Nature Pack (Quaternius)**
+- kích thước: 150 model; FBX, OBJ, Blend (không ghi glTF) [A·quaternius.com]
+- mật độ, license: CC0 [A·quaternius.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **Rainforest Ambience Phong Nha Vietnam (Libby và Marcel)**
 - phân bố: Ghi ở Phong Nha: vườn thực vật và gần động Thiên Đường bên sông [B·payhip.com]
@@ -1513,6 +2017,447 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - hành vi, âm thanh: Tiếng chim, ếch kêu, thác nước [B·payhip.com]
 - mật độ, license: Ghi 'Royalty-free' nhưng chưa đọc được văn bản License Agreement (game/thương mại chưa rõ) [B·payhip.com]
 - honest-null: tên khoa học, độ cao, hình thái, màu, mùa, thời tiết
+
+**Sketchfab AS01 Bambusa Vulgaris Golden Bamboo (xfrog)**
+- mật độ, license: LOẠI: CC Attribution-NonCommercial-NoDerivs [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab AS06 Ficus Benghalensis Banyan (xfrog)**
+- mật độ, license: LOẠI: CC Attribution-NonCommercial-NoDerivs [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Agarwood (Valery.Li)**
+- tên khoa học: Aquilaria sinensis [B·api.sketchfab.com]
+- phân bố: Rừng mưa Đông Nam Á [B·api.sketchfab.com]
+- kích thước: 640.743 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây trầm hương nguyên cây, dựng tay [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Alocasia Tropical Plants Pack Free Sample (estudioshout)**
+- mật độ, license: LOẠI: CC Attribution-NonCommercial [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Alocasia baginda (harenil)**
+- tên khoa học: Alocasia baginda [B·api.sketchfab.com]
+- kích thước: 154.078 faces [A·api.sketchfab.com]
+- hình thái, màu: Ráy cảnh scan ảnh (giống cây cảnh, có thể kèm chậu) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Alocasia macrorrhizos (DJMiddi)**
+- tên khoa học: Alocasia macrorrhizos [B·api.sketchfab.com]
+- kích thước: 1.707 faces (rất nhẹ) [A·api.sketchfab.com]
+- hình thái, màu: Ráy/dọc mùng lá lớn dựng tay [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Alocasia zebrina Tiger Elephant Ear (The_Structure_World)**
+- tên khoa học: Alocasia zebrina [B·api.sketchfab.com]
+- kích thước: 477 faces [A·api.sketchfab.com]
+- hình thái, màu: Ráy cuống vằn low-poly [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab BANYAN TREE (jimmygunawan)**
+- kích thước: 50.000 faces (trong ngưỡng 60k) [A·api.sketchfab.com]
+- hình thái, màu: Cây đa photogrammetry nhanh từ 12 ảnh [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab BORNEAN RAINFOREST TREE (muhammadhakim22800)**
+- phân bố: Borneo (Đông Nam Á), cảm hứng chứ không phải scan [B·api.sketchfab.com]
+- kích thước: 1.058.756 faces, 12 bộ cây [A·api.sketchfab.com]
+- hình thái, màu: 12 bộ cây dựng tay lấy cảm hứng rừng mưa Borneo [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bamboo (Maskable)**
+- kích thước: 25.796 faces [A·api.sketchfab.com]
+- hình thái, màu: Tre mid-high poly tối ưu cho game, tag Đông Á [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bamboo (pergamond)**
+- kích thước: 39.878 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây tre, mô tả tối giản [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bamboo Plants FREE Low Poly (LadyLionStudios)**
+- kích thước: 4.665 faces [A·api.sketchfab.com]
+- hình thái, màu: Tre low-poly (tác giả thực là LordSamueliSolo) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bamboo Raft Scaniverse (db4)**
+- kích thước: 253.997 faces [A·api.sketchfab.com]
+- hình thái, màu: Xác bè tre buộc bằng dây mây và dây nylon (cảnh báo có dây nylon hiện đại) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bamboo photoscan (Arthur_mf)**
+- kích thước: 177.282 faces [A·api.sketchfab.com]
+- hình thái, màu: Tre photoscan, chân thực [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Banana Plant (evolveduk)**
+- kích thước: 4.402 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây chuối dựng bằng Tree It [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Banana Tree (Garecra)**
+- kích thước: 5.662 faces (game-ready) [A·api.sketchfab.com]
+- hình thái, màu: Cây chuối dựng Blender, texture lấy từ Quixel Bridge (cảnh báo nguồn texture) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Banana leaf AMAPstudio (griffon.sebastien)**
+- kích thước: 26.224 faces [A·api.sketchfab.com]
+- hình thái, màu: Lá chuối mô phỏng thực vật học bằng AMAPstudio (CIRAD) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Banyan Tree of NCKU (ncku_museum)**
+- kích thước: 189.533 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây đa photoscan Agisoft của bảo tàng đại học [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Banyan on palmyra (feklee)**
+- phân bố: Batticaloa, Sri Lanka [B·api.sketchfab.com]
+- kích thước: 2.704.191 faces (quá nặng) [A·api.sketchfab.com]
+- hình thái, màu: Cây đa bóp cổ mọc trên cây thốt nốt, photogrammetry [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Bird Nest Fern Scaniverse LIDAR (db4)**
+- tên khoa học: Asplenium nidus [B·api.sketchfab.com]
+- phân bố: Kuching, Sarawak, Borneo (Malaysia) [A·api.sketchfab.com]
+- kích thước: 338.815 faces (scan LiDAR, cần decimate xuống ≤15k) [A·api.sketchfab.com]
+- hình thái, màu: Dương xỉ tổ chim scan LiDAR bằng Scaniverse [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Blue Fern (gavinpgamer1)**
+- hình thái, màu: Tag tên game Half-Life, Black Mesa, Xen [A·api.sketchfab.com]
+- mật độ, license: LOẠI: rip từ game Half-Life/Black Mesa (decompile bằng Crowbar) dù gắn CC Attribution [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab CC0 Malayan Banyan Ficus microcarpa 038bae (ffishAsia-and-floraZia)**
+- tên khoa học: Ficus microcarpa [B·api.sketchfab.com]
+- kích thước: 2.355.367 faces (nặng. cần decimate) [A·api.sketchfab.com]
+- hình thái, màu: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [B·api.sketchfab.com]
+- mật độ, license: CC0 Public Domain [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab CC0 Malayan Banyan Ficus microcarpa 19172c (ffishAsia-and-floraZia)**
+- tên khoa học: Ficus microcarpa [B·api.sketchfab.com]
+- kích thước: 609.313 faces (nặng. cần decimate) [A·api.sketchfab.com]
+- hình thái, màu: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [B·api.sketchfab.com]
+- mật độ, license: CC0 Public Domain [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab CC0 Malayan Banyan Ficus microcarpa 4b98d9 (ffishAsia-and-floraZia)**
+- tên khoa học: Ficus microcarpa [B·api.sketchfab.com]
+- kích thước: 1.127.010 faces (nặng. cần decimate) [A·api.sketchfab.com]
+- hình thái, màu: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [B·api.sketchfab.com]
+- mật độ, license: CC0 Public Domain [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab CC0 Malayan Banyan Ficus microcarpa 6882b8 (ffishAsia-and-floraZia)**
+- tên khoa học: Ficus microcarpa [B·api.sketchfab.com]
+- kích thước: 1.637.988 faces (nặng. cần decimate) [A·api.sketchfab.com]
+- hình thái, màu: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [B·api.sketchfab.com]
+- mật độ, license: CC0 Public Domain [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Chinese Banyan Ficus Microcarpa (Valery.Li)**
+- tên khoa học: Ficus microcarpa [B·api.sketchfab.com]
+- phân bố: Bản địa Sri Lanka, Ấn Độ, Đài Loan, quần đảo Mã Lai [B·api.sketchfab.com]
+- kích thước: 111.392 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây si/gừa nguyên cây, dựng tay [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Curtain Fig Tree Yungaburra (kungphil)**
+- kích thước: faceCount 0: dữ liệu LiDAR, không phải lưới [A·api.sketchfab.com]
+- hình thái, màu: Cây sung bóp cổ (strangler fig) nổi tiếng, LiDAR [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Dead Tree Stump (gamingassets)**
+- kích thước: 22.958 faces [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây chết photogrammetry có rễ [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Dipterocarp in Maliau Basin (kungphil)**
+- phân bố: Maliau Basin, Malaysia (Borneo) [B·api.sketchfab.com]
+- kích thước: faceCount 0: là đám mây điểm LiDAR, không phải lưới, chỉ dùng làm tham chiếu tỷ lệ [A·api.sketchfab.com]
+- hình thái, màu: Cây họ Dầu cao 54 m, ngọn gãy [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Drevo stump (Pjotruska)**
+- kích thước: 36.123 faces (mid-poly) [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây thật bản mid-poly, chưa sạch [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Elephant Ear Bush (darkmoral)**
+- kích thước: 2.268 faces (game-ready) [A·api.sketchfab.com]
+- hình thái, màu: Bụi ráy tai voi game-ready [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab FREE Livistona Chinensis Fan Palm (AllQuad)**
+- tên khoa học: Livistona chinensis [B·api.sketchfab.com]
+- kích thước: 61.856 faces [A·api.sketchfab.com]
+- hình thái, màu: Cọ quạt Livistona, gắn tag nội thất/trang trí (có thể là cây chậu) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Fallen Spruce Tree (kj3987)**
+- kích thước: 12.716 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây vân sam đổ photoscan, texture không chi tiết (loài ôn đới) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Fallen Tree PNW (Kickflipkid687)**
+- phân bố: Tây Bắc Thái Bình Dương (Bắc Mỹ, ôn đới) [B·api.sketchfab.com]
+- kích thước: 1.000.128 faces (quá nặng) [A·api.sketchfab.com]
+- hình thái, màu: Thân cây đổ phủ rêu, scan RealityScan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Fan palm tree (1-3D.com)**
+- mật độ, license: CC Attribution-ShareAlike (ngoài danh sách CC0/CC-BY của luật dự án, Chủ nhà quyết) [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Fishtail palm tree from Poly by Google (ie-niels)**
+- kích thước: 966 faces (low-poly) [A·api.sketchfab.com]
+- hình thái, màu: Cây móc đuôi cá low-poly, bản lưu từ Google Poly [B·api.sketchfab.com]
+- mật độ, license: CC Attribution (bản sao lưu từ Google Poly; tác giả gốc khác người upload) [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] · Cảnh báo: tag video-games nhưng nguồn là Google Poly, không thấy tên game cụ thể [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Tree (kirsula228)**
+- kích thước: 13.724 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây nhiệt đới dựng tay cho game [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Tree (kobaltsecond)**
+- kích thước: 30.720 faces [A·api.sketchfab.com]
+- hình thái, màu: Ghép từ nhiều model miễn phí khác (chuỗi ghi công phức tạp) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Tree (rodrigogelmi)**
+- kích thước: 124.671 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây lớn dựng tay để tạo rừng rậm [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Tree Roots (boypuff)**
+- kích thước: 433.171 faces (lưới đã decimate) [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây rừng có rễ, photoscan Agisoft [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Tree With Liana (sebastienthapa20)**
+- kích thước: 4.750 faces (low-poly) [A·api.sketchfab.com]
+- hình thái, màu: Cây rừng kèm dây leo, low-poly [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle Trees (rhcreations)**
+- kích thước: 47.447 faces cho cả bộ (trong ngưỡng 60k) [A·api.sketchfab.com]
+- hình thái, màu: Bộ cây rừng rậm dựng bằng Blender, có cọ [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle roots (boypuff)**
+- kích thước: 431.454 faces [A·api.sketchfab.com]
+- hình thái, màu: Rễ cây rừng nhiệt đới photoscan, vùng đảo [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle tree (Cliffcographics)**
+- kích thước: 48.420 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây đơn giản cho cảnh rừng, tác giả nói không giống thật 100% [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Jungle tree partial (boypuff)**
+- kích thước: 172.706 faces [A·api.sketchfab.com]
+- hình thái, màu: Một phần thân cây rừng photoscan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Liana tree (JonathanPepe)**
+- phân bố: Cao Hùng, Đài Loan [B·api.sketchfab.com]
+- kích thước: 49.999 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây có dây leo, chụp tại Đài Loan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Moreton Bay Fig Tree 4 (b_nealie)**
+- phân bố: Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [B·api.sketchfab.com]
+- kích thước: 398.830 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây sung già có rễ bạnh, vài vùng chưa có texture [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Moreton Bay Fig Tree 5 (b_nealie)**
+- phân bố: Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [B·api.sketchfab.com]
+- kích thước: 399.574 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây sung già có rễ bạnh và rễ khí, photogrammetry [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Moreton Bay Fig Tree 6 (b_nealie)**
+- phân bố: Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [B·api.sketchfab.com]
+- kích thước: 397.615 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây sung có rễ bạnh lớn và rễ khí [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Mossy old tree log (julianmalik)**
+- kích thước: 20.390 faces (đã retopo, có normal map) [A·api.sketchfab.com]
+- hình thái, màu: Khúc gỗ đổ phủ rêu photoscan, retopo ZBrush [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Mossy tree stump (nedo)**
+- kích thước: 292.890 faces [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây phủ rêu scan (rừng Đức, ôn đới) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Ponga (toAflame)**
+- phân bố: New Zealand [B·api.sketchfab.com]
+- kích thước: 647 faces (rất nhẹ) [A·api.sketchfab.com]
+- hình thái, màu: Dương xỉ thân gỗ low-poly làm asset môi trường tương tác [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Port Jackson Fig (Landy42)**
+- tên khoa học: Ficus rubiginosa [B·api.sketchfab.com]
+- phân bố: Newcastle, Úc [B·api.sketchfab.com]
+- kích thước: 7.609.654 faces (quá nặng) [A·api.sketchfab.com]
+- hình thái, màu: Cây sung lớn trong công viên, scan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Realistic HD Male fern 3/50 (PlantCatalog)**
+- tên khoa học: Dryopteris filix-mas [B·api.sketchfab.com]
+- kích thước: 126.070 faces [A·api.sketchfab.com]
+- hình thái, màu: Dương xỉ thường (loài ôn đới) dựng thủ tục [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Realistic HD Mexican fan palm 8/10 (PlantCatalog)**
+- tên khoa học: Washingtonia robusta [B·api.sketchfab.com]
+- phân bố: Bắc Mỹ, sa mạc (sai vùng) [B·api.sketchfab.com]
+- kích thước: 162.290 faces [A·api.sketchfab.com]
+- hình thái, màu: Cọ quạt Washingtonia (cọ sa mạc Bắc Mỹ, chỉ thay thế tạm hình dáng) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Realistic Jungle Tree (Garecra)**
+- kích thước: 2.324.826 faces (quá nặng cho web, cần decimate/LOD) [A·api.sketchfab.com]
+- hình thái, màu: Cây rừng nhiệt đới dựng tay kiểu nanite/UE5, không ghi loài [B·api.sketchfab.com] · Tag cho thấy dựng nhắm Unreal Engine 5 [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Realistic Jungle Tree Avatar (Garecra)**
+- kích thước: 711.124 faces [A·api.sketchfab.com]
+- hình thái, màu: Cây rừng rậm kiểu phim Avatar/Pandora (cảnh báo IP phim, không phải rip game) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tree Fern 1 (b_nealie)**
+- phân bố: Auckland, New Zealand (dương xỉ thân gỗ NZ, không phải Cyathea Đông Dương) [B·api.sketchfab.com]
+- kích thước: 130.032 faces [A·api.sketchfab.com]
+- hình thái, màu: Dương xỉ thân gỗ ghép từ scan photogrammetry các phần Ponga và Mamaku [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tree Stump Photogrammetry (tinyruin)**
+- mật độ, license: LOẠI: CC Attribution-NonCommercial [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tree fern stem Cornell (DigitalAtlasOfAncientLife)**
+- tên khoa học: Cyatheaceae hoặc Dicksoniaceae (chưa chắc) [B·api.sketchfab.com]
+- kích thước: 468.892 faces [A·api.sketchfab.com]
+- hình thái, màu: Chỉ một đoạn thân dương xỉ thân gỗ (tiêu bản bảo tàng), không có tán lá [B·api.sketchfab.com]
+- mật độ, license: CC0 Public Domain [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tree stump Photogrammetry retopo (Hullken)**
+- kích thước: 163.242 faces [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây photogrammetry từ video 4K60, đã retopo [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tree with ferns and moss (b_nealie)**
+- phân bố: Auckland, New Zealand [B·api.sketchfab.com]
+- kích thước: 398.162 faces [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây có dương xỉ và rêu, photogrammetry [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tropical Plants Pack M02P (MozzarellaARC)**
+- kích thước: 46.575 faces cho cả gói [A·api.sketchfab.com]
+- hình thái, màu: Gói cây nhiệt đới gồm cọ, chuối, dương xỉ, monstera (dòng cây cảnh trong nhà) [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Tropical Rainforest Tree Stump (db4)**
+- tên khoa học: Tristaniopsis whiteana [B·api.sketchfab.com]
+- phân bố: Sarawak, Borneo (Malaysia) [A·api.sketchfab.com]
+- kích thước: 510.418 faces (scan LiDAR, cần decimate) [A·api.sketchfab.com]
+- hình thái, màu: Gốc cây rừng mưa nhiệt đới scan LiDAR [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Variegated Alocasia (Naturalai)**
+- mật độ, license: Cảnh báo: tag cho thấy tạo/xử lý bằng AI (createdwithai, meshyai) [A·api.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Waterfall Rock 1 Scaniverse (db4)**
+- phân bố: Thác Sebarau, Padawan, Sarawak, Borneo [A·api.sketchfab.com]
+- kích thước: 207.050 faces [A·api.sketchfab.com]
+- hình thái, màu: Đá suối phủ rêu quanh thác Sebarau, scan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab Waterfall Rock 5 Scaniverse (db4)**
+- phân bố: Thác Sebarau, Padawan, Sarawak, Borneo [A·api.sketchfab.com]
+- kích thước: 230.714 faces [A·api.sketchfab.com]
+- hình thái, màu: Đá suối phủ rêu quanh thác Sebarau, scan [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab liana (nlyCGI)**
+- kích thước: 28.659 faces [A·api.sketchfab.com]
+- hình thái, màu: Dây leo, không mô tả, không tag [B·api.sketchfab.com]
+- mật độ, license: CC Attribution [A·api.sketchfab.com] · Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Sketchfab định dạng tải tự động**
+- kích thước: GLB có nhiều bản texture: gốc, 4K, 1K [A·help.sketchfab.com] · Bản GLB 1K tải trực tiếp không nén ZIP [A·sketchfab.com]
+- hình thái, màu: Chuyển sang glTF dùng vật liệu và texture PBR [A·help.sketchfab.com]
+- mật độ, license: Mọi model downloadable được tự chuyển sang glTF và USDZ khi có thể [A·help.sketchfab.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**Smithsonian Open Access 3D (Smithsonian Gardens)**
+- tên khoa học: Lycaste virginalis (lan Trung Mỹ) [A·3d.si.edu]
+- kích thước: Chỉ 2 kết quả, đều là hoa lan Lycaste virginalis; không có cây rừng [A·3d.si.edu]
+- honest-null: phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **Sonniss Tropical Ambiences (Stéphane Fufa Dufour)**
 - hành vi, âm thanh: Đêm rừng mưa: suối sương mù ban đêm, mưa đêm có giọt rơi từ lá [A·sonniss.com] · Suối rừng mưa chảy lớn với tiếng chim lác đác [A·sonniss.com]
@@ -1522,15 +2467,41 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 - mật độ, license: Library Asset chỉ được dùng như thành phần nhúng của sản phẩm được cấp phép [A·unity.com] · Licensed Production là sản phẩm định danh bằng tên trong Order Form [A·unity.com] · SpeedTree Cinema không được dùng cho sản phẩm tương tác/thời gian thực [A·unity.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
+**Superhive Botaniq Trees (polygoniq)**
+- kích thước: Bản Full 129 USD (tất cả asset); Starter 2 USD (~3% asset) [A·superhivemarket.com]
+- hình thái, màu: Thư viện cây, cọ, bụi, cây thực tế tối ưu, >1000 model [A·superhivemarket.com]
+- mật độ, license: Royalty Free (Superhive); asset nén trong file .paq [A·superhivemarket.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**The Grove (F12)**
+- kích thước: Starter 99 EUR, Indie 199 EUR, Studio 799 EUR; twig 9,69 EUR mỗi loại [B·cgchannel.com]
+- mật độ, license: Được đưa cây vào game với điều kiện cây không trích xuất được [A·thegrove3d.com] · Cấm bán/phân phối model cây mọc bằng The Grove Core [A·thegrove3d.com] · Xuất FBX, OBJ, USD từ phần mềm chủ; cấu trúc mesh hợp three.js [B·cgchannel.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
 **Thư viện Quixel Megascans trên Fab**
-- kích thước: Từ 2025: gói khởi đầu miễn phí hơn 1.500 asset chọn lọc, cho mọi engine [A·unrealengine.com] · Giá lẻ từ 0,99 USD (asset 2D/3D), 4,99 USD (kit thủ tục), 24,99 USD (gói) [B·cgchannel.com]
-- mật độ, license: Miễn phí cho mọi engine đến hết 2024 (phải nhận vào thư viện Fab) [A·unrealengine.com] · Từ 2025 phần lớn Megascans không còn miễn phí, kể cả trong Unreal Engine [B·cgchannel.com] · Megascans tải qua Bridge theo Epic Content License cũ chỉ được dùng miễn phí trong Unreal Engine: CẤM cho three.js [B·cgchannel.com]
+- kích thước: Từ 2025: gói khởi đầu miễn phí hơn 1.500 asset chọn lọc, cho mọi engine [A·unrealengine.com] · Giá lẻ từ 0,99 USD (asset 2D/3D), 4,99 USD (kit thủ tục), 24,99 USD (gói) [B·cgchannel.com] · Giá lẻ cây 3D Megascans trên trang danh mục: từ 3,99 USD (Tropical Palm, Fern, Cat Palm) [A·fab.com] · Giá lẻ thân, gốc, đá Megascans: từ 2,99 USD [A·fab.com] · 4 bậc chất lượng: Raw 8K, High 4K, Mid 2K, Low 1K [B·forums.unrealengine.com] · Mỗi bậc có LOD riêng kèm mesh billboard; bản Nanite chỉ có một mesh [B·forums.unrealengine.com] · Bậc Mid 2K dành cho game indie hoặc asset nền [B·forums.unrealengine.com]
+- mật độ, license: Miễn phí cho mọi engine đến hết 2024 (phải nhận vào thư viện Fab) [A·unrealengine.com] · Từ 2025 phần lớn Megascans không còn miễn phí, kể cả trong Unreal Engine [B·cgchannel.com] · Megascans tải qua Bridge theo Epic Content License cũ chỉ được dùng miễn phí trong Unreal Engine: CẤM cho three.js [B·cgchannel.com] · Megascans tải qua Fab in Launcher: FBX là định dạng tối ưu cho DCC, Unity và UE dưới 5.3 [A·dev.epicgames.com] · Với UE 5.3 trở lên, glTF là định dạng tối ưu (tài liệu ghi ".gtlf") [A·dev.epicgames.com] · File Unreal Engine không có nút tải xuống thô (chỉ nhập qua Fab plugin) [A·dev.epicgames.com] · Trang listing Megascans 3D ghi định dạng fbx, gltf và bản chuyển đổi GLB/glTF/USDZ [A·fab.com] · Megascans dạng texture set (atlas lá) chỉ có "texture set", không có mesh [A·fab.com] · Nội dung Quixel phát hành 2026 dùng miễn phí theo Fab Standard License (mục được đánh dấu free) [A·quixel.com] · Thư viện có cả asset miễn phí và asset trả phí "premium" [A·quixel.com] · Fab có thư viện tài nguyên hoàn toàn miễn phí ngày càng lớn, gồm Megascans chất lượng cao [A·unrealengine.com] · Theo licenseorg: miễn phí nay chỉ giới hạn ở asset thuộc bậc free của Fab [C·licenseorg.com] · Người dùng báo một số Megascans đã nhận trong đợt free lại thành hàng trả phí trên Fab (diễn đàn, 2026) [C·forums.unrealengine.com]
+- honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
+
+**Thư viện model Poly Haven**
+- phân bố: Danh mục cây chủ yếu từ các bộ sưu tập namaqualand (Nam Phi khô), pine_forest (ôn đới), verdant_trail; không có model cọ, tre, chuối, dương xỉ thân gỗ, dây leo [A·api.polyhaven.com]
+- kích thước: 521 model; 20 model nhóm trees, 57 plants, 37 rocks, 32 ground cover [A·api.polyhaven.com] · Chỉ 20 model trong nhóm cây (trees) [A·api.polyhaven.com]
+- honest-null: tên khoa học, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**TreeIt (Evolved Software)**
+- kích thước: Có LOD điều chỉnh [A·evolved-software.com]
+- mật độ, license: Miễn phí; xuất .dbo .fbx .obj .x (không glTF) [A·evolved-software.com] · Được bán model cây làm bằng TreeIt nếu là sản phẩm của mình [A·evolved-software.com]
 - honest-null: tên khoa học, phân bố, độ cao, hình thái, màu, hành vi, âm thanh, mùa, thời tiết
 
 **ZapSplat Thailand jungle ambiences**
 - hành vi, âm thanh: Ghi ban đêm: côn trùng, ve sầu lớn, ếch, mưa nhỏ nhỏ giọt từ tán [B·zapsplat.com]
 - mật độ, license: Giấy phép ZapSplat cho game/app; bản miễn phí phải ghi công 'ZapSplat', Premium thì không [A·zapsplat.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hình thái, màu, mùa, thời tiết
+
+**ambientCG Foliage 001**
+- kích thước: 1K-PNG 12 MB, 2K-PNG 44 MB, 4K-PNG 165 MB [A·ambientcg.com]
+- hình thái, màu: Atlas cỏ xanh (texture PBR) [A·ambientcg.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
 
 **ambientCG Ground037**
 - hình thái, màu: Nền rừng ẩm, rêu xanh, cỏ mọc um [A·ambientcg.com]
@@ -1539,6 +2510,23 @@ Mỗi dòng: giá trị [tier·nguồn]. Nhiều giá trị trong một ô đư�
 **ambientCG Ground106**
 - hình thái, màu: Đất nâu be, lá rụng, bùn, lòng suối, gồ ghề [A·ambientcg.com]
 - honest-null: tên khoa học, phân bố, độ cao, kích thước, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**ambientCG Leaf Set 024**
+- kích thước: Khổ thật ~40 x 40 cm; 1K–8K; 2K-PNG 46 MB [A·ambientcg.com]
+- hình thái, màu: Bộ lá xanh nhạt, chụp quang trắc bề mặt (Surface Photogrammetry) [A·ambientcg.com]
+- mật độ, license: CC0, không cần ghi công [A·ambientcg.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
+
+**ambientCG Leaf Set 029**
+- kích thước: 1K-PNG ~9,8 MB; 2K-PNG ~33 MB [A·ambientcg.com]
+- hình thái, màu: Bộ lá thường xuân (ivy) xanh: có thể làm lá dây leo tạm [A·ambientcg.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết, mật độ, license
+
+**proctree.js (Paul Brunt)**
+- kích thước: Không có bản phát hành, chỉ 9 commit (dự án cũ 2012) [A·github.com]
+- hình thái, màu: Sinh mảng đỉnh, pháp tuyến, UV, mặt cho thân và lưới cành lá (twig) riêng; có ví dụ Three.js [A·github.com]
+- mật độ, license: Giấy phép kiểu BSD 3 điều khoản; giữ thông báo bản quyền khi phân phối [A·github.com]
+- honest-null: tên khoa học, phân bố, độ cao, hành vi, âm thanh, mùa, thời tiết
 
 **xeno-canto**
 - mật độ, license: Mọi bản ghi theo một giấy phép Creative Commons, mỗi bản một loại: phải kiểm từng bản [B·en.wikipedia.org]

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T17:41:35.568Z",
+  "generatedAt": "2026-10-10T01:35:21.654Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 168831898,
+  "totalBytes": 172469305,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3229,13 +3229,13 @@
         },
         {
           "path": "assets/terrain/truong-son-a/nav.bin",
-          "bytes": 1211312,
-          "sha256": "7e80be116595ad50860023630b7067c1d2fa05e66532ce6b6ff37d02072c9f85"
+          "bytes": 1260372,
+          "sha256": "d811803cae333ce04b847dc73df94800502013cbe42f19ac18ee8000a1deb524"
         },
         {
           "path": "assets/terrain/truong-son-a/map.png",
-          "bytes": 827916,
-          "sha256": "c1a71966a0c7922ae404eb7bfdf4abdf7161f5b3a653623366bf944e836b4c05"
+          "bytes": 820459,
+          "sha256": "b41c36ff2a9360dea4c591fd0845396003ea62caba3d29a88fce72f00105eab2"
         }
       ],
       "sourceFiles": [
@@ -3907,6 +3907,213 @@
       ],
       "historical": true,
       "registryId": "wpn.pavn.type56_rifle"
+    },
+    {
+      "id": "veg_ph_fern",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — dương xỉ photoscan (Poly Haven Fern 02, CC0) — thảm tươi dưới tán: 4 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/fern_02",
+      "authors": [
+        "Rob Tuytel",
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_fern.glb",
+          "bytes": 313220,
+          "sha256": "b866fa78fba75953049676d5efaa794572627fdfe8b2b60ea27443d5c17c157d"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/fern_02/fern_02_1k.gltf",
+          "bytes": 6899,
+          "sha256": "33974295ee19670af4877705fc7d91f33f42d6302f0d44a625e072271223031f"
+        }
+      ],
+      "triangles": {
+        "source": 6232,
+        "output": 1558
+      }
+    },
+    {
+      "id": "veg_ph_calathea",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — lá rộng mặt đất thay tạm lá dong (Poly Haven Calathea Orbifolia 01, CC0): 5 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/calathea_orbifolia_01",
+      "authors": [
+        "Rob Tuytel",
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_calathea.glb",
+          "bytes": 386740,
+          "sha256": "fbefa5956ab04029068e235680a6eece3b38248e3caf095dc1b1c5d450946fc1"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/calathea_orbifolia_01/calathea_orbifolia_01_1k.gltf",
+          "bytes": 9309,
+          "sha256": "399130c01bfff6b493f885652112c3c841c3814b024a3d3c87773e0c5ab4f156"
+        }
+      ],
+      "triangles": {
+        "source": 16688,
+        "output": 2002
+      }
+    },
+    {
+      "id": "veg_ph_log",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — thân cây đổ phủ rêu (Poly Haven Dead Tree Trunk 02, CC0, scan): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/dead_tree_trunk_02",
+      "authors": [
+        "Jenelle van Heerden",
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_log.glb",
+          "bytes": 592740,
+          "sha256": "33b57374b22059154d91ec1b66b941a2278bb4681914ea8e8a8de033673f58f3"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/dead_tree_trunk_02/dead_tree_trunk_02_1k.gltf",
+          "bytes": 2849,
+          "sha256": "b486ab1f0c7f4972e0eec97b19de53b26a34d09f07da5f9c2a70f8621f9e574c"
+        }
+      ],
+      "triangles": {
+        "source": 155864,
+        "output": 18282
+      }
+    },
+    {
+      "id": "veg_ph_stump",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — gốc cây có rêu (Poly Haven Tree Stump 01, CC0, scan): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/tree_stump_01",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_stump.glb",
+          "bytes": 493840,
+          "sha256": "1db707ebc00fe9e9a544ba29395b873957b66cf3a73e266e9d268602bac7f7b1"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/tree_stump_01/tree_stump_01_1k.gltf",
+          "bytes": 2793,
+          "sha256": "9c66ba87d693f35eb404acaa96e0eeff831c295b61a0a903795584cbcc3527c9"
+        }
+      ],
+      "triangles": {
+        "source": 41046,
+        "output": 14365
+      }
+    },
+    {
+      "id": "veg_ph_rock_moss",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — đá phủ rêu (Poly Haven Rock Moss Set 01, CC0, scan): 6 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/rock_moss_set_01",
+      "authors": [
+        "Kless Gyzen"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_rock_moss.glb",
+          "bytes": 887480,
+          "sha256": "39ee16d8f27e77c130d1d91d07c4708626ef78b729d8e150084faef1f5061aea"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+          "bytes": 9987,
+          "sha256": "c36675aca9c6b2be7785c2534cf413b03ec82a5a2a5407a2b1c0cdb0346c9727"
+        }
+      ],
+      "triangles": {
+        "source": 63127,
+        "output": 6312
+      }
+    },
+    {
+      "id": "veg_ph_branches",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cành khô rụng (Poly Haven Dry Branches Medium 01, CC0): 3 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/dry_branches_medium_01",
+      "authors": [
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_branches.glb",
+          "bytes": 373616,
+          "sha256": "cbca5a9631390ef318ddf28417fb47a2bbf135042a09ae3b833c39c07d021695"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/dry_branches_medium_01/dry_branches_medium_01_1k.gltf",
+          "bytes": 5844,
+          "sha256": "23f328ded9be1e151ccd7994b303c70221551544c4857a71474c1c01a14b8a22"
+        }
+      ],
+      "triangles": {
+        "source": 16803,
+        "output": 2799
+      }
+    },
+    {
+      "id": "veg_ph_roots",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cụm rễ trồi (Poly Haven Root Cluster 01, CC0, scan): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/root_cluster_01",
+      "authors": [
+        "Jenelle van Heerden",
+        "Rico Cilliers"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_roots.glb",
+          "bytes": 548168,
+          "sha256": "888e25a81ed16ea06c4c70df17c6cbc37a6a4bda27155f42c88e441100d9e5fb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/root_cluster_01/root_cluster_01_1k.gltf",
+          "bytes": 2827,
+          "sha256": "b9060cfe2c1db4326428a0bf834e8409a99988082c8e5465cb09738d72117463"
+        }
+      ],
+      "triangles": {
+        "source": 225261,
+        "output": 18004
+      }
     }
   ]
 }

@@ -72,7 +72,8 @@
               "mixamo",
               "aws-terrain-tiles",
               "procedural",
-              "google-fonts"
+              "google-fonts",
+              "polyhaven-vegetation"
             ]
           },
           "url": {

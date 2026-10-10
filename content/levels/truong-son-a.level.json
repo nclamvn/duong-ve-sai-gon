@@ -67,7 +67,7 @@
   ],
   "models": [],
   "vegetation": {
-    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác.",
+    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác. DV-059: thêm lớp nền rừng CC0 Poly Haven (scan): dương xỉ, lá rộng thay lá dong ở chỗ trũng, cành khô, thân đổ phủ rêu (không collider: capsule đứng không khớp thân nằm), gốc cây, đá phủ rêu trên sườn dốc, cụm rễ trồi quanh cây vượt tán.",
     "seed": 1971,
     "cellM": 64,
     "wind": 0.35,
@@ -454,6 +454,242 @@
         "sink": [
           0.04,
           0.4
+        ]
+      },
+      {
+        "id": "ph_fern",
+        "perHa": 220,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "noise": {
+          "scale": 0.018,
+          "min": 0.32,
+          "offset": 2100
+        },
+        "lod": [
+          12,
+          28,
+          60,
+          60
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ]
+      },
+      {
+        "id": "ph_calathea",
+        "perHa": 90,
+        "slope": [
+          0,
+          0.45
+        ],
+        "height": [
+          0,
+          0.55
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.02,
+          "min": 0.42,
+          "offset": 2500
+        },
+        "lod": [
+          12,
+          26,
+          55,
+          55
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.02,
+          0.3
+        ]
+      },
+      {
+        "id": "ph_branches",
+        "perHa": 40,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "lod": [
+          10,
+          22,
+          40,
+          40
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.02,
+          0.2
+        ]
+      },
+      {
+        "id": "ph_log",
+        "perHa": 3,
+        "slope": [
+          0,
+          0.3
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "lod": [
+          20,
+          50,
+          90,
+          90
+        ],
+        "cast": true,
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.15,
+          0.6
+        ]
+      },
+      {
+        "id": "ph_stump",
+        "perHa": 4,
+        "slope": [
+          0,
+          0.45
+        ],
+        "scale": [
+          0.8,
+          1.5
+        ],
+        "lod": [
+          20,
+          50,
+          90,
+          90
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.5,
+          "height": 0.6
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.5
+        ]
+      },
+      {
+        "id": "ph_rock_moss",
+        "perHa": 6,
+        "slope": [
+          0.12,
+          0.75
+        ],
+        "scale": [
+          0.5,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.01,
+          "min": 0.4,
+          "offset": 2900
+        },
+        "lod": [
+          25,
+          60,
+          110,
+          110
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.6,
+          "height": 1.0
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.2,
+          0.8
+        ]
+      },
+      {
+        "id": "ph_roots",
+        "perHa": 3,
+        "slope": [
+          0,
+          0.35
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.34
+        },
+        "noiseId": "tree_gn",
+        "lod": [
+          20,
+          50,
+          90,
+          90
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.8,
+          "height": 0.8
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.3,
+          0.8
         ]
       }
     ]

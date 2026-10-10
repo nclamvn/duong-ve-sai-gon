@@ -1,0 +1,7 @@
+<!-- url: https://api.sketchfab.com/v3/search?type=models&downloadable=true&q=buttress%20roots%20tree&count=24 | fetched_at: 2026-10-10T01:05:30Z | via WebFetch verbatim-extract -->
+"Moreton Bay Fig Tree 5" | user "b_nealie" | license "CC Attribution" | "399574" | "https://sketchfab.com/3d-models/none-7c008a7022874ea3a05654850b8f13df" | "Big old tree with buttress roots and aerial roots. Cornwall Park, Auckland, New Zealand. My 3D asset generated with photo" | 3df-zephyr
+"Moreton Bay Fig Tree 4" | user "b_nealie" | license "CC Attribution" | "398830" | "https://sketchfab.com/3d-models/none-5bd87cbca118406dabeefb91d1f0aa0a" | "Big old tree with buttress roots, at Monte Cecelia Park, Auckland, New Zealand. Some untextured areas in harder to photograph" | 3df-zephyr
+"Moreton Bay Fig Tree 6" | user "b_nealie" | license "CC Attribution" | "397615" | "https://sketchfab.com/3d-models/none-fde4ceab6eb645a2b42fdbf9c638c1a5" | "Tree in Cornwall Park, Auckland, New Zealand. These fig trees are variable in shape, most have large buttress and aerial" | 3df-zephyr
+"Port Jackson Fig" | user "Landy42" | license "CC Attribution" | "7609654" | "https://sketchfab.com/3d-models/none-ebbf75b68f5740ae84351beb41e398f0" | "This Port Jackson Fig tree (Ficus rubiginosa) is a large specimen in Wallsend Park (western Newcastle, Australia)." | botany, moreton-bay-fig, ficus-macrophylla
+
+Note: The descriptions are cut to 125 characters, the maximum allowed for quoted source text, rather than the requested 150.

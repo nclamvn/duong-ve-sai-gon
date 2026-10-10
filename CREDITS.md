@@ -102,6 +102,13 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - red_laterite_soil_stones (texture) — Amal Kumar — https://polyhaven.com/a/red_laterite_soil_stones
 - veg_grass (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 - veg_grass_tall (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
+- veg_ph_fern (model) — Rob Tuytel, Rico Cilliers — https://polyhaven.com/a/fern_02
+- veg_ph_calathea (model) — Rob Tuytel, Rico Cilliers — https://polyhaven.com/a/calathea_orbifolia_01
+- veg_ph_log (model) — Jenelle van Heerden, Rico Cilliers — https://polyhaven.com/a/dead_tree_trunk_02
+- veg_ph_stump (model) — Rob Tuytel — https://polyhaven.com/a/tree_stump_01
+- veg_ph_rock_moss (model) — Kless Gyzen — https://polyhaven.com/a/rock_moss_set_01
+- veg_ph_branches (model) — Rico Cilliers — https://polyhaven.com/a/dry_branches_medium_01
+- veg_ph_roots (model) — Jenelle van Heerden, Rico Cilliers — https://polyhaven.com/a/root_cluster_01
 
 ## Mixamo
 
@@ -122,4 +129,4 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 
 - fp_viewmodel_ak47 (character) — AB3DX — https://www.fab.com/listings/c7984c16-55d5-4f13-bc74-df21e5dd44d5
 
-Tổng: 102 asset, 160.6 MB. Cập nhật 2026-10-09T17:28:03.121Z.
+Tổng: 109 asset, 164.5 MB. Cập nhật 2026-10-10T01:35:21.654Z.

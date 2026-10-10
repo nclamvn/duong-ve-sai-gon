@@ -1,0 +1,10 @@
+<!-- url: https://www.evolved-software.com/treeit/treeit | fetched_at: 2026-10-10T01:35:30Z | via WebFetch verbatim-extract -->
+"Tree It is an easy to use real time 3D tree generator"
+"Free."
+"Adjustable LOD."
+"Exports to *.dbo *.fbx *.obj *.x ."
+"Note: Fbx models are exported in ascii format which some applications"
+"Can I sell tree models made in tree it?"
+"Yes you can! so long as its your own work."
+"Required packages for Tree It to run"
+"Tree It Installer."

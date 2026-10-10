@@ -416,6 +416,299 @@
         "url": "https://sketchfab.com/3d-models/fern-grass-02-93d1f6a261e24b8394d0ea41cf985ef9",
         "faces": 2128
       }
+    },
+    "ph_fern": {
+      "label": "dương xỉ photoscan (Poly Haven Fern 02, CC0) — thảm tươi dưới tán",
+      "asset": "veg_ph_fern",
+      "src": "assets-src/polyhaven/models/fern_02/fern_02_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^fern_02_a$"
+        },
+        {
+          "nodes": "^fern_02_b$"
+        },
+        {
+          "nodes": "^fern_02_c$"
+        },
+        {
+          "nodes": "^fern_02_d$"
+        }
+      ],
+      "leaf": "fern",
+      "height": 0.8,
+      "lod": {
+        "leaf": [
+          1,
+          0.45,
+          0.18
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "polyhaven": {
+        "id": "fern_02",
+        "authors": [
+          "Rob Tuytel",
+          "Rico Cilliers"
+        ],
+        "faces": 6232
+      }
+    },
+    "ph_calathea": {
+      "label": "lá rộng mặt đất thay tạm lá dong (Poly Haven Calathea Orbifolia 01, CC0)",
+      "asset": "veg_ph_calathea",
+      "src": "assets-src/polyhaven/models/calathea_orbifolia_01/calathea_orbifolia_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^calathea_orbifolia_01_a$"
+        },
+        {
+          "nodes": "^calathea_orbifolia_01_b$"
+        },
+        {
+          "nodes": "^calathea_orbifolia_01_c$"
+        },
+        {
+          "nodes": "^calathea_orbifolia_01_d$"
+        },
+        {
+          "nodes": "^calathea_orbifolia_01_e$"
+        }
+      ],
+      "leaf": "calathea",
+      "height": 0.75,
+      "lod": {
+        "leaf": [
+          0.6,
+          0.25,
+          0.1
+        ],
+        "bark": [
+          0.6,
+          0.25,
+          0.1
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": false,
+      "polyhaven": {
+        "id": "calathea_orbifolia_01",
+        "authors": [
+          "Rob Tuytel",
+          "Rico Cilliers"
+        ],
+        "faces": 16688
+      }
+    },
+    "ph_log": {
+      "label": "thân cây đổ phủ rêu (Poly Haven Dead Tree Trunk 02, CC0, scan)",
+      "asset": "veg_ph_log",
+      "src": "assets-src/polyhaven/models/dead_tree_trunk_02/dead_tree_trunk_02_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^dead_tree_trunk_02$"
+        }
+      ],
+      "height": 1.06,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.22,
+          0.07,
+          0.02
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "dead_tree_trunk_02",
+        "authors": [
+          "Jenelle van Heerden",
+          "Rico Cilliers"
+        ],
+        "faces": 155864
+      }
+    },
+    "ph_stump": {
+      "label": "gốc cây có rêu (Poly Haven Tree Stump 01, CC0, scan)",
+      "asset": "veg_ph_stump",
+      "src": "assets-src/polyhaven/models/tree_stump_01/tree_stump_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^tree_stump_01$"
+        }
+      ],
+      "height": 0.57,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.35,
+          0.1,
+          0.03
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "tree_stump_01",
+        "authors": [
+          "Rob Tuytel"
+        ],
+        "faces": 41046
+      }
+    },
+    "ph_rock_moss": {
+      "label": "đá phủ rêu (Poly Haven Rock Moss Set 01, CC0, scan)",
+      "asset": "veg_ph_rock_moss",
+      "src": "assets-src/polyhaven/models/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^rock_moss_set_01_rock01$"
+        },
+        {
+          "nodes": "^rock_moss_set_01_rock02$"
+        },
+        {
+          "nodes": "^rock_moss_set_01_rock03$"
+        },
+        {
+          "nodes": "^rock_moss_set_01_rock04$"
+        },
+        {
+          "nodes": "^rock_moss_set_01_rock05$"
+        },
+        {
+          "nodes": "^rock_moss_set_01_rock06$"
+        }
+      ],
+      "height": 1.77,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.6,
+          0.2,
+          0.06
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "rock_moss_set_01",
+        "authors": [
+          "Kless Gyzen"
+        ],
+        "faces": 63127
+      }
+    },
+    "ph_branches": {
+      "label": "cành khô rụng (Poly Haven Dry Branches Medium 01, CC0)",
+      "asset": "veg_ph_branches",
+      "src": "assets-src/polyhaven/models/dry_branches_medium_01/dry_branches_medium_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^dry_branches_medium_01_a$"
+        },
+        {
+          "nodes": "^dry_branches_medium_01_b$"
+        },
+        {
+          "nodes": "^dry_branches_medium_01_c$"
+        }
+      ],
+      "height": 0.34,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.5,
+          0.15,
+          0.05
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 512
+      },
+      "cast": false,
+      "polyhaven": {
+        "id": "dry_branches_medium_01",
+        "authors": [
+          "Rico Cilliers"
+        ],
+        "faces": 16803
+      }
+    },
+    "ph_roots": {
+      "label": "cụm rễ trồi (Poly Haven Root Cluster 01, CC0, scan)",
+      "asset": "veg_ph_roots",
+      "src": "assets-src/polyhaven/models/root_cluster_01/root_cluster_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^root_cluster_01$"
+        }
+      ],
+      "height": 1.51,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.08,
+          0.025,
+          0.008
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "root_cluster_01",
+        "authors": [
+          "Jenelle van Heerden",
+          "Rico Cilliers"
+        ],
+        "faces": 225261
+      }
     }
   }
 }

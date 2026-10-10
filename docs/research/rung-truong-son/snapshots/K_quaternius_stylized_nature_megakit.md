@@ -1,0 +1,11 @@
+<!-- url: https://quaternius.com/packs/stylizednaturemegakit.html | fetched_at: 2026-10-10T01:22:00Z | via WebFetch verbatim-extract -->
+"Stylized Nature MegaKit"
+"The Stylized Nature MEGAKIT is a pack with over 110+ unique nature models."
+"it includes 40 trees, 35 plants and flowers, 27 rocks, grass, bushes and more."
+"116 Unique nature models (40 Tree models, 35 plants and flowers, 27 rocks, and many more)."
+".FBX, .OBJ and .glTF formats, compatible with all engines."
+".BLEND source files with all the models."
+"Free to use in personal, educational and commercial projects. (CC0 License)"
+"60-70% of my pack is completely free."
+"Ideal for creating enchanting, Ghibli-inspired scenes"
+"a tree leaves shader with wind and stylized shading."

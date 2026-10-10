@@ -1,0 +1,12 @@
+<!-- url: https://www.cgchannel.com/?p=174250 | fetched_at: 2026-10-10T01:31:00Z | via WebFetch verbatim-extract -->
+"Version 2.3 of the tree-generation software for Blender and Houdini users adds the option to draw trees directly into a scene"
+"The Starter edition costs €99 (around $114)."
+"The Indie edition costs €199 ($228)."
+"The Studio edition costs €799 ($916)."
+"Individual Twigs cost €9.69."
+"All of them include the Blender plugin, but only the Studio edition includes the Houdini plugin."
+"instanced geometry representing not only actual twigs, but leaves, flowers and fruit"
+"sold separately to the core app"
+"matching the mesh structure used by real-time engines and web frameworks like three.js and webGL."
+"The resulting textured geometry can be exported from the user’s host software in standard file formats, including FBX, OBJ and USD"
+"The Grove 2.3 is compatible with Blender 4.2+ and Houdini 19.0+ on Windows, Linux and macOS."

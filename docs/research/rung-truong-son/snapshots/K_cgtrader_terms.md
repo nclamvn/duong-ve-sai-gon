@@ -1,0 +1,11 @@
+<!-- url: https://www.cgtrader.com/pages/terms-and-conditions | fetched_at: 2026-10-10T01:24:30Z | via WebFetch verbatim-extract -->
+"as purchased by a game’s creators as part of a game if the Product is contained inside a proprietary format"
+"you must take all commercially reasonable measures to prevent the end user from gaining access to the Product."
+"Product is not downloadable by users of such virtual worlds, metaverses, applications or platforms"
+"Products may not be sold, given, or assigned to another person or entity in the form it is downloaded"
+"The resale or redistribution by the Buyer of any Product, obtained from the Site is expressly prohibited"
+"The Buyer’s license to Product in this paragraph is strictly limited to Incorporated Product."
+"Any subsequent use of the Products in new projects shall not be permitted if the subscription expires"
+"A Product which is offered as a free download shall be licensed with the applicable license as chosen by the Seller."
+"Buyers may only use Products marked “editorial” or “editorial license” for legitimate, editorial purposes"
+"Editorial uses include use of the Product in a news program, news-related website, or news-related video media."

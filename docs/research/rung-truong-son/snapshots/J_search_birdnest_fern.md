@@ -1,0 +1,2 @@
+<!-- url: https://api.sketchfab.com/v3/search?type=models&downloadable=true&q=bird%27s%20nest%20fern&count=24 | fetched_at: 2026-10-10T01:07:40Z | via WebFetch verbatim-extract -->
+"Bird Nest Fern (Scaniverse LIDAR)" | user "db4" | license "CC Attribution" | "338815" | "https://sketchfab.com/3d-models/none-ba011757bc9d461f86c3225afd7ba105" | "[Bird Nest Fern (Asplenium nidus)](https://www.nparks.gov.sg/florafaunaweb/flora/1/5/1541) is a beau" | "plant", "lidar", "natural", "fern", "nature", "oss", "malaysia", "sarawak", "borneo", "kuching"

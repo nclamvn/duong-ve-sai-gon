@@ -1,0 +1,10 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/4e6bc7d0-45f4-404f-8b32-8fcfcca1d4c1/ | fetched_at: 2026-10-10T01:19:00Z | via WebFetch verbatim-extract -->
+"Tall Forest Fern"
+"Crazy0_0Cat"
+"license Royalty free"
+"Free"
+"Full Plan"
+"This 3D model of a tall forest fern captures the intricate details of a natural fern plant"
+"Polygon count 64"
+"file size 8.7 MiB"
+"tags Fern ForestPlant Nature Greenery Foliage RealisticPlant Jungle Garden Botanical"

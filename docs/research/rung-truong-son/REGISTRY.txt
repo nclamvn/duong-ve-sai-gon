@@ -26,6 +26,126 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Blender Sapling Tree Gen (cộng đồng Blender)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Add-on GPL v3 trở lên, cho Blender 4.4+, hỗ trợ hạn chế [A·extensions.blender.org] | Đầu ra tạo trong Blender thuộc sở hữu người dùng [A·blender.org] }
+    ghi_chu_game    : —
+
+▸ BlenderKit Ancient Banyan Tree Trunk Scan (Scarit Editz)  (asset_nguon)
+    ten_khoa_hoc    : Đa (banyan, chi Ficus); trang không ghi loài cụ thể [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1.416.713 poly; file 564,8 MiB (rất nặng cho web) [✓A]
+    hinh_thai_mau_sac: Photoscan gốc đa cổ thụ: vân vỏ, rễ, rêu nhẹ [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí (rủi ro trích xuất trên web) [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Bamboo Trees (Jan Hecl)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 108.937 poly; 56,1 MiB [✓A]
+    hinh_thai_mau_sac: Bụi tre thực tế, lá xanh tươi [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí; mô tả nói hợp môi trường game [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Banyan Tree (REAL SCANS, 204.774 poly)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 204.774 poly; 37,0 MiB [✓A]
+    hinh_thai_mau_sac: Scan hai đoạn cây đa, hệ rễ phức tạp, vỏ sần [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Banyan Tree (REAL SCANS, 53.777 poly)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Mô tả hướng tới cảnh rừng nhiệt đới; không ghi nơi chụp [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 53.777 poly; 22,0 MiB [✓A]
+    hinh_thai_mau_sac: Scan gốc đa trưởng thành, lưới rễ khí sinh buông dày, hệ rễ toả trên mặt đất [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Banyan Tree Trunk With Roots (REAL SCANS)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 265.637 poly; 40,6 MiB [✓A]
+    hinh_thai_mau_sac: Scan đoạn dưới thân đa, mạng rễ khí sinh, gốc phong hoá [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Ceiba Tree (Jordi Se-Cam)  (asset_nguon)
+    ten_khoa_hoc    : Ceiba (cây bông gòn rừng, kapok); tag 'amazona' gợi gốc Amazon [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Kiểu Amazon (Nam Mỹ) theo tag; dáng cây vượt tán có thể mượn tạm [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Cao 25 m; 533.080 poly; 194,6 MiB [✓A]
+    hinh_thai_mau_sac: Cây rừng lớn có lớp texture rêu [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Rocks, Tree Roots In Forest (EB Adventure Photoscans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Photoscan rừng mưa ôn đới British Columbia, Canada (không phải nhiệt đới) [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 349.849 poly; 386,5 MiB [✓A]
+    hinh_thai_mau_sac: Đá và rễ cây trên lối mòn rừng mưa [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Tall Forest Fern (Crazy0_0Cat)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Trang ghi 64 poly (nghi lỗi số liệu); 8,7 MiB [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free; trang hiện cả nhãn Free và Full Plan (mâu thuẫn) [✓A]
+    ghi_chu_game    : —
+
+▸ BlenderKit Tree Fern Large (Amanpreet Bajwa)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 48.755 poly; 16,6 MiB; PBR [✓A]
+    hinh_thai_mau_sac: Dương xỉ thân gỗ lớn, PBR, tối ưu [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty free, miễn phí [✓A]
+    ghi_chu_game    : —
+
 ▸ Bách xanh đá  (cay_go)
     ten_khoa_hoc    : Calocedrus rupestris [✓A]
     nhom            : cay_go [✓A]
@@ -266,6 +386,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : A Lưới (A Roàng): mật độ 89 cây/ha, IVI cao nhất 29,6% [✓A]
     ghi_chu_game    : —
 
+▸ Chương trình Fab Limited-Time Free  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Đợt 6 đến 20/10/2026: Ready Map Vol 2, AdaptivePathfindingSystem, Stylized Harvest Farm; không có gói rừng nhiệt đới [A·www.fab.com] | Đợt 8 đến 22/9/2026 có Sharur's Normandy Village + PCG Plants (cây châu Âu) [C·forums.unrealengine.com] }
+    ghi_chu_game    : —
+
 ▸ Cu li lớn  (linh_truong)
     ten_khoa_hoc    : Nycticebus bengalensis (khảo sát Bắc Hướng Hóa ghi theo tên cũ Nycticebus coucang) [✓A]
     nhom            : linh_truong [✓B]
@@ -434,6 +566,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Danh mục Atlas ambientCG  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 61 atlas; nhóm lá gồm Foliage001–008 và LeafSet001–030 [✓A]
+    hinh_thai_mau_sac: Atlas lá là texture (ảnh PBR), không phải mesh 3D; tag chủ yếu lá ôn đới (maple, ivy, needles, autumn) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ Dây leo thân gỗ  (day_leo_bieu_sinh)
     ten_khoa_hoc    : —
     nhom            : day_leo_bieu_sinh [✓A]
@@ -542,6 +686,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ EZ-Tree (Daniel Greenheck)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Chỉ hai kiểu cây: rụng lá (deciduous) và thường xanh (evergreen); lá/vỏ mặc định kiểu Oak [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Mã nguồn MIT [A·github.com] | README không ghi nguồn/giấy phép texture lá, vỏ (honest-null, phải kiểm trước khi dùng) [A·github.com] | Web app xuất .PNG hoặc .GLB; gói npm @dgreenheck/ez-tree [A·github.com] }
+    ghi_chu_game    : —
+
 ▸ Echoto Jungle Adventure Vietnam  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓B]
@@ -564,6 +720,546 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : DISPUTED{ Cho phép dùng để tạo trò chơi máy tính và phần mềm [A·evermotion.org] | Cấm đặt file chứa sản phẩm tách rời được lên website/máy chủ để bên thứ ba lấy: rủi ro với game web tải GLB [A·evermotion.org] }
+    ghi_chu_game    : —
+
+▸ Fab AD Dipterocarpus turbinatus Trunk 01 (anydrafts official)  (asset_nguon)
+    ten_khoa_hoc    : Dipterocarpus turbinatus (dầu rái) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá từ 2,99 USD [A·www.fab.com] | Kích thước vật lý 233*219*296 cm [A·www.fab.com] | Đoạn thân/gốc 233 x 219 x 296 cm, texture 8K, có HIGH và LOD0 đến LOD5 [A·www.fab.com] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng Blender và fbx; Generated with AI: No (trang không nói photoscan) [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Alexandra Palm (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cau Alexandra (Archontophoenix, gốc Úc): cọ cảnh quan ven biển, không phải loài Trường Sơn [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Miễn phí [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Alocasia macrorrhiza Elephant Ears (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Alocasia macrorrhiza (ráy) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 11,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Ancient Banyan Tree Pack (WonderFuel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 19 asset, low-poly 9.000 đến 28.000 tam giác, FBX + GLB; giá từ 18,99 USD [A·www.fab.com] | Giá từ 18,99 USD [A·www.fab.com] }
+    hinh_thai_mau_sac: Biến thể đa: bóp cổ (Strangler Fig), rễ phụ cao, cây đổ, phủ rêu [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Nhãn Generated with AI có giá trị Yes (dòng kế tiếp trong snapshot); phong cách stylized/fantasy [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Arjun Tree with Buttressed Roots (Vfx shashwat)  (asset_nguon)
+    ten_khoa_hoc    : Terminalia arjuna (chi Chiêu liêu, gốc Ấn Độ) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 24,99 USD [✓A]
+    hinh_thai_mau_sac: Gốc có rễ bạnh rõ, tán tròn nhiều tầng lá bóng [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng obj, glb, fbx; mô tả còn nguyên chỗ trống mẫu "[confirm before listing]": cảnh báo chất lượng [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Asplenium Nidus Bird's Nest Fern (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Asplenium nidus (tổ chim) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Có tag "Vietnam" [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 10,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Bamboo Bambusa lako (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Bambusa lako (tre Timor, Đông Nam Á hải đảo) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 8,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Banana Tree (Inventive World)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng obj, fbx, glb, usdz [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Banyan Tree with Aerial Roots (Vfx shashwat)  (asset_nguon)
+    ten_khoa_hoc    : Ficus benghalensis (đa) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Mô tả hướng tới môi trường Nam/Đông Nam Á [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 40,99 USD [✓A]
+    hinh_thai_mau_sac: Tán dày, mạng rễ phụ thõng xuống dày đặc [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng glb, fbx, obj; trang ghi Generated with AI: No [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Beech Fern (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : From Free (dương xỉ ôn đới) [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Fab Broadleaf Lady Palm (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : Cọ lá rộng lady palm (thường là Rhapis excelsa, trang không ghi Latin) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Từ 3,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Caryota mitis Fishtail Palm Tukas (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Caryota mitis (đùng đình) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 10,99 USD; không ghi poly/LOD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Chinese Banyan Tree #01 (Antonio Kowatsch)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 14,99 USD mỗi cây (#01 đến #10) [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Chinese Fan Palm (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : Cọ quạt Trung Hoa (Livistona chinensis theo tên thường, trang không ghi tên Latin) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Từ 3,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Coconut (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : From Free [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Fab Common Fern (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Từ 3,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Cyathea cooperi Australian Tree Fern 01 (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Cyathea cooperi (dương xỉ thân gỗ Úc, cùng chi với loài VN) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 8,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx và GLB/glTF chuyển đổi; Generated with AI: No [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Fan Palm Stems (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Vùng scan 0,41 x 0,41 m, texel 9990 px/m [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Chỉ là texture set (atlas cuống lá cọ quạt), không có mesh 3D [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Ficus Microcarpa Tree Trunk (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa (si, gừa) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Thân/gốc si 0,82 x 1,49 x 2,31 m, texel 5751 px/m; từ 2,99 USD [✓A]
+    hinh_thai_mau_sac: Thân cây lớn phủ rêu, tag Tropical/Subtropical, photoscan [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, GLB chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Ficus benghalensis (3DTree)  (asset_nguon)
+    ten_khoa_hoc    : Ficus benghalensis [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 10,99 USD; không ghi poly [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx (3ds Max) và GLB/glTF chuyển đổi; hướng archviz (Vray/Corona) [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Foliage VOL.42 Dicranopteris Ferns (Dekogon Studios)  (asset_nguon)
+    ten_khoa_hoc    : Dicranopteris (guột, dương xỉ đất trống phổ biến ở Việt Nam) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 13 mesh, texture 4K, dựng Nanite (poly cao); giá từ 12,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine", tối ưu Nanite: không hợp web [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Lady Fern (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Dương xỉ ôn đới (lady fern), có tag "Jungle" nhưng không phải loài Đông Nam Á [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Miễn phí [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf; Fab Standard License [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Large Fallen Tree (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Tag gồm cả Temperate và Jungle: nguồn gốc vùng không ghi [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá: Free [A·www.fab.com] | Miễn phí; thân đổ 1,5 x 7,11 x 2,38 m; mật độ texel 5476 px/m [A·www.fab.com] }
+    hinh_thai_mau_sac: Thân cây lá rộng đổ, phủ rêu, mục, khô; photoscan [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, bản chuyển GLB/glTF/USDZ: dùng được cho three.js [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Licuala Palm Tree Pack (Srayt)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 3 mẫu, khoảng 200k poly mỗi cây, film-ready; texture PNG 2k/4k; giá từ 8,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, usd, Blender; tác giả nói không thân thiện engine thời gian thực [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Long Liana Stem (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá trên trang danh mục: From Free [A·www.fab.com] | Thân dây leo dài 2,32 m; texel 5493 px/m; danh mục ghi "From Free" [A·www.fab.com] }
+    hinh_thai_mau_sac: Thân dây leo gỗ, rêu, nhám, tag Tropical/Vine [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, GLB chuyển đổi; có bậc UEFN Reference [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Megaplants (Quixel Megaplants)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : DISPUTED{ Bộ đầu (11/2025) gồm 5 loài châu Âu: Black Alder, Norway Maple, Common Hazel, European Aspen, European Beech [B·80.lv] | Loài phát hành 2026 phần lớn ôn đới (Silver Birch, Norway Spruce, Japanese Cypress...) [A·quixel.com] }
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Megaplants mới từ 7/2026 chỉ tương thích UE 5.8 trở lên [A·quixel.com] | Thiết kế cho Procedural Vegetation Editor của UE 5.7: gắn chặt Unreal [A·quixel.com] }
+    ghi_chu_game    : —
+
+▸ Fab Megaplants: Giant Bamboo (Quixel Megaplants)  (asset_nguon)
+    ten_khoa_hoc    : Dendrocalamus giganteus (mai/luồng khổng lồ, tre Đông Nam Á) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Miễn phí [✓A]
+    hinh_thai_mau_sac: Photogrammetry, gồm mesh cành lá, texture, material instance và preset PVE [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine": KHÔNG dùng được cho three.js [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Military Trench Megascans Sample (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Miễn phí [✓A]
+    hinh_thai_mau_sac: Chiến hào: gỗ súc, bao cát, ván, ụ đất, dây thép gai (photogrammetry) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Dự án mẫu chỉ "Unreal Engine"; asset rời thuộc bộ Trenches phải mua lẻ [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Mossy Rock (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Đá nhỏ 0,43 x 0,43 x 0,35 m, texel 4891 px/m [✓A]
+    hinh_thai_mau_sac: Đá có địa y và rêu, bề mặt nhám [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, GLB chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Mossy Rock Formation (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Khối đá lớn 1,63 x 3,28 x 1,41 m, texel 5534 px/m [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, GLB chuyển đổi, UEFN [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Pack 12 Rock Moss RainForest (KidsGame)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Đá phủ rêu xanh, điêu khắc tay (không phải scan) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine"; giá từ 5,99 USD [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Photorealistic Tropical Rainforest Foliage Pack (Ultima Store)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 9,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Nhãn "Generated with AI: Yes"; định dạng chỉ Unreal Engine [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Rainforest Assets Pack (Dario E)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá 34,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Giấy phép "UE Marketplace License" (chỉ cho Unreal): CẤM theo luật dự án [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Ready Map Vol 2 Bridge Environment (Six Sides Studios)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine"; cảnh hậu tận thế, thực vật mùa ôn đới [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Realistic Tropical Trees 1 (Defuse Studios)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 33 mesh cây, mỗi cây 3 LOD; giá từ 9,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine" [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Sago Palm (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Chỉ texture set (atlas lá), không có mesh [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Shorea Roxburghii White Meranti (3DGardenPlants)  (asset_nguon)
+    ten_khoa_hoc    : Shorea roxburghii (chai/sến trắng, họ Dầu) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Giá từ 29,99 USD [A·www.fab.com] | Low-poly 10.000 đến 100.000 polygon; high-poly 100.000 đến 1.500.000 [A·www.fab.com] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, GLB/glTF chuyển đổi, Unreal, 3ds Max, Blender, Maya, C4D [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Subtropical flora (SergeiZhuchenko)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 71 asset: 8 cây, 6 cọ, 4 chuối, cây bụi [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine" [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Tree Stump (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Gốc cây 3,65 x 3,76 x 2,72 m; từ 2,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf, GLB chuyển đổi [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Tropical Amazon Rainforest Jungle Vegetation (FaxLab3D)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Chủ đề Amazon, gộp từ dự án Nuke Island/Drift Islands [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 14,99 USD; LOD billboard cho cây xa [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine" [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Tropical Island Plant Collection (HKhalife)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Tổng 1.035.377 poly [✓A]
+    hinh_thai_mau_sac: Cọ, chuối, cây bụi hoa (Ixora, Bougainvillea...), lan, dương xỉ: cây vườn đảo [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng Blender, GLB, glTF, USDZ [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Tropical Palm (Quixel Megascans)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Từ 3,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng fbx, gltf [✓A]
+    ghi_chu_game    : —
+
+▸ Fab Tropical South-East Asia Jungle Pack (STF3d)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Nhắm rừng nhiệt đới Đông Nam Á (tag lại lẫn Africa, Brasil, Caribbean) [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 82 mesh: chuối, cây, dương xỉ, đá, thân, tre... [A·www.fab.com] | Giá từ 50,99 USD [A·www.fab.com] | Phần lớn asset 50 đến 8000 đỉnh (low-poly) [A·www.fab.com] }
+    hinh_thai_mau_sac: Trộn dựng tay và photogrammetry; dây leo, cọ, tre, cây [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng trên listing chỉ "Unreal Engine": không dùng được trực tiếp cho three.js [✓A]
+    ghi_chu_game    : —
+
+▸ Fab UCreate Tropical Trees and Palms (MichalSornat)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 32 mesh, texture 4K, billboard LOD; giá từ 49,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine"; không ghi loài [✓A]
+    ghi_chu_game    : —
+
+▸ Fab tropical Vegetation: Banana Plants (Project Nature)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Miễn phí; 14 mesh chuối các giai đoạn lớn [✓A]
+    hinh_thai_mau_sac: Từng bộ phận cây được photoscan riêng rồi dựng lại [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine": free nhưng không dùng được cho three.js [✓A]
     ghi_chu_game    : —
 
 ▸ Freesound  (asset_nguon)
@@ -614,6 +1310,30 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : DISPUTED{ Một người dùng duy nhất, không mở rộng cho công ty [A·boomlibrary.com] | Phải kết hợp với yếu tố khác; cấm dùng 'trần' hay như sản phẩm rời [A·boomlibrary.com] }
     ghi_chu_game    : —
 
+▸ Giấy phép BlenderKit (Blendkit)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Có gói Free Plan và Full Plan (trả phí), Full Plan 2 GB lưu trữ [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Asset CC0 trên Blendkit: làm gì cũng được về mặt kỹ thuật [A·blendkit.com] | Asset trong bản phân phối không được để trích xuất trực tiếp: GLB tải qua HTTP trong game web dễ bị lấy ra, nên Royalty Free rủi ro cho three.js [A·blendkit.com] | Bán game dùng model Blendkit được, NẾU người dùng không trích xuất model dễ dàng [A·blendkit.com] | Chỉ có 2 giấy phép: Royalty Free và CC0; BlenderKit đã đổi tên Blendkit [A·blendkit.com] | Royalty Free: dùng thương mại không ghi công, cấm bán lại asset ở dạng gốc [A·blendkit.com] | Trang FAQ không nêu định dạng tải (.blend/FBX/glTF); honest-null, cần Blender để xuất GLB [A·blendkit.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép CGTrader Royalty Free  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Dùng trong game chỉ khi model nằm trong định dạng độc quyền [A·cgtrader.com] | Model miễn phí theo giấy phép người bán chọn (phải đọc từng trang) [A·cgtrader.com] | Phải ngăn người dùng cuối truy cập file model: GLB tải HTTP trong game web khó thoả [A·cgtrader.com] }
+    ghi_chu_game    : —
+
 ▸ Giấy phép Fab Standard License  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
@@ -635,10 +1355,10 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : CC0: dùng mọi mục đích kể cả thương mại, không bắt buộc ghi công [✓A]
+    mat_do_pho_bien : DISPUTED{ CC0: dùng mọi mục đích kể cả thương mại [A·polyhaven.com] | CC0: dùng mọi mục đích kể cả thương mại, không bắt buộc ghi công [A·polyhaven.com] | Không bắt buộc ghi công [A·polyhaven.com] | Được phân phối lại, chia sẻ (file GLB nằm lộ trên web không vi phạm) [A·polyhaven.com] }
     ghi_chu_game    : —
 
-▸ Giấy phép ambientCG CC0  (asset_nguon)
+▸ Giấy phép Sketchfab CC Attribution  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
     vung_phan_bo    : —
@@ -647,7 +1367,55 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : Được đưa file thô vào dự án, ví dụ trò chơi điện tử; không bắt buộc ghi công [✓A]
+    mat_do_pho_bien : DISPUTED{ Biến thể NoDerivs cấm sửa đổi (loại) [A·help.sketchfab.com] | Biến thể NonCommercial cấm dùng thương mại (loại) [A·help.sketchfab.com] | Biến thể ShareAlike buộc tác phẩm phái sinh cùng license [A·help.sketchfab.com] | Bắt buộc ghi công tác giả ở mọi nơi dùng công khai (trừ CC0) [A·help.sketchfab.com] | Mẫu dòng ghi công CC BY 4.0 [A·help.sketchfab.com] | Được chia sẻ, sửa, dùng nhưng phải ghi công [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép Sketchfab Standard  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Dùng toàn cầu mọi loại hình, thương mại hoặc không [A·help.sketchfab.com] | Standard không bắt ghi công (ngoài phạm vi CC0/CC-BY của mũi J, Chủ nhà quyết) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép Superhive Standard Royalty-Free  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Phân phối lại chỉ khi được phép (w/p); dùng thương mại có; không cần ghi công [A·support.blendermarket.com] | Trang không nói về game hay việc lộ file cho người dùng cuối (honest-null) [A·support.blendermarket.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép TurboSquid Standard 3D Model License  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Cho phép game web, PC, console, mobile [A·blog.turbosquid.com] | Cấm đưa file model cho người dùng cuối [A·blog.turbosquid.com] | Model phải nằm trong định dạng độc quyền, không mở/nhập được: GLB chuẩn không thoả [A·blog.turbosquid.com] }
+    ghi_chu_game    : —
+
+▸ Giấy phép ambientCG CC0  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Mọi asset CC0, tự do dùng không ghi công (xác nhận lại trên trang asset 2026-10-10) [A·ambientcg.com] | Được đưa file thô vào dự án, ví dụ trò chơi điện tử; không bắt buộc ghi công [A·docs.ambientcg.com] }
     ghi_chu_game    : —
 
 ▸ Giờ mặt trời mọc lặn Huế tháng 1–3  (khi_hau_anh_sang)
@@ -698,12 +1466,24 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
-▸ Gói Fab Jungle Pack (A. zoOmika)  (asset_nguon)
+▸ Gói Fab Jungle Lowpoly Foliage Pack (Green Stream)  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : Giá từ 19,99 USD [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Gói Fab Jungle Pack (A. zoOmika)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Giá từ 34,99 USD [✓A]
     hinh_thai_mau_sac: Cây, bụi, dương xỉ, dây leo, đá, tán lá cho rừng rậm [✓A]
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
@@ -712,14 +1492,14 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
 
 ▸ Gói Fab MW Tropical Rainforest Biome (MAWI United)  (asset_nguon)
     ten_khoa_hoc    : —
-    nhom            : asset_nguon [✓A]
-    vung_phan_bo    : —
+    nhom            : asset_nguon [✓✓A]
+    vung_phan_bo    : Tag Amazon, Mangrove: thiên về rừng mưa Nam Mỹ [✓A]
     dai_cao_do      : —
     kich_thuoc      : Giá từ 324,99 USD [✓A]
-    hinh_thai_mau_sac: —
+    hinh_thai_mau_sac: Hàng trăm scan thực vật: cây, cây bụi, asset rừng; photogrammetry [✓A]
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine" (biome PCG cho UE5) [✓A]
     ghi_chu_game    : —
 
 ▸ Gói Fab POLYGON Tropical Jungle (Synty Studios)  (asset_nguon)
@@ -748,10 +1528,10 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
 
 ▸ Gói Fab Tropical Jungle (Dokyo)  (asset_nguon)
     ten_khoa_hoc    : —
-    nhom            : asset_nguon [✓A]
+    nhom            : asset_nguon [✓✓A]
     vung_phan_bo    : Nguồn thực vật từ Costa Rica (Trung Mỹ), không phải Đông Nam Á [✓A]
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : Giá từ 9,99 USD [✓A]
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
@@ -760,14 +1540,14 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
 
 ▸ Gói Fab Tropical Jungle Pack (Kaizen Digital Interactive)  (asset_nguon)
     ten_khoa_hoc    : —
-    nhom            : asset_nguon [✓A]
-    vung_phan_bo    : —
+    nhom            : asset_nguon [✓✓A]
+    vung_phan_bo    : 63 asset, từ cây đa (banyan) đến dương xỉ, nguồn từ nhiệt đới Đông Nam Á [✓A]
     dai_cao_do      : —
-    kich_thuoc      : Giá từ 49,99 USD [✓A]
+    kich_thuoc      : DISPUTED{ Giá từ 49,99 USD [A·fab.com] | Giá từ 49,99 USD [A·www.fab.com] | Texture trung bình 2048x2048 [A·www.fab.com] }
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : —
+    mat_do_pho_bien : Định dạng chỉ "Unreal Engine" [✓A]
     ghi_chu_game    : —
 
 ▸ Gói Sonniss GDC Game Audio Bundle  (asset_nguon)
@@ -914,6 +1694,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Kenney Nature Kit (Kenney)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 330 asset [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Miễn phí, CC0 [✓A]
+    ghi_chu_game    : —
+
 ▸ Khe Sanh (căn cứ, 1971)  (dau_vet_chien_tranh)
     ten_khoa_hoc    : —
     nhom            : dau_vet_chien_tranh [✓B]
@@ -1044,6 +1836,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : 11 trực thăng bị bắn rơi, 44 chiếc hỏng khi đổ một tiểu đoàn [✓B]
+    ghi_chu_game    : —
+
+▸ Laubwerk Plant Kits (Maxon)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Laubwerk đã về Maxon (6/1/2025); cây chỉ phát qua gói Maxon One, sẵn cho Redshift [✓A]
     ghi_chu_game    : —
 
 ▸ Lim xanh  (cay_go)
@@ -1191,15 +1995,15 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     ghi_chu_game    : —
 
 ▸ Maxtree Plant Models  (asset_nguon)
-    ten_khoa_hoc    : —
-    nhom            : asset_nguon [✓B]
+    ten_khoa_hoc    : Vol 36 có Mangifera indica (xoài) [✓A]
+    nhom            : asset_nguon [✓✓A/B]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : DISPUTED{ Giá 125–1.770 USD [A·maxtree.org] | Từ hàng trăm nghìn tới hàng triệu polygon; giá 125–1.770 USD [A·maxtree.org] }
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : Theo CG Channel: file được cấp phép dùng thương mại (chưa thấy trang license chính thức) [✓B]
+    mat_do_pho_bien : DISPUTED{ Theo CG Channel: file được cấp phép dùng thương mại (chưa thấy trang license chính thức) [B·cgchannel.com] | Trang sản phẩm Maxtree: model không dành cho game [A·maxtree.org] }
     ghi_chu_game    : —
 
 ▸ Muỗi Anopheles dirus  (con_trung_khac)
@@ -1363,7 +2167,7 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     nhom            : asset_nguon [✓A]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : 4.134 poly; scan [✓A]
     hinh_thai_mau_sac: Cây bụi lá rộng bóng, ánh ướt, gân lá rõ, mọc thành khóm thấp [✓A]
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
@@ -1382,6 +2186,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Poly Haven Boulder 01 (Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 123.976 poly [✓A]
+    hinh_thai_mau_sac: Tảng đá lớn có địa y, phong hoá, dạng vách [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ Poly Haven Brown Mud Rocks 01  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
@@ -1394,16 +2210,64 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Poly Haven Calathea Orbifolia 01 (Rob Tuytel, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : Calathea orbifolia (họ Dong Marantaceae, gốc Nam Mỹ) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 16.688 poly; scan; 8K [✓A]
+    hinh_thai_mau_sac: Bụi lá rộng bóng, có gân, hình tim, xanh đậm (gần dáng lá dong) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Dead Tree Trunk (Rob Tuytel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 101.802 poly; dài ~3,05 m [✓A]
+    hinh_thai_mau_sac: Khúc gỗ chết dài, vỏ nứt mục, vân gỗ rõ, đầu gãy, mảng rêu xanh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Dead Tree Trunk 02 (Jenelle van Heerden, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 155.864 poly; có LOD; dài ~4,05 m, đường kính ~1,06 m [✓A]
+    hinh_thai_mau_sac: Thân cây chết mục, khô, vỏ thô, địa y, gốc gãy [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Dry Branches Medium 01 (Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 16.803 poly [✓A]
+    hinh_thai_mau_sac: Cành khô chết, que, nhánh nhỏ [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ Poly Haven Fern 02  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : 6.232 poly; scan [✓A]
     hinh_thai_mau_sac: Bốn khóm dương xỉ, lá có răng cưa, xanh lốm đốm [✓A]
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : —
+    mat_do_pho_bien : Có bản glTF 1k tải trực tiếp (cùng blend, fbx, usd) [✓A]
     ghi_chu_game    : —
 
 ▸ Poly Haven Forest Leaves 02  (asset_nguon)
@@ -1413,6 +2277,66 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     dai_cao_do      : —
     kich_thuoc      : —
     hinh_thai_mau_sac: Nền rừng phủ rêu: mảng rêu gồ, lá rụng, cành nhỏ, mùn [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Island Tree 01 (Rob Tuytel, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 3.729.692 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] | Hộp bao ~12,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com] }
+    hinh_thai_mau_sac: Thân vặn xoắn, rễ lộ, tán dày uốn theo gió biển (cây ven biển) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Island Tree 02 (Rob Tuytel, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 1.762.064 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] | Hộp bao ~8,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com] }
+    hinh_thai_mau_sac: Cây đảo nhỏ ven biển, thân vặn phong hoá, tán xanh dày xoè [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Island Tree 03 (Rob Tuytel, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cây ven biển dạng đảo (coastal), thân vặn: đúng kiểu 'cành vặn' cần tránh cho cây vượt tán Trường Sơn [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 4.760.490 poly ở bản gốc (quá nặng cho web nếu không decimate); có LOD; texture tối đa 8K [A·api.polyhaven.com] | Hộp bao ~8,5 m cạnh dài nhất (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com] }
+    hinh_thai_mau_sac: Cây thấp ven biển bị gió quật, nhiều thân vặn, rễ lộ trên nền cát [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Jacaranda Tree (Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : Jacaranda (chi Jacaranda, gốc Nam Mỹ; trang không ghi loài) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cây Jacaranda (gốc Nam Mỹ), không phải loài Đông Nam Á; dựng tay (Rico Cilliers: All), không phải photoscan [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 312.356 poly; có LOD; texture tối đa 8K [A·api.polyhaven.com] | Hộp bao khoảng 24,2 x 18,0 x 19,8 m (API ghi mm; đơn vị suy ra) [A·api.polyhaven.com] }
+    hinh_thai_mau_sac: Tán rộng, lá dày, nhiều thân (multi-trunk), vỏ chi tiết [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : CC0 Poly Haven; tải được glTF/FBX/blend qua API (script fetch-assets của repo) [✓A]
+    ghi_chu_game    : —
+
+▸ Poly Haven Moss 01 (Rob Tuytel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 246.170 poly; geometry nodes [✓A]
+    hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : —
@@ -1430,16 +2354,172 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Poly Haven Mountainside (Dario Barresi, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 287.755 poly [✓A]
+    hinh_thai_mau_sac: Vách núi, mặt đá có địa y, tảng đá, địa hình [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ Poly Haven Pachira Aquatica 01  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : —
+    kich_thuoc      : 76.914 poly; scan (Rob Tuytel) [✓A]
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Rock Face 01 (Dario Barresi)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 20.174 poly (nhẹ, hợp web) [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Rock Moss Set 01 (Kless Gyzen)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 63.127 poly cho cả bộ 6 hòn [✓A]
+    hinh_thai_mau_sac: Bộ 6 hòn đá rừng phong hoá, rêu xanh nhạt, đất [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Rock Moss Set 02 (Kless Gyzen)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 57.647 poly [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Root Cluster 01 (Jenelle van Heerden, Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Photoscan (Photography), không ghi loài/vùng [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 225.261 poly; ~4,1 m dài; 8K [✓A]
+    hinh_thai_mau_sac: Cụm rễ rối, vỏ chi tiết, lá nền rừng phủ lớp [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Root Cluster 02 (Jenelle van Heerden)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 339.641 poly; khá dẹt (~2,4 x 2,7 x 0,2 m) [✓A]
+    hinh_thai_mau_sac: Cụm rễ cây chết phong hoá, mảnh nền rừng dạng module [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Shrub 02 (Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 52.317 poly [✓A]
+    hinh_thai_mau_sac: Cây non/bụi tầng thấp lá xanh [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Single Root (Jenelle van Heerden)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 114.424 poly [✓A]
+    hinh_thai_mau_sac: Một rễ cây trồi trên nền rừng [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Tree Small 02 (Rico Cilliers)  (asset_nguon)
+    ten_khoa_hoc    : Burkea africana (wild syringa), cây Nam Phi [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Loài châu Phi (Burkea africana), không phải Đông Nam Á [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 4.652.585 poly; có LOD; 8K [✓A]
+    hinh_thai_mau_sac: Cây nhỏ thân mảnh cong, tán thưa thoáng lá chùm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Tree Stump 01 (Rob Tuytel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Gốc cây từ bộ sưu tập rừng thông (pine_forest), có rêu; ôn đới [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 41.046 poly [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Poly Haven Tree Stump 02 (Rob Tuytel)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Gốc cây từ bộ sưu tập rừng thông (pine_forest), có rêu; ôn đới [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 62.345 poly [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ Quaternius Stylized Nature MegaKit (Quaternius)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 116 model: 40 cây, 35 cây/hoa, 27 đá [✓A]
+    hinh_thai_mau_sac: Phong cách stylized kiểu Ghibli, không photoreal [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0; FBX, OBJ, glTF + .blend [A·quaternius.com] | Dùng thương mại tự do (CC0); 60–70% gói miễn phí [A·quaternius.com] }
+    ghi_chu_game    : —
+
+▸ Quaternius Ultimate Nature Pack (Quaternius)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 150 model; FBX, OBJ, Blend (không ghi glTF) [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : CC0 [✓A]
     ghi_chu_game    : —
 
 ▸ Rainforest Ambience Phong Nha Vietnam (Libby và Marcel)  (asset_nguon)
@@ -1706,6 +2786,846 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
+▸ Sketchfab AS01 Bambusa Vulgaris Golden Bamboo (xfrog)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : LOẠI: CC Attribution-NonCommercial-NoDerivs [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab AS06 Ficus Benghalensis Banyan (xfrog)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : LOẠI: CC Attribution-NonCommercial-NoDerivs [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab Agarwood (Valery.Li)  (asset_nguon)
+    ten_khoa_hoc    : Aquilaria sinensis [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Rừng mưa Đông Nam Á [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 640.743 faces [✓A]
+    hinh_thai_mau_sac: Cây trầm hương nguyên cây, dựng tay [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Alocasia Tropical Plants Pack Free Sample (estudioshout)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : LOẠI: CC Attribution-NonCommercial [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab Alocasia baginda (harenil)  (asset_nguon)
+    ten_khoa_hoc    : Alocasia baginda [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 154.078 faces [✓A]
+    hinh_thai_mau_sac: Ráy cảnh scan ảnh (giống cây cảnh, có thể kèm chậu) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Alocasia macrorrhizos (DJMiddi)  (asset_nguon)
+    ten_khoa_hoc    : Alocasia macrorrhizos [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1.707 faces (rất nhẹ) [✓A]
+    hinh_thai_mau_sac: Ráy/dọc mùng lá lớn dựng tay [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Alocasia zebrina Tiger Elephant Ear (The_Structure_World)  (asset_nguon)
+    ten_khoa_hoc    : Alocasia zebrina [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 477 faces [✓A]
+    hinh_thai_mau_sac: Ráy cuống vằn low-poly [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab BANYAN TREE (jimmygunawan)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 50.000 faces (trong ngưỡng 60k) [✓A]
+    hinh_thai_mau_sac: Cây đa photogrammetry nhanh từ 12 ảnh [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab BORNEAN RAINFOREST TREE (muhammadhakim22800)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Borneo (Đông Nam Á), cảm hứng chứ không phải scan [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 1.058.756 faces, 12 bộ cây [✓A]
+    hinh_thai_mau_sac: 12 bộ cây dựng tay lấy cảm hứng rừng mưa Borneo [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bamboo (Maskable)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 25.796 faces [✓A]
+    hinh_thai_mau_sac: Tre mid-high poly tối ưu cho game, tag Đông Á [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bamboo (pergamond)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 39.878 faces [✓A]
+    hinh_thai_mau_sac: Cây tre, mô tả tối giản [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bamboo Plants FREE Low Poly (LadyLionStudios)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 4.665 faces [✓A]
+    hinh_thai_mau_sac: Tre low-poly (tác giả thực là LordSamueliSolo) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bamboo Raft Scaniverse (db4)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 253.997 faces [✓A]
+    hinh_thai_mau_sac: Xác bè tre buộc bằng dây mây và dây nylon (cảnh báo có dây nylon hiện đại) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bamboo photoscan (Arthur_mf)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 177.282 faces [✓A]
+    hinh_thai_mau_sac: Tre photoscan, chân thực [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Banana Plant (evolveduk)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 4.402 faces [✓A]
+    hinh_thai_mau_sac: Cây chuối dựng bằng Tree It [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Banana Tree (Garecra)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 5.662 faces (game-ready) [✓A]
+    hinh_thai_mau_sac: Cây chuối dựng Blender, texture lấy từ Quixel Bridge (cảnh báo nguồn texture) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Banana leaf AMAPstudio (griffon.sebastien)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 26.224 faces [✓A]
+    hinh_thai_mau_sac: Lá chuối mô phỏng thực vật học bằng AMAPstudio (CIRAD) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Banyan Tree of NCKU (ncku_museum)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 189.533 faces [✓A]
+    hinh_thai_mau_sac: Cây đa photoscan Agisoft của bảo tàng đại học [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Banyan on palmyra (feklee)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Batticaloa, Sri Lanka [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 2.704.191 faces (quá nặng) [✓A]
+    hinh_thai_mau_sac: Cây đa bóp cổ mọc trên cây thốt nốt, photogrammetry [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Bird Nest Fern Scaniverse LIDAR (db4)  (asset_nguon)
+    ten_khoa_hoc    : Asplenium nidus [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Kuching, Sarawak, Borneo (Malaysia) [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 338.815 faces (scan LiDAR, cần decimate xuống ≤15k) [✓A]
+    hinh_thai_mau_sac: Dương xỉ tổ chim scan LiDAR bằng Scaniverse [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Blue Fern (gavinpgamer1)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: Tag tên game Half-Life, Black Mesa, Xen [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : LOẠI: rip từ game Half-Life/Black Mesa (decompile bằng Crowbar) dù gắn CC Attribution [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab CC0 Malayan Banyan Ficus microcarpa 038bae (ffishAsia-and-floraZia)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 2.355.367 faces (nặng. cần decimate) [✓A]
+    hinh_thai_mau_sac: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0 Public Domain [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab CC0 Malayan Banyan Ficus microcarpa 19172c (ffishAsia-and-floraZia)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 609.313 faces (nặng. cần decimate) [✓A]
+    hinh_thai_mau_sac: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0 Public Domain [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab CC0 Malayan Banyan Ficus microcarpa 4b98d9 (ffishAsia-and-floraZia)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1.127.010 faces (nặng. cần decimate) [✓A]
+    hinh_thai_mau_sac: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0 Public Domain [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab CC0 Malayan Banyan Ficus microcarpa 6882b8 (ffishAsia-and-floraZia)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1.637.988 faces (nặng. cần decimate) [✓A]
+    hinh_thai_mau_sac: Cây si Ficus microcarpa, mô tả kiểu tiêu bản phân loại học [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0 Public Domain [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Chinese Banyan Ficus Microcarpa (Valery.Li)  (asset_nguon)
+    ten_khoa_hoc    : Ficus microcarpa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Bản địa Sri Lanka, Ấn Độ, Đài Loan, quần đảo Mã Lai [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 111.392 faces [✓A]
+    hinh_thai_mau_sac: Cây si/gừa nguyên cây, dựng tay [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Curtain Fig Tree Yungaburra (kungphil)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : faceCount 0: dữ liệu LiDAR, không phải lưới [✓A]
+    hinh_thai_mau_sac: Cây sung bóp cổ (strangler fig) nổi tiếng, LiDAR [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Dead Tree Stump (gamingassets)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 22.958 faces [✓A]
+    hinh_thai_mau_sac: Gốc cây chết photogrammetry có rễ [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Dipterocarp in Maliau Basin (kungphil)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Maliau Basin, Malaysia (Borneo) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : faceCount 0: là đám mây điểm LiDAR, không phải lưới, chỉ dùng làm tham chiếu tỷ lệ [✓A]
+    hinh_thai_mau_sac: Cây họ Dầu cao 54 m, ngọn gãy [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Drevo stump (Pjotruska)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 36.123 faces (mid-poly) [✓A]
+    hinh_thai_mau_sac: Gốc cây thật bản mid-poly, chưa sạch [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Elephant Ear Bush (darkmoral)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 2.268 faces (game-ready) [✓A]
+    hinh_thai_mau_sac: Bụi ráy tai voi game-ready [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab FREE Livistona Chinensis Fan Palm (AllQuad)  (asset_nguon)
+    ten_khoa_hoc    : Livistona chinensis [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 61.856 faces [✓A]
+    hinh_thai_mau_sac: Cọ quạt Livistona, gắn tag nội thất/trang trí (có thể là cây chậu) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Fallen Spruce Tree (kj3987)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 12.716 faces [✓A]
+    hinh_thai_mau_sac: Cây vân sam đổ photoscan, texture không chi tiết (loài ôn đới) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Fallen Tree PNW (Kickflipkid687)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Tây Bắc Thái Bình Dương (Bắc Mỹ, ôn đới) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 1.000.128 faces (quá nặng) [✓A]
+    hinh_thai_mau_sac: Thân cây đổ phủ rêu, scan RealityScan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Fan palm tree (1-3D.com)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : CC Attribution-ShareAlike (ngoài danh sách CC0/CC-BY của luật dự án, Chủ nhà quyết) [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab Fishtail palm tree from Poly by Google (ie-niels)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 966 faces (low-poly) [✓A]
+    hinh_thai_mau_sac: Cây móc đuôi cá low-poly, bản lưu từ Google Poly [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution (bản sao lưu từ Google Poly; tác giả gốc khác người upload) [A·api.sketchfab.com] | Cảnh báo: tag video-games nhưng nguồn là Google Poly, không thấy tên game cụ thể [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Tree (kirsula228)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 13.724 faces [✓A]
+    hinh_thai_mau_sac: Cây nhiệt đới dựng tay cho game [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Tree (kobaltsecond)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 30.720 faces [✓A]
+    hinh_thai_mau_sac: Ghép từ nhiều model miễn phí khác (chuỗi ghi công phức tạp) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Tree (rodrigogelmi)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 124.671 faces [✓A]
+    hinh_thai_mau_sac: Cây lớn dựng tay để tạo rừng rậm [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Tree Roots (boypuff)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 433.171 faces (lưới đã decimate) [✓A]
+    hinh_thai_mau_sac: Gốc cây rừng có rễ, photoscan Agisoft [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Tree With Liana (sebastienthapa20)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 4.750 faces (low-poly) [✓A]
+    hinh_thai_mau_sac: Cây rừng kèm dây leo, low-poly [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle Trees (rhcreations)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 47.447 faces cho cả bộ (trong ngưỡng 60k) [✓A]
+    hinh_thai_mau_sac: Bộ cây rừng rậm dựng bằng Blender, có cọ [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle roots (boypuff)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 431.454 faces [✓A]
+    hinh_thai_mau_sac: Rễ cây rừng nhiệt đới photoscan, vùng đảo [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle tree (Cliffcographics)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 48.420 faces [✓A]
+    hinh_thai_mau_sac: Cây đơn giản cho cảnh rừng, tác giả nói không giống thật 100% [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Jungle tree partial (boypuff)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 172.706 faces [✓A]
+    hinh_thai_mau_sac: Một phần thân cây rừng photoscan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Liana tree (JonathanPepe)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Cao Hùng, Đài Loan [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 49.999 faces [✓A]
+    hinh_thai_mau_sac: Cây có dây leo, chụp tại Đài Loan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Moreton Bay Fig Tree 4 (b_nealie)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 398.830 faces [✓A]
+    hinh_thai_mau_sac: Cây sung già có rễ bạnh, vài vùng chưa có texture [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Moreton Bay Fig Tree 5 (b_nealie)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 399.574 faces [✓A]
+    hinh_thai_mau_sac: Cây sung già có rễ bạnh và rễ khí, photogrammetry [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Moreton Bay Fig Tree 6 (b_nealie)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Auckland, New Zealand (cây trồng công viên; loài gốc Úc) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 397.615 faces [✓A]
+    hinh_thai_mau_sac: Cây sung có rễ bạnh lớn và rễ khí [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Mossy old tree log (julianmalik)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 20.390 faces (đã retopo, có normal map) [✓A]
+    hinh_thai_mau_sac: Khúc gỗ đổ phủ rêu photoscan, retopo ZBrush [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Mossy tree stump (nedo)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 292.890 faces [✓A]
+    hinh_thai_mau_sac: Gốc cây phủ rêu scan (rừng Đức, ôn đới) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Ponga (toAflame)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : New Zealand [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 647 faces (rất nhẹ) [✓A]
+    hinh_thai_mau_sac: Dương xỉ thân gỗ low-poly làm asset môi trường tương tác [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Port Jackson Fig (Landy42)  (asset_nguon)
+    ten_khoa_hoc    : Ficus rubiginosa [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Newcastle, Úc [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 7.609.654 faces (quá nặng) [✓A]
+    hinh_thai_mau_sac: Cây sung lớn trong công viên, scan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Realistic HD Male fern 3/50 (PlantCatalog)  (asset_nguon)
+    ten_khoa_hoc    : Dryopteris filix-mas [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 126.070 faces [✓A]
+    hinh_thai_mau_sac: Dương xỉ thường (loài ôn đới) dựng thủ tục [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Realistic HD Mexican fan palm 8/10 (PlantCatalog)  (asset_nguon)
+    ten_khoa_hoc    : Washingtonia robusta [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Bắc Mỹ, sa mạc (sai vùng) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 162.290 faces [✓A]
+    hinh_thai_mau_sac: Cọ quạt Washingtonia (cọ sa mạc Bắc Mỹ, chỉ thay thế tạm hình dáng) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Realistic Jungle Tree (Garecra)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 2.324.826 faces (quá nặng cho web, cần decimate/LOD) [✓A]
+    hinh_thai_mau_sac: DISPUTED{ Cây rừng nhiệt đới dựng tay kiểu nanite/UE5, không ghi loài [B·api.sketchfab.com] | Tag cho thấy dựng nhắm Unreal Engine 5 [B·api.sketchfab.com] }
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Realistic Jungle Tree Avatar (Garecra)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 711.124 faces [✓A]
+    hinh_thai_mau_sac: Cây rừng rậm kiểu phim Avatar/Pandora (cảnh báo IP phim, không phải rip game) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tree Fern 1 (b_nealie)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Auckland, New Zealand (dương xỉ thân gỗ NZ, không phải Cyathea Đông Dương) [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 130.032 faces [✓A]
+    hinh_thai_mau_sac: Dương xỉ thân gỗ ghép từ scan photogrammetry các phần Ponga và Mamaku [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tree Stump Photogrammetry (tinyruin)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : LOẠI: CC Attribution-NonCommercial [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab Tree fern stem Cornell (DigitalAtlasOfAncientLife)  (asset_nguon)
+    ten_khoa_hoc    : Cyatheaceae hoặc Dicksoniaceae (chưa chắc) [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 468.892 faces [✓A]
+    hinh_thai_mau_sac: Chỉ một đoạn thân dương xỉ thân gỗ (tiêu bản bảo tàng), không có tán lá [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC0 Public Domain [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tree stump Photogrammetry retopo (Hullken)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 163.242 faces [✓A]
+    hinh_thai_mau_sac: Gốc cây photogrammetry từ video 4K60, đã retopo [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tree with ferns and moss (b_nealie)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Auckland, New Zealand [✓B]
+    dai_cao_do      : —
+    kich_thuoc      : 398.162 faces [✓A]
+    hinh_thai_mau_sac: Gốc cây có dương xỉ và rêu, photogrammetry [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tropical Plants Pack M02P (MozzarellaARC)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 46.575 faces cho cả gói [✓A]
+    hinh_thai_mau_sac: Gói cây nhiệt đới gồm cọ, chuối, dương xỉ, monstera (dòng cây cảnh trong nhà) [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Tropical Rainforest Tree Stump (db4)  (asset_nguon)
+    ten_khoa_hoc    : Tristaniopsis whiteana [✓B]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Sarawak, Borneo (Malaysia) [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 510.418 faces (scan LiDAR, cần decimate) [✓A]
+    hinh_thai_mau_sac: Gốc cây rừng mưa nhiệt đới scan LiDAR [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Variegated Alocasia (Naturalai)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : —
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Cảnh báo: tag cho thấy tạo/xử lý bằng AI (createdwithai, meshyai) [✓A]
+    ghi_chu_game    : —
+
+▸ Sketchfab Waterfall Rock 1 Scaniverse (db4)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Thác Sebarau, Padawan, Sarawak, Borneo [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 207.050 faces [✓A]
+    hinh_thai_mau_sac: Đá suối phủ rêu quanh thác Sebarau, scan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab Waterfall Rock 5 Scaniverse (db4)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Thác Sebarau, Padawan, Sarawak, Borneo [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : 230.714 faces [✓A]
+    hinh_thai_mau_sac: Đá suối phủ rêu quanh thác Sebarau, scan [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab liana (nlyCGI)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 28.659 faces [✓A]
+    hinh_thai_mau_sac: Dây leo, không mô tả, không tag [✓B]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ CC Attribution [A·api.sketchfab.com] | Định dạng: Sketchfab tự chuyển glTF/GLB/USDZ khi có thể; định dạng gốc và độ phân giải texture chưa kiểm được (trang model chặn robots) [A·help.sketchfab.com] }
+    ghi_chu_game    : —
+
+▸ Sketchfab định dạng tải tự động  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ Bản GLB 1K tải trực tiếp không nén ZIP [A·sketchfab.com] | GLB có nhiều bản texture: gốc, 4K, 1K [A·help.sketchfab.com] }
+    hinh_thai_mau_sac: Chuyển sang glTF dùng vật liệu và texture PBR [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Mọi model downloadable được tự chuyển sang glTF và USDZ khi có thể [✓A]
+    ghi_chu_game    : —
+
+▸ Smithsonian Open Access 3D (Smithsonian Gardens)  (asset_nguon)
+    ten_khoa_hoc    : Lycaste virginalis (lan Trung Mỹ) [✓A]
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Chỉ 2 kết quả, đều là hoa lan Lycaste virginalis; không có cây rừng [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ Song mây (chi Calamus)  (day_leo_bieu_sinh)
     ten_khoa_hoc    : —
     nhom            : day_leo_bieu_sinh [✓A]
@@ -1740,6 +3660,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : DISPUTED{ Library Asset chỉ được dùng như thành phần nhúng của sản phẩm được cấp phép [A·unity.com] | Licensed Production là sản phẩm định danh bằng tên trong Order Form [A·unity.com] | SpeedTree Cinema không được dùng cho sản phẩm tương tác/thời gian thực [A·unity.com] }
+    ghi_chu_game    : —
+
+▸ Superhive Botaniq Trees (polygoniq)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Bản Full 129 USD (tất cả asset); Starter 2 USD (~3% asset) [✓A]
+    hinh_thai_mau_sac: Thư viện cây, cọ, bụi, cây thực tế tối ưu, >1000 model [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Royalty Free (Superhive); asset nén trong file .paq [✓A]
     ghi_chu_game    : —
 
 ▸ Suối vùng Khe Sanh  (suoi_nuoc)
@@ -1934,6 +3866,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : nhân chứng đi bộ Trường Sơn 1967–69 bị sốt rét rừng liên tục [✓B]
     ghi_chu_game    : —
 
+▸ The Grove (F12)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Starter 99 EUR, Indie 199 EUR, Studio 799 EUR; twig 9,69 EUR mỗi loại [✓B]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Cấm bán/phân phối model cây mọc bằng The Grove Core [A·thegrove3d.com] | Xuất FBX, OBJ, USD từ phần mềm chủ; cấu trúc mesh hợp three.js [B·cgchannel.com] | Được đưa cây vào game với điều kiện cây không trích xuất được [A·thegrove3d.com] }
+    ghi_chu_game    : —
+
 ▸ Thung lũng A Lưới (A Sầu)  (da_dia_chat)
     ten_khoa_hoc    : —
     nhom            : DISPUTED{ da_dia_chat [B·en.wikipedia.org] | dau_vet_chien_tranh [A·hatfieldgroup.com] }
@@ -1972,14 +3916,26 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
 
 ▸ Thư viện Quixel Megascans trên Fab  (asset_nguon)
     ten_khoa_hoc    : —
-    nhom            : asset_nguon [✓A]
+    nhom            : asset_nguon [✓✓A]
     vung_phan_bo    : —
     dai_cao_do      : —
-    kich_thuoc      : DISPUTED{ Giá lẻ từ 0,99 USD (asset 2D/3D), 4,99 USD (kit thủ tục), 24,99 USD (gói) [B·cgchannel.com] | Từ 2025: gói khởi đầu miễn phí hơn 1.500 asset chọn lọc, cho mọi engine [A·unrealengine.com] }
+    kich_thuoc      : DISPUTED{ 4 bậc chất lượng: Raw 8K, High 4K, Mid 2K, Low 1K [B·forums.unrealengine.com] | Bậc Mid 2K dành cho game indie hoặc asset nền [B·forums.unrealengine.com] | Giá lẻ cây 3D Megascans trên trang danh mục: từ 3,99 USD (Tropical Palm, Fern, Cat Palm) [A·www.fab.com] | Giá lẻ thân, gốc, đá Megascans: từ 2,99 USD [A·www.fab.com] | Giá lẻ từ 0,99 USD (asset 2D/3D), 4,99 USD (kit thủ tục), 24,99 USD (gói) [B·cgchannel.com] | Mỗi bậc có LOD riêng kèm mesh billboard; bản Nanite chỉ có một mesh [B·forums.unrealengine.com] | Từ 2025: gói khởi đầu miễn phí hơn 1.500 asset chọn lọc, cho mọi engine [A·unrealengine.com] }
     hinh_thai_mau_sac: —
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
-    mat_do_pho_bien : DISPUTED{ Megascans tải qua Bridge theo Epic Content License cũ chỉ được dùng miễn phí trong Unreal Engine: CẤM cho three.js [B·cgchannel.com] | Miễn phí cho mọi engine đến hết 2024 (phải nhận vào thư viện Fab) [A·unrealengine.com] | Từ 2025 phần lớn Megascans không còn miễn phí, kể cả trong Unreal Engine [B·cgchannel.com] }
+    mat_do_pho_bien : DISPUTED{ Fab có thư viện tài nguyên hoàn toàn miễn phí ngày càng lớn, gồm Megascans chất lượng cao [A·www.unrealengine.com] | File Unreal Engine không có nút tải xuống thô (chỉ nhập qua Fab plugin) [A·dev.epicgames.com] | Megascans dạng texture set (atlas lá) chỉ có "texture set", không có mesh [A·fab.com] | Megascans tải qua Bridge theo Epic Content License cũ chỉ được dùng miễn phí trong Unreal Engine: CẤM cho three.js [B·cgchannel.com] | Megascans tải qua Fab in Launcher: FBX là định dạng tối ưu cho DCC, Unity và UE dưới 5.3 [A·dev.epicgames.com] | Miễn phí cho mọi engine đến hết 2024 (phải nhận vào thư viện Fab) [A·unrealengine.com] | Người dùng báo một số Megascans đã nhận trong đợt free lại thành hàng trả phí trên Fab (diễn đàn, 2026) [C·forums.unrealengine.com] | Nội dung Quixel phát hành 2026 dùng miễn phí theo Fab Standard License (mục được đánh dấu free) [A·quixel.com] | Theo licenseorg: miễn phí nay chỉ giới hạn ở asset thuộc bậc free của Fab [C·licenseorg.com] | Thư viện có cả asset miễn phí và asset trả phí "premium" [A·quixel.com] | Trang listing Megascans 3D ghi định dạng fbx, gltf và bản chuyển đổi GLB/glTF/USDZ [A·www.fab.com] | Từ 2025 phần lớn Megascans không còn miễn phí, kể cả trong Unreal Engine [B·cgchannel.com] | Với UE 5.3 trở lên, glTF là định dạng tối ưu (tài liệu ghi ".gtlf") [A·dev.epicgames.com] }
+    ghi_chu_game    : —
+
+▸ Thư viện model Poly Haven  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : Danh mục cây chủ yếu từ các bộ sưu tập namaqualand (Nam Phi khô), pine_forest (ôn đới), verdant_trail; không có model cọ, tre, chuối, dương xỉ thân gỗ, dây leo [✓A]
+    dai_cao_do      : —
+    kich_thuoc      : DISPUTED{ 521 model; 20 model nhóm trees, 57 plants, 37 rocks, 32 ground cover [A·api.polyhaven.com] | Chỉ 20 model trong nhóm cây (trees) [A·api.polyhaven.com] }
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
     ghi_chu_game    : —
 
 ▸ Thảm bom B-52  (dau_vet_chien_tranh)
@@ -2052,6 +4008,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : DISPUTED{ Bão mở tán thường xuyên thúc đẩy tre phát triển [B·ecoregions.worldwildlife.org] | Bụi tre Chimonobambusa, Dendrocalamus mọc ở nơi bị xáo trộn [B·en.wikipedia.org] | Miền Nam VN (1974): ước 1,4 triệu acre tre đã chiếm ưu thế; rừng thứ sinh thành 'biển tre' kéo dài cả thế kỷ [A·apps.dtic.mil] | Tán rừng bị mở làm tre tăng; cháy theo mùa cản cây gỗ tái sinh [A·apps.dtic.mil] }
+    ghi_chu_game    : —
+
+▸ TreeIt (Evolved Software)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Có LOD điều chỉnh [✓A]
+    hinh_thai_mau_sac: —
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : DISPUTED{ Miễn phí; xuất .dbo .fbx .obj .x (không glTF) [A·evolved-software.com] | Được bán model cây làm bằng TreeIt nếu là sản phẩm của mình [A·evolved-software.com] }
     ghi_chu_game    : —
 
 ▸ Trăn đất  (bo_sat_luong_cu)
@@ -2414,6 +4382,18 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : Giấy phép ZapSplat cho game/app; bản miễn phí phải ghi công 'ZapSplat', Premium thì không [✓A]
     ghi_chu_game    : —
 
+▸ ambientCG Foliage 001  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1K-PNG 12 MB, 2K-PNG 44 MB, 4K-PNG 165 MB [✓A]
+    hinh_thai_mau_sac: Atlas cỏ xanh (texture PBR) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
 ▸ ambientCG Ground037  (asset_nguon)
     ten_khoa_hoc    : —
     nhom            : asset_nguon [✓A]
@@ -2436,6 +4416,42 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     hanh_vi_am_thanh: —
     mua_thoi_tiet   : —
     mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ ambientCG Leaf Set 024  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Khổ thật ~40 x 40 cm; 1K–8K; 2K-PNG 46 MB [✓A]
+    hinh_thai_mau_sac: Bộ lá xanh nhạt, chụp quang trắc bề mặt (Surface Photogrammetry) [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : CC0, không cần ghi công [✓A]
+    ghi_chu_game    : —
+
+▸ ambientCG Leaf Set 029  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : 1K-PNG ~9,8 MB; 2K-PNG ~33 MB [✓A]
+    hinh_thai_mau_sac: Bộ lá thường xuân (ivy) xanh: có thể làm lá dây leo tạm [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : —
+    ghi_chu_game    : —
+
+▸ proctree.js (Paul Brunt)  (asset_nguon)
+    ten_khoa_hoc    : —
+    nhom            : asset_nguon [✓A]
+    vung_phan_bo    : —
+    dai_cao_do      : —
+    kich_thuoc      : Không có bản phát hành, chỉ 9 commit (dự án cũ 2012) [✓A]
+    hinh_thai_mau_sac: Sinh mảng đỉnh, pháp tuyến, UV, mặt cho thân và lưới cành lá (twig) riêng; có ví dụ Three.js [✓A]
+    hanh_vi_am_thanh: —
+    mua_thoi_tiet   : —
+    mat_do_pho_bien : Giấy phép kiểu BSD 3 điều khoản; giữ thông báo bản quyền khi phân phối [✓A]
     ghi_chu_game    : —
 
 ▸ xeno-canto  (asset_nguon)
@@ -2750,8 +4766,8 @@ REFINERY · domain=rung_truong_son · Thành phần cảnh rừng nhiệt đới
     mat_do_pho_bien : —
     ghi_chu_game    : —
 
-Phân bố theo nhom (n=229 / universe≈260 · coverage 88.1%):
-    asset_nguon: 34
+Phân bố theo nhom (n=397 / universe≈420 · coverage 94.5%):
+    asset_nguon: 202
     bo_sat_luong_cu: 9
     cay_bui_tham_tuoi: 8
     cay_go: 22
@@ -2770,5 +4786,5 @@ Phân bố theo nhom (n=229 / universe≈260 · coverage 88.1%):
     tranh chấp: 1
     tre_nua_co: 10
 
-build digest = 867dd1e8dfabeec4  · idempotent OK · auditor OK
+build digest = d56515501bfc7966  · idempotent OK · auditor OK
 VALIDATION PASSED · 0 gate bites

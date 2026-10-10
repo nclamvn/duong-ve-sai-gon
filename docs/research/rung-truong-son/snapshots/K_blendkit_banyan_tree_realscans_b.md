@@ -1,0 +1,11 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/3f7ef7cf-14a6-4e4d-9ab9-1cff29ff9e58/ | fetched_at: 2026-10-10T01:18:00Z | via WebFetch verbatim-extract -->
+"Banyan Tree by REAL SCANS - free Blender model | Blendkit"
+"REAL SCANS"
+"Royalty free"
+"Free"
+"A highly detailed 3D scan of two segments of a Banyan tree"
+"showcasing its iconic, complex root system and rugged bark"
+"Polygon count 204,774"
+"file size 37.0 MiB"
+"Tree Banyan Roots Trunk Nature Forest Jungle Organic Photogrammetry Realistic"
+"Photogrammetry"

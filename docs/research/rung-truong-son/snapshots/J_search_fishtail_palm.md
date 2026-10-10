@@ -1,0 +1,2 @@
+<!-- url: https://api.sketchfab.com/v3/search?type=models&downloadable=true&q=fishtail%20palm&count=24 | fetched_at: 2026-10-10T01:07:40Z | via WebFetch verbatim-extract -->
+"Fishtail palm tree from Poly by Google" | user "ie-niels" | license "CC Attribution" | "966" | "https://sketchfab.com/3d-models/none-827589f03abe4e83affb6c27298461c5" | "This is a backup of a Poly Asset named Fishtail palm tree. Saved from Poly by Google. Preview may be" | google, video-games, poly

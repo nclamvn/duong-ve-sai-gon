@@ -1,0 +1,10 @@
+<!-- url: https://www.blendkit.com/asset-gallery-detail/ffa50fe4-d4c3-4532-99a0-b5cbd5e4e28f/ | fetched_at: 2026-10-10T01:18:00Z | via WebFetch verbatim-extract -->
+"Ceiba Tree"
+"Jordi Se-Cam"
+"Royalty free"
+"Free"
+"Kopak tree jungle tree it have a texture layer with moss, height 25 mts."
+"Polygon count 533,080"
+"file size 194.6 MiB"
+"tags jungle tree big wood leaves green Kopak amazona ceiba"
+"Get this model"
