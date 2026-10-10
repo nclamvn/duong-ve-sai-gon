@@ -832,6 +832,198 @@
         ],
         "faces": 62345
       }
+    },
+    "shorea": {
+      "label": "cây họ Dầu Shorea roxburghii (chò, sến trắng) — vượt tán 20–29 m và tán chính 11–15 m (Fab, 3DGardenPlants, bản LowPoly, DV-064)",
+      "asset": "veg_shorea",
+      "src": "assets-src/fab/cay-nhiet-doi/shorea_prepped.glb",
+      "variants": [
+        {
+          "nodes": "^shorea_4$"
+        },
+        {
+          "nodes": "^shorea_5$"
+        },
+        {
+          "nodes": "^shorea_6$"
+        },
+        {
+          "nodes": "^shorea_7$"
+        }
+      ],
+      "leaf": "^Leaf$",
+      "height": 24,
+      "lod": {
+        "leaf": [
+          0.32,
+          0.12,
+          0.05
+        ],
+        "bark": [
+          0.25,
+          0.07,
+          0.025
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 1024
+      },
+      "cardScaleMax": 2.6,
+      "cast": true,
+      "collider": {
+        "radius": 0.45,
+        "height": 6
+      },
+      "fab": {
+        "url": "https://www.fab.com/listings/60af4e19-48b2-4bc9-a574-6145cfae7798",
+        "seller": "3DGardenPlants",
+        "name": "(Highpolylow Poly) Shorea Roxburghii - White Meranti",
+        "faces": 89461
+      }
+    },
+    "fanpalm": {
+      "label": "cọ quạt non (Livistona chinensis, Megascans scan, 3 biến thể, DV-064)",
+      "asset": "veg_fanpalm",
+      "src": "assets-src/fab/cay-nhiet-doi/fanpalm_prepped.glb",
+      "variants": [
+        {
+          "nodes": "^palm_A$"
+        },
+        {
+          "nodes": "^palm_C$"
+        },
+        {
+          "nodes": "^palm_E$"
+        }
+      ],
+      "leaf": "^Leaf$",
+      "height": 1.2,
+      "lod": {
+        "leaf": [
+          1,
+          0.45,
+          0.2
+        ],
+        "bark": [
+          1,
+          0.4,
+          0.15
+        ]
+      },
+      "texture": {
+        "leaf": 1024,
+        "bark": 512
+      },
+      "cast": true,
+      "fab": {
+        "url": "https://www.fab.com/listings/baaece72-6e2b-4fef-a8b9-de5c0f244a43",
+        "seller": "Quixel Megascans",
+        "name": "Chinese Fan Palm",
+        "faces": 4801
+      }
+    },
+    "diptero": {
+      "label": "gốc dầu rái gãy (Dipterocarpus turbinatus, anydrafts, scan 8K, DV-064)",
+      "asset": "veg_diptero",
+      "src": "assets-src/fab/cay-nhiet-doi/diptero_prepped.glb",
+      "variants": [
+        {
+          "nodes": "^diptero$"
+        }
+      ],
+      "height": 2.93,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.3,
+          0.1,
+          0.03
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 2048
+      },
+      "cast": true,
+      "fab": {
+        "url": "https://www.fab.com/listings/d51c1b28-64db-4fa4-9143-0a66238d647c",
+        "seller": "anydrafts official",
+        "name": "AD Dipterocarpus turbinatus Trunk 01",
+        "faces": 29999
+      }
+    },
+    "ficus_trunk": {
+      "label": "gốc si rễ bạnh phủ rêu (Ficus microcarpa, Megascans scan, DV-064)",
+      "asset": "veg_ficus_trunk",
+      "src": "assets-src/fab/cay-nhiet-doi/ficus_microcarpa_tree_trunk_wdjkdjs_high.glb",
+      "variants": [
+        {
+          "nodes": "^RootNode$"
+        }
+      ],
+      "height": 2.31,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.3,
+          0.1,
+          0.03
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 2048
+      },
+      "cast": true,
+      "fab": {
+        "url": "https://www.fab.com/listings/cfb3ca34-f75a-4bbe-9a06-40d6b2b2c581",
+        "seller": "Quixel Megascans",
+        "name": "Ficus Microcarpa Tree Trunk",
+        "faces": 30752
+      }
+    },
+    "fallen_tree": {
+      "label": "thân cây đổ lớn 7 m phủ rêu (Megascans scan, DV-064)",
+      "asset": "veg_fallen_tree",
+      "src": "assets-src/fab/cay-nhiet-doi/large_fallen_tree_whhmehm_high.glb",
+      "variants": [
+        {
+          "nodes": "^RootNode$"
+        }
+      ],
+      "height": 2.36,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.6,
+          0.18,
+          0.05
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 2048
+      },
+      "cast": true,
+      "fab": {
+        "url": "https://www.fab.com/listings/f36e4566-ebe4-42ad-9b13-b38ec4a438ab",
+        "seller": "Quixel Megascans",
+        "name": "Large Fallen Tree",
+        "faces": 18188
+      }
     }
   }
 }

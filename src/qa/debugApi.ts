@@ -45,7 +45,7 @@ export interface HtDebugApi {
   /** terrain (TIP-D04): thống kê LOD/draw/tris của frame gần nhất */
   terrainStats(): { lod: number[]; visible: number; chunks: number; tris: number; draws: number; navPrebuilt: boolean; polys: number } | null;
   /** rừng (TIP-D05): thống kê frame gần nhất + thời gian nạp/bake — null khi không có rừng */
-  vegetationStats(): { species: number; placed: number; visible: number; draws: number; triangles: number; impostors: number; lod: number[]; cpuMs: number; colliders: number; loadMs: number; bakeMs: number; perSpecies: Record<string, number> } | null;
+  vegetationStats(): { species: number; placed: number; visible: number; draws: number; triangles: number; impostors: number; lod: number[]; cpuMs: number; colliders: number; trisByAsset?: Record<string, number>; loadMs: number; bakeMs: number; perSpecies: Record<string, number> } | null;
   /** rừng: gió 0..1 (VEG-002) */
   setWind(strength: number, dirX?: number, dirZ?: number): void;
   /** máy bay (TIP-D-SKY): thống kê + lượt đang bay; skyAdvance tua lịch (s) */

@@ -166,13 +166,13 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       // renderer.info reset theo rAF frame → mỗi frame đo trong một tick rAF riêng (frame() liên tiếp trong 1 task sẽ cộng dồn)
       const frameRaf = (): Promise<void> => new Promise((res) => requestAnimationFrame(() => { g.frame(1 / 60); res(); }));
       // thống kê tại spawn, quét 4 hướng để lấy max
-      const stats: Array<{ draws: number; tris: number; total: number; calls: number; visible: number; imp: number }> = [];
+      const stats: Array<{ draws: number; tris: number; total: number; calls: number; visible: number; imp: number; by?: Record<string, number> }> = [];
       for (let k = 0; k < 4; k++) {
         g.player.rig.reset((k * Math.PI) / 2, 0);
         for (let i = 0; i < (k === 0 ? 2 : 1); i++) await frameRaf();
         const v = H.vegetationStats()!;
         const m = H.metrics();
-        stats.push({ draws: v.draws, tris: v.triangles, total: m.triangles, calls: m.calls, visible: v.visible, imp: v.impostors });
+        stats.push({ draws: v.draws, tris: v.triangles, total: m.triangles, calls: m.calls, visible: v.visible, imp: v.impostors, by: v.trisByAsset });
       }
       const v0 = H.vegetationStats()!;
       // collider thân cây gần spawn nhất (tree_gn) → đứng cách 3 m, đi thẳng vào 4 s
@@ -260,11 +260,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         cpuMs: v0.cpuMs,
         stats,
         trunk: { r, distFromSpawn: bd, minD, maxD, capsule: c.cfg.radius, gap, grounded: c.grounded },
-        atlasTree: !!g.forest?.atlases['tree_gn'],
+        atlasTree: !!g.forest?.atlases['shorea'],
       };
     });
     // DV-057: 11 luật (tree_gn vượt tán + tree_canopy tán chính cùng GLB; fern_gap cùng GLB fern); DV-059 +7 lớp nền rừng CC0
-    expect(r.species).toBe(29); // DV-060 +11 luật (bờ khe, lòng khe, đá tảng, vách đá, quanh hố bom), gỡ Monstera
+    expect(r.species).toBe(29); // DV-064: thay asset, không thêm luật (cọ quạt Megascans tối đen dưới tán ở WebGL sandbox, tạm gỡ) // DV-060 +11 luật (bờ khe, lòng khe, đá tảng, vách đá, quanh hố bom), gỡ Monstera
     expect(r.placed).toBeGreaterThan(10_000);
     expect(r.perSpecies['tree_gn']).toBeGreaterThan(150);
     expect(r.perSpecies['tree_canopy']).toBeGreaterThan(2 * (r.perSpecies['tree_gn'] ?? 0));
@@ -273,7 +273,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     for (const s of r.stats) {
       expect(s.draws, JSON.stringify(r.stats)).toBeGreaterThan(10);
       expect(s.draws).toBeLessThanOrEqual(140);
-      expect(s.tris).toBeLessThanOrEqual(1_500_000);
+      expect(s.tris, JSON.stringify(s.by)).toBeLessThanOrEqual(1_500_000);
       expect(s.total).toBeLessThanOrEqual(4_000_000);
       expect(s.calls, JSON.stringify(r.stats)).toBeLessThanOrEqual(280);
     }
@@ -320,8 +320,9 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       const hAt = (x: number, z: number): number => H.terrainHeight(x, z) ?? NaN;
       const frameRaf = (): Promise<void> => new Promise((res) => requestAnimationFrame(() => { g.frame(1 / 60); res(); }));
       const s0 = H.skyStats()!;
-      // 60 s: F-4 cặp (first 40) + UH-1 cặp (first 20) đang bay
-      H.skyAdvance(60);
+      // tới t = 60 s của lịch bay: F-4 cặp (first 40) + UH-1 cặp (first 20) đang bay. Đồng hồ trời đã chạy trong lúc nạp
+      // (nạp rừng DV-064 lâu hơn → s0.time có thể > 20 s), nên tiến tới mốc tuyệt đối chứ không cộng 60 s
+      H.skyAdvance(Math.max(0, 60 - s0.time));
       await frameRaf();
       const s1 = H.skyStats()!;
       const above = s1.runsNow.map((run) => ({ id: run.id, agl: run.pos[1] - hAt(Math.max(-1000, Math.min(1000, run.pos[0])), Math.max(-1000, Math.min(1000, run.pos[2]))) }));

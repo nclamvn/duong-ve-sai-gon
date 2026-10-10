@@ -1,6 +1,11 @@
 {
   "note": "DV-062: asset bảo vệ, sinh bởi scripts/pack-assets.mjs. Khoá = đường logic dưới public/assets/, giá trị = gói .dvpak",
   "files": {
-    "weapons/ak47_vm.glb": "pak/6702e008f92db68e.dvpak"
+    "weapons/ak47_vm.glb": "pak/6702e008f92db68e.dvpak",
+    "vegetation/fallen_tree.glb": "pak/91448d109bf65f42.dvpak",
+    "vegetation/diptero.glb": "pak/a2ca30867b5314f2.dvpak",
+    "vegetation/ficus_trunk.glb": "pak/c8e571b924d19b7e.dvpak",
+    "vegetation/fanpalm.glb": "pak/6f0b7f0255922170.dvpak",
+    "vegetation/shorea.glb": "pak/c82bb783e7abcc34.dvpak"
   }
 }

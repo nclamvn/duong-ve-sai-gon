@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T09:08:00.744Z",
+  "generatedAt": "2026-10-10T12:36:07.674Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 174796420,
+  "totalBytes": 182538276,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3229,8 +3229,8 @@
         },
         {
           "path": "assets/terrain/truong-son-a/nav.bin",
-          "bytes": 1748728,
-          "sha256": "60db2ac5ec46665589f6c4cb14fd9c85df729c894815bb7d92d3f65efef4a01e"
+          "bytes": 1753936,
+          "sha256": "777403d24db2ebbf33b7f485c6125c55439aa1a9bfb6af979fd75a4226e9c7e7"
         },
         {
           "path": "assets/terrain/truong-son-a/map.png",
@@ -4212,6 +4212,161 @@
       "triangles": {
         "source": 62345,
         "output": 15584
+      }
+    },
+    {
+      "id": "veg_fallen_tree",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — thân cây đổ lớn 7 m phủ rêu (Megascans scan, DV-064): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "fab",
+      "url": "https://www.fab.com/listings/f36e4566-ebe4-42ad-9b13-b38ec4a438ab",
+      "authors": [
+        "Quixel Megascans"
+      ],
+      "license": "Fab-Standard",
+      "protect": true,
+      "files": [
+        {
+          "path": "assets/pak/91448d109bf65f42.dvpak",
+          "bytes": 917976,
+          "sha256": "7fbc24320cc8b4a844d991b7d7581a521b8b979c4eca07af880faa7d33e71f5c",
+          "logical": "assets/vegetation/fallen_tree.glb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/fab/cay-nhiet-doi/large_fallen_tree_whhmehm_high.glb",
+          "bytes": 57047248,
+          "sha256": "82a150970bd9290f0d018e83115a4a41decbeae52fc7aea14d6e1f4826e4a3c5"
+        }
+      ],
+      "triangles": {
+        "source": 18188,
+        "output": 10912
+      }
+    },
+    {
+      "id": "veg_diptero",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — gốc dầu rái gãy (Dipterocarpus turbinatus, anydrafts, scan 8K, DV-064): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "fab",
+      "url": "https://www.fab.com/listings/d51c1b28-64db-4fa4-9143-0a66238d647c",
+      "authors": [
+        "anydrafts official"
+      ],
+      "license": "Fab-Standard",
+      "protect": true,
+      "files": [
+        {
+          "path": "assets/pak/a2ca30867b5314f2.dvpak",
+          "bytes": 780284,
+          "sha256": "d7d12cfc41831be6ad4a2a14bf126a6ece7983afd041185ce82636bf3690dfa8",
+          "logical": "assets/vegetation/diptero.glb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/fab/cay-nhiet-doi/diptero_prepped.glb",
+          "bytes": 1713764,
+          "sha256": "058b9b84e2559e3df79f8bdb3c4a8a2315eee1c419e96d7485bb9289b5a11f3b"
+        }
+      ],
+      "triangles": {
+        "source": 29999,
+        "output": 8992
+      }
+    },
+    {
+      "id": "veg_ficus_trunk",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — gốc si rễ bạnh phủ rêu (Ficus microcarpa, Megascans scan, DV-064): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "fab",
+      "url": "https://www.fab.com/listings/cfb3ca34-f75a-4bbe-9a06-40d6b2b2c581",
+      "authors": [
+        "Quixel Megascans"
+      ],
+      "license": "Fab-Standard",
+      "protect": true,
+      "files": [
+        {
+          "path": "assets/pak/c8e571b924d19b7e.dvpak",
+          "bytes": 966280,
+          "sha256": "55ea1b2eaa964e73fd2daf0f6a931dcce97c040571871670523acc6157954cd0",
+          "logical": "assets/vegetation/ficus_trunk.glb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/fab/cay-nhiet-doi/ficus_microcarpa_tree_trunk_wdjkdjs_high.glb",
+          "bytes": 47824532,
+          "sha256": "4b7713220a263aaa9d7a07672388f189248bda5314a7fd1ab11a67958e0b70a4"
+        }
+      ],
+      "triangles": {
+        "source": 30752,
+        "output": 9204
+      }
+    },
+    {
+      "id": "veg_fanpalm",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cọ quạt non (Livistona chinensis, Megascans scan, 3 biến thể, DV-064): 3 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "fab",
+      "url": "https://www.fab.com/listings/baaece72-6e2b-4fef-a8b9-de5c0f244a43",
+      "authors": [
+        "Quixel Megascans"
+      ],
+      "license": "Fab-Standard",
+      "protect": true,
+      "files": [
+        {
+          "path": "assets/pak/6f0b7f0255922170.dvpak",
+          "bytes": 573220,
+          "sha256": "f34f12fc980e9ded660796bba9bcbff52d569d0cfce10e23fb084ba0fdd43917",
+          "logical": "assets/vegetation/fanpalm.glb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/fab/cay-nhiet-doi/fanpalm_prepped.glb",
+          "bytes": 7061092,
+          "sha256": "919aa476bf7c0bafc8f40753f84bac1105cfe92995e83e0c08c7a8e2f15dc7f5"
+        }
+      ],
+      "triangles": {
+        "source": 4801,
+        "output": 3868
+      }
+    },
+    {
+      "id": "veg_shorea",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — cây họ Dầu Shorea roxburghii (chò, sến trắng) — vượt tán 20–29 m và tán chính 11–15 m (Fab, 3DGardenPlants, bản LowPoly, DV-064): 4 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "fab",
+      "url": "https://www.fab.com/listings/60af4e19-48b2-4bc9-a574-6145cfae7798",
+      "authors": [
+        "3DGardenPlants"
+      ],
+      "license": "Fab-Standard",
+      "protect": true,
+      "files": [
+        {
+          "path": "assets/pak/c82bb783e7abcc34.dvpak",
+          "bytes": 4498888,
+          "sha256": "70066c90f261daa2035e3f33348c94dc346ae5a8b5dd8df09669d6381c3097f8",
+          "logical": "assets/vegetation/shorea.glb"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/fab/cay-nhiet-doi/shorea_prepped.glb",
+          "bytes": 22487680,
+          "sha256": "e64a1eccbe945a0e06c0f5527d29097afa14d18467ecf4cddf1d75e9af2ddb9c"
+        }
+      ],
+      "triangles": {
+        "source": 89461,
+        "output": 21533
       }
     }
   ]

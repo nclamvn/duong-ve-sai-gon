@@ -204,11 +204,14 @@ describe('TIP-D05 scatter (VEG-001)', () => {
       expect(ruleIds.has(s.id), `rule id trùng ${s.id}`).toBe(false);
       ruleIds.add(s.id);
       const g = s.asset ?? s.id;
-      const a = manifest.assets.find((x) => x.id === `veg_${g}`);
+      const a = manifest.assets.find((x) => x.id === `veg_${g}`) as { license?: string; attribution?: string; protect?: boolean; files: Array<{ path: string; logical?: string }> } | undefined;
       expect(a, `manifest veg_${g}`).toBeTruthy();
-      expect(a!.files.some((f) => f.path === `assets/vegetation/${g}.glb`)).toBe(true);
-      expect(readFileSync(`public/assets/vegetation/${g}.glb`).byteLength).toBeGreaterThan(1000);
+      // DV-064: cây mua trên Fab là gói .dvpak (đường logic giữ nguyên, file trần không có trong public)
+      const f = a!.files.find((x) => (x.logical ?? x.path) === `assets/vegetation/${g}.glb`);
+      expect(f, `file veg_${g}`).toBeTruthy();
+      expect(readFileSync(`public/${f!.path}`).byteLength).toBeGreaterThan(1000);
       if (a!.license?.startsWith('CC-BY')) expect(a!.attribution ?? '').toMatch(/sketchfab|by/i);
+      else if (a!.license === 'Fab-Standard') expect(a!.protect).toBe(true);
       else expect(a!.license).toBe('CC0-1.0'); // cỏ procedural (gen-grass.mjs)
       expect(s.lod[0]!).toBeLessThan(s.lod[1]!);
       expect(s.lod[1]!).toBeLessThan(s.lod[2]!);

@@ -67,6 +67,8 @@ export interface VegetationStats {
   lod: [number, number, number];
   cpuMs: number;
   colliders: number;
+  /** DV-064 QA: tam giác đang vẽ theo asset (batch thường + impostor) */
+  trisByAsset?: Record<string, number>;
 }
 
 const _proj = new Matrix4();
@@ -306,12 +308,15 @@ export class VegetationSystem {
         }
       }
     }
+    const byAsset: Record<string, number> = {};
     for (const b of this.uniqueBatches) {
       b.geometry.instanceCount = b.count;
       b.mesh.visible = b.count > 0;
       if (b.count > 0) {
         draws++;
         tris += b.count * b.triangles;
+        const an = b.mesh.name.replace(/^veg_/, '').replace(/_v\d+_lod.*$/, '');
+        byAsset[an] = (byAsset[an] ?? 0) + b.count * b.triangles;
         b.posScale.clearUpdateRanges();
         b.posScale.addUpdateRange(0, b.count * 4);
         b.posScale.needsUpdate = true;
@@ -329,6 +334,7 @@ export class VegetationSystem {
     }
     this.stats.visible = visible;
     this.stats.draws = draws;
+    this.stats.trisByAsset = byAsset;
     this.stats.triangles = tris;
     this.stats.impostors = impostors;
     this.stats.lod = lodCount;

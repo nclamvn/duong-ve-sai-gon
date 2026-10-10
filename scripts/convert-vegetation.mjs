@@ -356,7 +356,10 @@ for (const [id, sp] of Object.entries(SPEC.species)) {
     type: 'model',
     use: `thực vật rừng (TIP-D05, VEG-001) — ${sp.label}: ${nVar} biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs`,
     // DV-059: nguồn CC0 Poly Haven (source khác 'polyhaven' để fetch-assets không gỡ entry khi chạy lại)
-    ...(ph
+    ...(sp.fab
+      ? // DV-064: asset MUA trên Fab (Standard License) — scripts/pack-assets.mjs đóng gói .dvpak, không để glb trần trong public/
+        { source: 'fab', url: sp.fab.url, authors: [sp.fab.seller], license: 'Fab-Standard', protect: true }
+      : ph
       ? { source: 'polyhaven-vegetation', url: `https://polyhaven.com/a/${ph.id}`, authors: ph.authors, license: 'CC0-1.0' }
       : {
           source: 'sketchfab',
@@ -367,7 +370,7 @@ for (const [id, sp] of Object.entries(SPEC.species)) {
         }),
     files: [{ path: outPath.replace(/^public\//, ''), bytes, sha256: sha256(outPath) }],
     sourceFiles: [{ path: sp.src, bytes: statSync(sp.src).size, sha256: sha256(sp.src) }],
-    triangles: { source: sf?.faces ?? ph?.faces ?? 0, output: Math.round(triOut[0] / nVar) },
+    triangles: { source: sf?.faces ?? ph?.faces ?? sp.fab?.faces ?? 0, output: Math.round(triOut[0] / nVar) },
   };
   if (sp.registryId) {
     entry.historical = true;
