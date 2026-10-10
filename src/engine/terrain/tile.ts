@@ -3,6 +3,7 @@
  * cột 0 = tây) + `meta.json`. Trục engine: +x đông, −z bắc → hàng j ↔ z = −half + j·res, cột i ↔ x = −half + i·res.
  * Cao độ engine y = zMin + u16/65535·(zMax − zMin) − yOffset (yOffset đưa spawn về ≈ 0). Không phụ thuộc DOM/three — chạy trong Node.
  */
+import { FeatureField, type TerrainFeaturesData } from './features';
 export interface TerrainMeta {
   id: string;
   n: number;
@@ -15,6 +16,8 @@ export interface TerrainMeta {
   source?: { dataset?: string; tile?: string; url?: string };
   detailNoise?: { amplitudeM: number; seed: number; note?: string } | null;
   sha256?: string;
+  /** DV-060: khe suối/hố bom đã khoét (scripts/terrain-features.mjs) */
+  features?: { file: string; streams: number; craters: number } | null;
 }
 
 export class TerrainTile {
@@ -26,6 +29,8 @@ export class TerrainTile {
   readonly heights: Float32Array;
   readonly minY: number;
   readonly maxY: number;
+  /** DV-060: khe suối/hố bom (null khi ô không có features.json) */
+  features: FeatureField | null = null;
 
   constructor(
     readonly meta: TerrainMeta,
@@ -59,7 +64,18 @@ export class TerrainTile {
     if (!metaRes.ok || !r16Res.ok) throw new Error(`terrain ${id}: meta/height fetch failed (${metaRes.status}/${r16Res.status})`);
     const meta = (await metaRes.json()) as TerrainMeta;
     const buf = await r16Res.arrayBuffer();
-    return new TerrainTile(meta, new Uint16Array(buf), yOffset);
+    const tile = new TerrainTile(meta, new Uint16Array(buf), yOffset);
+    if (meta.features?.file) {
+      const fr = await fetch(`${dir}${meta.features.file}`);
+      if (!fr.ok) throw new Error(`terrain ${id}: ${meta.features.file} fetch failed (${fr.status})`);
+      tile.setFeatures((await fr.json()) as TerrainFeaturesData);
+    }
+    return tile;
+  }
+
+  /** gắn khe suối/hố bom (DV-060): trường khoảng cách cho luật mọc + dữ liệu mặt nước */
+  setFeatures(data: TerrainFeaturesData): void {
+    this.features = new FeatureField(data, this.sizeM);
   }
 
   /** cao độ tại đỉnh lưới (i cột, j hàng) — kẹp biên */
@@ -165,6 +181,21 @@ export class TerrainTile {
         out[k + 1] = Math.round((1 / l) * 0.5 * 255 + 127.5);
         out[k + 2] = Math.round((-dz / l) * 0.5 * 255 + 127.5);
         out[k + 3] = 255;
+      }
+    }
+    // DV-060: alpha = 255·(1 − mặt nạ đất xới): lòng hố bom (đất đỏ tươi) và lòng khe (ướt) → material đổi lớp đá sang đất, sẫm ướt.
+    // Ô không có features giữ alpha 255 (mặt nạ 0) nên material cũ không đổi.
+    const F = this.features;
+    if (F) {
+      for (let j = 0; j < n; j++) {
+        for (let i = 0; i < n; i++) {
+          const x = -this.half + i * this.resM;
+          const z = -this.half + j * this.resM;
+          const dc = F.distance('crater', x, z);
+          const ds = F.distance('stream', x, z);
+          const m = Math.max(1 - Math.min(1, Math.max(0, dc / 1.5)), 1 - Math.min(1, Math.max(0, (ds + 0.5) / 2.5)));
+          out[(j * n + i) * 4 + 3] = Math.round(255 * (1 - m));
+        }
       }
     }
     return out;

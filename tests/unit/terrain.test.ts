@@ -118,7 +118,7 @@ describe('TIP-D04 heightfield Rapier (TER-003)', () => {
     }
   });
 
-  it('ô truong-son-a: 50 điểm seeded |raycast − sample| ≤ 0,15 m', () => {
+  it('ô truong-son-a: 50 điểm seeded |raycast − sample| ≤ 0,2 m', () => {
     const t = loadTile(600);
     const w = new PhysicsWorld();
     w.addStatic({ kind: 'heightfield', position: [0, 0, 0], size: [t.sizeM, 1, t.sizeM], yaw: 0, heights: t.heights, n: t.n }, { id: 'terrain', kind: 'world', material: 'earth' });
@@ -134,7 +134,9 @@ describe('TIP-D04 heightfield Rapier (TER-003)', () => {
       const d = Math.abs(hit!.point[1] - t.sample(x, z));
       if (d > worst) worst = d;
     }
-    expect(worst).toBeLessThanOrEqual(0.15);
+    // DV-060: lòng khe và hố bom khoét vào lưới 2 m làm lệch tam giác (raycast) với song tuyến (sample) lớn hơn mặt DEM mượt
+    // (0,153 m ở điểm xấu nhất); ngưỡng 0,15 → 0,2 m, vẫn dưới bán kính capsule chân
+    expect(worst).toBeLessThanOrEqual(0.2);
   });
 });
 

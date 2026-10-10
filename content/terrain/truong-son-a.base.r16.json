@@ -1,0 +1,6 @@
+{
+  "zMin": 522.37,
+  "zMax": 891.92,
+  "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e",
+  "note": "height.r16 gốc từ terrain-bake (DEM SRTM + nhiễu chi tiết), trước khi khoét khe suối/hố bom"
+}

@@ -7,6 +7,7 @@
 import { mulberry32, hashString, type Prng } from '../core/prng';
 import type { TerrainTile } from '../terrain/tile';
 import type { ColliderDef } from '../render/arena';
+import type { FeatureKind } from '../terrain/features';
 
 export interface ScatterRule {
   /** id luật đặt (duy nhất trong level); mặc định cũng là tên GLB public/assets/vegetation/<id>.glb */
@@ -42,6 +43,15 @@ export interface ScatterRule {
   noiseId?: string;
   /** chôn gốc (m): [cố định, × tan(độ dốc)] — rễ bạnh không "trồi" trên sườn (mặt dốc: mép rễ phía dưới dốc hở R·tanθ) */
   sink?: [number, number];
+  /**
+   * DV-060: chỉ mọc khi khoảng cách (m) tới mép khe suối/nước/hố bom nằm trong [min, max] (âm = trong lòng khe/hố).
+   * Ô không có features.json → luật `near` không mọc gì (tránh rải bờ suối lên đất khô).
+   */
+  near?: { feature: FeatureKind; min?: number; max?: number };
+  /** DV-060: được mọc dưới mặt nước (đá cuội lòng suối); mặc định không — cây cỏ không mọc trong nước suối/hố đọng nước */
+  inWater?: boolean;
+  /** DV-060: không mọc trong vòng `within` m quanh mép đặc điểm (cây tán tránh lòng suối và lòng hố) */
+  avoid?: Array<{ feature: FeatureKind; within: number }>;
   /** hệ số đè khi tác nhân đi qua (VEG-006): mặc định theo chiều cao loài (cỏ 1, bụi 0,35, cây 0) */
   press?: number;
 }
@@ -125,6 +135,15 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
     if (rule.sink) y -= rule.sink[0] + (rule.sink[1] * Math.sqrt(Math.max(0, 1 - normal[1] * normal[1]))) / Math.max(0.2, normal[1]);
     const hN = Math.min(1, Math.max(0, (y - tile.minY) / range));
     if (hN < hgt[0] || hN > hgt[1]) return;
+    if (rule.near) {
+      if (!tile.features) return;
+      const d = tile.features.distance(rule.near.feature, x, z);
+      if (d < (rule.near.min ?? -1e9) || d > (rule.near.max ?? 1e9)) return;
+    }
+    if (!rule.inWater && tile.features && tile.features.distance('water', x, z) < 0.15) return;
+    if (rule.avoid && tile.features) {
+      for (const a of rule.avoid) if (tile.features.distance(a.feature, x, z) < a.within) return;
+    }
     const ix = Math.floor((x + half) / cellM);
     const jz = Math.floor((z + half) / cellM);
     const key = `${ix},${jz}`;

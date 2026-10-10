@@ -10,6 +10,7 @@ import type { LevelClimate } from '../sky/climate';
 import type { LevelSky, FxDef } from '../level/types';
 import { createAmbientFx, type AmbientFx } from '../render/ambientFx';
 import { TerrainTile } from './tile';
+import { buildWater } from './water';
 import { TerrainMesh, makeHeightTexture, makeNormalTexture } from './mesh';
 import { createTerrainMaterial, type TerrainLayers } from './material';
 import type { VegetationDef } from '../vegetation/system';
@@ -89,6 +90,8 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
   const root = new Group();
   root.name = `level_${def.id}`;
   root.add(mesh.group);
+  // DV-060: mặt nước khe suối và hố bom đọng nước (khi ô có features.json)
+  if (tile.features) root.add(buildWater(tile.features.data, { yOffset: def.terrain.yOffset }).group);
   scene.add(root);
 
   const h = (x: number, z: number): number => tile.sample(x, z);

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T01:35:21.654Z",
+  "generatedAt": "2026-10-10T03:23:39.313Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 172469305,
+  "totalBytes": 174784528,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3215,12 +3215,12 @@
         {
           "path": "assets/terrain/truong-son-a/height.r16",
           "bytes": 2101250,
-          "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e"
+          "sha256": "dcaac9eedc7564dfefb8d265e16ea5468ea105050f1dd57dba48814a147e86f5"
         },
         {
           "path": "assets/terrain/truong-son-a/meta.json",
-          "bytes": 679,
-          "sha256": "d6eff42453a20662d7af564376d866235c60d5f7b008b1d7ff2f485894a03bf5"
+          "bytes": 952,
+          "sha256": "06017f3386561aed252203c4927c6f391f7996755bf04c9e9c26c47c8e5cedb8"
         },
         {
           "path": "assets/terrain/truong-son-a/preview.png",
@@ -3229,13 +3229,18 @@
         },
         {
           "path": "assets/terrain/truong-son-a/nav.bin",
-          "bytes": 1260372,
-          "sha256": "d811803cae333ce04b847dc73df94800502013cbe42f19ac18ee8000a1deb524"
+          "bytes": 1736872,
+          "sha256": "ff0486eeedee5fa96863572e49ec9da14d6553a7c8628338984b9140d09607cd"
         },
         {
           "path": "assets/terrain/truong-son-a/map.png",
-          "bytes": 820459,
-          "sha256": "b41c36ff2a9360dea4c591fd0845396003ea62caba3d29a88fce72f00105eab2"
+          "bytes": 801707,
+          "sha256": "5d0a465c4f80bc05694331b878a94786c0d4558644902e29bb31d23324cda7d3"
+        },
+        {
+          "path": "assets/terrain/truong-son-a/features.json",
+          "bytes": 46986,
+          "sha256": "9c6373c1da8e2a56347decf9c17973a2110e1b05f673973eeca7f1f27531eec8"
         }
       ],
       "sourceFiles": [
@@ -3243,6 +3248,11 @@
           "path": "assets-src/dem/N17E106.hgt",
           "bytes": 25934402,
           "sha256": "cb238cc64e99bd44cec7bcaf7dee79066b5f6e1a2da7bcaf64217e9bc7002ae4"
+        },
+        {
+          "path": "content/terrain/truong-son-a.base.r16",
+          "bytes": 2101250,
+          "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e"
         }
       ]
     },
@@ -4113,6 +4123,93 @@
       "triangles": {
         "source": 225261,
         "output": 18004
+      }
+    },
+    {
+      "id": "veg_ph_rockface",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — khối đá lớn lộ trên sườn và bờ khe (Poly Haven Rock Face 01, CC0, scan): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/rock_face_01",
+      "authors": [
+        "Dario Barresi"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_rockface.glb",
+          "bytes": 481912,
+          "sha256": "7ea2200a93073b667d761cca39e3fb561aeb22856696e36c7f1a02c8110fa9aa"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/rock_face_01/rock_face_01_1k.gltf",
+          "bytes": 2793,
+          "sha256": "96c332c01d173a2431115f3bac29be101fba341e5500e2a08e384f4edd17299e"
+        }
+      ],
+      "triangles": {
+        "source": 20174,
+        "output": 14116
+      }
+    },
+    {
+      "id": "veg_ph_pebbles",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — đá cuội, đá hộc lòng khe (Poly Haven Rock Moss Set 02, CC0, scan): 7 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/rock_moss_set_02",
+      "authors": [
+        "Kless Gyzen"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_pebbles.glb",
+          "bytes": 822284,
+          "sha256": "55f9889d7321b13f49ceec36d34e1b72530075e6d8e9c27ed786959c4ea4bac9"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/rock_moss_set_02/rock_moss_set_02_1k.gltf",
+          "bytes": 11608,
+          "sha256": "c3b992a7622e94f7d8da97a47277a2a5177a513af0312a127ec908d4056c97db"
+        }
+      ],
+      "triangles": {
+        "source": 57647,
+        "output": 4940
+      }
+    },
+    {
+      "id": "veg_ph_stump2",
+      "type": "model",
+      "use": "thực vật rừng (TIP-D05, VEG-001) — gốc cây gãy (Poly Haven Tree Stump 02, CC0, scan): 1 biến thể × 3 LOD, lá MASK hai mặt; scripts/convert-vegetation.mjs",
+      "source": "polyhaven-vegetation",
+      "url": "https://polyhaven.com/a/tree_stump_02",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "path": "assets/vegetation/ph_stump2.glb",
+          "bytes": 506020,
+          "sha256": "a425adef7c6e0d63f683fc4c570f2cead7288934dfa5e4bc1355a1bd112eab50"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "path": "assets-src/polyhaven/models/tree_stump_02/tree_stump_02_1k.gltf",
+          "bytes": 2802,
+          "sha256": "a79189160d1c7cfd6d875ab4470e4d2ff9cee08d58943be69d6028034a08c7ec"
+        }
+      ],
+      "triangles": {
+        "source": 62345,
+        "output": 15584
       }
     }
   ]

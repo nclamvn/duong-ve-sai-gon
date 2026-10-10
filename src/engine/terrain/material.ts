@@ -5,7 +5,7 @@
  * Normal per-pixel từ texture normal của ô (linear) + normal map lớp (tiếp tuyến xấp xỉ trục x/z).
  */
 import { MeshStandardNodeMaterial, Color, type DataTexture } from 'three/webgpu';
-import { attribute, positionGeometry, positionWorld, texture, triplanarTexture, transformNormalToView, vec2, vec3, vec4, float, mix, smoothstep, saturate, normalize, mx_noise_float, color, uniform } from 'three/tsl';
+import { attribute, positionGeometry, positionWorld, texture, triplanarTexture, transformNormalToView, vec2, vec3, vec4, float, mix, smoothstep, saturate, normalize, mx_noise_float, color, uniform, max } from 'three/tsl';
 import type { Node } from 'three/webgpu';
 import type { PbrTextureSet } from '../render/assets';
 import type { TerrainTile } from './tile';
@@ -77,7 +77,10 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
 
   // ---------- fragment: normal ô (linear) + slope/height
   const uvN = vec2(positionWorld.x.add(half).div(res).add(0.5).div(n), positionWorld.z.add(half).div(res).add(0.5).div(n));
-  const nTile = normalize(texture(normalTex, uvN).rgb.mul(2.0).sub(1.0));
+  const nSample = texture(normalTex, uvN);
+  const nTile = normalize(nSample.rgb.mul(2.0).sub(1.0));
+  // DV-060: mặt nạ đất xới (lòng hố bom, lòng khe) từ alpha texture normal: 1 − a (ô không có features: 0)
+  const fmask = nSample.a.oneMinus();
   const slope = nTile.y.oneMinus();
   const hN = saturate(positionWorld.y.sub(minY).div(range));
   const nz1 = mx_noise_float(positionWorld.xz.mul(0.02)).mul(0.5).add(0.5);
@@ -118,9 +121,10 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
   R.c = R.c.mul(color(new Color(tint.rock)));
 
   // ---------- trọng số lớp
-  const rockW = smoothstep(0.22, 0.4, slope);
-  const grassW = smoothstep(0.38, 0.62, hN).mul(smoothstep(0.26, 0.1, slope)).mul(smoothstep(0.28, 0.6, nz2));
-  const mudW = saturate(smoothstep(0.14, 0.05, slope).mul(smoothstep(0.35, 0.12, hN).mul(0.6).add(smoothstep(0.45, 0.7, nz1).mul(0.5))));
+  // vách hố bom và bờ khe là đất xới (đất đỏ, ướt), không phải đá rêu dù dốc
+  const rockW = smoothstep(0.22, 0.4, slope).mul(fmask.oneMinus());
+  const grassW = smoothstep(0.38, 0.62, hN).mul(smoothstep(0.26, 0.1, slope)).mul(smoothstep(0.28, 0.6, nz2)).mul(fmask.oneMinus());
+  const mudW = max(saturate(smoothstep(0.14, 0.05, slope).mul(smoothstep(0.35, 0.12, hN).mul(0.6).add(smoothstep(0.45, 0.7, nz1).mul(0.5)))), fmask.mul(0.92));
 
   let albedo = L.c;
   let nm = L.nm;
@@ -144,7 +148,7 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
   const detail = vec3(tn.x, 0.0, tn.y).mul(float(0.6).mul(rockW.oneMinus()));
   const nWorld = normalize(nTile.add(detail));
 
-  const wetLayer = mudW.mul(0.8).add(float(0.35)).mul(rockW.oneMinus()).mul(wetness);
+  const wetLayer = saturate(mudW.mul(0.8).add(float(0.35)).mul(rockW.oneMinus()).mul(wetness).add(fmask.mul(0.45)));
   mat.colorNode = vec4(mix(albedo, albedo.mul(0.72), wetLayer), 1.0);
   // roughness sàn cao: đất/mùn ẩm không bóng; ARM Poly Haven (0,5–0,7) làm mặt đất phản chiếu trời ở góc xiên → bạc/nhợt
   mat.roughnessNode = saturate(mix(float(0.92), arm.g, 0.3).sub(wetLayer.mul(0.2)));

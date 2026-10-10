@@ -41,7 +41,8 @@ if (args.includes('--nav')) {
   const ch = Number(opt('ch', '0.25'));
   const n = meta.n, res = meta.resM, half = meta.sizeM / 2;
   const at = (i, j) => meta.zMin + (u16[Math.min(n - 1, Math.max(0, j)) * n + Math.min(n - 1, Math.max(0, i))] / 65535) * (meta.zMax - meta.zMin) - yOff;
-  const step = Math.max(1, Math.round(4 / res));
+  // DV-060: lưới nav mặc định 4 m; ô có khe suối/hố bom khoét thì 2 m (khe rộng 1,4–7 m, hố ~9 m: lưới 4 m làm bậc giả, bot kẹt)
+  const step = Math.max(1, Math.round(Number(opt('navGrid', meta.features ? '2' : '4')) / res));
   const i0 = Math.max(0, Math.floor((rect[0] - rect[2] / 2 + half) / res)), i1 = Math.min(n - 1, Math.ceil((rect[0] + rect[2] / 2 + half) / res));
   const j0 = Math.max(0, Math.floor((rect[1] - rect[3] / 2 + half) / res)), j1 = Math.min(n - 1, Math.ceil((rect[1] + rect[3] / 2 + half) / res));
   const cols = Math.floor((i1 - i0) / step) + 1, rows = Math.floor((j1 - j0) / step) + 1;
@@ -72,6 +73,7 @@ if (args.includes('--nav')) {
     const veg = level.vegetation;
     if (veg) {
       const tile = new eng.TerrainTile(meta, u16, yOff);
+      if (meta.features?.file) tile.setFeatures(JSON.parse(readFileSync(`${dir}/${meta.features.file}`, 'utf8'))); // DV-060: luật near/avoid
       const colliders = [];
       for (const rule of veg.species) {
         if (!rule.collider) continue;
@@ -190,6 +192,7 @@ if (args.includes('--map')) {
     const veg = level.vegetation;
     if (veg) {
       const tile = new eng.TerrainTile(meta, u16, 0);
+      if (meta.features?.file) tile.setFeatures(JSON.parse(readFileSync(`public/assets/terrain/${ID}/${meta.features.file}`, 'utf8')));
       const tmp = new Float32Array(PX * PX);
       for (const rule of veg.species) {
         if (!rule.collider) continue; // cây thân (tán, cọ, tre)
@@ -261,6 +264,32 @@ if (args.includes('--map')) {
     img[o] = Math.max(0, Math.min(255, r)); img[o + 1] = Math.max(0, Math.min(255, g)); img[o + 2] = Math.max(0, Math.min(255, b));
   }
   const out = `${dir}/map.png`;
+  // DV-060: khe suối (xanh mực, suối có nước đậm hơn) và hố bom (chấm nâu đỏ) như bản đồ giấy 1971
+  if (meta.features?.file) {
+    const feat = JSON.parse(readFileSync(`public/assets/terrain/${ID}/${meta.features.file}`, 'utf8'));
+    const toPx = (x, z) => [((x + meta.sizeM / 2) / meta.sizeM) * PX, ((z + meta.sizeM / 2) / meta.sizeM) * PX];
+    const put = (px, py, rgb, a) => {
+      const x = Math.round(px), y = Math.round(py);
+      if (x < 0 || y < 0 || x >= PX || y >= PX) return;
+      const o = (y * PX + x) * 3;
+      for (let c = 0; c < 3; c++) img[o + c] = Math.round(img[o + c] * (1 - a) + rgb[c] * a);
+    };
+    for (const st of feat.streams) for (let q = 0; q + 1 < st.pts.length; q++) {
+      const [ax, ay] = toPx(st.pts[q][0], st.pts[q][1]), [bx, by] = toPx(st.pts[q + 1][0], st.pts[q + 1][1]);
+      const L = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) * 2));
+      for (let t = 0; t <= L; t++) {
+        const px = ax + ((bx - ax) * t) / L, py = ay + ((by - ay) * t) / L;
+        put(px, py, [44, 84, 140], st.water ? 0.9 : 0.55);
+        if (st.water) { put(px + 0.6, py, [44, 84, 140], 0.6); put(px, py + 0.6, [44, 84, 140], 0.6); }
+      }
+    }
+    for (const c of feat.craters) {
+      const [cx, cy] = toPx(c.x, c.z);
+      const rp = Math.max(1, (c.r / meta.sizeM) * PX);
+      for (let a = 0; a < 16; a++) put(cx + Math.cos((a / 16) * Math.PI * 2) * rp, cy + Math.sin((a / 16) * Math.PI * 2) * rp, [110, 60, 40], 0.7);
+      if (c.waterY !== null) put(cx, cy, [44, 84, 140], 0.8);
+    }
+  }
   await sharp(img, { raw: { width: PX, height: PX, channels: 3 } }).png({ compressionLevel: 9, palette: true, colours: 128 }).toFile(out);
   const MANIFEST = 'content/assets/manifest.json';
   const m = JSON.parse(readFileSync(MANIFEST, 'utf8'));

@@ -101,6 +101,10 @@ const ASSETS = [
   { id: 'rock_moss_set_01', type: 'vegsrc', res: '1k', use: 'đá phủ rêu (sườn, ven suối)' },
   { id: 'dry_branches_medium_01', type: 'vegsrc', res: '1k', use: 'cành khô rụng (nền rừng)' },
   { id: 'root_cluster_01', type: 'vegsrc', res: '1k', use: 'cụm rễ trồi (nền rừng)' },
+  // DV-060: đá tảng, vách đá, sỏi đá lòng khe, thêm gốc gãy cho nền rừng ngổn ngang
+  { id: 'rock_face_01', type: 'vegsrc', res: '1k', use: 'khối đá lớn/vách đá lộ trên sườn và bờ khe' },
+  { id: 'rock_moss_set_02', type: 'vegsrc', res: '1k', use: 'đá cuội, đá hộc lòng khe' },
+  { id: 'tree_stump_02', type: 'vegsrc', res: '1k', use: 'gốc cây gãy (nền rừng)' },
 ];
 const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 

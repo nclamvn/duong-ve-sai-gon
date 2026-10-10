@@ -709,6 +709,129 @@
         ],
         "faces": 225261
       }
+    },
+    "ph_rockface": {
+      "label": "khối đá lớn lộ trên sườn và bờ khe (Poly Haven Rock Face 01, CC0, scan)",
+      "asset": "veg_ph_rockface",
+      "src": "assets-src/polyhaven/models/rock_face_01/rock_face_01_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^rock_face_01$"
+        }
+      ],
+      "height": 5.62,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.7,
+          0.25,
+          0.08
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "rock_face_01",
+        "authors": [
+          "Dario Barresi"
+        ],
+        "faces": 20174
+      }
+    },
+    "ph_pebbles": {
+      "label": "đá cuội, đá hộc lòng khe (Poly Haven Rock Moss Set 02, CC0, scan)",
+      "asset": "veg_ph_pebbles",
+      "src": "assets-src/polyhaven/models/rock_moss_set_02/rock_moss_set_02_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^rock_moss_set_02_rock07$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock08$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock09$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock10$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock11$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock12$"
+        },
+        {
+          "nodes": "^rock_moss_set_02_rock13$"
+        }
+      ],
+      "height": 1.0,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.6,
+          0.2,
+          0.06
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "rock_moss_set_02",
+        "authors": [
+          "Kless Gyzen"
+        ],
+        "faces": 57647
+      }
+    },
+    "ph_stump2": {
+      "label": "gốc cây gãy (Poly Haven Tree Stump 02, CC0, scan)",
+      "asset": "veg_ph_stump2",
+      "src": "assets-src/polyhaven/models/tree_stump_02/tree_stump_02_1k.gltf",
+      "variants": [
+        {
+          "nodes": "^tree_stump_02$"
+        }
+      ],
+      "height": 0.52,
+      "lod": {
+        "leaf": [
+          1,
+          1,
+          1
+        ],
+        "bark": [
+          0.25,
+          0.08,
+          0.025
+        ]
+      },
+      "texture": {
+        "leaf": 512,
+        "bark": 1024
+      },
+      "cast": true,
+      "polyhaven": {
+        "id": "tree_stump_02",
+        "authors": [
+          "Rob Tuytel"
+        ],
+        "faces": 62345
+      }
     }
   }
 }

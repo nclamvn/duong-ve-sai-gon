@@ -264,7 +264,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       };
     });
     // DV-057: 11 luật (tree_gn vượt tán + tree_canopy tán chính cùng GLB; fern_gap cùng GLB fern); DV-059 +7 lớp nền rừng CC0
-    expect(r.species).toBe(18);
+    expect(r.species).toBe(29); // DV-060 +11 luật (bờ khe, lòng khe, đá tảng, vách đá, quanh hố bom), gỡ Monstera
     expect(r.placed).toBeGreaterThan(10_000);
     expect(r.perSpecies['tree_gn']).toBeGreaterThan(150);
     expect(r.perSpecies['tree_canopy']).toBeGreaterThan(2 * (r.perSpecies['tree_gn'] ?? 0));

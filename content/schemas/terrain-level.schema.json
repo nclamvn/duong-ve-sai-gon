@@ -345,6 +345,59 @@
                 "type": "string",
                 "pattern": "^[a-z0-9_]+$",
                 "description": "DV-057: GLB loài dùng chung (public/assets/vegetation/<asset>.glb); thiếu = id. Cho phép một loài xuất hiện ở hai tầng (vượt tán, tán chính) với luật đặt khác nhau"
+              },
+              "near": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "feature"
+                ],
+                "properties": {
+                  "feature": {
+                    "enum": [
+                      "stream",
+                      "water",
+                      "crater",
+                      "trail"
+                    ]
+                  },
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  }
+                },
+                "description": "DV-060: chỉ mọc khi khoảng cách tới mép khe/nước/hố trong [min,max] m"
+              },
+              "avoid": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "feature",
+                    "within"
+                  ],
+                  "properties": {
+                    "feature": {
+                      "enum": [
+                        "stream",
+                        "water",
+                        "crater",
+                        "trail"
+                      ]
+                    },
+                    "within": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  }
+                }
+              },
+              "inWater": {
+                "type": "boolean",
+                "description": "DV-060: được mọc dưới mặt nước (mặc định không)"
               }
             }
           }
@@ -682,6 +735,10 @@
           "type": "number"
         }
       }
+    },
+    "terrainFeatures": {
+      "type": "object",
+      "description": "DV-060: tham số khe suối/hố bom cho scripts/terrain-features.mjs"
     }
   }
 }

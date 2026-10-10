@@ -3,8 +3,8 @@
   "n": 1025,
   "sizeM": 2048,
   "resM": 2,
-  "zMin": 522.37,
-  "zMax": 891.92,
+  "zMin": 525.45,
+  "zMax": 890.15,
   "center": {
     "lat": 17.55,
     "lon": 106.1
@@ -20,5 +20,13 @@
     "seed": 7,
     "note": "chi tiết < 30 m là procedural, không phải đo đạc"
   },
-  "sha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e"
+  "sha256": "dcaac9eedc7564dfefb8d265e16ea5468ea105050f1dd57dba48814a147e86f5",
+  "features": {
+    "file": "features.json",
+    "base": "content/terrain/truong-son-a.base.r16",
+    "baseSha256": "988117ef5b5a528fcf3481e475fc64cffd7a49e852b225938d1560aeb9f5f76e",
+    "streams": 38,
+    "craters": 143,
+    "script": "scripts/terrain-features.mjs"
+  }
 }
