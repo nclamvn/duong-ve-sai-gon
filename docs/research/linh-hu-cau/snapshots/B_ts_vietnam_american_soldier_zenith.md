@@ -1,0 +1,10 @@
+<!-- url: https://www.turbosquid.com/3d-models/3d-vietnam-war-american-soldier-2169967 | fetched_at: 2026-10-10T07:37:32Z | via WebFetch verbatim-extract -->
+> H1: "Vietnam War American Soldier"
+> Artist: "Zenith3D"
+> Price: "$60"
+> License: "Standard License" | "Upgrade License." ; "Editorial Uses Only"
+> Formats: "Native | Blender 4.1 | Cycles Render," "FBX," "OBJ." ; "Textures.zip"
+> Polygons: "108,042" ; Vertices: "57,013"
+> "Rigged"
+> "UV Mapped" and "Non-overlapping Unwrapped UVs"
+> "3D Game-ready U.S. Army G.I. from the Vietnam War Era (Late 60s-Early 70s)."

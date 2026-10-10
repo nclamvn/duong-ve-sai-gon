@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "generatedAt": "2026-10-10T03:23:39.313Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 174784528,
+  "totalBytes": 174784564,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3910,13 +3910,15 @@
       "license": "Fab-Standard",
       "files": [
         {
-          "path": "assets/weapons/ak47_vm.glb",
-          "bytes": 10458344,
-          "sha256": "c2a3b116b46ebb1297c940822d1b6266551e513397c0178e163796dc881507c8"
+          "path": "assets/pak/6702e008f92db68e.dvpak",
+          "bytes": 10458380,
+          "sha256": "7006ed104ce0c3ac09d450405cf376af343ee1024078eca669919d1edf6fa436",
+          "logical": "assets/weapons/ak47_vm.glb"
         }
       ],
       "historical": true,
-      "registryId": "wpn.pavn.type56_rifle"
+      "registryId": "wpn.pavn.type56_rifle",
+      "protect": true
     },
     {
       "id": "veg_ph_fern",

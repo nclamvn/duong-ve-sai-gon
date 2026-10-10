@@ -1,0 +1,10 @@
+<!-- url: https://www.cgtrader.com/3d-models/character/fantasy-character/iraq-war-crowd-modular-character-asset-pack | fetched_at: 2026-10-10T07:40:55Z | via WebFetch verbatim-extract -->
+> Title: "Iraq War Crowd Modular Character Asset Pack 3D model"
+> Seller: "james-a-t-garner"
+> Price: "$80.00"
+> License: "Custom License"
+> Formats: "GLTF" ; "glTF" with "File Size: 167 MB."
+> "2 fully rigged and poseable characters"
+> "This model was created using AI-assisted tools or workflows."
+> "30 Iraq War–era soldier characters."
+> "Not game-ready – intended for visual use and image creation."

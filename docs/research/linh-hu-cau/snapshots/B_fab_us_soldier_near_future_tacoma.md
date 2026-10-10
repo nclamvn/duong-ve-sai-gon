@@ -1,0 +1,10 @@
+<!-- url: https://www.fab.com/listings/44c7c565-d157-45dd-88d0-0b2b2e2f9802 | fetched_at: 2026-10-10T07:41:43Z | via WebFetch verbatim-extract -->
+> Title: "US Soldier Near Future [Game Ready, Fully Rigged]"
+> Seller: "Tacoma.3d"
+> Included formats: "Blender", "gltf", "obj", "fbx"
+> "Triangles: 102,963" and "Vertices: 47,707"
+> "Textures: Included with fully UV-unwrapped for easy application of custom textures."
+> "Game-Ready and Fully Rigged"
+> "No Pre-Baked Animations: Fully rigged for integration into custom animation pipelines."
+> "Generated with AI" flag: "No"
+> "This game-ready US Soldier Near Future features a highly detailed, fully rigged model"

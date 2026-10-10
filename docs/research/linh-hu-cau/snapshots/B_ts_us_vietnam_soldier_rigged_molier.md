@@ -1,0 +1,10 @@
+<!-- url: https://www.turbosquid.com/3d-models/us-vietnam-war-soldier-rigged-500075 | fetched_at: 2026-10-10T07:37:32Z | via WebFetch verbatim-extract -->
+> Heading: "US Vietnam War Soldier Rigged"
+> Artist: "3d_molier"
+> Price: "$199"
+> License: "Standard License" | "Upgrade License"; "Editorial Uses Only"
+> Formats: "3ds Max" ; "3ds Max 8 (or higher)" ; "Free file format Conversions available"
+> Polygons: "10,416" ; Vertices: "10,451"
+> "8 objects 3 textures(2048x2048):"
+> "Model is rigged and already joined to CharacterStudio Biped"
+> "Comes with detailed normal maps and color map textures(2048x2048)."

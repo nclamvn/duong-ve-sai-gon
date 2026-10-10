@@ -1,0 +1,32 @@
+domain: linh_hu_cau
+entity_label: "Asset nhân vật lính hai phe hư cấu (đồng đội, địch), hoạt ảnh, trang bị, cho DVSG (three.js, web)"
+
+schema:
+  type_field: nhom
+  fields:
+    - nhom            # nhan_vat_linh | bo_modular | nguoi_nen | hoat_anh | trang_bi | vu_khi | cong_cu | giay_phep
+    - nguon           # nền tảng: fab | sketchfab | mixamo | quaternius | cgtrader | turbosquid | unity_store | reallusion | renderpeople | metahuman | mpfb | khac
+    - tac_gia
+    - gia             # USD, ghi "0" nếu miễn phí; bậc giá nếu có
+    - giay_phep       # tên license + điều khoản liên quan web/engine khác/phân phối lại
+    - dinh_dang       # FBX / GLB / Blender / UE-only ...
+    - rig             # có rig không, loại xương (Mixamo, UE5 Manny, Humanoid, số joint), có blendshape
+    - hinh_hoc        # tri/poly, LOD, độ phân giải texture, PBR
+    - hoat_anh_kem    # hoạt ảnh có sẵn (đi, chạy, bắn, nấp, chết...)
+    - phong_cach      # realistic/stylized/scan; thời kỳ nhìn (cổ điển 60-70, hiện đại); trang phục rừng
+    - han_che         # AI-generated, chỉ UE, cấm web, cần đăng nhập...
+    - link
+    - ghi_chu_game    # honest-null khi chưa có nguồn
+
+rollup_field: nhom
+
+universe:
+  estimate: 150
+  basis: "Ước lượng số ứng viên đáng xét: ~50 nhân vật lính rigged realistic có thể tải hợp pháp (Fab, Sketchfab, CGTrader, TurboSquid, Unity, Reallusion, Renderpeople), ~15 bộ modular/công cụ tạo người, ~40 gói hoạt ảnh lính, ~30 món trang bị/mũ/áo/ba lô kitbash, ~15 trang license nền tảng"
+
+refresh_days:
+  default: 90
+
+alias_map: {}
+
+ambiguous_clusters: []

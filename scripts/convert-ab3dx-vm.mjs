@@ -229,3 +229,7 @@ await base.transform(unpartition(), resample({ tolerance: 1e-4 }), dedup(), prun
 await io.write(OUT, base);
 console.log('anims', root.listAnimations().length, 'nodes', root.listNodes().length, 'materials', root.listMaterials().map((m) => m.getName()).join(','));
 void readFileSync;
+// DV-062: asset Fab Standard không để trần trong public/ → đóng gói lại ngay (manifest + pak.json cập nhật)
+console.log('đóng gói bảo vệ: node scripts/pack-assets.mjs');
+const { execFileSync } = await import('node:child_process');
+execFileSync(process.execPath, ['scripts/pack-assets.mjs'], { stdio: 'inherit' });

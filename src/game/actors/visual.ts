@@ -8,6 +8,8 @@ import { CharacterInstance, type CharacterAsset } from '@engine/render/character
 import { attachRifle, type AttachedRifle } from '@engine/render/rifleProp';
 import { attachGear1971, findChestBone, type Gear1971 } from '@engine/render/gear1971';
 import { attachGearUS1971, type GearUS1971 } from '@engine/render/gearUS1971';
+import { attachGearFactionA, type GearFactionA } from '@engine/render/gearFactionA';
+import { CAMO_B_PALETTE } from '@engine/render/camo';
 import { findArmChain, solveTwoBone, type ArmChain } from '@engine/render/armIk';
 import { poseToMatrix, type WeaponAsset } from '@engine/render/weaponModel';
 
@@ -53,7 +55,7 @@ export class SoldierVisual implements ActorVisual {
   /** súng đã gắn (anchor/weapon cho IK tay trái + calib) */
   readonly attached: AttachedRifle | null;
   /** trang bị procedural theo thời kỳ (TIP-D11a) — null nếu opts.gear không đặt */
-  readonly gear: Gear1971 | GearUS1971 | null;
+  readonly gear: Gear1971 | GearUS1971 | GearFactionA | null;
   /** chuỗi IK tay trái (TIP-017) — null nếu không có súng glTF hoặc thiếu bone */
   readonly armL: ArmChain | null;
   /** khoảng cách còn lại cổ tay trái ↔ đích IK (m) — debug/calib */
@@ -89,7 +91,11 @@ export class SoldierVisual implements ActorVisual {
         ? attachGear1971({ head: b.head, chest: findChestBone(this.char.model) })
         : opts.gear === 'us1971'
           ? attachGearUS1971({ head: b.head, chest: findChestBone(this.char.model), hips: b.hips })
-          : null;
+          : opts.gear === 'faction_a'
+            ? attachGearFactionA({ head: b.head, chest: findChestBone(this.char.model) })
+            : opts.gear === 'faction_b'
+              ? attachGearUS1971({ head: b.head, chest: findChestBone(this.char.model), hips: b.hips }, { palette: CAMO_B_PALETTE })
+              : null;
   }
 
   /** IK tay trái ôm ốp lót: cổ tay trái → gripL · fp.handL (world). Gọi sau mixer update, trước render. */

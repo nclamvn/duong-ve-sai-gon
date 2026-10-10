@@ -1,0 +1,16 @@
+{
+  "note": "DV-061: phe là dữ liệu. Engine chỉ biết friend/enemy; gói phe quyết súng, vải, trang bị. Chọn gói bằng ?factions=<id>, mặc định 'default'.",
+  "default": "fictional",
+  "packs": {
+    "fictional": {
+      "note": "Hai phe hư cấu, không chọn phe (DV-061). Phe A (người chơi + đồng đội): AK, mũ tai bèo, kaki ô-liu, bao xe đạn ngực. Phe B (đối phương): mũ sắt, rằn ri cát-nâu hư cấu, dây đeo, súng trường khác AK.",
+      "friend": { "weapon": "ak47", "gear": "faction_a" },
+      "enemy": { "weapon": "m16a1", "skin": "camo_b", "gear": "faction_b" }
+    },
+    "historical-1971": {
+      "note": "Gói lịch sử (DV-001, DV-046), giữ nguyên hành vi cũ, không bật mặc định.",
+      "friend": { "weapon": "ak47", "gear": "pavn1971" },
+      "enemy": { "weapon": "m16a1", "gear": "pavn1971", "archetypes": { "recon": { "skin": "erdl", "gear": "us1971" } } }
+    }
+  }
+}

@@ -94,7 +94,9 @@
               "CC-BY-3.0",
               "PD-USGov",
               "OFL-1.1",
-              "Fab-Standard"
+              "Fab-Standard",
+              "CGTrader-RF",
+              "Unity-EULA"
             ]
           },
           "files": {
@@ -120,6 +122,11 @@
                 "sha256": {
                   "type": "string",
                   "pattern": "^[0-9a-f]{64}$"
+                },
+                "logical": {
+                  "type": "string",
+                  "pattern": "^assets/",
+                  "description": "DV-062: đường logic game yêu cầu; file thật là gói .dvpak ở path"
                 }
               }
             }
@@ -158,6 +165,10 @@
           "attribution": {
             "type": "string",
             "description": "chuỗi credit bắt buộc với CC-BY (ADR-006)"
+          },
+          "protect": {
+            "type": "boolean",
+            "description": "DV-062: asset bảo vệ, file là gói .dvpak mã hoá (scripts/pack-assets.mjs)"
           }
         }
       }

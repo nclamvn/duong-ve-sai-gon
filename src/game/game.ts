@@ -68,6 +68,7 @@ import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelCl
 import { Soundscape } from '@engine/audio/soundscape';
 import { parseSoundscapeConfig, type AmbientState } from '@engine/audio/soundscapePlan';
 import type { MissionEvents } from '@game/mission/types';
+import { factionLook, resolvePackId, type FactionLook } from '@game/factions';
 
 export interface GameEvents extends WeaponEvents, BotEvents, MissionEvents {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
@@ -133,6 +134,8 @@ export class Game {
    * (Chủ nhà Mac 2026-09-06: "đồng đội không dùng AK47, không đúng lính Việt Nam năm 7x" — trước đây mọi bot cầm HK416 của Hải Tuyến)
    */
   botWeaponId: string | null = null;
+  /** gói phe đang dùng (DV-061, ?factions=) */
+  factionPack = 'fictional';
   lights!: LightRig;
   rain!: Rain;
   assets: LoadedAssets | null = null;
@@ -230,6 +233,7 @@ export class Game {
     this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' || levelParam === 'diem-cao-31' ? levelParam : 'truong-son';
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
+    this.factionPack = resolvePackId(this.params.get('factions'));
     const botWeaponParam = this.params.get('botWeapon');
     this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' || botWeaponParam === 'm16a1' ? botWeaponParam : null;
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
@@ -364,7 +368,7 @@ export class Game {
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
     if (this.terrain) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: 'pavn1971' }, this.weaponFor('friend'));
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: this.lookFor('friend').gear, skin: this.lookFor('friend').skin }, this.weaponFor('friend'));
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -919,11 +923,16 @@ export class Game {
     return ok;
   }
 
-  /** id súng bot theo phe (DV-046): ta = AK-47; địch = M16A1 (thám báo/lính Sài Gòn 1971) — thiếu asset → AK-47 (SOG cũng dùng AK chiếm được) */
-  weaponIdFor(faction: Faction): string {
+  /** id súng bot theo gói phe (DV-061, `content/factions/factions.json`); thiếu asset súng → AK-47 */
+  weaponIdFor(faction: Faction, archetype?: string): string {
     if (this.botWeaponId) return this.botWeaponId;
-    if (faction === 'enemy' && this.assets?.weapons['m16a1']) return 'm16a1';
-    return 'ak47';
+    const w = factionLook(this.factionPack, faction === 'friend' ? 'friend' : 'enemy', archetype).weapon;
+    return this.assets?.weapons[w] ? w : 'ak47';
+  }
+
+  /** vẻ ngoài theo gói phe (DV-061): súng, vải, trang bị */
+  lookFor(faction: Faction, archetype?: string): FactionLook {
+    return factionLook(this.factionPack, faction === 'friend' ? 'friend' : 'enemy', archetype);
   }
 
   private weaponFor(faction: Faction): WeaponAsset | null {
@@ -935,11 +944,12 @@ export class Game {
     if (existing) return existing;
     const faction: Faction = opts.faction ?? 'enemy';
     const recon = opts.archetype === 'recon';
+    // vẻ ngoài theo gói phe (DV-061): gói 'fictional' mặc định, 'historical-1971' giữ hành vi DV-046
+    const look = this.lookFor(faction, opts.archetype);
     const visual = createActorVisual(
       this.quality.character ? this.assets?.character ?? null : null,
-      // địch 1971 (DV-046): hoa rừng ERDL + mũ sắt M1 + dây đeo M1956 (thám báo M1, lính Sài Gòn M2); 'recon' rằn ri hổ giữ cho SOG sau
-      recon ? { color: 0x3a3a2a, visor: 0xff5a2a, phase: id.length, skin: 'erdl', gear: 'us1971' } : { color: 0x5a3a35, visor: 0xff5a2a, phase: id.length, gear: 'pavn1971' },
-      this.weaponFor(faction),
+      { color: recon ? 0x3a3a2a : 0x5a3a35, visor: 0xff5a2a, phase: id.length, skin: look.skin, gear: look.gear },
+      this.assets?.weapons[this.weaponIdFor(faction, opts.archetype)] ?? null,
     );
     const target = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: false };
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {

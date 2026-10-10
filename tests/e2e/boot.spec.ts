@@ -107,8 +107,37 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     await expectNoErrors(errors);
   });
 
-  test('súng + trang phục theo phe (DV-046): phe ta AK-47 + mũ cối, địch M16A1 + mũ sắt M1/M1956 (khi có asset glTF)', async ({ page }) => {
+  test('gói phe hư cấu mặc định (DV-061): phe A AK-47 + mũ tai bèo, phe B M16A1 + mũ sắt rằn ri cát-nâu (khi có asset glTF)', async ({ page }) => {
     const errors = await bootGame(page);
+    await pauseLoop(page);
+    const r = await page.evaluate(() => {
+      const g = window.__ht!.game;
+      type Vis = { kind: string; attached?: { weapon?: { cfg: { id: string } } } | null; gear?: { helmet?: { name: string } | null } | null };
+      const friend = g.dummies[0] as unknown as Vis;
+      const enemy = g.spawnBot('probe_enemy', 'probe', [g.player.controller.feet[0]! + 3, g.player.controller.feet[1]!, g.player.controller.feet[2]!], { faction: 'enemy', archetype: 'recon' }).dummy as unknown as Vis;
+      return {
+        kind: friend.kind,
+        friendWeapon: friend.attached?.weapon?.cfg.id ?? null,
+        friendHelmet: friend.gear?.helmet?.name ?? null,
+        enemyWeapon: enemy.attached?.weapon?.cfg.id ?? null,
+        enemyHelmet: enemy.gear?.helmet?.name ?? null,
+        idFriend: g.weaponIdFor('friend'),
+        idEnemy: g.weaponIdFor('enemy'),
+      };
+    });
+    expect(r.idFriend).toBe('ak47');
+    if (r.kind === 'gltf') {
+      expect(r.friendWeapon).toBe('ak47');
+      expect(r.friendHelmet).toBe('gear_boonie_hat');
+      expect(r.idEnemy).toBe('m16a1');
+      expect(r.enemyWeapon).toBe('m16a1');
+      expect(r.enemyHelmet).toBe('gear_m1_helmet');
+    }
+    await expectNoErrors(errors);
+  });
+
+  test('gói phe lịch sử ?factions=historical-1971 (DV-046 giữ nguyên): phe ta AK-47 + mũ cối, địch M16A1 + mũ sắt M1/M1956 (khi có asset glTF)', async ({ page }) => {
+    const errors = await bootGame(page, 'factions=historical-1971');
     await pauseLoop(page);
     const r = await page.evaluate(() => {
       const g = window.__ht!.game;
@@ -137,6 +166,9 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
   });
 
   test('viewmodel FP (DV-055): dùng nguyên trạng rig nghệ sĩ AK-47+cánh tay (AB3DX, Fab) khi có asset — không IK/fit/procedural cho người chơi', async ({ page }) => {
+    // DV-062: asset Fab Standard chỉ đi qua mạng dạng gói .dvpak mã hoá, không bao giờ là glb trần
+    const urls: string[] = [];
+    page.on('request', (q) => urls.push(q.url()));
     const errors = await bootGame(page);
     await pauseLoop(page);
     const r = await page.evaluate(() => {
@@ -149,6 +181,8 @@ test.describe('G0-02/G0-03 boot (WebGL2 fallback, cùng content path)', () => {
     });
     // asset ak47_vm.glb được commit (bản tối ưu trong public/assets) → viewmodel rig sẵn phải bật
     expect(r.hasFpvm, 'viewmodel rig AK+tay (ak47_vm.glb) đã nạp').toBe(true);
+    expect(urls.filter((u) => /ak47_vm\.glb/.test(u)), 'không tải glb trần của asset bảo vệ').toEqual([]);
+    expect(urls.some((u) => /\/assets\/pak\/[0-9a-f]{16}\.dvpak/.test(u)), 'tải gói .dvpak').toBe(true);
     // không dùng FpHands (David Fischer) cho người chơi
     expect(r.fpHandsNull).toBe(true);
     await expectNoErrors(errors);

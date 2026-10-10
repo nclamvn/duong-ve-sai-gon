@@ -12,7 +12,9 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 
 const MANIFEST = 'content/assets/manifest.json';
-const LICENSES = new Set(['CC0-1.0', 'CC-BY-4.0', 'CC-BY-3.0', 'Mixamo', 'PD-USGov', 'OFL-1.1', 'Fab-Standard']); // OFL: font tự host (TIP-UX02); Fab-Standard: asset MUA license thương mại (Fab/Epic), repo PRIVATE, chỉ commit bản glb tối ưu (không commit source FBX)
+const LICENSES = new Set(['CC0-1.0', 'CC-BY-4.0', 'CC-BY-3.0', 'Mixamo', 'PD-USGov', 'OFL-1.1', 'Fab-Standard', 'CGTrader-RF', 'Unity-EULA']);
+// DV-062: license đòi "ngăn người dùng cuối trích xuất" → bắt buộc gói .dvpak (scripts/pack-assets.mjs), không có file trần trong public/
+const PROTECT_LICENSES = new Set(['Fab-Standard', 'CGTrader-RF', 'Unity-EULA']); // OFL: font tự host (TIP-UX02); Fab-Standard: asset MUA license thương mại (Fab/Epic), repo PRIVATE, chỉ commit bản glb tối ưu (không commit source FBX)
 const TRI_BUDGET = { chr_: 25000, wpn_: 20000, veh_: 40000, air_: 15000, veg_: 22000, prop_: 3000 }; // veg_: LOD0 cây tán (TIP-D05, chỉ hiện < 32 m; LOD1/2 + impostor ở xa)
 
 const sha256 = (p) => createHash('sha256').update(readFileSync(p)).digest('hex');
@@ -30,11 +32,24 @@ export function validateAssets(opts = {}) {
   const errors = [];
   const warnings = [];
   const m = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+  const pakIndex = existsSync('content/assets/pak.json') ? JSON.parse(readFileSync('content/assets/pak.json', 'utf8')).files : {};
   let total = 0;
   for (const a of m.assets) {
     if (!LICENSES.has(a.license)) errors.push(`${a.id}: license "${a.license}" ngoài allow-list`);
     if (a.license === 'CC-BY-4.0' && !(a.attribution && a.url && a.authors?.length)) errors.push(`${a.id}: CC-BY thiếu attribution/url/authors`);
     if (a.historical && !a.registryId) errors.push(`${a.id}: historical=true thiếu registryId`);
+    if (PROTECT_LICENSES.has(a.license) && !a.protect) errors.push(`${a.id}: license ${a.license} bắt buộc protect (DV-062), chạy node scripts/pack-assets.mjs`);
+    if (a.protect) {
+      for (const f of a.files) {
+        if (!/^assets\/pak\/[0-9a-f]{16}\.dvpak$/.test(f.path) || !f.logical) errors.push(`${a.id}: asset bảo vệ phải là gói assets/pak/<hash>.dvpak có logical (${f.path})`);
+        else {
+          if (existsSync(join('public', f.logical))) errors.push(`${a.id}: file trần ${f.logical} còn trong public (lộ asset bảo vệ)`);
+          if (pakIndex[f.logical.replace(/^assets\//, '')] !== f.path.replace(/^assets\//, '')) errors.push(`${a.id}: content/assets/pak.json không trỏ ${f.logical} → ${f.path}`);
+          const p = join('public', f.path);
+          if (existsSync(p) && readFileSync(p).readUInt32LE(0) !== 0x4b505644) errors.push(`${a.id}: ${f.path} sai magic DVPK`);
+        }
+      }
+    }
     for (const f of a.files) {
       const p = join('public', f.path);
       total += f.bytes;

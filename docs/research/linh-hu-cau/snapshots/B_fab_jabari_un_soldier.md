@@ -1,0 +1,11 @@
+<!-- url: https://www.fab.com/listings/41cfdf80-4e99-4c8c-a1c5-b0af3edd82de | fetched_at: 2026-10-10T07:36:07Z | via WebFetch verbatim-extract -->
+> Title: "Jabari UN Soldier Rigged"
+> Seller: "giyas3dartist"
+> Formats (listing): "Unreal Engine," "Blender," "Maya," "fbx," "obj"
+> "Poly Count: 43,715 Verts Count: 51,946"
+> "High Res PBR 2k Textures. File Included."
+> "Rigged with Auto-Rig Pro Addon Using." ; "Rigged to Epic Skeleton."
+> "Supports all Epic animations (retarget-ready)." ; "Comes with demo scene including materials and animations."
+> "Generated with AI" flag: "No"
+> "Meet Jabari – UN Soldier 3D Model, a realistic military character created for Unreal Engine, Blender, and Maya."
+> "Harry is equipped with a digital camouflage uniform, tactical vest, helmet, pouches, and side gear."

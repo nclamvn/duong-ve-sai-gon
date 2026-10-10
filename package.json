@@ -29,7 +29,8 @@
     "assets:model": "node scripts/convert-model.mjs",
     "registry:check": "node scripts/validate-registry.mjs",
     "assets:ktx2": "node scripts/ktx2.mjs",
-    "assets:validate": "node scripts/validate-assets.mjs"
+    "assets:validate": "node scripts/validate-assets.mjs && node scripts/pack-assets.mjs --check",
+    "assets:pack": "node scripts/pack-assets.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",

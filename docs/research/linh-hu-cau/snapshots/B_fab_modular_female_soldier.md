@@ -1,0 +1,10 @@
+<!-- url: https://www.fab.com/s/ca8b986c8749 | fetched_at: 2026-10-10T07:35:39Z | via WebFetch verbatim-extract -->
+> Title: "Modular Female Soldier"
+> Seller: "Steve U."
+> License: "UE Marketplace License"
+> Formats: "Unreal Engine"
+> Textures: "Customizable materials with ID maps."
+> Rig: "IK Rig included for retargeting."
+> "Post-process animation blueprint."
+> "Allows usage with AI" is marked "No," and "Generated with AI" is marked "No."
+> "Modular pack of a realistic female soldier."

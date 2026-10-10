@@ -1,0 +1,10 @@
+<!-- url: https://www.fab.com/listings/80024cd8-7a80-4a91-8f8d-df7c574fd8cc | fetched_at: 2026-10-10T07:41:23Z | via WebFetch verbatim-extract -->
+> Title: "Modular NATO Soldier Configurator."
+> Seller: "wellweldedgames"
+> License: "Select a license"
+> Included formats: "Unreal Engine"
+> "Micro-Detailed Materials"
+> "Fully rigged to the Unreal Engine 5 Epic Skeleton"
+> "instant compatibility with thousands of animations available on the marketplace."
+> "Generated with AI" flag: "No"
+> "Introducing the Modular NATO Soldier — a next-gen game-ready character built for total creative freedom and realism."

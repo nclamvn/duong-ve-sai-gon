@@ -1,0 +1,6 @@
+{
+  "note": "DV-062: asset bảo vệ, sinh bởi scripts/pack-assets.mjs. Khoá = đường logic dưới public/assets/, giá trị = gói .dvpak",
+  "files": {
+    "weapons/ak47_vm.glb": "pak/6702e008f92db68e.dvpak"
+  }
+}

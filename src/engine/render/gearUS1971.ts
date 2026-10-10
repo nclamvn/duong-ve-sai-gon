@@ -9,7 +9,7 @@
 import { Mesh, Group, LatheGeometry, BoxGeometry, CylinderGeometry, MeshStandardNodeMaterial, DoubleSide, Vector2, Vector3, Euler, Quaternion, Matrix4, type BufferGeometry, type Object3D } from 'three/webgpu';
 import { uv, vec2 } from 'three/tsl';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { erdlPatternNode } from './camo';
+import { erdlPatternNode, ERDL_PALETTE, type CamoPalette } from './camo';
 
 const _m = new Matrix4();
 const _q = new Quaternion();
@@ -35,17 +35,19 @@ let m1Geo: BufferGeometry | null = null;
 let m1TrimGeo: BufferGeometry | null = null;
 let beltGeo: BufferGeometry | null = null;
 let suspGeo: BufferGeometry | null = null;
-let coverMat: MeshStandardNodeMaterial | null = null;
 let webMat: MeshStandardNodeMaterial | null = null;
 let strapMat: MeshStandardNodeMaterial | null = null;
 
-function coverMaterial(): MeshStandardNodeMaterial {
-  if (!coverMat) {
-    coverMat = new MeshStandardNodeMaterial({ roughness: 0.93, metalness: 0, side: DoubleSide });
+const coverMats = new Map<CamoPalette, MeshStandardNodeMaterial>();
+function coverMaterial(pal: CamoPalette = ERDL_PALETTE): MeshStandardNodeMaterial {
+  let m = coverMats.get(pal);
+  if (!m) {
+    m = new MeshStandardNodeMaterial({ roughness: 0.93, metalness: 0, side: DoubleSide });
     // UV lathe: u quanh mũ (~1 m chu vi), v dọc mặt cắt (~0,35 m) → tần số thấp hơn atlas thân (26 ≈ 3,6 m/UV)
-    coverMat.colorNode = erdlPatternNode(uv().mul(vec2(1, 0.35)) as never, 7);
+    m.colorNode = erdlPatternNode(uv().mul(vec2(1, 0.35)) as never, 7, pal);
+    coverMats.set(pal, m);
   }
-  return coverMat;
+  return m;
 }
 
 function webMaterial(): MeshStandardNodeMaterial {
@@ -173,14 +175,14 @@ function mesh(g: BufferGeometry, mat: MeshStandardNodeMaterial, name: string): M
 }
 
 /** Gắn mũ sắt M1 (bone đầu), dây vai (bone ngực), thắt lưng + túi + bi đông (bone hông). Bone null → bỏ qua. */
-export function attachGearUS1971(bones: { head: Object3D | null; chest: Object3D | null; hips: Object3D | null }, opts: { helmet?: boolean; belt?: boolean; suspenders?: boolean } = {}): GearUS1971 {
+export function attachGearUS1971(bones: { head: Object3D | null; chest: Object3D | null; hips: Object3D | null }, opts: { helmet?: boolean; belt?: boolean; suspenders?: boolean; palette?: CamoPalette } = {}): GearUS1971 {
   let helmet: Group | null = null;
   let belt: Mesh | null = null;
   let suspenders: Mesh | null = null;
   if (opts.helmet !== false && bones.head) {
     helmet = new Group();
     helmet.name = 'gear_m1_helmet';
-    helmet.add(mesh(m1HelmetGeometry(), coverMaterial(), 'gear_m1_cover'));
+    helmet.add(mesh(m1HelmetGeometry(), coverMaterial(opts.palette), 'gear_m1_cover'));
     helmet.add(mesh(m1TrimGeometry(), strapMaterial(), 'gear_m1_band'));
     helmet.position.copy(M1_HEAD_OFFSET.pos);
     helmet.rotation.copy(M1_HEAD_OFFSET.rot);

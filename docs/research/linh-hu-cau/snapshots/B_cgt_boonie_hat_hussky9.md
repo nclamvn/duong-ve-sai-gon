@@ -1,0 +1,10 @@
+<!-- url: https://www.cgtrader.com/3d-models/character/clothing/boonie-hat-711cffd0-adfb-4398-aac3-e56af7165187 | fetched_at: 2026-10-10T07:42:06Z | via WebFetch verbatim-extract -->
+> Title: "Boonie hat Low-poly 3D model"
+> Seller: "hussky9"
+> Price: "$15.00"
+> License: "Royalty Free License"
+> Formats: "OBJ" ; "Autodesk FBX | 2 files" ; "3D Studio"
+> "3374 polygons" ; "5248 vertices"
+> "All included textures are 4K (4096x4096)-can be easy downscaled to 512x512 without artifacts."
+> "Black," "Multicam," "Flecktarn," "Urban camo," "Green," and "Tan."
+> "Rigged for defualt UE skeleton." "Perfectly for FPS/TPS." "Real world scaled."

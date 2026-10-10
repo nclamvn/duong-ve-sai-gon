@@ -1,0 +1,10 @@
+<!-- url: https://www.turbosquid.com/3d-models/marine-soldier-vietnam-935069 | fetched_at: 2026-10-10T07:40:55Z | via WebFetch verbatim-extract -->
+> Title: "Marine soldier Vietnam"
+> Artist: "Shprott"
+> Price: "$6"
+> License: "Standard License"
+> "Editorial Uses Only"
+> Formats: "Native | 3ds Max 2009 | V-Ray"; "3ds Max 2009 | Default Scanline"; "FBX"; "OBJ"; "3D Studio"
+> Polygons: "10,686" ; Vertices: "5,448"
+> "Non-overlapping Unwrapped UVs"
+> "Unwrapped Marine soldier from Vietnam and m16 rifle 3d models. Without textures."

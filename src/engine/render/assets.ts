@@ -5,6 +5,7 @@
 import { TextureLoader, SRGBColorSpace, LinearSRGBColorSpace, RepeatWrapping, LinearMipmapLinearFilter, Texture, PMREMGenerator, WebGPURenderer, EquirectangularReflectionMapping, type Object3D, type Group } from 'three/webgpu';
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { createGltfLoader, initLoaders, ktx2Loader } from './loaders';
+import { assetExists } from './pak';
 import { loadCharacter, type CharacterAsset } from './characters';
 import { loadWeaponModel, type WeaponAsset, type WeaponModelConfig } from './weaponModel';
 import { loadFpArms, type FpArmsAsset } from './fpArms';
@@ -160,15 +161,15 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   if (!opts.lite && !opts.noWeapons && !opts.noArms) {
     // ưu tiên tay FP v2 (fp_hands.glb, D11b); giữ soldier_arms cũ làm fallback
     try {
-      const head = await fetch(`${b}${FP_HANDS_URL}`, { method: 'HEAD' });
-      if (head.ok) fpHands = await loadFpHands(`${b}${FP_HANDS_URL}`);
+      const head = await assetExists(`${b}${FP_HANDS_URL}`);
+      if (head) fpHands = await loadFpHands(`${b}${FP_HANDS_URL}`);
     } catch {
       fpHands = null;
     }
     if (!fpHands) {
       try {
-        const head = await fetch(`${b}${ARMS_URL}`, { method: 'HEAD' });
-        if (head.ok) arms = await loadFpArms(`${b}${ARMS_URL}`);
+        const head = await assetExists(`${b}${ARMS_URL}`);
+        if (head) arms = await loadFpArms(`${b}${ARMS_URL}`);
       } catch {
         arms = null;
       }
@@ -179,8 +180,8 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
       // vũ khí: tuỳ chọn — thiếu file (chưa convert) → bỏ qua, viewmodel/prop procedural
       try {
         const url = `${b}${cfg.model}`;
-        const head = await fetch(url, { method: 'HEAD' });
-        if (head.ok) weapons[cfg.id] = await loadWeaponModel(url, cfg, aniso);
+        const head = await assetExists(url);
+        if (head) weapons[cfg.id] = await loadWeaponModel(url, cfg, aniso);
       } catch {
         /* thiếu → procedural */
       }
@@ -190,8 +191,8 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   if (!opts.lite && !opts.noCharacter) {
     // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
     try {
-      const head = await fetch(`${b}${CHARACTER_URL}`, { method: 'HEAD' });
-      if (head.ok) character = await loadCharacter(`${b}${CHARACTER_URL}`);
+      const head = await assetExists(`${b}${CHARACTER_URL}`);
+      if (head) character = await loadCharacter(`${b}${CHARACTER_URL}`);
     } catch {
       character = null;
     }
@@ -216,8 +217,8 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   let fpViewmodel: FpViewmodelAsset | null = null;
   if (!opts.lite && !opts.noWeapons && !opts.noArms) {
     try {
-      const head = await fetch(`${b}${FP_VIEWMODEL_URL}`, { method: 'HEAD' });
-      if (head.ok) {
+      const head = await assetExists(`${b}${FP_VIEWMODEL_URL}`);
+      if (head) {
         const g = await createGltfLoader().loadAsync(`${b}${FP_VIEWMODEL_URL}`);
         fpViewmodel = { scene: g.scene as unknown as Group, clips: g.animations };
       }

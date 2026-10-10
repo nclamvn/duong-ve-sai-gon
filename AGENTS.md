@@ -11,6 +11,7 @@ Tài liệu này là luật cho mọi AI agent (Thợ) làm việc trong repo. C
 - **Luật công bằng AI (PRD §20.3):** không nhìn xuyên cỏ đậm người chơi không nhìn xuyên được; nghe ≠ biết toạ độ; không spawn trước mắt/sau lưng vừa dọn/trong collider; người đầu hàng có tín hiệu đọc được và không quay sang bắn lén trong cùng encounter.
 - **Đo trước art:** rừng/đô thị phải đạt budget trên máy chuẩn trước khi làm asset đẹp; `target_g1` p95 16,67 ms (ADR-D02).
 - **Không mở nhiệm vụ mới** khi nhiệm vụ hiện tại chưa qua gate; không hạ chất lượng toàn cục để che regression.
+- **Phe là dữ liệu (DV-061):** mặc định hai phe hư cấu (`content/factions/factions.json`), engine chỉ biết `friend/enemy`; không tên quân đội có thật trong code; gói lịch sử chỉ bật bằng `?factions=historical-1971`.
 - Tiếng Việt chỉ trong content JSON/YAML/i18n và docs; code/identifier/log tiếng Anh (D-008).
 
 ## 1. Kiến trúc (không thương lượng trong một gate)
@@ -53,7 +54,7 @@ npm run ci             # typecheck + test + build + e2e
 - Code render (`engine/render`, `game/actors`, `game/game.ts`) import từ `three/webgpu`. Module logic thuần (`game/player`, `game/weapons`, `game/ai`) chỉ import toán học (Vector3/Quaternion/Euler) từ `'three'` (three.core — cùng class) để chạy được trong Node/Vitest.
 - Không tạo object mỗi frame trong hot path (`Vector3`, mảng, closure); dùng scratch + pool.
 - Không đổi `config/performance-budget.json` để "đạt". Ngưỡng là input, không phải output.
-- Asset (ADR-005/006/007, PRD DVSG §7): CC0 qua `scripts/fetch-assets.mjs`, CC-BY qua `scripts/convert-weapon.mjs` / `convert-model.mjs` (attribution), Mixamo và gói Fab do Chủ nhà tải vào `assets-src/` (gói Fab: `assets-src/fab/<gói>/`, đổi bằng script riêng như `scripts/convert-ab3dx-vm.mjs`); mọi file phải có trong `content/assets/manifest.json` (nguồn, license, sha256, `registryId` nếu là asset lịch sử). Không asset từ game tham chiếu hay asset rip.
+- Asset (ADR-005/006/007, PRD DVSG §7): CC0 qua `scripts/fetch-assets.mjs`, CC-BY qua `scripts/convert-weapon.mjs` / `convert-model.mjs` (attribution), Mixamo và gói Fab do Chủ nhà tải vào `assets-src/` (gói Fab: `assets-src/fab/<gói>/`, đổi bằng script riêng như `scripts/convert-ab3dx-vm.mjs`); mọi file phải có trong `content/assets/manifest.json` (nguồn, license, sha256, `registryId` nếu là asset lịch sử). **Asset mua (Fab-Standard, CGTrader-RF, Unity-EULA) không bao giờ để `.glb` trần trong `public/`**: chạy `node scripts/pack-assets.mjs` để đóng gói `.dvpak` (DV-062); code vẫn gọi URL logic, loader tự giải mã. Không asset từ game tham chiếu hay asset rip.
 - TSL: không đảo cạnh `smoothstep(a, b, x)` với a > b (undefined GLSL/WGSL → nón đèn thành kim tự tháp, TIP-011); viết `smoothstep(b, a, x).oneMinus()`. Vị trí/kích thước visual không được lệch collider (`tests/unit/arena.test.ts` khoá hash ArenaData).
 - Không thêm dependency ngoài `package.json` mà không có ADR.
 - Không sao chép UI, thoại, bản đồ, tên, âm thanh từ Call of Duty hay game tham chiếu.

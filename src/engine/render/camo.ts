@@ -45,7 +45,23 @@ export function tigerStripeColorNode(map: Texture): Node<'vec3'> {
  * 3–10 cm ở tỉ lệ atlas thân người ≈ 3,6 m/UV); `freq` = tần số nhiễu cơ sở (thân 26; mũ/túi có UV riêng dùng nhỏ hơn).
  * Trả về màu linear chưa nhân bóng vải.
  */
-export function erdlPatternNode(u: Node<'vec2'>, freq = 18): Node<'vec3'> {
+/** bảng 4 màu linear cho mẫu rằn ri lá (nền, mảng 1, mảng 2, nhánh) */
+export type CamoPalette = readonly [readonly [number, number, number], readonly [number, number, number], readonly [number, number, number], readonly [number, number, number]];
+export const ERDL_PALETTE: CamoPalette = [
+  [0.25, 0.3, 0.105],
+  [0.052, 0.086, 0.032],
+  [0.105, 0.06, 0.026],
+  [0.013, 0.014, 0.011],
+];
+/** Phe B hư cấu (DV-061): cùng hình mảng lá nhưng nền đất cát, mảng nâu gỉ và ô-liu sẫm; không trùng mẫu quân đội có thật nào */
+export const CAMO_B_PALETTE: CamoPalette = [
+  [0.27, 0.215, 0.12],
+  [0.115, 0.058, 0.03],
+  [0.06, 0.07, 0.035],
+  [0.016, 0.014, 0.012],
+];
+
+export function erdlPatternNode(u: Node<'vec2'>, freq = 18, pal: CamoPalette = ERDL_PALETTE): Node<'vec3'> {
   return Fn(() => {
     const f = float(freq);
     const wx = mx_noise_float(u.mul(f.mul(1.5)).add(7.0));
@@ -56,10 +72,10 @@ export function erdlPatternNode(u: Node<'vec2'>, freq = 18): Node<'vec3'> {
     const nG = mx_noise_float(rot.mul(vec2(f, f.mul(0.62))));
     const nB = mx_noise_float(rot.mul(vec2(f.mul(0.9), f.mul(0.55))).add(41.0));
     const nK = mx_noise_float(uw.mul(f.mul(2.3)).add(5.0));
-    const lime = vec3(0.25, 0.3, 0.105);
-    const green = vec3(0.052, 0.086, 0.032);
-    const brown = vec3(0.105, 0.06, 0.026);
-    const black = vec3(0.013, 0.014, 0.011);
+    const lime = vec3(pal[0][0], pal[0][1], pal[0][2]);
+    const green = vec3(pal[1][0], pal[1][1], pal[1][2]);
+    const brown = vec3(pal[2][0], pal[2][1], pal[2][2]);
+    const black = vec3(pal[3][0], pal[3][1], pal[3][2]);
     const g = smoothstep(0.06, 0.13, nG);
     const b = smoothstep(0.16, 0.23, nB);
     // nhánh đen: dải mỏng quanh đường 0 của nhiễu tần số cao, chỉ nơi có mảng (không rải khắp nền)
@@ -71,7 +87,7 @@ export function erdlPatternNode(u: Node<'vec2'>, freq = 18): Node<'vec3'> {
 }
 
 /** Áp ERDL lên vùng vải của atlas lính (mặt nạ sắc độ như tiger stripe), giữ bóng dệt gốc. */
-export function erdlColorNode(map: Texture): Node<'vec3'> {
+export function erdlColorNode(map: Texture, pal: CamoPalette = ERDL_PALETTE): Node<'vec3'> {
   return Fn(() => {
     const base = texture(map, uv());
     const rgb = base.rgb;
@@ -83,7 +99,7 @@ export function erdlColorNode(map: Texture): Node<'vec3'> {
     const d = length(chroma.sub(refChroma));
     const mask = float(1).sub(smoothstep(0.22, 0.42, d));
     const shade = clamp(lum.div(refLum), 0.45, 1.6);
-    const camo = erdlPatternNode(uv(), 18).mul(shade);
+    const camo = erdlPatternNode(uv(), 18, pal).mul(shade);
     return mix(rgb, camo, mask);
   })() as unknown as Node<'vec3'>;
 }

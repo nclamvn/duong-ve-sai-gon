@@ -1,0 +1,13 @@
+<!-- url: https://www.turbosquid.com/3d-models/rio-un-soldier-rigged-2487792 | fetched_at: 2026-10-10T07:40:55Z | via WebFetch verbatim-extract -->
+> Title: "Rio UN Soldier Rigged"
+> Artist: "Giyasudeen"
+> Price: "$20"
+> License: "Standard License"
+> "Editorial Uses Only"
+> Formats: "Blender 4.3" (native, Cycles Render 4.3), "Maya 2022", "Unreal 5.4.4", "OBJ", "FBX"
+> Polygons: "58,015" ; Vertices: "57,071"
+> "High Res PBR 2k Textures."
+> "Rigged"
+> "Comes with demo scene including materials and animations."
+> "Meet Rio – UN Soldier 3D Model, a realistic military character created for Unreal Engine, Blender, and Maya."
+> "equipped with a digital camouflage uniform, tactical vest, helmet, pouches, and side gear"

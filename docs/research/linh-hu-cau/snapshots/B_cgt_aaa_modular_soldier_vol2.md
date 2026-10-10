@@ -1,0 +1,12 @@
+<!-- url: https://www.cgtrader.com/3d-models/military/military-character/aaa-modular-soldier-pack-vol2-036d99a3-cdb1-4419-aeba-87eef8497145 | fetched_at: 2026-10-10T07:39:07Z | via WebFetch verbatim-extract -->
+> Title: "AAA MODULAR SOLDIER PACK Vol2 Low-poly 3D model"
+> Seller: "bogdanzhukov2012"
+> Price: "$169.99"
+> License: "Royalty Free License"
+> Formats: "BLEND": "Blender<br />Version: 3.6.5<br />File Size: 3.26 GB" ; "FBX": "Autodesk FBX<br />File Size: 3.26 GB"
+> "65000 polygons" ; "120000 vertices"
+> "The model has a skeleton or bone structure, making it ready for posing or animation."
+> "There are 21 ready color and camouflage presets, like real spec forces."
+> "The character is divided into 7 sets: Body [Head, torso, arms, hands, arms, feet], pants with boots, jacket, gloves, unloading, pouches..., equipment and a head gear."
+> "Number of characters: 5 ready entire characters, 140 modular mesh pieces"
+> "Vertex counts of characters: min ~20,000 verts, max ~65,000 verts (full gear)"

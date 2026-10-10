@@ -6,7 +6,7 @@
 import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopOnce, LoopRepeat, Mesh, Bone, DoubleSide, type AnimationAction, MeshStandardNodeMaterial, Color } from 'three/webgpu';
 import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
-import { tigerStripeColorNode, erdlColorNode } from './camo';
+import { tigerStripeColorNode, erdlColorNode, CAMO_B_PALETTE } from './camo';
 
 /** Trạng thái animation chuẩn của lính; mỗi trạng thái map tới danh sách tên clip ưu tiên (Mixamo, fallback three Soldier.glb). */
 export type CharState = 'idle' | 'walk' | 'run' | 'aim' | 'fire' | 'reload' | 'hit' | 'death' | 'crouch_idle' | 'crouch_walk';
@@ -78,7 +78,7 @@ export interface CharacterInstanceOptions {
   tint?: number;
   visor?: number;
   /** 'recon' = rằn ri hổ thay vải QGP trong shader (TIP-M1A) */
-  skin?: 'recon' | 'erdl';
+  skin?: 'recon' | 'erdl' | 'camo_b';
 }
 
 /**
@@ -125,6 +125,7 @@ export class CharacterInstance {
           }
           if (opts.skin === 'recon' && c.map) c.colorNode = tigerStripeColorNode(c.map);
           else if (opts.skin === 'erdl' && c.map) c.colorNode = erdlColorNode(c.map);
+          else if (opts.skin === 'camo_b' && c.map) c.colorNode = erdlColorNode(c.map, CAMO_B_PALETTE);
           this.materials.push(c);
           this.baseEmissive.push(c.emissive ? c.emissive.clone() : new Color(0));
           return c;
