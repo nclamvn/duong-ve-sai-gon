@@ -17,6 +17,7 @@ import { fxaa } from 'three/addons/tsl/display/FXAANode.js';
 import { traa } from 'three/addons/tsl/display/TRAANode.js';
 import { film } from 'three/addons/tsl/display/FilmNode.js';
 import { vignette } from 'three/addons/tsl/display/CRT.js';
+import { lightShafts, filmGrade, type ShaftOptions, type FilmGrade, type LightShafts } from './cinematic';
 
 export type PostTier = 'off' | 'low' | 'medium' | 'high';
 
@@ -27,6 +28,10 @@ export interface PostStack {
   /** các pass đang bật — cho evidence/overlay */
   passes: string[];
   bloomStrength: { value: number };
+  /** DV-063: tia nắng xuyên tán (null khi tắt) */
+  shafts: LightShafts | null;
+  /** gọi mỗi frame trước render (vị trí mặt trời màn hình cho tia nắng) */
+  update(camera: PerspectiveCamera, sunDir: readonly [number, number, number] | null): void;
 }
 
 export interface PostOptions {
@@ -46,6 +51,10 @@ export interface PostOptions {
    * Không có AO/SSR trên lớp này; bloom/tone map/AA áp chung.
    */
   overlay?: { scene: Scene; camera: PerspectiveCamera };
+  /** DV-063: tia nắng xuyên tán (medium/high); cần màu mặt trời (linear) */
+  shafts?: (ShaftOptions & { sunColor: [number, number, number] }) | null;
+  /** DV-063: chỉnh màu phim (mọi tier trừ off); false = tắt */
+  grade?: FilmGrade | false;
 }
 
 export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: PerspectiveCamera, opts: PostOptions): PostStack {
@@ -56,6 +65,8 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
       tier,
       passes: overlay ? ['overlay'] : [],
       bloomStrength: { value: 0 },
+      shafts: null,
+      update: () => undefined,
       render: () => {
         renderer.render(scene, camera);
         if (overlay) {
@@ -135,6 +146,12 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     color = vec4(mix(color.rgb, vm.rgb, vm.a), 1.0);
     passes.push('overlay');
   }
+  let shafts: LightShafts | null = null;
+  if (opts.shafts && (tier === 'medium' || tier === 'high')) {
+    shafts = lightShafts(depth, opts.shafts.sunColor, opts.shafts);
+    color = vec4(color.rgb.add(shafts.node), 1.0);
+    passes.push('shafts');
+  }
   const bloomStrength = { value: opts.bloomStrength ?? 0.3 };
   const bloomPass = bloom(color, bloomStrength.value, 0.25, opts.bloomThreshold ?? 1.0);
   color = color.add(bloomPass as unknown as V4);
@@ -150,6 +167,10 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     passes.push('fxaa');
   }
   // grain + vignette nhẹ (PRD: "nhẹ")
+  if (opts.grade !== false && opts.grade !== undefined) {
+    ldr = vec4(filmGrade(ldr.rgb, opts.grade), 1.0);
+    passes.push('grade');
+  }
   const grained = film(ldr, float(opts.grain ?? 0.08)) as unknown as V4;
   const graded: V4 = vec4(vignette(grained.rgb, float(opts.vignette ?? 0.32), float(0.55)), 1.0);
   passes.push('film', 'vignette');
@@ -159,6 +180,10 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     tier,
     passes,
     bloomStrength: bloomPass.strength as unknown as { value: number },
+    shafts,
+    update: (cam, sunDir) => {
+      if (shafts && sunDir) shafts.update(cam, sunDir);
+    },
     render: () => pipeline.render(),
   };
 }

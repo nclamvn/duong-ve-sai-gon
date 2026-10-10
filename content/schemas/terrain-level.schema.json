@@ -398,6 +398,43 @@
               "inWater": {
                 "type": "boolean",
                 "description": "DV-060: được mọc dưới mặt nước (mặc định không)"
+              },
+              "boost": {
+                "type": "array",
+                "description": "DV-063: mọc thêm sát đặc điểm (lưới phụ, bỏ qua noise), cùng batch",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "feature",
+                    "max",
+                    "perHa"
+                  ],
+                  "properties": {
+                    "feature": {
+                      "enum": [
+                        "stream",
+                        "water",
+                        "crater",
+                        "trail"
+                      ]
+                    },
+                    "min": {
+                      "type": "number"
+                    },
+                    "max": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "perHa": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "noiseFree": {
+                      "type": "boolean"
+                    }
+                  }
+                }
               }
             }
           }
@@ -739,6 +776,100 @@
     "terrainFeatures": {
       "type": "object",
       "description": "DV-060: tham số khe suối/hố bom cho scripts/terrain-features.mjs"
+    },
+    "post": {
+      "type": "object",
+      "description": "DV-063: hậu kỳ điện ảnh riêng level",
+      "additionalProperties": false,
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "shafts": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intensity": {
+                  "type": "number"
+                },
+                "samples": {
+                  "type": "number"
+                },
+                "density": {
+                  "type": "number"
+                },
+                "decay": {
+                  "type": "number"
+                },
+                "maxElevationDeg": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        },
+        "grade": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "lift": {
+                  "type": "number"
+                },
+                "contrast": {
+                  "type": "number"
+                },
+                "saturation": {
+                  "type": "number"
+                },
+                "greenDesat": {
+                  "type": "number"
+                },
+                "split": {
+                  "type": "number"
+                },
+                "exposure": {
+                  "type": "number"
+                },
+                "shadowTint": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "highlightTint": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          ]
+        },
+        "grain": {
+          "type": "number"
+        },
+        "vignette": {
+          "type": "number"
+        },
+        "bloom": {
+          "type": "number"
+        }
+      }
     }
   }
 }

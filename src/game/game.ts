@@ -3,7 +3,7 @@
  * TIP-003 arena/free-fly · TIP-004 input source/telemetry/quality · TIP-005+ gắn player/weapon/ai/mission
  * qua các field public và resetHooks.
  */
-import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, BufferGeometry, BufferAttribute, Mesh } from 'three/webgpu';
+import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, BufferGeometry, BufferAttribute, Mesh, Color } from 'three/webgpu';
 import { FixedClock, Scheduler, EventBus, mulberry32, type Prng } from '@engine/core';
 import { createRenderer, backendFromSearch, type RendererBundle } from '@engine/render/backend';
 import { buildArena, type ArenaData } from '@engine/render/arena';
@@ -69,6 +69,7 @@ import { Soundscape } from '@engine/audio/soundscape';
 import { parseSoundscapeConfig, type AmbientState } from '@engine/audio/soundscapePlan';
 import type { MissionEvents } from '@game/mission/types';
 import { factionLook, resolvePackId, type FactionLook } from '@game/factions';
+import { streamEmitters, groundSurface, type GroundSurface } from '@engine/terrain/features';
 
 export interface GameEvents extends WeaponEvents, BotEvents, MissionEvents {
   RENDER_DEVICE_LOST: { api: string; message: string; reason: string | null };
@@ -134,6 +135,13 @@ export class Game {
    * (Chủ nhà Mac 2026-09-06: "đồng đội không dùng AK47, không đúng lính Việt Nam năm 7x" — trước đây mọi bot cầm HK416 của Hải Tuyến)
    */
   botWeaponId: string | null = null;
+  /** DV-063 âm thanh mặt đất */
+  private brooks: Array<ReturnType<AudioEngine['brook']>> = [];
+  private brookTimer = 0;
+  private stepAcc = 0;
+  private readonly stepNormal: [number, number, number] = [0, 1, 0];
+  /** mặt đất bước chân cuối (QA) */
+  lastStepSurface: GroundSurface | null = null;
   /** gói phe đang dùng (DV-061, ?factions=) */
   factionPack = 'fictional';
   lights!: LightRig;
@@ -365,7 +373,21 @@ export class Game {
       this.vmScene.add(sunVm, sunVm.target);
       this.vmScene.add(new HemisphereLight(sky.hemi.sky, sky.hemi.ground, sky.hemi.intensity));
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
-    this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, { tier: this.quality.post, backend: this.bundle.backend, taa: this.quality.taa, overlay: { scene: this.vmScene, camera: this.vmCamera } });
+    // DV-063: hậu kỳ điện ảnh theo level (tia nắng xuyên tán, màu phim); ?shafts=0 / ?grade=0 để so A/B
+    const lp = terrainDef?.post;
+    const rig = this.lights as { sunColor?: number; sunIntensity?: number };
+    const sc = new Color(rig.sunColor ?? 0xffffff).multiplyScalar(rig.sunIntensity ?? 1);
+    this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, {
+      tier: this.quality.post,
+      backend: this.bundle.backend,
+      taa: this.quality.taa,
+      overlay: { scene: this.vmScene, camera: this.vmCamera },
+      shafts: lp?.shafts && this.params.get('shafts') !== '0' ? { ...lp.shafts, sunColor: [sc.r, sc.g, sc.b] } : null,
+      grade: lp?.grade && this.params.get('grade') !== '0' ? lp.grade : false,
+      ...(lp?.grain !== undefined ? { grain: lp.grain } : {}),
+      ...(lp?.vignette !== undefined ? { vignette: lp.vignette } : {}),
+      ...(lp?.bloom !== undefined ? { bloomStrength: lp.bloom } : {}),
+    });
     if (this.terrain) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: this.lookFor('friend').gear, skin: this.lookFor('friend').skin }, this.weaponFor('friend'));
@@ -832,6 +854,8 @@ export class Game {
       this.amb.wind = Math.min(1, this.ambWindBase + this.skyGust * 0.9);
       this.soundscape.update(dt, this.amb, this.camera.position);
     }
+    if (this.terrain && this.audio.ctx && this.params.get('amb') !== '0') this.updateGroundAudio(dt);
+    if (this.terrain) this.updateWader();
     this.lights.followTarget(this.camera);
     if (this.terrain) this.terrain.mesh.update(this.camera);
     if (this.sky) this.sky.update(dt, this.camera);
@@ -842,6 +866,7 @@ export class Game {
       else this.forest.system.setPress(0, 0, 0, 0);
       this.forest.system.update(this.camera);
     }
+    this.post.update(this.camera, (this.lights as { sunDir?: [number, number, number] }).sunDir ?? null);
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {
@@ -921,6 +946,64 @@ export class Game {
     }
     if (ok) this.blastStats.propsRemoved++;
     return ok;
+  }
+
+  /**
+   * DV-063 âm thanh mặt đất: tiếng suối từ 3 khe có nước gần nhất (cập nhật 4 lần/giây) và tiếng bước chân người chơi theo
+   * mặt đất dưới chân (lá mục, đất nện, bùn, đá, nước) mỗi sải chân.
+   */
+  private updateGroundAudio(dt: number): void {
+    const tile = this.terrain!.tile;
+    const F = tile.features;
+    this.brookTimer -= dt;
+    if (F && this.brookTimer <= 0) {
+      this.brookTimer = 0.25;
+      const cp = this.camera.position;
+      const em = streamEmitters(F.data, cp.x, cp.z, 3, 140);
+      for (let i = 0; i < 3; i++) {
+        if (!this.brooks[i]) this.brooks[i] = this.audio.brook();
+        const b = this.brooks[i];
+        const e = em[i];
+        if (!b) continue;
+        if (!e) {
+          b.set(cp, 0);
+          continue;
+        }
+        const y = this.terrain!.heightAt(e.x, e.z) + 0.2;
+        b.set({ x: e.x, y, z: e.z }, (0.3 + 0.7 * e.size) * (0.55 + Math.min(1, e.grade * 8) * 0.6));
+      }
+    }
+    const c = this.player.controller;
+    if (!this.player.alive || !c.grounded) {
+      this.stepAcc = 0;
+      return;
+    }
+    const v = c.horizontalSpeed();
+    if (v < 0.4) {
+      this.stepAcc = Math.min(this.stepAcc, 0.5);
+      return;
+    }
+    const crouch = c.stance === 'crouch';
+    const stride = this.player.isSprinting ? 1.3 : crouch ? 0.6 : 0.85;
+    this.stepAcc += (v * dt) / stride;
+    if (this.stepAcc >= 1) {
+      this.stepAcc -= 1;
+      const f = c.feet;
+      tile.normalAt(f[0], f[2], this.stepNormal);
+      const surf = groundSurface(F, f[0], f[2], 1 - this.stepNormal[1]);
+      this.audio.footstep(surf, this.player.isSprinting ? 1 : crouch ? 0.35 : 0.65);
+      this.lastStepSurface = surf;
+    }
+  }
+
+  /** DV-063: gợn nước quanh chân khi người chơi lội suối/hố (độ mạnh theo tốc độ) */
+  private updateWader(): void {
+    const w = this.terrain?.water;
+    const F = this.terrain?.tile.features;
+    if (!w || !F) return;
+    const f = this.player.controller.feet;
+    const inWater = F.distance('water', f[0], f[2]) < 0.3;
+    w.setWader(f[0], f[2], inWater ? Math.min(1, 0.25 + this.player.controller.horizontalSpeed() / 3) : 0);
   }
 
   /** id súng bot theo gói phe (DV-061, `content/factions/factions.json`); thiếu asset súng → AK-47 */

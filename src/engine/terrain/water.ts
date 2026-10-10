@@ -3,7 +3,7 @@
  * Nước tháng 1: đục nâu xanh, nhám rất thấp để soi trời sương; mặt suối dốc theo đáy khe (polyline của features.json).
  */
 import { BufferGeometry, BufferAttribute, Mesh, MeshStandardNodeMaterial, Color, Group } from 'three/webgpu';
-import { attribute, float, mx_noise_float, positionWorld, time, vec2, vec3, normalize, transformNormalToView } from 'three/tsl';
+import { attribute, float, mx_noise_float, positionWorld, time, vec2, vec3, normalize, transformNormalToView, uniform, fract, abs, mix, smoothstep, length, sin, exp, clamp, max } from 'three/tsl';
 import type { Node } from 'three/webgpu';
 import type { TerrainFeaturesData } from './features';
 
@@ -19,6 +19,8 @@ export interface WaterBuild {
   group: Group;
   streamTris: number;
   craterTris: number;
+  /** DV-063: người lội (x, z thế giới, độ mạnh 0..1 theo tốc độ) → gợn vòng quanh chân; 0 = không */
+  setWader(x: number, z: number, strength: number): void;
 }
 
 export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): WaterBuild {
@@ -27,18 +29,49 @@ export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): Water
   const mat = new MeshStandardNodeMaterial({ color: new Color(opts.color ?? 0x1c2315), roughness: 0.05, metalness: 0, transparent: true });
   mat.depthWrite = false;
   // mép nước trong dần (alpha theo đỉnh: giữa dòng/giữa hố đục, mép trong) để không thành tấm phẳng cắt cứng vào bờ
-  mat.opacityNode = attribute('alpha', 'float') as unknown as Node<'float'>;
-  // gợn nước nhỏ trôi chậm: nhiễu hai tầng làm lệch normal (soi trời sương thành vệt sáng loang)
+  // DV-063: nước chảy theo hướng dốc (flow theo polyline, tốc độ theo độ dốc đáy), bọt trắng ở đoạn dốc, gợn vòng quanh chân người lội.
+  // Flow map hai pha (Vlachos 2010): nhiễu dời theo flow trong hai pha lệch nửa chu kỳ, trộn tam giác → không bị kéo xé theo thời gian.
+  const flow = attribute('flow', 'vec2') as unknown as Node<'vec2'>;
+  const foamA = attribute('foam', 'float') as unknown as Node<'float'>;
   const p = positionWorld.xz;
-  const t = time.mul(0.35);
-  const nx = mx_noise_float(p.mul(0.9).add(vec2(t, t.mul(0.6)))).mul(0.06).add(mx_noise_float(p.mul(3.1).sub(vec2(t.mul(0.8), 0))).mul(0.025));
-  const nz = mx_noise_float(p.mul(0.9).add(vec2(5.2, 1.3)).sub(vec2(t.mul(0.5), t))).mul(0.06).add(mx_noise_float(p.mul(3.1).add(vec2(2.7, t.mul(0.7)))).mul(0.025));
-  mat.normalNode = transformNormalToView(normalize(vec3(nx, float(1), nz)));
+  const T = time.mul(0.5);
+  const ph0 = fract(T);
+  const ph1 = fract(T.add(0.5));
+  const w0 = float(1).sub(abs(ph0.mul(2).sub(1)));
+  const w1 = float(1).sub(w0);
+  const ripples = (q: Node<'vec2'>): Node<'vec2'> =>
+    vec2(
+      mx_noise_float(q.mul(0.9)).mul(0.06).add(mx_noise_float(q.mul(3.1).add(vec2(1.7, 4.2))).mul(0.03)),
+      mx_noise_float(q.mul(0.9).add(vec2(5.2, 1.3))).mul(0.06).add(mx_noise_float(q.mul(3.1).add(vec2(2.7, 0.4))).mul(0.03)),
+    ) as unknown as Node<'vec2'>;
+  // nước đọng (flow 0): trôi chậm như cũ
+  const still = vec2(time.mul(0.12), time.mul(0.07));
+  const pa = p.sub(flow.mul(ph0.mul(2.0))).add(still);
+  const pb = p.sub(flow.mul(ph1.mul(2.0))).add(still).add(vec2(0.37, 0.71));
+  const n2 = ripples(pa as unknown as Node<'vec2'>).mul(w0).add(ripples(pb as unknown as Node<'vec2'>).mul(w1));
+  // chỗ dốc gợn mạnh hơn (nước réo)
+  const rough = float(1).add(foamA.mul(1.6));
+  // gợn vòng quanh chân người lội: sóng tròn lan ra, tắt theo khoảng cách
+  const wader = uniform(vec2(1e6, 1e6));
+  const waderK = uniform(0);
+  const dW = p.sub(wader);
+  const rW = length(dW).max(0.001);
+  const ring = sin(rW.mul(9.0).sub(time.mul(7.0))).mul(exp(rW.mul(-0.9))).mul(waderK).mul(0.35);
+  const ringN = dW.div(rW).mul(ring);
+  mat.normalNode = transformNormalToView(normalize(vec3(n2.x.mul(rough).add(ringN.x), float(1), n2.y.mul(rough).add(ringN.y))));
+  // bọt: vệt trắng đục ở đoạn dốc, vỡ theo nhiễu trôi cùng dòng
+  const foamNoise = mx_noise_float((pa as unknown as Node<'vec2'>).mul(2.2)).mul(w0).add(mx_noise_float((pb as unknown as Node<'vec2'>).mul(2.2)).mul(w1));
+  const foam = clamp(foamA.mul(smoothstep(float(-0.15), float(0.35), foamNoise)).add(ring.max(0).mul(0.6)), 0, 1);
+  mat.colorNode = mix(vec3(new Color(opts.color ?? 0x1c2315).r, new Color(opts.color ?? 0x1c2315).g, new Color(opts.color ?? 0x1c2315).b), vec3(0.62, 0.64, 0.6), foam);
+  mat.roughnessNode = mix(float(0.05), float(0.55), foam);
+  mat.opacityNode = max(attribute('alpha', 'float') as unknown as Node<'float'>, foam.mul(0.85)) as unknown as Node<'float'>;
   const depth = opts.streamDepthM ?? 0.28;
 
   // dải suối: mỗi điểm 2 đỉnh vuông góc hướng chảy, rộng = đáy khe + 0,4 m (mép nước chạm bờ)
   const sp: number[] = [];
   const sa: number[] = [];
+  const sf: number[] = [];
+  const sfo: number[] = [];
   const si: number[] = [];
   for (const s of data.streams) {
     if (!s.water || s.pts.length < 2) continue;
@@ -56,6 +89,12 @@ export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): Water
       const y = p[2] + depth - opts.yOffset;
       sp.push(p[0] - tz * hw, y, p[1] + tx * hw, p[0], y, p[1], p[0] + tz * hw, y, p[1] - tx * hw);
       sa.push(0.04, 0.55, 0.04);
+      // tốc độ theo độ dốc đáy quanh điểm (m/m): khe phẳng 0,3 m/s, ghềnh tới ~1,5 m/s
+      const grade = Math.abs(b[2] - a[2]) / Math.max(0.5, L);
+      const spd = 0.3 + Math.min(1.2, grade * 12);
+      for (let r = 0; r < 3; r++) sf.push(tx * spd, tz * spd);
+      const fo = Math.min(1, Math.max(0, (grade - 0.04) / 0.1));
+      sfo.push(fo * 0.7, fo, fo * 0.7);
       if (q > 0) {
         const k = base + (q - 1) * 3;
         si.push(k, k + 3, k + 1, k + 1, k + 3, k + 4, k + 1, k + 4, k + 2, k + 2, k + 4, k + 5);
@@ -67,6 +106,8 @@ export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): Water
     const g = new BufferGeometry();
     g.setAttribute('position', new BufferAttribute(new Float32Array(sp), 3));
     g.setAttribute('alpha', new BufferAttribute(new Float32Array(sa), 1));
+    g.setAttribute('flow', new BufferAttribute(new Float32Array(sf), 2));
+    g.setAttribute('foam', new BufferAttribute(new Float32Array(sfo), 1));
     g.setIndex(si);
     g.computeVertexNormals();
     const m = new Mesh(g, mat);
@@ -100,6 +141,8 @@ export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): Water
     const g = new BufferGeometry();
     g.setAttribute('position', new BufferAttribute(new Float32Array(cp), 3));
     g.setAttribute('alpha', new BufferAttribute(new Float32Array(ca), 1));
+    g.setAttribute('flow', new BufferAttribute(new Float32Array((ca.length) * 2), 2));
+    g.setAttribute('foam', new BufferAttribute(new Float32Array(ca.length), 1));
     g.setIndex(ci);
     g.computeVertexNormals();
     const m = new Mesh(g, mat);
@@ -108,5 +151,13 @@ export function buildWater(data: TerrainFeaturesData, opts: WaterOptions): Water
     group.add(m);
     craterTris = ci.length / 3;
   }
-  return { group, streamTris, craterTris };
+  return {
+    group,
+    streamTris,
+    craterTris,
+    setWader: (x, z, strength) => {
+      wader.value.set(x, z);
+      waderK.value = strength;
+    },
+  };
 }

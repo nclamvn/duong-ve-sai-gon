@@ -124,7 +124,8 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
   // vách hố bom và bờ khe là đất xới (đất đỏ, ướt), không phải đá rêu dù dốc
   const rockW = smoothstep(0.22, 0.4, slope).mul(fmask.oneMinus());
   const grassW = smoothstep(0.38, 0.62, hN).mul(smoothstep(0.26, 0.1, slope)).mul(smoothstep(0.28, 0.6, nz2)).mul(fmask.oneMinus());
-  const mudW = max(saturate(smoothstep(0.14, 0.05, slope).mul(smoothstep(0.35, 0.12, hN).mul(0.6).add(smoothstep(0.45, 0.7, nz1).mul(0.5)))), fmask.mul(0.92));
+  // DV-063: dưới tán kín nền là thảm lá mục phủ kín (registry rừng); đất đỏ chỉ lộ ở lòng hố, bờ khe, đường mòn (fmask) và vệt nhỏ theo noise
+  const mudW = max(saturate(smoothstep(0.14, 0.05, slope).mul(smoothstep(0.3, 0.1, hN).mul(0.22).add(smoothstep(0.66, 0.82, nz1).mul(0.4)))), fmask.mul(0.92));
 
   let albedo = L.c;
   let nm = L.nm;

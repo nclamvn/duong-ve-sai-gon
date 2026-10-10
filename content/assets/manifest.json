@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T03:23:39.313Z",
+  "generatedAt": "2026-10-10T09:08:00.744Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 174784564,
+  "totalBytes": 174796420,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -3229,8 +3229,8 @@
         },
         {
           "path": "assets/terrain/truong-son-a/nav.bin",
-          "bytes": 1736872,
-          "sha256": "ff0486eeedee5fa96863572e49ec9da14d6553a7c8628338984b9140d09607cd"
+          "bytes": 1748728,
+          "sha256": "60db2ac5ec46665589f6c4cb14fd9c85df729c894815bb7d92d3f65efef4a01e"
         },
         {
           "path": "assets/terrain/truong-son-a/map.png",

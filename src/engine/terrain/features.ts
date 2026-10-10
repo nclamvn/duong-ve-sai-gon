@@ -125,3 +125,61 @@ export class FeatureField {
     return f;
   }
 }
+
+export interface StreamEmitter {
+  x: number;
+  y: number;
+  z: number;
+  /** khoảng cách ngang tới người nghe (m) */
+  dist: number;
+  /** độ lớn dòng 0..1 theo lưu vực (suối to ồn hơn) */
+  size: number;
+  /** độ dốc đáy quanh điểm (m/m): dòng dốc réo to, chỗ phẳng róc rách nhỏ */
+  grade: number;
+}
+
+/**
+ * DV-063: điểm phát tiếng suối gần người nghe nhất — mỗi khe có nước tối đa một điểm (điểm gần nhất trên polyline),
+ * lấy `k` khe gần nhất trong `maxDist` m. Thuần số (unit test được).
+ */
+export function streamEmitters(data: TerrainFeaturesData, x: number, z: number, k = 3, maxDist = 120): StreamEmitter[] {
+  const out: StreamEmitter[] = [];
+  for (const s of data.streams) {
+    if (!s.water || s.pts.length < 2) continue;
+    let best: StreamEmitter | null = null;
+    for (let q = 0; q + 1 < s.pts.length; q++) {
+      const a = s.pts[q]!;
+      const b = s.pts[q + 1]!;
+      const vx = b[0] - a[0];
+      const vz = b[1] - a[1];
+      const L2 = vx * vx + vz * vz || 1;
+      const t = Math.max(0, Math.min(1, ((x - a[0]) * vx + (z - a[1]) * vz) / L2));
+      const px = a[0] + vx * t;
+      const pz = a[1] + vz * t;
+      const d = Math.hypot(x - px, z - pz);
+      if (!best || d < best.dist) {
+        const L = Math.sqrt(L2);
+        best = { x: px, y: a[2] + (b[2] - a[2]) * t, z: pz, dist: d, size: Math.min(1, Math.log10(1 + s.areaHa) / 2.2), grade: Math.abs(b[2] - a[2]) / Math.max(0.5, L) };
+      }
+    }
+    if (best && best.dist <= maxDist) out.push(best);
+  }
+  out.sort((p, q) => p.dist - q.dist);
+  return out.slice(0, k);
+}
+
+export type GroundSurface = 'leaves' | 'soil' | 'mud' | 'rock' | 'water';
+
+/**
+ * DV-063: mặt đất dưới chân cho tiếng bước: trong nước (suối/hố đọng) → water; lòng khe, lòng hố → mud (bùn ướt);
+ * đường mòn → soil (đất nện); dốc đá (slope > 0,35, ngoài đất xới) → rock; còn lại thảm lá mục → leaves.
+ */
+export function groundSurface(features: FeatureField | null, x: number, z: number, slope: number): GroundSurface {
+  if (features) {
+    if (features.distance('water', x, z) < 0.1) return 'water';
+    if (features.distance('stream', x, z) < 0.6 || features.distance('crater', x, z) < 0.3) return 'mud';
+    if (features.distance('trail', x, z) < 1.3) return 'soil';
+  }
+  if (slope > 0.35) return 'rock';
+  return 'leaves';
+}

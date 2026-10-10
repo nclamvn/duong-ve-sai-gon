@@ -54,6 +54,12 @@ export interface ScatterRule {
   avoid?: Array<{ feature: FeatureKind; within: number }>;
   /** hệ số đè khi tác nhân đi qua (VEG-006): mặc định theo chiều cao loài (cỏ 1, bụi 0,35, cây 0) */
   press?: number;
+  /**
+   * DV-063: mọc thêm sát một đặc điểm (vd. hai bên đường mòn, quanh chỗ xuất phát) — lưới jitter thứ hai mật độ `perHa`,
+   * PRNG riêng (điểm của lưới chính không đổi), bỏ qua mặt nạ noise (`noiseFree`, mặc định true) nhưng vẫn qua mọi luật khác
+   * (dốc, cao, nước, `avoid`, `near`). Gộp vào cùng placement → không thêm draw call.
+   */
+  boost?: Array<{ feature: FeatureKind; min?: number; max: number; perHa: number; noiseFree?: boolean }>;
 }
 
 export interface ScatterRect {
@@ -187,6 +193,37 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
           push(x + Math.cos(a) * r, z + Math.sin(a) * r, prng.next() * Math.PI * 2, s * (0.8 + prng.next() * 0.4), Math.min(nVar - 1, Math.floor(prng.next() * nVar)));
         }
       } else push(x, z, yaw, s, v);
+    }
+  }
+  if (rule.boost && tile.features) {
+    for (let bi = 0; bi < rule.boost.length; bi++) {
+      const bo = rule.boost[bi]!;
+      const bp: Prng = mulberry32((seed ^ hashString(`${rule.id}:boost${bi}`)) >>> 0);
+      const bstep = 100 / Math.sqrt(Math.max(0.01, bo.perHa));
+      const bnx = Math.max(1, Math.floor(rect.w / bstep));
+      const bnz = Math.max(1, Math.floor(rect.h / bstep));
+      for (let j = 0; j < bnz; j++) {
+        for (let i = 0; i < bnx; i++) {
+          const jx = bp.next();
+          const jz = bp.next();
+          const rn = bp.next();
+          const ryaw = bp.next();
+          const rsc = bp.next();
+          const rvar = bp.next();
+          const x = x0 + (i + 0.05 + jx * 0.9) * bstep;
+          const z = z0 + (j + 0.05 + jz * 0.9) * bstep;
+          if (density < 1 && (jx * 7.0 + jz * 13.0) % 1 >= density) continue;
+          const d = tile.features.distance(bo.feature, x, z);
+          if (d < (bo.min ?? -1e9) || d > bo.max) continue;
+          // thưa dần về mép ngoài dải (không thành vạch thẳng song song đường mòn)
+          if (rn > 1.15 - (Math.max(0, d - (bo.min ?? 0)) / Math.max(1, bo.max - (bo.min ?? 0))) * 0.8) continue;
+          if (bo.noiseFree === false && rule.noise) {
+            const n = fbm2(x * rule.noise.scale + (rule.noise.offset ?? 0), z * rule.noise.scale, nseed);
+            if ((rule.noise.min !== undefined && n < rule.noise.min) || (rule.noise.max !== undefined && n > rule.noise.max)) continue;
+          }
+          push(x, z, ryaw * Math.PI * 2, sc[0] + (sc[1] - sc[0]) * rsc, Math.min(nVar - 1, Math.floor(rvar * nVar)));
+        }
+      }
     }
   }
   // ép phẳng theo thứ tự ô ổn định (sort key)

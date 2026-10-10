@@ -83,6 +83,9 @@ export class VegetationSystem {
   private readonly materials = new Map<string, Material>();
   private readonly assetHeight = new Map<string, number>();
   readonly colliders: ColliderDef[] = [];
+  /** DV-063: batch/impostor không trùng (nhiều luật chung asset dùng chung) */
+  private uniqueBatches: Batch[] = [];
+  private uniqueImpostors: ImpostorBatch[] = [];
 
   constructor(
     readonly tile: TerrainTile,
@@ -96,6 +99,18 @@ export class VegetationSystem {
     this.wind = createWindUniforms();
     this.wind.strength.value = def.wind ?? 0.35;
     let placed = 0;
+    // DV-063: các luật dùng chung một GLB (vd. đá rêu: sườn dốc + bờ suối + đá tảng; dương xỉ: nền + bờ suối) dùng CHUNG batch
+    // (cùng asset + cùng cờ đổ bóng) → số draw call theo asset, không theo luật. Hai lượt: đặt + tính sức chứa, rồi tạo batch.
+    interface Pending {
+      rule: ScatterRule;
+      asset: SpeciesAsset;
+      placement: SpeciesPlacement;
+      rot: Float32Array;
+      capVariant: number[];
+      capImpostor: number;
+      key: string;
+    }
+    const pending: Pending[] = [];
     for (const rule0 of def.species) {
       const asset = assets[rule0.asset ?? rule0.id];
       if (!asset) continue;
@@ -116,15 +131,23 @@ export class VegetationSystem {
       }
       const perVariant = new Uint32Array(asset.variants.length);
       for (let i = 0; i < n; i++) perVariant[placement.variant[i]!]!++;
-      // sức chứa batch: ước lượng số instance trong đĩa bán kính lod[3] (mật độ đã đặt × 1,6 + 64), không cấp phát cho cả rect
+      // sức chứa batch: số instance trong đĩa bán kính lod[3] theo mật độ ô DÀY NHẤT (boost DV-063 dồn cây sát đường mòn —
+      // mật độ trung bình rect sẽ thiếu chỗ và cắt mất cây gần camera) × 1,6 + 64
       const rect = rule.rect ?? def.rect;
-      const density = n / Math.max(1, rect.w * rect.h);
-      const capDisc = Math.ceil(density * Math.PI * rule.lod[3] * rule.lod[3] * 1.6) + 64;
+      let dMax = n / Math.max(1, rect.w * rect.h);
+      for (const c of placement.cells.values()) dMax = Math.max(dMax, c.count / (this.cellM * this.cellM));
+      const capDisc = Math.ceil(dMax * Math.PI * rule.lod[3] * rule.lod[3] * 1.6) + 64;
+      const capVariant = asset.variants.map((_, vi) => Math.min(perVariant[vi]!, Math.ceil(capDisc / asset.variants.length) + 32));
+      pending.push({ rule, asset, placement, rot, capVariant, capImpostor: Math.min(n, capDisc), key: `${asset.id}|${rule.cast === true}` });
+    }
+    const shared = new Map<string, { batches: Batch[][][]; impostor: ImpostorBatch | null }>();
+    for (const key of new Set(pending.map((q) => q.key))) {
+      const group = pending.filter((q) => q.key === key);
+      const { asset, rule } = group[0]!;
       const batches: Batch[][][] = [];
-      const sc = rule.scale ?? [0.85, 1.15];
       for (let vi = 0; vi < asset.variants.length; vi++) {
         const v = asset.variants[vi]!;
-        const cap = Math.min(perVariant[vi]!, Math.ceil(capDisc / asset.variants.length) + 32);
+        const cap = group.reduce((t, q) => t + q.capVariant[vi]!, 0);
         batches.push(
           v.lods.map((lod, k) =>
             lod.parts.map((part) => {
@@ -136,13 +159,20 @@ export class VegetationSystem {
           ),
         );
       }
-      const atlas = atlases[rule.asset ?? rule.id] ?? null;
-      const impostor = atlas && rule.lod[3] > rule.lod[2] ? createImpostorBatch(atlas, Math.min(n, capDisc), this.wind, asset) : null;
+      const atlas = atlases[asset.id] ?? null;
+      const wantImp = group.some((q) => q.rule.lod[3] > q.rule.lod[2]);
+      const impostor = atlas && wantImp ? createImpostorBatch(atlas, group.reduce((t, q) => t + q.capImpostor, 0), this.wind, asset) : null;
       if (impostor) this.group.add(impostor.mesh);
-      this.species.push({ placement, asset, rule, batches, cellLod: new Map(), impostor, rot, maxScale: sc[1] });
-      // collider thân (cùng hàm với bake navmesh — scatter.placementColliders)
-      for (const c of placementColliders(placement, rule)) this.colliders.push(c);
+      shared.set(key, { batches, impostor });
     }
+    for (const q of pending) {
+      const sh = shared.get(q.key)!;
+      this.species.push({ placement: q.placement, asset: q.asset, rule: q.rule, batches: sh.batches, cellLod: new Map(), impostor: sh.impostor, rot: q.rot, maxScale: (q.rule.scale ?? [0.85, 1.15])[1] });
+      // collider thân (cùng hàm với bake navmesh — scatter.placementColliders)
+      for (const c of placementColliders(q.placement, q.rule)) this.colliders.push(c);
+    }
+    this.uniqueBatches = [...new Set(this.species.flatMap((sp) => sp.batches.flat(2)))];
+    this.uniqueImpostors = [...new Set(this.species.map((sp) => sp.impostor).filter((x): x is ImpostorBatch => x !== null))];
     this.stats.species = this.species.length;
     this.stats.placed = placed;
     this.stats.colliders = this.colliders.length;
@@ -204,9 +234,9 @@ export class VegetationSystem {
     let tris = 0;
     let impostors = 0;
     const lodCount: [number, number, number] = [0, 0, 0];
+    for (const b of this.uniqueBatches) b.count = 0;
+    for (const imp of this.uniqueImpostors) imp.count = 0;
     for (const sp of this.species) {
-      for (const vb of sp.batches) for (const lb of vb) for (const b of lb) b.count = 0;
-      if (sp.impostor) sp.impostor.count = 0;
       const pl = sp.placement;
       const lodD = sp.rule.lod;
       const hMax = sp.asset.height * sp.maxScale;
@@ -275,26 +305,26 @@ export class VegetationSystem {
           }
         }
       }
-      for (const vb of sp.batches) for (const lb of vb) for (const b of lb) {
-        b.geometry.instanceCount = b.count;
-        b.mesh.visible = b.count > 0;
-        if (b.count > 0) {
-          draws++;
-          tris += b.count * b.triangles;
-          b.posScale.clearUpdateRanges();
-          b.posScale.addUpdateRange(0, b.count * 4);
-          b.posScale.needsUpdate = true;
-          b.rotTint.clearUpdateRanges();
-          b.rotTint.addUpdateRange(0, b.count * 4);
-          b.rotTint.needsUpdate = true;
-        }
+    }
+    for (const b of this.uniqueBatches) {
+      b.geometry.instanceCount = b.count;
+      b.mesh.visible = b.count > 0;
+      if (b.count > 0) {
+        draws++;
+        tris += b.count * b.triangles;
+        b.posScale.clearUpdateRanges();
+        b.posScale.addUpdateRange(0, b.count * 4);
+        b.posScale.needsUpdate = true;
+        b.rotTint.clearUpdateRanges();
+        b.rotTint.addUpdateRange(0, b.count * 4);
+        b.rotTint.needsUpdate = true;
       }
-      if (sp.impostor) {
-        sp.impostor.commit();
-        if (sp.impostor.count > 0) {
-          draws++;
-          tris += sp.impostor.count * 2;
-        }
+    }
+    for (const imp of this.uniqueImpostors) {
+      imp.commit();
+      if (imp.count > 0) {
+        draws++;
+        tris += imp.count * 2;
       }
     }
     this.stats.visible = visible;
@@ -332,10 +362,8 @@ export class VegetationSystem {
   }
 
   dispose(): void {
-    for (const sp of this.species) {
-      for (const vb of sp.batches) for (const lb of vb) for (const b of lb) b.geometry.dispose();
-      sp.impostor?.dispose();
-    }
+    for (const b of this.uniqueBatches) b.geometry.dispose();
+    for (const imp of this.uniqueImpostors) imp.dispose();
     for (const m of this.materials.values()) m.dispose();
     this.group.removeFromParent();
   }

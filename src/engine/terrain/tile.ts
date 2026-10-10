@@ -193,7 +193,10 @@ export class TerrainTile {
           const z = -this.half + j * this.resM;
           const dc = F.distance('crater', x, z);
           const ds = F.distance('stream', x, z);
-          const m = Math.max(1 - Math.min(1, Math.max(0, dc / 1.5)), 1 - Math.min(1, Math.max(0, (ds + 0.5) / 2.5)));
+          // DV-063: đường mòn đất nện (lá bị giẫm dạt, lộ đất đỏ), yếu hơn lòng hố/khe: mặt nạ ≤ 0,5
+          const dt = F.distance('trail', x, z);
+          const mt = 0.5 * (1 - Math.min(1, Math.max(0, (dt - 0.8) / 2.2)));
+          const m = Math.max(1 - Math.min(1, Math.max(0, dc / 1.5)), 1 - Math.min(1, Math.max(0, (ds + 0.5) / 2.5)), mt);
           out[(j * n + i) * 4 + 3] = Math.round(255 * (1 - m));
         }
       }

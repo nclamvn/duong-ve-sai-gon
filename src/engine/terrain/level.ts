@@ -2,6 +2,7 @@
  * Level terrain (TIP-D04): content/levels/<id>.level.json (schema terrain-level.schema.json) → ArenaData cho physics/AI/mission
  * + TerrainMesh (LOD) + material splat. Không biết mission/AI (engine thuần). Toạ độ level: x/z thế giới của ô, y lấy từ terrain.
  */
+import type { ShaftOptions, FilmGrade } from '../render/cinematic';
 import { Group, Mesh, BufferGeometry, BufferAttribute, type Scene } from 'three/webgpu';
 import type { ArenaData, ColliderDef, CoverMarker } from '../render/arena';
 import { buildTerrainProps, navBoxGeometry, type TerrainPropDef, type TerrainPropsBuild } from './props';
@@ -10,7 +11,7 @@ import type { LevelClimate } from '../sky/climate';
 import type { LevelSky, FxDef } from '../level/types';
 import { createAmbientFx, type AmbientFx } from '../render/ambientFx';
 import { TerrainTile } from './tile';
-import { buildWater } from './water';
+import { buildWater, type WaterBuild } from './water';
 import { TerrainMesh, makeHeightTexture, makeNormalTexture } from './mesh';
 import { createTerrainMaterial, type TerrainLayers } from './material';
 import type { VegetationDef } from '../vegetation/system';
@@ -48,6 +49,8 @@ export interface TerrainLevelDef {
   airTraffic?: AirTrafficDef;
   /** FX môi trường (khói bom xa, đám cháy) — x/z, y từ terrain + dy */
   fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number }>;
+  /** DV-063: hậu kỳ điện ảnh riêng level (tia nắng xuyên tán, chỉnh màu phim, grain, vignette) */
+  post?: { shafts?: ShaftOptions | false; grade?: FilmGrade | false; grain?: number; vignette?: number; bloom?: number };
   playerSpawn: V2;
   playerYaw: number;
   botSpawns: Record<string, V2>;
@@ -66,6 +69,8 @@ export interface TerrainLevelBuild extends ArenaData {
   heightAt(x: number, z: number): number;
   /** FX môi trường (ambientFx) — update(dt) mỗi frame */
   fx: AmbientFx;
+  /** DV-063: mặt nước khe suối/hố bom (null khi ô không có features) */
+  water: WaterBuild | null;
   /** props (bao cát/rào…) — remove(id) khi bộc phá */
   props: TerrainPropsBuild;
 }
@@ -91,7 +96,8 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
   root.name = `level_${def.id}`;
   root.add(mesh.group);
   // DV-060: mặt nước khe suối và hố bom đọng nước (khi ô có features.json)
-  if (tile.features) root.add(buildWater(tile.features.data, { yOffset: def.terrain.yOffset }).group);
+  const water = tile.features ? buildWater(tile.features.data, { yOffset: def.terrain.yOffset }) : null;
+  if (water) root.add(water.group);
   scene.add(root);
 
   const h = (x: number, z: number): number => tile.sample(x, z);
@@ -152,6 +158,7 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     navPrebuilt,
     heightAt: h,
     fx,
+    water,
     props,
     size: tile.sizeM,
     colliders,

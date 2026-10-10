@@ -142,7 +142,7 @@
   ],
   "models": [],
   "vegetation": {
-    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác. DV-059: thêm lớp nền rừng CC0 Poly Haven (scan): dương xỉ, lá rộng thay lá dong ở chỗ trũng, cành khô, thân đổ phủ rêu (không collider: capsule đứng không khớp thân nằm), gốc cây, đá phủ rêu trên sườn dốc, cụm rễ trồi quanh cây vượt tán. DV-060: rừng dày và ngổn ngang hơn (tầng thấp, cành gãy, gốc, khúc gỗ tăng 2–10 lần); bờ khe rậm dương xỉ, ráy, lá rộng, tre; lòng khe đá cuội; bờ khe và sườn dốc có đá tảng, vách đá lộ; quanh hố bom cây đổ, cành gãy, gốc cụt, cỏ mọc lại; cây tán tránh lòng khe và hố (luật near/avoid theo features.json). Ngân sách draw (≤ 140): gỡ Monstera (cây châu Mỹ, registry), lá rộng bờ khe và gốc cụt quanh hố (gộp vào luật chung). Thực vật có collider tránh đường mòn nhiệm vụ 3 m (spawn → waypoint), như đường mòn được phát quang.",
+    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác. DV-059: thêm lớp nền rừng CC0 Poly Haven (scan): dương xỉ, lá rộng thay lá dong ở chỗ trũng, cành khô, thân đổ phủ rêu (không collider: capsule đứng không khớp thân nằm), gốc cây, đá phủ rêu trên sườn dốc, cụm rễ trồi quanh cây vượt tán. DV-060: rừng dày và ngổn ngang hơn (tầng thấp, cành gãy, gốc, khúc gỗ tăng 2–10 lần); bờ khe rậm dương xỉ, ráy, lá rộng, tre; lòng khe đá cuội; bờ khe và sườn dốc có đá tảng, vách đá lộ; quanh hố bom cây đổ, cành gãy, gốc cụt, cỏ mọc lại; cây tán tránh lòng khe và hố (luật near/avoid theo features.json). Ngân sách draw (≤ 140): gỡ Monstera (cây châu Mỹ, registry), lá rộng bờ khe và gốc cụt quanh hố (gộp vào luật chung). Thực vật có collider tránh đường mòn nhiệm vụ 3 m (spawn → waypoint), như đường mòn được phát quang. DV-063: nền rừng quanh chỗ xuất phát và hai bên đường mòn dày hơn bằng `boost` (lưới phụ cùng batch, không thêm draw): thảm dương xỉ, cành khô, lá rộng, thân đổ, đá rêu, đá tảng, rễ, gốc cây; đất đỏ chỉ lộ ở lòng hố, bờ khe và đường mòn.",
     "seed": 1971,
     "cellM": 64,
     "wind": 0.35,
@@ -366,6 +366,14 @@
         "sink": [
           0.05,
           0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 36,
+            "min": 4
+          }
         ]
       },
       {
@@ -403,11 +411,18 @@
         "sink": [
           0.03,
           0.4
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 25,
+            "perHa": 448
+          }
         ]
       },
       {
         "id": "fern",
-        "perHa": 500,
+        "perHa": 800,
         "slope": [
           0,
           0.6
@@ -436,6 +451,13 @@
         "sink": [
           0.03,
           0.5
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 22,
+            "perHa": 1100
+          }
         ]
       },
       {
@@ -474,7 +496,7 @@
       },
       {
         "id": "fern_grass",
-        "perHa": 500,
+        "perHa": 900,
         "slope": [
           0,
           0.6
@@ -503,6 +525,13 @@
         "sink": [
           0.03,
           0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 20,
+            "perHa": 1400
+          }
         ]
       },
       {
@@ -540,7 +569,7 @@
       },
       {
         "id": "ph_fern",
-        "perHa": 700,
+        "perHa": 1300,
         "slope": [
           0,
           0.6
@@ -551,14 +580,14 @@
         ],
         "noise": {
           "scale": 0.018,
-          "min": 0.32,
+          "min": 0.26,
           "offset": 2100
         },
         "lod": [
-          12,
-          28,
-          60,
-          60
+          8,
+          20,
+          48,
+          48
         ],
         "rect": {
           "x": -192,
@@ -569,11 +598,18 @@
         "sink": [
           0.03,
           0.4
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 1700
+          }
         ]
       },
       {
         "id": "ph_calathea",
-        "perHa": 220,
+        "perHa": 320,
         "slope": [
           0,
           0.45
@@ -592,10 +628,10 @@
           "offset": 2500
         },
         "lod": [
-          12,
-          26,
-          55,
-          55
+          10,
+          22,
+          45,
+          45
         ],
         "rect": {
           "x": -192,
@@ -606,11 +642,18 @@
         "sink": [
           0.02,
           0.3
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 25,
+            "perHa": 520
+          }
         ]
       },
       {
         "id": "ph_branches",
-        "perHa": 400,
+        "perHa": 1200,
         "slope": [
           0,
           0.5
@@ -620,10 +663,10 @@
           1.4
         ],
         "lod": [
-          10,
-          22,
-          40,
-          40
+          8,
+          18,
+          35,
+          35
         ],
         "rect": {
           "x": -192,
@@ -634,11 +677,18 @@
         "sink": [
           0.02,
           0.2
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 32,
+            "perHa": 1800
+          }
         ]
       },
       {
         "id": "ph_log",
-        "perHa": 18,
+        "perHa": 26,
         "slope": [
           0,
           0.3
@@ -648,8 +698,8 @@
           1.3
         ],
         "lod": [
-          20,
-          50,
+          12,
+          35,
           90,
           90
         ],
@@ -663,6 +713,14 @@
         "sink": [
           0.15,
           0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 28,
+            "min": 2
+          }
         ]
       },
       {
@@ -677,8 +735,8 @@
           1.5
         ],
         "lod": [
-          20,
-          50,
+          12,
+          35,
           90,
           90
         ],
@@ -701,6 +759,14 @@
           {
             "feature": "trail",
             "within": 3
+          }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 10,
+            "min": 4
           }
         ]
       },
@@ -746,6 +812,14 @@
             "feature": "trail",
             "within": 3
           }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 40,
+            "min": 4
+          }
         ]
       },
       {
@@ -765,8 +839,8 @@
         },
         "noiseId": "tree_gn",
         "lod": [
-          20,
-          50,
+          12,
+          35,
           90,
           90
         ],
@@ -790,6 +864,14 @@
             "feature": "trail",
             "within": 3
           }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 16,
+            "min": 4
+          }
         ]
       },
       {
@@ -810,10 +892,10 @@
           1.6
         ],
         "lod": [
-          12,
-          28,
-          60,
-          60
+          8,
+          20,
+          48,
+          48
         ],
         "rect": {
           "x": -192,
@@ -1075,6 +1157,14 @@
             "feature": "trail",
             "within": 3
           }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 45,
+            "perHa": 12,
+            "min": 6
+          }
         ]
       },
       {
@@ -1129,8 +1219,8 @@
           1.5
         ],
         "lod": [
-          20,
-          50,
+          12,
+          35,
           90,
           90
         ],
@@ -1174,8 +1264,8 @@
           1.4
         ],
         "lod": [
-          20,
-          50,
+          12,
+          35,
           90,
           90
         ],
@@ -1323,6 +1413,36 @@
       "color": 4210752
     }
   ],
+  "post": {
+    "$comment": "DV-063: hậu kỳ điện ảnh. Tia nắng xuyên kẽ tán lúc bình minh (mặt trời thấp, sương), màu phim nhựa 35 mm thập niên 70: bóng xanh rêu lạnh, sáng vàng ấm, xanh lá bớt chói, đen hơi nâng.",
+    "shafts": {
+      "intensity": 1.2,
+      "samples": 28,
+      "density": 0.85,
+      "decay": 0.955,
+      "maxElevationDeg": 30
+    },
+    "grade": {
+      "lift": 0.03,
+      "contrast": 0.38,
+      "saturation": 0.88,
+      "greenDesat": 0.32,
+      "shadowTint": [
+        0.26,
+        0.34,
+        0.32
+      ],
+      "highlightTint": [
+        0.64,
+        0.53,
+        0.36
+      ],
+      "split": 0.24,
+      "exposure": 1.0
+    },
+    "grain": 0.1,
+    "vignette": 0.38
+  },
   "airTraffic": {
     "$comment": "TIP-D-SKY 'máy bay là thời tiết' (1971, tuyến 20 Quyết Thắng): tiêm kích F-4 cặp đôi bay thấp, F-4 trúng đạn phi công nhảy dù (xa ≥ 400 m), UH-1 cặp đôi theo tuyến + một chiếc treo đổ thám báo (Lam Sơn 719/SOG đổ bằng trực thăng — không nhảy dù ồ ạt; chờ cố vấn registry evt.1971.lam_son_719), C-130 vận tải bay cao, tổ 3 B-52 Arc Light rất cao (thực tế ~9 km — game nén xuống 1,1–1,4 km để còn thấy; cố vấn duyệt DV-042). AGL hạ ~35 % theo Chủ nhà (Mac, 2026-09-06: 'quá cao') — agl tính trên MAX địa hình dọc đường nên trên thung lũng máy bay còn cao hơn số này. A-1 Skyraider tạm bỏ: chưa có model CC-BY sạch (DV-042). Model manifest air_* (Sketchfab CC-BY, tải qua tài khoản Chủ nhà); thiếu model → bỏ lượt (console warn). agl = cao độ trên max địa hình dọc đường; period = giây giữa hai lượt.",
     "seed": 1971,

@@ -301,6 +301,120 @@ export class AudioEngine {
     src.onended = () => this.voiceEnd();
   }
 
+  /** dãy giả ngẫu nhiên tất định cho biến thiên âm (golden ratio, không Math.random — AGENTS) */
+  private jitterSeq = 0;
+  private jitter(): number {
+    this.jitterSeq = (this.jitterSeq + 0.6180339887) % 1;
+    return this.jitterSeq;
+  }
+
+  /**
+   * DV-063 tiếng suối thủ tục (chưa có bản ghi thật có license — Q3 roadmap): noise qua 3 bộ lọc dải hẹp có tần số trôi chậm
+   * (róc rách) + 1 lớp "ục ục" lọc dải điều biến nhanh, lowpass 5 kHz, nguồn 3D. `set(pos, level)` cập nhật vị trí/độ lớn 0..1.
+   */
+  brook(): { set(pos: { x: number; y: number; z: number }, level: number): void; stop(): void } | null {
+    if (!this.enabled || !this.ctx || !this.buses || !this.noiseBuffer) return null;
+    if (!this.voiceStart()) return null;
+    const ctx = this.ctx;
+    const t = ctx.currentTime;
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.noiseBuffer;
+    noise.loop = true;
+    const sum = ctx.createGain();
+    sum.gain.value = 1;
+    const nodes: AudioScheduledSourceNode[] = [noise];
+    const bands: Array<[number, number, number, number]> = [
+      [520, 7, 0.37, 140],
+      [1150, 6, 0.61, 260],
+      [2300, 5, 1.13, 420],
+      [780, 14, 6.5, 220], // ục ục
+    ];
+    for (const [hz, q, lfoHz, depth] of bands) {
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.value = hz;
+      bp.Q.value = q;
+      const lfo = ctx.createOscillator();
+      lfo.frequency.value = lfoHz * (0.85 + this.jitter() * 0.3);
+      const lg = ctx.createGain();
+      lg.gain.value = depth;
+      lfo.connect(lg);
+      lg.connect(bp.frequency);
+      noise.connect(bp);
+      const g = ctx.createGain();
+      g.gain.value = q > 10 ? 0.9 : 0.55;
+      bp.connect(g);
+      g.connect(sum);
+      nodes.push(lfo);
+    }
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 5000;
+    const out = ctx.createGain();
+    out.gain.value = 0.0001;
+    const pan = ctx.createPanner();
+    pan.panningModel = 'HRTF';
+    pan.distanceModel = 'inverse';
+    pan.refDistance = 4;
+    pan.maxDistance = 160;
+    pan.rolloffFactor = 1.1;
+    sum.connect(lp);
+    lp.connect(out);
+    out.connect(pan);
+    pan.connect(this.buses['ambience']);
+    for (const n of nodes) n.start(t);
+    let stopped = false;
+    return {
+      set: (pos, level) => {
+        if (stopped) return;
+        const tt = ctx.currentTime;
+        pan.positionX.setTargetAtTime(pos.x, tt, 0.2);
+        pan.positionY.setTargetAtTime(pos.y, tt, 0.2);
+        pan.positionZ.setTargetAtTime(pos.z, tt, 0.2);
+        out.gain.setTargetAtTime(Math.max(0.0001, Math.min(1, level)) * 0.9, tt, 0.4);
+      },
+      stop: () => {
+        if (stopped) return;
+        stopped = true;
+        const tt = ctx.currentTime;
+        out.gain.setTargetAtTime(0.0001, tt, 0.2);
+        for (const n of nodes) n.stop(tt + 0.8);
+        setTimeout(() => this.voiceEnd(), 900);
+      },
+    };
+  }
+
+  /**
+   * DV-063 tiếng bước chân theo mặt đất (thủ tục): lá mục = vài tiếng lạo xạo cao tần; đất nện = tiếng thịch trầm;
+   * bùn = "nhóp" lọc dải trượt xuống; đá = cạch ngắn; nước = tiếng lội toé. `loud` 0..1 (đi/chạy/cúi).
+   */
+  footstep(surface: 'leaves' | 'soil' | 'mud' | 'rock' | 'water', loud = 1, position?: [number, number, number]): void {
+    const g = Math.max(0.05, Math.min(1, loud));
+    const j = (): number => 0.85 + this.jitter() * 0.3;
+    switch (surface) {
+      case 'leaves':
+        this.noiseBurst('sfx', 70 * j(), 0.18 * g, 380 * j(), 0.8, position);
+        for (let k = 0; k < 3; k++) setTimeout(() => this.noiseBurst('sfx', 28 * j(), 0.09 * g, 5200 * j(), 1.4, position), 15 + k * 32 * j());
+        break;
+      case 'soil':
+        this.noiseBurst('sfx', 90 * j(), 0.26 * g, 260 * j(), 0.9, position);
+        this.noiseBurst('sfx', 35, 0.06 * g, 2400 * j(), 1, position);
+        break;
+      case 'mud':
+        this.noiseBurst('sfx', 140 * j(), 0.22 * g, 520 * j(), 3.5, position);
+        setTimeout(() => this.noiseBurst('sfx', 110 * j(), 0.12 * g, 300 * j(), 5, position), 70);
+        break;
+      case 'rock':
+        this.noiseBurst('sfx', 40 * j(), 0.2 * g, 3100 * j(), 2.2, position);
+        this.noiseBurst('sfx', 70, 0.12 * g, 700 * j(), 1, position);
+        break;
+      case 'water':
+        this.noiseBurst('sfx', 220 * j(), 0.3 * g, 1900 * j(), 0.7, position);
+        setTimeout(() => this.noiseBurst('sfx', 260 * j(), 0.16 * g, 3600 * j(), 0.6, position), 60);
+        break;
+    }
+  }
+
   /**
    * Súng 3 lớp (AUD-002 rút gọn): transient + body + tail. `weaponId` chọn hồ sơ: `ak47` (7,62×39, TIP-D10) trầm hơn,
    * thân dài hơn, đuôi vang rừng; mặc định AR 5,56.
