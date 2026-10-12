@@ -45,13 +45,15 @@ export function loadMission(json: unknown): MissionDefinition {
       if (a.type === 'radio' && !a.cue) problems.push(`/nodes/${ni}/actions/${ai}: radio missing cue`);
       if ((a.type === 'objective' || a.type === 'objective_complete') && !a.objectiveKey) problems.push(`/nodes/${ni}/actions/${ai}: missing objectiveKey`);
       if (a.type === 'set_flag' && (!a.flag || typeof a.value !== 'boolean')) problems.push(`/nodes/${ni}/actions/${ai}: set_flag missing flag/value`);
-      if (a.type === 'objective' && a.marker && !zoneIds.has(a.marker)) problems.push(`/nodes/${ni}/actions/${ai}/marker: zone '${a.marker}' not found`);
+      if (a.type === 'objective' && a.marker && a.marker !== '@leader' && !zoneIds.has(a.marker)) problems.push(`/nodes/${ni}/actions/${ai}/marker: zone '${a.marker}' not found`);
       if (a.type === 'sky_trigger' && !a.flight) problems.push(`/nodes/${ni}/actions/${ai}: sky_trigger missing flight`);
+      if ((a.type === 'squad_order' || a.type === 'interactable') && a.zone && !zoneIds.has(a.zone)) problems.push(`/nodes/${ni}/actions/${ai}/zone: '${a.zone}' not found`);
+      if (a.type === 'bombing' && (!a.from || !a.to)) problems.push(`/nodes/${ni}/actions/${ai}: bombing missing from/to`);
     });
     [...n.enterConditions, ...n.exitConditions].forEach((c, ci) => {
       if (!(CONDITION_TYPES as readonly string[]).includes(c.type)) problems.push(`/nodes/${ni}/conditions/${ci}/type: '${c.type}' not in allow-list`);
-      if (c.type === 'zone_enter' && (!c.zone || !zoneIds.has(c.zone))) problems.push(`/nodes/${ni}/conditions/${ci}/zone: '${c.zone}' not found`);
-      if (c.type === 'group_dead' && (!c.group || !groupIds.has(c.group))) problems.push(`/nodes/${ni}/conditions/${ci}/group: '${c.group}' not found`);
+      if ((c.type === 'zone_enter' || c.type === 'squad_at') && (!c.zone || !zoneIds.has(c.zone))) problems.push(`/nodes/${ni}/conditions/${ci}/zone: '${c.zone}' not found`);
+      if ((c.type === 'group_dead' || c.type === 'group_alive_max') && (!c.group || !groupIds.has(c.group))) problems.push(`/nodes/${ni}/conditions/${ci}/group: '${c.group}' not found`);
     });
     if (n.type === 'terminal' && n.next !== null) problems.push(`/nodes/${ni}: terminal node must have next = null`);
     if (n.type !== 'terminal' && n.next === null) problems.push(`/nodes/${ni}: non-terminal node must have next`);

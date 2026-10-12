@@ -140,7 +140,7 @@ Loop cốt lõi giữ từ HT-MB: quan sát → chọn nhịp → di chuyển c�
 | VEH-003                        | Trực thăng UH-1 đổ quân, AH-1 bắn rốc-két theo pattern, có thể bị hạ ở M2; rotor quay, bụi bãi đáp                                                                                                                                               | Must | Chỉ hạ được ở nhiệm vụ cho phép                         |
 | VEH-004                        | "Máy bay là thời tiết": AC-130 quỹ đạo tròn bắn xuống, B-52 rung đất + sóng bụi, OV-10 đánh dấu khói, F-4/A-37 bổ nhào theo script                                                                                                               | Must | Âm thanh có hướng (AUD-003)                             |
 | MIS-001                        | Mission graph JSON (kế thừa) + encounter director theo vùng, budget spawn, checkpoint deterministic; thêm node "cutscene in-engine", "letter", "choice không thưởng"                                                                             | Must | Restart invariant; hash trạng thái                      |
-| MIS-002                        | Save chiến dịch: tiến độ nhiệm vụ, thư đã mở, thương vong tiểu đội có tên, cấp của Thành; migrate giữa bản phát hành                                                                                                                             | Must | Test migrate v(n) → v(n+1)                              |
+| MIS-002                        | Save chiến dịch: tiến độ nhiệm vụ, thư đã mở, thương vong tiểu đội có tên, cấp của Lâm; migrate giữa bản phát hành                                                                                                                             | Must | Test migrate v(n) → v(n+1)                              |
 
 ### 4.4 Độ khó và cân bằng
 
@@ -241,7 +241,7 @@ Nền: Three.js 0.185.1 `three/webgpu`, TSL only (không ShaderMaterial/onBefore
 | AUD-004             | Môi trường theo giờ và địa hình: rừng đêm/ngày (côn trùng, chim, suối, mưa), phố (loa, tàu điện, xe, chợ), biển (sóng, còi tàu)                                              | Loop + one-shot theo seed                 |
 | AUD-005             | Thoại tiếng Việt: chất giọng vùng (Nghệ, Hà Nội, Tày, Quảng Trị, Gò Công); dev dùng TTS placeholder, **bản phát hành dùng diễn viên người**; không nhân bản giọng người thật | Quyết định Chủ nhà; ghi ADR               |
 | AUD-006             | Bản tin đài/loa: nội dung theo registry `timeline` (tư liệu thật, không bịa lời người thật), giọng đọc dựng lại                                                              | —                                         |
-| AUD-007             | Nhạc gốc: sáo trúc, đàn bầu, ghi-ta gỗ, dây tối giản; leitmotif Thu/Hải/Quyết; không bài hát có bản quyền                                                                    | Hợp đồng nhạc sĩ hoặc sáng tác có license |
+| AUD-007             | Nhạc gốc: sáo trúc, đàn bầu, ghi-ta gỗ, dây tối giản; leitmotif Thu/Long/Quyết; không bài hát có bản quyền                                                                    | Hợp đồng nhạc sĩ hoặc sáng tác có license |
 
 ---
 
@@ -680,17 +680,17 @@ Mục tiêu “30 giây vào vai” đo từ lúc chọn Vào nhiệm vụ đế
 
 ### 21.3 Kịch bản quay CINE-00 — “Lá thư chưa gửi”, 90 giây
 
-Lời kể đề xuất của Thành, nhân vật hư cấu được nhắc trong PRD. Không gán tuổi, đơn vị hoặc quan hệ với Thu/Hải/Quyết khi chưa có kịch bản nguồn. Lời của “Đồng đội” để casting sau. Chữ ngày tháng, địa danh, đạo cụ và quân phục phải đối chiếu registry trước bản phát hành.
+Lời kể đề xuất của Lâm, nhân vật hư cấu được nhắc trong PRD. Không gán tuổi, đơn vị hoặc quan hệ với Thu/Long/Quyết khi chưa có kịch bản nguồn. Lời của “Đồng đội” để casting sau. Chữ ngày tháng, địa danh, đạo cụ và quân phục phải đối chiếu registry trước bản phát hành.
 
 | Shot / timecode | Hình ảnh và camera | Thoại, âm thanh và điểm dựng |
 | --- | --- | --- |
 | S01 · 00–08 | Tối chuyển dần thành cận vải ba lô ẩm; khung tĩnh, một bàn tay đi vào | Tiếng thở, vải, một giọt nước. Chưa nhạc, chưa nổ |
-| S02 · 08–20 | Góc qua vai trên lá thư; chỉ đọc được một dòng đã duyệt; nét bút ngừng | Thành: “Có những điều, lúc lên đường tôi chưa biết viết thế nào.” Ngừng 2 giây |
-| S03 · 20–32 | Thư được gấp, bọc và cất; cắt theo chuyển động sang khóa túi | Thành: “Tôi nghĩ, đi hết con dốc này rồi sẽ viết tiếp.” Một mô-típ nhạc rất mỏng bắt đầu |
+| S02 · 08–20 | Góc qua vai trên lá thư; chỉ đọc được một dòng đã duyệt; nét bút ngừng | Lâm: “Có những điều, lúc lên đường tôi chưa biết viết thế nào.” Ngừng 2 giây |
+| S03 · 20–32 | Thư được gấp, bọc và cất; cắt theo chuyển động sang khóa túi | Lâm: “Tôi nghĩ, đi hết con dốc này rồi sẽ viết tiếp.” Một mô-típ nhạc rất mỏng bắt đầu |
 | S04 · 32–45 | Cận chân qua đất ướt, chuyển sang trung cảnh sau lưng; máy di chuyển ổn định | Tiếng chân/vải, suối xa. Tên game chưa xuất hiện; tránh nêu mẫu súng chưa duyệt |
 | S05 · 45–58 | Hai bóng người qua khoảng sáng; camera ở tầm vai, không flycam toàn chiến trường | Tiếng động cơ đi vào trước hình. Nhạc giảm để người xem nhận ra âm thanh |
 | S06 · 58–70 | Đồng đội giơ tay ra hiệu dừng; cận tay và mắt nhìn lên, không cắt tới máy bay | Đồng đội: “Dừng một chút. Nghe đã.” Khoảng lặng; không diễn giải chiến thuật ngoài nhu cầu kể chuyện |
-| S07 · 70–82 | Máy nhìn theo dòng nước tới lối xuống; người trước quay lại chờ | Thành: “Rồi tôi nhận ra, mình không đi một mình.” Tiếng suối nối sang cảnh M1 |
+| S07 · 70–82 | Máy nhìn theo dòng nước tới lối xuống; người trước quay lại chờ | Lâm: “Rồi tôi nhận ra, mình không đi một mình.” Tiếng suối nối sang cảnh M1 |
 | S08 · 82–90 | Tên ĐƯỜNG VỀ SÀI GÒN trên nền tối tự nhiên; chuyển về bàn tay nắm dây túi, trùng pose đầu handoff | Chữ “Cổng Trời · Trường Sơn · 1971” chỉ dùng khi duyệt; Đồng đội: “Theo tôi xuống ngầm.” Objective lặp trong HUD sau khi vào chơi |
 
 Nguyên tắc diễn: đọc như nhớ lại một việc cụ thể, tránh giọng diễn văn. Không dùng hình tư liệu chiến tranh như texture trang trí. Không đặt người thật hoặc lời đài nguyên bản vào phim này; nếu thêm về sau phải có nguồn và quyền sử dụng tương ứng.
@@ -702,7 +702,7 @@ Nguyên tắc diễn: đọc như nhớ lại một việc cụ thể, tránh gi
 | 00–10 | Nét bút trên bản đồ minh họa tuyến ngầm, chữ Trường Sơn / 1971 đã duyệt | Người chơi hiểu không gian; không hiện tọa độ chính xác giả |
 | 10–20 | Một đường cong theo suối nối sang hình nước; tiếng vải và bước chân | Xác lập chất liệu M1, không thêm battle montage |
 | 20–30 | Đồng đội chờ bên dốc: “Qua ngầm rồi nghỉ. Đi sát nhau.” | Đặt mục tiêu tức thời; tên người nói chốt theo kịch bản |
-| 30–40 | Camera xuống tầm mắt Thành; bàn tay giữ dây túi, nước ở hướng đi | Khớp hình với handoff; không cài thêm tình tiết mà người skip sẽ không biết |
+| 30–40 | Camera xuống tầm mắt Lâm; bàn tay giữ dây túi, nước ở hướng đi | Khớp hình với handoff; không cài thêm tình tiết mà người skip sẽ không biết |
 
 ### 21.5 Handoff 12 giây và cảnh tương tác
 
@@ -802,7 +802,7 @@ Phim đạt khi người xem hiểu mục tiêu và mối quan hệ sau khi xem,
 
 ### 23.4 Những đầu vào còn thiếu trước sản xuất cuối
 
-Kịch bản nhân vật v0.1 và hành trình liên tục của Thành; registry lịch sử thực tế; repo và bench thô; số GPU core/phiên bản OS/browser của máy chuẩn; ngân sách diễn viên/nhạc/animation; quyền dùng font/asset cụ thể. Các phần này có thể điền trong lúc làm prototype, nhưng không được ghi “đã duyệt” hoặc “đã đạt” khi chưa có evidence.
+Kịch bản nhân vật v0.1 và hành trình liên tục của Lâm; registry lịch sử thực tế; repo và bench thô; số GPU core/phiên bản OS/browser của máy chuẩn; ngân sách diễn viên/nhạc/animation; quyền dùng font/asset cụ thể. Các phần này có thể điền trong lúc làm prototype, nhưng không được ghi “đã duyệt” hoặc “đã đạt” khi chưa có evidence.
 
 ## 24. NGUỒN ĐỐI CHIẾU BỔ SUNG VÀ PHẠM VI BÀN GIAO
 

@@ -1,0 +1,43 @@
+{
+  "$comment": "DV-074 lựu đạn: đạn đạo + nảy, nổ sau fuse; người chơi phím G; địch ném vào mục tiêu đứng yên trong chỗ nấp; mọi bot chạy khỏi vùng nổ.",
+  "gravity": -9.81,
+  "fuseMs": 3500,
+  "radius": 7,
+  "playerDamage": 70,
+  "botDamage": 65,
+  "occludedMul": 0.3,
+  "restitution": 0.32,
+  "friction": 0.62,
+  "restSpeed": 0.6,
+  "bodyRadius": 0.06,
+  "maxLive": 6,
+  "player": {
+    "count": 2,
+    "speed": 16,
+    "pitchUpDeg": 12,
+    "cooldownMs": 900
+  },
+  "ai": {
+    "factions": ["enemy"],
+    "perBot": 2,
+    "minRange": 12,
+    "maxRange": 30,
+    "stillMs": 2500,
+    "stillRadius": 2.5,
+    "unseenMs": 600,
+    "chance": 0.6,
+    "lobDeg": 40,
+    "maxSpeed": 22,
+    "scatterBase": 1.0,
+    "scatterPerM": 0.06,
+    "globalCooldownMs": 6000,
+    "groupCooldownMs": 10000,
+    "maxLiveEnemy": 2,
+    "fleeRadius": 8.5,
+    "noticeFlightRadius": 4,
+    "noticeSpeed": 4,
+    "reactMs": 350,
+    "reactJitterMs": 550,
+    "warnRadius": 14
+  }
+}

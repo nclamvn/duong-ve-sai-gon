@@ -103,13 +103,13 @@
       "spawn": "sq_quyet",
       "spawns": [
         "sq_quyet",
-        "sq_hai",
-        "sq_sang"
+        "sq_long",
+        "sq_dat"
       ],
       "names": [
         "name.quyet",
-        "name.hai",
-        "name.sang"
+        "name.long",
+        "name.dat"
       ]
     },
     {

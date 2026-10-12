@@ -105,6 +105,10 @@ const ASSETS = [
   { id: 'rock_face_01', type: 'vegsrc', res: '1k', use: 'khối đá lớn/vách đá lộ trên sườn và bờ khe' },
   { id: 'rock_moss_set_02', type: 'vegsrc', res: '1k', use: 'đá cuội, đá hộc lòng khe' },
   { id: 'tree_stump_02', type: 'vegsrc', res: '1k', use: 'gốc cây gãy (nền rừng)' },
+  // ---- DV-077 hồi đêm Ngầm Ta Lê: đạo cụ đêm (CC0) ----
+  { id: 'vintage_oil_lamp', type: 'model', res: '1k', use: 'đèn dầu chỉ đường ở ngầm' },
+  { id: 'barrel_03', type: 'model', res: '1k', use: 'phuy xăng bờ ngầm' },
+  { id: 'metal_jerrycan_green', type: 'model', res: '1k', use: 'can xăng trên xe' },
 ];
 const TEXTURE_MAPS = { Diffuse: 'diff', nor_gl: 'nor_gl', arm: 'arm' };
 

@@ -30,7 +30,10 @@
     "registry:check": "node scripts/validate-registry.mjs",
     "assets:ktx2": "node scripts/ktx2.mjs",
     "assets:validate": "node scripts/validate-assets.mjs && node scripts/pack-assets.mjs --check",
-    "assets:pack": "node scripts/pack-assets.mjs"
+    "assets:pack": "node scripts/pack-assets.mjs",
+    "voice": "node scripts/voice/generate.mjs",
+    "voice:verify": "node scripts/voice/generate.mjs --verify",
+    "voice:fix": "node scripts/voice/generate.mjs --fix"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.20.0",

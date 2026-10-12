@@ -23,6 +23,8 @@ interface Tracer {
   origin: Vector3;
   dir: Vector3;
   maxDist: number;
+  /** độ dày (×) */
+  width: number;
 }
 interface Spark {
   pos: Vector3;
@@ -69,6 +71,10 @@ const HIDDEN = new Matrix4().makeScale(0, 0, 0);
 const MUZZLE_LIGHT = 3.5;
 const TRACER_SPEED = 320; // m/s (hình ảnh)
 const TRACER_LEN = 5;
+/** màu bụi theo vật liệu (DV-075) */
+const TINT = { smoke: [0.62, 0.6, 0.56], earth: [0.72, 0.4, 0.26], wood: [0.78, 0.62, 0.42], blast: [0.52, 0.4, 0.32] } as const satisfies Record<string, readonly [number, number, number]>;
+/** màu vệt đạn theo phe (HDR, additive) */
+const TRACER = { player: [1.3, 0.95, 0.5], enemy: [1.9, 0.55, 0.25], friend: [0.55, 1.7, 0.5] } as const satisfies Record<string, readonly [number, number, number]>;
 
 export class WeaponFx {
   readonly decals: InstancedMesh;
@@ -83,6 +89,8 @@ export class WeaponFx {
   private readonly puffPool: Puff[] = [];
   private readonly puffAlpha: InstancedBufferAttribute;
   private readonly decalKind: InstancedBufferAttribute;
+  private readonly puffTint: InstancedBufferAttribute;
+  private readonly tracerTint: InstancedBufferAttribute;
   private puffHead = 0;
   private decalHead = 0;
   private readonly casingPool: Casing[] = [];
@@ -97,6 +105,8 @@ export class WeaponFx {
   private botLightLife = 0;
   readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0, explosions: 0 };
   private readonly gravity = new Vector3(0, -9.81, 0);
+  /** màu bụi cho lần spawnPuffs kế tiếp */
+  private tint: readonly [number, number, number] = TINT.smoke;
   private readonly unsub: Array<() => void> = [];
   /** vị trí đầu nòng của player (viewmodel) — Game gán */
   muzzleWorld: Vector3 | null = null;
@@ -138,12 +148,17 @@ export class WeaponFx {
     }
 
     // Tracer: vệt mảnh 0.006 m, dài 5 m, additive, bay 320 m/s và mờ dần
-    const tracerMat = new MeshBasicNodeMaterial({ color: new Color(1.3, 0.95, 0.5), transparent: true, opacity: 0.55, depthWrite: false, blending: AdditiveBlending });
-    this.tracers = new InstancedMesh(new BoxGeometry(0.006, 0.006, 1), tracerMat, capacity.tracers);
+    // màu theo phe (DV-075, điện ảnh): người chơi vàng ấm, địch đỏ cam, tổ ta xanh lục — đọc được hướng hoả lực
+    const tracerMat = new MeshBasicNodeMaterial({ transparent: true, opacity: 0.7, depthWrite: false, blending: AdditiveBlending });
+    tracerMat.colorNode = vec4(attribute('tracerTint', 'vec3') as unknown as Node<'vec3'>, 1.0);
+    const tracerGeo = new BoxGeometry(0.006, 0.006, 1);
+    this.tracerTint = new InstancedBufferAttribute(new Float32Array(capacity.tracers * 3).fill(1), 3);
+    tracerGeo.setAttribute('tracerTint', this.tracerTint);
+    this.tracers = new InstancedMesh(tracerGeo, tracerMat, capacity.tracers);
     this.tracers.frustumCulled = false;
     scene.add(this.tracers);
     for (let i = 0; i < capacity.tracers; i++) {
-      this.tracerPool.push({ life: 0, origin: new Vector3(), dir: new Vector3(), maxDist: 0 });
+      this.tracerPool.push({ life: 0, origin: new Vector3(), dir: new Vector3(), maxDist: 0, width: 1 });
       this.tracers.setMatrixAt(i, HIDDEN);
       this.stats.created++;
     }
@@ -183,11 +198,15 @@ export class WeaponFx {
     const puffTex = makeSoftPuff();
     const puffMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: DoubleSide });
     const puffSample = texture(puffTex, uv());
-    puffMat.colorNode = vec4(vec3(0.62, 0.6, 0.56).mul(puffSample.rgb), 1.0);
+    // màu bụi theo vật liệu (DV-075): đất đỏ bazan, dăm gỗ, khói xám
+    puffMat.colorNode = vec4((attribute('puffTint', 'vec3') as unknown as Node<'vec3'>).mul(puffSample.rgb), 1.0);
     puffMat.opacityNode = puffSample.a.mul(attribute('puffAlpha', 'float') as unknown as Node<'float'>);
     const puffGeo = new PlaneGeometry(1, 1);
     this.puffAlpha = new InstancedBufferAttribute(new Float32Array(capacity.puffs), 1);
     puffGeo.setAttribute('puffAlpha', this.puffAlpha);
+    this.puffTint = new InstancedBufferAttribute(new Float32Array(capacity.puffs * 3), 3);
+    for (let i = 0; i < capacity.puffs; i++) this.puffTint.setXYZ(i, 0.62, 0.6, 0.56);
+    puffGeo.setAttribute('puffTint', this.puffTint);
     this.puffs = new InstancedMesh(puffGeo, puffMat, capacity.puffs);
     this.puffs.frustumCulled = false;
     this.puffs.renderOrder = 4;
@@ -211,9 +230,17 @@ export class WeaponFx {
         this.placeDecal(e.point, e.normal);
         _p.set(e.point[0], e.point[1], e.point[2]);
         _n.set(e.normal[0], e.normal[1], e.normal[2]);
-        // đất (terrain, TIP-D10): bụi nhiều, to, tối hơn, không tia lửa; thép: tia lửa
-        if (e.material === 'earth') this.spawnPuffs(_p, _n, 5, 0.12, 0.6, 0.5, 0.7, 0.7);
-        else this.spawnPuffs(_p, _n, 3, 0.09, 0.42, 0.42, 0.55, 0.9);
+        // đất (terrain, TIP-D10): bụi đỏ nhiều, to + cột bụi bắn lên; gỗ: dăm nâu sáng; thép: tia lửa (DV-075 màu theo vật liệu)
+        if (e.material === 'earth') {
+          this.tint = TINT.earth;
+          this.spawnPuffs(_p, _n, 5, 0.12, 0.6, 0.5, 0.7, 0.7);
+          _tmp.set(_n.x * 0.3, 1, _n.z * 0.3).normalize();
+          this.spawnPuffs(_p, _tmp, 2, 0.08, 0.35, 0.55, 0.45, 3.2);
+        } else if (e.material === 'wood') {
+          this.tint = TINT.wood;
+          this.spawnPuffs(_p, _n, 4, 0.06, 0.3, 0.6, 0.45, 2.2);
+        } else this.spawnPuffs(_p, _n, 3, 0.09, 0.42, 0.42, 0.55, 0.9);
+        this.tint = TINT.smoke;
         if (e.material === 'steel' || e.material === 'metal') this.spawnSparks(_p, _n, 6);
       }),
     );
@@ -221,7 +248,7 @@ export class WeaponFx {
     this.unsub.push(events.on('HIT', (e) => this.placeDecal(e.point, [0, 1, 0], true)));
     this.unsub.push(events.on('RELOAD_START', () => undefined));
     this.unsub.push(
-      (events as unknown as EventBus<{ BOT_FIRED: { botId: string; origin: [number, number, number]; dir: [number, number, number] } }>).on('BOT_FIRED', (e) => {
+      (events as unknown as EventBus<{ BOT_FIRED: { botId: string; origin: [number, number, number]; dir: [number, number, number]; faction?: string } }>).on('BOT_FIRED', (e) => {
         _n.set(e.dir[0], e.dir[1], e.dir[2]);
         // đầu nòng thật từ súng của bot (TIP-014); không có → mắt + 0.6 m theo hướng bắn, thấp hơn 0.15 m
         if (!(this.botMuzzle && this.botMuzzle(e.botId, _p))) {
@@ -229,7 +256,7 @@ export class WeaponFx {
         }
         this.spawnFlash(_p, _n, 0.8);
         this.spawnSparks(_p, _n, 5);
-        this.spawnTracer(_p, _n, 60);
+        this.spawnTracer(_p, _n, 70, e.faction === 'friend' ? TRACER.friend : TRACER.enemy, 1.8);
         this.spawnPuffs(_p, _n, 1, 0.06, 0.28, 0.2, 0.6, 1.4);
         this.botLight.position.copy(_p);
         this.botLight.intensity = MUZZLE_LIGHT * 0.8;
@@ -264,7 +291,7 @@ export class WeaponFx {
     else _p.set(origin[0] + dir[0] * 0.5, origin[1] + dir[1] * 0.5 - 0.1, origin[2] + dir[2] * 0.5);
     this.spawnFlash(_p, _n, 0.7);
     this.spawnSparks(_p, _n, 8);
-    this.spawnTracer(_p, _n, 80);
+    this.spawnTracer(_p, _n, 80, TRACER.player, 1);
     this.spawnPuffs(_p, _n, 2, 0.06, 0.32, 0.22, 0.7, 1.6);
     this.muzzleLight.position.copy(_p);
     this.muzzleLight.intensity = MUZZLE_LIGHT;
@@ -308,11 +335,13 @@ export class WeaponFx {
       _tmp.set(this.prng.next() - 0.5, 0.35 + this.prng.next() * 0.6, this.prng.next() - 0.5).normalize();
       this.spawnSparks(_p, _tmp, 9);
     }
+    this.tint = TINT.blast;
     this.spawnPuffs(_p, _n, 14, 0.6 + radius * 0.12, 2.4 + radius * 0.45, 0.7, 2.6 + radius * 0.15, 3.5);
     _tmp.set(0.4, 0.35, 0.2).normalize();
     this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
     _tmp.set(-0.4, 0.35, -0.2).normalize();
     this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
+    this.tint = TINT.smoke;
     this.botLight.position.copy(_p).addScaledVector(_up, 1.2);
     this.botLight.intensity = MUZZLE_LIGHT * 6;
     this.botLight.distance = 10 + radius * 2;
@@ -332,13 +361,17 @@ export class WeaponFx {
     }
   }
 
-  private spawnTracer(pos: Vector3, dir: Vector3, maxDist: number): void {
-    const t = this.tracerPool[this.tracerHead]!;
+  private spawnTracer(pos: Vector3, dir: Vector3, maxDist: number, tint: readonly [number, number, number], width: number): void {
+    const i = this.tracerHead;
+    const t = this.tracerPool[i]!;
     this.tracerHead = (this.tracerHead + 1) % this.capacity.tracers;
     t.origin.copy(pos);
     t.dir.copy(dir);
     t.maxDist = maxDist;
     t.life = 0;
+    t.width = width;
+    this.tracerTint.setXYZ(i, tint[0], tint[1], tint[2]);
+    this.tracerTint.needsUpdate = true;
   }
 
   /** Khói/bụi: n quad tại pos, bay theo dir (+ tỏa), nở size0→size1, mờ dần. */
@@ -354,6 +387,10 @@ export class WeaponFx {
       q.size1 = size1 * (0.8 + this.prng.next() * 0.5);
       q.alpha = alpha;
       q.spin = (this.prng.next() - 0.5) * 2.0;
+      const ti = this.puffHead === 0 ? this.capacity.puffs - 1 : this.puffHead - 1;
+      const c = this.tint;
+      this.puffTint.setXYZ(ti, c[0], c[1], c[2]);
+      this.puffTint.needsUpdate = true;
     }
   }
 
@@ -423,7 +460,7 @@ export class WeaponFx {
       const len = Math.max(0.05, Math.min(head, t.maxDist) - tail);
       _p.copy(t.origin).addScaledVector(t.dir, tail + len / 2);
       _q.setFromUnitVectors(_fwd, t.dir);
-      _s.set(1, 1, len);
+      _s.set(t.width, t.width, len);
       _m.compose(_p, _q, _s);
       this.tracers.setMatrixAt(i, _m);
       ta++;

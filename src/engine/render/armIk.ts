@@ -12,6 +12,8 @@ export interface ArmChain {
   hand: Bone;
   lenUpper: number;
   lenFore: number;
+  /** DV-069: inverse of the `<Hand>_ref` local rotation; targets are given in the reference (Swat) hand frame */
+  handFrameInv: Quaternion | null;
 }
 
 const _q = new Quaternion();
@@ -51,7 +53,9 @@ export function findArmChain(root: Object3D, side: 'Left' | 'Right'): ArmChain |
   posInRoot(root, upper, _vS);
   posInRoot(root, fore, _vE);
   posInRoot(root, hand, _vW);
-  return { shoulder: shoulder ?? upper.parent ?? upper, upper, fore, hand, lenUpper: _vS.distanceTo(_vE), lenFore: _vE.distanceTo(_vW) };
+  const ref = hand.getObjectByName(`mixamorig${side}Hand_ref`);
+  const handFrameInv = ref && ref !== hand ? ref.quaternion.clone().invert() : null;
+  return { shoulder: shoulder ?? upper.parent ?? upper, upper, fore, hand, lenUpper: _vS.distanceTo(_vE), lenFore: _vE.distanceTo(_vW), handFrameInv };
 }
 
 const _mm = new Matrix4();
@@ -111,8 +115,9 @@ function untwist(fore: Bone, hand: Bone): void {
  * Giải IK: đặt cổ tay tại `target` (ma trận world: vị trí + hướng bàn tay), khuỷu về phía `poleWorld` (đơn vị, world).
  * Yêu cầu matrixWorld của vai đã cập nhật. Trả về khoảng cách còn lại cổ tay ↔ đích (m).
  */
-export function solveTwoBone(arm: ArmChain, target: Matrix4, poleWorld: Vector3): number {
+export function solveTwoBone(arm: ArmChain, target: Matrix4, poleWorld: Vector3, untwistFore = true): number {
   target.decompose(_vT, _qT, _sc); // _vT cổ tay mong muốn, _qT hướng bàn tay (world) — scratch riêng, aimBone/untwist dùng _q2
+  if (arm.handFrameInv) _qT.multiply(arm.handFrameInv); // reference-frame target → this rig's hand bone
   _vT0.copy(_vT);
   arm.shoulder.updateWorldMatrix(true, true);
   arm.upper.getWorldPosition(_vS);
@@ -138,7 +143,7 @@ export function solveTwoBone(arm: ArmChain, target: Matrix4, poleWorld: Vector3)
   arm.fore.updateWorldMatrix(false, true);
   arm.fore.getWorldQuaternion(_qp);
   arm.hand.quaternion.copy(_qp.invert()).multiply(_qT);
-  untwist(arm.fore, arm.hand);
+  if (untwistFore) untwist(arm.fore, arm.hand);
   arm.fore.updateWorldMatrix(false, true);
   arm.fore.getWorldQuaternion(_qp);
   arm.hand.quaternion.copy(_qp.invert()).multiply(_qT);

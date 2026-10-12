@@ -95,6 +95,15 @@ export class PhysicsWorld {
     return { body, collider };
   }
 
+  /** DV-078 hộp kinematic (xe tải chạy theo đường): body kinematic position-based + cuboid; caller đặt pose mỗi tick. */
+  addKinematicBox(position: [number, number, number], half: [number, number, number], data: ColliderUserData, layer: number = LAYER.WORLD): { body: RAPIER.RigidBody; collider: RAPIER.Collider } {
+    const body = this.world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(position[0], position[1], position[2]));
+    const collider = this.world.createCollider(RAPIER.ColliderDesc.cuboid(half[0], half[1], half[2]).setCollisionGroups(colliderGroups(layer)), body);
+    if (data.thickness === undefined) data.thickness = Math.min(half[0], half[2]) * 2;
+    this.userData.set(collider.handle, data);
+    return { body, collider };
+  }
+
   /** Sphere/ball collider gắn body (head zone). */
   addBallOnBody(body: RAPIER.RigidBody, offset: [number, number, number], radius: number, data: ColliderUserData, layer: number): RAPIER.Collider {
     const desc = RAPIER.ColliderDesc.ball(radius).setTranslation(offset[0], offset[1], offset[2]).setCollisionGroups(colliderGroups(layer));

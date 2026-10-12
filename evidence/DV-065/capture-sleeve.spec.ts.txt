@@ -1,0 +1,18 @@
+import { test } from '@playwright/test';
+import { renderFramesRaf } from './helpers';
+for (const [name, q] of [['goc', '&sleeve=0'], ['xanh-la', '']] as const) {
+  test(`sleeve ${name}`, async ({ page }) => {
+    test.setTimeout(400_000);
+    await page.goto(`/?backend=webgl&level=truong-son&autostart=1&debug=1&quality=low&shadow=1024${q}`);
+    await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 300_000 });
+    await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 300_000 });
+    await page.evaluate(() => {
+      window.__ht!.game.stop();
+      document.getElementById('hud')!.hidden = true;
+      const g = window.__ht!.game as unknown as { player: { rig: { yaw: number; pitch: number } } };
+      g.player.rig.yaw = 0.6; g.player.rig.pitch = -0.05;
+    });
+    await renderFramesRaf(page, 5);
+    await page.screenshot({ path: `evidence/DV-065/tay-ao-${name}.png` });
+  });
+}

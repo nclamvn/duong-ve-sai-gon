@@ -8,7 +8,8 @@
  *   2. phát clip theo VmStateMachine (chọn và trộn, không giả động tác);
  *   3. trả điểm đầu nòng (xương `Barrel`) và cửa thoát vỏ đạn (`Bullet_Socket`) cho FX.
  */
-import { Group, Object3D, Vector3, Quaternion, Matrix4, AnimationMixer, LoopOnce, LoopRepeat, type AnimationAction, type AnimationClip, type Mesh } from 'three/webgpu';
+import { Group, Object3D, Vector3, Quaternion, Matrix4, AnimationMixer, LoopOnce, LoopRepeat, Color, MeshStandardNodeMaterial, type AnimationAction, type AnimationClip, type Mesh, type MeshStandardMaterial } from 'three/webgpu';
+import { recolorGreyFabricNode } from '@engine/render/camo';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import { VmStateMachine, VM_CLIPS, type VmInput, type VmRequest } from './vmStates';
 
@@ -25,6 +26,35 @@ export interface ArtistViewmodelAsset {
   clips: AnimationClip[];
 }
 
+export interface ArtistViewmodelOptions {
+  /** DV-065: màu vải tay áo (sRGB hex) theo gói phe; thiếu = giữ nguyên màu nghệ sĩ */
+  sleeveColor?: number;
+}
+
+/** material tay AB3DX (vải tay áo xám + găng da) — chỉ những material này được nhuộm */
+const ARMS_MATERIAL = /Manny/i;
+
+/** thay material tay bằng bản node có colorNode nhuộm vải xám sang màu quân phục; găng/da giữ nguyên (mặt nạ bão hoà) */
+function dyeSleeves(old: MeshStandardMaterial, color: number): MeshStandardNodeMaterial {
+  const c = new Color(color); // Color.set từ hex sRGB → lưu linear
+  const m = new MeshStandardNodeMaterial();
+  m.name = `${old.name}_dyed`;
+  m.map = old.map;
+  m.normalMap = old.normalMap;
+  m.normalScale.copy(old.normalScale);
+  m.roughnessMap = old.roughnessMap;
+  m.metalnessMap = old.metalnessMap;
+  m.aoMap = old.aoMap;
+  m.roughness = old.roughness;
+  m.metalness = old.metalness;
+  m.color.copy(old.color);
+  m.side = old.side;
+  m.transparent = old.transparent;
+  m.alphaTest = old.alphaTest;
+  if (old.map) m.colorNode = recolorGreyFabricNode(old.map, [c.r, c.g, c.b]);
+  return m;
+}
+
 export class ArtistViewmodel {
   readonly root = new Group();
   readonly muzzle: Object3D;
@@ -36,13 +66,31 @@ export class ArtistViewmodel {
   private readonly sm: VmStateMachine;
   private current: AnimationAction | null = null;
 
-  constructor(asset: ArtistViewmodelAsset) {
+  /** số material tay đã nhuộm (QA) */
+  readonly dyedMaterials: number;
+
+  constructor(asset: ArtistViewmodelAsset, opts: ArtistViewmodelOptions = {}) {
     this.root.name = 'artist_vm';
     this.rig = skeletonClone(asset.scene) as Group;
     let tris = 0;
+    const dyed = new Map<unknown, MeshStandardNodeMaterial>();
     this.rig.traverse((o: Object3D) => {
       const m = o as Mesh;
       if (!m.isMesh) return;
+      if (opts.sleeveColor !== undefined) {
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        const next = mats.map((mt) => {
+          const sm = mt as MeshStandardMaterial;
+          if (!ARMS_MATERIAL.test(sm.name)) return mt;
+          let d = dyed.get(sm);
+          if (!d) {
+            d = dyeSleeves(sm, opts.sleeveColor!);
+            dyed.set(sm, d);
+          }
+          return d;
+        });
+        m.material = Array.isArray(m.material) ? next : next[0]!;
+      }
       m.castShadow = false;
       m.receiveShadow = false;
       m.frustumCulled = false; // xương kéo lưới ra ngoài bounding box gốc khi nạp đạn/kiểm súng
@@ -50,6 +98,7 @@ export class ArtistViewmodel {
       tris += (g.index ? g.index.count : g.attributes.position!.count) / 3;
     });
     this.triangles = Math.round(tris);
+    this.dyedMaterials = dyed.size;
     for (const c of asset.clips) this.clips.set(c.name, c);
     this.mixer = new AnimationMixer(this.rig);
 

@@ -129,6 +129,11 @@
         },
         "tint": {
           "type": "integer"
+        },
+        "navFile": {
+          "type": "string",
+          "pattern": "^nav[a-z0-9-]*\\.bin$",
+          "description": "DV-078: navmesh bake riêng của level trong public/assets/terrain/<id>/ (mặc định nav.bin) khi level dùng chung ô DEM nhưng khác rừng/props"
         }
       }
     },
@@ -438,6 +443,35 @@
               }
             }
           }
+        },
+        "clear": {
+          "type": "array",
+          "description": "DV-078: dải/khoảng trống không mọc (polyline x/z; hai điểm trùng = vòng tròn): thân cây ≥ within, tầng thấp ≥ withinLow",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pts",
+              "within"
+            ],
+            "properties": {
+              "pts": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "$ref": "#/definitions/v2"
+                }
+              },
+              "within": {
+                "type": "number",
+                "minimum": 0
+              },
+              "withinLow": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
         }
       }
     },
@@ -479,6 +513,12 @@
           },
           "color": {
             "type": "integer"
+          },
+          "lit": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "DV-078: khói sáng lên khi bốc cao (đêm ~0,1)"
           }
         }
       }
@@ -710,7 +750,10 @@
               "crate",
               "ammo",
               "barrel",
-              "radio"
+              "radio",
+              "drum",
+              "jerrycan",
+              "chest"
             ]
           },
           "position": {
@@ -784,6 +827,61 @@
       "properties": {
         "$comment": {
           "type": "string"
+        },
+        "volumetric": {
+          "description": "DV-080: tia nắng thể tích xuyên tán qua sương (medium/high/ultra); false = tắt",
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intensity": {
+                  "type": "number"
+                },
+                "maxDist": {
+                  "type": "number"
+                },
+                "canopyHeight": {
+                  "type": "number"
+                },
+                "anisotropy": {
+                  "type": "number"
+                },
+                "mist": {
+                  "description": "DV-081: sương sát đất bám địa hình, trôi theo gió",
+                  "oneOf": [
+                    {
+                      "const": false
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "density": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "height": {
+                          "type": "number",
+                          "exclusiveMinimum": 0
+                        },
+                        "speed": {
+                          "type": "number"
+                        },
+                        "scale": {
+                          "type": "number",
+                          "exclusiveMinimum": 0
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         },
         "shafts": {
           "oneOf": [
@@ -868,6 +966,65 @@
         },
         "bloom": {
           "type": "number"
+        }
+      }
+    },
+    "roads": {
+      "type": "array",
+      "description": "DV-078: đường xe (polyline x/z): rừng chừa dải trống, mặt đất vẽ đất xới; logic đoàn xe đọc theo id",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "pts",
+          "halfWidth"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "pts": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "$ref": "#/definitions/v2"
+            }
+          },
+          "halfWidth": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "$comment": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "nextLevel": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "DV-078: level nối tiếp khi hoàn thành nhiệm vụ (Enter ở màn hoàn thành)"
+    },
+    "ambience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "localTime",
+        "month"
+      ],
+      "description": "DV-078: cảnh âm rừng theo giờ khi level không có climate (đêm)",
+      "properties": {
+        "localTime": {
+          "type": "string",
+          "pattern": "^\\d{2}:\\d{2}$"
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
         }
       }
     }

@@ -2,12 +2,15 @@
  * MissionHost — nối MissionRuntime với Game (MissionWorld adapter): spawn group → bots, capture/restore world,
  * checkpoint, subtitles, HUD objective/prompt, radio ducking. Game gọi host.step() trong sim.
  */
+import { GRENADE } from '@game/weapons/grenades';
 import type { EventBus, Prng } from '@engine/core';
 import type { Game } from '@game/game';
 import { MissionRuntime, type MissionWorld } from './runtime';
 import { loadMission, loadDialogue } from './loader';
 import { CheckpointStore, stateHash, type SavedCheckpoint } from './checkpoint';
 import type { CheckpointSnapshot, MissionDefinition, DialogueSet, MissionEvents } from './types';
+import { Battle } from './battle';
+import { BATTLE_ACTIONS } from './types';
 import { Subtitles } from '@ui/subtitles';
 import missionJson from '@content/missions/g0-arena.mission.json';
 import phoMissionJson from '@content/missions/pho-van-hai.mission.json';
@@ -16,6 +19,8 @@ import dialogueJson from '@content/missions/g0-dialogue.json';
 import truongSonDialogueJson from '@content/missions/truong-son-a.dialogue.json';
 import diemCao31MissionJson from '@content/missions/diem-cao-31.mission.json';
 import diemCao31DialogueJson from '@content/missions/diem-cao-31.dialogue.json';
+import ngamTaLeMissionJson from '@content/missions/ngam-ta-le.mission.json';
+import ngamTaLeDialogueJson from '@content/missions/ngam-ta-le.dialogue.json';
 
 export interface Interactable {
   id: string;
@@ -56,39 +61,96 @@ export class MissionHost implements MissionWorld {
   private flaresOn = false;
   private flareNext = 0;
   readonly artyStats = { shells: 0 };
+  /** rải thảm B-52 (M1-T2, action `bombing`): hàng đợi quả bom theo sim time */
+  private readonly bombs: Array<{ t: number; x: number; z: number; radius: number; damage: number }> = [];
+  private simT = 0;
+  readonly bombStats = { dropped: 0 };
+  /** điểm Quyết dẫn tổ tới (squad_order.zone), null = theo mục tiêu */
+  squadDest: [number, number, number] | null = null;
+  /** QA (DV-085 `Game.calm`): đồ thị nhiệm vụ đứng yên */
+  paused = false;
+  /** marker mục tiêu gắn trên người Quyết (`@leader`) */
+  markerOnLeader = false;
   private readonly rng: Prng;
   /** điểm marker mục tiêu hiện tại (world) — HUD la bàn/marker/minimap (TIP-UX02) */
   objectiveMarker: [number, number, number] | null = null;
   private objectiveMarkerKey: string | null = null;
   private barkSeq = 0;
+  /**
+   * DV-084 chiến trường (lửa, napalm, cối, vùng an toàn, đồng đội hy sinh) — chỉ dựng khi kịch bản có hành động chiến trường hoặc
+   * rải bom (bể lửa thêm 4 đèn điểm: màn không dùng thì không trả giá đèn)
+   */
+  readonly battle: Battle | null;
+  /** DV-084 đếm ngược mục tiêu (s còn lại; null = không) */
+  private objTimer: number | null = null;
 
   constructor(private readonly game: Game) {
     this.rng = game.prng.fork('mission-host');
     const m1 = game.levelId === 'truong-son';
     const m2 = game.levelId === 'diem-cao-31';
-    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : m1 ? truongSonMissionJson : m2 ? diemCao31MissionJson : missionJson);
-    this.dialogue = loadDialogue(m1 ? truongSonDialogueJson : m2 ? diemCao31DialogueJson : dialogueJson);
+    const night = game.levelId === 'ngam-ta-le';
+    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : m1 ? truongSonMissionJson : m2 ? diemCao31MissionJson : night ? ngamTaLeMissionJson : missionJson);
+    // hồi đêm (DV-078): thoại riêng + câu hô dùng chung của tổ từ M1 (báo hướng, nạp đạn, lựu đạn…)
+    const nightDialogue = night ? { cues: [...ngamTaLeDialogueJson.cues, ...truongSonDialogueJson.cues.filter((c) => !ngamTaLeDialogueJson.cues.some((n) => n.cueId === c.cueId))] } : null;
+    this.dialogue = loadDialogue(m1 ? truongSonDialogueJson : m2 ? diemCao31DialogueJson : nightDialogue ?? dialogueJson);
     this.ev = game.events as unknown as EventBus<MissionEvents>;
     this.runtime = new MissionRuntime(this.def, this.dialogue, this.ev, this);
+    const needsBattle = this.def.nodes.some((n) => n.actions.some((a) => a.type === 'bombing' || BATTLE_ACTIONS.has(a.type)));
+    this.battle = needsBattle ? new Battle(game, this.def.zones ?? [], game.prng.fork('battle')) : null;
+    if (this.battle) game.scene.add(this.battle.group);
+    this.ev.on('BATTLE', (e) => this.battle?.handle(e.action));
     this.checkpoints = new CheckpointStore(game.settings.store);
     this.ev.on('RADIO', (e) => {
       this.subtitles.show(e);
-      game.audio.radioCue(e.durationMs);
+      // câu hô giữa trận không nén tiếng súng (DV-076); thoại cốt truyện vẫn nén
+      if (!e.bark) game.audio.radioCue(e.durationMs);
     });
+    this.subtitles.onDisplay = (req) => game.speak(req);
+    this.subtitles.onCut = () => game.stopSpeech();
     this.ev.on('OBJECTIVE', (e) => {
       if (e.status === 'active') {
         game.hud.state.objectiveKey = e.key;
         this.setMarker(e.marker ?? null, e.key);
+        this.objTimer = e.timerMs ? e.timerMs / 1000 : null;
       } else if (game.hud.state.objectiveKey === e.key) {
         game.hud.state.objectiveKey = null;
+        this.objTimer = null;
         if (this.objectiveMarkerKey === e.key) this.setMarker(null, null);
       }
     });
     this.ev.on('SKY_TRIGGER', (e) => {
       if (!game.sky?.trigger(e.flight)) console.warn(`[mission] sky_trigger: flight ${e.flight} not found`);
     });
+    this.ev.on('GROUP_HUNT', (e) => {
+      const f = game.player.controller.feet;
+      for (const b of game.bots.values()) {
+        if (b.group !== e.group || !b.bot.alive || b.faction === 'friend') continue;
+        b.bot.hunter = true;
+        b.bot.ambush = false;
+        b.bot.alertTo([f[0], f[1] + 1.6, f[2]]);
+      }
+    });
     this.ev.on('SQUAD_ORDER', (e) => {
-      game.squadmates.order = e.order;
+      game.squadmates.setOrder(e.order);
+      if (e.pace) game.squadmates.pace = e.pace;
+      // điểm đến chỉ sống trong lệnh có `zone`; lệnh khác xoá (Quyết lại dẫn theo mục tiêu/người chơi)
+      const z = e.zone ? this.def.zones?.find((zz) => zz.id === e.zone) : undefined;
+      this.squadDest = z ? [z.center[0], this.groundY(z.center[0], z.center[2], z.center[1]), z.center[2]] : null;
+    });
+    this.ev.on('BOMBING', (e) => {
+      // quả bom rải đều dọc đoạn, lệch ngang ±18 m, thời điểm có jitter (seeded)
+      const dx = e.to[0] - e.from[0];
+      const dz = e.to[1] - e.from[1];
+      const l = Math.hypot(dx, dz) || 1;
+      const nx = -dz / l;
+      const nz = dx / l;
+      for (let i = 0; i < e.count; i++) {
+        const k = (i + this.rng.next() * 0.6) / e.count;
+        const side = (this.rng.next() - 0.5) * 36;
+        const t = this.simT + (e.delayMs + k * e.durationMs) / 1000;
+        this.bombs.push({ t, x: e.from[0] + dx * k + nx * side, z: e.from[1] + dz * k + nz * side, radius: e.radius, damage: e.damage });
+      }
+      this.bombs.sort((a, b) => a.t - b.t);
     });
     this.ev.on('INTERACTABLE', (e) => {
       const z = this.def.zones?.find((zz) => zz.id === e.zone);
@@ -112,7 +174,10 @@ export class MissionHost implements MissionWorld {
         this.flareNext = 1.5;
       }
     });
-    this.ev.on('CHECKPOINT_SAVED', (e) => this.save(e.checkpoint));
+    this.ev.on('CHECKPOINT_SAVED', (e) => {
+      this.save(e.checkpoint);
+      game.nightAct?.saveCheckpoint(e.checkpoint);
+    });
     this.ev.on('MISSION_COMPLETE', () => {
       game.hud.state.missionComplete = true;
     });
@@ -123,8 +188,17 @@ export class MissionHost implements MissionWorld {
     this.runtime.start();
   }
 
+  private groundY(x: number, z: number, fallback: number): number {
+    return this.game.terrain ? this.game.terrain.heightAt(x, z) : fallback;
+  }
+
   private setMarker(zoneId: string | null, key: string | null): void {
     this.objectiveMarkerKey = key;
+    this.markerOnLeader = zoneId === '@leader';
+    if (this.markerOnLeader) {
+      this.objectiveMarker = this.squadLeaderPosition();
+      return;
+    }
     if (!zoneId) {
       this.objectiveMarker = null;
       return;
@@ -139,10 +213,12 @@ export class MissionHost implements MissionWorld {
   }
 
   /** bark đồng đội: cue thoại ngoài graph (id sự kiện có số thứ tự → không bị dedupe) */
-  say(cueId: string, _speaker: string): boolean {
+  /** cue có speaker 'SQUAD' = ai trong tổ nói cũng được: dùng `speaker` truyền vào (AI-T1.5) */
+  say(cueId: string, speaker: string, vars?: Record<string, string | number>, bark = true): boolean {
     const cue = this.dialogue.cues.find((c) => c.cueId === cueId);
     if (!cue) return false;
-    this.ev.emit('RADIO', { cue: cue.cueId, speaker: cue.speaker, subtitleKey: cue.subtitleKey, durationMs: cue.durationMs, priority: cue.priority, interruptPolicy: cue.interruptPolicy, bus: cue.bus ?? 'dialogue' }, { id: `${this.def.id}:bark:${cueId}:${this.barkSeq++}` });
+    const who = cue.speaker === 'SQUAD' ? speaker : cue.speaker;
+    this.ev.emit('RADIO', { cue: cue.cueId, speaker: who, subtitleKey: cue.subtitleKey, durationMs: cue.durationMs, priority: cue.priority, interruptPolicy: cue.interruptPolicy, bus: cue.bus ?? 'dialogue', vars, bark }, { id: `${this.def.id}:bark:${cueId}:${this.barkSeq++}` });
     return true;
   }
 
@@ -151,6 +227,15 @@ export class MissionHost implements MissionWorld {
     const g = this.def.spawnGroups?.find((x) => x.id === groupId);
     if (!g) return { faction: 'enemy', nameKey: null, archetype: 'grunt', spawnName: null };
     return { faction: g.faction ?? (g.archetype === 'squad' ? 'friend' : 'enemy'), nameKey: g.names?.[index] ?? null, archetype: g.archetype, spawnName: g.spawns?.[index] ?? g.spawn };
+  }
+
+  /** tuyến của bot theo hành vi nhóm (M1-T2): giữ chỗ/phục = đứng tại chỗ; tuyến riêng `patrol`; mặc định marker quanh spawn */
+  private waypointsFor(groupId: string, pos: [number, number, number], base: [number, number, number], faction: 'enemy' | 'friend'): Array<[number, number, number]> | undefined {
+    const g = this.def.spawnGroups?.find((x) => x.id === groupId);
+    if (g?.behavior === 'ambush' || g?.behavior === 'hold') return [pos, [pos[0], pos[1], pos[2]]];
+    const route = g?.patrol?.map((n) => this.game.arena.botSpawns[n]).filter((p): p is [number, number, number] => !!p);
+    if (route && route.length >= 2) return route;
+    return this.patrolFor(faction, base);
   }
 
   /** tuyến tuần tra cho địch: cover marker trong 70 m quanh điểm spawn (thám báo quanh bãi bốc), không lang thang về waypoint level */
@@ -176,12 +261,40 @@ export class MissionHost implements MissionWorld {
       const own = !!this.game.arena.botSpawns[o.spawnName ?? ''] && o.spawnName !== spawnName;
       const a = (i / Math.max(1, count)) * Math.PI * 2;
       const pos: [number, number, number] = own || i === 0 ? [base[0], base[1], base[2]] : [base[0] + Math.cos(a) * 2.5, base[1], base[2] + Math.sin(a) * 2.5];
-      const b = this.game.spawnBot(id, groupId, pos, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.patrolFor(o.faction, base) });
+      const b = this.game.spawnBot(id, groupId, pos, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(groupId, pos, base, o.faction) });
       if (o.faction === 'friend') this.game.squadmates.add(b, i === 0 ? 'leader' : 'follower');
+      this.applyBehavior(groupId, b);
       this.spawned.add(id);
       ids.push(id);
     }
     return ids;
+  }
+
+  /** vị trí Quyết (tổ trưởng còn sống) — điều kiện squad_at, marker @leader */
+  squadLeaderPosition(): [number, number, number] | null {
+    const l = this.game.squadmates.leader();
+    if (!l) return null;
+    const p = l.bot.position;
+    return [p[0], p[1], p[2]];
+  }
+
+  /** hành vi nhóm địch (M1-T2): phục kích / săn */
+  private applyBehavior(groupId: string, b: import('@game/actors/botActor').BotActor): void {
+    const g = this.def.spawnGroups?.find((x) => x.id === groupId);
+    if (!g || !b.bot.alive) return;
+    if (g.behavior === 'ambush') b.bot.ambush = true;
+    else if (g.behavior === 'hunt') {
+      const p = this.game.player.controller.feet;
+      b.bot.hunter = true; // DV-083: bám người chơi tới cùng
+      b.bot.alertTo([p[0], p[1] + 1.6, p[2]]);
+    }
+  }
+
+  /** DV-084: tổng địch còn sống (trần quân tiếp viện) */
+  enemiesAlive(): number {
+    let n = 0;
+    for (const b of this.game.bots.values()) if (b.faction === 'enemy' && b.bot.alive) n++;
+    return n;
   }
 
   groupAlive(groupId: string): number {
@@ -201,7 +314,10 @@ export class MissionHost implements MissionWorld {
       actors.push({ id: a.id, group: a.group, position: [p.x, p.y, p.z], health: a.dummy.health, alive: a.dummy.alive });
     }
     const w = this.game.weapon.snapshot();
-    return { actors, player: this.game.player.snapshot(), inventory: { weapon: w.id, mag: w.mag, reserve: w.reserve }, doors: [] };
+    // checkpoint = tiếp tế lựu đạn tới số mang ban đầu (DV-074)
+    const gr = Math.max(this.game.playerGrenades, GRENADE.player.count);
+    this.game.playerGrenades = gr;
+    return { actors, player: this.game.player.snapshot(), inventory: { weapon: w.id, mag: w.mag, reserve: w.reserve, grenades: gr }, doors: [] };
   }
 
   restoreWorld(s: Pick<CheckpointSnapshot, 'actors' | 'player' | 'inventory' | 'doors'>): void {
@@ -230,7 +346,7 @@ export class MissionHost implements MissionWorld {
       if (!b) {
         const idx = Number(a.id.slice(a.group.length + 1));
         const o = this.spawnOpts(a.group, Number.isFinite(idx) ? idx % Math.max(1, this.def.spawnGroups?.find((x) => x.id === a.group)?.count ?? 1) : 0);
-        b = g.spawnBot(a.id, a.group, a.position, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype });
+        b = g.spawnBot(a.id, a.group, a.position, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(a.group, a.position, a.position, o.faction) });
         if (o.faction === 'friend') g.squadmates.add(b, idx === 0 ? 'leader' : 'follower');
         this.spawned.add(a.id);
       }
@@ -241,10 +357,19 @@ export class MissionHost implements MissionWorld {
       b.body.setEnabled(a.alive);
       b.body.setPosition(a.position[0], a.position[1], a.position[2]);
       b.dummy.group.position.set(a.position[0], a.position[1], a.position[2]);
+      if (a.alive && b.faction === 'enemy') this.applyBehavior(a.group, b);
+      // DV-085 đồng đội hy sinh theo kịch bản: về checkpoint trước lúc hy sinh thì người đó trở lại tổ, sau thì không
+      if (b.faction === 'friend') {
+        const inSquad = g.squadmates.list().includes(b);
+        if (a.alive && !inSquad) g.squadmates.add(b, b.nameKey === 'name.quyet' ? 'leader' : 'follower');
+        else if (!a.alive && inSquad) g.squadmates.remove(b.id);
+      }
     }
     // 3) player + inventory
     g.player.restore(s.player);
     g.weapon.restore({ mag: s.inventory.mag, reserve: s.inventory.reserve });
+    g.playerGrenades = s.inventory.grenades ?? GRENADE.player.count;
+    g.grenades.clear();
     g.fx.reset();
     this.subtitles.reset();
     g.hud.state.dead = false;
@@ -274,8 +399,42 @@ export class MissionHost implements MissionWorld {
     this.game.hud.state.objectiveKey = active ? active[0] : null;
     const act = active ? this.def.nodes.flatMap((n) => n.actions).find((x) => x.type === 'objective' && x.objectiveKey === active[0]) : undefined;
     this.setMarker(act?.marker ?? null, active ? active[0] : null);
+    this.bombs.length = 0;
+    this.battle?.clearPending();
+    this.objTimer = null;
+    this.reapplySquadOrder(saved.snapshot.node);
+    this.game.nightAct?.loadCheckpoint(saved.snapshot.checkpointId);
     this.checkpoints.loads++;
     return saved;
+  }
+
+  /**
+   * Lệnh tổ không nằm trong snapshot: đi theo graph từ startNode tới node được nạp, lấy squad_order cuối cùng (lệnh, nhịp, điểm
+   * đến) rồi áp lại — checkpoint giữa đoạn hành quân nạp lại vẫn đi nhịp hành quân tới đúng chỗ (M1-T2).
+   */
+  private reapplySquadOrder(nodeId: string): void {
+    let order: 'follow' | 'hold' = 'follow';
+    let pace: 'march' | 'normal' | 'assault' = 'normal';
+    let zone: string | undefined;
+    let id: string | null = this.def.startNode;
+    const seen = new Set<string>();
+    while (id && !seen.has(id)) {
+      seen.add(id);
+      const n = this.def.nodes.find((x) => x.id === id);
+      if (!n) break;
+      for (const a of n.actions) {
+        if (a.type !== 'squad_order') continue;
+        order = a.order ?? 'follow';
+        if (a.pace) pace = a.pace;
+        if (a.zone) zone = a.zone;
+      }
+      if (id === nodeId) break;
+      id = n.next;
+    }
+    this.game.squadmates.setOrder(order);
+    this.game.squadmates.pace = pace;
+    const z = zone ? this.def.zones?.find((zz) => zz.id === zone) : undefined;
+    this.squadDest = z ? [z.center[0], this.groundY(z.center[0], z.center[2], z.center[1]), z.center[2]] : null;
   }
 
   /** hash trạng thái hiện tại (không lưu) — cùng hàm với CheckpointStore.save */
@@ -285,10 +444,14 @@ export class MissionHost implements MissionWorld {
 
   /** sim tick */
   step(dt: number, interact: boolean, interactHeld = interact): void {
-    this.runtime.step(dt);
+    if (!this.paused) this.runtime.step(dt);
     this.subtitles.update(dt); // phụ đề chạy theo sim time (deterministic, không phụ thuộc render)
     this.stepInteractables(dt, interact, interactHeld);
     this.stepAmbientScript(dt);
+    this.battle?.update(dt);
+    if (this.objTimer !== null) this.objTimer = Math.max(0, this.objTimer - dt);
+    this.game.hud.state.objectiveTimer = this.objTimer;
+    if (this.markerOnLeader) this.objectiveMarker = this.squadLeaderPosition();
     // Tương tác relay (PLY-004 tối giản): prompt khi trong relay_zone và chưa cắt
     const z = this.def.zones?.find((zz) => zz.id === 'relay_zone');
     if (z) {
@@ -345,8 +508,20 @@ export class MissionHost implements MissionWorld {
     if (best.progress >= 1) this.finishInteract(best);
   }
 
-  /** pháo chuẩn bị + tiếng xích: theo sim time, seeded (rng fork) */
+  /** pháo chuẩn bị + tiếng xích + rải thảm: theo sim time, seeded (rng fork) */
   private stepAmbientScript(dt: number): void {
+    this.simT += dt;
+    while (this.bombs.length && this.bombs[0]!.t <= this.simT) {
+      const b = this.bombs.shift()!;
+      const y = this.groundY(b.x, b.z, 0);
+      this.game.explode([b.x, y, b.z], { radius: b.radius, damage: b.damage, shooter: 'air' });
+      this.battle?.afterBlast([b.x, y, b.z], 1.6); // DV-084: hố bom cháy âm ỉ, khói
+      // đất rung theo khoảng cách (B-52 cách hàng trăm mét vẫn rung cả rừng)
+      const f = this.game.player.controller.feet;
+      const d = Math.hypot(f[0] - b.x, f[2] - b.z);
+      this.game.player.rig.shakeAmp = Math.max(this.game.player.rig.shakeAmp, Math.min(0.9, 60 / Math.max(60, d)));
+      this.bombStats.dropped++;
+    }
     if (this.artyOn) {
       this.artyNext -= dt;
       if (this.artyNext <= 0) {
@@ -401,12 +576,19 @@ export class MissionHost implements MissionWorld {
     this.ev.emit('INTERACT_DONE', { id: it.id }, { id: `${this.def.id}:interact:${it.id}` });
   }
 
-  private setFlag(flag: string): void {
-    this.runtime.state.flags[flag] = true;
-    this.ev.emit('MISSION_FLAG', { flag, value: true }, { id: `${this.def.id}:flag:${flag}` });
+  /** đặt cờ nhiệm vụ từ ngoài graph (tương tác, hồi đêm DV-078): idempotent theo tên cờ */
+  setFlag(flag: string, value = true): void {
+    if (this.runtime.state.flags[flag] === value) return;
+    this.runtime.state.flags[flag] = value;
+    this.ev.emit('MISSION_FLAG', { flag, value }, { id: `${this.def.id}:flag:${flag}:${value ? 1 : 0}` });
   }
 
   reset(): void {
+    this.bombs.length = 0;
+    this.battle?.clearPending();
+    this.objTimer = null;
+    this.squadDest = null;
+    this.markerOnLeader = false;
     this.artyOn = false;
     this.flaresOn = false;
     this.tanksLeft = 0;
@@ -416,7 +598,6 @@ export class MissionHost implements MissionWorld {
     for (const id of this.spawned) this.game.despawnBot(id);
     this.spawned.clear();
     this.game.squadmates.clear();
-    this.game.squadmates.order = 'follow';
     this.setMarker(null, null);
     this.spawnCounter = 0;
     this.runtime.reset();

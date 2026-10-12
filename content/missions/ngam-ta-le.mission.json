@@ -1,0 +1,296 @@
+{
+  "$schema": "../schemas/mission.schema.json",
+  "id": "m1-ngam-ta-le",
+  "version": "0.1.0",
+  "seedPolicy": "fixed",
+  "seed": 1971,
+  "startNode": "n_intro",
+  "checkpoints": [
+    "cp0",
+    "cpA"
+  ],
+  "localization": "vi",
+  "zones": [
+    {
+      "id": "spawn",
+      "center": [
+        -252.1,
+        0,
+        641.8
+      ],
+      "radius": 10
+    },
+    {
+      "id": "thu",
+      "center": [
+        -181.8,
+        0,
+        697.3
+      ],
+      "radius": 5
+    },
+    {
+      "id": "ford",
+      "center": [
+        -180,
+        0,
+        704
+      ],
+      "radius": 8
+    },
+    {
+      "id": "gun",
+      "center": [
+        -221.7,
+        0,
+        682.1
+      ],
+      "radius": 3
+    },
+    {
+      "id": "depot",
+      "center": [
+        -201.9,
+        0,
+        694.8
+      ],
+      "radius": 6
+    }
+  ],
+  "spawnGroups": [
+    {
+      "id": "squad",
+      "archetype": "squad",
+      "faction": "friend",
+      "count": 4,
+      "spawn": "sq_quyet",
+      "spawns": [
+        "sq_quyet",
+        "sq_long",
+        "sq_hoan",
+        "sq_khang"
+      ],
+      "names": [
+        "name.quyet",
+        "name.long",
+        "name.hoan",
+        "name.khang"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_intro",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "spawn",
+          "group": "squad"
+        },
+        {
+          "type": "squad_order",
+          "order": "follow"
+        },
+        {
+          "type": "radio",
+          "cue": "N01"
+        },
+        {
+          "type": "radio",
+          "cue": "N02"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_n_thu",
+          "marker": "thu"
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cp0"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": "n_thu",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_thu",
+      "type": "objective",
+      "enterConditions": [
+        {
+          "type": "zone_enter",
+          "zone": "thu"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_n_thu"
+        },
+        {
+          "type": "radio",
+          "cue": "N03"
+        },
+        {
+          "type": "radio",
+          "cue": "N04"
+        },
+        {
+          "type": "radio",
+          "cue": "N05"
+        },
+        {
+          "type": "radio",
+          "cue": "N06"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_n_gun",
+          "marker": "gun"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "gun_manned",
+          "value": true
+        }
+      ],
+      "next": "n_go",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_go",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_n_gun"
+        },
+        {
+          "type": "radio",
+          "cue": "N07"
+        },
+        {
+          "type": "set_flag",
+          "flag": "convoy_go",
+          "value": true
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_n_convoy"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "active_ms",
+          "ms": 16000
+        }
+      ],
+      "next": "n_air",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_air",
+      "type": "encounter",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "set_flag",
+          "flag": "gunship",
+          "value": true
+        },
+        {
+          "type": "checkpoint",
+          "checkpoint": "cpA"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "convoy_done",
+          "value": true
+        }
+      ],
+      "next": "n_dawn",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_dawn",
+      "type": "script",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_n_convoy"
+        },
+        {
+          "type": "objective",
+          "objectiveKey": "obj_n_dawn"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "flag",
+          "flag": "night_over",
+          "value": true
+        }
+      ],
+      "next": "n_done",
+      "timeoutMs": 0,
+      "fallbackNext": null
+    },
+    {
+      "id": "n_done",
+      "type": "terminal",
+      "enterConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "actions": [
+        {
+          "type": "objective_complete",
+          "objectiveKey": "obj_n_dawn"
+        },
+        {
+          "type": "mission_complete"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "always"
+        }
+      ],
+      "next": null,
+      "timeoutMs": 0,
+      "fallbackNext": null
+    }
+  ]
+}

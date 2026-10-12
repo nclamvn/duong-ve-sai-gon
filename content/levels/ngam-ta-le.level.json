@@ -1,0 +1,1686 @@
+{
+  "$schema": "../schemas/terrain-level.schema.json",
+  "id": "ngam-ta-le",
+  "name": "Ngầm Ta Lê — đêm 20 rạng 21/1/1971",
+  "terrain": {
+    "id": "truong-son-a",
+    "yOffset": 691.2,
+    "navRect": {
+      "x": -192,
+      "z": 512,
+      "w": 512,
+      "h": 512
+    },
+    "wetness": 0.25,
+    "tileMeters": 4,
+    "navFile": "nav-ngam-ta-le.bin"
+  },
+  "camera": {
+    "near": 0.25,
+    "far": 2600
+  },
+  "sky": {
+    "$comment": "Đêm 20 rạng 21/1/1971, ~01:30, trăng hạ tuần mọc sau nửa đêm thấp phía đông [KC pha trăng]. HDRI dikhololo_night (CC0, sao, không đèn) như M2 R1; sương thung lũng dày hơn đồi trọc. Không climate (preset m1-jan-dawn là rạng sáng): cảnh âm đêm dùng `ambience`.",
+    "hdri": "dikhololo_night",
+    "res": "2k",
+    "envIntensity": 0.1,
+    "skyIntensity": 0.2,
+    "sun": {
+      "azimuthDeg": 112,
+      "elevationDeg": 24,
+      "color": 10466520,
+      "intensity": 0.22
+    },
+    "hemi": {
+      "sky": 1581626,
+      "ground": 723977,
+      "intensity": 0.22
+    },
+    "fog": {
+      "color": 527378,
+      "density": 0.0034
+    },
+    "csm": {
+      "cascades": 3,
+      "maxFar": 110,
+      "mapSize": 2048
+    }
+  },
+  "ambience": {
+    "localTime": "01:30",
+    "month": 1
+  },
+  "layers": {
+    "leaves": "forest_leaves_02",
+    "mud": "red_laterite_soil_stones",
+    "rock": "mossy_rock",
+    "grass": "aerial_grass_rock"
+  },
+  "textures": [
+    "forest_leaves_02",
+    "red_laterite_soil_stones",
+    "mossy_rock",
+    "aerial_grass_rock"
+  ],
+  "models": [
+    "prop_sandbag_05",
+    "prop_sandbag_02",
+    "ammo_box",
+    "barrel_03",
+    "metal_jerrycan_green",
+    "wooden_military_crate",
+    "old_military_crate"
+  ],
+  "props": [
+    {
+      "id": "sandbag_0",
+      "kind": "sandbag",
+      "position": [
+        -224.4,
+        682.8
+      ],
+      "yaw": -1.3
+    },
+    {
+      "id": "sandbag_1",
+      "kind": "sandbag",
+      "position": [
+        -222.4,
+        684.8
+      ],
+      "yaw": -0.3
+    },
+    {
+      "id": "sandbag_2",
+      "kind": "sandbag",
+      "position": [
+        -219.7,
+        684.1
+      ],
+      "yaw": 0.8
+    },
+    {
+      "id": "sandbag_3",
+      "kind": "sandbag",
+      "position": [
+        -219,
+        681.4
+      ],
+      "yaw": 1.8
+    },
+    {
+      "id": "sandbag_4",
+      "kind": "sandbag",
+      "position": [
+        -221,
+        679.4
+      ],
+      "yaw": 2.9
+    },
+    {
+      "id": "ammo_5",
+      "kind": "ammo",
+      "position": [
+        -222,
+        680.1
+      ],
+      "yaw": 0.4
+    },
+    {
+      "id": "ammo_6",
+      "kind": "ammo",
+      "position": [
+        -222.4,
+        680.1
+      ],
+      "yaw": 1.1
+    },
+    {
+      "id": "drum_7",
+      "kind": "drum",
+      "position": [
+        -201.9,
+        694.8
+      ],
+      "yaw": 0.8
+    },
+    {
+      "id": "drum_8",
+      "kind": "drum",
+      "position": [
+        -201.5,
+        695.4
+      ],
+      "yaw": 1
+    },
+    {
+      "id": "drum_9",
+      "kind": "drum",
+      "position": [
+        -200.8,
+        695.7
+      ],
+      "yaw": 1.2
+    },
+    {
+      "id": "drum_10",
+      "kind": "drum",
+      "position": [
+        -202.2,
+        695.6
+      ],
+      "yaw": 0.9
+    },
+    {
+      "id": "jerrycan_11",
+      "kind": "jerrycan",
+      "position": [
+        -200.6,
+        696.7
+      ],
+      "yaw": 1.5
+    },
+    {
+      "id": "jerrycan_12",
+      "kind": "jerrycan",
+      "position": [
+        -200.1,
+        696.7
+      ],
+      "yaw": 1.6
+    },
+    {
+      "id": "chest_13",
+      "kind": "chest",
+      "position": [
+        -203.2,
+        693.9
+      ],
+      "yaw": 0.3
+    },
+    {
+      "id": "chest_14",
+      "kind": "chest",
+      "position": [
+        -203.8,
+        694.3
+      ],
+      "yaw": 0.3
+    },
+    {
+      "id": "chest_15",
+      "kind": "chest",
+      "position": [
+        -204.5,
+        692.9
+      ],
+      "yaw": -0.2
+    },
+    {
+      "id": "crate_16",
+      "kind": "crate",
+      "position": [
+        -204.6,
+        695.5
+      ],
+      "yaw": 0.4
+    }
+  ],
+  "roads": [
+    {
+      "id": "road20",
+      "$comment": "đường xe Đường 20 qua ngầm (game) — đoàn xe chạy theo; rừng chừa dải trống, mặt đường đất xới",
+      "pts": [
+        [
+          -300,
+          584
+        ],
+        [
+          -180,
+          704
+        ],
+        [
+          -60,
+          824
+        ]
+      ],
+      "halfWidth": 2.6
+    }
+  ],
+  "vegetation": {
+    "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác. DV-059: thêm lớp nền rừng CC0 Poly Haven (scan): dương xỉ, lá rộng thay lá dong ở chỗ trũng, cành khô, thân đổ phủ rêu (không collider: capsule đứng không khớp thân nằm), gốc cây, đá phủ rêu trên sườn dốc, cụm rễ trồi quanh cây vượt tán. DV-060: rừng dày và ngổn ngang hơn (tầng thấp, cành gãy, gốc, khúc gỗ tăng 2–10 lần); bờ khe rậm dương xỉ, ráy, lá rộng, tre; lòng khe đá cuội; bờ khe và sườn dốc có đá tảng, vách đá lộ; quanh hố bom cây đổ, cành gãy, gốc cụt, cỏ mọc lại; cây tán tránh lòng khe và hố (luật near/avoid theo features.json). Ngân sách draw (≤ 140): gỡ Monstera (cây châu Mỹ, registry), lá rộng bờ khe và gốc cụt quanh hố (gộp vào luật chung). Thực vật có collider tránh đường mòn nhiệm vụ 3 m (spawn → waypoint), như đường mòn được phát quang. DV-063: nền rừng quanh chỗ xuất phát và hai bên đường mòn dày hơn bằng `boost` (lưới phụ cùng batch, không thêm draw): thảm dương xỉ, cành khô, lá rộng, thân đổ, đá rêu, đá tảng, rễ, gốc cây; đất đỏ chỉ lộ ở lòng hố, bờ khe và đường mòn. DV-064: cây mua trên Fab (Standard License, gói .dvpak): Shorea roxburghii thay Tree GN cho cả tầng vượt tán và tán chính; thân đổ 7 m Megascans thay thân đổ cũ; gốc dầu rái gãy và gốc si rễ bạnh thay hai luật gốc cây; luật dương xỉ cũ dùng chung GLB ph_fern. DV-078: cùng rừng M1 + dải trống dọc đường xe (level roads) và khoảng trống ụ 12,7 (bắn máy bay phải thấy trời).",
+    "seed": 1971,
+    "cellM": 64,
+    "wind": 0.35,
+    "rect": {
+      "x": -192,
+      "z": 512,
+      "w": 1024,
+      "h": 1024
+    },
+    "species": [
+      {
+        "id": "tree_gn",
+        "perHa": 14,
+        "slope": [
+          0,
+          0.35
+        ],
+        "height": [
+          0,
+          0.82
+        ],
+        "scale": [
+          0.85,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.3
+        },
+        "lod": [
+          26,
+          85,
+          170,
+          600
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.45,
+          "height": 6
+        },
+        "sink": [
+          0.35,
+          2
+        ],
+        "avoid": [
+          {
+            "feature": "stream",
+            "within": 3
+          },
+          {
+            "feature": "crater",
+            "within": 8
+          },
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ],
+        "asset": "shorea"
+      },
+      {
+        "id": "tree_canopy",
+        "asset": "shorea",
+        "perHa": 140,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.46,
+          0.62
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.22
+        },
+        "lod": [
+          18,
+          60,
+          130,
+          500
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.3,
+          "height": 5
+        },
+        "sink": [
+          0.25,
+          1.5
+        ],
+        "avoid": [
+          {
+            "feature": "stream",
+            "within": 2
+          },
+          {
+            "feature": "crater",
+            "within": 6
+          },
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "palm",
+        "perHa": 12,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.8,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.006,
+          "max": 0.4
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          35,
+          90,
+          150,
+          450
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.2,
+          "height": 3
+        },
+        "sink": [
+          0.1,
+          0.3
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "bamboo",
+        "perHa": 12,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.85,
+          1.15
+        ],
+        "noise": {
+          "scale": 0.008,
+          "min": 0.45,
+          "offset": 120
+        },
+        "clump": {
+          "count": [
+            2,
+            4
+          ],
+          "radius": 2.5
+        },
+        "lod": [
+          35,
+          90,
+          200,
+          400
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.35,
+          "height": 4
+        },
+        "sink": [
+          0.15,
+          1.2
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "banana",
+        "perHa": 60,
+        "slope": [
+          0,
+          0.45
+        ],
+        "height": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.006,
+          "max": 0.36
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          30,
+          70,
+          130,
+          130
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 36,
+            "min": 4
+          }
+        ]
+      },
+      {
+        "id": "elephant_ear",
+        "perHa": 160,
+        "slope": [
+          0,
+          0.45
+        ],
+        "height": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.7,
+          1.2
+        ],
+        "noise": {
+          "scale": 0.015,
+          "min": 0.4,
+          "offset": 700
+        },
+        "lod": [
+          12,
+          30,
+          70,
+          70
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 25,
+            "perHa": 448
+          }
+        ]
+      },
+      {
+        "id": "fern",
+        "perHa": 800,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.7,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.02,
+          "min": 0.3,
+          "offset": 900
+        },
+        "lod": [
+          8,
+          20,
+          48,
+          48
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.5
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 22,
+            "perHa": 1100
+          }
+        ],
+        "asset": "ph_fern"
+      },
+      {
+        "id": "fern_gap",
+        "asset": "ph_fern",
+        "perHa": 900,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.35
+        ],
+        "noise": {
+          "scale": 0.006,
+          "max": 0.34
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          8,
+          20,
+          48,
+          48
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.5
+        ]
+      },
+      {
+        "id": "fern_grass",
+        "perHa": 900,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "noise": {
+          "scale": 0.025,
+          "min": 0.25,
+          "offset": 1300
+        },
+        "lod": [
+          12,
+          26,
+          55,
+          55
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 20,
+            "perHa": 1400
+          }
+        ]
+      },
+      {
+        "id": "grass",
+        "perHa": 22000,
+        "slope": [
+          0,
+          0.65
+        ],
+        "scale": [
+          0.75,
+          1.25
+        ],
+        "noise": {
+          "scale": 0.006,
+          "max": 0.34
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          14,
+          26,
+          42,
+          42
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 640,
+          "h": 640
+        },
+        "sink": [
+          0.04,
+          0.4
+        ]
+      },
+      {
+        "id": "litter",
+        "perHa": 9000,
+        "slope": [
+          0,
+          0.75
+        ],
+        "scale": [
+          0.8,
+          1.35
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.24
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          10,
+          20,
+          32,
+          32
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 640,
+          "h": 640
+        },
+        "sink": [
+          -0.012,
+          0
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 0.7
+          }
+        ]
+      },
+      {
+        "id": "ph_fern",
+        "perHa": 1300,
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "noise": {
+          "scale": 0.018,
+          "min": 0.26,
+          "offset": 2100
+        },
+        "lod": [
+          8,
+          20,
+          48,
+          48
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 1700
+          }
+        ]
+      },
+      {
+        "id": "ph_calathea",
+        "perHa": 320,
+        "slope": [
+          0,
+          0.45
+        ],
+        "height": [
+          0,
+          0.55
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.02,
+          "min": 0.42,
+          "offset": 2500
+        },
+        "lod": [
+          10,
+          22,
+          45,
+          45
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.02,
+          0.3
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 25,
+            "perHa": 520
+          }
+        ]
+      },
+      {
+        "id": "ph_branches",
+        "perHa": 1200,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "lod": [
+          6,
+          15,
+          32,
+          32
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.02,
+          0.2
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 32,
+            "perHa": 1800
+          }
+        ]
+      },
+      {
+        "id": "ph_log",
+        "perHa": 26,
+        "slope": [
+          0,
+          0.3
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "lod": [
+          12,
+          35,
+          90,
+          90
+        ],
+        "cast": true,
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.15,
+          0.6
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 28,
+            "min": 2
+          }
+        ],
+        "asset": "fallen_tree"
+      },
+      {
+        "id": "ph_stump",
+        "perHa": 6,
+        "slope": [
+          0,
+          0.45
+        ],
+        "scale": [
+          0.8,
+          1.25
+        ],
+        "lod": [
+          12,
+          35,
+          90,
+          90
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.85,
+          "height": 2.5
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.5
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 4
+          }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 10,
+            "min": 6
+          }
+        ],
+        "asset": "diptero"
+      },
+      {
+        "id": "ph_rock_moss",
+        "perHa": 10,
+        "slope": [
+          0.12,
+          0.75
+        ],
+        "scale": [
+          0.5,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.01,
+          "min": 0.4,
+          "offset": 2900
+        },
+        "lod": [
+          25,
+          60,
+          110,
+          110
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.6,
+          "height": 1
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.2,
+          0.8
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 30,
+            "perHa": 40,
+            "min": 4
+          }
+        ]
+      },
+      {
+        "id": "ph_roots",
+        "perHa": 10,
+        "slope": [
+          0,
+          0.35
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.34
+        },
+        "noiseId": "tree_gn",
+        "lod": [
+          12,
+          35,
+          90,
+          90
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.8,
+          "height": 0.8
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.3,
+          0.8
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 26,
+            "perHa": 16,
+            "min": 4
+          }
+        ]
+      },
+      {
+        "id": "fern_bank",
+        "asset": "ph_fern",
+        "perHa": 2600,
+        "near": {
+          "feature": "stream",
+          "min": 0.2,
+          "max": 7
+        },
+        "slope": [
+          0,
+          0.9
+        ],
+        "scale": [
+          0.9,
+          1.6
+        ],
+        "lod": [
+          8,
+          20,
+          48,
+          48
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ]
+      },
+      {
+        "id": "ear_bank",
+        "asset": "elephant_ear",
+        "perHa": 900,
+        "near": {
+          "feature": "stream",
+          "min": 0.3,
+          "max": 9
+        },
+        "slope": [
+          0,
+          0.8
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "lod": [
+          12,
+          30,
+          70,
+          70
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.03,
+          0.4
+        ]
+      },
+      {
+        "id": "bamboo_bank",
+        "asset": "bamboo",
+        "perHa": 45,
+        "near": {
+          "feature": "stream",
+          "min": 1.5,
+          "max": 14
+        },
+        "slope": [
+          0,
+          0.6
+        ],
+        "scale": [
+          0.85,
+          1.15
+        ],
+        "clump": {
+          "count": [
+            3,
+            6
+          ],
+          "radius": 2.5
+        },
+        "lod": [
+          35,
+          90,
+          200,
+          400
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.35,
+          "height": 4
+        },
+        "sink": [
+          0.15,
+          1.2
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "pebbles_bed",
+        "asset": "ph_pebbles",
+        "perHa": 5200,
+        "near": {
+          "feature": "stream",
+          "min": -4,
+          "max": 0.8
+        },
+        "slope": [
+          0,
+          1
+        ],
+        "scale": [
+          0.4,
+          1.6
+        ],
+        "lod": [
+          18,
+          45,
+          90,
+          90
+        ],
+        "cast": true,
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.12,
+          0.3
+        ],
+        "inWater": true
+      },
+      {
+        "id": "rock_bank",
+        "asset": "ph_rock_moss",
+        "perHa": 160,
+        "near": {
+          "feature": "stream",
+          "min": -1,
+          "max": 6
+        },
+        "slope": [
+          0,
+          1
+        ],
+        "scale": [
+          0.6,
+          2
+        ],
+        "lod": [
+          25,
+          60,
+          110,
+          110
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.8,
+          "height": 1.2
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.25,
+          0.6
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "rockface_bank",
+        "asset": "ph_rockface",
+        "perHa": 30,
+        "near": {
+          "feature": "stream",
+          "min": 1,
+          "max": 14
+        },
+        "slope": [
+          0.05,
+          1
+        ],
+        "scale": [
+          0.5,
+          1.1
+        ],
+        "lod": [
+          40,
+          100,
+          180,
+          180
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 2.4,
+          "height": 3
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.8,
+          1.5
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "boulder",
+        "asset": "ph_rock_moss",
+        "perHa": 16,
+        "slope": [
+          0.08,
+          0.85
+        ],
+        "scale": [
+          1.8,
+          3.4
+        ],
+        "noise": {
+          "scale": 0.012,
+          "min": 0.35,
+          "offset": 3300
+        },
+        "lod": [
+          40,
+          100,
+          180,
+          180
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 2,
+          "height": 2.6
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.5,
+          1.2
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ],
+        "boost": [
+          {
+            "feature": "trail",
+            "max": 45,
+            "perHa": 12,
+            "min": 6
+          }
+        ]
+      },
+      {
+        "id": "rockface",
+        "asset": "ph_rockface",
+        "perHa": 4,
+        "slope": [
+          0.2,
+          1
+        ],
+        "scale": [
+          0.6,
+          1.4
+        ],
+        "lod": [
+          40,
+          100,
+          180,
+          180
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 3,
+          "height": 4
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          1,
+          2
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 3
+          }
+        ]
+      },
+      {
+        "id": "ph_stump2",
+        "perHa": 8,
+        "slope": [
+          0,
+          0.5
+        ],
+        "scale": [
+          0.8,
+          1.3
+        ],
+        "lod": [
+          12,
+          35,
+          90,
+          90
+        ],
+        "cast": true,
+        "collider": {
+          "radius": 0.65,
+          "height": 2
+        },
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.05,
+          0.5
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 4
+          }
+        ],
+        "asset": "ficus_trunk"
+      },
+      {
+        "id": "crater_logs",
+        "asset": "fallen_tree",
+        "perHa": 110,
+        "near": {
+          "feature": "crater",
+          "min": 0.5,
+          "max": 9
+        },
+        "slope": [
+          0,
+          0.7
+        ],
+        "scale": [
+          0.8,
+          1.4
+        ],
+        "lod": [
+          12,
+          35,
+          90,
+          90
+        ],
+        "cast": true,
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.15,
+          0.6
+        ]
+      },
+      {
+        "id": "crater_branches",
+        "asset": "ph_branches",
+        "perHa": 1600,
+        "near": {
+          "feature": "crater",
+          "min": 0,
+          "max": 11
+        },
+        "slope": [
+          0,
+          0.9
+        ],
+        "scale": [
+          0.9,
+          1.6
+        ],
+        "lod": [
+          6,
+          15,
+          32,
+          32
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 832,
+          "h": 832
+        },
+        "sink": [
+          0.02,
+          0.2
+        ]
+      },
+      {
+        "id": "crater_grass",
+        "asset": "grass",
+        "perHa": 5200,
+        "near": {
+          "feature": "crater",
+          "min": 0.3,
+          "max": 12
+        },
+        "slope": [
+          0,
+          0.9
+        ],
+        "scale": [
+          0.9,
+          1.5
+        ],
+        "lod": [
+          14,
+          26,
+          42,
+          42
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 640,
+          "h": 640
+        },
+        "sink": [
+          0.04,
+          0.4
+        ]
+      }
+    ],
+    "clear": [
+      {
+        "pts": [
+          [
+            -221.7,
+            682.1
+          ],
+          [
+            -221.7,
+            682.1
+          ]
+        ],
+        "within": 11,
+        "withinLow": 3.5
+      }
+    ]
+  },
+  "fx": [
+    {
+      "$comment": "xác xe cháy âm ỉ từ đêm trước, bờ xa",
+      "kind": "fire",
+      "position": [
+        -139.7,
+        731.6
+      ],
+      "dy": 0.4,
+      "scale": 0.8
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -139.7,
+        731.6
+      ],
+      "dy": 0,
+      "scale": 2,
+      "height": 45,
+      "color": 1315344,
+      "lit": 0.12
+    },
+    {
+      "kind": "embers",
+      "position": [
+        -139.7,
+        731.6
+      ],
+      "dy": 1,
+      "scale": 0.7
+    },
+    {
+      "$comment": "cột khói bom xa (B-52 rải chiều qua)",
+      "kind": "smoke",
+      "position": [
+        -560,
+        170
+      ],
+      "scale": 6,
+      "height": 300,
+      "color": 921102,
+      "lit": 0.1
+    }
+  ],
+  "playerSpawn": [
+    -252.1,
+    641.8
+  ],
+  "playerYaw": -2.4,
+  "botSpawns": {
+    "bot_a": [
+      -242.2,
+      653.1
+    ],
+    "sq_quyet": [
+      -247.2,
+      643.9
+    ],
+    "sq_long": [
+      -251.4,
+      645.3
+    ],
+    "sq_dat": [
+      -255.7,
+      642.5
+    ],
+    "sq_hoan": [
+      -253.9,
+      637.9
+    ],
+    "sq_khang": [
+      -257.1,
+      638.2
+    ]
+  },
+  "waypoints": [
+    [
+      -240.8,
+      651.7
+    ],
+    [
+      -226.7,
+      665.8
+    ],
+    [
+      -213.9,
+      681.4
+    ]
+  ],
+  "zones": {
+    "spawn": {
+      "center": [
+        -252.1,
+        641.8
+      ],
+      "radius": 10
+    },
+    "thu": {
+      "center": [
+        -181.8,
+        697.3
+      ],
+      "radius": 5
+    },
+    "ford": {
+      "center": [
+        -180,
+        704
+      ],
+      "radius": 8
+    },
+    "gun": {
+      "center": [
+        -221.7,
+        682.1
+      ],
+      "radius": 3
+    },
+    "depot": {
+      "center": [
+        -201.9,
+        694.8
+      ],
+      "radius": 6
+    }
+  },
+  "coverMarkers": [
+    {
+      "id": "bank_0",
+      "position": [
+        -194.1,
+        698.3
+      ],
+      "facing": [
+        0.7,
+        0,
+        0.7
+      ]
+    },
+    {
+      "id": "bank_1",
+      "position": [
+        -186.4,
+        687.7
+      ],
+      "facing": [
+        0.7,
+        0,
+        0.7
+      ]
+    },
+    {
+      "id": "gun_0",
+      "position": [
+        -221.7,
+        679.3
+      ],
+      "facing": [
+        0.7,
+        0,
+        0.7
+      ]
+    }
+  ],
+  "nextLevel": "diem-cao-31"
+}

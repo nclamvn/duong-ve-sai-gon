@@ -19,3 +19,10 @@ out/
 
 # gói đồng bộ sandbox → Mac (không vào git)
 zz-parked/
+.scratch/
+
+# khoá dịch vụ cục bộ (ElevenLabs...) — không commit
+.env.local
+.env.*.local
+# gói tạm chuyển file giữa máy và sandbox của Claude
+.transfer/

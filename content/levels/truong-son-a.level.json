@@ -570,6 +570,45 @@
         ]
       },
       {
+        "id": "litter",
+        "perHa": 9000,
+        "slope": [
+          0,
+          0.75
+        ],
+        "scale": [
+          0.8,
+          1.35
+        ],
+        "noise": {
+          "scale": 0.006,
+          "min": 0.24
+        },
+        "noiseId": "tree_canopy",
+        "lod": [
+          10,
+          20,
+          32,
+          32
+        ],
+        "rect": {
+          "x": -192,
+          "z": 512,
+          "w": 640,
+          "h": 640
+        },
+        "sink": [
+          -0.012,
+          0
+        ],
+        "avoid": [
+          {
+            "feature": "trail",
+            "within": 0.7
+          }
+        ]
+      },
+      {
         "id": "ph_fern",
         "perHa": 1300,
         "slope": [
@@ -796,7 +835,7 @@
           110,
           110
         ],
-        "cast": true,
+        "cast": false,
         "collider": {
           "radius": 0.6,
           "height": 1.0
@@ -848,7 +887,7 @@
           90,
           90
         ],
-        "cast": true,
+        "cast": false,
         "collider": {
           "radius": 0.8,
           "height": 0.8
@@ -1015,7 +1054,7 @@
           90,
           90
         ],
-        "cast": true,
+        "cast": false,
         "rect": {
           "x": -192,
           "z": 512,
@@ -1051,7 +1090,7 @@
           110,
           110
         ],
-        "cast": true,
+        "cast": false,
         "collider": {
           "radius": 0.8,
           "height": 1.2
@@ -1274,7 +1313,7 @@
           90,
           90
         ],
-        "cast": true,
+        "cast": false,
         "rect": {
           "x": -192,
           "z": 512,
@@ -1419,7 +1458,19 @@
     }
   ],
   "post": {
-    "$comment": "DV-063: hậu kỳ điện ảnh. Tia nắng xuyên kẽ tán lúc bình minh (mặt trời thấp, sương), màu phim nhựa 35 mm thập niên 70: bóng xanh rêu lạnh, sáng vàng ấm, xanh lá bớt chói, đen hơi nâng.",
+    "$comment": "DV-063: hậu kỳ điện ảnh. Tia nắng xuyên kẽ tán lúc bình minh (mặt trời thấp, sương), màu phim nhựa 35 mm thập niên 70: bóng xanh rêu lạnh, sáng vàng ấm, xanh lá bớt chói, đen hơi nâng. DV-080: tia nắng thể tích xuyên tán qua sương (cả khi mặt trời ngoài khung hình). DV-081: sương sát đất rạng sáng bám địa hình, trôi chậm theo gió. DV-086: bỏ hạt phim (sạn), sương sát đất loãng hơn ~3 lần (0,035 → 0,012/m: ở 30 m còn thấy 70 % thay vì 35 %), đen không nâng (lift 0), tương phản 0,45 — ảnh trong, bớt đục. Tia nắng thể tích 3 → 1,8; tia nắng màn hình (shafts) không cộng chồng khi đã có tia thể tích (hai lớp cộng sáng làm cả ảnh phủ sữa).",
+    "volumetric": {
+      "intensity": 1.8,
+      "maxDist": 36,
+      "canopyHeight": 18,
+      "anisotropy": 0.4,
+      "mist": {
+        "density": 0.012,
+        "height": 1.8,
+        "speed": 0.5,
+        "scale": 24
+      }
+    },
     "shafts": {
       "intensity": 1.2,
       "samples": 28,
@@ -1428,8 +1479,8 @@
       "maxElevationDeg": 30
     },
     "grade": {
-      "lift": 0.03,
-      "contrast": 0.38,
+      "lift": 0.0,
+      "contrast": 0.45,
       "saturation": 0.88,
       "greenDesat": 0.32,
       "shadowTint": [
@@ -1445,7 +1496,7 @@
       "split": 0.24,
       "exposure": 1.0
     },
-    "grain": 0.1,
+    "grain": 0,
     "vignette": 0.38
   },
   "airTraffic": {
@@ -1591,22 +1642,22 @@
     ]
   },
   "playerSpawn": [
-    -134,
-    580
+    -68,
+    594
   ],
-  "playerYaw": 0.6,
+  "playerYaw": -1.5708,
   "botSpawns": {
     "bot_a": [
       -170,
       540
     ],
     "sq_quyet": [
-      -130,
-      574
+      -62,
+      590
     ],
-    "sq_hai": [
-      -138,
-      574
+    "sq_long": [
+      -72,
+      600
     ],
     "rc1_a": [
       -330,
@@ -1631,6 +1682,330 @@
     "rc2_c": [
       -250,
       286
+    ],
+    "sq_dat": [
+      -64,
+      600
+    ],
+    "sq_hoan": [
+      -70,
+      588
+    ],
+    "sq_khang": [
+      -75,
+      594
+    ],
+    "f2a": [
+      -215,
+      385
+    ],
+    "f2b": [
+      -222,
+      396
+    ],
+    "f2c": [
+      -208,
+      372
+    ],
+    "f2d": [
+      -228,
+      408
+    ],
+    "f2e": [
+      -200,
+      364
+    ],
+    "f2f": [
+      -234,
+      386
+    ],
+    "f3a": [
+      -330,
+      425
+    ],
+    "f3b": [
+      -322,
+      432
+    ],
+    "f3c": [
+      -338,
+      415
+    ],
+    "f3d": [
+      -315,
+      420
+    ],
+    "f3e": [
+      -345,
+      372
+    ],
+    "f3f": [
+      -352,
+      380
+    ],
+    "f3g": [
+      -300,
+      470
+    ],
+    "f3h": [
+      -292,
+      462
+    ],
+    "lza": [
+      -280,
+      300
+    ],
+    "lzb": [
+      -305,
+      298
+    ],
+    "lzc": [
+      -292,
+      320
+    ],
+    "lzd": [
+      -270,
+      315
+    ],
+    "lze": [
+      -312,
+      315
+    ],
+    "lzf": [
+      -290,
+      288
+    ],
+    "lzg": [
+      -332,
+      268
+    ],
+    "lzh": [
+      -322,
+      262
+    ],
+    "lzi": [
+      -262,
+      268
+    ],
+    "lzj": [
+      -250,
+      276
+    ],
+    "a1a": [
+      -24,
+      596
+    ],
+    "a1b": [
+      -19,
+      606
+    ],
+    "a1c": [
+      -26,
+      614
+    ],
+    "a1d": [
+      -16,
+      590
+    ],
+    "a1e": [
+      -14,
+      604
+    ],
+    "a1f": [
+      -18,
+      620
+    ],
+    "a1g": [
+      -62,
+      552
+    ],
+    "a1h": [
+      -56,
+      558
+    ],
+    "a1i": [
+      -68,
+      548
+    ],
+    "ch1": [
+      -14,
+      478
+    ],
+    "ch2": [
+      -6,
+      472
+    ],
+    "ch3": [
+      -20,
+      486
+    ],
+    "ch4": [
+      -2,
+      482
+    ],
+    "ch5": [
+      -11,
+      491
+    ],
+    "ch6": [
+      -16,
+      468
+    ],
+    "cs1": [
+      -30,
+      455
+    ],
+    "cs2": [
+      -26,
+      446
+    ],
+    "cs3": [
+      -34,
+      462
+    ],
+    "dg1": [
+      -4,
+      432
+    ],
+    "dg2": [
+      -10,
+      436
+    ],
+    "dg3": [
+      -8,
+      426
+    ],
+    "dg4": [
+      3,
+      430
+    ],
+    "dg5": [
+      -2,
+      444
+    ],
+    "st1": [
+      -96,
+      430
+    ],
+    "st2": [
+      -90,
+      438
+    ],
+    "st3": [
+      -100,
+      422
+    ],
+    "st4": [
+      -86,
+      426
+    ],
+    "st5": [
+      -104,
+      436
+    ],
+    "st6": [
+      -92,
+      418
+    ],
+    "cbb1": [
+      -56,
+      359
+    ],
+    "cbb2": [
+      -44,
+      352
+    ],
+    "cbb3": [
+      -60,
+      362
+    ],
+    "cbb4": [
+      -49,
+      365
+    ],
+    "cbb5": [
+      -56,
+      350
+    ],
+    "cbd1": [
+      -108,
+      404
+    ],
+    "cbd2": [
+      -104,
+      414
+    ],
+    "cbd3": [
+      -112,
+      396
+    ],
+    "cbd4": [
+      -100,
+      400
+    ],
+    "cbd5": [
+      -110,
+      420
+    ],
+    "km1": [
+      -232,
+      398
+    ],
+    "km2": [
+      -228,
+      380
+    ],
+    "ks1": [
+      -140,
+      420
+    ],
+    "ks2": [
+      -135,
+      428
+    ],
+    "ks3": [
+      -146,
+      414
+    ],
+    "fr1": [
+      -352,
+      436
+    ],
+    "fr2": [
+      -358,
+      426
+    ],
+    "fr3": [
+      -349,
+      445
+    ],
+    "fr4": [
+      -362,
+      418
+    ],
+    "lzk": [
+      -340,
+      300
+    ],
+    "lzl": [
+      -346,
+      310
+    ],
+    "lzm": [
+      -336,
+      290
+    ],
+    "a1j": [
+      -8,
+      560
+    ],
+    "a1k": [
+      -2,
+      566
+    ],
+    "a1l": [
+      -14,
+      568
     ]
   },
   "waypoints": [
@@ -1810,5 +2185,6 @@
         -0.852
       ]
     }
-  ]
+  ],
+  "nextLevel": "ngam-ta-le"
 }

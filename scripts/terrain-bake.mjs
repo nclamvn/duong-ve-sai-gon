@@ -21,7 +21,7 @@ const opt = (k, d) => {
 
 /**
  * Chế độ --nav (TIP-D04, TER-003): bake navmesh recast trên lưới 4 m của navRect từ ô đã có (height.r16 + meta.json)
- *   node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512 [--cs 0.5 --ch 0.25] [--level content/levels/truong-son-a.level.json]
+ *   node scripts/terrain-bake.mjs --nav --id truong-son-a --yOffset 691.2 --navRect -192 512 512 512 [--cs 0.5 --ch 0.25] [--level content/levels/truong-son-a.level.json] [--out nav-ngam-ta-le.bin]
  * → public/assets/terrain/<id>/nav.bin (exportNavMesh) + cập nhật manifest (files[] của entry terrain_<id>).
  *   --level: thêm obstacle thân cây (TIP-D05 vòng 2): chạy scatter của engine (bundle rolldown từ src/engine/vegetation/scatter.ts + terrain/tile.ts,
  *   density 1 = tier cao; tier thấp là tập con) → lăng trụ thấp quanh thân (navObstacleMesh) vào lưới đầu vào recast → bot đi vòng cây.
@@ -64,7 +64,7 @@ if (args.includes('--nav')) {
     const { rolldown } = await import('rolldown');
     const { mkdirSync, writeFileSync: wf } = await import('node:fs');
     mkdirSync('.sync', { recursive: true });
-    wf('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh, navPadFor } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+    wf('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders, ruleWithClear, roadClearings } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh, navPadFor } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
     const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
     const { output } = await b.generate({ format: 'esm' });
     wf('.sync/_nav-veg.mjs', output[0].code);
@@ -78,7 +78,7 @@ if (args.includes('--nav')) {
       for (const rule of veg.species) {
         if (!rule.collider) continue;
         // biến thể: lấy từ GLB? bake không cần (variant chỉ ảnh hưởng hình); dùng 1
-        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, { ...rule, variants: 1 }, veg.seed, veg.cellM ?? 64, 1);
+        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, eng.ruleWithClear({ ...rule, variants: 1 }, [...(veg.clear ?? []), ...eng.roadClearings(level.roads)]), veg.seed, veg.cellM ?? 64, 1);
         colliders.push(...eng.placementColliders(pl, rule));
       }
       // chỉ obstacle trong navRect + 4 m
@@ -95,7 +95,7 @@ if (args.includes('--nav')) {
     // props (M2 R1): hộp obstacle cho bao cát/phuy/rào cố định (cùng bảng PROP_HALF của src/engine/terrain/props.ts; rào đoạn _gap
     // KHÔNG chặn — bộc phá mở đường cho bot đi qua; thùng thấp < 0,25 m không chặn)
     if (Array.isArray(level.props) && level.props.length) {
-      const HALF = { sandbag: [1.47, 0.36, 0.4], crate: [0.9, 0.15, 0.5], ammo: [0.04, 0.09, 0.13], barrel: [0.28, 0.44, 0.28], radio: [0.26, 0.56, 0.22] };
+      const HALF = { sandbag: [1.47, 0.36, 0.4], crate: [0.9, 0.15, 0.5], ammo: [0.04, 0.09, 0.13], barrel: [0.28, 0.44, 0.28], radio: [0.26, 0.56, 0.22], drum: [0.32, 0.47, 0.32], jerrycan: [0.18, 0.25, 0.09], chest: [0.62, 0.23, 0.26] };
       const tile = new eng.TerrainTile(meta, u16, yOff);
       const bp = [], bi = [];
       let nb = 0;
@@ -143,7 +143,9 @@ if (args.includes('--nav')) {
   });
   if (!r.success) throw new Error(`navmesh: ${r.error}`);
   const data = exportNavMesh(r.navMesh);
-  const out = `${dir}/nav.bin`;
+  // DV-078: level dùng chung ô DEM nhưng rừng/props khác (ngầm Ta Lê: dải trống dọc đường xe) → file nav riêng (--out nav-<level>.bin)
+  const navName = opt('out', 'nav.bin');
+  const out = `${dir}/${navName}`;
   writeFileSync(out, data);
   let polys = 0;
   for (let i = 0; i < r.navMesh.getMaxTiles(); i++) { const hd = r.navMesh.getTile(i).header(); if (hd) polys += hd.polyCount(); }
@@ -151,7 +153,7 @@ if (args.includes('--nav')) {
   const m = JSON.parse(readFileSync(MANIFEST, 'utf8'));
   const entry = m.assets.find((a) => a.type === 'terrain' && a.files.some((f) => f.path.startsWith(`assets/terrain/${ID}/`)));
   if (entry) {
-    const rel = `assets/terrain/${ID}/nav.bin`;
+    const rel = `assets/terrain/${ID}/${navName}`;
     const f = entry.files.find((x) => x.path === rel) ?? (entry.files.push({ path: rel }), entry.files[entry.files.length - 1]);
     f.bytes = statSync(out).size;
     f.sha256 = createHash('sha256').update(readFileSync(out)).digest('hex');
@@ -183,7 +185,7 @@ if (args.includes('--map')) {
   if (levelPath) {
     const { rolldown } = await import('rolldown');
     mkdirSync('.sync', { recursive: true });
-    writeFileSync('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+    writeFileSync('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders, ruleWithClear, roadClearings } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
     const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
     const { output } = await b.generate({ format: 'esm' });
     writeFileSync('.sync/_nav-veg.mjs', output[0].code);
@@ -196,7 +198,7 @@ if (args.includes('--map')) {
       const tmp = new Float32Array(PX * PX);
       for (const rule of veg.species) {
         if (!rule.collider) continue; // cây thân (tán, cọ, tre)
-        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, { ...rule, variants: 1 }, veg.seed, veg.cellM ?? 64, 1);
+        const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, eng.ruleWithClear({ ...rule, variants: 1 }, [...(veg.clear ?? []), ...eng.roadClearings(level.roads)]), veg.seed, veg.cellM ?? 64, 1);
         const w = /tree/.test(rule.id) ? 1 : 0.5;
         for (let i = 0; i < pl.count; i++) {
           const px = Math.floor(((pl.pos[i * 3] + half) / size) * PX);

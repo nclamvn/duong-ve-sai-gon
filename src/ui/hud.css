@@ -34,6 +34,14 @@
 /* ---- hurt vignette + flash */
 #hud .hurt { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(120, 20, 10, 0) 45%, rgba(140, 22, 12, 0.85) 100%); mix-blend-mode: multiply; }
 #hud .hurt.flash { transition: none; }
+/* ---- áp chế (DV-075): viền tối, mờ góc khi đạn sượt liên tục */
+#hud .supp { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(ellipse at center, rgba(18, 20, 16, 0) 38%, rgba(18, 20, 16, 0.55) 78%, rgba(10, 11, 9, 0.9) 100%); }
+/* ---- lựu đạn: số còn mang + cảnh báo hướng (DV-074) */
+#hud .ammo .meta .gren { color: var(--hud-earth); }
+#hud .ammo .meta .gren.empty { color: var(--hud-ink-faint); }
+#hud .gwarn { position: absolute; left: 50%; top: 50%; width: 0; height: 0; will-change: transform; }
+#hud .gwarn i { position: absolute; left: -0.75em; top: -7.6em; width: 1.5em; height: 1.5em; border-radius: 50%; background: radial-gradient(circle at 50% 58%, var(--hud-danger) 0 38%, transparent 40%), linear-gradient(var(--hud-danger), var(--hud-danger)) 50% 8% / 0.5em 0.28em no-repeat; border: 2px solid var(--hud-danger); box-shadow: var(--hud-shadow); animation: pulse 0.9s ease-in-out infinite; }
+#hud .gwarn.close i { animation-duration: 0.35s; transform: scale(1.25); }
 
 /* ---- la bàn */
 #hud .compass { position: absolute; top: calc(var(--hud-margin) * 0.55); left: 50%; width: min(38vw, 620px); height: 2.6em; transform: translateX(-50%); overflow: hidden; background: linear-gradient(180deg, rgba(21, 26, 24, 0.42), rgba(21, 26, 24, 0.12) 70%, rgba(21, 26, 24, 0)); border-top: 1px solid var(--hud-line); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
@@ -58,6 +66,13 @@
 #hud .objective.fresh { animation: obj-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
 #hud .objective.compact { opacity: 0.78; }
 @keyframes obj-in { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+
+/* ---- lệnh tổ (AI-T1.5): trên ô máu */
+#hud .squad { position: absolute; left: var(--hud-margin); bottom: calc(var(--hud-margin) + 15.5vmin + 3.6em); display: flex; flex-direction: column; gap: 0.1em; }
+#hud .squad[hidden] { display: none; }
+#hud .squad .order { font-family: var(--hud-num); font-weight: 600; font-size: 0.95em; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hud-earth); }
+#hud .squad .keys { font-size: 0.72em; color: var(--hud-ink-dim); letter-spacing: 0.04em; }
+#hud .squad.fresh .order { animation: obj-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
 
 /* ---- máu (dưới trái, trên minimap) */
 #hud .vitals { position: absolute; left: var(--hud-margin); bottom: calc(var(--hud-margin) + 15.5vmin); width: 15.5em; }
@@ -152,3 +167,26 @@
 }
 #hud .prompt .pbar { display: inline-block; width: 6.5em; height: 0.35em; background: rgba(255, 255, 255, 0.14); border-radius: 2px; overflow: hidden; }
 #hud .prompt .pbar i { display: block; height: 100%; width: 0; background: var(--hud-ink); transition: width 60ms linear; }
+
+/* ---- DV-078 hồi đêm: đếm xe qua ngầm, dấu ngắm nhỏ khi ngồi 12,7 (thước ngắm vòng là của khẩu súng 3D), gợi ý sang hồi tiếp */
+#hud .convoy { position: absolute; top: calc(var(--hud-margin) * 0.55 + 4.4em); left: 50%; transform: translateX(-50%); padding: 0.25em 0.9em; font-family: var(--hud-num); font-weight: 600; font-size: 0.95em; letter-spacing: 0.08em; color: var(--hud-earth); background: var(--hud-coal); border-radius: 2px; }
+#hud .aasight { position: absolute; left: 50%; top: 50%; width: 34vmin; height: 34vmin; transform: translate(-50%, -50%); pointer-events: none; }
+#hud .aasight svg { width: 100%; height: 100%; overflow: visible; }
+#hud .aasight circle, #hud .aasight line { fill: none; stroke: rgba(214, 222, 196, 0.55); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+#hud .aasight circle.c { fill: rgba(214, 222, 196, 0.8); stroke: none; }
+#hud .reticle.off { display: none; }
+#hud .banner .next { margin-top: 0.6em; font-size: 0.9em; letter-spacing: 0.1em; color: var(--hud-ink-dim); }
+
+/* DV-084 mục tiêu có đếm ngược ≤ 10 s: đỏ nhấp nháy */
+#hud .objective.urgent .dist {
+  color: #ff5a3c;
+  animation: obj-urgent 0.6s steps(2, start) infinite;
+}
+#hud .objective.urgent {
+  border-color: rgba(255, 90, 60, 0.7);
+}
+@keyframes obj-urgent {
+  50% {
+    opacity: 0.45;
+  }
+}

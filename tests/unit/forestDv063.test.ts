@@ -21,12 +21,16 @@ function tile(): TerrainTile {
   return t;
 }
 
+/** điểm trên đường mòn (chỗ xuất phát M1 trước DV-085) — mốc đo cho mật độ rừng và đất mòn */
+const TRAIL_CAMP: [number, number] = [-134, 580];
+
 describe('DV-063 nền rừng dày quanh đường mòn, âm thanh mặt đất, nước chảy', () => {
   it('boost: dày thêm sát đường mòn, lưới chính giữ nguyên, không mọc trong nước, không thêm loài (draw)', () => {
     const t = tile();
     const rule = level.vegetation.species.find((r) => r.id === 'ph_fern')!;
     expect(rule.boost?.length).toBeGreaterThan(0);
-    const rect = { x: level.playerSpawn[0], z: level.playerSpawn[1], w: 120, h: 120 };
+    // điểm đo trên đường mòn (chỗ xuất phát cũ trước DV-085; chỗ xuất phát mới ở bờ suối, xa đường mòn)
+    const rect = { x: TRAIL_CAMP[0], z: TRAIL_CAMP[1], w: 120, h: 120 };
     const withB = scatterSpecies(t, rect, rule, level.vegetation.seed, level.vegetation.cellM);
     const { boost: _b, ...noBoost } = rule;
     const without = scatterSpecies(t, rect, noBoost, level.vegetation.seed, level.vegetation.cellM);
@@ -73,7 +77,7 @@ describe('DV-063 nền rừng dày quanh đường mòn, âm thanh mặt đất,
     expect(groundSurface(F, wx, wz, 0)).toBe('water');
     const c = feat.craters.find((q) => q.waterY === null)!;
     expect(groundSurface(F, c.x, c.z, 0)).toBe('mud');
-    expect(groundSurface(F, level.playerSpawn[0], level.playerSpawn[1], 0)).toBe('soil');
+    expect(groundSurface(F, TRAIL_CAMP[0], TRAIL_CAMP[1], 0)).toBe('soil');
     expect(groundSurface(null, 0, 0, 0.5)).toBe('rock');
     expect(groundSurface(null, 0, 0, 0.05)).toBe('leaves');
   });

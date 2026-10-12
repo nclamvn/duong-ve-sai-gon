@@ -1,0 +1,30 @@
+domain: dem_ngam
+entity_label: "Asset cho hồi đêm M1 'Ngầm Ta Lê' (DVSG): xe vận tải thời 1971, đại liên 12,7 ly DShK, nhân vật nữ TNXP (Thu), đạo cụ đêm"
+
+schema:
+  type_field: nhom
+  fields:
+    - nhom          # xe | sung | nhan_vat | dao_cu | cong_cu
+    - nguon         # sketchfab | fab | polyhaven | makehuman
+    - tac_gia
+    - gia           # "0" nếu miễn phí; giá niêm yết VND trên Fab
+    - giay_phep
+    - hinh_hoc      # số mặt/tam giác, texture
+    - dang          # dáng/biến thể (giá ba càng, bánh xe, thùng bạt...)
+    - ngay_dang
+    - han_che       # rip game, AI, không rõ nguồn gốc, chỉ Unreal, nội dung không hợp...
+    - ket_luan      # chon | du_phong | loai
+
+rollup_field: ket_luan
+
+universe:
+  estimate: 60
+  basis: "Ước lượng ứng viên đáng xét tải hợp pháp: ~15 mô hình DShK (Sketchfab, Fab, CGTrader), ~20 xe tải Liên Xô/Trung Quốc thập niên 1950–60, ~15 nhân vật nữ châu Á có rig, ~10 đạo cụ đêm (đèn bão, phuy, can, hòm)"
+
+refresh_days:
+  default: 90
+
+alias_map: {}
+
+ambiguous_clusters:
+  - ["ZiL-130 — nghesiyeubuom97 (Sketchfab)", "zil-130 — Ara_my45yt (Sketchfab)"]

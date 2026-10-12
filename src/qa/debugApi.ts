@@ -28,6 +28,8 @@ export interface HtDebugApi {
   mission: {
     state(): { currentNode: string | null; flags: Record<string, boolean>; objectives: Record<string, 'active' | 'complete'>; complete: boolean; groups: Record<string, string[]> };
     trigger(nodeId: string): void;
+    /** DV-085: dừng kịch bản, gỡ địch, tổ theo người chơi (test không phải về nhiệm vụ) */
+    calm(): void;
     zones(): Record<string, { center: [number, number, number]; radius: number }>;
     subtitle(): string | null;
     subtitlesShown(): string[];
@@ -107,6 +109,7 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
         return { currentNode: st.currentNode, flags: { ...st.flags }, objectives: { ...st.objectives }, complete: st.complete, groups: { ...st.groups } };
       },
       trigger: (nodeId) => game.mission.runtime.jumpTo(nodeId),
+      calm: () => game.calm(),
       zones: () => Object.fromEntries((game.mission.def.zones ?? []).map((z) => [z.id, { center: z.center, radius: z.radius }])),
       subtitle: () => game.mission.subtitles.activeCue,
       subtitlesShown: () => [...game.mission.subtitles.shown],

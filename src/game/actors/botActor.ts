@@ -5,6 +5,7 @@ import type { Scene } from 'three/webgpu';
 import { Bot, type BotDeps } from '@game/ai/bot';
 import type { ActorVisual } from './visual';
 import { attachActorBody, type ActorBody } from './actorPhysics';
+import ai from '@content/tuning/ai.json';
 import type { PhysicsWorld } from '@engine/physics/world';
 
 export type Faction = 'enemy' | 'friend';
@@ -39,43 +40,71 @@ export class BotActor {
     scene.add(this.dummy.group);
   }
 
-  /** sim60: sau bot.move() — đẩy body theo vị trí logic */
+  /** hạ capsule khi cúi (AI-T1.3), làm mượt để không giật */
+  private drop = 0;
+
+  /** sim60: sau bot.move() — đẩy body theo vị trí logic; cúi → cả capsule + đầu hạ crouchDrop (phần dưới chìm vào đất, vô hại) */
   syncBody(): void {
-    this.body.setPosition(this.bot.position[0], this.bot.position[1], this.bot.position[2]);
+    const want = this.bot.stance === 'crouch' ? ai.combat.crouchDrop : 0;
+    this.drop += (want - this.drop) * 0.25;
+    if (Math.abs(want - this.drop) < 0.005) this.drop = want;
+    this.body.setPosition(this.bot.position[0], this.bot.position[1] - this.drop, this.bot.position[2]);
   }
 
   /** render: đồng bộ visual */
   private prevPos: [number, number, number] = [0, 0, 0];
   private prevT = 0;
+  /** smoothed world velocity for the locomotion blend (DV-066) */
+  private readonly vel: [number, number] = [0, 0];
   syncVisual(t: number): void {
     const g = this.dummy.group;
     if (this.bot.alive) {
       const p = this.bot.position;
       const dtv = t - this.prevT;
       if (dtv > 1e-3) {
-        const sp = Math.hypot(p[0] - this.prevPos[0], p[2] - this.prevPos[2]) / dtv;
-        // lọc mượt tốc độ hiển thị
-        this.dummy.motion.speed += (Math.min(6, sp) - this.dummy.motion.speed) * Math.min(1, dtv * 8);
+        let vx = (p[0] - this.prevPos[0]) / dtv;
+        let vz = (p[2] - this.prevPos[2]) / dtv;
+        const sp = Math.hypot(vx, vz);
+        if (sp > 6) {
+          // teleport/stuck recovery: not a real velocity
+          vx = 0;
+          vz = 0;
+        }
+        // smooth displayed velocity (sim steps at 60 Hz, render varies)
+        const k = Math.min(1, dtv * 8);
+        this.vel[0] += (vx - this.vel[0]) * k;
+        this.vel[1] += (vz - this.vel[1]) * k;
+        this.dummy.motion.speed += (Math.min(6, sp) - this.dummy.motion.speed) * k;
         this.prevPos[0] = p[0];
         this.prevPos[1] = p[1];
         this.prevPos[2] = p[2];
         this.prevT = t;
       }
-      this.dummy.motion.aiming = this.bot.aiming;
+      const m = this.dummy.motion;
+      m.aiming = this.bot.aiming;
+      m.crouch = this.bot.stance === 'crouch';
+      m.yaw = this.bot.yaw;
+      m.vx = this.vel[0];
+      m.vz = this.vel[1];
+      m.pitch = this.bot.aimPitch;
       g.position.set(p[0], p[1], p[2]);
+      // procedural dummy faces the aim; a glTF soldier overrides this with its own body yaw in setPose
       g.rotation.y = this.bot.yaw;
     }
     this.dummy.setPose(t);
   }
 
-  applyDamage(amount: number, from: [number, number, number]): boolean {
+  applyDamage(amount: number, from: [number, number, number], zone?: string): boolean {
     const died = this.bot.applyDamage(amount, from);
-    this.dummy.applyDamage(amount);
+    this.dummy.applyDamage(amount, { from, zone });
     if (died) this.body.setEnabled(false);
     return died;
   }
 
   reset(): void {
+    this.drop = 0;
+    this.vel[0] = 0;
+    this.vel[1] = 0;
     this.bot.reset(this.spawn);
     this.dummy.reset();
     this.dummy.group.position.set(this.spawn[0], this.spawn[1], this.spawn[2]);

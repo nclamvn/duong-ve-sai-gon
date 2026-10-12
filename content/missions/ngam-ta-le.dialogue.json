@@ -1,0 +1,265 @@
+{
+  "$comment": "DV-078 hồi đêm Ngầm Ta Lê (M1, đêm 20 rạng 21/1/1971). Câu hô dùng chung của tổ (M05…M26) nạp kèm từ truong-son-a.dialogue.json. Thu (TNXP, hư cấu) gặp Lâm lần đầu; lái xe không tên.",
+  "cues": [
+    {
+      "cueId": "N01",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N01",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 5000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N02",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N02",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 6200,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N03",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N03",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 3900,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N04",
+      "speaker": "LAM",
+      "audio": null,
+      "subtitleKey": "dlg.N04",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N05",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N05",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 6000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N06",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N06",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 6000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N07",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N07",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 2400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N08",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N08",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 4500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N09",
+      "speaker": "DAT",
+      "audio": null,
+      "subtitleKey": "dlg.N09",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 4100,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N10",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.N10",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 2400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N11",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.N11",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 1900,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N12",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.N12",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 2800,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N13",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.N13",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 2300,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N14",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.N14",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 3900,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N15",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N15",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 3600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N16",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N16",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 3600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N17",
+      "speaker": "LAIXE",
+      "audio": null,
+      "subtitleKey": "dlg.N17",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 4000,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N18",
+      "speaker": "LAIXE",
+      "audio": null,
+      "subtitleKey": "dlg.N18",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 2400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N19",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N19",
+      "priority": 8,
+      "interruptPolicy": "interrupt",
+      "durationMs": 4100,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N20",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N20",
+      "priority": 5,
+      "interruptPolicy": "queue",
+      "durationMs": 2100,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N21",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N21",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 3300,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N22",
+      "speaker": "DAT",
+      "audio": null,
+      "subtitleKey": "dlg.N22",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 1800,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N30",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N30",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 3900,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N31",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N31",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 5400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N32",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.N32",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 4700,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "N33",
+      "speaker": "THU",
+      "audio": null,
+      "subtitleKey": "dlg.N33",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 5500,
+      "bus": "dialogue"
+    }
+  ]
+}

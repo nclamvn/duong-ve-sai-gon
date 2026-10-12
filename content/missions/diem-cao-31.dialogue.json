@@ -2,7 +2,7 @@
   "cues": [
     {
       "cueId": "B01",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.B01",
       "priority": 7,
@@ -22,7 +22,7 @@
     },
     {
       "cueId": "B03",
-      "speaker": "THANH",
+      "speaker": "LAM",
       "audio": null,
       "subtitleKey": "dlg.B03",
       "priority": 6,
@@ -42,7 +42,7 @@
     },
     {
       "cueId": "B05",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.B05",
       "priority": 5,
@@ -72,7 +72,7 @@
     },
     {
       "cueId": "B08",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.B08",
       "priority": 6,
@@ -92,7 +92,7 @@
     },
     {
       "cueId": "B10",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.B10",
       "priority": 5,
@@ -102,7 +102,7 @@
     },
     {
       "cueId": "B11",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.B11",
       "priority": 5,
@@ -132,7 +132,7 @@
     },
     {
       "cueId": "B14",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.B14",
       "priority": 5,
@@ -142,7 +142,7 @@
     },
     {
       "cueId": "M10",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.M10",
       "priority": 3,
@@ -162,7 +162,7 @@
     },
     {
       "cueId": "M12",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.M12",
       "priority": 3,
@@ -182,7 +182,7 @@
     },
     {
       "cueId": "M14",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.M14",
       "priority": 3,
@@ -192,7 +192,7 @@
     },
     {
       "cueId": "M15",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.M15",
       "priority": 3,
@@ -202,7 +202,7 @@
     },
     {
       "cueId": "M05",
-      "speaker": "HAI",
+      "speaker": "LONG",
       "audio": null,
       "subtitleKey": "dlg.M05",
       "priority": 4,
@@ -212,12 +212,22 @@
     },
     {
       "cueId": "M06",
-      "speaker": "SANG",
+      "speaker": "DAT",
       "audio": null,
       "subtitleKey": "dlg.M06",
       "priority": 4,
       "interruptPolicy": "queue",
       "durationMs": 2500,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M26",
+      "speaker": "SQUAD",
+      "audio": null,
+      "subtitleKey": "dlg.M26",
+      "priority": 9,
+      "interruptPolicy": "interrupt",
+      "durationMs": 1500,
       "bus": "dialogue"
     }
   ]

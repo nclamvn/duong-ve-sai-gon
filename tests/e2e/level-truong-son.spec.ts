@@ -16,7 +16,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     page.on('console', (m) => {
       if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
     });
-    await page.goto(`/?${QUERY}`);
+    await page.goto(`/?${QUERY}&calm=1`); // DV-085: M1 mở màn bằng phục kích; test vật lý không cần địch
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 90_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
     await pauseLoop(page);
@@ -40,7 +40,10 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       idle();
       H.stepSim(180);
       const stand = { feet: feet(), gap: gap(), grounded: c.grounded };
-      // 2) hướng lên dốc thoải: gradient tại spawn
+      // 2) hướng lên dốc thoải: gradient tại trại trên đường mòn (chỗ xuất phát trước DV-085; chỗ mới ở đáy thung bên suối gần như phẳng)
+      H.teleport(-134, hAt(-134, 580) + 0.3, 580);
+      idle();
+      H.stepSim(60);
       const [x0, , z0] = feet();
       const e = 4;
       const gx = (hAt(x0 + e, z0) - hAt(x0 - e, z0)) / (2 * e);
@@ -59,7 +62,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
         if (!c.grounded) anyAir++;
       }
       const [x1, y1, z1] = feet();
-      const walk = { dist: Math.hypot(x1 - x0, z1 - z0), climb: y1 - stand.feet[1], minGap, maxGap, anyAir, slopeDeg: (Math.atan(gl) * 180) / Math.PI };
+      const walk = { dist: Math.hypot(x1 - x0, z1 - z0), climb: y1 - hAt(x0, z0), minGap, maxGap, anyAir, slopeDeg: (Math.atan(gl) * 180) / Math.PI };
       // 3) dốc đứng: quét quanh spawn (bán kính ≤ 300 m, bước 6 m) tìm ô dốc > 58°, đứng ở chân dốc và đi lên 4 s
       let steep: { x: number; z: number; deg: number; dx: number; dz: number } | null = null;
       for (let rad = 30; rad <= 300 && !steep; rad += 6) {
@@ -130,7 +133,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     for (const gap of r.botGap) expect(gap).toBeLessThan(0.5);
     expect(r.terrainDraws).toBeGreaterThan(0);
     expect(r.terrainDraws).toBeLessThanOrEqual(4);
-    expect(r.bots).toBe(2); // đồng đội Quyết + Hải (mission M1, TIP-M1A) — không còn bot ambient
+    expect(r.bots).toBe(5); // tổ ta Quyết, Hải, Sáng, Đức, Toàn (AI-T1.5) — không còn bot ambient
     await expectNoErrors(errors);
   });
 
@@ -146,7 +149,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     page.on('console', (m) => {
       if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
     });
-    await page.goto(`/?${QUERY}&veg=1`);
+    await page.goto(`/?${QUERY}&veg=1&calm=1`);
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
     await pauseLoop(page);
@@ -223,6 +226,9 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       // đồng đội đi theo 15 s (người chơi chạy) — không thành viên nào lọt vào thân cây (Chủ nhà Mac: "đồng đội chạy xuyên qua cây");
       // bước di chuyển trượt trên navmesh (moveAlong) + obstacle đệm theo loài (Tree GN rễ bạnh 1 m)
       g.aiPaused = false;
+      // đo đi theo người chơi ở nhịp thường (M1-T2: đầu nhiệm vụ là nhịp hành quân theo Quyết về suối, không theo người chơi)
+      g.squadmates.pace = 'normal';
+      g.mission.squadDest = null;
       // kéo đồng đội về gần rồi để họ tự đi theo (người chơi đã chạy xa trong các bước trên)
       for (const b of g.bots.values()) {
         const f = c.feet;
@@ -264,9 +270,10 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       };
     });
     // DV-057: 11 luật (tree_gn vượt tán + tree_canopy tán chính cùng GLB; fern_gap cùng GLB fern); DV-059 +7 lớp nền rừng CC0
-    expect(r.species).toBe(29); // DV-064: thay asset, không thêm luật (cọ quạt Megascans tối đen dưới tán ở WebGL sandbox, tạm gỡ) // DV-060 +11 luật (bờ khe, lòng khe, đá tảng, vách đá, quanh hố bom), gỡ Monstera
+    expect(r.species).toBe(30); // DV-080 +1 luật lá rụng dưới tán (litter) // DV-064: thay asset, không thêm luật (cọ quạt Megascans tối đen dưới tán ở WebGL sandbox, tạm gỡ) // DV-060 +11 luật (bờ khe, lòng khe, đá tảng, vách đá, quanh hố bom), gỡ Monstera
     expect(r.placed).toBeGreaterThan(10_000);
     expect(r.perSpecies['tree_gn']).toBeGreaterThan(150);
+    expect(r.perSpecies['litter'] ?? 0).toBeGreaterThan(1000); // DV-080
     expect(r.perSpecies['tree_canopy']).toBeGreaterThan(2 * (r.perSpecies['tree_gn'] ?? 0));
     expect(r.colliders).toBeGreaterThan(1000);
     expect(r.atlasTree).toBe(true);
@@ -291,7 +298,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     console.log('[DV-057 forest]', JSON.stringify({ perSpecies: r.perSpecies, placed: r.placed, stats: r.stats, cpuMs: r.cpuMs }));
     expect(r.squad.samples).toBeGreaterThan(40);
     expect(r.squad.inTrunk, JSON.stringify(r.squad)).toBe(0);
-    expect(r.squad.count).toBe(2);
+    expect(r.squad.count).toBe(5);
     expect(r.squad.followerDist, JSON.stringify(r.squad)).toBeLessThanOrEqual(12);
     expect(r.squad.leaderDist, JSON.stringify(r.squad)).toBeLessThanOrEqual(16);
     await expectNoErrors(errors);
@@ -309,7 +316,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     page.on('console', (m) => {
       if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
     });
-    await page.goto(`/?${QUERY}&veg=1&vegDensity=0.2&sky=1`);
+    await page.goto(`/?${QUERY}&veg=1&vegDensity=0.2&sky=1&calm=1`);
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
     await pauseLoop(page);
@@ -407,12 +414,13 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
   });
 
   /**
-   * TIP-M1A + TIP-UX02 — trận đánh M1 lát cắt: mission truong-son-a chạy hết bằng stepSim + teleport (intro → điểm quan sát cpB →
-   * chặn thám báo 2 đợt → bãi bốc: sky_trigger UH-1 → hoàn thành); đồng đội Quyết/Hải đi theo ≤ 12 m; cùng phe không sát thương;
-   * địch không spawn trong 40 m; HUD: la bàn/marker/minimap/hit marker/vòng trúng đạn; không lỗi console.
+   * DV-085 (BLUEPRINT-M1-T3) — M1 bản dồn dập chạy hết bằng stepSim + teleport: phục kích bên suối ngay giây đầu (cối, đòn đánh),
+   * đuổi qua suối với nhịp xung phong, napalm (Khang hy sinh), toán chặn, sườn đồi, B-52 (vào lòng suối thì sống), tàn quân, gài
+   * bộc phá cây cảm biến + giữ chốt 90 s, tổ phục trong khe (im khi xa, khai hoả khi gần), dốc, bãi đáp 2 lượt trực thăng (Hoàn hy
+   * sinh), pháo bắn chặn, rút → xong. Luật phe, hit marker, chết nằm hẳn; mọi điểm ra quân của M1 nằm trên navmesh; không lỗi console.
    */
-  test('M1 lát cắt: đồng đội theo, chặn thám báo, UH-1 tới bãi, HUD cao cấp', async ({ page }) => {
-    test.setTimeout(420_000);
+  test('M1 Cổng Trời (DV-085): 7 hồi dồn dập, napalm, B-52, cảm biến, khe, dốc, bãi đáp; HUD cao cấp', async ({ page }) => {
+    test.setTimeout(480_000);
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(`PAGEERROR ${e.message}`));
     page.on('console', (m) => {
@@ -422,30 +430,49 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
     await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
     await pauseLoop(page);
+    // mọi điểm ra quân của M1 bám navmesh (≤ 1,5 m ngang)
+    const nav = await page.evaluate(() => {
+      const H = window.__ht!;
+      const g = H.game;
+      const used = new Set<string>();
+      for (const sg of g.mission.def.spawnGroups ?? []) for (const s of sg.spawns ?? [sg.spawn]) used.add(s);
+      const bad: string[] = [];
+      for (const k of used) {
+        const p = g.arena.botSpawns[k]!;
+        const n = g.nav.nearest({ x: p[0], y: p[1], z: p[2] });
+        const d = n ? Math.hypot(n.x - p[0], n.z - p[2]) : Infinity;
+        if (d > 1.5) bad.push(`${k} ${d.toFixed(1)}`);
+      }
+      return { n: used.size, bad };
+    });
+    expect(nav.n).toBeGreaterThan(60);
+    expect(nav.bad).toEqual([]);
     const intro = await page.evaluate(() => {
       const H = window.__ht!;
+      const g = H.game;
+      g.player.health = 1e9;
       H.stepSim(10);
       const sq = H.squad();
-      return { node: H.mission.state().currentNode, squad: sq.count, names: sq.members.map((m) => m.name), order: sq.order, shown: H.mission.subtitlesShown(), hud: H.hud(), fonts: document.fonts.check('600 16px "Barlow Condensed"') };
+      return { node: H.mission.state().currentNode, squad: sq.count, names: sq.members.filter((m) => m.faction === 'friend').map((m) => m.name), a1: H.bots().filter((b) => b.group === 'a1_bo' && b.alive).length, shown: H.mission.subtitlesShown(), hud: H.hud() };
     });
-    expect(intro.node).toBe('n_ridge');
-    expect(intro.squad).toBe(2);
-    expect(intro.names).toEqual(['name.quyet', 'name.hai']);
-    expect(intro.shown[0]).toBe('M01');
+    expect(intro.node).toBe('n_a1');
+    expect(intro.squad).toBe(5);
+    expect(intro.names).toEqual(['name.quyet', 'name.long', 'name.dat', 'name.hoan', 'name.khang']);
+    expect(intro.a1).toBe(6);
+    expect(intro.shown[0]).toBe('M71');
     expect(intro.hud.marker).not.toBeNull();
     await renderFrames(page, 2);
-    await expect(page.getByTestId('objective')).toContainText('Quyết');
+    await expect(page.getByTestId('objective')).toContainText('phục kích');
     await expect(page.getByTestId('compass')).toBeVisible();
     await expect(page.getByTestId('minimap')).toBeVisible();
     await expect(page.getByTestId('ammo')).toContainText('AK-47');
-    await expect(page.getByTestId('health')).toContainText('Ổn định');
     expect(await page.locator('[data-testid="marker-obj"]').count()).toBe(1);
     // la bàn: quay 90° phải → số hướng đổi ~90
     const heading = await page.evaluate(async () => {
       const H = window.__ht!;
       const g = H.game;
       const h0 = H.hud().heading;
-      g.player.rig.yaw -= Math.PI / 2; // yaw dương = quay trái → −90° = quay phải
+      g.player.rig.yaw -= Math.PI / 2;
       g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
       H.stepSim(2);
       await new Promise((res) => requestAnimationFrame(() => { g.frame(1 / 60); res(null); }));
@@ -453,86 +480,41 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     });
     expect((((heading.h1 - heading.h0) % 360) + 360) % 360).toBeCloseTo(90, 0);
     expect(heading.text).toBe(String(Math.round(heading.h1)).padStart(3, '0'));
-    // đồng đội theo: dịch người chơi 25 m về phía điểm quan sát rồi chạy 12 s sim
-    const follow = await page.evaluate(() => {
+    // luật phe: người chơi/đồng đội không làm đồng đội mất máu; địch thì có; hit marker + vòng trúng đạn
+    const rules = await page.evaluate(() => {
       const H = window.__ht!;
-      const z = H.mission.zones()['ridge']!;
-      const c = H.game.player.controller;
-      const dx = z.center[0] - c.feet[0]!;
-      const dz = z.center[2] - c.feet[2]!;
-      const l = Math.hypot(dx, dz);
-      const x = c.feet[0]! + (dx / l) * 25;
-      const zz = c.feet[2]! + (dz / l) * 25;
-      H.teleport(x, (H.terrainHeight(x, zz) ?? 0) + 0.5, zz);
-      H.stepSim(60 * 12);
-      return H.squad();
-    });
-    expect(follow.count).toBe(2);
-    expect(follow.followerDist, JSON.stringify(follow.members)).toBeLessThanOrEqual(12);
-    expect(follow.leaderDist, 'Quyết dẫn trước ≤ 16 m').toBeLessThanOrEqual(16);
-    // điểm quan sát → cpB, M03, rồi mục tiêu chặn
-    const ridge = await page.evaluate(() => {
-      const H = window.__ht!;
-      const z = H.mission.zones()['ridge']!;
-      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
-      H.stepSim(10);
-      const atRidge = H.mission.state().currentNode;
-      H.stepSim(60 * 5);
-      return { atRidge, node: H.mission.state().currentNode, shown: H.mission.subtitlesShown(), saves: H.checkpoint.saves(), marker: H.hud().marker };
-    });
-    expect(ridge.atRidge).toBe('n_ridge');
-    expect(ridge.node).toBe('n_block');
-    expect(ridge.shown).toContain('M03');
-    expect(ridge.saves).toBeGreaterThanOrEqual(2);
-    // chặn: đợt 1 spawn ≥ 40 m, rằn ri (faction enemy); cùng phe không sát thương; hit marker; vòng trúng đạn
-    const block = await page.evaluate(() => {
-      const H = window.__ht!;
-      const z = H.mission.zones()['block']!;
-      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
-      H.stepSim(10);
-      const c = H.game.player.controller;
-      const bots = H.bots().filter((b) => b.group === 'recon_1');
-      const minDist = Math.min(...bots.map((b) => Math.hypot(b.position[0] - c.feet[0]!, b.position[2] - c.feet[2]!)));
-      const sq = H.squad();
-      const friend = sq.members.find((m) => m.faction === 'friend')!;
-      const enemy = sq.members.find((m) => m.faction === 'enemy' && m.alive)!;
       const g = H.game;
+      const sq = H.squad();
+      const friend = sq.members.find((m) => m.faction === 'friend' && m.name === 'name.long')!;
+      const enemy = sq.members.find((m) => m.faction === 'enemy' && m.alive)!;
       const hpBefore = friend.health;
-      // người chơi bắn đồng đội → không sát thương; đồng đội bắn đồng đội → không; địch bắn đồng đội → có
       g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: 'player' });
       g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: sq.members.find((m) => m.faction === 'friend' && m.id !== friend.id)!.id });
       const hpMid = H.squad().members.find((m) => m.id === friend.id)!.health;
       g.events.emit('HIT', { actorId: friend.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: enemy.id });
       const hpAfter = H.squad().members.find((m) => m.id === friend.id)!.health;
-      // hit marker + vòng trúng đạn
       const hud0 = H.hud();
       g.events.emit('HIT', { actorId: enemy.id, zone: 'body', damage: 1, point: [0, 0, 0], penetrated: false, shooter: 'player' });
       g.events.emit('HIT', { actorId: 'player', zone: 'body', damage: 1, point: [0, 0, 0], penetrated: false, shooter: enemy.id });
       const hud1 = H.hud();
-      return { node: H.mission.state().currentNode, n: bots.length, minDist, factions: sq.members.map((m) => m.faction), hpBefore, hpMid, hpAfter, hits: hud1.hits - hud0.hits, dmg: hud1.damageIndicators - hud0.damageIndicators, playerHealth: g.player.health };
+      return { hpBefore, hpMid, hpAfter, hits: hud1.hits - hud0.hits, dmg: hud1.damageIndicators - hud0.damageIndicators };
     });
-    expect(block.node).toBe('n_block');
-    expect(block.n).toBe(3);
-    expect(block.minDist).toBeGreaterThan(40);
-    expect(block.hpMid).toBe(block.hpBefore);
-    expect(block.hpAfter).toBe(block.hpBefore - 8);
-    expect(block.hits).toBe(1);
-    expect(block.dmg).toBe(1);
+    expect(rules.hpMid).toBe(rules.hpBefore);
+    expect(rules.hpAfter).toBe(rules.hpBefore - 8);
+    expect(rules.hits).toBe(1);
+    expect(rules.dmg).toBe(1);
     await renderFrames(page, 1);
     expect(await page.locator('[data-testid="hitmarker"].show').count()).toBe(1);
     expect(await page.locator('[data-testid="damage-dir"] .on').count()).toBe(1);
-    // chết phải nằm hẳn (Chủ nhà Mac: "bị bắn gục không ngã hẳn, đứng nghiêng"): trúng đạn (clip hit) rồi chết ngay qua HIT event
-    // → sau 3 s đầu thấp hơn 0,9 m so với chân; glTF: chỉ clip death còn weight (CI chạy character=0 → Dummy thủ tục; glTF kiểm ở boot.spec)
+    // chết phải nằm hẳn
     const death = await page.evaluate(() => {
       const H = window.__ht!;
       const g = H.game;
-      const b = [...g.bots.values()].find((x) => x.group === 'recon_1' && x.bot.alive)!;
+      const b = [...g.bots.values()].find((x) => x.group === 'a1_bo' && x.bot.alive)!;
       type V3 = { x: number; y: number; z: number };
       const vis = b.dummy as unknown as { kind: string; char?: { mixer: { _actions: Array<{ _clip: { name: string }; getEffectiveWeight(): number; isScheduled(): boolean }> } }; bones: { head: { getWorldPosition(v: V3): V3 } }; setPose(t: number): void; group: { rotation: { x: number } } };
       let t = 100;
       vis.setPose(t);
-      g.events.emit('HIT', { actorId: b.id, zone: 'body', damage: 8, point: [0, 0, 0], penetrated: false, shooter: 'player' });
-      vis.setPose((t += 0.05));
       g.events.emit('HIT', { actorId: b.id, zone: 'head', damage: 1000, point: [0, 0, 0], penetrated: false, shooter: 'player' });
       for (let i = 0; i < 60; i++) vis.setPose((t += 0.05));
       const V = g.camera.position.constructor as new () => V3;
@@ -544,41 +526,218 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(death.headAbove, JSON.stringify(death)).toBeLessThan(0.9);
     if (death.kind === 'gltf') for (const [clip, w] of Object.entries(death.weights)) if (!/death/i.test(clip)) expect(w, `${clip} còn weight ${w}`).toBeLessThan(0.01);
     else expect(death.rotX).toBeCloseTo(-Math.PI / 2, 2);
-    // hạ đợt 1 → đợt 2 spawn; hạ đợt 2 → tới bãi
-    const waves = await page.evaluate(() => {
+    // HỒI 1: giao tranh trong 30 s đầu — tổ phục bờ bên kia bắn, cối rơi
+    const act1 = await page.evaluate(() => {
       const H = window.__ht!;
-      const k1 = H.kill('recon_1');
+      const g = H.game;
+      const a1 = [...g.bots.values()].filter((b) => b.group === 'a1_bo');
+      H.stepSim(60 * 18);
+      const shots = a1.reduce((a, b) => a + b.bot.stats.shots, 0);
+      const friendShots = [...g.bots.values()].filter((b) => b.faction === 'friend').reduce((a, b) => a + b.bot.stats.shots, 0);
+      const battle = { ...g.mission.battle!.stats };
+      H.kill('a1_bo');
+      H.stepSim(60 * 30); // n_a1 22 s → n_a1b (vòng sườn) 25 s → n_a1c (tiếp viện vượt suối)
+      const node0 = H.mission.state().currentNode;
+      const a1suon = H.bots().filter((b) => b.group === 'a1_suon').length;
+      const a1tiep = H.bots().filter((b) => b.group === 'a1_tiep').length;
+      H.kill('a1_suon');
+      H.kill('a1_tiep');
       H.stepSim(10);
-      const n2 = H.mission.state().currentNode;
-      const w2 = H.bots().filter((b) => b.group === 'recon_2' && b.alive).length;
-      const k2 = H.kill('recon_2');
-      H.stepSim(10);
-      return { k1, n2, w2, k2, node: H.mission.state().currentNode, shown: H.mission.subtitlesShown(), marker: H.hud().marker };
+      const node1 = H.mission.state().currentNode;
+      const lead = g.squadmates.leader()!;
+      const p0 = [...lead.bot.position];
+      H.stepSim(60 * 3);
+      const moved = Math.hypot(lead.bot.position[0] - p0[0]!, lead.bot.position[2] - p0[2]!);
+      return { shots, friendShots, battle, node0, node1, pace: g.squadmates.pace, moved, marker: H.hud().marker, a1suon, a1tiep };
     });
-    expect(waves.k1).toBe(2); // 1 tên đã chết ở bước kiểm ngã
-    expect(waves.n2).toBe('n_wave2');
-    expect(waves.w2).toBe(3);
-    expect(waves.k2).toBe(3);
-    expect(waves.node).toBe('n_lz');
-    expect(waves.marker).not.toBeNull();
-    // bãi bốc: UH-1 kích hoạt ngay, cpC, sau 34 s hoàn thành
-    const lz = await page.evaluate(() => {
+    expect(act1.shots, 'địch bắn trong 30 s đầu').toBeGreaterThan(5);
+    expect(act1.friendShots).toBeGreaterThan(5);
+    expect(act1.battle.shells, 'đòn đánh + cối').toBeGreaterThanOrEqual(2);
+    expect(act1.node0).toBe('n_a1c');
+    expect(act1.a1tiep).toBe(3);
+    expect(act1.node1).toBe('n_chase');
+    expect(act1.pace).toBe('assault');
+    expect(act1.moved / 3, 'Quyết xung phong (chạy)').toBeGreaterThan(2.5);
+    expect(act1.a1suon).toBe(3);
+    // HỒI 2–3: napalm (Khang), toán chặn, sườn đồi, B-52 (trong lòng suối không mất máu), tàn quân
+    const act23 = await page.evaluate(() => {
       const H = window.__ht!;
+      const g = H.game;
+      const tp = (zone: string, dx = 0, dz = 0): void => {
+        const z = H.mission.zones()[zone]!;
+        const x = z.center[0] + dx;
+        const zz = z.center[2] + dz;
+        H.teleport(x, (H.terrainHeight(x, zz) ?? 0) + 0.5, zz);
+      };
+      tp('doc_dong');
+      H.stepSim(10);
+      const nNapalm = H.mission.state().currentNode;
+      const timer = g.hud.state.objectiveTimer ?? null;
+      const hp0 = g.player.health;
+      // đứng lì giữa dải napalm (dải chạy sát nam đội hình, giữa dải ở (−16, 553))
+      H.teleport(-16, (H.terrainHeight(-16, 553) ?? 0) + 0.5, 553);
+      H.stepSim(60 * 15);
+      const heat = g.mission.battle!.stats.heatHits;
+      const napalm = g.mission.battle!.stats.napalm;
+      const fires = g.mission.battle!.stats.fires;
+      const squad = H.squad().members.filter((m) => m.faction === 'friend' && m.alive).map((m) => m.name);
+      const khangDead = H.squad().members.some((m) => m.name === 'name.khang' && !m.alive);
+      H.stepSim(60 * 5);
+      const nChan = H.mission.state().currentNode;
+      const chan = H.bots().filter((b) => (b.group === 'chan' || b.group === 'chan_san') && b.alive).length;
+      H.kill('chan');
+      H.kill('chan_san');
+      H.stepSim(10);
+      const nDoi = H.mission.state().currentNode;
+      H.kill('doi_giu');
+      H.stepSim(60 * 5);
+      const nB52 = H.mission.state().currentNode;
+      tp('ham');
+      g.player.health = 100;
+      const safe0 = g.mission.battle!.stats.safeHits;
+      H.stepSim(60 * 30.5); // bom rơi xong ở giây 30 (tàn quân ra ở giây 31)
+      const hpB52 = g.player.health;
+      H.stepSim(60 * 1.5);
+      return { hpB52, nNapalm, timer, hp0, heat, napalm, fires, squad, khangDead, nChan, chan, nDoi, nB52, bombs: g.mission.bombStats.dropped, safeHits: g.mission.battle!.stats.safeHits - safe0, node: H.mission.state().currentNode, sot: H.bots().filter((b) => b.group === 'sot' && b.alive).length, saves: H.checkpoint.saves() };
+    });
+    expect(act23.nNapalm).toBe('n_napalm');
+    expect(act23.timer).not.toBeNull();
+    expect(act23.napalm).toBe(1);
+    expect(act23.heat, 'đứng trong dải napalm thì bỏng').toBeGreaterThan(0);
+    expect(act23.fires).toBeGreaterThan(5);
+    expect(act23.khangDead).toBe(true);
+    expect(act23.squad).toEqual(['name.quyet', 'name.long', 'name.dat', 'name.hoan']);
+    expect(act23.nChan).toBe('n_chan');
+    expect(act23.chan).toBe(9);
+    expect(act23.nDoi).toBe('n_doi');
+    expect(act23.nB52).toBe('n_b52');
+    expect(act23.bombs).toBeGreaterThanOrEqual(35);
+    expect(act23.hpB52, 'trong lòng suối thì sống').toBe(100);
+    expect(act23.safeHits).toBe(0);
+    expect(act23.node).toBe('n_b52_after');
+    expect(act23.sot).toBe(6);
+    expect(act23.saves).toBeGreaterThanOrEqual(4);
+    // HỒI 4: gài bộc phá (giữ F 3 s), giữ chốt 90 s có đếm ngược, hai mũi phản kích
+    const act4 = await page.evaluate(() => {
+      const H = window.__ht!;
+      const g = H.game;
+      const tp = (zone: string): void => {
+        const z = H.mission.zones()[zone]!;
+        H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
+      };
+      g.player.health = 1e9;
+      H.kill('sot');
+      H.stepSim(10);
+      const nCb = H.mission.state().currentNode;
+      tp('cam_bien');
+      H.stepSim(10);
+      const prompt = g.hud.state.promptKey;
+      g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.interactHeld = true; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+      H.stepSim(60 * 3.4);
+      g.input = { kind: 'replay', snapshot: (_t, o) => { o.fwd = 0; o.right = 0; o.sprint = false; o.crouch = false; o.jump = false; o.reload = false; o.interact = false; o.interactHeld = false; o.dx = 0; o.dy = 0; o.ads = false; o.fire = false; } };
+      H.stepSim(10);
+      const nHold = H.mission.state().currentNode;
+      const timer = g.hud.state.objectiveTimer ?? null;
+      const bac = H.bots().filter((b) => b.group === 'cb_bac' && b.alive).length;
+      H.stepSim(60 * 31);
+      const dong = H.bots().filter((b) => b.group === 'cb_dong' && b.alive).length;
+      for (let k = 0; k < 7; k++) {
+        H.kill('cb_bac');
+        H.kill('cb_dong');
+        H.stepSim(60 * 9);
+      }
+      return { nCb, prompt, nHold, timer, bac, dong, blown: H.mission.state().flags['bo_pha_blown'] === true, node: H.mission.state().currentNode, f2: H.bots().filter((b) => b.group === 'f2' && b.alive).length };
+    });
+    expect(act4.nCb).toBe('n_cb');
+    expect(act4.prompt).toBe('charge');
+    expect(act4.nHold).toBe('n_cb_hold');
+    expect(act4.timer).toBeGreaterThan(80);
+    expect(act4.bac).toBe(5);
+    expect(act4.dong).toBe(5);
+    expect(act4.blown).toBe(true);
+    expect(act4.node).toBe('n_khe_go');
+    expect(act4.f2).toBe(6);
+    // HỒI 5–7: tổ phục trong khe im khi ta còn xa, khai hoả khi ≤ 25 m; dốc; bãi đáp (Hoàn); pháo bắn chặn; rút → xong
+    const act57 = await page.evaluate(() => {
+      const H = window.__ht!;
+      const g = H.game;
+      const tp = (zone: string, dx = 0, dz = 0): void => {
+        const z = H.mission.zones()[zone]!;
+        const x = z.center[0] + dx;
+        const zz = z.center[2] + dz;
+        H.teleport(x, (H.terrainHeight(x, zz) ?? 0) + 0.5, zz);
+      };
+      const f2 = [...g.bots.values()].filter((b) => b.group === 'f2' && b.bot.alive);
+      const ambush0 = f2.filter((b) => b.bot.ambush).length;
+      tp('khe', 45, 0);
+      const shots0 = f2.reduce((a, b) => a + b.bot.stats.shots, 0);
+      H.stepSim(60 * 5);
+      const shotsFar = f2.reduce((a, b) => a + b.bot.stats.shots, 0) - shots0;
+      tp('khe', 4, 0);
+      H.stepSim(60 * 4);
+      const shotsNear = f2.reduce((a, b) => a + b.bot.stats.shots, 0) - shots0 - shotsFar;
+      const nKhe = H.mission.state().currentNode;
+      for (const gr of ['f2', 'khe_mg', 'khe_sau']) H.kill(gr);
+      H.stepSim(10);
+      const nHill = H.mission.state().currentNode;
+      tp('doc', 30, 30);
+      H.stepSim(10);
+      const f3 = H.bots().filter((b) => (b.group === 'f3_hold' || b.group === 'f3_flank') && b.alive).length;
+      H.kill('f3_hold');
+      H.stepSim(60 * 36); // ổ súng đỉnh dốc đã câm; nút cối/vòng sườn kéo 35 s → giữ đỉnh 60 s
+      const nHold = H.mission.state().currentNode;
+      for (let k = 0; k < 7; k++) {
+        H.kill('f3_rf');
+        H.kill('f3_flank');
+        H.stepSim(60 * 9);
+      }
+      const nLzGo = H.mission.state().currentNode;
+      for (const gr of ['f3_flank', 'f3_rf']) H.kill(gr);
       const z = H.mission.zones()['lz']!;
-      H.teleport(z.center[0], (H.terrainHeight(z.center[0], z.center[2]) ?? 0) + 0.5, z.center[2]);
+      H.teleport(z.center[0] + 30, (H.terrainHeight(z.center[0] + 30, z.center[2]) ?? 0) + 0.5, z.center[2]);
       H.stepSim(10);
       const atLz = H.mission.state().currentNode;
-      const runs = H.skyStats()!.runsNow.map((r) => r.id);
+      const lzA = H.bots().filter((b) => b.group === 'lz_a' && b.alive).length;
       H.stepSim(60 * 35);
-      return { atLz, runs, node: H.mission.state().currentNode, complete: H.mission.state().complete, completeCount: H.events.countOf('MISSION_COMPLETE'), saves: H.checkpoint.saves(), shown: H.mission.subtitlesShown(), order: H.squad().order };
+      const nLz2 = H.mission.state().currentNode;
+      const lzB = H.bots().filter((b) => b.group === 'lz_b' && b.alive).length;
+      const runs = H.skyStats()!.runsNow.map((r) => r.id);
+      for (let k = 0; k < 10; k++) {
+        for (const gr of ['lz_a', 'lz_b', 'lz_c', 'f3_rf']) H.kill(gr);
+        H.stepSim(60 * 9.2);
+      }
+      const nLzDone = H.mission.state().currentNode;
+      const hoanDead = H.squad().members.some((m) => m.name === 'name.hoan' && !m.alive);
+      const alive = H.squad().members.filter((m) => m.faction === 'friend' && m.alive).map((m) => m.name);
+      tp('rut');
+      H.stepSim(60 * 20);
+      const enemies = [...g.bots.values()].filter((b) => b.faction === 'enemy').length;
+      return { ambush0, shotsFar, shotsNear, nKhe, nHill, f3, nHold, nLzGo, atLz, lzA, nLz2, lzB, runs, nLzDone, hoanDead, alive, enemies, node: H.mission.state().currentNode, complete: H.mission.state().complete, completeCount: H.events.countOf('MISSION_COMPLETE'), saves: H.checkpoint.saves(), shown: H.mission.subtitlesShown(), arty: g.mission.battle!.stats.shells };
     });
-    expect(lz.atLz).toBe('n_lz');
-    expect(lz.runs).toContain('huey_insert');
-    expect(lz.node).toBe('n_done');
-    expect(lz.complete).toBe(true);
-    expect(lz.completeCount).toBe(1);
-    expect(lz.saves).toBeGreaterThanOrEqual(3);
-    expect(lz.shown).toContain('M09');
+    expect(act57.ambush0).toBe(6);
+    expect(act57.shotsFar, 'tổ phục không bắn khi ta còn 45 m').toBe(0);
+    expect(act57.shotsNear, 'tổ phục khai hoả khi ta vào ≤ 25 m').toBeGreaterThan(0);
+    expect(act57.nKhe).toBe('n_khe');
+    expect(act57.nHill).toBe('n_f3_go');
+    expect(act57.f3).toBe(8);
+    expect(act57.nHold).toBe('n_f3c');
+    expect(act57.nLzGo).toBe('n_lz_go');
+    expect(act57.atLz).toBe('n_lz');
+    expect(act57.lzA).toBe(6);
+    expect(act57.nLz2).toBe('n_lz2');
+    expect(act57.lzB).toBe(4);
+    expect(act57.runs).toContain('huey_insert');
+    expect(act57.nLzDone).toBe('n_lz_done');
+    expect(act57.hoanDead).toBe(true);
+    expect(act57.alive).toEqual(['name.quyet', 'name.long', 'name.dat']);
+    expect(act57.enemies, 'tổng địch 70–90').toBeGreaterThanOrEqual(70);
+    expect(act57.enemies).toBeLessThanOrEqual(90);
+    expect(act57.node).toBe('n_done');
+    expect(act57.complete).toBe(true);
+    expect(act57.completeCount).toBe(1);
+    expect(act57.saves).toBeGreaterThanOrEqual(7);
+    expect(act57.shown).toContain('M00');
+    expect(act57.shown).toContain('M09');
     await renderFrames(page, 2);
     await expect(page.getByTestId('banner')).toBeVisible();
     await expectNoErrors(errors);

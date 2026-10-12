@@ -1,8 +1,8 @@
 {
-  "$comment": "PRD AI-001..004 — TIP-018: bắn trước, di chuyển sau; cover chỉ khi có nghĩa; tổ ép sườn. Tinh chỉnh tiếp ở G1 theo chơi thử.",
+  "$comment": "PRD AI-001..004; TIP-018; AI-T1 (DV-071); DV-083 (M1-T3): 4 vé, địch không vé vẫn bắn thật, 1 phát cảnh cáo, sát thương người chơi ×0,5 bù lại, nhóm săn bám, chia lại vai 4 s, xông lên khi người chơi thay đạn/nấp lâu, lùi khi mất 2/3 quân: chỗ nấp tự sinh, chấm vị trí theo vai, lao ngắn không bắn, thanh áp chế, cúi, tổ yểm trợ/cơ động, vé tấn công điện ảnh.",
   "perception": {
     "fovDeg": 110,
-    "sightRange": 40,
+    "sightRange": 60,
     "hearRange": 25,
     "eyeHeight": 1.6,
     "gainNear": 2.5,
@@ -10,11 +10,12 @@
     "decayPerSec": 0.25,
     "suspiciousAt": 0.3,
     "alertAt": 0.8,
-    "memoryMs": 6000
+    "memoryMs": 15000
   },
   "hearing": {
     "footstepLoudness": 0.35,
-    "footstepIntervalMs": 350
+    "footstepIntervalMs": 350,
+    "gunshotLoudness": 4
   },
   "move": {
     "speed": 3.5,
@@ -23,12 +24,16 @@
     "arriveRadius": 0.5,
     "stuckDistance": 0.3,
     "stuckMs": 2000,
-    "replanBudgetMs": 400
+    "replanBudgetMs": 400,
+    "boundSpeed": 5.0,
+    "crouchSpeed": 1.8,
+    "peekSpeed": 2.6,
+    "marchSpeed": 1.3
   },
   "combat": {
-    "spreadDeg": 3,
-    "spreadFirstDeg": 8,
-    "settleMs": 2000,
+    "spreadDeg": 1.6,
+    "spreadFirstDeg": 4.5,
+    "settleMs": 1200,
     "moveSpreadMul": 1.8,
     "aimDrop": 0.35,
     "damage": 8,
@@ -36,28 +41,43 @@
     "burst": 3,
     "burstPauseMs": 900,
     "burstPauseJitterMs": 500,
-    "range": 60,
+    "range": 80,
     "mag": 30,
     "reloadMs": 2200,
     "retreatHealth": 30,
-    "reactionMs": 250,
-    "reactionJitterMs": 200,
+    "reactionMs": 300,
+    "reactionJitterMs": 250,
     "engageMs": 2500,
     "repositionMs": 2500,
     "repositionJitterMs": 1000,
     "lostMs": 2500,
-    "peekMs": 1600,
-    "peekJitterMs": 500,
+    "peekMs": 1500,
+    "peekJitterMs": 900,
     "coverMs": 900,
     "coverJitterMs": 400,
     "coverSuppressedMs": 1400,
-    "peekFailMax": 3,
-    "engageRange": 40,
+    "peekFailMax": 4,
+    "engageRange": 60,
     "suppressMs": 1500,
     "suppressRadius": 1.5,
     "closeRange": 4,
     "farRange": 18,
-    "fovFireDot": 0.5
+    "fovFireDot": 0.5,
+    "noFireMoveRange": 8,
+    "crouchEye": 1.1,
+    "crouchDrop": 0.5,
+    "hideMs": 1100,
+    "hideJitterMs": 1000,
+    "reloadInCoverFrac": 0.34,
+    "coverRecheckMs": 2500,
+    "engageSeekMs": 600,
+    "noCoverRetryMs": 1500,
+    "advanceAfterPeeks": 2,
+    "advanceJitterPeeks": 2,
+    "suppressFireMs": 4000,
+    "suppressSpreadDeg": 6,
+    "botVsBotSpreadMul": 0.7,
+    "ambushRange": 25
   },
   "cover": {
     "minDistToTarget": 5,
@@ -76,17 +96,128 @@
   "states": {
     "PATROL": 60000,
     "INVESTIGATE": 12000,
-    "ENGAGE": 20000,
-    "SEEK_COVER": 6000,
-    "PEEK_FIRE": 12000,
+    "ENGAGE": 25000,
+    "SEEK_COVER": 7000,
+    "PEEK_FIRE": 30000,
     "FLANK": 12000,
-    "RETREAT": 5000
+    "RETREAT": 5000,
+    "SUPPRESSED": 9000
   },
   "lod": {
     "fullRange": 30,
     "reducedRange": 60,
     "offscreenSleepMs": 5000,
-    "reducedDivider": 5
+    "reducedDivider": 3
   },
-  "health": 100
+  "health": 100,
+  "suppression": {
+    "nearMissRadius": 2.5,
+    "nearMissGain": 0.22,
+    "nearMissBase": 0.05,
+    "hitGain": 0.45,
+    "impactRadius": 1.5,
+    "impactGain": 0.12,
+    "calmMs": 700,
+    "decayPerSec": 0.35,
+    "shakenAt": 0.35,
+    "pinnedAt": 0.8,
+    "releaseAt": 0.45,
+    "shakenSpreadMul": 1.8,
+    "pinnedMaxMs": 5500
+  },
+  "tactics": {
+    "maxMove": 18,
+    "probeBudget": 14,
+    "minDistToThreat": 6,
+    "travelCost": 0.22,
+    "bandCost": 0.35,
+    "inBandBonus": 1.5,
+    "spacing": 4,
+    "crowdCost": 3,
+    "assaultMinProgress": 3,
+    "assaultBackCost": 4,
+    "assaultProgressGain": 0.5,
+    "assaultProgressCap": 4,
+    "flankAngleDeg": 50,
+    "flankAngleCost": 0.12,
+    "flankBonus": 4,
+    "fallbackMinGain": 8,
+    "fallbackShortCost": 5,
+    "escortMin": 3,
+    "escortMax": 14,
+    "escortLaneHalf": 2.5,
+    "escortLaneCost": 5,
+    "fullBonus": 6,
+    "lowBonus": 4.5,
+    "noneCost": 4,
+    "fireBonus": 2.5,
+    "fireBonusSupport": 4.5,
+    "exposureCost": 1.6,
+    "maxProbeGain": 13,
+    "bands": {
+      "support": [
+        16,
+        45
+      ],
+      "assault": [
+        8,
+        26
+      ],
+      "flank": [
+        9,
+        30
+      ],
+      "fallback": [
+        24,
+        70
+      ],
+      "hold": [
+        6,
+        60
+      ],
+      "escort": [
+        8,
+        60
+      ]
+    },
+    "sourceBonus": 2.5,
+    "flankMaxMove": 18
+  },
+  "team": {
+    "tickMs": 300,
+    "maxMoversSmall": 1,
+    "maxMoversLarge": 2,
+    "largeGroup": 5,
+    "flankAfterBounds": 1,
+    "fallbackLossFrac": 0.34,
+    "flankCooldownMs": 6000,
+    "regroupMs": 12000,
+    "flankMaxBounds": 3,
+    "reorgMs": 4000,
+    "flankMinAlive": 2,
+    "pushCooldownMs": 7000,
+    "pushHiddenMs": 3000,
+    "pushMax": 2,
+    "enemyShareRadius": 60
+  },
+  "hunt": {
+    "refreshMs": 2500,
+    "jitterM": 4
+  },
+  "cinematic": {
+    "tokens": 4,
+    "tokenTickMs": 1500,
+    "noTokenSpreadMul": 1.5,
+    "noTokenAimOffsetM": 0.2,
+    "warnShots": 1,
+    "warnOffsetM": 1.6,
+    "warnResetMs": 4000,
+    "playerDamageMul": 0.5,
+    "regenDelayMs": 5000,
+    "regenTo": 60,
+    "regenPerSec": 10,
+    "friendDamageMul": 2.2,
+    "friendMinHealth": 20,
+    "friendSuppressionMul": 0.5
+  }
 }

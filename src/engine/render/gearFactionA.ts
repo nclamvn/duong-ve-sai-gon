@@ -40,12 +40,31 @@ export function boonieHatGeometry(): BufferGeometry {
 export const BOONIE_HEAD_OFFSET = { pos: new Vector3(0, 0.118, -0.004), rot: new Euler(-0.08, 0, 0) };
 
 /** `helmet` = mũ tai bèo (cùng khe với mũ cối của gear1971 để code/QA đọc chung) */
-export type GearFactionA = Gear1971;
+export type GearFactionA = Omit<Gear1971, 'helmet'> & { helmet: Object3D | null };
 
-export function attachGearFactionA(bones: { head: Object3D | null; chest: Object3D | null }): GearFactionA {
-  const base = attachGear1971(bones, { helmet: false });
-  let hat: Mesh | null = null;
-  if (bones.head) {
+/**
+ * Helmet prop (DV-068) on the Swat head bone: the rig has no real skull (the SWAT helmet shell is painted as skin, ~1.35× a
+ * real head), so the 31 cm-wide steel helmet sits with its rim (origin) just above the brow, tilted slightly back.
+ */
+export const HELMET_A_HEAD_OFFSET = { pos: new Vector3(0, 0.052, 0.022), rot: new Euler(-0.12, 0, 0), scale: 1.18 };
+/** DV-069: same helmet on a body with a real head (Head_ref frame = Swat frame, so only the fit changes) */
+export const HELMET_A_HEAD_OFFSET_REF = { pos: new Vector3(0, 0.075, 0.015), rot: new Euler(-0.05, 0, 0), scale: 0.86 };
+
+export function attachGearFactionA(bones: { head: Object3D | null; chest: Object3D | null }, props: { helmet?: Object3D | null; realHead?: boolean } = {}): GearFactionA {
+  // real-head bodies carry their own webbing and belt pouches in the mesh: no procedural chest rig
+  const base = attachGear1971(bones, { helmet: false, rig: !props.realHead });
+  const fit = props.realHead ? HELMET_A_HEAD_OFFSET_REF : HELMET_A_HEAD_OFFSET;
+  let hat: Object3D | null = null;
+  if (bones.head && props.helmet) {
+    // modelled helmet (owner 2026-10-11: the boonie hat looked bad); clone shares geometry/material
+    hat = props.helmet.clone(true);
+    hat.name = 'gear_helmet_a';
+    hat.position.copy(fit.pos);
+    hat.rotation.copy(fit.rot);
+    hat.scale.setScalar(fit.scale);
+    hat.traverse((o) => (o.frustumCulled = false));
+    bones.head.add(hat);
+  } else if (bones.head) {
     boonieMat ??= new MeshStandardNodeMaterial({ color: BOONIE_COLOR, roughness: 0.95, metalness: 0, side: DoubleSide });
     hat = new Mesh(boonieHatGeometry(), boonieMat);
     hat.name = 'gear_boonie_hat';

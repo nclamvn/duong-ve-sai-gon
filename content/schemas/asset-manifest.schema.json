@@ -73,7 +73,9 @@
               "aws-terrain-tiles",
               "procedural",
               "google-fonts",
-              "polyhaven-vegetation"
+              "polyhaven-vegetation",
+              "elevenlabs",
+              "makehuman"
             ]
           },
           "url": {
@@ -96,7 +98,9 @@
               "OFL-1.1",
               "Fab-Standard",
               "CGTrader-RF",
-              "Unity-EULA"
+              "Unity-EULA",
+              "ElevenLabs-Paid",
+              "DVSG-Own"
             ]
           },
           "files": {

@@ -25,7 +25,7 @@
         "properties": {
           "cueId": {
             "type": "string",
-            "pattern": "^[BDPM]\\d{2}$",
+            "pattern": "^[BDMNP]\\d{2}$",
             "description": "D = G0 arena, P = Phố Vạn Hải, M = M1 Trường Sơn, B = M2 Bản Đông"
           },
           "speaker": {
@@ -36,16 +36,20 @@
               "AN",
               "TRAM_BAC",
               "QUYET",
-              "HAI",
-              "SANG",
-              "THANH",
+              "LONG",
+              "DAT",
+              "LAM",
               "GIAO_LIEN",
               "TRUNG_DOI",
               "PILOT",
               "PARA",
               "UT",
               "THU",
-              "DAI"
+              "DAI",
+              "HOAN",
+              "KHANG",
+              "SQUAD",
+              "LAIXE"
             ]
           },
           "audio": {
@@ -81,6 +85,9 @@
           }
         }
       }
+    },
+    "$comment": {
+      "type": "string"
     }
   }
 }

@@ -283,14 +283,25 @@ export class SkyTraffic {
     return true;
   }
 
-  private startRun(d: FlightDef): void {
+  /**
+   * DV-084: lượt bay qua đúng một điểm theo hướng cho trước (bổ nhào ném napalm/bom đồng bộ với vụ nổ) — trả thời gian (s) tới điểm
+   * đó, hoặc null nếu không có flight/model. `agl` ghi đè độ cao (m trên đỉnh địa hình dọc đường).
+   */
+  triggerThrough(flightId: string, through: [number, number], heading: number, agl?: number): number | null {
+    const f = this.def.flights.find((x) => x.id === flightId);
+    if (!f || !this.models[f.model]) return null;
+    this.startRun(f, { through, heading, agl });
+    return (f.radius ?? 1400) / Math.max(1, f.speed);
+  }
+
+  private startRun(d: FlightDef, ov?: { through: [number, number]; heading: number; agl?: number }): void {
     const tpl = this.models[d.model];
     if (!tpl) return;
     const R = d.radius ?? 1400;
     const c = this.def.center;
     // điểm đi qua: quanh tâm ±300 m (hoặc điểm treo)
-    const through = d.hover ? new Vector3(d.hover.at[0], 0, d.hover.at[1]) : new Vector3(c[0] + this.prng.range(-300, 300), 0, c[1] + this.prng.range(-300, 300));
-    const heading = this.prng.range(0, Math.PI * 2);
+    const through = ov ? new Vector3(ov.through[0], 0, ov.through[1]) : d.hover ? new Vector3(d.hover.at[0], 0, d.hover.at[1]) : new Vector3(c[0] + this.prng.range(-300, 300), 0, c[1] + this.prng.range(-300, 300));
+    const heading = ov ? ov.heading : this.prng.range(0, Math.PI * 2);
     _dir.set(Math.sin(heading), 0, Math.cos(heading));
     const a = through.clone().addScaledVector(_dir, -R);
     const b = through.clone().addScaledVector(_dir, R);
@@ -303,7 +314,7 @@ export class SkyTraffic {
       const z = Math.max(-this.tile.half, Math.min(this.tile.half, _tmp.z));
       maxH = Math.max(maxH, this.tile.sample(x, z));
     }
-    const y = maxH + this.prng.range(d.agl[0], d.agl[1]);
+    const y = maxH + (ov?.agl ?? this.prng.range(d.agl[0], d.agl[1]));
     a.y = y;
     b.y = y;
     const n = Math.max(1, Math.min(3, d.count ?? 1));

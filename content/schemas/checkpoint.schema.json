@@ -48,7 +48,8 @@
       "properties": {
         "weapon": { "type": "string" },
         "mag": { "type": "integer", "minimum": 0 },
-        "reserve": { "type": "integer", "minimum": 0 }
+        "reserve": { "type": "integer", "minimum": 0 },
+        "grenades": { "type": "integer", "minimum": 0 }
       }
     },
     "doors": { "type": "array", "items": { "type": "object", "required": ["id", "open"], "properties": { "id": { "type": "string" }, "open": { "type": "boolean" } } } },

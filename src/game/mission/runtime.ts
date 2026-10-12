@@ -4,7 +4,7 @@
  * Không chứa shader/physics low-level. Thế giới (spawn, zone, actor) qua interface deps.
  */
 import type { EventBus } from '@engine/core';
-import type { MissionDefinition, MissionNode, MissionCondition, MissionAction, DialogueSet, DialogueCue, MissionEvents, CheckpointSnapshot } from './types';
+import { BATTLE_ACTIONS, type MissionDefinition, type MissionNode, type MissionCondition, type MissionAction, type DialogueSet, type DialogueCue, type MissionEvents, type CheckpointSnapshot } from './types';
 
 export interface MissionWorld {
   /** vị trí player (feet) */
@@ -13,11 +13,24 @@ export interface MissionWorld {
   spawnGroup(groupId: string, count: number, spawnName: string): string[];
   /** số actor còn sống trong group */
   groupAlive(groupId: string): number;
+  /** vị trí tổ trưởng (Quyết) — null nếu không có tổ (M1-T2 squad_at) */
+  squadLeaderPosition?(): [number, number, number] | null;
   /** snapshot/restore phần thế giới (player, actors, inventory) */
   captureWorld(): Pick<CheckpointSnapshot, 'actors' | 'player' | 'inventory' | 'doors'>;
   restoreWorld(s: Pick<CheckpointSnapshot, 'actors' | 'player' | 'inventory' | 'doors'>): void;
   currentTick(): number;
   seed(): number;
+  /** DV-084: tổng địch còn sống trên màn (trần quân tiếp viện); không có = không trần */
+  enemiesAlive?(): number;
+}
+
+/** DV-084 quân tiếp viện theo đợt */
+export interface ReinforceState {
+  left: number;
+  wave: number;
+  nextMs: number;
+  intervalMs: number;
+  maxAlive: number;
 }
 
 export interface MissionState {
@@ -34,10 +47,12 @@ export interface MissionState {
   nodeActive: boolean;
   /** nodeMs lúc actions chạy (điều kiện active_ms) */
   nodeActiveMs: number;
+  /** DV-084 đợt tiếp viện còn chờ theo nhóm */
+  reinforce: Record<string, ReinforceState>;
 }
 
 export class MissionRuntime {
-  readonly state: MissionState = { currentNode: null, flags: {}, objectives: {}, groups: {}, nodeEnteredTick: 0, complete: false, nodeMs: 0, nodeActive: false, nodeActiveMs: 0 };
+  readonly state: MissionState = { currentNode: null, flags: {}, objectives: {}, groups: {}, nodeEnteredTick: 0, complete: false, nodeMs: 0, nodeActive: false, nodeActiveMs: 0, reinforce: {} };
   private readonly nodes = new Map<string, MissionNode>();
   private readonly cues = new Map<string, DialogueCue>();
   private readonly zoneInside = new Map<string, boolean>();
@@ -87,12 +102,28 @@ export class MissionRuntime {
       case 'group_dead': {
         const ids = this.state.groups[c.group ?? ''];
         if (!ids) return false; // chưa spawn → chưa "chết"
+        // DV-084: còn đợt tiếp viện chờ ra → chưa chết hết
+        if ((this.state.reinforce[c.group ?? '']?.left ?? 0) > 0) return false;
         return this.world.groupAlive(c.group ?? '') === 0;
       }
       case 'timeout':
         return this.state.nodeMs >= (c.ms ?? 0);
       case 'active_ms': // ms kể từ khi action của node đã chạy (không tính thời gian chờ enterConditions)
         return this.state.nodeActive && this.state.nodeMs - this.state.nodeActiveMs >= (c.ms ?? 0);
+      case 'group_alive_max': {
+        const ids = this.state.groups[c.group ?? ''];
+        if (!ids) return false;
+        // DV-085: đợt tiếp viện còn chờ (kể cả đợt đầu chưa có chỗ ra) → chưa tính là "còn ít"
+        if ((this.state.reinforce[c.group ?? '']?.left ?? 0) > 0) return false;
+        return this.world.groupAlive(c.group ?? '') <= (c.count ?? 0);
+      }
+      case 'squad_at': {
+        const z = this.zoneOf(c.zone ?? '');
+        const p = this.world.squadLeaderPosition?.() ?? null;
+        if (!z) return false;
+        if (!p) return true; // không có tổ trưởng (chưa spawn/test) → không chặn mission
+        return Math.hypot(p[0] - z.center[0], p[2] - z.center[2]) <= z.radius;
+      }
       case 'zone_enter': {
         const z = this.zoneOf(c.zone ?? '');
         if (!z) return false;
@@ -122,8 +153,18 @@ export class MissionRuntime {
         break;
       }
       case 'objective':
-        if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'active', marker: a.marker }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'active';
+        if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'active', marker: a.marker, timerMs: a.timerMs }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'active';
         break;
+      case 'reinforce': {
+        // DV-084: đợt đầu ra ngay (nếu còn chỗ dưới trần), các đợt sau mỗi intervalMs khi còn chỗ
+        const g = this.def.spawnGroups?.find((x) => x.id === a.group);
+        if (!g) return;
+        if (!this.events.emit('SPAWN_GROUP', { group: g.id, count: g.count, spawn: g.spawn }, { id })) return;
+        this.state.reinforce[g.id] = { left: Math.max(1, a.waves ?? 1), wave: 0, nextMs: 0, intervalMs: a.intervalMs ?? 20000, maxAlive: a.maxAlive ?? 16 };
+        this.state.groups[g.id] ??= [];
+        this.reinforceStep(0);
+        break;
+      }
       case 'objective_complete':
         if (this.events.emit('OBJECTIVE', { key: a.objectiveKey ?? '', status: 'complete' }, { id })) this.state.objectives[a.objectiveKey ?? ''] = 'complete';
         break;
@@ -149,7 +190,21 @@ export class MissionRuntime {
         this.events.emit('SKY_TRIGGER', { flight: a.flight ?? '' }, { id });
         break;
       case 'squad_order':
-        this.events.emit('SQUAD_ORDER', { order: a.order ?? 'follow' }, { id });
+        this.events.emit('SQUAD_ORDER', { order: a.order ?? 'follow', pace: a.pace, zone: a.zone }, { id });
+        break;
+      case 'bombing':
+        this.events.emit('BOMBING', { from: a.from ?? [0, 0], to: a.to ?? [0, 0], count: a.count ?? 30, durationMs: a.durationMs ?? 20000, delayMs: a.delayMs ?? 0, radius: a.radius ?? 12, damage: a.damage ?? 200 }, { id });
+        break;
+      case 'fx':
+      case 'strike':
+      case 'napalm':
+      case 'mortar':
+      case 'squad_kill':
+      case 'safe_zone':
+        if (BATTLE_ACTIONS.has(a.type)) this.events.emit('BATTLE', { action: a }, { id });
+        break;
+      case 'group_hunt':
+        this.events.emit('GROUP_HUNT', { group: a.group ?? '' }, { id });
         break;
       case 'interactable':
         this.events.emit('INTERACTABLE', { id: a.interactId ?? '', zone: a.zone ?? '', holdMs: a.holdMs ?? 0, promptKey: a.promptKey ?? 'interact', fuseMs: a.fuseMs ?? 0, prop: a.prop ?? null, blastRadius: a.blastRadius ?? 6, blastDamage: a.blastDamage ?? 35 }, { id });
@@ -157,9 +212,36 @@ export class MissionRuntime {
     }
   }
 
+  /** DV-084: ra các đợt tiếp viện đến hạn (trần địch sống toàn màn) */
+  private reinforceStep(ms: number): void {
+    for (const [gid, r] of Object.entries(this.state.reinforce)) {
+      if (r.left <= 0) continue;
+      r.nextMs -= ms;
+      if (r.nextMs > 0) continue;
+      const g = this.def.spawnGroups?.find((x) => x.id === gid);
+      if (!g) {
+        r.left = 0;
+        continue;
+      }
+      const n = Math.min(g.count, g.budget ?? g.count);
+      const alive = this.world.enemiesAlive?.() ?? 0;
+      if (alive + n > r.maxAlive) {
+        r.nextMs = 1000; // chưa có chỗ: thử lại sau 1 s
+        continue;
+      }
+      const ids = this.world.spawnGroup(gid, n, g.spawn);
+      (this.state.groups[gid] ??= []).push(...ids);
+      r.wave++;
+      r.left--;
+      r.nextMs = r.intervalMs;
+      this.events.emit('REINFORCE_WAVE', { group: gid, wave: r.wave, ids: ids.length });
+    }
+  }
+
   /** Gọi mỗi sim tick (dt giây). */
   step(dt: number): void {
     if (!this.started || this.state.complete) return;
+    this.reinforceStep(dt * 1000);
     const id = this.state.currentNode;
     if (!id) return;
     const node = this.nodes.get(id)!;
@@ -186,6 +268,19 @@ export class MissionRuntime {
     }
   }
 
+  /** DV-084: đợt tiếp viện còn chờ → timers (`rf:<group>:<field>`) để checkpoint giữ được */
+  private reinforceTimers(): Record<string, number> {
+    const out: Record<string, number> = {};
+    for (const [g, r] of Object.entries(this.state.reinforce)) {
+      out[`rf:${g}:left`] = r.left;
+      out[`rf:${g}:wave`] = r.wave;
+      out[`rf:${g}:nextMs`] = r.nextMs;
+      out[`rf:${g}:intervalMs`] = r.intervalMs;
+      out[`rf:${g}:maxAlive`] = r.maxAlive;
+    }
+    return out;
+  }
+
   snapshot(checkpointId: string): CheckpointSnapshot {
     const w = this.world.captureWorld();
     return {
@@ -199,7 +294,7 @@ export class MissionRuntime {
       player: w.player,
       inventory: w.inventory,
       doors: w.doors,
-      timers: { nodeMs: this.state.nodeMs, nodeActiveMs: this.state.nodeActiveMs },
+      timers: { nodeMs: this.state.nodeMs, nodeActiveMs: this.state.nodeActiveMs, ...this.reinforceTimers() },
       seed: this.world.seed(),
       tick: this.world.currentTick(),
     };
@@ -223,6 +318,13 @@ export class MissionRuntime {
       if (a.group === 'dummies' || a.group === 'ambient' || a.group === 'player') continue;
       (this.state.groups[a.group] ??= []).push(a.id);
     }
+    this.state.reinforce = {};
+    for (const [k, v] of Object.entries(s.timers)) {
+      const m = /^rf:(.+):(left|wave|nextMs|intervalMs|maxAlive)$/.exec(k);
+      if (!m) continue;
+      const r = (this.state.reinforce[m[1]!] ??= { left: 0, wave: 0, nextMs: 0, intervalMs: 20000, maxAlive: 16 });
+      r[m[2] as keyof ReinforceState] = v;
+    }
     this.state.currentNode = s.node;
     this.state.nodeMs = s.timers['nodeMs'] ?? 0;
     this.state.nodeEnteredTick = s.tick;
@@ -237,6 +339,7 @@ export class MissionRuntime {
     this.state.flags = {};
     this.state.objectives = {};
     this.state.groups = {};
+    this.state.reinforce = {};
     this.state.complete = false;
     this.state.nodeMs = 0;
     this.state.nodeActive = false;

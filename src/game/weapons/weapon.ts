@@ -17,7 +17,7 @@ export type WeaponDef = (typeof weaponsJson)['ar_v1'];
 
 export interface WeaponEvents extends Record<string, unknown> {
   WEAPON_FIRED: { weapon: string; origin: [number, number, number]; dir: [number, number, number]; shotIndex: number; ads: number };
-  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: [number, number, number]; penetrated: boolean; shooter?: string };
+  HIT: { actorId: string; zone: 'head' | 'body'; damage: number; point: [number, number, number]; penetrated: boolean; shooter?: string; blast?: boolean };
   IMPACT: { point: [number, number, number]; normal: [number, number, number]; material: string; penetrated: boolean };
   RELOAD_START: { weapon: string };
   RELOAD_END: { weapon: string; mag: number; reserve: number };

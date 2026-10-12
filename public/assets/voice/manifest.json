@@ -1,0 +1,6531 @@
+{
+ "version": 1,
+ "model": "eleven_v3",
+ "generated": "2026-10-12T12:28:42.917Z",
+ "lines": {
+  "B01": {
+   "voice": "LONG",
+   "files": [
+    "vi/B01.mp3"
+   ],
+   "ms": [
+    11860
+   ],
+   "hash": [
+    "1e83465f24334780"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B02": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B02.mp3"
+   ],
+   "ms": [
+    13584
+   ],
+   "hash": [
+    "e790361c54d4eaf1"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B03": {
+   "voice": "LAM",
+   "files": [
+    "vi/B03.mp3"
+   ],
+   "ms": [
+    522
+   ],
+   "hash": [
+    "2d34e5e7526ac4e9"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B04": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B04.mp3"
+   ],
+   "ms": [
+    4389
+   ],
+   "hash": [
+    "5e409eb9adbb11e6"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B05": {
+   "voice": "DAT",
+   "files": [
+    "vi/B05.mp3"
+   ],
+   "ms": [
+    4206
+   ],
+   "hash": [
+    "0a2be3657b3b0dd6"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B06": {
+   "voice": "TRUNG_DOI",
+   "files": [
+    "vi/B06.mp3"
+   ],
+   "ms": [
+    2247
+   ],
+   "hash": [
+    "5d481911beb0ca38"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B07": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B07.mp3"
+   ],
+   "ms": [
+    392
+   ],
+   "hash": [
+    "d955a648c281d7ab"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "B08": {
+   "voice": "DAT",
+   "files": [
+    "vi/B08.mp3"
+   ],
+   "ms": [
+    6635
+   ],
+   "hash": [
+    "f9c3a2696f1939a6"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B09": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B09.mp3"
+   ],
+   "ms": [
+    3500
+   ],
+   "hash": [
+    "ec48d0e84c921eee"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B10": {
+   "voice": "LONG",
+   "files": [
+    "vi/B10.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "be527323a709f141"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B11": {
+   "voice": "LONG",
+   "files": [
+    "vi/B11.mp3"
+   ],
+   "ms": [
+    1829
+   ],
+   "hash": [
+    "2c27fe8d9dcd2742"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B12": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B12.mp3"
+   ],
+   "ms": [
+    3109
+   ],
+   "hash": [
+    "5432c299ef612cba"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B13": {
+   "voice": "QUYET",
+   "files": [
+    "vi/B13.mp3"
+   ],
+   "ms": [
+    6635
+   ],
+   "hash": [
+    "fdf831d6c4cca7d8"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "B14": {
+   "voice": "DAT",
+   "files": [
+    "vi/B14.mp3"
+   ],
+   "ms": [
+    2717
+   ],
+   "hash": [
+    "ec736bf56b60d8e4"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M10.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M10_QUYET_1.mp3",
+    "vi/M10_QUYET_2.mp3"
+   ],
+   "ms": [
+    575,
+    679
+   ],
+   "hash": [
+    "b572ed41dda2b24d",
+    "d0ead0e9342753f9"
+   ],
+   "qa": [
+    0.86,
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5",
+    "eleven_v3"
+   ]
+  },
+  "M10.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M10_LONG_1.mp3",
+    "vi/M10_LONG_2.mp3"
+   ],
+   "ms": [
+    1332,
+    758
+   ],
+   "hash": [
+    "7bed898c8124ca05",
+    "8517208d9f3e8d2b"
+   ],
+   "qa": [
+    1,
+    0.86
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M10.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M10_DAT_1.mp3",
+    "vi/M10_DAT_2.mp3"
+   ],
+   "ms": [
+    653,
+    731
+   ],
+   "hash": [
+    "7cb3e67ad0122403",
+    "59a41589e678ba69"
+   ],
+   "qa": [
+    0.86,
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5",
+    "eleven_v3"
+   ]
+  },
+  "M10.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M10_HOAN_1.mp3",
+    "vi/M10_HOAN_2.mp3"
+   ],
+   "ms": [
+    758,
+    679
+   ],
+   "hash": [
+    "a55f4428757ca7d4",
+    "2aaa0628b67f89f4"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M10.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M10_KHANG_1.mp3",
+    "vi/M10_KHANG_2.mp3"
+   ],
+   "ms": [
+    601,
+    705
+   ],
+   "hash": [
+    "8bdfa777aecc5f9b",
+    "8db3ab8af696cf44"
+   ],
+   "qa": [
+    1,
+    0.71
+   ],
+   "model": [
+    "eleven_flash_v2_5",
+    "eleven_v3"
+   ]
+  },
+  "M11.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M11_QUYET_1.mp3",
+    "vi/M11_QUYET_2.mp3"
+   ],
+   "ms": [
+    679,
+    758
+   ],
+   "hash": [
+    "2a976d6264a9c72e",
+    "f052af2ed8de0840"
+   ],
+   "qa": [
+    null,
+    1
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M11.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M11_LONG_1.mp3",
+    "vi/M11_LONG_2.mp3"
+   ],
+   "ms": [
+    862,
+    1071
+   ],
+   "hash": [
+    "0ffdab700b447620",
+    "6ca4b37865447f01"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M11.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M11_DAT_1.mp3",
+    "vi/M11_DAT_2.mp3"
+   ],
+   "ms": [
+    862,
+    940
+   ],
+   "hash": [
+    "2d66f0f7b9e91627",
+    "5b363e2ffeab1389"
+   ],
+   "qa": [
+    1,
+    1
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M11.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M11_HOAN_1.mp3",
+    "vi/M11_HOAN_2.mp3"
+   ],
+   "ms": [
+    1411,
+    1881
+   ],
+   "hash": [
+    "96c757079bfe90d0",
+    "952c4885bea5fb14"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M11.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M11_KHANG_1.mp3",
+    "vi/M11_KHANG_2.mp3"
+   ],
+   "ms": [
+    731,
+    705
+   ],
+   "hash": [
+    "f4f3a1630f178d88",
+    "4d4d760065fd5484"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M12.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M12_QUYET_1.mp3",
+    "vi/M12_QUYET_2.mp3"
+   ],
+   "ms": [
+    836,
+    1149
+   ],
+   "hash": [
+    "a634af537e0ee1f1",
+    "518d2b7dad8d71db"
+   ],
+   "qa": [
+    0.92,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M12.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M12_LONG_1.mp3",
+    "vi/M12_LONG_2.mp3"
+   ],
+   "ms": [
+    1541,
+    1045
+   ],
+   "hash": [
+    "5e4e347623669ccf",
+    "374a435b4f48fbb9"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M12.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M12_DAT_1.mp3",
+    "vi/M12_DAT_2.mp3"
+   ],
+   "ms": [
+    1045,
+    862
+   ],
+   "hash": [
+    "27d6bf91af8763d4",
+    "d1d5aedb258dc8ce"
+   ],
+   "qa": [
+    1,
+    0.83
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M12.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M12_HOAN_1.mp3",
+    "vi/M12_HOAN_2.mp3"
+   ],
+   "ms": [
+    2142,
+    2090
+   ],
+   "hash": [
+    "e5dbb292a313c983",
+    "396ab19df4c72f1e"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M12.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M12_KHANG_1.mp3",
+    "vi/M12_KHANG_2.mp3"
+   ],
+   "ms": [
+    1959,
+    1019
+   ],
+   "hash": [
+    "192ea0241bdf19c1",
+    "f27658c2be3a6dfa"
+   ],
+   "qa": [
+    1,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M13.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M13_QUYET_1.mp3",
+    "vi/M13_QUYET_2.mp3"
+   ],
+   "ms": [
+    1332,
+    1463
+   ],
+   "hash": [
+    "23a99ce36d3e39eb",
+    "299776fa3b5fc447"
+   ],
+   "qa": [
+    1,
+    0.94
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M13.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M13_LONG_1.mp3",
+    "vi/M13_LONG_2.mp3"
+   ],
+   "ms": [
+    2508,
+    1306
+   ],
+   "hash": [
+    "d7482bab1b286c23",
+    "4b978768f48a703a"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M13.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M13_DAT_1.mp3",
+    "vi/M13_DAT_2.mp3"
+   ],
+   "ms": [
+    1332,
+    1411
+   ],
+   "hash": [
+    "9ac98261a5c52544",
+    "e5a63fb412e02d3e"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M13.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M13_HOAN_1.mp3",
+    "vi/M13_HOAN_2.mp3"
+   ],
+   "ms": [
+    1254,
+    1384
+   ],
+   "hash": [
+    "2b82c70606d1b03c",
+    "7bdda154ea1adc26"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M13.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M13_KHANG_1.mp3",
+    "vi/M13_KHANG_2.mp3"
+   ],
+   "ms": [
+    1019,
+    1672
+   ],
+   "hash": [
+    "343b0293abe82682",
+    "a1432801a5af39e4"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M14.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M14_QUYET_1.mp3",
+    "vi/M14_QUYET_2.mp3"
+   ],
+   "ms": [
+    758,
+    601
+   ],
+   "hash": [
+    "5ef5ccba20bc46ae",
+    "b902fdb75011f5c1"
+   ],
+   "qa": [
+    0.83,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M14.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M14_LONG_1.mp3",
+    "vi/M14_LONG_2.mp3"
+   ],
+   "ms": [
+    1176,
+    940
+   ],
+   "hash": [
+    "4c485d8503354079",
+    "3045ced854ada2a6"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M14.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M14_DAT_1.mp3",
+    "vi/M14_DAT_2.mp3"
+   ],
+   "ms": [
+    705,
+    705
+   ],
+   "hash": [
+    "11648a7cce6ab7b2",
+    "fd63c07436c3fc2d"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M14.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M14_HOAN_1.mp3",
+    "vi/M14_HOAN_2.mp3"
+   ],
+   "ms": [
+    1646,
+    862
+   ],
+   "hash": [
+    "59c02ffecd8ad7a0",
+    "1a37b635cb811cd7"
+   ],
+   "qa": [
+    null,
+    0.83
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M14.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M14_KHANG_1.mp3",
+    "vi/M14_KHANG_2.mp3"
+   ],
+   "ms": [
+    679,
+    705
+   ],
+   "hash": [
+    "0aabab2ed88cc73b",
+    "a8962e9ed2626d82"
+   ],
+   "qa": [
+    0.92,
+    1
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M15.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M15_QUYET_1.mp3",
+    "vi/M15_QUYET_2.mp3"
+   ],
+   "ms": [
+    2038,
+    2090
+   ],
+   "hash": [
+    "4c5c4984deb02b4b",
+    "f5bfe9d6d53efb08"
+   ],
+   "qa": [
+    0.96,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M15.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M15_LONG_1.mp3",
+    "vi/M15_LONG_2.mp3"
+   ],
+   "ms": [
+    2168,
+    2194
+   ],
+   "hash": [
+    "02dbba2f44657d9a",
+    "3501e69e7c0e3caf"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M15.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M15_DAT_1.mp3",
+    "vi/M15_DAT_2.mp3"
+   ],
+   "ms": [
+    2168,
+    2351
+   ],
+   "hash": [
+    "bd723e0138b43d2d",
+    "c4ba1e0b797a8aab"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M15.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M15_HOAN_1.mp3",
+    "vi/M15_HOAN_2.mp3"
+   ],
+   "ms": [
+    2664,
+    2351
+   ],
+   "hash": [
+    "57786df22a3cd80f",
+    "6b51f39d7ebe3a77"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M15.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M15_KHANG_1.mp3",
+    "vi/M15_KHANG_2.mp3"
+   ],
+   "ms": [
+    2273,
+    1881
+   ],
+   "hash": [
+    "e4131c638acc2e6f",
+    "2ea6ada8a617a6ea"
+   ],
+   "qa": [
+    null,
+    0.96
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M05.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M05_QUYET_1.mp3",
+    "vi/M05_QUYET_2.mp3"
+   ],
+   "ms": [
+    2325,
+    2325
+   ],
+   "hash": [
+    "bf49f82714c94497",
+    "15c7c7ecce114de3"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M05.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M05_LONG_1.mp3",
+    "vi/M05_LONG_2.mp3"
+   ],
+   "ms": [
+    2586,
+    2560
+   ],
+   "hash": [
+    "647d66b397e4130a",
+    "b720c83fcfda808a"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M05.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M05_DAT_1.mp3",
+    "vi/M05_DAT_2.mp3"
+   ],
+   "ms": [
+    2377,
+    2456
+   ],
+   "hash": [
+    "3acb97ef43ff2603",
+    "9d52a17867bc42e6"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M05.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M05_HOAN_1.mp3",
+    "vi/M05_HOAN_2.mp3"
+   ],
+   "ms": [
+    2116,
+    2273
+   ],
+   "hash": [
+    "a5f19be624879576",
+    "5f5dfcc421905cf1"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M05.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M05_KHANG_1.mp3",
+    "vi/M05_KHANG_2.mp3"
+   ],
+   "ms": [
+    2429,
+    2090
+   ],
+   "hash": [
+    "d78b4c8192adb415",
+    "1ea1f00024ad5a27"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M06.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M06_QUYET_1.mp3",
+    "vi/M06_QUYET_2.mp3"
+   ],
+   "ms": [
+    2351,
+    2821
+   ],
+   "hash": [
+    "6956b7df292aebd8",
+    "1975ff6816290a6d"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M06.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M06_LONG_1.mp3",
+    "vi/M06_LONG_2.mp3"
+   ],
+   "ms": [
+    2090,
+    2194
+   ],
+   "hash": [
+    "2039ae06ee937505",
+    "7c13d21dd3d2a48d"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M06.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M06_DAT_1.mp3",
+    "vi/M06_DAT_2.mp3"
+   ],
+   "ms": [
+    2116,
+    1907
+   ],
+   "hash": [
+    "7fa5bc2c665d7482",
+    "08214f08874d250f"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M06.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M06_HOAN_1.mp3",
+    "vi/M06_HOAN_2.mp3"
+   ],
+   "ms": [
+    2116,
+    2168
+   ],
+   "hash": [
+    "bc7020cea712dcd4",
+    "a81e3ba41912b3de"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M06.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M06_KHANG_1.mp3",
+    "vi/M06_KHANG_2.mp3"
+   ],
+   "ms": [
+    2247,
+    2325
+   ],
+   "hash": [
+    "248b5c0923b50563",
+    "d3087d55276a2745"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M26.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M26_QUYET_1.mp3",
+    "vi/M26_QUYET_2.mp3"
+   ],
+   "ms": [
+    1646,
+    1489
+   ],
+   "hash": [
+    "6392a316901a58e7",
+    "09c55af28bb94c46"
+   ],
+   "qa": [
+    null,
+    0.88
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M26.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M26_LONG_1.mp3",
+    "vi/M26_LONG_2.mp3"
+   ],
+   "ms": [
+    1567,
+    2560
+   ],
+   "hash": [
+    "abffd0584d35a0f2",
+    "d05386aff16bde0d"
+   ],
+   "qa": [
+    0.88,
+    0.88
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M26.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M26_DAT_1.mp3",
+    "vi/M26_DAT_2.mp3"
+   ],
+   "ms": [
+    1515,
+    1541
+   ],
+   "hash": [
+    "b60b19d3fe7d3e65",
+    "46bfdcf3e0c96977"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M26.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M26_HOAN_1.mp3",
+    "vi/M26_HOAN_2.mp3"
+   ],
+   "ms": [
+    1306,
+    1384
+   ],
+   "hash": [
+    "06bc021b46022807",
+    "0fedc79118f81e01"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "M26.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M26_KHANG_1.mp3",
+    "vi/M26_KHANG_2.mp3"
+   ],
+   "ms": [
+    1123,
+    1437
+   ],
+   "hash": [
+    "e09c0fa4f8a90dbb",
+    "a114a8a1c48213a1"
+   ],
+   "qa": [
+    0.88,
+    0.88
+   ],
+   "model": [
+    "eleven_flash_v2_5",
+    "eleven_v3"
+   ]
+  },
+  "N01": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N01.mp3"
+   ],
+   "ms": [
+    4807
+   ],
+   "hash": [
+    "84a265f5ed9b85b7"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N02": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N02.mp3"
+   ],
+   "ms": [
+    5042
+   ],
+   "hash": [
+    "ed2b6ea8a9c7fd2a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N03": {
+   "voice": "THU",
+   "files": [
+    "vi/N03.mp3"
+   ],
+   "ms": [
+    2429
+   ],
+   "hash": [
+    "99ed26391b437632"
+   ],
+   "qa": [
+    0.98
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N04": {
+   "voice": "LAM",
+   "files": [
+    "vi/N04.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "985b2e4750daadf9"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N05": {
+   "voice": "THU",
+   "files": [
+    "vi/N05.mp3"
+   ],
+   "ms": [
+    7001
+   ],
+   "hash": [
+    "0dcacb6420ed1ad9"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N06": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N06.mp3"
+   ],
+   "ms": [
+    5878
+   ],
+   "hash": [
+    "46357baf4a6ca4fb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N07": {
+   "voice": "THU",
+   "files": [
+    "vi/N07.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "6dd92af9522f58e9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N08": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N08.mp3"
+   ],
+   "ms": [
+    4258
+   ],
+   "hash": [
+    "e7f04b75b847e333"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N09": {
+   "voice": "DAT",
+   "files": [
+    "vi/N09.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "904203015d728781"
+   ],
+   "qa": [
+    0.84
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N10.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N10_QUYET.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "7d1b8a218af91df2"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N10.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/N10_LONG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "c627b53007496d71"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N10.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/N10_DAT.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "6a5d7a4251242c95"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N10.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/N10_HOAN.mp3"
+   ],
+   "ms": [
+    2952
+   ],
+   "hash": [
+    "d38ab0e65c4f02c2"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N10.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/N10_KHANG.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "13aedbba7b2d66c6"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N11.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N11_QUYET.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "a0c8308771825c28"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N11.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/N11_LONG.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "257e4b472767b19e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N11.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/N11_DAT.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "6038b418f4bb7bda"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N11.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/N11_HOAN.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "037e687921ebbc7f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N11.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/N11_KHANG.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "52527017f3595ebc"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N12.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N12_QUYET.mp3"
+   ],
+   "ms": [
+    2769
+   ],
+   "hash": [
+    "e2f448cc10a644ef"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N12.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/N12_LONG.mp3"
+   ],
+   "ms": [
+    2325
+   ],
+   "hash": [
+    "ac8aedc33db3c0ea"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N12.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/N12_DAT.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "6afe74755ece251f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N12.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/N12_HOAN.mp3"
+   ],
+   "ms": [
+    3866
+   ],
+   "hash": [
+    "4e3d63470f52d0c1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N12.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/N12_KHANG.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "786e060caeddccde"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N13.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N13_QUYET.mp3"
+   ],
+   "ms": [
+    2377
+   ],
+   "hash": [
+    "27ba3b74bad9bbc4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N13.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/N13_LONG.mp3"
+   ],
+   "ms": [
+    2456
+   ],
+   "hash": [
+    "3809053ec01d410f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N13.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/N13_DAT.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "46e61b85e3902d92"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N13.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/N13_HOAN.mp3"
+   ],
+   "ms": [
+    1829
+   ],
+   "hash": [
+    "9f84038cb2712031"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N13.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/N13_KHANG.mp3"
+   ],
+   "ms": [
+    1933
+   ],
+   "hash": [
+    "ca98c466692325d1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N14.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N14_QUYET.mp3"
+   ],
+   "ms": [
+    2456
+   ],
+   "hash": [
+    "55ab2e1d1c9f3322"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N14.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/N14_LONG.mp3"
+   ],
+   "ms": [
+    2821
+   ],
+   "hash": [
+    "6d5edf3d79f5f87e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N14.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/N14_DAT.mp3"
+   ],
+   "ms": [
+    2900
+   ],
+   "hash": [
+    "ca7f72b7fbf91a42"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N14.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/N14_HOAN.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "8f8eb3abdb12073f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N14.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/N14_KHANG.mp3"
+   ],
+   "ms": [
+    2325
+   ],
+   "hash": [
+    "570c44260eaffbb1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N15": {
+   "voice": "THU",
+   "files": [
+    "vi/N15.mp3"
+   ],
+   "ms": [
+    2769
+   ],
+   "hash": [
+    "4fadd33ed539fac1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N16": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N16.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "82f8af272d54334b"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N17": {
+   "voice": "LAIXE",
+   "files": [
+    "vi/N17.mp3"
+   ],
+   "ms": [
+    3474
+   ],
+   "hash": [
+    "f5ef1cdac573816c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N18": {
+   "voice": "LAIXE",
+   "files": [
+    "vi/N18.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "fa103c81902e3ab3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N19": {
+   "voice": "THU",
+   "files": [
+    "vi/N19.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "312e3bb40a623e70"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N20": {
+   "voice": "THU",
+   "files": [
+    "vi/N20.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "2192d82ee74f3117"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N21": {
+   "voice": "THU",
+   "files": [
+    "vi/N21.mp3"
+   ],
+   "ms": [
+    2194
+   ],
+   "hash": [
+    "77bb3052a4cb4f57"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N22": {
+   "voice": "DAT",
+   "files": [
+    "vi/N22.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "3ea661403054af08"
+   ],
+   "qa": [
+    0.79
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N30": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N30.mp3"
+   ],
+   "ms": [
+    3004
+   ],
+   "hash": [
+    "439c9e4d3c937bb1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N31": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N31.mp3"
+   ],
+   "ms": [
+    4441
+   ],
+   "hash": [
+    "e5bd2b4d414c7c9b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N32": {
+   "voice": "QUYET",
+   "files": [
+    "vi/N32.mp3"
+   ],
+   "ms": [
+    5878
+   ],
+   "hash": [
+    "6219da1e12301666"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "N33": {
+   "voice": "THU",
+   "files": [
+    "vi/N33.mp3"
+   ],
+   "ms": [
+    5329
+   ],
+   "hash": [
+    "5537058e43e68ea7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M00": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M00.mp3"
+   ],
+   "ms": [
+    3918
+   ],
+   "hash": [
+    "51549f7e2a1693d0"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M01": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M01.mp3"
+   ],
+   "ms": [
+    4598
+   ],
+   "hash": [
+    "18639d1d5cd89f72"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M02": {
+   "voice": "LONG",
+   "files": [
+    "vi/M02.mp3"
+   ],
+   "ms": [
+    4676
+   ],
+   "hash": [
+    "e0b9bfb961db59b9"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M03": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M03.mp3"
+   ],
+   "ms": [
+    3788
+   ],
+   "hash": [
+    "3fc3e6f6f5b9719f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M04": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M04.mp3"
+   ],
+   "ms": [
+    3579
+   ],
+   "hash": [
+    "f0011c456bb1d976"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M07": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M07.mp3"
+   ],
+   "ms": [
+    2873
+   ],
+   "hash": [
+    "d0e1594e04a332e1"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M08": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M08.mp3"
+   ],
+   "ms": [
+    3213
+   ],
+   "hash": [
+    "2cf032e72c4740d2"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M09": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M09.mp3"
+   ],
+   "ms": [
+    3291
+   ],
+   "hash": [
+    "6ace39e9b4fb4536"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M16": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M16.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "6c554cf63bc46520"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M17": {
+   "voice": "DAT",
+   "files": [
+    "vi/M17.mp3"
+   ],
+   "ms": [
+    2247
+   ],
+   "hash": [
+    "ea09bd97a759656a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M18": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M18.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "c9f708edd9f1e85b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M19": {
+   "voice": "LONG",
+   "files": [
+    "vi/M19.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "3beb1e4b5ee42d9a"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M21.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M21_QUYET.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "499dba5e924e23d7"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M21.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M21_LONG.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "1a75148a858a977f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M21.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M21_DAT.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "7825cd7b3efc0f64"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M21.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M21_HOAN.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "ff0c12751a2f618f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M21.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M21_KHANG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "4975e3eac2d78abf"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M22.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M22_QUYET.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "7ec6a0fde8b62900"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M22.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M22_LONG.mp3"
+   ],
+   "ms": [
+    784
+   ],
+   "hash": [
+    "dd4556739ba6b151"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M22.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M22_DAT.mp3"
+   ],
+   "ms": [
+    549
+   ],
+   "hash": [
+    "2013bcf38bc5e225"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M22.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M22_HOAN.mp3"
+   ],
+   "ms": [
+    784
+   ],
+   "hash": [
+    "9fc8a643dd8188ff"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M22.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M22_KHANG.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "cb6f3bc344947faa"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M23.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M23_QUYET.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "e5be21d354f5c90f"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M23.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M23_LONG.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "1ca2e400130ec97c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M23.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M23_DAT.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "a1e9e6aa485d2c72"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M23.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M23_HOAN.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "5e87fd217ae75f7a"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M23.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M23_KHANG.mp3"
+   ],
+   "ms": [
+    1411
+   ],
+   "hash": [
+    "eac61ce7836d3a6f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M24.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M24_QUYET.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "606c52dc20f13e48"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M24.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M24_LONG.mp3"
+   ],
+   "ms": [
+    967
+   ],
+   "hash": [
+    "2e191682a17edaed"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M24.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M24_DAT.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "13f1d03d026573e0"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M24.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M24_HOAN.mp3"
+   ],
+   "ms": [
+    758
+   ],
+   "hash": [
+    "e4aac8ee9c4a9e0c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M24.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M24_KHANG.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "565dd95e89932f7d"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M25.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M25_QUYET.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "2d7914c676e6d83e"
+   ],
+   "qa": [
+    0.67
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M25.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/M25_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "2c378adc50fd087f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M25.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/M25_DAT.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "833651a59214525c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M25.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M25_HOAN.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "3bbfc6a2cb07493d"
+   ],
+   "qa": [
+    0.81
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M25.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M25_KHANG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "0f7be3f31b0f613a"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M27": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M27.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "087a3c9cc4622815"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M28": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M28.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "fbe162dc35376ff4"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M30": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M30.mp3"
+   ],
+   "ms": [
+    3840
+   ],
+   "hash": [
+    "eb71eb70b3ff2267"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M31": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M31.mp3"
+   ],
+   "ms": [
+    2482
+   ],
+   "hash": [
+    "7e6738aee5de43f4"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M32": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M32.mp3"
+   ],
+   "ms": [
+    2952
+   ],
+   "hash": [
+    "8840d7b3832c7ab0"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M33": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M33.mp3"
+   ],
+   "ms": [
+    3788
+   ],
+   "hash": [
+    "d68bfeefac44fca7"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M34": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M34.mp3"
+   ],
+   "ms": [
+    2769
+   ],
+   "hash": [
+    "8b4f48e769f20a95"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M35": {
+   "voice": "DAT",
+   "files": [
+    "vi/M35.mp3"
+   ],
+   "ms": [
+    3109
+   ],
+   "hash": [
+    "6bc11800c6d533ec"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M36": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M36.mp3"
+   ],
+   "ms": [
+    3135
+   ],
+   "hash": [
+    "36d4ff61f6715abb"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M37": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M37.mp3"
+   ],
+   "ms": [
+    7497
+   ],
+   "hash": [
+    "1781ab42e6f644c7"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M38": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M38.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "120da8795b2beccf"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M39": {
+   "voice": "LONG",
+   "files": [
+    "vi/M39.mp3"
+   ],
+   "ms": [
+    3892
+   ],
+   "hash": [
+    "4c8a51f109dfadd4"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M40": {
+   "voice": "DAT",
+   "files": [
+    "vi/M40.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "c57ab5eed23f7dae"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M41": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M41.mp3"
+   ],
+   "ms": [
+    2247
+   ],
+   "hash": [
+    "daf95bf64a1858e3"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M42": {
+   "voice": "DAT",
+   "files": [
+    "vi/M42.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "3f790a669e71b811"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M43": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M43.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "fbf4be9638322e9f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M44": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M44.mp3"
+   ],
+   "ms": [
+    4075
+   ],
+   "hash": [
+    "46ccf857c8ab645f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M45": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M45.mp3"
+   ],
+   "ms": [
+    3396
+   ],
+   "hash": [
+    "064be47a21d45790"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M46": {
+   "voice": "DAT",
+   "files": [
+    "vi/M46.mp3"
+   ],
+   "ms": [
+    5224
+   ],
+   "hash": [
+    "5d296a73710f77c0"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M47": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M47.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "9c0ac9571bb4ec58"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M48": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M48.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "36e7409c6440189b"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M49": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M49.mp3"
+   ],
+   "ms": [
+    5355
+   ],
+   "hash": [
+    "3e73392d70bf0bbe"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M50": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M50.mp3"
+   ],
+   "ms": [
+    3866
+   ],
+   "hash": [
+    "394c0405bc177bce"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M51": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M51.mp3"
+   ],
+   "ms": [
+    2873
+   ],
+   "hash": [
+    "084841923abcb8ad"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M52": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M52.mp3"
+   ],
+   "ms": [
+    6165
+   ],
+   "hash": [
+    "61623107b94a14cc"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M53": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M53.mp3"
+   ],
+   "ms": [
+    4963
+   ],
+   "hash": [
+    "acf2d1652a144673"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M54": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M54.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "5826d81cb6f6e209"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M55": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M55.mp3"
+   ],
+   "ms": [
+    3971
+   ],
+   "hash": [
+    "a8c8ada57ec7cb09"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M56": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M56.mp3"
+   ],
+   "ms": [
+    5329
+   ],
+   "hash": [
+    "8bc8aa0943b05a28"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M57": {
+   "voice": "DAT",
+   "files": [
+    "vi/M57.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "828a5272132e01fc"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M58": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M58.mp3"
+   ],
+   "ms": [
+    3056
+   ],
+   "hash": [
+    "37351f430ba91889"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M59": {
+   "voice": "LONG",
+   "files": [
+    "vi/M59.mp3"
+   ],
+   "ms": [
+    2821
+   ],
+   "hash": [
+    "3bf17b44399cf76a"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M60": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M60.mp3"
+   ],
+   "ms": [
+    3213
+   ],
+   "hash": [
+    "be3d9cc45db30ff0"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M61": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M61.mp3"
+   ],
+   "ms": [
+    2038
+   ],
+   "hash": [
+    "4c560702db2ac0e7"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M62": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M62.mp3"
+   ],
+   "ms": [
+    5068
+   ],
+   "hash": [
+    "281c9e51dc9485b1"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M63": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M63.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "2a795c11264dc894"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M64": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M64.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "da73d34d9819436a"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M65": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M65.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "01962f4275829287"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M66": {
+   "voice": "DAT",
+   "files": [
+    "vi/M66.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "8ab0e6860b015dd9"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M67": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M67.mp3"
+   ],
+   "ms": [
+    2168
+   ],
+   "hash": [
+    "f59827cd42a4671e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M68": {
+   "voice": "LONG",
+   "files": [
+    "vi/M68.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "a8c57249f438d966"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M69": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M69.mp3"
+   ],
+   "ms": [
+    2638
+   ],
+   "hash": [
+    "61afb6afcf52cc49"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M70": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M70.mp3"
+   ],
+   "ms": [
+    3736
+   ],
+   "hash": [
+    "cb6d57f6460b4162"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M71": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M71.mp3"
+   ],
+   "ms": [
+    3474
+   ],
+   "hash": [
+    "955978dafda82d26"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M72": {
+   "voice": "DAT",
+   "files": [
+    "vi/M72.mp3"
+   ],
+   "ms": [
+    3135
+   ],
+   "hash": [
+    "d2ce4bae32dc0895"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M73": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M73.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "c02f6249fe207ec6"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M74": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M74.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "bad9aa22f985cc52"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M75": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M75.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "30c09beb7349ba0f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M76": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M76.mp3"
+   ],
+   "ms": [
+    3579
+   ],
+   "hash": [
+    "ab1b0ea5df285a0e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M77": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M77.mp3"
+   ],
+   "ms": [
+    2456
+   ],
+   "hash": [
+    "cabfb9f0a024b787"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M78": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M78.mp3"
+   ],
+   "ms": [
+    3082
+   ],
+   "hash": [
+    "cea6dd13a89d2eaf"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M79": {
+   "voice": "LONG",
+   "files": [
+    "vi/M79.mp3"
+   ],
+   "ms": [
+    3213
+   ],
+   "hash": [
+    "d8ff64302111ea0c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M80": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M80.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "a844cab93dd1be6f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M81": {
+   "voice": "DAT",
+   "files": [
+    "vi/M81.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "000d6f20d59341b7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M82": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M82.mp3"
+   ],
+   "ms": [
+    2900
+   ],
+   "hash": [
+    "7a754fe01eeb1de2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M83": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M83.mp3"
+   ],
+   "ms": [
+    3370
+   ],
+   "hash": [
+    "dd070aeb673df437"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M84": {
+   "voice": "LONG",
+   "files": [
+    "vi/M84.mp3"
+   ],
+   "ms": [
+    2429
+   ],
+   "hash": [
+    "d9b746aab3a59721"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M85": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M85.mp3"
+   ],
+   "ms": [
+    3135
+   ],
+   "hash": [
+    "ef3fa3a25e050d13"
+   ],
+   "qa": [
+    0.97
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M86": {
+   "voice": "DAT",
+   "files": [
+    "vi/M86.mp3"
+   ],
+   "ms": [
+    3370
+   ],
+   "hash": [
+    "0462540856fe34e7"
+   ],
+   "qa": [
+    0.81
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M87": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M87.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "217c184ef791f0ad"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M88": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M88.mp3"
+   ],
+   "ms": [
+    4075
+   ],
+   "hash": [
+    "aa6d4c29eab26319"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M89": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M89.mp3"
+   ],
+   "ms": [
+    3631
+   ],
+   "hash": [
+    "1984c21a53a9d605"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M90": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M90.mp3"
+   ],
+   "ms": [
+    2638
+   ],
+   "hash": [
+    "bf9ff577716581bd"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M91": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M91.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "67f43a8a00d73314"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M92": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M92.mp3"
+   ],
+   "ms": [
+    4362
+   ],
+   "hash": [
+    "9bb373f031a1fcaa"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M93": {
+   "voice": "LONG",
+   "files": [
+    "vi/M93.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "582d5032c847cd23"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M94": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M94.mp3"
+   ],
+   "ms": [
+    2847
+   ],
+   "hash": [
+    "da89deff60e30235"
+   ],
+   "qa": [
+    0.97
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M95": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M95.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "8f36c9f12e815a44"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M96": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M96.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "25fe04283827efd8"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M97": {
+   "voice": "DAT",
+   "files": [
+    "vi/M97.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "76c7fca362c7e285"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M98": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M98.mp3"
+   ],
+   "ms": [
+    2456
+   ],
+   "hash": [
+    "ec569c4cd4595fcc"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M99": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M99.mp3"
+   ],
+   "ms": [
+    3866
+   ],
+   "hash": [
+    "3c412193c11f3b2c"
+   ],
+   "qa": [
+    0.98
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h1": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h1.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "ac4285ea61d865ed"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h2": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h2.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "65ce52bc5f0030cf"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h3": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h3.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "b43de0b2d748e993"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h4": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h4.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "28f1b5141957123e"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h5": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h5.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "bad1c271805815b7"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h6": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h6.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "71e32f200e651a00"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h7": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h7.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "5079e457e733cf84"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h8": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h8.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "9d90ffbdfe4eaa58"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h9": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h9.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "ec3f57461c7f6325"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h10": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h10.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "aaac9defd40d0400"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h11": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h11.mp3"
+   ],
+   "ms": [
+    1802
+   ],
+   "hash": [
+    "c0325844176f9427"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.QUYET.h12": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M20_QUYET_h12.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "292f83d253bd489c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h1": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h1.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "4796059a62bca147"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h2": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h2.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "ad856881f295957d"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h3": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h3.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "4f25ef585d6f5fc4"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h4": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h4.mp3"
+   ],
+   "ms": [
+    1933
+   ],
+   "hash": [
+    "a955379724ead13c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h5": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h5.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "36668bfc2c779a72"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h6": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h6.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "90a326200e874b91"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h7": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h7.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "41f9b07fc83c74a8"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h8": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h8.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "a9df68885cbf2a5e"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h9": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h9.mp3"
+   ],
+   "ms": [
+    1802
+   ],
+   "hash": [
+    "bdfcf8168f6696bd"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h10": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h10.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "d2136d004416a14c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h11": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h11.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "53c4d9e49467db47"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.LONG.h12": {
+   "voice": "LONG",
+   "files": [
+    "vi/M20_LONG_h12.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "53587bb1e8b1c36f"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h1": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h1.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "74d58574b9aadca2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M20.DAT.h2": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h2.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "7eabe3c03fdbf449"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h3": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h3.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "b4c5566c235c264d"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h4": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h4.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "99d3ad1c38306bc2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h5": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h5.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "ff2fa572c3fae9a2"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h6": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h6.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "ae74600674e38784"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h7": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h7.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "ba4dc6561e59c96d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h8": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h8.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "b448e4322dcf3f62"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h9": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h9.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "385817b97931ac3c"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h10": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h10.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "1ddc1cfd02293c2e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h11": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h11.mp3"
+   ],
+   "ms": [
+    1829
+   ],
+   "hash": [
+    "d37f162ee1259829"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.DAT.h12": {
+   "voice": "DAT",
+   "files": [
+    "vi/M20_DAT_h12.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "e2af4ae573435689"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h1": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h1.mp3"
+   ],
+   "ms": [
+    1176
+   ],
+   "hash": [
+    "e977be1b8d788645"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h2": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h2.mp3"
+   ],
+   "ms": [
+    1411
+   ],
+   "hash": [
+    "50428b136de3025e"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h3": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h3.mp3"
+   ],
+   "ms": [
+    2429
+   ],
+   "hash": [
+    "d9c53d9ee1b8bcb3"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h4": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h4.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "b7f4c93486bb1311"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h5": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h5.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "0eba45e9a616114d"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h6": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h6.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "5e6424f021558817"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h7": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h7.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "acf724597a774de9"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h8": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h8.mp3"
+   ],
+   "ms": [
+    2847
+   ],
+   "hash": [
+    "da11f1b2b073860b"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h9": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h9.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "bf3e09daeee048ac"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h10": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h10.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "feef96680ebc8a40"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h11": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h11.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "7718d8484869671c"
+   ],
+   "qa": [
+    0.96
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.HOAN.h12": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M20_HOAN_h12.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "0f68838c1cfcfc95"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h1": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h1.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "1963b64ef5596e11"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "M20.KHANG.h2": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h2.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "b1547e4dc163d322"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h3": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h3.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "4fa8ec92d52eb6bc"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h4": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h4.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "56289661e50590b0"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h5": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h5.mp3"
+   ],
+   "ms": [
+    1176
+   ],
+   "hash": [
+    "c5acc1917080948e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h6": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h6.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "dbe69be6d2048eda"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h7": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h7.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "b7abc6858c1b3ff6"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h8": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h8.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "7eb22564a0f1bc80"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h9": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h9.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "9bdead6d99b67c50"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h10": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h10.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "7dec2ed778e58f9f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h11": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h11.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "452872f3cfb278ee"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M20.KHANG.h12": {
+   "voice": "KHANG",
+   "files": [
+    "vi/M20_KHANG_h12.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "1860565d292bee39"
+   ],
+   "qa": [
+    null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "en.contact.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_contact_E1_0.mp3",
+    "en/en_contact_E1_1.mp3",
+    "en/en_contact_E1_2.mp3"
+   ],
+   "ms": [
+    1332,
+    2743,
+    2220
+   ],
+   "hash": [
+    "f4e648d3c786d8f2",
+    "fc15deb09423ac47",
+    "c62903b067593164"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.contact.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_contact_E2_0.mp3",
+    "en/en_contact_E2_1.mp3",
+    "en/en_contact_E2_2.mp3"
+   ],
+   "ms": [
+    993,
+    2273,
+    1907
+   ],
+   "hash": [
+    "3e0f6487ad7e1500",
+    "b8292a5cc623bb47",
+    "d4717055058b1c75"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.contact.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_contact_E3_0.mp3",
+    "en/en_contact_E3_1.mp3",
+    "en/en_contact_E3_2.mp3"
+   ],
+   "ms": [
+    1411,
+    2612,
+    2534
+   ],
+   "hash": [
+    "0f8d3b38dda53337",
+    "27ff2b2ac5c67e00",
+    "653bfc749c367807"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.contact.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_contact_E4_0.mp3",
+    "en/en_contact_E4_1.mp3",
+    "en/en_contact_E4_2.mp3"
+   ],
+   "ms": [
+    1306,
+    2273,
+    2011
+   ],
+   "hash": [
+    "9effcec0426ceb36",
+    "5aeb42b0d5996ded",
+    "4755e862d9259e26"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.reload.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_reload_E1_0.mp3",
+    "en/en_reload_E1_1.mp3",
+    "en/en_reload_E1_2.mp3"
+   ],
+   "ms": [
+    993,
+    1959,
+    1776
+   ],
+   "hash": [
+    "5096e0802d649d34",
+    "57e7af75183100cb",
+    "328723f3971736c8"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.reload.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_reload_E2_0.mp3",
+    "en/en_reload_E2_1.mp3",
+    "en/en_reload_E2_2.mp3"
+   ],
+   "ms": [
+    914,
+    1567,
+    1855
+   ],
+   "hash": [
+    "a13929dbc5bfd13c",
+    "ff3881360e5812a2",
+    "80b7cfbdf8130298"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.reload.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_reload_E3_0.mp3",
+    "en/en_reload_E3_1.mp3",
+    "en/en_reload_E3_2.mp3"
+   ],
+   "ms": [
+    1332,
+    1829,
+    1620
+   ],
+   "hash": [
+    "b39ede90d6ec7711",
+    "bd49f52345017fb7",
+    "9e47ea2350d02b26"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.reload.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_reload_E4_0.mp3",
+    "en/en_reload_E4_1.mp3",
+    "en/en_reload_E4_2.mp3"
+   ],
+   "ms": [
+    1202,
+    1698,
+    1646
+   ],
+   "hash": [
+    "042b949330bc3e83",
+    "01585b15f64556c0",
+    "e6e3da8022316a9d"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.frag.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_frag_E1_0.mp3",
+    "en/en_frag_E1_1.mp3",
+    "en/en_frag_E1_2.mp3"
+   ],
+   "ms": [
+    1097,
+    1071,
+    2064
+   ],
+   "hash": [
+    "6d13a1c3e19ffdb2",
+    "ccf2ae0219d29afa",
+    "077cfea2d28aa341"
+   ],
+   "qa": [
+    1,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.frag.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_frag_E2_0.mp3",
+    "en/en_frag_E2_1.mp3",
+    "en/en_frag_E2_2.mp3"
+   ],
+   "ms": [
+    1097,
+    1019,
+    1515
+   ],
+   "hash": [
+    "d11e7e397a6a9993",
+    "1b2e437fea82d239",
+    "a1e97e2b3ba8e4ec"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.frag.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_frag_E3_0.mp3",
+    "en/en_frag_E3_1.mp3",
+    "en/en_frag_E3_2.mp3"
+   ],
+   "ms": [
+    1045,
+    1254,
+    1463
+   ],
+   "hash": [
+    "c502cab43f8fa59c",
+    "ae6658181c53cd04",
+    "89493f050ff058e9"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.frag.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_frag_E4_0.mp3",
+    "en/en_frag_E4_1.mp3",
+    "en/en_frag_E4_2.mp3"
+   ],
+   "ms": [
+    1045,
+    1123,
+    1567
+   ],
+   "hash": [
+    "e1590ce52337c957",
+    "de1de0b67c71fb08",
+    "a8181a7bdb75e8e5"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.grenade.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_grenade_E1_0.mp3",
+    "en/en_grenade_E1_1.mp3",
+    "en/en_grenade_E1_2.mp3"
+   ],
+   "ms": [
+    1907,
+    1646,
+    1515
+   ],
+   "hash": [
+    "f0940c6315ca2996",
+    "81eda8d34bb29bc3",
+    "1701b56c9590ce65"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.grenade.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_grenade_E2_0.mp3",
+    "en/en_grenade_E2_1.mp3",
+    "en/en_grenade_E2_2.mp3"
+   ],
+   "ms": [
+    1724,
+    1567,
+    1593
+   ],
+   "hash": [
+    "23b22d7123be146a",
+    "5da8b6f20e34eea6",
+    "d15dfd5e34bb1d51"
+   ],
+   "qa": [
+    1,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.grenade.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_grenade_E3_0.mp3",
+    "en/en_grenade_E3_1.mp3",
+    "en/en_grenade_E3_2.mp3"
+   ],
+   "ms": [
+    1802,
+    2090,
+    1646
+   ],
+   "hash": [
+    "6cef1198d0ef9af9",
+    "173f635538f80a8d",
+    "c6fd4a7a3c95c2cd"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.grenade.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_grenade_E4_0.mp3",
+    "en/en_grenade_E4_1.mp3",
+    "en/en_grenade_E4_2.mp3"
+   ],
+   "ms": [
+    1855,
+    1881,
+    1358
+   ],
+   "hash": [
+    "7b857eda58968458",
+    "d0d3d208fbc4c2b2",
+    "bd5d5110148a2c73"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.moving.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_moving_E1_0.mp3",
+    "en/en_moving_E1_1.mp3",
+    "en/en_moving_E1_2.mp3"
+   ],
+   "ms": [
+    1384,
+    1672,
+    1149
+   ],
+   "hash": [
+    "0f76f7dc8a6d8e9f",
+    "52df41e9a3650409",
+    "4578fced67d497eb"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.moving.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_moving_E2_0.mp3",
+    "en/en_moving_E2_1.mp3",
+    "en/en_moving_E2_2.mp3"
+   ],
+   "ms": [
+    731,
+    1567,
+    784
+   ],
+   "hash": [
+    "b7b7322326670198",
+    "8b20235fc06a15c2",
+    "35bc274dfa1dc957"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.moving.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_moving_E3_0.mp3",
+    "en/en_moving_E3_1.mp3",
+    "en/en_moving_E3_2.mp3"
+   ],
+   "ms": [
+    810,
+    1646,
+    888
+   ],
+   "hash": [
+    "aa9b8b49da3689b7",
+    "14a698ef775c52ed",
+    "41f1a93df376bc0d"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.moving.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_moving_E4_0.mp3",
+    "en/en_moving_E4_1.mp3",
+    "en/en_moving_E4_2.mp3"
+   ],
+   "ms": [
+    836,
+    1593,
+    1593
+   ],
+   "hash": [
+    "638147e32d9c2288",
+    "054b2d0f9d1ecd1c",
+    "e83bcdd964ec881d"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.pinned.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_pinned_E1_0.mp3",
+    "en/en_pinned_E1_1.mp3",
+    "en/en_pinned_E1_2.mp3"
+   ],
+   "ms": [
+    1698,
+    2247,
+    1254
+   ],
+   "hash": [
+    "8922ad828fca1aa7",
+    "f921b0489b89d08c",
+    "d91ed5a72fa76fb7"
+   ],
+   "qa": [
+    null,
+    1,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.pinned.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_pinned_E2_0.mp3",
+    "en/en_pinned_E2_1.mp3",
+    "en/en_pinned_E2_2.mp3"
+   ],
+   "ms": [
+    1306,
+    2064,
+    1097
+   ],
+   "hash": [
+    "908a98e6b893346a",
+    "74ebd1c22c596178",
+    "1da54b9acaef74fd"
+   ],
+   "qa": [
+    1,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.pinned.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_pinned_E3_0.mp3",
+    "en/en_pinned_E3_1.mp3",
+    "en/en_pinned_E3_2.mp3"
+   ],
+   "ms": [
+    1802,
+    2351,
+    1254
+   ],
+   "hash": [
+    "77acaea35d660921",
+    "ddb8c99c5cb51aa3",
+    "a4f44c1bffd8bccf"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.pinned.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_pinned_E4_0.mp3",
+    "en/en_pinned_E4_1.mp3",
+    "en/en_pinned_E4_2.mp3"
+   ],
+   "ms": [
+    1384,
+    2299,
+    1228
+   ],
+   "hash": [
+    "9b5b650d2b36c980",
+    "18dcda67e98ed8ac",
+    "8f69cf4283134646"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.suppress.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_suppress_E1_0.mp3",
+    "en/en_suppress_E1_1.mp3",
+    "en/en_suppress_E1_2.mp3"
+   ],
+   "ms": [
+    1123,
+    1802,
+    1280
+   ],
+   "hash": [
+    "77435be06554b0b1",
+    "625c88bc136b01c1",
+    "c862725c6ae0ef97"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.suppress.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_suppress_E2_0.mp3",
+    "en/en_suppress_E2_1.mp3",
+    "en/en_suppress_E2_2.mp3"
+   ],
+   "ms": [
+    1202,
+    1463,
+    1045
+   ],
+   "hash": [
+    "1f4cd4e4102db766",
+    "3d45917c2bc90440",
+    "d7a5247b3d6b46d8"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.suppress.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_suppress_E3_0.mp3",
+    "en/en_suppress_E3_1.mp3",
+    "en/en_suppress_E3_2.mp3"
+   ],
+   "ms": [
+    1254,
+    1672,
+    1306
+   ],
+   "hash": [
+    "1c48e29cb8808cfd",
+    "654283816b0f97c6",
+    "e0d96a59fd5792b3"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.suppress.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_suppress_E4_0.mp3",
+    "en/en_suppress_E4_1.mp3",
+    "en/en_suppress_E4_2.mp3"
+   ],
+   "ms": [
+    1515,
+    1959,
+    1463
+   ],
+   "hash": [
+    "17a6ae555cdbb047",
+    "23174d096ff0523d",
+    "8045bab49ce4c54d"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.flank.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_flank_E1_0.mp3",
+    "en/en_flank_E1_1.mp3",
+    "en/en_flank_E1_2.mp3"
+   ],
+   "ms": [
+    914,
+    1358,
+    2351
+   ],
+   "hash": [
+    "e180044c663f121f",
+    "2959d79d9906361a",
+    "0013d57f7040b866"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.flank.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_flank_E2_0.mp3",
+    "en/en_flank_E2_1.mp3",
+    "en/en_flank_E2_2.mp3"
+   ],
+   "ms": [
+    1202,
+    1280,
+    2247
+   ],
+   "hash": [
+    "c73967050b705bc0",
+    "5fae4a23a1eb4627",
+    "b1a0182913209d3f"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.flank.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_flank_E3_0.mp3",
+    "en/en_flank_E3_1.mp3",
+    "en/en_flank_E3_2.mp3"
+   ],
+   "ms": [
+    1358,
+    1907,
+    2273
+   ],
+   "hash": [
+    "66071ce7e2a1afdd",
+    "17607f5e248d755e",
+    "75b898da3089a3e1"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.flank.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_flank_E4_0.mp3",
+    "en/en_flank_E4_1.mp3",
+    "en/en_flank_E4_2.mp3"
+   ],
+   "ms": [
+    1123,
+    1541,
+    2064
+   ],
+   "hash": [
+    "7d8f9e21155ab08f",
+    "4fde6c7723fa8499",
+    "aa21a3db544b05a6"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.fallback.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_fallback_E1_0.mp3",
+    "en/en_fallback_E1_1.mp3",
+    "en/en_fallback_E1_2.mp3"
+   ],
+   "ms": [
+    2873,
+    1646,
+    1672
+   ],
+   "hash": [
+    "7abd1372ea5bb2a7",
+    "4da3d54892d9d1ac",
+    "d63cfb6ca040bba3"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.fallback.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_fallback_E2_0.mp3",
+    "en/en_fallback_E2_1.mp3",
+    "en/en_fallback_E2_2.mp3"
+   ],
+   "ms": [
+    2064,
+    1306,
+    1907
+   ],
+   "hash": [
+    "23915a33d2b16e81",
+    "ce28a80a0b89e0aa",
+    "e25471f05bea006a"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.fallback.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_fallback_E3_0.mp3",
+    "en/en_fallback_E3_1.mp3",
+    "en/en_fallback_E3_2.mp3"
+   ],
+   "ms": [
+    2116,
+    2011,
+    1881
+   ],
+   "hash": [
+    "1aa433e262628405",
+    "7cb06444926e3f37",
+    "f78d91c8373433c9"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.fallback.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_fallback_E4_0.mp3",
+    "en/en_fallback_E4_1.mp3",
+    "en/en_fallback_E4_2.mp3"
+   ],
+   "ms": [
+    1776,
+    1541,
+    2038
+   ],
+   "hash": [
+    "821ec1cfd3b70b91",
+    "afb0bc40cb616eea",
+    "2098bda6529e8de0"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.hit.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_hit_E1_0.mp3",
+    "en/en_hit_E1_1.mp3",
+    "en/en_hit_E1_2.mp3"
+   ],
+   "ms": [
+    940,
+    2038,
+    1228
+   ],
+   "hash": [
+    "89ef30fe2734e721",
+    "9f8ed456208566c1",
+    "6591e15f9ca903d1"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.hit.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_hit_E2_0.mp3",
+    "en/en_hit_E2_1.mp3",
+    "en/en_hit_E2_2.mp3"
+   ],
+   "ms": [
+    653,
+    2377,
+    1306
+   ],
+   "hash": [
+    "c75d264a8379157d",
+    "79d49e87e8ff114c",
+    "f92c21f31115ada6"
+   ],
+   "qa": [
+    1,
+    null,
+    1
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.hit.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_hit_E3_0.mp3",
+    "en/en_hit_E3_1.mp3",
+    "en/en_hit_E3_2.mp3"
+   ],
+   "ms": [
+    1123,
+    2247,
+    1567
+   ],
+   "hash": [
+    "36bee3ee8caa4d2d",
+    "527f2cc6724f5f3f",
+    "dbf4475c33c4cd3a"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.hit.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_hit_E4_0.mp3",
+    "en/en_hit_E4_1.mp3",
+    "en/en_hit_E4_2.mp3"
+   ],
+   "ms": [
+    940,
+    2116,
+    1515
+   ],
+   "hash": [
+    "4b8568f349a83c3e",
+    "6f0296701f0e0041",
+    "0b3db0a2680a0677"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.mandown.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_mandown_E1_0.mp3",
+    "en/en_mandown_E1_1.mp3",
+    "en/en_mandown_E1_2.mp3"
+   ],
+   "ms": [
+    1071,
+    2038,
+    1855
+   ],
+   "hash": [
+    "2251a6333c27a87d",
+    "417de790cfcf5578",
+    "0ef0af81108663a6"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.mandown.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_mandown_E2_0.mp3",
+    "en/en_mandown_E2_1.mp3",
+    "en/en_mandown_E2_2.mp3"
+   ],
+   "ms": [
+    1149,
+    1437,
+    1515
+   ],
+   "hash": [
+    "7ce81917c6f676ca",
+    "012053833e42dec8",
+    "19063b2a4fe67fe8"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.mandown.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_mandown_E3_0.mp3",
+    "en/en_mandown_E3_1.mp3",
+    "en/en_mandown_E3_2.mp3"
+   ],
+   "ms": [
+    1332,
+    1672,
+    2011
+   ],
+   "hash": [
+    "7ac129c8971411f5",
+    "87af81fcb3ebf86c",
+    "7ebf1f62b5af3d8c"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.mandown.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_mandown_E4_0.mp3",
+    "en/en_mandown_E4_1.mp3",
+    "en/en_mandown_E4_2.mp3"
+   ],
+   "ms": [
+    1071,
+    1437,
+    2299
+   ],
+   "hash": [
+    "0ac5340ad5d98310",
+    "4bb710b476e2a460",
+    "59726fac7469b041"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.lost.E1": {
+   "voice": "E1",
+   "files": [
+    "en/en_lost_E1_0.mp3",
+    "en/en_lost_E1_1.mp3",
+    "en/en_lost_E1_2.mp3"
+   ],
+   "ms": [
+    810,
+    2168,
+    967
+   ],
+   "hash": [
+    "a8213fb252ebfe82",
+    "e2c6a5ed62db01bf",
+    "23e5c29a901be128"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.lost.E2": {
+   "voice": "E2",
+   "files": [
+    "en/en_lost_E2_0.mp3",
+    "en/en_lost_E2_1.mp3",
+    "en/en_lost_E2_2.mp3"
+   ],
+   "ms": [
+    862,
+    1959,
+    967
+   ],
+   "hash": [
+    "6fc9f91bbbcbf3c7",
+    "1a9cdb1594f89dff",
+    "b3e7df8529011c8e"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.lost.E3": {
+   "voice": "E3",
+   "files": [
+    "en/en_lost_E3_0.mp3",
+    "en/en_lost_E3_1.mp3",
+    "en/en_lost_E3_2.mp3"
+   ],
+   "ms": [
+    1228,
+    2717,
+    1149
+   ],
+   "hash": [
+    "2c11032cf7e6eeaa",
+    "81dba56f7ba81d67",
+    "472058a332774ecd"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.lost.E4": {
+   "voice": "E4",
+   "files": [
+    "en/en_lost_E4_0.mp3",
+    "en/en_lost_E4_1.mp3",
+    "en/en_lost_E4_2.mp3"
+   ],
+   "ms": [
+    627,
+    2429,
+    810
+   ],
+   "hash": [
+    "ca33f78d27fed482",
+    "e53394a1f8bc526e",
+    "e81e6cda5bb3524b"
+   ],
+   "qa": [
+    null,
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  },
+  "en.radio.ERADIO": {
+   "voice": "ERADIO",
+   "files": [
+    "en/en_radio_ERADIO_0.mp3",
+    "en/en_radio_ERADIO_1.mp3"
+   ],
+   "ms": [
+    2090,
+    2220
+   ],
+   "hash": [
+    "9dd1729674d26af4",
+    "f025be24b7671cd7"
+   ],
+   "qa": [
+    null,
+    null
+   ],
+   "model": [
+    "eleven_v3",
+    "eleven_v3"
+   ]
+  }
+ }
+}

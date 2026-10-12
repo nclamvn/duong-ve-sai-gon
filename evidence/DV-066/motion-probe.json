@@ -1,0 +1,184 @@
+{
+  "kind": "gltf",
+  "loco": [
+    {
+      "name": "run_bl",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": 135,
+      "phase": 0.48
+    },
+    {
+      "name": "run_br",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": -135,
+      "phase": 0.41
+    },
+    {
+      "name": "run_b",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": -180,
+      "phase": 0.48
+    },
+    {
+      "name": "run_fl",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": 45,
+      "phase": 0.39
+    },
+    {
+      "name": "run_fr",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": -45,
+      "phase": 0.38
+    },
+    {
+      "name": "run_f",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": 0,
+      "phase": 0.38
+    },
+    {
+      "name": "run_l",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": 90,
+      "phase": 0.48
+    },
+    {
+      "name": "run_r",
+      "measured": true,
+      "speed": 5.12,
+      "angleDeg": -90,
+      "phase": 0.34
+    },
+    {
+      "name": "walk_bl",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": 135,
+      "phase": 0.39
+    },
+    {
+      "name": "walk_br",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": -135,
+      "phase": 0.38
+    },
+    {
+      "name": "walk_b",
+      "measured": true,
+      "speed": 2.06,
+      "angleDeg": -180,
+      "phase": 0.25
+    },
+    {
+      "name": "crouch_walk_bl",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": 135,
+      "phase": 0.45
+    },
+    {
+      "name": "crouch_walk_br",
+      "measured": true,
+      "speed": 2.03,
+      "angleDeg": -134.9,
+      "phase": 0.48
+    },
+    {
+      "name": "crouch_walk_b",
+      "measured": true,
+      "speed": 2.1,
+      "angleDeg": -180,
+      "phase": 0.45
+    },
+    {
+      "name": "crouch_walk_fl",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": 45,
+      "phase": 0.3
+    },
+    {
+      "name": "crouch_walk_fr",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": -45,
+      "phase": 0.08
+    },
+    {
+      "name": "crouch_walk_f",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": 0,
+      "phase": 0.3
+    },
+    {
+      "name": "crouch_walk_l",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": 90,
+      "phase": 0.47
+    },
+    {
+      "name": "crouch_walk_r",
+      "measured": true,
+      "speed": 2.17,
+      "angleDeg": -90,
+      "phase": 0.27
+    },
+    {
+      "name": "walk_fl",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": 45,
+      "phase": 0.3
+    },
+    {
+      "name": "walk_fr",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": -45,
+      "phase": 0.31
+    },
+    {
+      "name": "walk_f",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": 0,
+      "phase": 0.28
+    },
+    {
+      "name": "walk_l",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": 90,
+      "phase": 0.45
+    },
+    {
+      "name": "walk_r",
+      "measured": true,
+      "speed": 2.05,
+      "angleDeg": -90,
+      "phase": 0.19
+    }
+  ],
+  "deaths": [
+    "death_front",
+    "death_back2",
+    "death_head",
+    "death_right",
+    "death_back"
+  ],
+  "worst": 5.750547349414603e-8,
+  "fire": 1,
+  "bodyYawDeg": 0,
+  "chestYawDeg": 32.1
+}

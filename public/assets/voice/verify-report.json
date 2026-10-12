@@ -1,0 +1,81 @@
+{
+ "checked": 11,
+ "bad": [
+  {
+   "key": "M10.KHANG",
+   "take": 2,
+   "sim": 0.71,
+   "leak": false,
+   "want": "Nạp đạn!",
+   "heard": "Nạp đã"
+  }
+ ],
+ "all": [
+  {
+   "key": "M10.DAT",
+   "take": 1,
+   "sim": 0.86,
+   "heard": "Nắp đạn"
+  },
+  {
+   "key": "M10.DAT",
+   "take": 2,
+   "sim": 1,
+   "heard": "Nạp đạn"
+  },
+  {
+   "key": "M10.HOAN",
+   "take": 1,
+   "sim": 1,
+   "heard": "Nạp đạn"
+  },
+  {
+   "key": "M10.HOAN",
+   "take": 2,
+   "sim": 0.75,
+   "heard": "Nạp đang"
+  },
+  {
+   "key": "M10.KHANG",
+   "take": 1,
+   "sim": 1,
+   "heard": "Nạp đạn"
+  },
+  {
+   "key": "M10.KHANG",
+   "take": 2,
+   "sim": 0.71,
+   "heard": "Nạp đã"
+  },
+  {
+   "key": "M10.LONG",
+   "take": 1,
+   "sim": 1,
+   "heard": "Nạp đạn"
+  },
+  {
+   "key": "M10.LONG",
+   "take": 2,
+   "sim": 0.86,
+   "heard": "Nạp đàn"
+  },
+  {
+   "key": "M10.QUYET",
+   "take": 1,
+   "sim": 0.86,
+   "heard": "Nắp đạn"
+  },
+  {
+   "key": "M10.QUYET",
+   "take": 2,
+   "sim": 1,
+   "heard": "Nạp đạn"
+  },
+  {
+   "key": "M20.KHANG.h8",
+   "take": 1,
+   "sim": 0.94,
+   "heard": "Đích hướng tám giờ"
+  }
+ ]
+}

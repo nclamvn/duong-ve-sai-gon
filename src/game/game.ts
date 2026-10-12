@@ -21,9 +21,17 @@ import type { LevelDef } from '@engine/level/types';
 import phoLevelJson from '@content/levels/pho-van-hai.level.json';
 import truongSonLevelJson from '@content/levels/truong-son-a.level.json';
 import diemCao31LevelJson from '@content/levels/diem-cao-31.level.json';
+import ngamTaLeLevelJson from '@content/levels/ngam-ta-le.level.json';
 import { loadTerrainLevel, type TerrainLevelDef, type TerrainLevelBuild } from '@engine/terrain';
+import { createAtmosphere, type Atmosphere } from '@engine/render/atmosphere';
+import { setSun, WEATHER } from '@engine/render/sceneLight';
+import { canopyMap } from '@engine/vegetation/canopy';
+import { makeHeightField } from '@engine/terrain/heightField';
+import { createDustMotes, type DustMotes } from '@engine/render/dustMotes';
+import { createWildlife, type Wildlife } from '@engine/render/wildlife';
+import { makeSightOcclusion } from '@game/ai/sightOcclusion';
 import type RAPIER from '@dimforge/rapier3d-compat';
-import { buildForest, VEG_QUALITY, navObstacleMesh, navPadFor, type ForestBuild } from '@engine/vegetation';
+import { buildForest, VEG_QUALITY, navObstacleMesh, navPadFor, roadClearings, type ForestBuild } from '@engine/vegetation';
 import { SkyTraffic } from '@engine/sky';
 import { loadModel } from '@engine/render/assets';
 import { t } from '@ui/i18n';
@@ -50,18 +58,26 @@ import { Weapon, type WeaponEvents, type ShooterContext } from '@game/weapons/we
 import { WeaponFx } from '@game/weapons/fx';
 import { WeaponViewModel } from '@game/weapons/viewmodel';
 import { AudioEngine } from '@engine/audio/audio';
+import { VoiceBank, voiceKeys } from '@engine/audio/voice';
+import { EnemyChatter, enemyVoiceOf, type ChatterKind } from '@game/ai/enemyChatter';
+import type { CueRequest } from '@ui/subtitles';
 import { attachActorBody, type ActorBody } from '@game/actors/actorPhysics';
 import { Vector3 } from 'three/webgpu';
 import { initNav, NavService } from '@engine/nav/navmesh';
 import { getPositionsAndIndices, NavMeshHelper } from '@recast-navigation/three';
 import { BotActor } from '@game/actors/botActor';
-import type { BotEvents } from '@game/ai/bot';
-import { SquadCoordinator } from '@game/ai/squad';
+import type { Bot, BotEvents, GrenadeLink } from '@game/ai/bot';
+import { GrenadeSystem, GRENADE, solveLob, type Grenade } from '@game/weapons/grenades';
+import { GrenadeView } from '@game/weapons/grenadeView';
+import { FireTeams, AttackTokens } from '@game/ai/squad';
+import { CoverField } from '@game/ai/coverField';
+import { TacticalEvaluator } from '@game/ai/tactics';
 import { Squadmates } from '@game/ai/squadmates';
 import { LAYER } from '@engine/physics/layers';
 import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
+import { NightAct } from '@game/night/nightAct';
 import climateJson from '@content/ecology/climate.truong-son.json';
 import soundscapeJson from '@content/ecology/soundscape.truong-son.json';
 import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelClimate } from '@engine/sky/climate';
@@ -91,6 +107,13 @@ export interface GameOptions {
   seed?: number;
 }
 
+/** DV-070: FNV-1a of an actor id → stable look-variation seed */
+function hashSeed(id: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 0x01000193);
+  return h >>> 0;
+}
+
 export class Game {
   readonly clock = new FixedClock(60, 5);
   readonly scheduler = new Scheduler();
@@ -110,7 +133,11 @@ export class Game {
   /** level dữ liệu (TIP-019) — null khi chạy arena G0 */
   level: LevelBuild | null = null;
   /** 'truong-son' (M1 Trường Sơn — mặc định từ DV-044) | 'diem-cao-31' (M2 R1 đêm công đồn, `?level=diem-cao-31`) | 'arena' (bench/E2E G0 — content Hải Tuyến chỉ là test, `?level=arena`) | 'pho' (Phố Vạn Hải, test đô thị, `?level=pho`) */
-  levelId: 'pho' | 'arena' | 'truong-son' | 'diem-cao-31' = 'truong-son';
+  levelId: 'pho' | 'arena' | 'truong-son' | 'diem-cao-31' | 'ngam-ta-le' = 'truong-son';
+  /** hồi đêm Ngầm Ta Lê (DV-078, `?level=ngam-ta-le`): đoàn xe + AC-130 + đại liên; null ở level khác */
+  nightAct: NightAct | null = null;
+  /** level terrain đang chơi (đọc nextLevel, roads…) */
+  terrainLevelDef: TerrainLevelDef | null = null;
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
   /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
@@ -119,6 +146,22 @@ export class Game {
   sky: SkyTraffic | null = null;
   /** gió xoáy trực thăng hiện tại 0..1 (telemetry/debug) */
   skyGust = 0;
+  /** ánh sáng lớp súng/tay (DV-079): theo độ che tán tại chỗ người chơi đứng */
+  private vmLight: { sun: DirectionalLight; hemi: HemisphereLight; sun0: number; hemi0: number; env0: number } | null = null;
+  private vmShade = 0;
+  /** phơi sáng thích nghi (DV-079) */
+  exposure = 1;
+  /** khí quyển (DV-079): sương theo độ cao + tán xạ nắng; null = FogExp2 cũ (`?atmo=0`) */
+  atmosphere: Atmosphere | null = null;
+  /** DV-083 đạo diễn áp lực */
+  private playerHiddenMs = 0;
+  private readonly pressure = { pos: [0, 0, 0] as [number, number, number], reloading: false, hiddenMs: 0, alive: true };
+  /** DV-083 che tầm nhìn bởi tầng thấp (null = không rừng) */
+  private sightOcclusion: ((from: readonly number[], to: readonly number[]) => number) | null = null;
+  /** DV-081 bụi lơ lửng trong cột nắng */
+  private dust: DustMotes | null = null;
+  /** DV-082 chim và bướm */
+  private wildlife: Wildlife | null = null;
   /** trời theo registry (DV-057): mặt trời thiên văn + preset sương/mây/mưa phùn — null khi level không khai `climate` */
   climate: ResolvedClimate | null = null;
   /** cảnh âm rừng thủ tục theo giờ/mùa/mưa (DV-057) — null khi level không có climate hoặc `?amb=0` */
@@ -164,6 +207,8 @@ export class Game {
   fpHandsPose: FpHandsPose | null = null;
   /** debug/calib (TIP-017): khoá AI (không think/move), ẩn viewmodel, ép pose FP */
   aiPaused = false;
+  /** QA (DV-085) `?calm=1` (chỉ khi ?debug=1): dừng kịch bản ngay khi tổ đã ra, xem `calm()` */
+  private calmOnStart = false;
   viewModelHidden = false;
   fpOverride: { ads: number; sprint: boolean } | null = null;
   private readonly v3c = new Vector3();
@@ -173,17 +218,66 @@ export class Game {
   private lastInputDx = 0;
   private lastInputDy = 0;
   readonly audio = new AudioEngine();
+  /** giọng lồng tiếng (DV-076); ?voice=0 tắt */
+  readonly voice = new VoiceBank(this.audio, `${import.meta.env.BASE_URL ?? '/'}assets/voice/`);
+  private stopVoice: (() => void) | null = null;
+  /** tiếng hô tiếng Anh của địch (DV-076) */
+  readonly chatter = new EnemyChatter({ now: () => this.clock.simTime, play: (id, kind) => this.playChatter(id, kind) });
   /** actor registry: dummies (TIP-006) + bots (TIP-007) */
   readonly actors = new Map<string, ActorEntry>();
   nav!: NavService;
   navHelper: NavMeshHelper | null = null;
   readonly bots = new Map<string, BotActor>();
-  /** tổ địch (TIP-018): ép sườn */
-  squad: SquadCoordinator | null = null;
+  /** tổ chiến đấu (AI-T1.4): yểm trợ/cơ động, lao xen kẽ, ép sườn, lùi */
+  squad: FireTeams | null = null;
+  /** vé tấn công điện ảnh (AI-T1.4) */
+  readonly tokens = new AttackTokens();
+  /** chỗ nấp tự sinh + chấm vị trí (AI-T1.1/T1.2), dựng sau navmesh */
+  tactics: TacticalEvaluator | null = null;
+  readonly coverReservations = new Map<string, string>();
+  /** thời điểm (s sim) người chơi trúng đạn lần cuối (hồi máu điện ảnh) */
+  private lastHurtAt = -1e9;
+  /** áp chế người chơi 0..1 (DV-075): đạn địch sượt qua ≤ 2,5 m */
+  playerSuppression = 0;
+  private suppLastAt = -1e9;
+  readonly nearMissStats = { count: 0, blocked: 0 };
+  /** lựu đạn (DV-074) */
+  grenades!: GrenadeSystem;
+  private grenadeView: GrenadeView | null = null;
+  /** lựu đạn người chơi còn mang */
+  playerGrenades = GRENADE.player.count;
+  private grenadeCdUntil = 0;
+  private wantThrow = false;
+  private lastEnemyThrowAt = -1e9;
+  private readonly groupThrowAt = new Map<string, number>();
+  /** lựu đạn địch đã cảnh báo (id) */
+  private readonly warnedGrenades = new Set<number>();
+  readonly grenadeLink: GrenadeLink = {
+    canThrow: (bot) => {
+      const A = GRENADE.ai;
+      const now = this.clock.simTime * 1000;
+      if (now - this.lastEnemyThrowAt < A.globalCooldownMs) return false;
+      if (now - (this.groupThrowAt.get(bot.group) ?? -1e9) < A.groupCooldownMs) return false;
+      let live = 0;
+      for (const g of this.grenades.live()) if (g.faction === 'enemy') live++;
+      return live < A.maxLiveEnemy;
+    },
+    throwAt: (bot, from, to) => {
+      const v = solveLob(from, to, GRENADE.ai.lobDeg, GRENADE.ai.maxSpeed);
+      const owner = this.bots.get(bot.id);
+      const g = this.grenades.spawn(from, v, bot.id, owner?.faction === 'friend' ? 'friend' : 'enemy');
+      if (!g) return false;
+      const now = this.clock.simTime * 1000;
+      this.lastEnemyThrowAt = now;
+      this.groupThrowAt.set(bot.group, now);
+      return true;
+    },
+    dangers: () => this.grenades.live(),
+  };
   /** đồng đội có tên (TIP-M1A) */
   squadmates!: Squadmates;
   private footstepMs = 0;
-  private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true };
+  private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true, isPlayer: true };
   private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
   navBuildMs = 0;
   mission!: MissionHost;
@@ -218,6 +312,9 @@ export class Game {
   constructor(readonly opts: GameOptions) {
     this.params = new URLSearchParams(opts.search);
     this.seed = opts.seed ?? Number(this.params.get('seed') ?? 7);
+    this.calmOnStart = this.params.get('calm') === '1' && this.params.get('debug') === '1';
+    // giọng (DV-076): manifest nhỏ, tải song song; file mp3 tải dần (prefetch) và giải mã khi nói
+    if (this.params.get('voice') !== '0') void this.voice.load().then((ok) => ok && this.voice.manifest && this.voice.prefetch(Object.keys(this.voice.manifest.lines)));
     this.prng = mulberry32(this.seed);
     this.defaultInput = new KeyboardMouseInput(opts.canvas);
     this.input = this.defaultInput;
@@ -238,14 +335,22 @@ export class Game {
 
     // Level (TIP-019/ADR-007): mặc định Phố Vạn Hải ban ngày; bench/E2E dùng ?level=arena (G0 đêm cảng)
     const levelParam = this.params.get('level');
-    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' || levelParam === 'diem-cao-31' ? levelParam : 'truong-son';
+    this.levelId = levelParam === 'arena' || levelParam === 'pho' || levelParam === 'truong-son' || levelParam === 'diem-cao-31' || levelParam === 'ngam-ta-le' ? levelParam : 'truong-son';
     const weaponParam = this.params.get('weapon');
     this.playerWeaponId = weaponParam === 'ak74m' || weaponParam === 'ak47' ? weaponParam : 'ak47';
     this.factionPack = resolvePackId(this.params.get('factions'));
     const botWeaponParam = this.params.get('botWeapon');
     this.botWeaponId = botWeaponParam === 'ak47' || botWeaponParam === 'ak74m' || botWeaponParam === 'hk416' || botWeaponParam === 'm16a1' ? botWeaponParam : null;
     const levelDef = this.levelId === 'pho' ? (phoLevelJson as unknown as LevelDef) : null;
-    const terrainDef0 = this.levelId === 'truong-son' ? (truongSonLevelJson as unknown as TerrainLevelDef) : this.levelId === 'diem-cao-31' ? (diemCao31LevelJson as unknown as TerrainLevelDef) : null;
+    const terrainDef0 =
+      this.levelId === 'truong-son'
+        ? (truongSonLevelJson as unknown as TerrainLevelDef)
+        : this.levelId === 'diem-cao-31'
+          ? (diemCao31LevelJson as unknown as TerrainLevelDef)
+          : this.levelId === 'ngam-ta-le'
+            ? (ngamTaLeLevelJson as unknown as TerrainLevelDef)
+            : null;
+    this.terrainLevelDef = terrainDef0;
     // Trời theo registry (DV-057): level có `climate` → mặt trời tính thiên văn, sương/mây/mưa phùn theo preset. `?climate=0` giữ trời đặt tay cũ (A/B).
     const climateDef: LevelClimate | undefined = terrainDef0?.climate;
     this.climate = terrainDef0 && climateDef && this.params.get('climate') !== '0' ? resolveClimate(terrainDef0.sky, climateDef, parseClimatePresets(climateJson)) : null;
@@ -262,6 +367,7 @@ export class Game {
       renderer: this.bundle.renderer,
       lite: !this.quality.assets,
       noCharacter: !this.quality.character,
+      swatBody: this.params.get('body') === 'swat',
       noWeapons: !this.quality.weapons,
       weapons: [ak47Cfg as unknown as WeaponModelConfig, m16a1Cfg as unknown as WeaponModelConfig, ak74mCfg as unknown as WeaponModelConfig, hk416Cfg as unknown as WeaponModelConfig],
       textureIds: levelDef?.textures ?? terrainDef?.textures,
@@ -269,6 +375,8 @@ export class Game {
       hdri: skyDef ? { id: skyDef.hdri, res: skyDef.res } : undefined,
       keepSky: !!skyDef,
     });
+    WEATHER.forest.value = 0;
+    WEATHER.wet.value = 0;
     if (terrainDef && skyDef) {
       // Terrain DEM (TIP-D04): ArenaData từ ô heightmap; ánh sáng ban ngày như level JSON
       this.terrain = await loadTerrainLevel(this.scene, terrainDef, { assets: this.assets, baseUrl: import.meta.env.BASE_URL ?? '/', maxFxLights: this.quality.tier === 'low' ? 2 : 4 });
@@ -282,12 +390,28 @@ export class Game {
         if (vd !== null) vq.density = Math.max(0, Number(vd));
         if (vl !== null) vq.lodScale = Math.max(0.1, Number(vl));
         if (this.params.get('vegShadow') === '0' || !this.quality.shadows) vq.shadows = false;
-        this.forest = await buildForest(this.bundle.renderer, this.terrain.tile, terrainDef.vegetation, {
+        // DV-078: dải trống dọc đường xe (level roads) + khoảng trống khai trong vegetation.clear — cùng luật với terrain-bake --nav
+        const vegDef = { ...terrainDef.vegetation, clear: [...(terrainDef.vegetation.clear ?? []), ...roadClearings(terrainDef.roads)] };
+        this.forest = await buildForest(this.bundle.renderer, this.terrain.tile, vegDef, {
           baseUrl: import.meta.env.BASE_URL ?? '/',
           quality: vq,
           noImpostor: this.params.get('impostor') === '0',
         });
         this.terrain.root.add(this.forest.system.group);
+        // DV-079 bản đồ độ che tán (terrain + cây bụi đọc: tối dưới tán kín, bóng tán ngoài tầm CSM)
+        if (this.params.get('canopy') !== '0') {
+          canopyMap.fill(terrainDef.vegetation.rect, this.forest.system.canopyTrees());
+          // DV-081 nhân vật nhận che sáng tán + viền nắng (?envshade=0 để so)
+          WEATHER.forest.value = this.params.get('envshade') === '0' ? 0 : 1;
+        }
+        // DV-079 lá ướt theo trời (mưa phùn/sương sớm)
+        this.forest.system.wind.wet.value = this.climate ? Math.min(1, this.climate.wetness * 1.2) : (terrainDef.terrain.wetness ?? 0.2);
+        WEATHER.wet.value = this.params.get('envshade') === '0' ? 0 : this.forest.system.wind.wet.value;
+        // DV-083 lùm cây che tầm nhìn AI (?vegsight=0 để tắt)
+        if (this.params.get('vegsight') !== '0') {
+          const tr = this.terrain;
+          this.sightOcclusion = makeSightOcclusion(this.forest.system.understoryGrid(2), (x, z) => tr.heightAt(x, z));
+        }
         // collider thân cây vào ArenaData (nguồn collider duy nhất → physics.addStatic bên dưới)
         for (const c of this.forest.system.colliders) this.arena.colliders.push(c);
       }
@@ -325,7 +449,18 @@ export class Game {
         sky: this.assets.sky,
         shadowMapSize: this.quality.shadowMapSize,
         csm: this.quality.shadows && this.params.get('csm') !== '0',
+        // DV-080 ultra: bóng 4096, tầm 1,5×, PCF bán kính 2
+        shadowFarScale: this.quality.shadowFarScale,
+        shadowRadius: this.quality.shadowRadius,
+        ...(this.quality.shadowCascades !== null ? { cascades: this.quality.shadowCascades } : {}),
       });
+      // DV-079: uniform mặt trời dùng chung (nắng xuyên lá, bóng tán xa) + khí quyển sương theo độ cao, tán xạ về phía nắng
+      const sunDir = (this.lights as unknown as { sunDir: [number, number, number] }).sunDir;
+      setSun(sunDir, skyDef.sun.color, skyDef.sun.intensity, skyDef.csm.maxFar * this.quality.shadowFarScale);
+      if (this.params.get('atmo') !== '0') {
+        this.atmosphere = createAtmosphere(this.scene, { color: skyDef.fog.color, density: skyDef.fog.density, sunColor: skyDef.sun.color, ...(skyDef.atmosphere ?? {}) });
+        this.atmosphere.setSun(sunDir);
+      }
       // mưa phùn theo preset (giữ số hạt của tier, chỉ hiện một phần qua rain.intensity bên dưới); không preset → tạnh
       if (this.params.get('rain') === null && !(this.climate && this.climate.drizzle > 0)) this.quality.rainCount = 0;
       if (this.climate && this.params.get('amb') !== '0') {
@@ -335,6 +470,15 @@ export class Game {
         this.amb.sunsetMin = this.climate.sunsetMin;
         this.amb.localMin = this.climate.localMin;
         this.amb.rain = this.climate.drizzle;
+        this.ambElapsedS = 0;
+        this.ambWindBase = terrainDef.vegetation?.wind ?? 0.35;
+      } else if (terrainDef.ambience && this.params.get('amb') !== '0') {
+        // DV-078: level đêm không climate — cảnh âm rừng theo giờ khai trong `ambience` (bình minh/hoàng hôn mặc định tháng 1)
+        this.soundscape = new Soundscape(this.audio, parseSoundscapeConfig(soundscapeJson as unknown), (this.seed ^ 0x5a17) >>> 0);
+        const [hh, mm] = terrainDef.ambience.localTime.split(':').map(Number);
+        this.amb.month = terrainDef.ambience.month;
+        this.amb.localMin = (hh ?? 0) * 60 + (mm ?? 0);
+        this.amb.rain = 0;
         this.ambElapsedS = 0;
         this.ambWindBase = terrainDef.vegetation?.wind ?? 0.35;
       }
@@ -371,26 +515,56 @@ export class Game {
       const d = (this.lights as { sunDir?: [number, number, number] }).sunDir ?? [0.5, 0.7, 0.5];
       sunVm.position.set(d[0] * 20, d[1] * 20, d[2] * 20);
       this.vmScene.add(sunVm, sunVm.target);
-      this.vmScene.add(new HemisphereLight(sky.hemi.sky, sky.hemi.ground, sky.hemi.intensity));
+      const hemiVm = new HemisphereLight(sky.hemi.sky, sky.hemi.ground, sky.hemi.intensity);
+      this.vmScene.add(hemiVm);
+      // DV-079: IBL lớp súng 0,65 × cảnh — kim loại thép nhuộm đen không loá trắng như nhôm dưới trời sương sáng
+      this.vmLight = { sun: sunVm, hemi: hemiVm, sun0: sky.sun.intensity, hemi0: sky.hemi.intensity, env0: this.scene.environmentIntensity * 0.65 };
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
     // DV-063: hậu kỳ điện ảnh theo level (tia nắng xuyên tán, màu phim); ?shafts=0 / ?grade=0 để so A/B
     const lp = terrainDef?.post;
     const rig = this.lights as { sunColor?: number; sunIntensity?: number };
     const sc = new Color(rig.sunColor ?? 0xffffff).multiplyScalar(rig.sunIntensity ?? 1);
+    // DV-081 sương sát đất: ánh trời trong sương = màu sương của trời (linear) × độ sáng ánh trời
+    const fogC = new Color(skyDef?.fog.color ?? 0x9fb09d).multiplyScalar(skyDef?.hemi.intensity ?? 1);
+    const mistAmbient: [number, number, number] = [fogC.r, fogC.g, fogC.b];
     this.post = createPostStack(this.bundle.renderer, this.scene, this.camera, {
       tier: this.quality.post,
       backend: this.bundle.backend,
       taa: this.quality.taa,
+      ssr: this.quality.ssr,
       overlay: { scene: this.vmScene, camera: this.vmCamera },
       shafts: lp?.shafts && this.params.get('shafts') !== '0' ? { ...lp.shafts, sunColor: [sc.r, sc.g, sc.b] } : null,
+      // DV-080 tia nắng thể tích: cần rừng + bản đồ độ che tán + khí quyển; ?vol=0 để so A/B
+      volumetric: this.forest && this.atmosphere && lp?.volumetric && this.params.get('vol') !== '0' && this.params.get('canopy') !== '0' ? { ...lp.volumetric, ...(this.params.get('mist') === '0' ? { mist: false as const } : {}), ...(this.params.get('volblur') === '0' ? { denoise: false } : {}), sunColor: [sc.r, sc.g, sc.b], debug: this.params.get('vol') === 'debug', ground: this.terrain ? makeHeightField(this.terrain.tile) : null, ambient: mistAmbient } : null,
       grade: lp?.grade && this.params.get('grade') !== '0' ? lp.grade : false,
       ...(lp?.grain !== undefined ? { grain: lp.grain } : {}),
+      ...(this.params.get('aoden') === '0' ? { aoDenoise: false } : {}),
       ...(lp?.vignette !== undefined ? { vignette: lp.vignette } : {}),
       ...(lp?.bloom !== undefined ? { bloomStrength: lp.bloom } : {}),
     });
+    // DV-081: sương sát đất trôi cùng hướng gió rừng (cùng đối tượng Vector2 → đổi gió trực thăng/bom cũng đổi hướng trôi)
+    if (this.post.volumetric && this.forest) (this.post.volumetric.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
+    // DV-082 chim lượn trên tán, bướm quanh người chơi: cảnh rừng có tán (không phụ thuộc tia thể tích), theo tier; ?wildlife=0
+    if (this.forest && this.terrain && this.params.get('wildlife') !== '0' && this.quality.post !== 'off' && this.quality.post !== 'low') {
+      const n = { medium: [42, 1, 16], high: [63, 2, 28], ultra: [98, 3, 44] }[this.quality.post as 'medium' | 'high' | 'ultra'];
+      this.wildlife = createWildlife({ birds: n[0]!, bigBirds: n[1]!, butterflies: n[2]! });
+      (this.wildlife.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
+      for (const m of this.wildlife.meshes) this.scene.add(m);
+    }
+    // DV-081 bụi trong cột nắng: chỉ khi có tia thể tích (cùng tán, cùng nắng); số hạt theo tier, ?dust=0 để so
+    if (this.post.volumetric && this.forest && this.params.get('dust') !== '0') {
+      const n = { off: 0, low: 0, medium: 500, high: 900, ultra: 1600 }[this.quality.post];
+      if (n > 0) {
+        // ?dust=debug: hạt to × 6, sáng × 20 để soi chỗ hạt sáng (chỉ trong cột nắng)
+        const dbg = this.params.get('dust') === 'debug';
+        this.dust = createDustMotes({ count: n, canopyHeight: lp?.volumetric ? (lp.volumetric.canopyHeight ?? 18) : 18, ...(dbg ? { sizeM: 0.13, intensity: 24 } : {}) });
+        (this.dust.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
+        this.scene.add(this.dust.sprite);
+      }
+    }
     if (this.terrain) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
-      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, color: 0x4a5246, visor: 0x2ad4ff, gear: this.lookFor('friend').gear, skin: this.lookFor('friend').skin }, this.weaponFor('friend'));
+      const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, seed: hashSeed(`dummy_${i}`), color: 0x4a5246, visor: 0x2ad4ff, gear: this.lookFor('friend').gear, skin: this.lookFor('friend').skin }, this.weaponFor('friend'));
       const p = this.arena.dummySpawns[i]!;
       d.group.position.set(p[0], p[1], p[2]);
       d.group.rotation.y = Math.atan2(-p[0], -p[2]);
@@ -403,6 +577,12 @@ export class Game {
     // Physics từ ArenaData (nguồn collider duy nhất)
     await initPhysics();
     this.physics = new PhysicsWorld();
+    this.grenades = new GrenadeSystem({
+      physics: this.physics,
+      groundHeight: (x, z) => (this.terrain ? this.terrain.heightAt(x, z) : null),
+      explode: (g) => this.grenadeBlast(g),
+      onBounce: (g, sp) => this.audio.grenadeBounce(g.pos, Math.min(1, sp / 10)),
+    });
     for (const c of this.arena.colliders) {
       const col = this.physics.addStatic({ kind: c.kind, position: c.position, size: c.size, yaw: c.yaw, heights: c.heights, n: c.n }, { id: c.id, kind: 'world', material: c.material });
       if (c.id.startsWith('prop_')) this.propColliders.set(c.id, col);
@@ -439,7 +619,10 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
-    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null, this.assets.fpViewmodel);
+    this.grenadeView = new GrenadeView(this.scene);
+    // DV-065: tay áo người chơi theo gói phe (?sleeve=0 giữ màu gốc của nghệ sĩ để so A/B)
+    const sleeveHex = this.params.get('sleeve') === '0' ? undefined : this.lookFor('friend').sleeve;
+    this.viewModel = new WeaponViewModel(this.vmCamera, { steel: this.assets.textures['metal_plate'] ?? null }, this.assets.weapons[this.playerWeaponId] ?? null, this.assets.fpViewmodel, sleeveHex ? { sleeveColor: parseInt(sleeveHex.slice(1), 16) } : {});
     // tay FP v2 (TIP-D11b, Chủ nhà chọn "tự dựng"): cẳng tay 1971 procedural DỰNG SẴN trong viewmodel (tay áo Tô Châu
     // + cẳng tay + bàn tay ôm súng), nằm trong hệ súng → theo sway/ADS, không rig/IK → không nháy. Bật mặc định khi có arms.
     // (Asset tay rig David Fischer/Mixamo giữ trong code làm fallback nghiên cứu, KHÔNG dùng cho người chơi mặc định.)
@@ -455,11 +638,13 @@ export class Game {
       if (e.actorId === 'player') {
         if (shooterBot && shooterBot.faction === 'friend') return; // đồng đội không sát thương người chơi (TIP-M1A)
         this.audio.impact('flesh', e.point);
-        const dead = this.player.damage(e.damage);
-        // vòng chỉ hướng trúng đạn (TIP-UX02): phương vị nguồn so với hướng nhìn
+        // điện ảnh (AI-T1.4): đạn địch giảm còn playerDamageMul (bộc phá, pháo, ngã giữ nguyên); hồi máu sau regenDelayMs
+        this.lastHurtAt = this.clock.simTime;
+        const dead = this.player.damage(e.damage * (shooterBot && !e.blast ? aiTuning.cinematic.playerDamageMul : 1));
+        // vòng chỉ hướng trúng đạn (TIP-UX02): phương vị nguồn so với hướng nhìn (nổ: tâm nổ)
         if (shooterBot) {
           const f = this.player.controller.feet;
-          const src = shooterBot.bot.position;
+          const src = e.blast ? e.point : shooterBot.bot.position;
           this.hud.damageFrom(relDeg(this.cameraHeadingDeg(), bearingOf(src[0] - f[0], src[2] - f[2])));
         }
         if (dead) this.events.emit('ACTOR_DIED', { actorId: 'player', group: 'player' });
@@ -472,13 +657,20 @@ export class Game {
         this.audio.impact('flesh', e.point);
         if (shooterBot) this.v3.set(shooterBot.bot.position[0], shooterBot.bot.position[1] + 1.5, shooterBot.bot.position[2]);
         else this.player.eyePosition(this.v3);
-        const died = b.applyDamage(e.damage, [this.v3.x, this.v3.y, this.v3.z]);
+        // điện ảnh (AI-T1): tổ ta bắn địch đau hơn; tổ ta có tên không chết ở M1 (dừng ở friendMinHealth, vẫn bị áp chế)
+        const cin = aiTuning.cinematic;
+        let dmg = e.damage;
+        if (shooterBot?.faction === 'friend' && b.faction === 'enemy') dmg *= cin.friendDamageMul;
+        if (b.faction === 'friend') dmg = Math.min(dmg, Math.max(0, b.bot.health - cin.friendMinHealth));
+        const died = b.applyDamage(dmg, [this.v3.x, this.v3.y, this.v3.z], e.zone);
         if (e.shooter === 'player') this.hud.hit(died);
         if (shooterBot && shooterBot.faction === 'friend' && died) this.squadmates.bark(shooterBot.id, 'kill');
         if (!died && b.faction === 'friend' && b.bot.health < 55) this.squadmates.bark(b.id, 'hurt');
+        if (b.faction === 'enemy' && !died) this.chatter.say(b.id, 'hit');
         if (died) {
           this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
           if (b.faction === 'friend') this.squadmates.remove(b.id);
+          else this.enemyManDown(b.bot.position, shooterBot ? shooterBot.bot.position : this.player.controller.feet);
         }
         return;
       }
@@ -493,7 +685,8 @@ export class Game {
       }
     });
     this.events.on('BOT_FIRED', (e) => {
-      this.audio.gunshotAt(e.origin);
+      this.audio.gunshotFar(e.origin);
+      this.playerNearMiss(e.origin, e.dir, e.faction);
       const b = this.bots.get(e.botId);
       if (b) {
         b.dummy.onFire();
@@ -534,8 +727,9 @@ export class Game {
     window.addEventListener('keydown', (ev) => {
       if (ev.code === 'F4' && this.navHelper) this.navHelper.visible = !this.navHelper.visible;
     });
-    this.squad = new SquadCoordinator(this.arena.coverMarkers);
-    if (this.levelId !== 'truong-son' && this.levelId !== 'diem-cao-31') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
+    this.buildTactics();
+    this.squad = new FireTeams(this.events as unknown as EventBus<BotEvents>);
+    if (this.levelId !== 'truong-son' && this.levelId !== 'diem-cao-31' && this.levelId !== 'ngam-ta-le') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
     this.scheduler.add('ai10', (_tick, dtAi) => {
       let full = 0;
       let alive = 0;
@@ -552,10 +746,17 @@ export class Game {
       this.actorStats.total = alive + dummiesAlive;
     });
     this.events.on('IMPACT', (e) => this.audio.impact(e.material, e.point));
-    this.events.on('WEAPON_FIRED', (e) => this.audio.gunshot(e.weapon));
+    this.events.on('WEAPON_FIRED', (e) => {
+      this.audio.gunshot(e.weapon);
+      this.audio.gunshotTail();
+    });
     this.events.on('RELOAD_START', () => this.audio.reload());
     const initAudio = (): void => {
+      const was = !!this.audio.ctx;
       this.audio.init();
+      // câu đầu nhiệm vụ lên trước khi người chơi bấm (trình duyệt chặn âm khi chưa có thao tác) → nói lại câu đang hiện
+      const cur = this.mission?.subtitles.activeRequest;
+      if (!was && cur) this.speak(cur);
     };
     window.addEventListener('pointerdown', initAudio, { once: true });
     window.addEventListener('keydown', initAudio, { once: true });
@@ -582,25 +783,80 @@ export class Game {
         const l = Math.hypot(this.v3b.x, this.v3b.z) || 1;
         return { feet: [f[0], f[1], f[2]], fwdX: this.v3b.x / l, fwdZ: this.v3b.z / l, speed: this.player.controller.horizontalSpeed() };
       },
-      objective: () => this.mission.objectiveMarker,
-      say: (cue, speaker) => this.mission.say(cue, speaker),
+      objective: () => this.mission.squadDest ?? (this.mission.markerOnLeader ? null : this.mission.objectiveMarker),
+      say: (cue, speaker, vars) => this.mission.say(cue, speaker, vars),
       now: () => this.clock.simTime,
     });
     this.events.on('AI_STATE', (e) => {
       const b = this.bots.get(e.botId);
       if (!b || b.faction !== 'friend') return;
-      if (e.to === 'ENGAGE' && (e.from === 'PATROL' || e.from === 'INVESTIGATE')) this.squadmates.bark(b.id, 'contact');
+      // chạm địch: báo hướng theo giờ đồng hồ (AI-T1.5), không được thì hô chung
+      if (e.to === 'ENGAGE' && (e.from === 'PATROL' || e.from === 'INVESTIGATE')) {
+        if (!(e.reason === 'contact' && this.squadmates.callout(b.id, b.bot.threat))) this.squadmates.bark(b.id, 'contact');
+      }
       else if (e.to === 'SEEK_COVER') this.squadmates.bark(b.id, 'cover');
     });
     this.events.on('AI_RELOAD', (e) => {
       const b = this.bots.get(e.botId);
       if (b && b.faction === 'friend') this.squadmates.bark(b.id, 'reload');
     });
+    // AI-T1.5: tổ ta hô khi lao ("yểm trợ, tôi lên!") và khi bị ghim
+    this.events.on('AI_BOUND', (e) => {
+      const b = this.bots.get(e.botId);
+      if (b && b.faction === 'friend' && (e.reason === 'advance' || e.reason === 'follow_anchor')) this.squadmates.bark(b.id, 'moving');
+    });
+    this.events.on('AI_PINNED', (e) => {
+      const b = this.bots.get(e.botId);
+      if (b && b.faction === 'friend') this.squadmates.bark(b.id, 'cover');
+      else if (b) this.chatter.say(b.id, 'pinned');
+    });
+    // địch hô tiếng Anh (DV-076)
+    this.events.on('AI_STATE', (e) => {
+      const b = this.bots.get(e.botId);
+      if (!b || b.faction !== 'enemy') return;
+      if (e.to === 'ENGAGE' && (e.from === 'PATROL' || e.from === 'INVESTIGATE')) this.chatter.say(b.id, 'contact');
+      else if (e.to === 'RETREAT' && e.reason === 'grenade') this.chatter.say(b.id, 'grenade');
+      else if (e.to === 'FLANK') this.chatter.say(b.id, 'flank');
+      else if (e.to === 'RETREAT') this.chatter.say(b.id, 'fallback');
+      else if (e.to === 'INVESTIGATE' && e.reason === 'lost_contact') this.chatter.say(b.id, 'lost');
+      else if (e.to === 'PEEK_FIRE' && b.bot.role === 'support') this.chatter.say(b.id, 'suppress');
+    });
+    this.events.on('AI_RELOAD', (e) => {
+      if (this.bots.get(e.botId)?.faction === 'enemy') this.chatter.say(e.botId, 'reload');
+    });
+    this.events.on('AI_BOUND', (e) => {
+      const b = this.bots.get(e.botId);
+      if (!b || b.faction !== 'enemy') return;
+      if (e.reason !== 'grenade') this.chatter.say(b.id, 'moving');
+    });
+    this.events.on('AI_GRENADE', (e) => {
+      if (this.bots.get(e.botId)?.faction === 'enemy') this.chatter.say(e.botId, 'frag');
+    });
+    // hồi đêm (DV-078): dựng trước mission.start (nghe cờ convoy_go/gunship từ node đầu)
+    if (this.levelId === 'ngam-ta-le' && this.terrain && terrainDef) {
+      this.nightAct = new NightAct(this, terrainDef);
+      await this.nightAct.load();
+    }
     this.mission = new MissionHost(this);
     this.mission.start();
     window.addEventListener('keydown', (ev) => {
       if (ev.code === 'Enter' && !this.player.alive) this.respawn();
+      // DV-078: hoàn thành nhiệm vụ → Enter sang level nối tiếp (giữ tham số chất lượng)
+      else if (ev.code === 'Enter' && this.hud.state.missionComplete && this.terrainLevelDef?.nextLevel && this.params.get('autonext') !== '0') this.gotoLevel(this.terrainLevelDef.nextLevel);
+      // lệnh tổ (AI-T1.5): 1 theo · 2 giữ · 3 yểm trợ chỗ nhắm · 4 tiến tới chỗ nhắm
+      const ord = ev.code === 'Digit1' ? 'follow' : ev.code === 'Digit2' ? 'hold' : ev.code === 'Digit3' ? 'suppress' : ev.code === 'Digit4' ? 'advance' : null;
+      if (ord && this.player.alive && !ev.repeat) this.squadmates.command(ord, this.aimPoint());
+      // lựu đạn (DV-074): G ném theo hướng nhìn
+      if (ev.code === 'KeyG' && !ev.repeat) this.wantThrow = true;
     });
+    // DV-086: biên dịch sẵn mọi pipeline đang có trong scene (lửa/khói chiến trường, lính, súng) trước khi vào chơi — tránh khựng
+    // khung lần đầu một vật liệu xuất hiện giữa trận
+    try {
+      await this.bundle.renderer.compileAsync(this.scene, this.camera);
+      await this.bundle.renderer.compileAsync(this.vmScene, this.vmCamera);
+    } catch (e) {
+      console.warn('[render] compileAsync', e);
+    }
     this.ready = true;
   }
 
@@ -696,8 +952,10 @@ export class Game {
     this.input.snapshot(tick, this.inputState);
     this.lastInputDx = this.inputState.dx;
     this.lastInputDy = this.inputState.dy;
+    // DV-078: ngồi đại liên → khoá di chuyển, nòng theo hướng nhìn (nightAct tự xoay camera rig)
+    const onGun = this.nightAct ? this.nightAct.preStep(this.inputState, dt) : false;
     if (this.freeFly) this.freeFly.step(this.inputState, dt);
-    else this.player.step(this.inputState, dt);
+    else if (!onGun) this.player.step(this.inputState, dt);
     // Weapon sau player (vị trí mắt mới), trước physics.step để ray thấy state tick này
     const sh = this.shooter;
     this.player.eyePosition(this.v3);
@@ -711,8 +969,8 @@ export class Game {
     sh.stance = this.player.controller.stance;
     sh.moving = this.player.controller.horizontalSpeed() > 0.5;
     sh.grounded = this.player.controller.grounded;
-    if (this.player.alive) this.weapon.step(this.inputState, sh, dt);
-    this.player.adsBlend = this.weapon.ads;
+    if (this.player.alive && !onGun) this.weapon.step(this.inputState, sh, dt);
+    if (!onGun) this.player.adsBlend = this.weapon.ads;
     // Bots: cập nhật target/camera info rồi move theo path
     const ti = this.targetInfo;
     ti.pos[0] = this.player.controller.feet[0];
@@ -740,13 +998,47 @@ export class Game {
       if (!this.aiPaused) b.bot.move(dt);
       b.syncBody();
     }
-    if (this.squad && !this.aiPaused) this.squad.tick(this.bots.values(), dt, ti.pos);
+    if (this.wantThrow) {
+      this.wantThrow = false;
+      this.throwGrenade();
+    }
+    this.grenades.tick(dt);
+    this.grenadeWarnings();
+    if (this.squad && !this.aiPaused) {
+      // DV-083 đạo diễn áp lực: người chơi thay đạn / nấp lâu → địch xông lên
+      let seen = false;
+      for (const b of this.bots.values()) if (b.faction === 'enemy' && b.bot.alive && b.bot.seesPlayer) seen = true;
+      this.playerHiddenMs = seen ? 0 : this.playerHiddenMs + dt * 1000;
+      const pf = this.player.controller.feet;
+      this.pressure.pos[0] = pf[0];
+      this.pressure.pos[1] = pf[1];
+      this.pressure.pos[2] = pf[2];
+      this.pressure.reloading = this.weapon.sm.state === 'RELOADING';
+      this.pressure.hiddenMs = this.playerHiddenMs;
+      this.pressure.alive = this.player.alive;
+      this.squad.pressure = this.pressure;
+      this.squad.tick(dt);
+      this.squadmates.tick();
+      // tổ ta thấy địch mới (cách chỗ đã báo > 15 m) → báo hướng (tự chống lặp)
+      if (this.clock.tick % 30 === 0) for (const b of this.squadmates.list()) if (b.bot.alive && b.bot.perception.visible && b.bot.inCombat) this.squadmates.callout(b.id, b.bot.threat);
+      this.tokens.tick(this.enemyBots(), ti.pos, dt);
+    }
+    // hồi máu điện ảnh: sau regenDelayMs không trúng đạn, hồi tới regenTo
+    const cin = aiTuning.cinematic;
+    if (this.player.alive && this.player.health < cin.regenTo && (this.clock.simTime - this.lastHurtAt) * 1000 > cin.regenDelayMs) {
+      this.player.health = Math.min(cin.regenTo, this.player.health + cin.regenPerSec * dt);
+    }
     this.physics.step();
     const interactEdge = this.inputState.interact && !this.prevInteract;
     this.prevInteract = this.inputState.interact;
     this.mission.step(dt, interactEdge, this.inputState.interactHeld || this.inputState.interact);
+    if (this.calmOnStart && this.squadmates.count > 0) {
+      this.calmOnStart = false;
+      this.calm();
+    }
     const h = this.hud.state;
     h.health = this.player.health;
+    h.squadOrderKey = this.squadmates.count > 0 ? `hud.order.${this.squadmates.order}` : null;
     h.dead = !this.player.alive;
     h.mag = this.weapon.sm.mag;
     h.magSize = this.weapon.def.magSize;
@@ -755,6 +1047,10 @@ export class Game {
     h.weaponKey = `weapon.${this.weapon.id}`;
     h.spreadDeg = this.weapon.spreadDeg;
     h.ads = this.weapon.ads;
+    h.grenades = this.playerGrenades;
+    if (this.clock.simTime - this.suppLastAt > 0.8 || !this.player.alive) this.playerSuppression = Math.max(0, this.playerSuppression - 0.4 * dt);
+    h.suppression = this.playerSuppression;
+    this.nightAct?.postStep(dt, interactEdge, this.inputState.interactHeld || this.inputState.interact);
   }
 
   /** hướng nhìn camera theo la bàn (độ, 0 = bắc = −z, kim đồng hồ) */
@@ -805,11 +1101,13 @@ export class Game {
 
   private renderStep(alpha: number, dt: number): void {
     if (this.cameraDriver) this.cameraDriver(alpha, dt);
+    this.nightAct?.render(dt);
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
     for (const b of this.bots.values()) b.syncVisual(t);
+    this.grenadeView?.sync(this.grenades.live(), dt);
     // viewmodel: chỉ khi có player (không free-fly)
-    this.viewModel.visible = !this.freeFly && this.player.alive && !this.viewModelHidden;
+    this.viewModel.visible = !this.freeFly && this.player.alive && !this.viewModelHidden && !this.nightAct?.mounted;
     // camera viewmodel bám camera chính; FOV = 2·atan(k·tan(fov/2)) với k = view.scale (0.62 → 64° khi fov 90)
     this.camera.updateMatrixWorld(true);
     this.vmCamera.position.copy(this.camera.position);
@@ -821,6 +1119,20 @@ export class Game {
       this.vmCamera.updateProjectionMatrix();
     }
     this.vmCamera.updateMatrixWorld(true);
+    // DV-079: súng/tay dưới tán kín tối như cảnh (ánh trời gián tiếp −55 %, nắng trực tiếp −65 %), ra khoảng trống sáng lại
+    if (this.vmLight) {
+      const cv = canopyMap.at(this.camera.position.x, this.camera.position.z);
+      this.vmShade += (cv - this.vmShade) * Math.min(1, dt * 3);
+      this.vmScene.environmentIntensity = this.vmLight.env0 * (1 - 0.55 * this.vmShade);
+      this.vmLight.hemi.intensity = this.vmLight.hemi0 * (1 - 0.55 * this.vmShade);
+      this.vmLight.sun.intensity = this.vmLight.sun0 * (1 - 0.65 * this.vmShade);
+    }
+    // DV-079 mắt quen tối: dưới tán kín phơi sáng tăng dần (≈ 1,5 s), ra khoảng trống giảm lại — như máy quay tự cân sáng
+    if (this.terrain && this.params.get('adapt') !== '0') {
+      const target = 1 + 0.28 * canopyMap.at(this.camera.position.x, this.camera.position.z);
+      this.exposure += (target - this.exposure) * Math.min(1, dt / 1.5);
+      this.bundle.renderer.toneMappingExposure = this.exposure;
+    }
     const fo = this.fpOverride;
     this.viewModel.update(dt, fo ? fo.ads : this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), fo ? fo.sprint : this.player.isSprinting);
     if (this.fpHands) this.fpHands.visible = this.viewModel.visible;
@@ -857,6 +1169,8 @@ export class Game {
     if (this.terrain && this.audio.ctx && this.params.get('amb') !== '0') this.updateGroundAudio(dt);
     if (this.terrain) this.updateWader();
     this.lights.followTarget(this.camera);
+    (this.lights as { syncShadowLayers?: () => void }).syncShadowLayers?.();
+    this.updateActorShadows();
     if (this.terrain) this.terrain.mesh.update(this.camera);
     if (this.sky) this.sky.update(dt, this.camera);
     if (this.forest) {
@@ -866,7 +1180,18 @@ export class Game {
       else this.forest.system.setPress(0, 0, 0, 0);
       this.forest.system.update(this.camera);
     }
-    this.post.update(this.camera, (this.lights as { sunDir?: [number, number, number] }).sunDir ?? null);
+    this.post.stress.value = this.playerSuppression * 0.9;
+    let volEnv: { groundY: number; sigma: number } | undefined;
+    if (this.post.volumetric && this.terrain && this.atmosphere) {
+      const cp = this.camera.matrixWorld.elements;
+      volEnv = { groundY: this.terrain.heightAt(cp[12]!, cp[14]!), sigma: this.atmosphere.sigmaAt(cp[13]!) };
+      this.dust?.update(volEnv.groundY);
+    }
+    if (this.wildlife && this.terrain) {
+      const e = this.camera.matrixWorld.elements;
+      this.wildlife.update(volEnv?.groundY ?? this.terrain.heightAt(e[12]!, e[14]!));
+    }
+    this.post.update(this.camera, (this.lights as { sunDir?: [number, number, number] }).sunDir ?? null, volEnv);
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
     if (!this.pendingTimestamp) {
@@ -910,9 +1235,16 @@ export class Game {
    * Nổ bộc phá/lựu đạn tại `position` (M2 R1): FX + âm + rung camera; người chơi trong `radius` mất `damage` (cúi/nằm → ×0,25 —
    * "nằm xuống"), bot trong bán kính trúng như đạn (HIT, shooter player); gỡ prop terrain `prop` (rào) + collider + nav.
    */
-  explode(position: [number, number, number], opts: { radius?: number; damage?: number; prop?: string | null } = {}): void {
+  explode(
+    position: [number, number, number],
+    opts: { radius?: number; damage?: number; botDamage?: number; prop?: string | null; shooter?: string; occlude?: boolean; crouchMul?: number } = {},
+  ): void {
     const radius = opts.radius ?? 6;
     const damage = opts.damage ?? 35;
+    const botDamage = opts.botDamage ?? damage * 2;
+    // vật che giữa tâm nổ và người (thân cây, đồi) giảm sát thương (lựu đạn, DV-074)
+    const shield = (x: number, y: number, z: number): number =>
+      opts.occlude && !this.physics.hasLineOfSight(position[0], position[1] + 0.35, position[2], x, y, z) ? GRENADE.occludedMul : 1;
     this.blastStats.count++;
     this.fx.explosion(position, radius);
     this.audio.explosion(position, 1 + radius / 8);
@@ -922,18 +1254,187 @@ export class Game {
     if (dp <= radius && this.player.alive) {
       const crouched = this.player.controller.stance === 'crouch';
       const fall = 1 - (dp / radius) * 0.5;
-      const d = Math.round(damage * fall * (crouched ? 0.25 : 1));
+      const d = Math.round(damage * fall * (crouched ? opts.crouchMul ?? 0.25 : 1) * shield(f[0], f[1] + 1.0, f[2]));
       this.blastStats.playerHits++;
-      this.events.emit('HIT', { actorId: 'player', zone: 'body', damage: d, point: position, penetrated: false, shooter: 'blast' });
+      this.events.emit('HIT', { actorId: 'player', zone: 'body', damage: d, point: position, penetrated: false, shooter: opts.shooter ?? 'blast', blast: true });
     }
     for (const b of this.bots.values()) {
       if (!b.bot.alive) continue;
       const db = Math.hypot(b.bot.position[0] - position[0], b.bot.position[2] - position[2]);
       if (db > radius) continue;
+      const p = b.bot.position;
+      const d = Math.round(botDamage * (1 - (db / radius) * 0.5) * (b.bot.stance === 'crouch' ? 0.75 : 1) * shield(p[0], p[1] + 0.9, p[2]));
+      if (d <= 0) continue;
       this.blastStats.botHits++;
-      this.events.emit('HIT', { actorId: b.id, zone: 'body', damage: Math.round(damage * 2 * (1 - (db / radius) * 0.5)), point: position, penetrated: false, shooter: 'player' });
+      this.events.emit('HIT', { actorId: b.id, zone: 'body', damage: d, point: position, penetrated: false, shooter: opts.shooter ?? 'player', blast: true });
     }
     if (opts.prop) this.removeProp(opts.prop);
+  }
+
+  /**
+   * Thoại lên phụ đề → phát giọng (DV-076): tra `<cue>.<SPEAKER>.h<giờ>` → `<cue>.<SPEAKER>` → `<cue>`. Người trong tổ nói thì
+   * tiếng phát 3D tại chỗ người đó (xa > 2,5 m), bộ đàm qua lọc radio. Trả thời lượng (ms) để phụ đề giữ đủ lâu.
+   */
+  speak(req: CueRequest): number {
+    if (req.cue === 'M61') this.enemyRadio();
+    // chưa mở âm (chưa có thao tác người dùng, test không âm): không giữ phụ đề lâu hơn kịch bản
+    if (!this.audio.ctx) return 0;
+    const key = this.voice.resolve(voiceKeys(req.cue, req.speaker, req.vars));
+    if (!key) return 0;
+    const radio = req.bus === 'radio';
+    let position: [number, number, number] | undefined;
+    const who = radio ? null : this.squadmates.actorOfSpeaker(req.speaker);
+    if (who && who.bot.alive) {
+      const p = who.bot.position;
+      const f = this.player.controller.feet;
+      if (Math.hypot(p[0] - f[0], p[2] - f[2]) > 2.5) position = [p[0], p[1] + who.bot.eyeHeight, p[2]];
+    }
+    this.stopSpeech();
+    return this.voice.play(key, radio ? 'radio' : 'dialogue', { position, radio, channel: 'line', onStop: (s) => (this.stopVoice = s) });
+  }
+
+  stopSpeech(): void {
+    this.voice.cancel('line');
+    this.stopVoice?.();
+    this.stopVoice = null;
+  }
+
+  /** câu hô của địch: 3D tại người nói, ≤ 70 m; giọng theo mã lính */
+  private playChatter(botId: string, kind: ChatterKind): boolean {
+    const b = this.bots.get(botId);
+    if (!b || (!b.bot.alive && kind !== 'hit')) return false;
+    const p = b.bot.position;
+    const c = this.camInfo.pos;
+    if (Math.hypot(p[0] - c[0], p[2] - c[2]) > 70) return false;
+    const key = kind === 'radio' ? 'en.radio.ERADIO' : `en.${kind}.${enemyVoiceOf(botId, 4)}`;
+    if (!this.voice.manifest?.lines[key]) return false;
+    return this.voice.play(key, 'dialogue', { position: [p[0], p[1] + b.bot.eyeHeight, p[2]], radio: kind === 'radio', gain: 0.95 }) > 0;
+  }
+
+  /** địch gần chỗ đồng đội ngã (≤ 25 m) hô "Man down!" */
+  private enemyManDown(at: readonly number[], killer: readonly number[]): void {
+    let best: string | null = null;
+    let bd = 25;
+    for (const o of this.bots.values()) {
+      if (o.faction !== 'enemy' || !o.bot.alive) continue;
+      const d = Math.hypot(o.bot.position[0] - at[0]!, o.bot.position[2] - at[2]!);
+      // DV-083: thấy/nghe đồng đội gục trong 35 m → cả nhóm báo động về hướng kẻ bắn (không còn bắn tỉa từng người một)
+      if (d < 35) o.bot.alertTo([killer[0]! + (this.prng.next() - 0.5) * 6, killer[1]! + 1.6, killer[2]! + (this.prng.next() - 0.5) * 6]);
+      if (d < bd) {
+        bd = d;
+        best = o.id;
+      }
+    }
+    if (best) this.chatter.say(best, 'mandown');
+  }
+
+  /** điện đài viên địch gọi trực thăng (cue M61) */
+  private enemyRadio(): void {
+    const f = this.player.controller.feet;
+    let best: string | null = null;
+    let bd = Infinity;
+    for (const o of this.bots.values()) {
+      if (o.faction !== 'enemy' || !o.bot.alive) continue;
+      const d = Math.hypot(o.bot.position[0] - f[0], o.bot.position[2] - f[2]);
+      if (d < bd) {
+        bd = d;
+        best = o.id;
+      }
+    }
+    if (best) this.chatter.say(best, 'radio');
+  }
+
+  /**
+   * Ném lựu đạn của người chơi (DV-074): từ mắt theo hướng nhìn nâng thêm pitchUpDeg, tốc độ `player.speed`. Trả false khi hết,
+   * đang hồi hoặc đã chết.
+   */
+  throwGrenade(): boolean {
+    const P = GRENADE.player;
+    const now = this.clock.simTime * 1000;
+    if (!this.player.alive || this.playerGrenades <= 0 || now < this.grenadeCdUntil) return false;
+    this.player.eyePosition(this.v3);
+    this.player.aimDirection(this.v3b, false);
+    const h = Math.hypot(this.v3b.x, this.v3b.z) || 1;
+    const pitch = Math.min((70 * Math.PI) / 180, Math.asin(Math.max(-1, Math.min(1, this.v3b.y))) + (P.pitchUpDeg * Math.PI) / 180);
+    const hx = this.v3b.x / h;
+    const hz = this.v3b.z / h;
+    const from: [number, number, number] = [this.v3.x + hx * 0.4, this.v3.y - 0.15, this.v3.z + hz * 0.4];
+    const vel: [number, number, number] = [hx * Math.cos(pitch) * P.speed, Math.sin(pitch) * P.speed, hz * Math.cos(pitch) * P.speed];
+    if (!this.grenades.spawn(from, vel, 'player', 'player')) return false;
+    this.playerGrenades--;
+    this.grenadeCdUntil = now + P.cooldownMs;
+    this.audio.grenadeThrow();
+    // ném lựu đạn = tiếng động (địch quay về hướng này như tiếng súng nhỏ)
+    this.events.emit('PLAYER_FOOTSTEP', { origin: [this.player.controller.feet[0], this.player.controller.feet[1], this.player.controller.feet[2]] });
+    return true;
+  }
+
+  private grenadeBlast(g: Grenade): void {
+    this.warnedGrenades.delete(g.id);
+    this.explode([g.pos[0], g.pos[1], g.pos[2]], { radius: GRENADE.radius, damage: GRENADE.playerDamage, botDamage: GRENADE.botDamage, shooter: g.owner, occlude: true, crouchMul: 0.6 });
+  }
+
+  /** lựu đạn địch rơi gần người chơi/tổ ta: tổ ta hô "Lựu đạn!", HUD chỉ hướng */
+  private grenadeWarnings(): void {
+    const f = this.player.controller.feet;
+    let warn: Grenade | null = null;
+    let wd = Infinity;
+    for (const g of this.grenades.live()) {
+      if (g.faction !== 'enemy') continue;
+      const d = Math.hypot(g.pos[0] - f[0], g.pos[2] - f[2]);
+      if (d < wd && (g.landed || d < GRENADE.ai.fleeRadius)) {
+        wd = d;
+        warn = g;
+      }
+      if (!this.warnedGrenades.has(g.id) && (g.landed || d < GRENADE.ai.fleeRadius) && d < GRENADE.ai.warnRadius) {
+        this.warnedGrenades.add(g.id);
+        let caller: string | null = null;
+        let cd = Infinity;
+        for (const b of this.squadmates.list()) {
+          if (!b.bot.alive) continue;
+          const db = Math.hypot(b.bot.position[0] - g.pos[0], b.bot.position[2] - g.pos[2]);
+          if (db < cd) {
+            cd = db;
+            caller = b.id;
+          }
+        }
+        if (caller) this.squadmates.warnGrenade(caller);
+      }
+    }
+    const hs = this.hud.state;
+    if (warn && wd <= GRENADE.radius + 3 && this.player.alive) {
+      hs.grenadeWarnDeg = relDeg(this.cameraHeadingDeg(), bearingOf(warn.pos[0] - f[0], warn.pos[2] - f[2]));
+      hs.grenadeWarnDist = wd;
+    } else hs.grenadeWarnDeg = null;
+  }
+
+  /**
+   * Đạn địch sượt qua người chơi (DV-075): điểm gần nhất của tia tới mắt ≤ 2,5 m, trước điểm đó không bị đất/cây chặn → tiếng
+   * "chát/víu" 3D tại điểm đó, rung nhẹ, thanh áp chế tăng (tối viền + mất màu, hồi sau 0,8 s yên).
+   */
+  private playerNearMiss(origin: readonly number[], dir: readonly number[], faction?: string): void {
+    if ((faction ?? 'enemy') !== 'enemy' || !this.player.alive || this.freeFly) return;
+    this.player.eyePosition(this.v3);
+    const ex = this.v3.x - origin[0]!;
+    const ey = this.v3.y - origin[1]!;
+    const ez = this.v3.z - origin[2]!;
+    const tt = ex * dir[0]! + ey * dir[1]! + ez * dir[2]!;
+    if (tt < 3 || tt > aiTuning.combat.range) return;
+    const cx = origin[0]! + dir[0]! * tt;
+    const cy = origin[1]! + dir[1]! * tt;
+    const cz = origin[2]! + dir[2]! * tt;
+    const d = Math.hypot(this.v3.x - cx, this.v3.y - cy, this.v3.z - cz);
+    if (d > 2.5) return;
+    if (!this.physics.hasLineOfSight(origin[0]!, origin[1]!, origin[2]!, cx, cy, cz)) {
+      this.nearMissStats.blocked++;
+      return;
+    }
+    const k = 1 - d / 2.5;
+    this.nearMissStats.count++;
+    this.audio.nearMiss([cx, cy, cz], k);
+    this.playerSuppression = Math.min(1, this.playerSuppression + 0.07 + 0.16 * k);
+    this.suppLastAt = this.clock.simTime;
+    this.player.rig.shakeAmp = Math.max(this.player.rig.shakeAmp, 0.06 + 0.1 * k);
   }
 
   /** gỡ prop terrain (ẩn + collider) — trả false nếu không có */
@@ -1031,10 +1532,10 @@ export class Game {
     const look = this.lookFor(faction, opts.archetype);
     const visual = createActorVisual(
       this.quality.character ? this.assets?.character ?? null : null,
-      { color: recon ? 0x3a3a2a : 0x5a3a35, visor: 0xff5a2a, phase: id.length, skin: look.skin, gear: look.gear },
+      { color: recon ? 0x3a3a2a : 0x5a3a35, visor: 0xff5a2a, phase: id.length, seed: hashSeed(id), skin: look.skin, gear: look.gear },
       this.assets?.weapons[this.weaponIdFor(faction, opts.archetype)] ?? null,
     );
-    const target = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: false };
+    const target = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: false, isPlayer: false };
     const b = new BotActor(id, group, spawn, this.scene, this.physics, visual, {
       physics: this.physics,
       nav: this.nav,
@@ -1042,30 +1543,78 @@ export class Game {
       prng: this.prng,
       waypoints: opts.waypoints && opts.waypoints.length >= 2 ? opts.waypoints : this.arena.waypoints,
       coverMarkers: this.arena.coverMarkers,
+      tactics: this.tactics ?? undefined,
+      reservations: this.coverReservations,
+      cinematic: faction === 'enemy',
+      grenades: this.grenadeLink,
       target: () => this.nearestHostile(b, target),
       camera: () => this.camInfo,
       groundHeight: this.terrain ? (x, z) => this.terrain!.heightAt(x, z) : undefined,
+      sightOcclusion: this.sightOcclusion && faction === 'enemy' ? this.sightOcclusion : undefined,
       faction,
       hitMask: faction === 'friend' ? LAYER.WORLD | LAYER.ACTOR : LAYER.WORLD | LAYER.PLAYER | LAYER.ACTOR,
       followGoal: faction === 'friend' ? this.squadmates.goalFor(id) : undefined,
+      escort: faction === 'friend' ? this.squadmates.escortFor(id) : undefined,
     });
     b.faction = faction;
     b.nameKey = opts.nameKey ?? null;
+    if (this.terrain) visual.ground = (x, z) => this.terrain!.heightAt(x, z);
     this.bots.set(id, b);
+    this.squad?.add({ group, bot: b.bot, friend: faction === 'friend' });
     return b;
   }
 
+  /** điểm người chơi đang nhắm (tia WORLD ≤ 150 m), không trúng gì → 40 m phía trước (lệnh tổ) */
+  private aimPoint(): [number, number, number] {
+    this.player.eyePosition(this.v3);
+    this.player.aimDirection(this.v3b, false);
+    const hit = this.physics.castRay(this.v3.x, this.v3.y, this.v3.z, this.v3b.x, this.v3b.y, this.v3b.z, 150, LAYER.WORLD);
+    if (hit) return [hit.point[0], hit.point[1], hit.point[2]];
+    return [this.v3.x + this.v3b.x * 40, this.v3.y + this.v3b.y * 40, this.v3.z + this.v3b.z * 40];
+  }
+
+  /** địch còn sống (vé tấn công) */
+  private *enemyBots(): Iterable<Bot> {
+    for (const b of this.bots.values()) if (b.faction === 'enemy') yield b.bot;
+  }
+
+  /**
+   * Chỗ nấp tự sinh (AI-T1.1, DV-071): thân cây (collider trụ của rừng) + hố bom (terrainFeatures) + marker level; kiểm che bằng
+   * tia tĩnh (WORLD). Dựng một lần sau navmesh.
+   */
+  private buildTactics(): void {
+    const t0 = performance.now();
+    const nav = this.nav;
+    const terrain = this.terrain;
+    const field = new CoverField({
+      los: (ax, ay, az, bx, by, bz) => this.physics.hasLineOfSight(ax, ay, az, bx, by, bz),
+      ground: (x, z) => (terrain ? terrain.heightAt(x, z) : nav.nearest({ x, y: 0, z })?.y ?? null),
+      walkable: (x, y, z) => {
+        const n = nav.nearest({ x, y, z });
+        return n ? [n.x, n.y, n.z] : null;
+      },
+    });
+    if (this.forest) field.addTreeColliders(this.forest.system.colliders, { standoffFor: (id) => navPadFor(id, 0.05) });
+    for (const c of terrain?.tile.features?.data.craters ?? []) field.addCrater(c.x, c.z, c.r);
+    for (const m of this.arena.coverMarkers) field.addMarker(m.position[0], m.position[1], m.position[2]);
+    this.tactics = new TacticalEvaluator(field);
+    console.info(`[ai] cover field: ${field.stats.trees} trees, ${field.stats.craters} craters, ${field.stats.markers} markers, ${(performance.now() - t0).toFixed(1)} ms`);
+  }
+
   /** mục tiêu gần nhất khác phe (TIP-M1A): địch → người chơi/đồng đội; đồng đội → địch. Không có → alive=false (bot tuần tra/theo) */
-  private nearestHostile(self: BotActor, out: { pos: [number, number, number]; eye: [number, number, number]; alive: boolean }): { pos: [number, number, number]; eye: [number, number, number]; alive: boolean } {
+  private nearestHostile(self: BotActor, out: { pos: [number, number, number]; eye: [number, number, number]; alive: boolean; isPlayer: boolean }): { pos: [number, number, number]; eye: [number, number, number]; alive: boolean; isPlayer: boolean } {
     const p = self.bot.position;
     let best = Infinity;
     let found = false;
+    out.isPlayer = false;
     if (self.faction === 'enemy') {
       const ti = this.targetInfo;
       if (ti.alive) {
-        best = Math.hypot(ti.pos[0] - p[0], ti.pos[2] - p[2]);
+        // DV-083: địch ưu tiên người chơi — đồng đội chỉ thành mục tiêu khi gần hơn hẳn (< 0,55 × cự ly tới người chơi)
+        best = Math.hypot(ti.pos[0] - p[0], ti.pos[2] - p[2]) * 0.55;
         out.pos[0] = ti.pos[0]; out.pos[1] = ti.pos[1]; out.pos[2] = ti.pos[2];
         out.eye[0] = ti.eye[0]; out.eye[1] = ti.eye[1]; out.eye[2] = ti.eye[2];
+        out.isPlayer = true;
         found = true;
       }
     }
@@ -1076,7 +1625,8 @@ export class Game {
       if (d < best) {
         best = d;
         out.pos[0] = q[0]; out.pos[1] = q[1]; out.pos[2] = q[2];
-        out.eye[0] = q[0]; out.eye[1] = q[1] + aiTuning.perception.eyeHeight; out.eye[2] = q[2];
+        out.eye[0] = q[0]; out.eye[1] = q[1] + o.bot.eyeHeight; out.eye[2] = q[2];
+        out.isPlayer = false;
         found = true;
       }
     }
@@ -1088,12 +1638,71 @@ export class Game {
     return out;
   }
 
+  private actorShadowTick = 0;
+  /**
+   * DV-086: lính (người và súng) ở xa hơn 35 m (đã ngã: 15 m) không đổ bóng — mỗi cascade CSM vẽ lại mọi caster, 16 lính × 4 mesh
+   * × 2 cascade là hàng trăm draw call mà bóng người ở xa trong rừng không nhìn thấy. Đổi castShadow không biên dịch lại shader.
+   * Duyệt lại mỗi 8 frame (mô hình glTF có thể nạp sau khi lính ra).
+   */
+  private updateActorShadows(): void {
+    if ((this.actorShadowTick++ & 7) !== 0) return;
+    const c = this.camera.position;
+    for (const b of this.bots.values()) {
+      const p = b.bot.position;
+      const on = Math.hypot(p[0] - c.x, p[2] - c.z) < (b.bot.alive ? 35 : 15);
+      b.dummy.group.traverse((o) => {
+        const m = o as unknown as { isMesh?: boolean; castShadow: boolean; userData: { castBase?: boolean } };
+        if (!m.isMesh) return;
+        m.userData.castBase ??= m.castShadow; // giữ cờ gốc (lửa nòng, kính… vốn không đổ bóng)
+        m.castShadow = on && m.userData.castBase;
+      });
+    }
+  }
+
+  /**
+   * QA (DV-085): dừng kịch bản (test vật lý/rừng/giọng/lựu đạn đo trên level mà M1 mở màn bằng phục kích): đồ thị nhiệm vụ đứng
+   * yên (phụ đề, tương tác vẫn chạy), gỡ địch, huỷ đòn chờ, tổ về theo người chơi
+   */
+  calm(): void {
+    this.mission.paused = true;
+    this.mission.battle?.clearPending();
+    for (const b of [...this.bots.values()]) if (b.faction === 'enemy') this.despawnBot(b.id);
+    this.squadmates.setOrder('follow');
+    this.squadmates.pace = 'normal';
+    this.mission.squadDest = null;
+    this.mission.objectiveMarker = null;
+    this.mission.markerOnLeader = false;
+  }
+
+  /**
+   * DV-084 đồng đội hy sinh theo kịch bản (mission `squad_kill`): bỏ sàn máu friendMinHealth, ngã chết như trúng đạn, rời tổ.
+   * Trả false nếu không tìm thấy hoặc đã chết.
+   */
+  killSquadmate(id: string): boolean {
+    const b = this.bots.get(id);
+    if (!b || !b.bot.alive || b.faction !== 'friend') return false;
+    const p = b.bot.position;
+    const died = b.applyDamage(9999, [p[0] + 1, p[1] + 1.5, p[2]], 'body');
+    if (!died) return false;
+    this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
+    this.squadmates.remove(b.id);
+    return true;
+  }
+
   despawnBot(id: string): void {
     const b = this.bots.get(id);
     if (!b) return;
+    this.squad?.remove(b.bot);
     b.dispose(this.scene);
     this.bots.delete(id);
     this.squadmates.remove(id);
+  }
+
+  /** sang level khác (giữ tham số URL trừ level) — tải lại trang (mỗi level dựng lại renderer/physics/nav) */
+  gotoLevel(id: string): void {
+    const p = new URLSearchParams(this.params);
+    p.set('level', id);
+    window.location.search = p.toString();
   }
 
   /** Chết → tải checkpoint gần nhất, không có thì reset mission. */
@@ -1120,7 +1729,21 @@ export class Game {
     this.fx.reset();
     this.viewModel.reset();
     for (const b of this.bots.values()) b.reset();
+    this.coverReservations.clear();
+    this.squad?.resetGroups();
+    this.tokens.reset();
+    this.lastHurtAt = -1e9;
+    this.grenades.clear();
+    this.playerSuppression = 0;
+    this.playerGrenades = GRENADE.player.count;
+    this.grenadeCdUntil = 0;
+    this.lastEnemyThrowAt = -1e9;
+    this.groupThrowAt.clear();
+    this.warnedGrenades.clear();
+    this.chatter.reset();
+    this.stopSpeech();
     this.mission.reset();
+    this.nightAct?.reset();
     if (this.freeFly) {
       this.freeFly.yaw = 0;
       this.freeFly.pitch = 0;

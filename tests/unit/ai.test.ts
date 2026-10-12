@@ -116,7 +116,7 @@ describe('TIP-007 Navmesh (AI-003)', () => {
 });
 
 describe('TIP-007 Perception (AI-001)', () => {
-  it('mục tiêu 10 m trong FOV có LOS 1 s → ALERT; mất LOS 6 s → SUSPICIOUS → UNAWARE; lastKnown giữ', () => {
+  it('mục tiêu 10 m trong FOV có LOS 1 s → ALERT; mất LOS quá memoryMs → SUSPICIOUS → UNAWARE; lastKnown giữ', () => {
     const p = new Perception();
     const self: [number, number, number] = [0, 1.6, 0];
     const facing: [number, number, number] = [0, 0, -1];
@@ -125,7 +125,8 @@ describe('TIP-007 Perception (AI-001)', () => {
     expect(p.state).toBe('ALERT');
     expect(p.lastKnown).toEqual(target);
     const states: string[] = [];
-    for (let i = 0; i < 90; i++) {
+    const n = Math.ceil((ai.perception.memoryMs + 2500) / 100);
+    for (let i = 0; i < n; i++) {
       p.update(0.1, self, facing, target, false, []);
       states.push(p.state);
     }
@@ -334,28 +335,35 @@ describe('TIP-018 AI chiến đấu "IQ" (D-057)', () => {
     expect(seekShots + peekShots).toBeGreaterThan(3);
   });
 
-  it('3 bot cùng nhóm thấy player: 1 bot FLANK trong 3 s tới góc ≥ 60°', async () => {
-    const { SquadCoordinator } = await import('@game/ai/squad');
+  it('AI-T1.4 (thay TIP-018 "1 người ép sườn"): 3 bot cùng nhóm chạm địch → chia vai yểm trợ/cơ động, chia thông tin, ≤ 1 người lao cùng lúc', async () => {
+    const { FireTeams } = await import('@game/ai/squad');
     const player: [number, number, number] = [0, 0, 0];
     const events = new EventBus<BotEvents>(256);
     const spawns: [number, number, number][] = [[-3, 0, 14], [0, 0, 15], [3, 0, 14]];
     const bots = spawns.map((s, i) => makeBot(world, `sq_${i}`, s, 20 + i, player, events).bot);
-    for (const b of bots) b.yaw = 0; // mặt −z về player
-    const squad = new SquadCoordinator(world.coverMarkers);
-    let flankAt = -1;
-    for (let t = 0; t < 60 * 6; t++) {
+    bots[0]!.yaw = 0; // chỉ một người nhìn thấy (mặt −z về player), hai người kia quay lưng
+    bots[1]!.yaw = Math.PI;
+    bots[2]!.yaw = Math.PI;
+    const team = new FireTeams(events);
+    for (const b of bots) team.add({ group: 'g', bot: b });
+    let maxMovers = 0;
+    for (let t = 0; t < 60 * 12; t++) {
       for (const b of bots) {
         if (t % 6 === 0) b.think(0.1);
         b.move(1 / 60);
       }
-      squad.tick(bots.map((b) => ({ group: 'g', bot: b })), 1 / 60, player);
+      team.tick(1 / 60);
       world.physics.step();
-      if (flankAt < 0 && bots.some((b) => b.state === 'FLANK')) flankAt = t;
+      maxMovers = Math.max(maxMovers, bots.filter((b) => b.bounding).length);
     }
-    expect(flankAt).toBeGreaterThanOrEqual(0);
-    expect(flankAt / 60).toBeLessThanOrEqual(3);
-    expect(bots.filter((b) => b.stats.flanks > 0).length).toBe(1);
-    expect(squad.stats.flankOrders).toBe(1);
+    expect(team.stats.organized).toBeGreaterThanOrEqual(1);
+    expect(team.stats.shares).toBeGreaterThanOrEqual(1); // người thấy hô cho đồng đội quay lưng
+    expect(bots.every((b) => b.perception.state === 'ALERT')).toBe(true);
+    const roles = bots.map((b) => b.role);
+    expect(roles).toContain('support');
+    expect(roles.some((r) => r === 'assault' || r === 'flank')).toBe(true);
+    expect(maxMovers).toBeLessThanOrEqual(2);
+    team.dispose();
   });
 
   it('tiếng chân 6 m sau lưng: SUSPICIOUS trong 1 s, lastKnown = vị trí chân', () => {

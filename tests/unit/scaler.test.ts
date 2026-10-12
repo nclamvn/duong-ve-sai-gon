@@ -10,9 +10,11 @@ describe('TIP-003 QualityScaler (REN-004)', () => {
     expect(s.scale).toBe(DEFAULT_SCALER.min);
   });
 
-  it('60 frame 10 ms → tăng dần về 1.0', () => {
+  it('nhanh liên tục → tăng dần về 1.0, chậm hơn lúc giảm (DV-086: ít lần đổi kích thước)', () => {
     const s = new QualityScaler(DEFAULT_SCALER, 0.7);
     for (let i = 0; i < 60; i++) s.update(10);
+    expect(s.scale).toBe(0.7);
+    for (let i = 0; i < 100; i++) s.update(10);
     expect(s.scale).toBeGreaterThan(0.7);
     for (let i = 0; i < 3000; i++) s.update(10);
     expect(s.scale).toBe(1.0);

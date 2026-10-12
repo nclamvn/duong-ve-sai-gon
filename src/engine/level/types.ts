@@ -16,6 +16,8 @@ export interface LevelSky {
   fog: { color: number; density: number };
   /** cascade shadow: số cascade, xa nhất (m), map size */
   csm: { cascades: number; maxFar: number; mapSize: number };
+  /** DV-079 khí quyển (sương theo độ cao, tán xạ nắng) — ghi đè mặc định suy từ `fog` */
+  atmosphere?: { baseHeight?: number; scaleHeight?: number; uniformShare?: number; sunColor?: number; sunScatter?: number; sunSharpness?: number; maxFactor?: number };
 }
 
 export interface LevelGround {
@@ -94,6 +96,8 @@ export interface FxDef {
   color?: number;
   /** khói: cao cột (m) — mặc định 14 × scale; cột bom xa 300–500 m */
   height?: number;
+  /** khói: độ sáng lên khi bốc cao (1 = ban ngày nắng lọt; đêm ~0,1) — DV-078 */
+  lit?: number;
 }
 
 export interface LevelDef {

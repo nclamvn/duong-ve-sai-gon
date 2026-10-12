@@ -139,7 +139,7 @@ export function attachGear1971(bones: { head: Object3D | null; chest: Object3D |
 
 /** Tìm bone ngực trên Mixamo (Spine2) trong model. */
 export function findChestBone(model: Object3D): Object3D | null {
-  for (const n of ['mixamorig:Spine2', 'mixamorigSpine2', 'Spine2', 'mixamorig:Spine1', 'mixamorigSpine1', 'Spine1']) {
+  for (const n of ['mixamorigSpine2_ref', 'mixamorig:Spine2', 'mixamorigSpine2', 'Spine2', 'mixamorig:Spine1', 'mixamorigSpine1', 'Spine1']) {
     const o = model.getObjectByName(n);
     if (o) return o;
   }

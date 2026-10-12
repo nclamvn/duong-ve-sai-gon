@@ -103,3 +103,61 @@ export function erdlColorNode(map: Texture, pal: CamoPalette = ERDL_PALETTE): No
     return mix(rgb, camo, mask);
   })() as unknown as Node<'vec3'>;
 }
+
+/**
+ * DV-065: nhuộm lại vải xám/trắng của asset mua (tay áo viewmodel AB3DX) sang màu quân phục, GIỮ nguyên phần có màu
+ * (găng da nâu, da tay): mặt nạ theo độ bão hoà thấp, bóng nếp vải giữ theo tỉ lệ độ sáng so với nền vải gốc.
+ * Chỉ đổi màu (DV-054: không sửa hình học, không đổi rig). `target` là màu linear của vải mới ở độ sáng chuẩn.
+ */
+export function recolorGreyFabricNode(map: Texture, target: readonly [number, number, number], clothLum = 0.42): Node<'vec3'> {
+  return Fn(() => {
+    const rgb = texture(map, uv()).rgb;
+    const mx = rgb.r.max(rgb.g).max(rgb.b);
+    const mn = rgb.r.min(rgb.g).min(rgb.b);
+    const sat = mx.sub(mn).div(mx.add(0.001));
+    // xám/trắng (bão hoà < ~0,15) và không quá tối (đường viền đen, lỗ) → vải cần nhuộm
+    const mask = float(1).sub(smoothstep(0.14, 0.26, sat)).mul(smoothstep(0.03, 0.08, mx));
+    const lum = rgb.dot(vec3(0.2126, 0.7152, 0.0722));
+    const shade = clamp(lum.div(clothLum), 0.35, 1.5);
+    const dyed = vec3(target[0], target[1], target[2]).mul(shade);
+    return mix(rgb, dyed, mask);
+  })() as unknown as Node<'vec3'>;
+}
+
+/**
+ * DV-069: camo on a grey/grey-green fabric albedo (Panzergrenadier body): same fabric mask as `recolorGreyFabricNode`
+ * (low saturation, not near-black), pattern shaded by the fabric's luminance relative to `clothLum` (linear).
+ */
+export function camoGreyFabricNode(map: Texture, pal: CamoPalette, clothLum = 0.125, gain = 1): Node<'vec3'> {
+  return Fn(() => {
+    const rgb = texture(map, uv()).rgb;
+    const mx = rgb.r.max(rgb.g).max(rgb.b);
+    const mn = rgb.r.min(rgb.g).min(rgb.b);
+    const sat = mx.sub(mn).div(mx.add(0.001));
+    const mask = float(1).sub(smoothstep(0.16, 0.3, sat)).mul(smoothstep(0.025, 0.06, mx));
+    const lum = rgb.dot(vec3(0.2126, 0.7152, 0.0722));
+    const shade = clamp(lum.div(clothLum), 0.4, 1.5);
+    const camo = erdlPatternNode(uv(), 18, pal).mul(shade).mul(float(gain));
+    return mix(rgb, camo, mask);
+  })() as unknown as Node<'vec3'>;
+}
+
+/**
+ * DV-070 per-actor variation: re-tone the skin of a body albedo (saturated warm pixels: r > g > b, saturation > ~0.35)
+ * on top of an existing colour node. `tone` 0 = lighter, 1 = deeper tan; 0.35 ≈ the source skin.
+ */
+export function skinToneNode(inner: Node<'vec3'>, map: Texture, tone: number): Node<'vec3'> {
+  return Fn(() => {
+    const rgb = texture(map, uv()).rgb;
+    const mx = rgb.r.max(rgb.g).max(rgb.b);
+    const mn = rgb.r.min(rgb.g).min(rgb.b);
+    const sat = mx.sub(mn).div(mx.add(0.001));
+    const warm = smoothstep(0.0, 0.02, rgb.r.sub(rgb.g)).mul(smoothstep(0.0, 0.015, rgb.g.sub(rgb.b)));
+    const mask = smoothstep(0.32, 0.45, sat).mul(warm).mul(smoothstep(0.02, 0.06, mx));
+    const t = Math.max(0, Math.min(1, tone));
+    const light = [1.1, 1.06, 1.02];
+    const deep = [0.68, 0.56, 0.46];
+    const k = vec3(light[0]! + (deep[0]! - light[0]!) * t, light[1]! + (deep[1]! - light[1]!) * t, light[2]! + (deep[2]! - light[2]!) * t);
+    return mix(inner, inner.mul(k), mask);
+  })() as unknown as Node<'vec3'>;
+}

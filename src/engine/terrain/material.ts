@@ -5,6 +5,9 @@
  * Normal per-pixel từ texture normal của ô (linear) + normal map lớp (tiếp tuyến xấp xỉ trục x/z).
  */
 import { MeshStandardNodeMaterial, Color, type DataTexture } from 'three/webgpu';
+import { canopyMap } from '../vegetation/canopy';
+import { SUN } from '../render/sceneLight';
+import { cameraPosition, time } from 'three/tsl';
 import { attribute, positionGeometry, positionWorld, texture, triplanarTexture, transformNormalToView, vec2, vec3, vec4, float, mix, smoothstep, saturate, normalize, mx_noise_float, color, uniform, max } from 'three/tsl';
 import type { Node } from 'three/webgpu';
 import type { PbrTextureSet } from '../render/assets';
@@ -150,11 +153,27 @@ export function createTerrainMaterial(tile: TerrainTile, heightTex: DataTexture,
   const nWorld = normalize(nTile.add(detail));
 
   const wetLayer = saturate(mudW.mul(0.8).add(float(0.35)).mul(rockW.oneMinus()).mul(wetness).add(fmask.mul(0.45)));
-  mat.colorNode = vec4(mix(albedo, albedo.mul(0.72), wetLayer), 1.0);
+  // DV-080 vũng nước đọng: chỗ phẳng trên đất xới/đường mòn/đất ướt, vệt theo noise 2–4 m, nhiều hơn khi trời ướt. Lòng vũng
+  // gần như gương (roughness 0,05, pháp tuyến phẳng + gợn mưa phùn) → SSR/IBL phản chiếu tán cây và trời; mép vũng tối ướt.
+  const flat = smoothstep(0.03, 0.09, slope).oneMinus();
+  const pn = mx_noise_float(positionWorld.xz.mul(0.27).add(vec2(7.3, 2.9))).mul(0.5).add(0.5);
+  const pn2 = mx_noise_float(positionWorld.xz.mul(1.4)).mul(0.08);
+  const site = saturate(mudW.mul(0.8).add(fmask)).mul(flat).mul(rockW.oneMinus());
+  const thr = float(0.72).sub(wetness.mul(0.16)).sub(fmask.mul(0.07)); // đường mòn/đất xới đọng nhiều hơn
+  const puddle = smoothstep(thr, thr.add(0.05), pn.add(pn2)).mul(site);
+  const rim = smoothstep(thr.sub(0.08), thr, pn.add(pn2)).mul(site).sub(puddle).max(0);
+  const ripple = mx_noise_float(vec3(positionWorld.xz.mul(6.0), time.mul(1.6))).mul(0.06).mul(wetness);
+  const nPuddle = normalize(vec3(ripple, 1.0, mx_noise_float(vec3(positionWorld.zx.mul(6.0), time.mul(1.3).add(4.0))).mul(0.06).mul(wetness)));
+  const nFinal = normalize(mix(nWorld, nPuddle, puddle));
+  // DV-079 tán che: dưới tán kín nền rừng mất phần lớn ánh trời gián tiếp; ngoài tầm bóng CSM thì tán thay bóng nắng
+  const canopy = canopyMap.sample();
+  const farShade = smoothstep(SUN.shadowFar.mul(0.7), SUN.shadowFar, positionWorld.sub(cameraPosition).length());
+  const wetAlbedo = mix(mix(albedo, albedo.mul(0.72), wetLayer), albedo.mul(0.5), rim.mul(0.8)).mul(mix(float(1), float(0.3), puddle));
+  mat.colorNode = vec4(wetAlbedo.mul(mix(float(1), mix(float(1), float(0.5), canopy), farShade)), 1.0);
   // roughness sàn cao: đất/mùn ẩm không bóng; ARM Poly Haven (0,5–0,7) làm mặt đất phản chiếu trời ở góc xiên → bạc/nhợt
-  mat.roughnessNode = saturate(mix(float(0.92), arm.g, 0.3).sub(wetLayer.mul(0.2)));
+  mat.roughnessNode = mix(mix(saturate(mix(float(0.92), arm.g, 0.3).sub(wetLayer.mul(0.2))), float(0.35), rim), float(0.05), puddle);
   mat.metalnessNode = float(0.0);
-  mat.aoNode = arm.r;
-  mat.normalNode = transformNormalToView(nWorld);
+  mat.aoNode = arm.r.mul(mix(float(1), float(0.4), canopy));
+  mat.normalNode = transformNormalToView(nFinal);
   return { material: mat, wetness };
 }

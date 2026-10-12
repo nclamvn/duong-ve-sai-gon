@@ -1,0 +1,347 @@
+════════════════════════════════════════════════════════════════
+REFINERY · domain=dem_ngam · Asset cho hồi đêm M1 'Ngầm Ta Lê' (DVSG): xe vận tải thời 1971, đại liên 12,7 ly DShK, nhân vật nữ TNXP (Thu), đạo cụ đêm
+════════════════════════════════════════════════════════════════
+
+▸ Alina Ip — jungle_jim (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : jungle_jim [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 137654 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2024-09-11 [✓A]
+    han_che         : dựng từ DAZ3D + Character Creator 4 (giấy phép game riêng), nội dung gợi dục [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Casual Woman in Brown Dress Rigged Idle — florah (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : florah [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 255948 mặt [✓A]
+    dang            : phụ nữ châu Á, váy nâu, có rig + idle [✓A]
+    ngay_dang       : 2026-07-14 [✓A]
+    han_che         : trang phục hiện đại, nặng (256k mặt) [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ DSHK completed — nemanjr981 (Sketchfab)  (sung)
+    nhom            : sung [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : nemanjr981 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 3826 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2019-09-10 [✓A]
+    han_che         : chất lượng thấp, dáng không đúng [✓A]
+    ket_luan        : loai [✓C]
+
+▸ DShK Heavy Machine Gun Low-poly PBR — Max3d (Fab)  (sung)
+    nhom            : sung [✓A]
+    nguon           : fab [✓A]
+    tac_gia         : —
+    gia             : 824806 VND [✓A]
+    giay_phep       : Fab Standard (bắt buộc gói .dvpak, DV-062) [✓A]
+    hinh_hoc        : 25.919 tam giác, PBR 4K một bộ [✓A]
+    dang            : giá ba càng phòng không, bộ phận tách rời [✓A]
+    ngay_dang       : —
+    han_che         : không dùng AI, không sinh bằng AI [✓A]
+    ket_luan        : chon [✓C]
+
+▸ Heavy Machine Gun Dshk 1938 — Frigus (Fab)  (sung)
+    nhom            : sung [✓A]
+    nguon           : fab [✓A]
+    tac_gia         : —
+    gia             : 1023966–1422286 VND [✓A]
+    giay_phep       : Fab Standard (bắt buộc gói .dvpak, DV-062) [✓A]
+    hinh_hoc        : 139k tam giác, 3 bộ texture 4K [✓A]
+    dang            : giá bánh xe Kolesnikov có khiên (thêm bản ba càng) [✓A]
+    ngay_dang       : —
+    han_che         : không dùng AI, không sinh bằng AI [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ MPFB / MakeHuman (dựng nhân vật nữ Thu)  (cong_cu)
+    nhom            : cong_cu [✓A]
+    nguon           : makehuman [✓A]
+    tac_gia         : —
+    gia             : 0 [✓A]
+    giay_phep       : CC0 (lưới gốc, target, da) [✓A]
+    hinh_hoc        : —
+    dang            : rig + hoạt ảnh qua Mixamo [✓A]
+    ngay_dang       : —
+    han_che         : asset bên thứ ba theo license riêng [✓A]
+    ket_luan        : chon [✓C]
+
+▸ Military Truck ZIL-157 KUNG (RAW SCAN) — Zende (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : Zende [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : Free Standard [✓A]
+    hinh_hoc        : 342457 mặt [✓A]
+    dang            : ZIL-157 thùng kín KUNG, quét ảnh [✓A]
+    ngay_dang       : 2022-03-29 [✓A]
+    han_che         : thùng kín xe cứu thương, không phải xe chở hàng [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ Stylized Vietnamese Model with Skirt — Tam Nguyen (Fab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : —
+    tac_gia         : —
+    gia             : —
+    giay_phep       : —
+    hinh_hoc        : —
+    dang            : —
+    ngay_dang       : —
+    han_che         : phong cách chibi [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Twin Dshk Shielded Tri-pod emplacement — Sleepykingzzz (Sketchfab)  (sung)
+    nhom            : sung [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : Sleepykingzzz [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 12809 mặt [✓A]
+    dang            : DShK nòng đôi có khiên, tự chế [✓A]
+    ngay_dang       : 2020-11-02 [✓A]
+    han_che         : biến thể tưởng tượng, không có thật [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Vietnam Meta Soldier PAVN — wellweldedgames (Fab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : —
+    tac_gia         : —
+    gia             : —
+    giay_phep       : —
+    hinh_hoc        : —
+    dang            : —
+    ngay_dang       : —
+    han_che         : chỉ Unreal, nhân vật nam [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Vietnam-woman — golfkantapol1993 (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : golfkantapol1993 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 13004 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2015-09-05 [✓A]
+    han_che         : hoạt hình, không texture [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Vietnamese Non La — NNgan (Sketchfab)  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : NNgan [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 1512 mặt [✓A]
+    dang            : nón lá low-poly, tác giả người Việt [✓A]
+    ngay_dang       : 2024-03-10 [✓A]
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ Vietnamese girl — nhacedm01598 (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : nhacedm01598 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 823776 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2025-12-30 [✓A]
+    han_che         : nội dung gợi dục, không rig [✓A]
+    ket_luan        : loai [✓C]
+
+▸ Young women in traditional of Bac Ninh — phamminhdai1989 (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : phamminhdai1989 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 483914 mặt [✓A]
+    dang            : áo tứ thân quan họ, tạo dáng ngồi thổi sáo [✓A]
+    ngay_dang       : 2026-10-02 [✓A]
+    han_che         : tạo dáng sẵn, trang phục lễ hội [✓A]
+    ket_luan        : loai [✓C]
+
+▸ ZIL 157 Military Truck — rylo (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : rylo [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 686682 mặt [✓A]
+    dang            : ZIL-157 bẩn, có rig hệ treo, texture 1K [✓A]
+    ngay_dang       : 2023-04-13 [✓A]
+    han_che         : rất nặng (687k mặt, 139 texture) [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ ZIL157 bort platforma — JLabus (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : JLabus [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 122962 mặt [✓A]
+    dang            : ZIL-157 thùng gỗ có khung bạt, 12 texture, Blender + Substance [✓A]
+    ngay_dang       : 2026-01-10 [✓A]
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ ZIL157 — JLabus (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : JLabus [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 276922 mặt [✓A]
+    dang            : ZIL-157 thùng có khung bạt, 38 texture [✓A]
+    ngay_dang       : 2025-07-20 [✓A]
+    han_che         : nặng (277k mặt), phải giảm lưới [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ ZiL-130 — nghesiyeubuom97 (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : nghesiyeubuom97 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 174063 mặt [✓A]
+    dang            : ZiL-130 thùng bạt, gắn thẻ quân đội nhân dân Việt Nam [✓A]
+    ngay_dang       : 2018-03-11 [✓A]
+    han_che         : ZiL-130 là xe đường bằng 4x2, ít dùng trên tuyến rừng [✓A]
+    ket_luan        : du_phong [✓C]
+
+▸ Zil 157 — dugito03 (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : dugito03 [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 66028 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2026-09-22 [✓A]
+    han_che         : người đăng ghi đã sửa mô hình, không rõ tác giả gốc [✓A]
+    ket_luan        : loai [✓C]
+
+▸ barrel_03  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : Serhii Khromov [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 1473 poly [✓A]
+    dang            : phuy [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ dshk — hensyu_leader (Sketchfab)  (sung)
+    nhom            : sung [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : hensyu_leader [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 18828 mặt [✓A]
+    dang            : DShK chân ba càng, làm bằng Blockbench [✓A]
+    ngay_dang       : 2019-05-12 [✓A]
+    han_che         : chất lượng thấp (Blockbench) [✓A]
+    ket_luan        : loai [✓C]
+
+▸ female#2 — nguyenvanpat (Sketchfab)  (nhan_vat)
+    nhom            : nhan_vat [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : nguyenvanpat [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 109626 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2021-12-18 [✓A]
+    han_che         : phong cách anime [✓A]
+    ket_luan        : loai [✓C]
+
+▸ metal_jerrycan_green  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : Ulan Cabanilla [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 9636 poly [✓A]
+    dang            : can xăng xanh [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ old_military_crate  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : Jack Mava [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 10476 poly [✓A]
+    dang            : hòm quân dụng cũ [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : du_phong [✓C]
+
+▸ vintage_oil_lamp  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : Monsta3D [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 7208 poly [✓A]
+    dang            : đèn dầu [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ wooden_lantern_01  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : James Ray Cock [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 8321 poly [✓A]
+    dang            : đèn lồng gỗ [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : du_phong [✓C]
+
+▸ wooden_military_crate  (dao_cu)
+    nhom            : dao_cu [✓A]
+    nguon           : polyhaven [✓A]
+    tac_gia         : Prabhjinder Singh [✓A]
+    gia             : 0 [✓B]
+    giay_phep       : CC0 (mọi asset Poly Haven) [✓B]
+    hinh_hoc        : 22986 poly [✓A]
+    dang            : hòm gỗ quân dụng [✓A]
+    ngay_dang       : —
+    han_che         : —
+    ket_luan        : chon [✓C]
+
+▸ zil-130 — Ara_my45yt (Sketchfab)  (xe)
+    nhom            : xe [✓A]
+    nguon           : sketchfab [✓A]
+    tac_gia         : Ara_my45yt [✓A]
+    gia             : 0 [✓A]
+    giay_phep       : CC Attribution [✓A]
+    hinh_hoc        : 174063 mặt [✓A]
+    dang            : —
+    ngay_dang       : 2022-06-23 [✓A]
+    han_che         : trùng đúng số mặt với bản của nghesiyeubuom97, nghi đăng lại [✓A]
+    ket_luan        : loai [✓C]
+
+Phân bố theo ket_luan (n=28 / universe≈60 · coverage 46.7%):
+    chon: 8
+    du_phong: 8
+    loai: 12
+
+build digest = 2e3bf12a81ea483a  · idempotent OK · auditor OK
+VALIDATION PASSED · 0 gate bites

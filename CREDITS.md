@@ -31,6 +31,10 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - "UH-1 B with (half modeled cockpit)" (https://sketchfab.com/3d-models/uh-1-b-with-half-modeled-cockpit-08d48d13e6ac46a6a2d3fcd68db41799) by TonyWony is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/air_uh1b.glb`
 - "M16A1 - Gameasset" (https://sketchfab.com/3d-models/m16a1-gameasset-3579009c6e444cf5bd8d2646954e45d7) by DavidFalke (davidfalke) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/weapons/m16a1.glb`
 - "First Person hands rigged" (https://sketchfab.com/3d-models/first-person-hands-rigged-547a45535f0c4fe787948f7a7a6a88db) by David Fischer (davidfischer) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/characters/fp_hands.glb`
+- "Soviet SSH-60" (https://sketchfab.com/3d-models/soviet-ssh-60-13ab594b900342b8814c101568c8dc4f) by SimplyK is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/characters/helmet_a.glb`
+- "WW2 Panzergrenadier 2k (CC0)" (https://sketchfab.com/3d-models/ww2-panzergrenadier-2k-cc0-6a104431bcb8400080b79446ec019696) by britdawgmasterfunk is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); animations: Adobe Mixamo — file `assets/characters/soldier_pz.glb`
+- "ZIL157 bort platforma" (https://sketchfab.com/3d-models/zil157-bort-platforma-cc8cd08ccbff40898ffedf40f9aa04bb) by Labus (JLabus) is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/veh_zil157.glb`
+- "Vietnamese _ Non La" (https://sketchfab.com/3d-models/vietnamese---non-la-abd86436d03344b9a40c82e127fb6252) by NNgan is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — file `assets/models/prop_nonla.glb`
 
 ## CC0-1.0
 
@@ -100,6 +104,9 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - forest_leaves_02 (texture) — Rob Tuytel — https://polyhaven.com/a/forest_leaves_02
 - mossy_rock (texture) — Rob Tuytel — https://polyhaven.com/a/mossy_rock
 - red_laterite_soil_stones (texture) — Amal Kumar — https://polyhaven.com/a/red_laterite_soil_stones
+- vintage_oil_lamp (model) — Monsta3D — https://polyhaven.com/a/vintage_oil_lamp
+- barrel_03 (model) — Serhii Khromov — https://polyhaven.com/a/barrel_03
+- metal_jerrycan_green (model) — Ulan Cabanilla — https://polyhaven.com/a/metal_jerrycan_green
 - veg_grass (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 - veg_grass_tall (model) — DVSG (scripts/gen-grass.mjs) — https://github.com/nclamvn/duong-ve-sai-gon
 - veg_ph_fern (model) — Rob Tuytel, Rico Cilliers — https://polyhaven.com/a/fern_02
@@ -109,6 +116,11 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 - veg_ph_rock_moss (model) — Kless Gyzen — https://polyhaven.com/a/rock_moss_set_01
 - veg_ph_branches (model) — Rico Cilliers — https://polyhaven.com/a/dry_branches_medium_01
 - veg_ph_roots (model) — Jenelle van Heerden, Rico Cilliers — https://polyhaven.com/a/root_cluster_01
+- veg_ph_rockface (model) — Dario Barresi — https://polyhaven.com/a/rock_face_01
+- veg_ph_pebbles (model) — Kless Gyzen — https://polyhaven.com/a/rock_moss_set_02
+- veg_ph_stump2 (model) — Rob Tuytel — https://polyhaven.com/a/tree_stump_02
+- chr_thu (character) — MakeHuman Community (lưới gốc, da, tóc braid01, áo male_casualsuit03, CC0), DVSG (dựng, nhuộm lại) — https://static.makehumancommunity.org/mpfb/faq/use_in_closed_source.html
+- veg_litter (model) — ambientCG — https://ambientcg.com/list?q=LeafSet
 
 ## Mixamo
 
@@ -128,5 +140,18 @@ Ghi công bắt buộc (hiển thị trong game ở màn capability và tại đ
 ## Fab-Standard
 
 - fp_viewmodel_ak47 (character) — AB3DX — https://www.fab.com/listings/c7984c16-55d5-4f13-bc74-df21e5dd44d5
+- veg_fallen_tree (model) — Quixel Megascans — https://www.fab.com/listings/f36e4566-ebe4-42ad-9b13-b38ec4a438ab
+- veg_diptero (model) — anydrafts official — https://www.fab.com/listings/d51c1b28-64db-4fa4-9143-0a66238d647c
+- veg_ficus_trunk (model) — Quixel Megascans — https://www.fab.com/listings/cfb3ca34-f75a-4bbe-9a06-40d6b2b2c581
+- veg_fanpalm (model) — Quixel Megascans — https://www.fab.com/listings/baaece72-6e2b-4fef-a8b9-de5c0f244a43
+- veg_shorea (model) — 3DGardenPlants — https://www.fab.com/listings/60af4e19-48b2-4bc9-a574-6145cfae7798
 
-Tổng: 109 asset, 164.5 MB. Cập nhật 2026-10-10T01:35:21.654Z.
+## ElevenLabs-Paid
+
+- voice_elevenlabs (audio) — ElevenLabs (TTS, gói trả phí của chủ dự án) — https://elevenlabs.io
+
+## DVSG-Own
+
+- wpn_dshk (model) — DVSG (tự dựng bằng code: scripts/models/build-dshk.py) — https://github.com/nclamvn/duong-ve-sai-gon
+
+Tổng: 128 asset, 201.3 MB. Cập nhật 2026-10-12T03:05:28.447Z.

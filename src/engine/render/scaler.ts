@@ -13,6 +13,8 @@ export interface ScalerConfig {
   stepDown: number;
   stepUp: number;
   hysteresisFrames: number;
+  /** DV-086: số frame nhanh liên tiếp mới tăng lại (chậm hơn giảm — mỗi lần đổi là cấp phát lại mọi render target hậu kỳ) */
+  upHysteresisFrames?: number;
   cooldownFrames: number;
 }
 
@@ -21,10 +23,12 @@ export const DEFAULT_SCALER: ScalerConfig = {
   max: 1.0,
   downMs: 18.5,
   upMs: 14.0,
-  stepDown: 0.05,
-  stepUp: 0.02,
-  hysteresisFrames: 30,
-  cooldownFrames: 30,
+  // DV-086: bậc to, ít lần đổi (Mac: đổi 0,05 mỗi nửa giây → cấp phát lại GTAO/SSR/bloom/sương liên tục → giật)
+  stepDown: 0.1,
+  stepUp: 0.05,
+  hysteresisFrames: 45,
+  upHysteresisFrames: 150,
+  cooldownFrames: 90,
 };
 
 export class QualityScaler {
@@ -63,7 +67,7 @@ export class QualityScaler {
       this.changes++;
       return true;
     }
-    if (this.fastRun >= this.cfg.hysteresisFrames && this.scale < this.cfg.max) {
+    if (this.fastRun >= (this.cfg.upHysteresisFrames ?? this.cfg.hysteresisFrames) && this.scale < this.cfg.max) {
       this.scale = Math.min(this.cfg.max, +(this.scale + this.cfg.stepUp).toFixed(3));
       this.fastRun = 0;
       this.cooldown = this.cfg.cooldownFrames;

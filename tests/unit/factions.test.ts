@@ -4,10 +4,10 @@ import { join } from 'node:path';
 import { factionLook, resolvePackId, factionPackIds } from '@game/factions';
 
 describe('DV-061 gói phe', () => {
-  it('mặc định hư cấu: phe A AK + tai bèo, phe B súng khác AK + rằn ri hư cấu; recon theo phe', () => {
+  it('mặc định hư cấu: phe A AK + áo ô liu + mũ sắt (DV-068/069), phe B súng khác AK + rằn ri hư cấu; recon theo phe', () => {
     expect(resolvePackId(null)).toBe('fictional');
     expect(resolvePackId('khong-co')).toBe('fictional');
-    expect(factionLook('fictional', 'friend')).toEqual({ weapon: 'ak47', gear: 'faction_a' });
+    expect(factionLook('fictional', 'friend')).toEqual({ weapon: 'ak47', gear: 'faction_a', skin: 'olive', sleeve: '#4e5834' });
     const e = factionLook('fictional', 'enemy');
     expect(e.weapon).not.toBe('ak47');
     expect(e).toEqual({ weapon: 'm16a1', gear: 'faction_b', skin: 'camo_b' });

@@ -6,12 +6,14 @@ import data from '@content/factions/factions.json';
 
 export type FactionSide = 'friend' | 'enemy';
 export type GearKind = 'pavn1971' | 'us1971' | 'faction_a' | 'faction_b';
-export type SkinKind = 'recon' | 'erdl' | 'camo_b';
+export type SkinKind = 'recon' | 'erdl' | 'camo_b' | 'olive';
 
 export interface FactionLook {
   weapon: string;
   gear?: GearKind;
   skin?: SkinKind;
+  /** DV-065: màu vải tay áo viewmodel người chơi (sRGB hex "#rrggbb") — chỉ phe friend */
+  sleeve?: string;
 }
 
 interface SideDef extends FactionLook {
@@ -42,5 +44,7 @@ export function factionLook(packId: string, side: FactionSide, archetype?: strin
   const skin = over?.skin ?? def.skin;
   if (gear) out.gear = gear;
   if (skin) out.skin = skin;
+  const sleeve = over?.sleeve ?? def.sleeve;
+  if (sleeve) out.sleeve = sleeve;
   return out;
 }

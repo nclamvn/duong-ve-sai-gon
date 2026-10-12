@@ -60,6 +60,41 @@ export interface ScatterRule {
    * (dốc, cao, nước, `avoid`, `near`). Gộp vào cùng placement → không thêm draw call.
    */
   boost?: Array<{ feature: FeatureKind; min?: number; max: number; perHa: number; noiseFree?: boolean }>;
+  /** DV-078: dải trống dọc đường (polyline x/z): không mọc trong `within` m quanh tâm đường (ghép từ `VegetationDef.clear`) */
+  clearPaths?: ClearPath[];
+}
+
+/** DV-078: dải trống dọc một đường xe (level `roads`): cây thân/bụi cách tâm đường ≥ `within`, tầng thấp ≥ `withinLow` */
+export interface ClearPath {
+  pts: Array<[number, number]>;
+  within: number;
+  withinLow?: number;
+}
+
+/** khoảng cách ngang (m) từ (x, z) tới polyline */
+export function distToPolyline(pts: ReadonlyArray<readonly [number, number]>, x: number, z: number): number {
+  let best = Infinity;
+  for (let i = 0; i + 1 < pts.length; i++) {
+    const a = pts[i]!;
+    const b = pts[i + 1]!;
+    const dx = b[0] - a[0];
+    const dz = b[1] - a[1];
+    const l2 = dx * dx + dz * dz || 1;
+    const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / l2));
+    const d = Math.hypot(a[0] + dx * t - x, a[1] + dz * t - z);
+    if (d < best) best = d;
+  }
+  return best;
+}
+
+/** đường xe của level (`roads`) → dải trống: thân cây cách mép đường ≥ 1,8 m (tán vẫn che đường như "giàn ngụy trang"), tầng thấp sát mép */
+export function roadClearings(roads: ReadonlyArray<{ pts: Array<[number, number]>; halfWidth: number }> | undefined): ClearPath[] {
+  return (roads ?? []).map((r) => ({ pts: r.pts, within: r.halfWidth + 1.8, withinLow: r.halfWidth }));
+}
+
+/** luật kèm dải trống của level (cùng hàm cho engine, terrain-bake --nav và find-clearing → rừng lúc chạy khớp navmesh bake) */
+export function ruleWithClear(rule: ScatterRule, clear: readonly ClearPath[] | undefined): ScatterRule {
+  return clear && clear.length ? { ...rule, clearPaths: [...(rule.clearPaths ?? []), ...clear] } : rule;
 }
 
 export interface ScatterRect {
@@ -149,6 +184,9 @@ export function scatterSpecies(tile: TerrainTile, rect: ScatterRect, rule: Scatt
     if (!rule.inWater && tile.features && tile.features.distance('water', x, z) < 0.15) return;
     if (rule.avoid && tile.features) {
       for (const a of rule.avoid) if (tile.features.distance(a.feature, x, z) < a.within) return;
+    }
+    if (rule.clearPaths) {
+      for (const c of rule.clearPaths) if (distToPolyline(c.pts, x, z) < (rule.collider ? c.within : c.withinLow ?? c.within)) return;
     }
     const ix = Math.floor((x + half) / cellM);
     const jz = Math.floor((z + half) / cellM);

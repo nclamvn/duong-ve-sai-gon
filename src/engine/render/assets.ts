@@ -50,7 +50,11 @@ export interface LoadedAssets {
 const TEXTURE_IDS = ['asphalt_02', 'concrete_wall_001', 'factory_wall', 'corrugated_iron_02', 'rusty_metal_02', 'rusty_painted_metal', 'plywood', 'metal_plate'] as const;
 const MODEL_IDS = ['wooden_military_crate', 'old_military_crate', 'plastic_crate_01', 'cardboard_box_01', 'concrete_road_barrier', 'propane_tank', 'metal_trash_can', 'utility_box_01', 'portable_generator'] as const;
 const HDRI_ID = 'blue_lagoon_night';
-export const CHARACTER_URL = 'characters/soldier.glb';
+/** DV-069: soldier body with a real head (Panzergrenadier, CC-BY, retargeted clips); `?body=swat` loads the old Swat body */
+export const CHARACTER_URL = 'characters/soldier_pz.glb';
+export const CHARACTER_SWAT_URL = 'characters/soldier.glb';
+/** faction A helmet prop (DV-068, CC-BY SimplyK "Soviet SSH-60", scripts/prep-helmet.mjs) */
+export const HELMET_A_URL = 'characters/helmet_a.glb';
 export const ARMS_URL = 'characters/soldier_arms.glb';
 export const FP_HANDS_URL = 'characters/fp_hands.glb';
 export const FP_VIEWMODEL_URL = 'weapons/ak47_vm.glb';
@@ -92,6 +96,8 @@ export interface LoadOptions {
   lite?: boolean;
   /** bỏ qua nhân vật glTF dù có file (?character=0) */
   noCharacter?: boolean;
+  /** load the old Swat body instead of the DV-069 body (?body=swat) */
+  swatBody?: boolean;
   /** cấu hình vũ khí cần nạp (content/weapons/*.json); rỗng/undefined → không nạp */
   weapons?: WeaponModelConfig[];
   /** bỏ qua vũ khí glTF (?weapons=0) */
@@ -191,10 +197,29 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   if (!opts.lite && !opts.noCharacter) {
     // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
     try {
-      const head = await assetExists(`${b}${CHARACTER_URL}`);
-      if (head) character = await loadCharacter(`${b}${CHARACTER_URL}`);
+      const url = opts.swatBody || !(await assetExists(`${b}${CHARACTER_URL}`)) ? CHARACTER_SWAT_URL : CHARACTER_URL;
+      const head = await assetExists(`${b}${url}`);
+      if (head) character = await loadCharacter(`${b}${url}`);
     } catch {
       character = null;
+    }
+    // head props for the gear slots: optional, a missing file keeps the procedural fallback
+    if (character) {
+      try {
+        if (await assetExists(`${b}${HELMET_A_URL}`)) {
+          const g = await createGltfLoader().loadAsync(`${b}${HELMET_A_URL}`);
+          g.scene.traverse((o) => {
+            const m = o as Object3D & { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean };
+            if (m.isMesh) {
+              m.castShadow = true;
+              m.receiveShadow = true;
+            }
+          });
+          character.props.helmetA = g.scene;
+        }
+      } catch {
+        /* keep fallback */
+      }
     }
   }
   if (!opts.lite) {

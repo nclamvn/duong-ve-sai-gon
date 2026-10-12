@@ -135,7 +135,7 @@ export class FpHands {
     upper.getWorldPosition(su);
     fore.getWorldPosition(se);
     hand.getWorldPosition(sw);
-    return { shoulder: upper.parent ?? upper, upper, fore, hand, lenUpper: su.distanceTo(se), lenFore: se.distanceTo(sw) };
+    return { shoulder: upper.parent ?? upper, upper, fore, hand, lenUpper: su.distanceTo(se), lenFore: se.distanceTo(sw), handFrameInv: null };
   }
 
   /** Áp pose: scale + ngón co (authored) + đặt lại chỗ rig. Đặt baked=false → update() kế nướng IK lại một lần. */

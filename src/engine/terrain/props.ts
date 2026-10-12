@@ -8,7 +8,7 @@ import { Box3, BoxGeometry, Group, InstancedMesh, Matrix4, Mesh, MeshStandardNod
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { ColliderDef } from '../render/arena';
 
-export type TerrainPropKind = 'wire' | 'sandbag' | 'crate' | 'ammo' | 'barrel' | 'radio';
+export type TerrainPropKind = 'wire' | 'sandbag' | 'crate' | 'ammo' | 'barrel' | 'radio' | 'drum' | 'jerrycan' | 'chest';
 
 export interface TerrainPropDef {
   id: string;
@@ -28,6 +28,10 @@ export const PROP_MODEL: Record<Exclude<TerrainPropKind, 'wire'>, string[]> = {
   ammo: ['ammo_box'],
   barrel: ['Barrel_01'],
   radio: ['utility_box_01'],
+  // DV-078 bãi tập kết xe ở ngầm (Poly Haven CC0): phuy xăng, can xăng, hòm gỗ quân dụng
+  drum: ['barrel_03'],
+  jerrycan: ['metal_jerrycan_green'],
+  chest: ['wooden_military_crate'],
 };
 
 /** nửa kích thước collider theo kind khi không có model (lite) — cùng bảng với scripts/terrain-bake.mjs --nav (đo từ GLB) */
@@ -37,10 +41,13 @@ export const PROP_HALF: Record<Exclude<TerrainPropKind, 'wire'>, [number, number
   ammo: [0.04, 0.09, 0.13],
   barrel: [0.28, 0.44, 0.28],
   radio: [0.26, 0.56, 0.22],
+  drum: [0.32, 0.47, 0.32],
+  jerrycan: [0.18, 0.25, 0.09],
+  chest: [0.62, 0.23, 0.26],
 };
 
 /** chôn gốc (m) — bao cát/thùng đặt lún nhẹ cho khỏi hở chân trên dốc */
-const SINK: Record<TerrainPropKind, number> = { wire: 0.05, sandbag: 0.08, crate: 0.03, ammo: 0.01, barrel: 0.02, radio: 0.02 };
+const SINK: Record<TerrainPropKind, number> = { wire: 0.05, sandbag: 0.08, crate: 0.03, ammo: 0.01, barrel: 0.02, radio: 0.02, drum: 0.02, jerrycan: 0.01, chest: 0.02 };
 
 const _p = new Vector3();
 const _q = new Quaternion();

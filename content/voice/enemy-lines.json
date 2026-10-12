@@ -1,0 +1,18 @@
+{
+  "$comment": "DV-076 tiếng hô của địch (tiếng Anh), phát 3D tại người nói theo sự kiện AI. Không phụ đề. Mỗi kind vài câu; mỗi giọng địch (E1..E4) đọc đủ các câu. Thẻ [..] là audio tag của eleven_v3 (không đọc thành lời).",
+  "kinds": {
+    "contact": ["[shouting] Contact front!", "[shouting] Movement, movement! In the trees!", "[shouting] Got eyes on 'em! Open fire!"],
+    "reload": ["[shouting] Reloading!", "[shouting] Changing mags, cover me!", "[shouting] I'm out! Reloading!"],
+    "frag": ["[shouting] Frag out!", "[shouting] Throwing frag!", "[shouting] Fire in the hole!"],
+    "grenade": ["[shouting] Grenade! Get down!", "[shouting] Grenade, grenade!", "[shouting] Move! Grenade!"],
+    "moving": ["[shouting] Moving!", "[shouting] Cover me, I'm moving!", "[shouting] Going up!"],
+    "pinned": ["[shouting] I'm pinned down!", "[shouting] Taking fire! Can't move!", "[panicked] They got us pinned!"],
+    "suppress": ["[shouting] Suppressing!", "[shouting] Keep their heads down!", "[shouting] Lay it on 'em!"],
+    "flank": ["[shouting] Flanking left!", "[shouting] Going around the side!", "[shouting] Swing wide, hit 'em from the flank!"],
+    "fallback": ["[shouting] Fall back! Fall back!", "[shouting] Pull back to the ridge!", "[shouting] Break contact, pull back!"],
+    "hit": ["[pained] I'm hit!", "[pained] Agh! I'm hit, I'm hit!", "[pained] Took one in the arm!"],
+    "mandown": ["[shouting] Man down!", "[shouting] We got a man down!", "[shouting] He's down! He's down!"],
+    "lost": ["Where'd they go?", "Lost 'em. Eyes open.", "Anybody see 'em?"],
+    "radio": ["[urgent] Need extraction, hot LZ, over!", "[urgent] We're taking fire, get that bird down here!"]
+  }
+}

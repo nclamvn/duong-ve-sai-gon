@@ -199,7 +199,8 @@ describe('TIP-D04 level truong-son-a (content/levels)', () => {
     expect(inRect(def.playerSpawn)).toBe(true);
     for (const [k, p] of Object.entries(def.botSpawns) as Array<[string, [number, number]]>) expect(inRect(p), k).toBe(true);
     for (const w of def.waypoints as Array<[number, number]>) expect(inRect(w)).toBe(true);
-    // yOffset đưa spawn về ≈ 0 (±2 m)
-    expect(Math.abs(t.sample(def.playerSpawn[0], def.playerSpawn[1]))).toBeLessThan(2);
+    // yOffset đưa mốc trại trên đường mòn (chỗ xuất phát M1 trước DV-085) về ≈ 0 (±2 m); chỗ xuất phát mới ở bờ suối thấp hơn vài mét
+    expect(Math.abs(t.sample(-134, 580))).toBeLessThan(2);
+    expect(Math.abs(t.sample(def.playerSpawn[0], def.playerSpawn[1]))).toBeLessThan(8);
   });
 });

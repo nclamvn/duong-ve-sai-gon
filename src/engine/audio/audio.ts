@@ -63,6 +63,9 @@ export class AudioEngine {
 
   /** Cập nhật listener theo camera (world). */
   setListener(px: number, py: number, pz: number, fx: number, fy: number, fz: number): void {
+    this.listener[0] = px;
+    this.listener[1] = py;
+    this.listener[2] = pz;
     if (!this.ctx) return;
     const l = this.ctx.listener;
     if ('positionX' in l && l.positionX) {
@@ -119,7 +122,7 @@ export class AudioEngine {
    *  Doppler: playbackRate = 1 − v_radial/343 (vận tốc tương đối theo tia tới người nghe), kẹp ±25 %.
    * Panner inverse, refDistance 40, maxDistance 3000. Trả null khi chưa init/không còn voice.
    */
-  aircraft(kind: 'rotor' | 'jet' | 'prop'): { set(pos: { x: number; y: number; z: number }, vel: { x: number; y: number; z: number }): void; stop(): void } | null {
+  aircraft(kind: 'rotor' | 'jet' | 'prop' | 'truck'): { set(pos: { x: number; y: number; z: number }, vel: { x: number; y: number; z: number }): void; stop(): void } | null {
     if (!this.enabled || !this.ctx || !this.buses || !this.noiseBuffer) return null;
     if (!this.voiceStart()) return null;
     const ctx = this.ctx;
@@ -184,6 +187,32 @@ export class AudioEngine {
       wG.connect(out);
       nodes.push(whine);
       gainTarget = 0.9;
+    } else if (kind === 'truck') {
+      // DV-078 máy xăng ZIL-157 chạy chậm qua ngầm: răng cưa 34 Hz (≈ 1000 v/ph, 6 xi lanh) + tiếng gầm noise thấp; gần mới nghe
+      pan.refDistance = 7;
+      pan.maxDistance = 420;
+      const saw = ctx.createOscillator();
+      saw.type = 'sawtooth';
+      saw.frequency.value = 34;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 260;
+      saw.connect(lp);
+      const sG = ctx.createGain();
+      sG.gain.value = 0.32;
+      lp.connect(sG);
+      sG.connect(out);
+      const nl = ctx.createBiquadFilter();
+      nl.type = 'bandpass';
+      nl.frequency.value = 180;
+      nl.Q.value = 0.8;
+      const nG = ctx.createGain();
+      nG.gain.value = 0.22;
+      noise.connect(nl);
+      nl.connect(nG);
+      nG.connect(out);
+      nodes.push(saw);
+      gainTarget = 0.5;
     } else {
       const saw = ctx.createOscillator();
       saw.type = 'sawtooth';
@@ -263,18 +292,30 @@ export class AudioEngine {
     }
   }
 
-  private noiseBurst(bus: Bus, durationMs: number, gain: number, filterHz: number, q = 0.7, position?: [number, number, number]): void {
+  /** vị trí người nghe (world) cập nhật ở setListener — tính khoảng cách cho tiếng súng xa (DV-075) */
+  readonly listener: [number, number, number] = [0, 0, 0];
+  private lastEchoAt = -1;
+
+  private noiseBurst(
+    bus: Bus,
+    durationMs: number,
+    gain: number,
+    filterHz: number,
+    q = 0.7,
+    position?: [number, number, number],
+    o?: { delayMs?: number; type?: BiquadFilterType; refDistance?: number; maxDistance?: number },
+  ): void {
     if (!this.enabled || !this.ctx || !this.buses || !this.noiseBuffer) return;
     if (!this.voiceStart()) return;
     const ctx = this.ctx;
     const src = ctx.createBufferSource();
     src.buffer = this.noiseBuffer;
     const filt = ctx.createBiquadFilter();
-    filt.type = 'lowpass';
+    filt.type = o?.type ?? 'lowpass';
     filt.frequency.value = filterHz;
     filt.Q.value = q;
     const env = ctx.createGain();
-    const t = ctx.currentTime;
+    const t = ctx.currentTime + (o?.delayMs ?? 0) / 1000;
     env.gain.setValueAtTime(0.0001, t);
     env.gain.exponentialRampToValueAtTime(gain, t + 0.004);
     env.gain.exponentialRampToValueAtTime(0.0001, t + durationMs / 1000);
@@ -285,8 +326,8 @@ export class AudioEngine {
       const pan = ctx.createPanner();
       pan.panningModel = 'HRTF';
       pan.distanceModel = 'inverse';
-      pan.refDistance = 2;
-      pan.maxDistance = 80;
+      pan.refDistance = o?.refDistance ?? 2;
+      pan.maxDistance = o?.maxDistance ?? 80;
       pan.rolloffFactor = 1.2;
       const tt = ctx.currentTime;
       pan.positionX.setValueAtTime(position[0], tt);
@@ -452,9 +493,190 @@ export class AudioEngine {
     this.duck(600, 0.5);
   }
 
+  /** rút chốt + vung tay ném lựu đạn (DV-074) */
+  grenadeThrow(): void {
+    this.tone('sfx', 2300, 30, 0.05);
+    this.noiseBurst('sfx', 160, 0.16, 900, 1.2, undefined, { delayMs: 120, type: 'bandpass' });
+  }
+
+  /** lựu đạn chạm đất/cây (k 0..1 theo tốc độ) */
+  grenadeBounce(position: [number, number, number], k = 1): void {
+    this.noiseBurst('sfx', 45, 0.25 * k + 0.05, 2600, 3, position, { type: 'bandpass' });
+    this.noiseBurst('sfx', 70, 0.12 * k, 420, 0.8, position);
+  }
+
+  /**
+   * Đạn sượt qua người chơi (DV-075): "chát" siêu âm (sóng xung kích, highpass 6 kHz rất ngắn) + "víu" dải 2–3 kHz tại điểm đạn bay
+   * gần nhất (HRTF → nghe được bên trái/phải). `k` 0..1 theo độ gần.
+   */
+  nearMiss(position: [number, number, number], k = 1): void {
+    const j = 0.85 + 0.3 * this.jitter();
+    this.noiseBurst('sfx', 14, 0.5 * k + 0.15, 6500 * j, 0.6, position, { type: 'highpass', refDistance: 1.5 });
+    this.noiseBurst('sfx', 120 + 60 * this.jitter(), 0.22 * k + 0.05, 2400 * j, 4, position, { type: 'bandpass', refDistance: 1.5 });
+  }
+
+  /**
+   * Súng xa (DV-075): đến trễ theo tốc độ âm (d/343 s), mất cao tần theo khoảng cách, thân dài + vọng rừng (2 tiếng dội trễ
+   * 0,18–0,6 s lọc trầm). Gần (< 25 m) giữ "chát" rõ.
+   */
+  gunshotFar(position: [number, number, number]): void {
+    const L = this.listener;
+    const d = Math.hypot(position[0] - L[0], position[1] - L[1], position[2] - L[2]);
+    const delay = Math.min(900, (d / 343) * 1000);
+    const hi = Math.max(900, 5200 * Math.exp(-d / 180));
+    const o = { delayMs: delay, refDistance: 6, maxDistance: 600 };
+    if (d < 25) this.noiseBurst('sfx', 40, 0.8, 7000, 0.5, position, o);
+    this.noiseBurst('sfx', 80, 0.8, hi, 0.6, position, o);
+    this.noiseBurst('sfx', 260 + Math.min(500, d * 2), 0.32, Math.max(260, hi * 0.12), 0.9, position, o);
+    // vọng: rừng/đồi trả lại ở hai phía (giới hạn ≤ 1 lần/0,15 s để loạt nhiều súng không ăn hết voice)
+    if (!this.ctx || this.ctx.currentTime - this.lastEchoAt < 0.15) return;
+    this.lastEchoAt = this.ctx.currentTime;
+    const j = this.jitter();
+    this.noiseBurst('sfx', 420, 0.1 + Math.min(0.12, d / 900), 520, 0.7, position, { delayMs: delay + 180 + 140 * j, refDistance: 10, maxDistance: 800 });
+    this.noiseBurst('sfx', 700, 0.07, 320, 0.7, position, { delayMs: delay + 420 + 180 * j, refDistance: 12, maxDistance: 900 });
+  }
+
+  /**
+   * DV-078 đại liên 12,7 người chơi bắn: nổ đanh + thân trầm nặng (đạn 12,7×108) + rung 50 Hz + đuôi vọng thung lũng; không 3D
+   * (người chơi ngồi sau súng).
+   */
+  heavyGun(): void {
+    const j = this.jitter();
+    this.noiseBurst('sfx', 45, 1.0, 4200 + 600 * j, 0.6);
+    this.noiseBurst('sfx', 240, 0.8, 300, 1.0);
+    this.tone('sfx', 52 + 6 * j, 110, 0.22);
+    this.noiseBurst('sfx', 900, 0.12, 380, 0.7, undefined, { delayMs: 140 + 120 * j });
+  }
+
+  /**
+   * DV-078 súng máy bay bắn từ xa (40 ly / 20 ly / 7,62): tiếng tới trễ đúng tốc độ âm (máy bay cách ~1 km → ~3 s sau chớp lửa),
+   * 40 ly = "bộp" trầm từng phát; 20 ly/7,62 = tiếng rền liên tục (răng cưa tần số = nhịp bắn) dài `ms`.
+   */
+  airGun(position: [number, number, number], kind: 'bofors' | 'vulcan' | 'minigun', ms = 0): void {
+    const L = this.listener;
+    const d = Math.hypot(position[0] - L[0], position[1] - L[1], position[2] - L[2]);
+    const delay = Math.min(5000, (d / 343) * 1000);
+    const o = { delayMs: delay, refDistance: 150, maxDistance: 5000 };
+    if (kind === 'bofors') {
+      this.noiseBurst('sfx', 320, 0.75, 260, 0.9, position, o);
+      this.noiseBurst('sfx', 900, 0.2, 140, 0.7, position, { ...o, delayMs: delay + 60 });
+      return;
+    }
+    if (!this.enabled || !this.ctx || !this.buses || !this.noiseBuffer || !this.voiceStart()) return;
+    const ctx = this.ctx;
+    const t = ctx.currentTime + delay / 1000;
+    const dur = Math.max(0.3, ms / 1000);
+    const src = ctx.createBufferSource();
+    src.buffer = this.noiseBuffer;
+    src.loop = true;
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = kind === 'vulcan' ? 520 : 900;
+    bp.Q.value = 0.9;
+    const am = ctx.createGain();
+    am.gain.value = 0.5;
+    const osc = ctx.createOscillator();
+    osc.type = 'square';
+    osc.frequency.value = kind === 'vulcan' ? 95 : 66; // M61 ~5700 v/ph, minigun ~4000 v/ph
+    const og = ctx.createGain();
+    og.gain.value = 0.5;
+    osc.connect(og);
+    og.connect(am.gain);
+    const env = ctx.createGain();
+    env.gain.setValueAtTime(0.0001, t);
+    env.gain.exponentialRampToValueAtTime(kind === 'vulcan' ? 0.7 : 0.5, t + 0.04);
+    env.gain.setValueAtTime(kind === 'vulcan' ? 0.7 : 0.5, t + dur);
+    env.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.35);
+    const pan = ctx.createPanner();
+    pan.panningModel = 'HRTF';
+    pan.distanceModel = 'inverse';
+    pan.refDistance = 150;
+    pan.maxDistance = 5000;
+    pan.positionX.value = position[0];
+    pan.positionY.value = position[1];
+    pan.positionZ.value = position[2];
+    src.connect(bp);
+    bp.connect(am);
+    am.connect(env);
+    env.connect(pan);
+    pan.connect(this.buses.sfx);
+    src.start(t);
+    osc.start(t);
+    src.stop(t + dur + 0.4);
+    osc.stop(t + dur + 0.4);
+    src.onended = () => this.voiceEnd();
+  }
+
+  /** DV-078 đạn máy bay chạm đất: 40 ly nổ (nhỏ hơn bộc phá), 20 ly nổ chát, 7,62 xé đất */
+  shellHit(position: [number, number, number], kind: 'bofors' | 'vulcan' | 'minigun'): void {
+    if (kind === 'bofors') {
+      this.noiseBurst('sfx', 420, 0.85, 200, 0.6, position, { refDistance: 8, maxDistance: 900 });
+      this.noiseBurst('sfx', 120, 0.5, 2200, 0.9, position, { refDistance: 6, maxDistance: 500 });
+    } else if (kind === 'vulcan') this.noiseBurst('sfx', 90, 0.4, 1600, 0.8, position, { refDistance: 4, maxDistance: 400 });
+    else this.noiseBurst('sfx', 50, 0.25, 900, 1.0, position, { refDistance: 3, maxDistance: 200 });
+  }
+
+  /** súng người chơi thêm đuôi vọng rừng (DV-075) */
+  gunshotTail(): void {
+    const j = this.jitter();
+    this.noiseBurst('sfx', 500, 0.09, 600, 0.7, undefined, { delayMs: 160 + 90 * j });
+    this.noiseBurst('sfx', 800, 0.06, 350, 0.7, undefined, { delayMs: 380 + 160 * j });
+  }
+
   reload(): void {
     this.noiseBurst('sfx', 50, 0.3, 2500, 2);
     setTimeout(() => this.noiseBurst('sfx', 60, 0.35, 1800, 2), 350);
+  }
+
+  /**
+   * DV-084 tiếng rít đạn cối/pháo bay tới: sin quét 1500 → 420 Hz trong `ms`, to dần, đặt tại điểm rơi (3D) — báo trước vụ nổ để
+   * người chơi kịp nằm/chạy. Gợn nhẹ (vibrato) cho giống tiếng gió xé.
+   */
+  incoming(position: [number, number, number], ms = 1100, gain = 0.32): void {
+    if (!this.enabled || !this.ctx || !this.buses) return;
+    if (!this.voiceStart()) return;
+    const ctx = this.ctx;
+    const t = ctx.currentTime;
+    const dur = ms / 1000;
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1500, t);
+    osc.frequency.exponentialRampToValueAtTime(420, t + dur);
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 11;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 22;
+    lfo.connect(lfoGain);
+    lfoGain.connect(osc.frequency);
+    const env = ctx.createGain();
+    env.gain.setValueAtTime(0.0001, t);
+    env.gain.exponentialRampToValueAtTime(gain * 0.3, t + dur * 0.4);
+    env.gain.exponentialRampToValueAtTime(gain, t + dur * 0.97);
+    env.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.03);
+    const pan = ctx.createPanner();
+    pan.panningModel = 'HRTF';
+    pan.distanceModel = 'inverse';
+    pan.refDistance = 6;
+    pan.maxDistance = 200;
+    pan.rolloffFactor = 0.6;
+    pan.positionX.setValueAtTime(position[0], t);
+    pan.positionY.setValueAtTime(position[1] + 25, t);
+    pan.positionZ.setValueAtTime(position[2], t);
+    pan.positionY.linearRampToValueAtTime(position[1], t + dur);
+    osc.connect(env);
+    env.connect(pan);
+    pan.connect(this.buses.sfx);
+    osc.start(t);
+    lfo.start(t);
+    osc.stop(t + dur + 0.05);
+    lfo.stop(t + dur + 0.05);
+    osc.onended = () => this.voiceEnd();
+  }
+
+  /** DV-084 lửa cháy lớn (napalm bùng): tiếng phụt trầm + lách tách */
+  whoosh(position: [number, number, number], size = 1): void {
+    this.noiseBurst('sfx', 1600 * size, 0.7, 380, 0.6, position, { refDistance: 8, maxDistance: 300 });
+    this.noiseBurst('sfx', 900, 0.25, 3200, 1.5, position, { delayMs: 300, type: 'bandpass', refDistance: 4, maxDistance: 120 });
   }
 
   tone(bus: Bus, freq: number, ms: number, gain = 0.15): void {
@@ -474,6 +696,74 @@ export class AudioEngine {
     osc.start(t);
     osc.stop(t + ms / 1000 + 0.02);
     osc.onended = () => this.voiceEnd();
+  }
+
+  /** giải mã file âm (giọng DV-076); null khi chưa init hoặc lỗi */
+  async decode(data: ArrayBuffer): Promise<AudioBuffer | null> {
+    if (!this.ctx) return null;
+    try {
+      return await this.ctx.decodeAudioData(data);
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Phát một AudioBuffer (giọng DV-076). `position` → nguồn 3D (HRTF, refDistance 3 m); `radio` → lọc dải 350–3200 Hz + méo nhẹ
+   * như bộ đàm. Không tính vào voice budget SFX (thoại luôn được nói). Trả hàm dừng.
+   */
+  playBuffer(buffer: AudioBuffer, bus: Bus, o: { position?: [number, number, number]; gain?: number; radio?: boolean; refDistance?: number } = {}): (() => void) | null {
+    if (!this.enabled || !this.ctx || !this.buses) return null;
+    const ctx = this.ctx;
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    let node: AudioNode = src;
+    if (o.radio) {
+      const hp = ctx.createBiquadFilter();
+      hp.type = 'highpass';
+      hp.frequency.value = 350;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 3200;
+      const sh = ctx.createWaveShaper();
+      const curve = new Float32Array(256);
+      for (let i = 0; i < 256; i++) {
+        const x = (i / 255) * 2 - 1;
+        curve[i] = Math.tanh(2.2 * x) / Math.tanh(2.2);
+      }
+      sh.curve = curve;
+      node.connect(hp);
+      hp.connect(lp);
+      lp.connect(sh);
+      node = sh;
+    }
+    const g = ctx.createGain();
+    g.gain.value = o.gain ?? 1;
+    node.connect(g);
+    node = g;
+    if (o.position) {
+      const pan = ctx.createPanner();
+      pan.panningModel = 'HRTF';
+      pan.distanceModel = 'inverse';
+      pan.refDistance = o.refDistance ?? 3;
+      pan.maxDistance = 120;
+      pan.rolloffFactor = 1;
+      const t = ctx.currentTime;
+      pan.positionX.setValueAtTime(o.position[0], t);
+      pan.positionY.setValueAtTime(o.position[1], t);
+      pan.positionZ.setValueAtTime(o.position[2], t);
+      node.connect(pan);
+      node = pan;
+    }
+    node.connect(this.buses[bus]);
+    src.start();
+    return () => {
+      try {
+        src.stop();
+      } catch {
+        /* đã dừng */
+      }
+    };
   }
 
   /** Radio cue: blip mở + duck SFX trong thời gian thoại. */

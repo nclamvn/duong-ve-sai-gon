@@ -1,0 +1,22 @@
+{
+  "$comment": "DV-076 vai lồng tiếng (ElevenLabs, gói trả phí của Chủ nhà, giấy phép thương mại). voiceId là giọng trong thư viện ElevenLabs; đổi giọng ở đây rồi chạy lại `npm run voice` (chỉ tạo lại câu của vai đổi). Phe ta tiếng Việt, phe địch tiếng Anh.",
+  "model": "eleven_v3",
+  "outputFormat": "mp3_44100_128",
+  "defaults": { "stability": 0.5, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": true },
+  "voices": {
+    "LAM": { "lang": "vi", "voiceId": "6adFm46eyy74snVn6YrT", "library": "Nhật Phong - Narrative & Compelling", "role": "Lâm, nhân vật chính, 19-20 tuổi, giọng Bắc, ít nói" },
+    "QUYET": { "lang": "vi", "voiceId": "ueSxRO0nLF1bj93J2hVt", "library": "Trung Caha - Clear, Firm and Informative", "role": "Quyết, tổ trưởng ~35 tuổi, giọng Bắc chắc, nói ngắn" },
+    "LONG": { "lang": "vi", "voiceId": "RxhjHDfpO54FYotYtKpw", "library": "Phong - Warm, Clear and Expressive", "role": "Long sáo, trẻ, hiền, đọc nhật ký" },
+    "DAT": { "lang": "vi", "voiceId": "aN7cv9yXNrfIR87bDmyD", "library": "Ninh Đôn - Deep & Warm", "role": "Đạt, lính cũ, lì, hay đùa" },
+    "HOAN": { "lang": "vi", "voiceId": "JxmKvRaNYFidf0N27Vng", "library": "Son Tran - Casual and Conversational", "role": "Hoàn, trẻ, giọng miền Trung, hay hỏi" },
+    "KHANG": { "lang": "vi", "voiceId": "4a9d2yNlrzn6YEoy5ZWT", "library": "Kyle - Calm, Clear and Emotional", "role": "Khang, út tổ, dễ hoảng" },
+    "THU": { "lang": "vi", "voiceId": "558B1EcdabtcSdleer40", "library": "Thảo (giọng Bắc nhẹ)", "role": "Thu, thanh niên xung phong 19 tuổi giữ ngầm, giọng Bắc (Thanh Hoá ra), nói gọn, chỉ huy xe (DV-078)" },
+    "LAIXE": { "lang": "vi", "voiceId": "ekOUbc6LmXiQZnLcHOoL", "library": "Nguyen TheManh (trầm ấm, Hà Nội, trung niên)", "role": "lái xe đoàn vận tải, ~40 tuổi, không tên (DV-078)" },
+    "TRUNG_DOI": { "lang": "vi", "voiceId": "BUPPIXeDaJWBz696iXRS", "library": "Dũng - Poetic, Deep and Resonant", "role": "trung đội trưởng qua bộ đàm", "radio": true },
+    "E1": { "lang": "en", "voiceId": "GLSWsaquVBsIPLPPRi2s", "library": "George - War-torn Seargant", "role": "lính địch, trung sĩ" },
+    "E2": { "lang": "en", "voiceId": "SOYHLrjzK2X1ezoPC6cr", "library": "Harry - Fierce Warrior", "role": "lính địch trẻ" },
+    "E3": { "lang": "en", "voiceId": "N2lVS1w4EtoT3dr4eOWO", "library": "Callum - Husky Trickster", "role": "lính địch" },
+    "E4": { "lang": "en", "voiceId": "TX3LPaxmHKxFdv7VOQHJ", "library": "Liam - Energetic", "role": "lính địch trẻ" },
+    "ERADIO": { "lang": "en", "voiceId": "pNInz6obpgDQGcFmaJgB", "library": "Adam - Dominant, Firm", "role": "điện đài viên địch", "radio": true }
+  }
+}

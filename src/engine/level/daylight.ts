@@ -7,6 +7,7 @@ import { CSMShadowNode } from 'three/addons/csm/CSMShadowNode.js';
 import { createLampArrayNode } from '@engine/render/materials';
 import type { LightRig } from '@engine/render/lighting';
 import type { LevelSky } from './types';
+import { SHADOW_ONLY_LAYER } from '@engine/vegetation/system';
 
 export interface DaylightOptions {
   environment?: Texture | null;
@@ -14,6 +15,12 @@ export interface DaylightOptions {
   /** tắt CSM (WebGL2 CI / quality thấp) → shadow thường */
   csm?: boolean;
   shadowMapSize?: number;
+  /** DV-080 (ultra): nhân tầm CSM maxFar */
+  shadowFarScale?: number;
+  /** DV-080 (ultra): bán kính PCF (texel) */
+  shadowRadius?: number;
+  /** DV-086: số cascade CSM (ghi đè level; High 2, Ultra theo level) */
+  cascades?: number;
 }
 
 export interface DaylightRig extends LightRig {
@@ -22,6 +29,8 @@ export interface DaylightRig extends LightRig {
   sunDir: [number, number, number];
   sunColor: number;
   sunIntensity: number;
+  /** DV-086: bật lớp chỉ-bóng (proxy bóng cây) cho mọi camera bóng — gọi mỗi frame (CSM tạo đèn cascade lúc dựng node) */
+  syncShadowLayers(): void;
 }
 
 export function createDaylight(scene: Scene, def: LevelSky, opts: DaylightOptions = {}): DaylightRig {
@@ -46,9 +55,10 @@ export function createDaylight(scene: Scene, def: LevelSky, opts: DaylightOption
   sun.shadow.mapSize.set(size, size);
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.03;
+  if (opts.shadowRadius !== undefined) sun.shadow.radius = opts.shadowRadius;
   let csm: CSMShadowNode | null = null;
   if (opts.csm !== false) {
-    csm = new CSMShadowNode(sun, { cascades: def.csm.cascades, maxFar: def.csm.maxFar, mode: 'practical', lightMargin: 60 });
+    csm = new CSMShadowNode(sun, { cascades: opts.cascades ?? def.csm.cascades, maxFar: def.csm.maxFar * (opts.shadowFarScale ?? 1), mode: 'practical', lightMargin: 60 });
     csm.fade = true;
     sun.shadow.shadowNode = csm;
   } else {
@@ -78,6 +88,11 @@ export function createDaylight(scene: Scene, def: LevelSky, opts: DaylightOption
     sunDir: dir,
     sunColor: def.sun.color,
     sunIntensity: def.sun.intensity,
+    syncShadowLayers() {
+      sun.shadow.camera.layers.enable(SHADOW_ONLY_LAYER);
+      const cl = csm ? (csm as unknown as { lights?: Array<{ shadow?: { camera: { layers: { enable(l: number): void } } } }> }).lights : undefined;
+      if (cl) for (const l of cl) l.shadow?.camera.layers.enable(SHADOW_ONLY_LAYER);
+    },
     followTarget(target: Object3D) {
       if (csm) return; // CSM bám frustum camera
       sun.target.position.copy(target.position);

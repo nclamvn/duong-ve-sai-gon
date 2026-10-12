@@ -7,7 +7,7 @@
  * Xuất `muzzleWorld` + `ejectWorld` cho FX. Chỉ render-side. Không Math.random (kick lệch theo dãy vàng).
  */
 import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
-import { ArtistViewmodel } from './artistViewmodel';
+import { ArtistViewmodel, type ArtistViewmodelOptions } from './artistViewmodel';
 import type { FpViewmodelAsset } from '@engine/render/assets';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -254,7 +254,7 @@ export class WeaponViewModel {
   /** tri của model (evidence) */
   readonly triangles: number;
 
-  constructor(camera: PerspectiveCamera, mats: ViewModelMaterials = { steel: null }, weapon: WeaponAsset | null = null, fpvm: FpViewmodelAsset | null = null) {
+  constructor(camera: PerspectiveCamera, mats: ViewModelMaterials = { steel: null }, weapon: WeaponAsset | null = null, fpvm: FpViewmodelAsset | null = null, private readonly artistOpts: ArtistViewmodelOptions = {}) {
     const gun = new Group();
     gun.name = 'viewmodel_gun';
     if (weapon) {
@@ -342,7 +342,7 @@ export class WeaponViewModel {
 
   private setupFpvm(fpvm: FpViewmodelAsset, gun: Group): void {
     gun.visible = false; // ẩn súng + tay procedural, dùng nguyên bộ của nghệ sĩ
-    this.artist = new ArtistViewmodel(fpvm);
+    this.artist = new ArtistViewmodel(fpvm, this.artistOpts);
     this.root.add(this.artist.root);
     this.fpvmRoot = this.artist.root;
   }

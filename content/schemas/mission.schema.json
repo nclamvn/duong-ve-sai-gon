@@ -131,6 +131,20 @@
             "items": {
               "type": "string"
             }
+          },
+          "behavior": {
+            "enum": [
+              "patrol",
+              "hold",
+              "ambush",
+              "hunt"
+            ]
+          },
+          "patrol": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
@@ -220,7 +234,9 @@
             "flag",
             "timeout",
             "active_ms",
-            "always"
+            "always",
+            "squad_at",
+            "group_alive_max"
           ]
         },
         "zone": {
@@ -236,6 +252,10 @@
           "type": "boolean"
         },
         "ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "count": {
           "type": "integer",
           "minimum": 0
         }
@@ -259,7 +279,16 @@
             "set_flag",
             "sky_trigger",
             "squad_order",
-            "interactable"
+            "interactable",
+            "bombing",
+            "reinforce",
+            "fx",
+            "strike",
+            "napalm",
+            "mortar",
+            "squad_kill",
+            "safe_zone",
+            "group_hunt"
           ]
         },
         "cue": {
@@ -326,6 +355,104 @@
         "blastDamage": {
           "type": "number",
           "minimum": 0
+        },
+        "pace": {
+          "enum": [
+            "march",
+            "normal",
+            "assault"
+          ]
+        },
+        "from": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "to": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "delayMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "radius": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "damage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "kind": {
+          "type": "string",
+          "description": "DV-084 fx: fire|smoke|black; mortar: mortar|artillery; squad_kill: napalm|fire|blast|shot"
+        },
+        "at": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "DV-084 fx/strike: điểm (x, z)"
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0,
+          "description": "DV-084 napalm: độ cao bay (m trên địa hình)"
+        },
+        "waves": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "DV-084 reinforce: số đợt"
+        },
+        "intervalMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxAlive": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "DV-084 reinforce: trần địch sống toàn màn"
+        },
+        "name": {
+          "type": "string",
+          "description": "DV-084 squad_kill: khoá tên đồng đội (name.khang)"
+        },
+        "timerMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "DV-084 objective: đếm ngược trên HUD"
+        },
+        "rate": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "DV-084 mortar: quả/phút"
+        },
+        "spare": {
+          "type": "number",
+          "minimum": 0,
+          "description": "DV-084 mortar: không rơi trong bán kính này quanh người chơi"
         }
       }
     }

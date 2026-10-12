@@ -28,10 +28,12 @@ export interface DummyOptions {
   /** màu visor phát sáng */
   visor?: number;
   phase?: number;
+  /** DV-070: stable per-actor seed for look variation (hash of the actor id); undefined = no variation */
+  seed?: number;
   /** trang bị procedural theo thời kỳ (TIP-D11a): 'pavn1971' = mũ cối + bao xe AK gắn bone (chỉ nhân vật glTF) */
   gear?: 'pavn1971' | 'us1971' | 'faction_a' | 'faction_b';
   /** 'recon' = thám báo rằn ri hổ (shader, TIP-M1A) */
-  skin?: 'recon' | 'erdl' | 'camo_b';
+  skin?: 'recon' | 'erdl' | 'camo_b' | 'olive';
 }
 
 type BoneName = 'hips' | 'spine' | 'head' | 'armL' | 'foreL' | 'armR' | 'foreR' | 'rifle' | 'thighL' | 'shinL' | 'thighR' | 'shinR';
@@ -115,6 +117,8 @@ export class Dummy {
   private walkPhase = 0;
   private lastT = 0;
   private deathT = -1;
+  /** độ cao chỗ ngã (địa hình) — ngã nằm trên đất thật, không về y = 0 của arena (DV-085: xác ở bờ suối −1,5 m lơ lửng) */
+  private deathBaseY = 0;
   private readonly hitFlash = { until: 0 };
 
   constructor(opts: DummyOptions = {}) {
@@ -258,11 +262,14 @@ export class Dummy {
   }
 
   private animateDeath(t: number): void {
-    if (this.deathT < 0) this.deathT = t;
+    if (this.deathT < 0) {
+      this.deathT = t;
+      this.deathBaseY = this.group.position.y;
+    }
     const k = Math.min(1, (t - this.deathT) / 0.35);
     const ease = 1 - (1 - k) * (1 - k);
     this.group.rotation.x = -Math.PI / 2 * ease;
-    this.group.position.y = 0.25 * ease;
+    this.group.position.y = this.deathBaseY + 0.25 * ease;
     const b = this.bones;
     b.armR.rotation.x = 0.65 - ease * 1.1;
     b.armL.rotation.x = 0.95 - ease * 1.3;

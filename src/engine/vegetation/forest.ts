@@ -25,10 +25,12 @@ export interface ForestBuild {
 }
 
 /** tiers mặc định (QualityTier → VegetationQuality); `?vegDensity=`/`?vegLod=`/`?vegShadow=0` ghi đè ở game */
-export const VEG_QUALITY: Record<'low' | 'medium' | 'high', VegetationQuality> = {
+export const VEG_QUALITY: Record<'low' | 'medium' | 'high' | 'ultra', VegetationQuality> = {
   low: { density: 0.5, lodScale: 0.6, shadows: false },
   medium: { density: 0.75, lodScale: 0.85, shadows: true },
   high: { density: 1, lodScale: 1, shadows: true },
+  // DV-080: chi tiết (LOD0/1) giữ xa hơn 1,3× — bớt "bật" mô hình khi đi, tán xa đầy khối hơn
+  ultra: { density: 1, lodScale: 1.3, shadows: true },
 };
 
 export async function buildForest(renderer: Renderer, tile: TerrainTile, def: VegetationDef, opts: ForestOptions): Promise<ForestBuild> {

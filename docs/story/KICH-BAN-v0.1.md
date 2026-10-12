@@ -20,7 +20,7 @@ Ba nguyên tắc không đổi:
 
 ## 1. Logline và cấu trúc
 
-**Logline.** Tháng 1 năm 1971, Nguyễn Đức Thành, mười chín tuổi, con một gia đình làm ruộng bên sông Lam, vác khẩu AK vượt Trường Sơn "đi B". Bốn năm bốn tháng sau, anh ngồi trên tháp pháo một chiếc T-54 lăn qua cầu Sài Gòn. Ở giữa hai điểm đó là một tiểu đội đã trở thành gia đình của anh, và phần lớn họ không đi được đến cuối đường.
+**Logline.** Tháng 1 năm 1971, Nguyễn Cảnh Lâm, mười chín tuổi, con một gia đình làm ruộng bên sông Lam, vác khẩu AK vượt Trường Sơn "đi B". Bốn năm bốn tháng sau, anh ngồi trên tháp pháo một chiếc T-54 lăn qua cầu Sài Gòn. Ở giữa hai điểm đó là một tiểu đội đã trở thành gia đình của anh, và phần lớn họ không đi được đến cuối đường.
 
 **Ba hồi.**
 
@@ -38,37 +38,37 @@ Thời lượng mục tiêu: 8 nhiệm vụ × 25–40 phút ≈ 4–5 giờ, c�
 
 ## 2. Nhân vật
 
-### 2.1 Nguyễn Đức Thành — người chơi
+### 2.1 Nguyễn Cảnh Lâm — người chơi
 
 Sinh 1951, làng ven sông Lam, Nghệ An. Học hết lớp 7, ở nhà làm ruộng, bơi rất giỏi (chi tiết này quyết định số phận anh ở sông Thạch Hãn). Nhập ngũ tháng 2/1970, huấn luyện ở Thanh Hoá, đi B cuối 1970. Ít nói, quan sát nhiều; kiểu nhân vật chính "im lặng" cổ điển nhưng **có nói** — vài câu ngắn ở những khoảnh khắc quan trọng, còn lại người chơi nghe anh qua thư gửi mẹ (giọng đọc thư là voice-over chuyển cảnh).
 
-Thành lớn lên qua bốn nấc: chiến sĩ (M1–M3) → tiểu đội phó tạm (cuối M3) → tiểu đội trưởng (M5–M6) → trung đội phó (M7–M8). Người chơi nhận dần quyền ra lệnh cho tiểu đội theo nấc này; đó là cách gameplay kể chuyện trưởng thành mà không cần cutscene.
+Lâm lớn lên qua bốn nấc: chiến sĩ (M1–M3) → tiểu đội phó tạm (cuối M3) → tiểu đội trưởng (M5–M6) → trung đội phó (M7–M8). Người chơi nhận dần quyền ra lệnh cho tiểu đội theo nấc này; đó là cách gameplay kể chuyện trưởng thành mà không cần cutscene.
 
 Trang bị mở đầu (1971) **[KC từng món]**: quân phục Tô Châu xanh lá, mũ cối, dép cao su, bao xe ba băng đeo ngực, AK-47 (bản Type 56 báng gỗ, sau đổi báng gấp ở M3), bi đông, ruột tượng gạo, ba lô con cóc, tăng võng, khăn dù, lọ dầu, thuốc sốt rét. Ở miền Nam từ M5 thêm mũ tai bèo; đến 1975 quân phục và trang bị đổi theo năm **[KC]**.
 
 ### 2.2 Tiểu đội — "gia đình"
 
-**Trần Văn Quyết, "anh Quyết"** — tiểu đội trưởng, sinh 1943, quê Hà Tây. Lính cũ Khe Sanh 1968. Nói ít, làm nhiều, có thói quen vuốt nòng súng trước khi ngủ. Dạy Thành mọi thứ trong M1–M2. **Hi sinh đêm 16/9/1972** khi ở lại bờ Thành cổ bắn chặn cho đơn vị rút qua sông (M3). Cái chết của anh là bản lề của cả game.
+**Trần Văn Quyết, "anh Quyết"** — tiểu đội trưởng, sinh 1943, quê Hà Tây. Lính cũ Khe Sanh 1968. Nói ít, làm nhiều, có thói quen vuốt nòng súng trước khi ngủ. Dạy Lâm mọi thứ trong M1–M2. **Hi sinh đêm 16/9/1972** khi ở lại bờ Thành cổ bắn chặn cho đơn vị rút qua sông (M3). Cái chết của anh là bản lề của cả game.
 
-**Lê Minh Hải, "Hải sáo"** — sinh 1950, Hà Nội, sinh viên Bách khoa, xếp bút nghiên 1970. Thổi sáo, viết nhật ký, hay chữ, sốt rét liên miên trên Trường Sơn. Là "giọng" của game: những dòng nhật ký của Hải được đọc ở màn tải và chuyển cảnh Hồi I. **Chết trên sông Thạch Hãn** đêm rút (M3); Thành bơi ngược dòng lấy được cái túi nilon có cuốn nhật ký. Hồi II mở đầu bằng việc Thành mang cuốn nhật ký về cho mẹ Hải ở Hà Nội.
+**Lê Minh Long, "Long sáo"** — sinh 1950, Hà Nội, sinh viên Bách khoa, xếp bút nghiên 1970. Thổi sáo, viết nhật ký, hay chữ, sốt rét liên miên trên Trường Sơn. Là "giọng" của game: những dòng nhật ký của Long được đọc ở màn tải và chuyển cảnh Hồi I. **Chết trên sông Thạch Hãn** đêm rút (M3); Lâm bơi ngược dòng lấy được cái túi nilon có cuốn nhật ký. Hồi II mở đầu bằng việc Lâm mang cuốn nhật ký về cho mẹ Long ở Hà Nội.
 
-**Hoàng A Sáng** — sinh 1951, người Tày, Cao Bằng. Xạ thủ B40 rồi B41. Đọc rừng như đọc sách, tìm nước, bắt cá, biết máy bay đến trước mọi người. Hài hước khô. Là người duy nhất trong tiểu đội gốc đi cùng Thành **đến tận Dinh Độc Lập**.
+**Hoàng A Đạt** — sinh 1951, người Tày, Cao Bằng. Xạ thủ B40 rồi B41. Đọc rừng như đọc sách, tìm nước, bắt cá, biết máy bay đến trước mọi người. Hài hước khô. Là người duy nhất trong tiểu đội gốc đi cùng Lâm **đến tận Dinh Độc Lập**.
 
 **Phạm Văn Út, "Út Quảng Trị"** — sinh 1949, Triệu Phong, Quảng Trị, gia đình cách mạng, làm giao liên từ 1966 rồi bổ sung vào đơn vị. Ở M3 anh chiến đấu ngay trên quê mình, nhà mình. Xạ thủ B41 từ 1975. **Bị thương nặng ở Xuân Lộc** (M7), sống, nằm viện dã chiến khi đơn vị vào Sài Gòn.
 
-**Đặng Thị Thu** — sinh 1952, Thanh Hoá, thanh niên xung phong ở trọng điểm Trường Sơn (M1), sau là giao liên binh trạm (M2). Không phải "bạn gái"; là người Thành viết thư suốt bốn năm mà chưa gửi được lá nào. Hai người gặp nhau đúng ba lần trong game: một lần dưới bom, một lần bên bếp Hoàng Cầm, một lần ở phút cuối phần kết (xem M8).
+**Đặng Thị Thu** — sinh 1952, Thanh Hoá, thanh niên xung phong ở trọng điểm Trường Sơn (M1), sau là giao liên binh trạm (M2). Không phải "bạn gái"; là người Lâm viết thư suốt bốn năm mà chưa gửi được lá nào. Hai người gặp nhau đúng ba lần trong game: một lần dưới bom, một lần bên bếp Hoàng Cầm, một lần ở phút cuối phần kết (xem M8).
 
-**Vũ Đình Cường** — đại đội trưởng từ M5. Người Hải Phòng, sinh 1940, lính tăng chuyển sang bộ binh cơ giới. Lạnh, chính xác, cho Thành lên trung đội phó vì "cậu là người còn sống lâu nhất ở đại đội này". Sống đến cuối.
+**Vũ Đình Cường** — đại đội trưởng từ M5. Người Hải Phòng, sinh 1940, lính tăng chuyển sang bộ binh cơ giới. Lạnh, chính xác, cho Lâm lên trung đội phó vì "cậu là người còn sống lâu nhất ở đại đội này". Sống đến cuối.
 
 ### 2.3 Phía bên kia
 
-**Thiếu uý Trần Hữu Phước** — Thuỷ quân lục chiến Việt Nam Cộng hoà, sinh 1948, Gò Công. Trung đội trưởng ở Thành cổ. **Bị tiểu đội của Thành bắt sống trong một căn nhà đổ** (M3, đoạn giữa); Thành băng vết thương cho anh ta và nghe anh ta hỏi "các anh có bắn tù binh không". Được **trao trả ở bờ sông Thạch Hãn tháng 3/1973** theo Hiệp định Paris (cảnh cắt Hồi II — sự kiện trao trả này có thật **[KC ngày]**). Gặp lại Thành ở **Sài Gòn trưa 30/4** (M8): Phước mặc thường phục, đứng trước cửa nhà, một bộ quân phục còn trên dây phơi. Không bắn nhau. Phước là câu trả lời của game cho câu hỏi "kẻ thù là ai".
+**Thiếu uý Trần Hữu Phước** — Thuỷ quân lục chiến Việt Nam Cộng hoà, sinh 1948, Gò Công. Trung đội trưởng ở Thành cổ. **Bị tiểu đội của Lâm bắt sống trong một căn nhà đổ** (M3, đoạn giữa); Lâm băng vết thương cho anh ta và nghe anh ta hỏi "các anh có bắn tù binh không". Được **trao trả ở bờ sông Thạch Hãn tháng 3/1973** theo Hiệp định Paris (cảnh cắt Hồi II — sự kiện trao trả này có thật **[KC ngày]**). Gặp lại Lâm ở **Sài Gòn trưa 30/4** (M8): Phước mặc thường phục, đứng trước cửa nhà, một bộ quân phục còn trên dây phơi. Không bắn nhau. Phước là câu trả lời của game cho câu hỏi "kẻ thù là ai".
 
 **Lính Mỹ** xuất hiện ở M1–M2 dưới dạng máy bay và trực thăng (AC-130, UH-1, AH-1, OV-10, B-52 không nhìn thấy) và một phi công bị bắn rơi ở M2 (không tên, không lời thoại ngoài vài từ tiếng Anh). Ở M4 là B-52 trên bầu trời Hà Nội. Ở M8 là những chiếc trực thăng cuối cùng bay ra biển lúc hửng sáng.
 
 ### 2.4 Dân thường
 
-Bà cụ bán nước ở Khâm Thiên (M4). Mẹ Hải — giáo viên cấp 2 (M4). Thằng bé bán báo chạy theo xe tăng ở Hàng Xanh (M8). Người phụ nữ Buôn Ma Thuột giấu gia đình dưới hầm (M5). Mỗi nhiệm vụ có ít nhất một dân thường có tên, có việc, để người chơi nhớ rằng thành phố này không phải bản đồ.
+Bà cụ bán nước ở Khâm Thiên (M4). Mẹ Long — giáo viên cấp 2 (M4). Thằng bé bán báo chạy theo xe tăng ở Hàng Xanh (M8). Người phụ nữ Buôn Ma Thuột giấu gia đình dưới hầm (M5). Mỗi nhiệm vụ có ít nhất một dân thường có tên, có việc, để người chơi nhớ rằng thành phố này không phải bản đồ.
 
 ---
 
@@ -82,13 +82,13 @@ Mỗi nhiệm vụ ghi: thời gian và nơi chốn, bối cảnh thật, các "
 
 **Nhịp chơi.**
 
-Mở đầu không bắn: đoàn quân hành quân trong rừng già, mưa phùn, vắt, tiếng chim. Người chơi học đi, cúi, vượt suối, nghe (cơ chế "tai": tiếng máy bay xa có hướng). Anh Quyết dạy cách tháo lắp AK ở chỗ nghỉ — đây là tutorial vũ khí, làm dưới dạng đối thoại. Hải sốt rét, Sáng cõng. Đến binh trạm gặp Thu lần đầu: một cô gái mười chín tuổi đứng chỉ đường cho xe qua ngầm dưới ánh đèn gầm.
+Mở đầu không bắn: đoàn quân hành quân trong rừng già, mưa phùn, vắt, tiếng chim. Người chơi học đi, cúi, vượt suối, nghe (cơ chế "tai": tiếng máy bay xa có hướng). Anh Quyết dạy cách tháo lắp AK ở chỗ nghỉ — đây là tutorial vũ khí, làm dưới dạng đối thoại. Long sốt rét, Đạt cõng. Đến binh trạm gặp Thu lần đầu: một cô gái mười chín tuổi đứng chỉ đường cho xe qua ngầm dưới ánh đèn gầm.
 
 Đêm: AC-130 tấn công đoàn xe ở ngầm Ta Lê. Người chơi lên khẩu 12,7 mm trên bờ bắn trả (cơ chế súng máy cố định), rồi chạy dọc đoàn xe cứu lái xe bị thương, dập lửa, đẩy xe khỏi ngầm. Mục tiêu không phải hạ máy bay (thực tế gần như không thể) mà là giữ đoàn xe sống qua đêm — game đo bằng số xe còn lại.
 
 Sáng: B-52 rải thảm cách hai cây số — cả rừng rung, không thấy máy bay, chỉ thấy đất. Sau trận bom, đơn vị phát hiện dấu vết một toán thám báo gần binh trạm (cảm biến, dấu giày). Đoạn săn đuổi trong rừng: đây là trận bắn nhau đầu tiên, tầm gần, nhiều lá, ít nhìn thấy. Toán biệt kích gọi trực thăng đến bốc; người chơi phải ngăn họ tới bãi đáp. Kết bằng chiếc trực thăng bỏ chạy dưới làn đạn.
 
-Chiều: đơn vị nhận lệnh rời tuyến, xuống Đường 9 — "quân Sài Gòn sắp đánh sang Lào". Thu đưa Thành nắm cơm và một cái lược làm từ mảnh xác máy bay (đúng thói quen thời đó **[KC]**). Thư gửi mẹ thứ nhất.
+Chiều: đơn vị nhận lệnh rời tuyến, xuống Đường 9 — "quân Sài Gòn sắp đánh sang Lào". Thu đưa Lâm nắm cơm và một cái lược làm từ mảnh xác máy bay (đúng thói quen thời đó **[KC]**). Thư gửi mẹ thứ nhất.
 
 **Cơ chế mới.** Hành quân có trọng lượng; tiếng động và hướng máy bay; vượt ngầm; súng máy cố định; rừng rậm (tầm nhìn 10–20 m); sốt rét làm rung tay đồng đội (không phải người chơi).
 
@@ -97,13 +97,13 @@ Chiều: đơn vị nhận lệnh rời tuyến, xuống Đường 9 — "quân 
 **Thoại mẫu.**
 
 > QUYẾT: *(tay không rời khẩu súng)* Nghe. Đừng nhìn. Rừng này cái gì nhìn thấy thì đã muộn.
-> THÀNH: Máy bay… hướng tây, anh ạ.
+> LÂM: Máy bay… hướng tây, anh ạ.
 > QUYẾT: Hướng tây là đúng rồi. Còn bao xa?
-> THÀNH: …Em không biết.
+> LÂM: …Em không biết.
 > QUYẾT: Ba tháng nữa cậu biết. Nếu còn sống.
 
 > THU: *(dưới đèn gầm, không quay lại)* Xe thứ ba! Trái mười phân! Trái… được rồi, đi!
-> *(quay lại, thấy Thành đứng nhìn)* Anh bộ đội đứng đấy làm gì? Không xuống cầm đèn thì lên xe.
+> *(quay lại, thấy Lâm đứng nhìn)* Anh bộ đội đứng đấy làm gì? Không xuống cầm đèn thì lên xe.
 
 **Kết.** Thư: *"Mẹ ơi, con đã sang đến Lào. Rừng ở đây to hơn rừng nhà mình. Con chưa bắn ai. Con chưa biết bắn người thì như thế nào."*
 
@@ -115,11 +115,11 @@ Chiều: đơn vị nhận lệnh rời tuyến, xuống Đường 9 — "quân 
 
 Đêm 24 rạng 25/2: tiểu đội trong đội hình tấn công một căn cứ dù trên điểm cao (dựng theo Đồi 31 nhưng đặt tên trong game là "Điểm cao 31" để không phải kể lại chính xác từng phút). Pháo ta bắn chuẩn bị, rồi xung phong qua hàng rào kẽm gai, hầm, giao thông hào. Người chơi đánh bộc phá mở cửa (cơ chế đặt bộc phá và đếm), diệt hoả điểm M60, chiếm hầm chỉ huy. Xe tăng PT-76 của ta xuất hiện lần đầu — người chơi thấy tăng ta ở phía sau, tiếng xích, và học "bộ binh tùng thiết" (bám xe, không chạy trước xe).
 
-Bình minh: phản kích bằng trực thăng — AH-1 Cobra bắn rốc-két, UH-1 đổ quân. Người chơi cùng Sáng dùng 12,7 mm và B40 chặn bãi đổ; hạ được một UH-1 (đây là lần duy nhất trong game người chơi bắn rơi máy bay bằng tay và game cho phép vì lịch sử ghi nhận hàng trăm trực thăng bị hạ trong chiến dịch **[KC số]**). Phi công Mỹ nhảy khỏi xác máy bay, bị bắt: cảnh ngắn, Thành được lệnh băng cho anh ta. Không có lời thoại nào từ phía Thành; chỉ ánh mắt.
+Bình minh: phản kích bằng trực thăng — AH-1 Cobra bắn rốc-két, UH-1 đổ quân. Người chơi cùng Đạt dùng 12,7 mm và B40 chặn bãi đổ; hạ được một UH-1 (đây là lần duy nhất trong game người chơi bắn rơi máy bay bằng tay và game cho phép vì lịch sử ghi nhận hàng trăm trực thăng bị hạ trong chiến dịch **[KC số]**). Phi công Mỹ nhảy khỏi xác máy bay, bị bắt: cảnh ngắn, Lâm được lệnh băng cho anh ta. Không có lời thoại nào từ phía Lâm; chỉ ánh mắt.
 
 Giữa tháng 3: truy kích trên Đường 9 về Bản Đông. Đoàn xe địch (M41, M113, GMC) kẹt trên đường, quân dù chạy bộ vào rừng, trực thăng bốc. Đoạn này cố ý làm "nghịch": người chơi ở thế mạnh, địch hoảng loạn; kịch bản dùng đoạn này để cho Quyết nói câu về sự tàn nhẫn của việc bắn người đang chạy, và để người chơi tự chọn có bắn những người đang leo lên càng trực thăng hay không (game không thưởng cho việc đó).
 
-Trận cuối: trên đường về, đơn vị qua binh trạm cũ — bị B-52 rải thảm hôm trước. Thu còn sống, hai người bạn của cô thì không. Cảnh bếp Hoàng Cầm: cả tiểu đội ăn cơm với cô, Hải thổi sáo (nhạc gốc của game, không dùng bài hát có bản quyền). Lần gặp thứ hai.
+Trận cuối: trên đường về, đơn vị qua binh trạm cũ — bị B-52 rải thảm hôm trước. Thu còn sống, hai người bạn của cô thì không. Cảnh bếp Hoàng Cầm: cả tiểu đội ăn cơm với cô, Long thổi sáo (nhạc gốc của game, không dùng bài hát có bản quyền). Lần gặp thứ hai.
 
 **Cơ chế mới.** Tấn công cứ điểm ban đêm (bộc phá, hào), tùng thiết, bắn trực thăng, tù binh (nút "băng bó" thay nút bắn), lựa chọn đạo đức không có thưởng.
 
@@ -129,12 +129,12 @@ Trận cuối: trên đường về, đơn vị qua binh trạm cũ — bị B-5
 
 > QUYẾT: *(nhìn đoàn xe địch cháy)* Đừng có cười. Hôm nay là họ. Hôm khác là mình. Cái đường này không phân biệt.
 
-> HẢI: *(bên bếp)* Thu này, mai kia hết chiến tranh, cô làm gì?
+> LONG: *(bên bếp)* Thu này, mai kia hết chiến tranh, cô làm gì?
 > THU: Tôi về đi học. Học hết cấp ba. Còn anh?
-> HẢI: Tôi… về học nốt cái bằng. Rồi mở một quán sáo.
-> SÁNG: Quán sáo là quán gì?
-> HẢI: Quán mà người ta vào chỉ để nghe sáo.
-> SÁNG: Thế thì đói.
+> LONG: Tôi… về học nốt cái bằng. Rồi mở một quán sáo.
+> ĐẠT: Quán sáo là quán gì?
+> LONG: Quán mà người ta vào chỉ để nghe sáo.
+> ĐẠT: Thế thì đói.
 
 **Kết.** Thư: *"Con đã bắn. Con không kể được nó thế nào. Anh Quyết bảo không cần kể."*
 
@@ -146,26 +146,26 @@ Trận cuối: trên đường về, đơn vị qua binh trạm cũ — bị B-5
 
 Đêm vượt sông: người chơi bơi và bám phao (bó chuối, săm ô tô **[KC]**) qua Thạch Hãn dưới pháo sáng và pháo bầy; nước sáng lên từng loạt. Cơ chế bơi có sức, ngụp tránh mảnh. Lên bờ là một thành phố không còn hình thành phố: tường, gạch, hố bom, mùi.
 
-Ba ngày giữ góc thành: chiến đấu trong nhà đổ, hầm ngầm, đường hào nối các ngôi nhà; thuỷ quân lục chiến Sài Gòn tấn công theo đợt sau mỗi trận pháo; B-52 đánh ban đêm (màn hình trắng, ù tai, mất chuột vài giây — cơ chế "bị bom" duy nhất của game). Người chơi phải luân phiên: giữ, sửa công sự, kéo thương binh về hầm phẫu, đi lấy đạn từ bờ sông. Hải yếu dần; Út dẫn tiểu đội qua "nhà cũ của Út" — một ngôi nhà giờ chỉ còn cái cổng.
+Ba ngày giữ góc thành: chiến đấu trong nhà đổ, hầm ngầm, đường hào nối các ngôi nhà; thuỷ quân lục chiến Sài Gòn tấn công theo đợt sau mỗi trận pháo; B-52 đánh ban đêm (màn hình trắng, ù tai, mất chuột vài giây — cơ chế "bị bom" duy nhất của game). Người chơi phải luân phiên: giữ, sửa công sự, kéo thương binh về hầm phẫu, đi lấy đạn từ bờ sông. Long yếu dần; Út dẫn tiểu đội qua "nhà cũ của Út" — một ngôi nhà giờ chỉ còn cái cổng.
 
-Bắt Phước: một đợt tấn công bị chặn, một trung đội trưởng TQLC bị kẹt trong căn nhà đổ với vết thương ở chân. Tiểu đội vây; Quyết ra lệnh không bắn; Thành vào bắt. Đoạn thoại ngắn giữa hai người Việt cùng tuổi, cùng giọng miền, khác quân phục. Phước được đưa qua sông về tuyến sau.
+Bắt Phước: một đợt tấn công bị chặn, một trung đội trưởng TQLC bị kẹt trong căn nhà đổ với vết thương ở chân. Tiểu đội vây; Quyết ra lệnh không bắn; Lâm vào bắt. Đoạn thoại ngắn giữa hai người Việt cùng tuổi, cùng giọng miền, khác quân phục. Phước được đưa qua sông về tuyến sau.
 
-Đêm 16/9, lệnh rút: tiểu đội xuống bến. Quyết ở lại với khẩu RPD và hai băng đạn để giữ bến — người chơi không được ở lại (game lấy quyền điều khiển ba giây khi Quyết đẩy Thành xuống nước). Bơi qua sông dưới pháo; Hải đuối, Thành bơi ngược dòng kéo — Hải chết trên tay Thành giữa sông, và Thành chỉ giữ được cái túi nilon buộc ở cổ Hải. Bờ bắc: Sáng và Út kéo Thành lên. Phía bên kia sông, tiếng RPD tắt.
+Đêm 16/9, lệnh rút: tiểu đội xuống bến. Quyết ở lại với khẩu RPD và hai băng đạn để giữ bến — người chơi không được ở lại (game lấy quyền điều khiển ba giây khi Quyết đẩy Lâm xuống nước). Bơi qua sông dưới pháo; Long đuối, Lâm bơi ngược dòng kéo — Long chết trên tay Lâm giữa sông, và Lâm chỉ giữ được cái túi nilon buộc ở cổ Long. Bờ bắc: Đạt và Út kéo Lâm lên. Phía bên kia sông, tiếng RPD tắt.
 
-**Cơ chế mới.** Bơi và ngụp; chiến đấu trong nhà đổ (leo, chui, phá tường); "bị bom"; chỉ huy tạm thời tiểu đội (Thành nhận quyền ra hai lệnh: "theo tôi" / "giữ chỗ") sau khi Quyết ở lại.
+**Cơ chế mới.** Bơi và ngụp; chiến đấu trong nhà đổ (leo, chui, phá tường); "bị bom"; chỉ huy tạm thời tiểu đội (Lâm nhận quyền ra hai lệnh: "theo tôi" / "giữ chỗ") sau khi Quyết ở lại.
 
 **Khí tài.** RPD, AK báng gấp, B40/B41, cối 60; địch: M16, M79, M60, M48 (1 chiếc, cảnh xa), pháo 105/155 (nghe), pháo hạm 5 inch (nghe), B-52, A-37, F-4 (xa). TQLC Sài Gòn: đồ rằn ri sóng biển, mũ sắt, áo giáp **[KC]**. Thành phố: kiến trúc thị xã miền Trung 1972 — nhà phố hai tầng, cột đèn, dây điện, biển hiệu chữ thời đó, Thành cổ tường gạch, cổng vòm; tất cả đổ nát 70–90 %.
 
 **Thoại mẫu.**
 
 > PHƯỚC: *(ngồi dựa tường, tay giữ đùi)* Các anh… có bắn tù binh không?
-> THÀNH: *(im, lấy băng ra)* Đưa chân đây.
+> LÂM: *(im, lấy băng ra)* Đưa chân đây.
 > PHƯỚC: Anh người đâu?
-> THÀNH: Nghệ An.
+> LÂM: Nghệ An.
 > PHƯỚC: Tôi Gò Công. *(cười khẽ)* Hai thằng nhà quê.
 
-> QUYẾT: *(ở bến, đẩy Thành xuống nước)* Cậu bơi giỏi nhất tiểu đội. Cậu phải đưa được thằng Hải qua. Đấy là lệnh.
-> THÀNH: Anh…
+> QUYẾT: *(ở bến, đẩy Lâm xuống nước)* Cậu bơi giỏi nhất tiểu đội. Cậu phải đưa được thằng Long qua. Đấy là lệnh.
+> LÂM: Anh…
 > QUYẾT: Đi! Tôi ở trên này còn hai băng. Đủ.
 
 **Kết.** Không có thư. Màn hình đen. Tiếng nước. Rồi tiếng tàu điện Hà Nội.
@@ -176,13 +176,13 @@ Bắt Phước: một đợt tấn công bị chặn, một trung đội trưở
 
 **Nhịp chơi.**
 
-Thành bị thương nhẹ, được ra Bắc an dưỡng, đến Hà Nội ngày 26/12 để trao cuốn nhật ký cho mẹ Hải ở Khâm Thiên. Ban ngày: đi bộ qua Hà Nội 1972 — tàu điện, xe đạp, hầm cá nhân bằng ống bê tông trên vỉa hè, loa phường, tem phiếu, cửa hàng mậu dịch, sơ tán; cơ chế "đi và nhìn", nói chuyện, tìm nhà. Gặp mẹ Hải: một cảnh dài, không nhạc. Bà không khóc; bà hỏi "nó có ăn được không, nó gầy lắm".
+Lâm bị thương nhẹ, được ra Bắc an dưỡng, đến Hà Nội ngày 26/12 để trao cuốn nhật ký cho mẹ Long ở Khâm Thiên. Ban ngày: đi bộ qua Hà Nội 1972 — tàu điện, xe đạp, hầm cá nhân bằng ống bê tông trên vỉa hè, loa phường, tem phiếu, cửa hàng mậu dịch, sơ tán; cơ chế "đi và nhìn", nói chuyện, tìm nhà. Gặp mẹ Long: một cảnh dài, không nhạc. Bà không khóc; bà hỏi "nó có ăn được không, nó gầy lắm".
 
-Đêm 26/12: còi báo động; Thành đưa bà và hàng xóm xuống hầm; B-52 rải xuống Khâm Thiên. Đoạn này là cảnh mạnh nhất về hình ảnh của game: phố dài bị xoá bằng một đường bom; người chơi bò ra khỏi hầm, cứu người dưới gạch (cơ chế đào, cõng, gọi). Không có "kẻ địch" trên mặt đất.
+Đêm 26/12: còi báo động; Lâm đưa bà và hàng xóm xuống hầm; B-52 rải xuống Khâm Thiên. Đoạn này là cảnh mạnh nhất về hình ảnh của game: phố dài bị xoá bằng một đường bom; người chơi bò ra khỏi hầm, cứu người dưới gạch (cơ chế đào, cõng, gọi). Không có "kẻ địch" trên mặt đất.
 
-Đêm 27/12: Thành lên nóc nhà với tổ tự vệ (một cô gái công nhân dệt, một ông thợ điện) trực khẩu 14,5 mm. Máy bay bay thấp (F-111, F-4 chế áp) — người chơi bắn theo tiếng và pháo sáng; xa xa tên lửa vạch trời và một chiếc B-52 cháy rơi về phía Ngọc Hà (cảnh nền, đúng ngày, không để người chơi "bắn rơi B-52" bằng 14,5 mm vì thực tế không thể). Đây là lần duy nhất game cho phép người chơi cảm giác "trả đũa" — và kịch bản kiềm nó lại: sau đó cô công nhân hỏi "trong kia người ta có sợ như mình không".
+Đêm 27/12: Lâm lên nóc nhà với tổ tự vệ (một cô gái công nhân dệt, một ông thợ điện) trực khẩu 14,5 mm. Máy bay bay thấp (F-111, F-4 chế áp) — người chơi bắn theo tiếng và pháo sáng; xa xa tên lửa vạch trời và một chiếc B-52 cháy rơi về phía Ngọc Hà (cảnh nền, đúng ngày, không để người chơi "bắn rơi B-52" bằng 14,5 mm vì thực tế không thể). Đây là lần duy nhất game cho phép người chơi cảm giác "trả đũa" — và kịch bản kiềm nó lại: sau đó cô công nhân hỏi "trong kia người ta có sợ như mình không".
 
-**Đoạn chuyển 1973** (cảnh cắt, không chơi): Hiệp định Paris; bờ sông Thạch Hãn tháng 3/1973, hai bên trao trả tù binh. Thành đứng trong hàng bảo vệ, thấy Phước đi qua cầu phao sang bờ kia, ngoái lại. Không thoại.
+**Đoạn chuyển 1973** (cảnh cắt, không chơi): Hiệp định Paris; bờ sông Thạch Hãn tháng 3/1973, hai bên trao trả tù binh. Lâm đứng trong hàng bảo vệ, thấy Phước đi qua cầu phao sang bờ kia, ngoái lại. Không thoại.
 
 **Cơ chế mới.** Đi bộ thành phố hoà bình (tương tác, đọc, nghe loa), cứu người dưới đổ nát, súng phòng không cố định bắn theo âm thanh và ánh sáng.
 
@@ -190,14 +190,14 @@ Thành bị thương nhẹ, được ra Bắc an dưỡng, đến Hà Nội ngà
 
 **Thoại mẫu.**
 
-> MẸ HẢI: *(cầm cuốn sổ, không mở)* Chữ nó xấu lắm. Từ bé đã xấu. Cô giáo dạy văn mà con viết chữ như gà bới. *(ngẩng lên)* Cháu ăn cơm chưa?
+> MẸ LONG: *(cầm cuốn sổ, không mở)* Chữ nó xấu lắm. Từ bé đã xấu. Cô giáo dạy văn mà con viết chữ như gà bới. *(ngẩng lên)* Cháu ăn cơm chưa?
 
 > CÔ TỰ VỆ: Trong kia, anh ạ… người ta có sợ như mình không?
-> THÀNH: Có.
+> LÂM: Có.
 > CÔ TỰ VỆ: Thế sao vẫn đánh?
-> THÀNH: *(nhìn lên trời)* Vì sợ thì vẫn phải đánh.
+> LÂM: *(nhìn lên trời)* Vì sợ thì vẫn phải đánh.
 
-**Kết.** Thư gửi mẹ — lần đầu Thành nhắc đến Thu bằng tên.
+**Kết.** Thư gửi mẹ — lần đầu Lâm nhắc đến Thu bằng tên.
 
 ### M5 — "Buôn Ma Thuột" (Tây Nguyên, 10 – 11/3/1975) · 35 phút
 
@@ -205,13 +205,13 @@ Thành bị thương nhẹ, được ra Bắc an dưỡng, đến Hà Nội ngà
 
 **Nhịp chơi.**
 
-Mở màn hồi III bằng đổi nhịp: Thành giờ là tiểu đội trưởng, có ba lính mới (một người trong đó sẽ chết trong nhiệm vụ này để người chơi hiểu cái giá của việc chỉ huy). Đêm 9/3: hành quân bí mật qua rừng khộp Tây Nguyên (rừng thưa, cây khộp lá đỏ, đất đỏ bazan — khác hẳn Trường Sơn), tiếp cận thị xã theo đội hình tùng thiết sau T-54.
+Mở màn hồi III bằng đổi nhịp: Lâm giờ là tiểu đội trưởng, có ba lính mới (một người trong đó sẽ chết trong nhiệm vụ này để người chơi hiểu cái giá của việc chỉ huy). Đêm 9/3: hành quân bí mật qua rừng khộp Tây Nguyên (rừng thưa, cây khộp lá đỏ, đất đỏ bazan — khác hẳn Trường Sơn), tiếp cận thị xã theo đội hình tùng thiết sau T-54.
 
 2 giờ sáng 10/3: pháo mở màn; xe tăng húc qua tuyến phòng thủ; người chơi tùng thiết vào thị xã: chiến đấu đường phố **thành phố nguyên vẹn** lần đầu (khác Quảng Trị): nhà phố, chợ, ngã sáu, sân bay Hoà Bình, kho đạn, sở chỉ huy sư đoàn 23 **[KC tên, vị trí]**. Cơ chế mới: ra lệnh tiểu đội (3 lệnh: theo, giữ, đánh vào), gọi xe tăng bắn phá hoả điểm (chỉ mục tiêu bằng pháo hiệu).
 
-Người phụ nữ dưới hầm: tiểu đội vào một ngôi nhà, tìm thấy gia đình dưới hầm, chồng là công chức đã chạy. Thành phải giữ cho họ sống qua trận đánh quanh nhà. Lính mới của Thành chết khi che cho đứa bé qua đường.
+Người phụ nữ dưới hầm: tiểu đội vào một ngôi nhà, tìm thấy gia đình dưới hầm, chồng là công chức đã chạy. Lâm phải giữ cho họ sống qua trận đánh quanh nhà. Lính mới của Lâm chết khi che cho đứa bé qua đường.
 
-Kết trận: ngày 11/3, thị xã im. Đài phát thanh phát bản tin; tiểu đội ngồi dưới tán cây trước một hiệu chụp ảnh. Sáng nói: "Từ đây về Sài Gòn còn bao xa?" Út: "Ba trăm cây, bốn năm."
+Kết trận: ngày 11/3, thị xã im. Đài phát thanh phát bản tin; tiểu đội ngồi dưới tán cây trước một hiệu chụp ảnh. Đạt nói: "Từ đây về Sài Gòn còn bao xa?" Út: "Ba trăm cây, bốn năm."
 
 **Khí tài.** T-54B, K63, Zil-131, pháo 130 mm (nghe); địch: M41, M113, V-100, M16, M60, cối 81, A-37 ném bom thị xã; lính sư đoàn 23, địa phương quân, cảnh sát dã chiến **[KC trang phục]**. Thị xã cao nguyên 1975: nhà phố hai tầng, biệt thự Pháp, đường đất đỏ, xe Honda, Lambretta, quán cà phê, rạp hát, bảng hiệu chữ Việt lẫn Hoa.
 
@@ -223,7 +223,7 @@ Kết trận: ngày 11/3, thị xã im. Đài phát thanh phát bản tin; tiể
 
 Nhiệm vụ "tốc độ": người chơi trên xe (K63/Zil) lao qua đèo Hải Vân — đoạn duy nhất trong game có cảnh biển, mây, đèo; đánh chốt trên đèo bằng cách nhảy xuống xe, diệt hoả điểm, lên xe (cơ chế lên xuống xe đang chạy chậm). Xuống Đà Nẵng: thành phố ven biển với cảng, sân bay, xe cộ bỏ lại kín đường, lính Sài Gòn vứt quân phục đầy phố (hình ảnh có thật **[KC]**), dân chạy. Ít bắn nhau, nhiều hỗn loạn: người chơi phải **không bắn** vào đám đông lính đã bỏ súng và phân biệt được nhóm còn kháng cự.
 
-Cảng: đoạn cuối ở cầu cảng, một tàu đang rời bến, người rơi xuống nước. Tiểu đội cứu người dưới nước (Thành bơi — gợi lại Thạch Hãn). Ở cầu cảng, Thành nhặt một bức thư rơi từ ba lô lính Sài Gòn — thư của mẹ người đó. Anh cất vào túi cùng thư của mình.
+Cảng: đoạn cuối ở cầu cảng, một tàu đang rời bến, người rơi xuống nước. Tiểu đội cứu người dưới nước (Lâm bơi — gợi lại Thạch Hãn). Ở cầu cảng, Lâm nhặt một bức thư rơi từ ba lô lính Sài Gòn — thư của mẹ người đó. Anh cất vào túi cùng thư của mình.
 
 Đây là nhiệm vụ "thở" của hồi III: thắng lớn mà buồn.
 
@@ -239,7 +239,7 @@ Tấn công thị xã hai lần thất bại: người chơi lần đầu trong 
 
 Đổi cách đánh: đơn vị vòng ra chặn Đường 1 và ngã ba Dầu Giây **[KC]**; chiến đấu ở đồn điền, nhà thờ, trạm xăng, cầu — đánh chặn xe tăng M48 bằng B41 (Út là xạ thủ). Bom CBU-55 nổ ở xa: cả một khoảnh rừng cao su ngã cùng lúc, không tiếng nổ như thường — hình ảnh phải rất kỹ, không quá tay.
 
-Út bị thương nặng khi bắn quả B41 thứ ba; Thành cõng Út về trạm phẫu (cơ chế cõng đồng đội lần thứ hai, giờ là bạn thân). Trạm phẫu dã chiến trong nhà thờ đổ. Út sống; không đi tiếp được. Thành lên trung đội phó.
+Út bị thương nặng khi bắn quả B41 thứ ba; Lâm cõng Út về trạm phẫu (cơ chế cõng đồng đội lần thứ hai, giờ là bạn thân). Trạm phẫu dã chiến trong nhà thờ đổ. Út sống; không đi tiếp được. Lâm lên trung đội phó.
 
 Đêm 20 rạng 21/4: địch rút; đoàn xe cơ giới của ta bắt đầu chạy về hướng Biên Hoà. Đại đội trưởng Cường: "Từ đây không dừng nữa."
 
@@ -251,17 +251,17 @@ Tấn công thị xã hai lần thất bại: người chơi lần đầu trong 
 
 **Nhịp chơi.**
 
-Hửng sáng, xa lộ Biên Hoà: đoàn xe tăng và bộ binh tùng thiết chạy về thành phố; bên trái là những chiếc trực thăng Mỹ cuối cùng bay ra biển — nhỏ, xa, không ai bắn. Thành ngồi trên tháp pháo. Đoạn này là "đi và nhìn" có tốc độ: cầu Rạch Chiếc (đặc công ta còn giữ, vẫy tay), xe cộ dân bỏ, người đứng hai bên đường.
+Hửng sáng, xa lộ Biên Hoà: đoàn xe tăng và bộ binh tùng thiết chạy về thành phố; bên trái là những chiếc trực thăng Mỹ cuối cùng bay ra biển — nhỏ, xa, không ai bắn. Lâm ngồi trên tháp pháo. Đoạn này là "đi và nhìn" có tốc độ: cầu Rạch Chiếc (đặc công ta còn giữ, vẫy tay), xe cộ dân bỏ, người đứng hai bên đường.
 
 Cầu Sài Gòn: kháng cự cuối cùng có tổ chức — M48 và hoả lực bên kia cầu; xe tăng đi đầu bị bắn cháy; bộ binh xuống xe đánh qua cầu, người chơi diệt hoả điểm để tăng qua. Trận đánh đúng chất CoD nhưng người chơi biết đây là trận cuối.
 
 Hàng Xanh – Thị Nghè: chiến đấu đường phố giảm dần; dân bắt đầu ra; thằng bé bán báo chạy theo xe. Người chơi phải kiểm soát ngón tay: có lính Sài Gòn còn bắn, có người đang cởi áo. Bắn nhầm người đã bỏ súng là thua nhiệm vụ.
 
-Trước cổng Dinh Độc Lập, 11 giờ 30: người chơi **không** là người húc cổng hay cắm cờ. Thành nhảy khỏi xe ở đường Thống Nhất, chạy theo xe tăng qua cổng đã đổ, và đứng trên bãi cỏ nhìn lên. Camera của người chơi vẫn là mắt Thành; lá cờ trên nóc dinh là sự kiện nền, đúng vị trí, không cận cảnh người thật. Tiếng súng tắt dần. Sáng đứng cạnh. Không ai nói.
+Trước cổng Dinh Độc Lập, 11 giờ 30: người chơi **không** là người húc cổng hay cắm cờ. Lâm nhảy khỏi xe ở đường Thống Nhất, chạy theo xe tăng qua cổng đã đổ, và đứng trên bãi cỏ nhìn lên. Camera của người chơi vẫn là mắt Lâm; lá cờ trên nóc dinh là sự kiện nền, đúng vị trí, không cận cảnh người thật. Tiếng súng tắt dần. Đạt đứng cạnh. Không ai nói.
 
-Đoạn kết chơi được: Thành đi bộ ra khỏi dinh, qua đường phố Sài Gòn trưa 30/4 — đài phát tuyên bố đầu hàng từ loa một quán cà phê (dùng nội dung tuyên bố theo tư liệu lịch sử, không bịa lời); người dân, xe Honda, xích lô, cờ; ở một góc phố, Phước mặc thường phục đứng trước cửa nhà, bộ quân phục trên dây phơi. Hai người nhìn nhau. Thành gật đầu. Phước gật lại. Người chơi có thể bước tới nói một câu (chọn một trong ba câu ngắn) hoặc đi tiếp. Không câu nào sai.
+Đoạn kết chơi được: Lâm đi bộ ra khỏi dinh, qua đường phố Sài Gòn trưa 30/4 — đài phát tuyên bố đầu hàng từ loa một quán cà phê (dùng nội dung tuyên bố theo tư liệu lịch sử, không bịa lời); người dân, xe Honda, xích lô, cờ; ở một góc phố, Phước mặc thường phục đứng trước cửa nhà, bộ quân phục trên dây phơi. Hai người nhìn nhau. Lâm gật đầu. Phước gật lại. Người chơi có thể bước tới nói một câu (chọn một trong ba câu ngắn) hoặc đi tiếp. Không câu nào sai.
 
-**Kết phim.** Thành ngồi trên bậc thềm, lấy tập thư bốn năm ra — thư gửi mẹ, thư gửi Thu chưa gửi, lá thư nhặt ở cảng Đà Nẵng. Voice-over lá thư cuối: *"Mẹ ơi, hôm nay súng im. Con sẽ về. Con đi tìm mẹ của một người lính bên kia để trả cho bà lá thư của bà. Rồi con về."* Cắt đen. Chữ: **30 tháng 4 năm 1975**. Sau credit: một cảnh ngắn — mùa thu 1975, một trạm giao liên cũ trên Trường Sơn, Thu đang xếp đồ để về Thanh Hoá đi học; có tiếng xe dừng ngoài đường. Cô không quay lại. Hết.
+**Kết phim.** Lâm ngồi trên bậc thềm, lấy tập thư bốn năm ra — thư gửi mẹ, thư gửi Thu chưa gửi, lá thư nhặt ở cảng Đà Nẵng. Voice-over lá thư cuối: *"Mẹ ơi, hôm nay súng im. Con sẽ về. Con đi tìm mẹ của một người lính bên kia để trả cho bà lá thư của bà. Rồi con về."* Cắt đen. Chữ: **30 tháng 4 năm 1975**. Sau credit: một cảnh ngắn — mùa thu 1975, một trạm giao liên cũ trên Trường Sơn, Thu đang xếp đồ để về Thanh Hoá đi học; có tiếng xe dừng ngoài đường. Cô không quay lại. Hết.
 
 **Khí tài.** T-54B, K63, Zil, Gaz-69; địch: M48, M113, M16, M60, M79; trực thăng CH-53/CH-46 Mỹ (xa, hửng sáng) **[KC]**; Sài Gòn 1975: xa lộ, cầu Sài Gòn, Hàng Xanh, cầu Thị Nghè, đường Thống Nhất, Dinh Độc Lập (dựng theo kiến trúc thật), nhà phố, biệt thự, xe Honda Dame/67, Lambretta ba bánh, taxi con cóc, xích lô máy, xe lam, bảng hiệu, poster phim, dây điện.
 
@@ -269,9 +269,9 @@ Trước cổng Dinh Độc Lập, 11 giờ 30: người chơi **không** là ng
 
 ## 4. Cơ chế xuyên suốt và cách kể
 
-**Thư** là xương sống kể chuyện: mỗi nhiệm vụ kết bằng một lá thư Thành viết (voice-over trên hình tĩnh vẽ tay kiểu ký hoạ chiến trường — phong cách hình ảnh có thật thời đó **[KC]**). Hồi I thêm giọng nhật ký của Hải ở màn tải. Hồi III không có nhật ký nữa — chỉ còn thư.
+**Thư** là xương sống kể chuyện: mỗi nhiệm vụ kết bằng một lá thư Lâm viết (voice-over trên hình tĩnh vẽ tay kiểu ký hoạ chiến trường — phong cách hình ảnh có thật thời đó **[KC]**). Hồi I thêm giọng nhật ký của Long ở màn tải. Hồi III không có nhật ký nữa — chỉ còn thư.
 
-**Tiểu đội có tên, có tính nết, có thể chết.** Đồng đội chính (Quyết, Hải, Sáng, Út) chết đúng chỗ kịch bản; lính mới có thể chết theo gameplay và game ghi tên họ ở cuối nhiệm vụ. Người chơi ra lệnh tăng dần theo cấp bậc của Thành.
+**Tiểu đội có tên, có tính nết, có thể chết.** Đồng đội chính (Quyết, Long, Đạt, Út) chết đúng chỗ kịch bản; lính mới có thể chết theo gameplay và game ghi tên họ ở cuối nhiệm vụ. Người chơi ra lệnh tăng dần theo cấp bậc của Lâm.
 
 **Không bắn cũng là chơi.** M1 mở đầu 10 phút không bắn; M4 gần như không bắn; M6 và M8 có nhiều người cần *không* bị bắn. Thanh "kỷ luật": bắn dân hoặc người đã bỏ súng → thua nhiệm vụ ngay, không cảnh báo hai lần.
 
@@ -315,6 +315,6 @@ Engine HT-MB (three.js WebGPU + TSL, Rapier, recast, level JSON, AI TIP-018, vie
 
 ## 7. Câu hỏi để Chủ nhà chấm
 
-Ba chỗ tôi chọn thay anh và cần anh xác nhận hoặc đổi: (a) Quyết và Hải chết ở Thành cổ — hai cái chết ở cùng một đêm là cú đấm mạnh nhất của game, nhưng cũng là chỗ dễ bị coi là "bi kịch hoá"; (b) M4 Hà Nội gần như không bắn — tôi tin đây là nhiệm vụ người ta nhớ nhất, nhưng nó phá nhịp bắn súng; (c) nhân vật Phước ở phía bên kia — anh có muốn giữ sợi dây này đến tận 30/4 hay để nó dừng ở lần trao trả 1973.
+Ba chỗ tôi chọn thay anh và cần anh xác nhận hoặc đổi: (a) Quyết và Long chết ở Thành cổ — hai cái chết ở cùng một đêm là cú đấm mạnh nhất của game, nhưng cũng là chỗ dễ bị coi là "bi kịch hoá"; (b) M4 Hà Nội gần như không bắn — tôi tin đây là nhiệm vụ người ta nhớ nhất, nhưng nó phá nhịp bắn súng; (c) nhân vật Phước ở phía bên kia — anh có muốn giữ sợi dây này đến tận 30/4 hay để nó dừng ở lần trao trả 1973.
 
-Ngoài ra cần anh quyết tên game, tên nhân vật chính (tôi đặt Nguyễn Đức Thành để gọi trong kịch bản), và cách gọi quân đối phương trong thoại.
+Ngoài ra cần anh quyết tên game, tên nhân vật chính (Chủ nhà chốt 2026-10-11: Nguyễn Cảnh Lâm, DV-072), và cách gọi quân đối phương trong thoại.

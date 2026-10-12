@@ -7,7 +7,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 const { rolldown } = await import('rolldown');
 mkdirSync('.sync', { recursive: true });
-writeFileSync('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
+writeFileSync('.sync/_nav-veg-entry.ts', "export { scatterSpecies, placementColliders, ruleWithClear, roadClearings } from '../src/engine/vegetation/scatter';\nexport { navObstacleMesh } from '../src/engine/vegetation/navObstacles';\nexport { TerrainTile } from '../src/engine/terrain/tile';\n");
 const b = await rolldown({ input: './.sync/_nav-veg-entry.ts', resolve: { tsconfigFilename: 'tsconfig.json' } });
 const { output } = await b.generate({ format: 'esm' });
 writeFileSync('.sync/_nav-veg.mjs', output[0].code);
@@ -23,7 +23,7 @@ const tile = new eng.TerrainTile(meta, u16, 0);
 const trees = [];
 for (const rule of veg.species) {
   if (!rule.collider && !/tree|palm|bamboo|banana/.test(rule.id)) continue;
-  const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, { ...rule, variants: 1 }, veg.seed, veg.cellM ?? 64, 1);
+  const pl = eng.scatterSpecies(tile, rule.rect ?? veg.rect, eng.ruleWithClear({ ...rule, variants: 1 }, [...(veg.clear ?? []), ...eng.roadClearings(level.roads)]), veg.seed, veg.cellM ?? 64, 1);
   for (let i = 0; i < pl.count; i++) trees.push([pl.pos[i * 3], pl.pos[i * 3 + 2], rule.id, pl.scale[i]]);
 }
 console.log('cây thân:', trees.length);

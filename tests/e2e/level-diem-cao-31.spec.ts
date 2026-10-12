@@ -160,7 +160,7 @@ test.describe('Điểm cao 31 — M2 R1 (đêm công đồn)', () => {
     });
     expect(intro.node).toBe('n_approach');
     expect(intro.squad).toBe(3);
-    expect(intro.names).toEqual(['name.quyet', 'name.hai', 'name.sang']);
+    expect(intro.names).toEqual(['name.quyet', 'name.long', 'name.dat']);
     expect(intro.shown[0]).toBe('B01');
     expect(intro.marker).not.toBeNull();
     // C1: vào tuyến xuất phát → briefing + pháo 30 s (đạn rơi quanh đỉnh, đất rung), rồi "Đi."
@@ -204,6 +204,9 @@ test.describe('Điểm cao 31 — M2 R1 (đêm công đồn)', () => {
           const sz = wire.position[2] + uz * 2.2;
           H.teleport(sx, (H.terrainHeight(sx, sz) ?? 0) + 0.3, sz);
           g.player.rig.reset(Math.atan2(ux, uz), 0);
+          // đo riêng sát thương bộc phá: từ DV-071 súng địch (hầm M60) bắn trúng thật → tạm dừng AI, máu đầy (không hồi máu điện ảnh xen vào)
+          g.aiPaused = true;
+          g.player.health = 100;
           const hp0 = g.player.health;
           // GIỮ F: mô phỏng bàn phím thật — interact = false (edge đã tắt sau tick đầu), chỉ interactHeld = true dẫn thanh tiến trình.
           // Đây là guard đúng cho lỗi "giữ F không ăn": nếu wiring interactHeld hỏng thì thanh không đầy, test fail.
@@ -225,6 +228,7 @@ test.describe('Điểm cao 31 — M2 R1 (đêm công đồn)', () => {
           H.stepSim(60 * 4);
           const f = g.player.controller.feet;
           const along = (f[0]! - wire.position[0]) * -ux + (f[2]! - wire.position[2]) * -uz;
+          g.aiPaused = false;
           return { promptMid, progMid, flagDone, blown, removed, dmg: hp0 - hp1, along, node: H.mission.state().currentNode, shake: g.player.rig.shakeAmp };
         },
         { zoneId, crouch },

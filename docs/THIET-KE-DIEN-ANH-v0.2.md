@@ -594,8 +594,8 @@ khoảng 102 giây phim + handoff, cộng tải nếu có; không thể đồng 
 
 ## 21.3 Kịch bản quay CINE-00 --- "Lá thư chưa gửi", 90 giây
 
-Lời kể đề xuất của Thành, nhân vật hư cấu được nhắc trong PRD. Không gán
-tuổi, đơn vị hoặc quan hệ với Thu/Hải/Quyết khi chưa có kịch bản nguồn.
+Lời kể đề xuất của Lâm, nhân vật hư cấu được nhắc trong PRD. Không gán
+tuổi, đơn vị hoặc quan hệ với Thu/Long/Quyết khi chưa có kịch bản nguồn.
 Lời của "Đồng đội" để casting sau. Chữ ngày tháng, địa danh, đạo cụ và
 quân phục phải đối chiếu registry trước bản phát hành.
 
@@ -607,11 +607,11 @@ quân phục phải đối chiếu registry trước bản phát hành.
                ba lô ẩm; khung tĩnh, một bàn nước. Chưa nhạc, chưa nổ
                tay đi vào                    
 
-  S02 · 08--20 Góc qua vai trên lá thư; chỉ  Thành: "Có những điều, lúc
+  S02 · 08--20 Góc qua vai trên lá thư; chỉ  Lâm: "Có những điều, lúc
                đọc được một dòng đã duyệt;   lên đường tôi chưa biết viết
                nét bút ngừng                 thế nào." Ngừng 2 giây
 
-  S03 · 20--32 Thư được gấp, bọc và cất; cắt Thành: "Tôi nghĩ, đi hết con
+  S03 · 20--32 Thư được gấp, bọc và cất; cắt Lâm: "Tôi nghĩ, đi hết con
                theo chuyển động sang khóa    dốc này rồi sẽ viết tiếp."
                túi                           Một mô-típ nhạc rất mỏng bắt
                                              đầu
@@ -629,7 +629,7 @@ quân phục phải đối chiếu registry trước bản phát hành.
                lên, không cắt tới máy bay    diễn giải chiến thuật ngoài
                                              nhu cầu kể chuyện
 
-  S07 · 70--82 Máy nhìn theo dòng nước tới   Thành: "Rồi tôi nhận ra, mình
+  S07 · 70--82 Máy nhìn theo dòng nước tới   Lâm: "Rồi tôi nhận ra, mình
                lối xuống; người trước quay   không đi một mình." Tiếng
                lại chờ                       suối nối sang cảnh M1
 
@@ -661,7 +661,7 @@ nguồn và quyền sử dụng tương ứng.
   20--30       Đồng đội chờ bên dốc: "Qua    Đặt mục tiêu tức thời; tên
                ngầm rồi nghỉ. Đi sát nhau."  người nói chốt theo kịch bản
 
-  30--40       Camera xuống tầm mắt Thành;   Khớp hình với handoff; không
+  30--40       Camera xuống tầm mắt Lâm;   Khớp hình với handoff; không
                bàn tay giữ dây túi, nước ở   cài thêm tình tiết mà người
                hướng đi                      skip sẽ không biết
   ------------------------------------------------------------------------
@@ -928,7 +928,7 @@ trước khi giảm độ rõ mục tiêu.
 
 ## 23.4 Những đầu vào còn thiếu trước sản xuất cuối
 
-Kịch bản nhân vật v0.1 và hành trình liên tục của Thành; registry lịch
+Kịch bản nhân vật v0.1 và hành trình liên tục của Lâm; registry lịch
 sử thực tế; repo và bench thô; số GPU core/phiên bản OS/browser của máy
 chuẩn; ngân sách diễn viên/nhạc/animation; quyền dùng font/asset cụ thể.
 Các phần này có thể điền trong lúc làm prototype, nhưng không được ghi

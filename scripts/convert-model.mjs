@@ -7,7 +7,7 @@
  * (cánh quạt, bánh) còn pivot xoay được lúc chạy (trực thăng TIP-023).
  * Dùng: node scripts/convert-model.mjs --src assets-src/sketchfab/btr70 --id veh_btr70 --length 7.3 \
  *         --title "Low-poly BTR-70" --author veightyfive --url https://sketchfab.com/3d-models/... --use "xác APC chốt A"
- *       [--scale 0.01] [--pre x:90,z:-90] [--split-joints rotor_01,tail_rotor_02:z] [--flip] [--yaw90] [--no-align] [--no-join] [--merge-mats] [--basecolor hex --rough r --metal m] [--keep sub,sub] [--drop sub,sub] [--simplify 0.6] [--texture 1024] [--dry]
+ *       [--scale 0.01] [--pre x:90,z:-90] [--split-joints rotor_01,tail_rotor_02:z] [--flip] [--yaw90] [--no-align] [--no-join] [--merge-mats] [--basecolor hex --rough r --metal m] [--keep sub,sub] [--drop sub,sub] [--simplify 0.6] [--simplify-error 0.001] [--texture 1024] [--dry]
  */
 import { readdirSync, mkdirSync, statSync, readFileSync, writeFileSync } from 'node:fs';
 import { join as pjoin, dirname } from 'node:path';
@@ -34,6 +34,8 @@ const URL = opt('url', 'https://sketchfab.com/');
 const LICENSE = opt('license', 'CC-BY-4.0');
 const USE = opt('use', 'prop level (TIP-021)');
 const SIMPLIFY = Number(opt('simplify', '1'));
+/** sai số tối đa của simplify (tỉ lệ theo kích thước lưới); mặc định 0,001 */
+const SIMPLIFY_ERR = Number(opt('simplify-error', '0.001'));
 const TEX = Number(opt('texture', '1024'));
 const FLIP = args.includes('--flip');
 const YAW90 = args.includes('--yaw90');
@@ -416,7 +418,7 @@ if (args.includes('--merge-mats')) {
 }
 const tfs = [dedup(), prune({ keepAttributes: false, keepLeaves: false })];
 if (!NOJOIN) tfs.push(flatten(), join({ keepNamed: false }), prune({ keepAttributes: false, keepLeaves: false }));
-if (SIMPLIFY < 1) tfs.push(weld(), simplify({ simplifier: MeshoptSimplifier, ratio: SIMPLIFY, error: 0.001, lockBorder: true }));
+if (SIMPLIFY < 1) tfs.push(weld(), simplify({ simplifier: MeshoptSimplifier, ratio: SIMPLIFY, error: SIMPLIFY_ERR, lockBorder: true }));
 tfs.push(
   textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /normalTexture/, quality: 96, nearLossless: true, resize: [TEX, TEX] }),
   textureCompress({ encoder: sharp, targetFormat: 'webp', slots: /^(?!normalTexture)/, quality: 86, resize: [TEX, TEX] }),

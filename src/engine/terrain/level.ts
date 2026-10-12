@@ -3,6 +3,7 @@
  * + TerrainMesh (LOD) + material splat. Không biết mission/AI (engine thuần). Toạ độ level: x/z thế giới của ô, y lấy từ terrain.
  */
 import type { ShaftOptions, FilmGrade } from '../render/cinematic';
+import type { VolumetricOptions } from '../render/volumetric';
 import { Group, Mesh, BufferGeometry, BufferAttribute, type Scene } from 'three/webgpu';
 import type { ArenaData, ColliderDef, CoverMarker } from '../render/arena';
 import { buildTerrainProps, navBoxGeometry, type TerrainPropDef, type TerrainPropsBuild } from './props';
@@ -31,6 +32,8 @@ export interface TerrainLevelDef {
     wetness?: number;
     tileMeters?: number;
     tint?: number;
+    /** DV-078: navmesh bake riêng của level (mặc định nav.bin) — level dùng chung ô DEM nhưng khác rừng/props */
+    navFile?: string;
   };
   sky: LevelSky;
   /** DV-057: trời theo registry (preset content/ecology/climate.*.json + ngày/giờ/toạ độ → mặt trời thiên văn) */
@@ -48,15 +51,21 @@ export interface TerrainLevelDef {
   /** máy bay ambient (TIP-D-SKY) — thiếu → trời trống */
   airTraffic?: AirTrafficDef;
   /** FX môi trường (khói bom xa, đám cháy) — x/z, y từ terrain + dy */
-  fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number }>;
+  fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number; lit?: number }>;
   /** DV-063: hậu kỳ điện ảnh riêng level (tia nắng xuyên tán, chỉnh màu phim, grain, vignette) */
-  post?: { shafts?: ShaftOptions | false; grade?: FilmGrade | false; grain?: number; vignette?: number; bloom?: number };
+  post?: { shafts?: ShaftOptions | false; volumetric?: Omit<VolumetricOptions, 'steps' | 'resolutionScale'> | false; grade?: FilmGrade | false; grain?: number; vignette?: number; bloom?: number };
   playerSpawn: V2;
   playerYaw: number;
   botSpawns: Record<string, V2>;
   waypoints: V2[];
   zones: Record<string, { center: V2; radius: number }>;
   coverMarkers: Array<{ id: string; position: V2; facing: [number, number, number] }>;
+  /** DV-078: đường xe (polyline x/z) — rừng chừa dải trống (`roadClearings`), mặt đất vẽ đất xới; đoàn xe chạy theo */
+  roads?: Array<{ id: string; pts: V2[]; halfWidth: number }>;
+  /** DV-078: level nối tiếp khi hoàn thành nhiệm vụ */
+  nextLevel?: string;
+  /** DV-078: cảnh âm rừng theo giờ khi không có climate (level đêm) */
+  ambience?: { localTime: string; month: number };
 }
 
 export interface TerrainLevelBuild extends ArenaData {
@@ -90,6 +99,7 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
   const layers: TerrainLayers | null = tex && pick(L.leaves) && pick(L.mud) && pick(L.rock) && pick(L.grass) ? { leaves: pick(L.leaves)!, mud: pick(L.mud)!, rock: pick(L.rock)!, grass: pick(L.grass)! } : null;
   const heightTex = makeHeightTexture(tile);
   const normalTex = makeNormalTexture(tile);
+  if (def.roads?.length) paintRoads(normalTex.image.data as Uint8Array, tile, def.roads);
   const mat = createTerrainMaterial(tile, heightTex, normalTex, layers, { wetness: def.terrain.wetness ?? 0.2, tileMeters: def.terrain.tileMeters, tint: def.terrain.tint });
   const mesh = new TerrainMesh(tile, mat.material);
   const root = new Group();
@@ -115,7 +125,7 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
 
   let navPrebuilt: Uint8Array | null = null;
   try {
-    const r = await fetch(`${opts.baseUrl}assets/terrain/${def.terrain.id}/nav.bin`, { method: 'GET' });
+    const r = await fetch(`${opts.baseUrl}assets/terrain/${def.terrain.id}/${def.terrain.navFile ?? 'nav.bin'}`, { method: 'GET' });
     // vite preview/dev trả index.html (200, text/html) cho file thiếu → phải kiểm content-type, không chỉ r.ok
     const ct = r.headers.get('content-type') ?? '';
     if (r.ok && !/html|text/i.test(ct)) {
@@ -142,7 +152,7 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     navGeometry.push(bm);
   }
 
-  const fxDefs: FxDef[] = (def.fx ?? []).map((f) => ({ kind: f.kind, position: v3(f.position, f.dy ?? 0), scale: f.scale, color: f.color, height: f.height }));
+  const fxDefs: FxDef[] = (def.fx ?? []).map((f) => ({ kind: f.kind, position: v3(f.position, f.dy ?? 0), scale: f.scale, color: f.color, height: f.height, lit: f.lit }));
   const fx = createAmbientFx(fxDefs, { maxLights: opts.maxFxLights ?? 4 });
   root.add(fx.group);
   const coverMarkers: CoverMarker[] = def.coverMarkers.map((c) => ({ id: c.id, position: v3(c.position), facing: c.facing }));
@@ -174,4 +184,44 @@ export async function loadTerrainLevel(scene: Scene, def: TerrainLevelDef, opts:
     lamps: [],
     stats: { props: props.count, batchedDrawEstimate: 4 + props.draws, decor: fxDefs.length },
   };
+}
+
+/**
+ * DV-078: mặt đường xe = đất xới (cùng kênh alpha mặt nạ của normal texture như lòng hố/khe, DV-060): lõi đường mặt nạ 0,85, mép
+ * mềm 1,5 m. Chỉ hạ alpha (không xoá mặt nạ hố/khe sẵn có).
+ */
+export function paintRoads(data: Uint8Array, tile: { n: number; half: number; resM: number }, roads: ReadonlyArray<{ pts: V2[]; halfWidth: number }>): number {
+  const { n, half, resM } = tile;
+  let painted = 0;
+  for (const r of roads) {
+    for (let k = 0; k + 1 < r.pts.length; k++) {
+      const a = r.pts[k]!;
+      const b = r.pts[k + 1]!;
+      const pad = r.halfWidth + 1.5;
+      const i0 = Math.max(0, Math.floor((Math.min(a[0], b[0]) - pad + half) / resM));
+      const i1 = Math.min(n - 1, Math.ceil((Math.max(a[0], b[0]) + pad + half) / resM));
+      const j0 = Math.max(0, Math.floor((Math.min(a[1], b[1]) - pad + half) / resM));
+      const j1 = Math.min(n - 1, Math.ceil((Math.max(a[1], b[1]) + pad + half) / resM));
+      const dx = b[0] - a[0];
+      const dz = b[1] - a[1];
+      const l2 = dx * dx + dz * dz || 1;
+      for (let j = j0; j <= j1; j++) {
+        for (let i = i0; i <= i1; i++) {
+          const x = -half + i * resM;
+          const z = -half + j * resM;
+          const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / l2));
+          const d = Math.hypot(a[0] + dx * t - x, a[1] + dz * t - z);
+          const m = 0.85 * (1 - Math.min(1, Math.max(0, (d - r.halfWidth) / 1.5)));
+          if (m <= 0) continue;
+          const o = (j * n + i) * 4 + 3;
+          const al = Math.round(255 * (1 - m));
+          if (al < data[o]!) {
+            data[o] = al;
+            painted++;
+          }
+        }
+      }
+    }
+  }
+  return painted;
 }
