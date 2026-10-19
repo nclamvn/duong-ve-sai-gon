@@ -19,7 +19,7 @@ npm run dev -- --open "/?backend=webgl"      # ép fallback
 Tham số URL: `?backend=webgl|webgpu` · `?autostart=1` · `?overlay=1` (telemetry, F3) · `?debug=1` (window.__ht, chỉ cần ở build PROD) ·
 `?quality=low|medium|high` · `?rain=N` · `?shadow=N` · `?dynres=0` · `?seed=N` · `?freefly=1`.
 
-Điều khiển: click để khóa chuột · WASD · Shift chạy · C cúi · Space nhảy · Chuột trái bắn · Chuột phải ADS · R nạp · F tương tác · F3 telemetry · F4 navmesh · Enter (khi chết) nạp checkpoint · Esc thoát khóa chuột.
+Điều khiển: click để khóa chuột · WASD · Shift chạy · C cúi · Z nằm bò (DV-090) · Space nhảy · Chuột trái bắn · Chuột phải ADS · R nạp · F tương tác (giữ F cạnh đồng đội: xin 2 băng đạn) · 1–4 lệnh tổ · F3 telemetry · F4 navmesh · Enter (khi chết) nạp checkpoint · Esc thoát khóa chuột.
 
 ## Test
 

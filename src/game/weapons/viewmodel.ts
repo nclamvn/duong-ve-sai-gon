@@ -411,7 +411,7 @@ export class WeaponViewModel {
       this.portBlend += (portT - this.portBlend) * Math.min(1, dt * (portT ? 6 : 9));
       this.crawlBlend += (crawlT - this.crawlBlend) * Math.min(1, dt * 7);
       this.proneBlend += ((this.prone ? 1 : 0) - this.proneBlend) * Math.min(1, dt * 5);
-      this.poseArtist(dt);
+      this.poseArtist();
       this.artist.muzzle.getWorldPosition(this.muzzleWorld);
       this.artist.eject.getWorldPosition(this.ejectWorld);
       return;
@@ -448,7 +448,7 @@ export class WeaponViewModel {
   }
 
   /** DV-090 cộng tư thế chạy/bò lên khối tay súng nghệ sĩ: xoay quanh tâm khối (không quanh mắt) rồi dời */
-  private poseArtist(_dt: number): void {
+  private poseArtist(): void {
     const a = this.artist!;
     if (!this.pivot) {
       // tâm khối tay + súng trong hệ root (đo một lần ở tư thế gốc)

@@ -1,11 +1,13 @@
 /**
  * DV-087 vụ nổ chiến trường (lựu đạn, cối, pháo, bom, napalm) — thay chớp + vài búi khói của WeaponFx.explosion bằng hạt có khối,
  * tính giải tích trong shader theo tuổi của vụ nổ (không cập nhật hạt trên CPU):
- *  - cầu lửa: 12 hạt bung ra trong 0,15 s, trắng vàng → cam → đỏ sẫm rồi hoá khói đen cuộn lên (napalm: to, lâu, cam đậm);
+ *  - cầu lửa: 16 hạt bung ra trong 0,15 s, trắng vàng → cam → đỏ sẫm rồi hoá khói đen cuộn lên (napalm: to, lâu, cam đậm);
  *  - đất đá văng: 24 cục đất bay theo đường đạn đạo (trọng lực), rơi xuống mặt đất thì tắt;
  *  - bụi đất (một mesh, ba vai theo chỉ số hạt): cột đất phụt thẳng lên rồi toả ra, vòng bụi sát mặt đất lan ra như sóng
  *    xung kích, đám bụi lơ lửng trôi theo gió 12–16 s (để lại màn khói bụi chiến trường).
- * 3 InstancedMesh cho mọi vụ nổ cùng lúc (3 draw call); ô chưa dùng co về 0. Hash theo chỉ số (không Math.random). TSL only.
+ *  - DV-088 mưa đất: cát và cục đất rơi quanh người chơi sau vụ nổ sát (`rain`);
+ *  - DV-090 đất đá vụt qua mặt: vụ nổ gần trước mặt bắn cục đất thẳng về phía mắt người chơi (`spray`).
+ * 5 InstancedMesh cho mọi vụ nổ cùng lúc (5 draw call); ô chưa dùng co về 0. Hash theo chỉ số (không Math.random). TSL only.
  */
 import { InstancedMesh, PlaneGeometry, MeshBasicNodeMaterial, Group, Matrix4, Vector2, NormalBlending, DoubleSide, InstancedBufferAttribute, CustomBlending, AddEquation, OneFactor, OneMinusSrcAlphaFactor, type Node } from 'three/webgpu';
 import { float, vec3, vec4, uniform, uv, mix, smoothstep, sin, cos, exp, mx_noise_float, attribute, cameraProjectionMatrix, cameraViewMatrix, length, fract, pow, step, varying, max, min, positionLocal } from 'three/tsl';
