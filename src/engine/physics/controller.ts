@@ -8,15 +8,18 @@ import { LAYER } from './layers';
 import type { InputSnapshot } from '@engine/input/input';
 import tuning from '@content/tuning/player.json';
 
-export type Stance = 'stand' | 'crouch';
+/** DV-090: prone = nằm bò (capsule 0,8 m, mắt 0,42 m, bò 0,9 m/s) */
+export type Stance = 'stand' | 'crouch' | 'prone';
 
 export interface ControllerConfig {
   radius: number;
   standHeight: number;
   crouchHeight: number;
+  proneHeight: number;
   walk: number;
   sprint: number;
   crouch: number;
+  prone: number;
   accel: number;
   decel: number;
   airControl: number;
@@ -35,9 +38,11 @@ export const DEFAULT_CONTROLLER: ControllerConfig = {
   radius: tuning.capsule.radius,
   standHeight: tuning.capsule.standHeight,
   crouchHeight: tuning.capsule.crouchHeight,
+  proneHeight: tuning.capsule.proneHeight,
   walk: tuning.move.walk,
   sprint: tuning.move.sprint,
   crouch: tuning.move.crouch,
+  prone: tuning.move.prone,
   accel: tuning.move.accel,
   decel: tuning.move.decel,
   airControl: tuning.move.airControl,
@@ -96,14 +101,25 @@ export class CapsuleController {
     this.cc = cc;
   }
 
+  private heightOf(stance: Stance): number {
+    return stance === 'stand' ? this.cfg.standHeight : stance === 'crouch' ? this.cfg.crouchHeight : this.cfg.proneHeight;
+  }
+
   halfHeight(stance: Stance): number {
-    const h = stance === 'stand' ? this.cfg.standHeight : this.cfg.crouchHeight;
-    return (h - 2 * this.cfg.radius) / 2;
+    return Math.max(0.02, (this.heightOf(stance) - 2 * this.cfg.radius) / 2);
   }
 
   get height(): number {
-    return this.stance === 'stand' ? this.cfg.standHeight : this.cfg.crouchHeight;
+    return this.heightOf(this.stance);
   }
+
+  /** độ cao mắt (trên chân) theo tư thế — mục tiêu cho mắt trôi mượt */
+  private eyeOf(stance: Stance): number {
+    return stance === 'prone' ? tuning.capsule.proneEye : this.heightOf(stance) - tuning.capsule.eyeOffsetFromTop;
+  }
+
+  /** DV-090 độ cao mắt hiện tại (trôi mượt khi đổi tư thế, ~3,5 m/s) */
+  eyeH = tuning.capsule.standHeight - tuning.capsule.eyeOffsetFromTop;
 
   /** Tâm capsule (world) từ feet. */
   private centerY(): number {
@@ -111,11 +127,22 @@ export class CapsuleController {
   }
 
   private canStand(): boolean {
-    // Ray từ đỉnh capsule cúi lên tới chiều cao đứng
-    const top = this.feet[1] + this.cfg.crouchHeight;
-    const need = this.cfg.standHeight - this.cfg.crouchHeight + 0.05;
+    return this.canRise('stand');
+  }
+
+  /** còn chỗ trên đầu để lên tư thế `to` không (ray từ đỉnh capsule hiện tại) */
+  private canRise(to: Stance): boolean {
+    const top = this.feet[1] + this.height;
+    const need = this.heightOf(to) - this.height + 0.05;
+    if (need <= 0.05) return true;
     const hit = this.physics.castRay(this.feet[0], top, this.feet[2], 0, 1, 0, need, LAYER.WORLD, this.collider);
     return hit === null;
+  }
+
+  /** đặt tư thế ngay (hồi sinh/checkpoint): collider + mắt khớp luôn, không trôi */
+  forceStance(s: Stance): void {
+    this.setStance(s);
+    this.eyeH = this.eyeOf(s);
   }
 
   private setStance(s: Stance): void {
@@ -135,8 +162,13 @@ export class CapsuleController {
     this.justJumped = false;
     this.landedSpeed = 0;
 
-    // Stance
-    if (input.crouch) this.setStance('crouch');
+    // Stance (DV-090: Z nằm/dậy; đang nằm mà nhảy hoặc chạy nước rút tới trước thì bật dậy)
+    if (input.prone) {
+      if (this.stance !== 'prone') this.setStance('prone');
+      else if (this.canRise('crouch')) this.setStance('crouch');
+    } else if (this.stance === 'prone') {
+      if ((input.jump || (input.sprint && input.fwd > 0) || input.crouch) && this.canRise('crouch')) this.setStance('crouch');
+    } else if (input.crouch) this.setStance('crouch');
     else if (this.stance === 'crouch' && this.canStand()) this.setStance('stand');
 
     // Hướng mong muốn (world) từ fwd/right theo yaw
@@ -150,7 +182,7 @@ export class CapsuleController {
       mx /= mlen;
       mz /= mlen;
     }
-    const maxSpeed = (this.stance === 'crouch' ? c.crouch : input.sprint && input.fwd > 0 ? c.sprint : c.walk) * this.speedMul;
+    const maxSpeed = (this.stance === 'prone' ? c.prone : this.stance === 'crouch' ? c.crouch : input.sprint && input.fwd > 0 ? c.sprint : c.walk) * this.speedMul;
     const tx = mx * maxSpeed;
     const tz = mz * maxSpeed;
     const rate = (mlen > 0 ? c.accel : c.decel) * (this.grounded ? 1 : c.airControl) * dt;
@@ -185,6 +217,8 @@ export class CapsuleController {
     // Trần/đầu chạm: nếu muốn đi lên nhưng không đi được → hủy vy
     if (this.desired.y > 1e-4 && mv.y < this.desired.y * 0.5) this.vy = Math.min(this.vy, 0);
     this.body.setNextKinematicTranslation({ x: this.feet[0], y: this.centerY(), z: this.feet[2] });
+    const et = this.eyeOf(this.stance);
+    this.eyeH += Math.max(-3.5 * dt, Math.min(3.5 * dt, et - this.eyeH));
   }
 
   teleport(x: number, y: number, z: number): void {
@@ -199,7 +233,7 @@ export class CapsuleController {
 
   /** Vị trí mắt nội suy cho render (alpha). */
   eye(alpha: number, out: [number, number, number]): void {
-    const eyeY = this.height - tuning.capsule.eyeOffsetFromTop;
+    const eyeY = this.eyeH;
     out[0] = this.prevFeet[0] + (this.feet[0] - this.prevFeet[0]) * alpha;
     out[1] = this.prevFeet[1] + (this.feet[1] - this.prevFeet[1]) * alpha + eyeY;
     out[2] = this.prevFeet[2] + (this.feet[2] - this.prevFeet[2]) * alpha;

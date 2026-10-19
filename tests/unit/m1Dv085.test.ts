@@ -107,14 +107,14 @@ function run() {
 }
 
 describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
-  it('chạy hết: phục kích ngay đầu màn, napalm (Khang), sườn đồi, B-52 vào lòng suối, cảm biến 90 s, khe, dốc, bãi đáp (Hoàn), rút; 70–90 địch, ≤ 16 sống', () => {
+  it('chạy hết: phục kích ngay đầu màn, napalm (Khang), sườn đồi, B-52 vào lòng suối, cảm biến 90 s, khe, dốc, bãi đáp (Hoàn), rút; 105–150 địch, ≤ 24 sống', () => {
     const r = run();
     const { world, step, node } = r;
     step(0.5);
     // HỒI 1: địch có mặt từ giây đầu, cối, mục tiêu có marker
     expect(node()).toBe('n_a1');
     expect(world.groupAlive('squad')).toBe(5);
-    expect(world.groupAlive('a1_bo')).toBe(6);
+    expect(world.groupAlive('a1_bo')).toBe(9);
     expect(r.radio[0]).toBe('M71');
     expect(r.objectives[0]).toMatchObject({ key: 'obj_m1_ambush', status: 'active', marker: 'bo_dong' });
     expect(r.battle.filter((a) => a.type !== 'fx').map((a) => a.type)).toEqual(['strike', 'mortar']);
@@ -123,11 +123,11 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(r.battle.filter((a) => a.type === 'fx' && a.kind !== 'haze').length).toBeGreaterThanOrEqual(4);
     step(22);
     expect(node()).toBe('n_a1b');
-    expect(world.groupAlive('a1_suon')).toBe(3);
+    expect(world.groupAlive('a1_suon')).toBe(5);
     world.kill('a1_bo', 2);
     step(25.2);
     expect(node()).toBe('n_a1c'); // đợt tiếp viện vượt suối từ bắc
-    expect(world.groupAlive('a1_tiep')).toBe(3);
+    expect(world.groupAlive('a1_tiep')).toBe(5);
     world.kill('a1_suon', 1);
     world.kill('a1_tiep', 1);
     step(0.2);
@@ -145,7 +145,7 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(r.battle.find((a) => a.type === 'squad_kill')?.name).toBe('name.khang');
     step(5.2);
     expect(node()).toBe('n_chan');
-    expect(world.groupAlive('chan') + world.groupAlive('chan_san')).toBe(9);
+    expect(world.groupAlive('chan') + world.groupAlive('chan_san')).toBe(14);
     world.kill('chan', 1);
     step(0.2);
     // DV-089 HỒI 3 theo nhịp Normandy: nín thở dưới chân đồi (thế giới lặng, tổ nằm giữ) → pháo dồn về phía tổ → xung phong
@@ -157,7 +157,7 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     step(8);
     // sườn đồi → B-52: chạy vào lòng suối trong 22 s, ngoài vùng an toàn chịu sát thương
     expect(node()).toBe('n_doi');
-    expect(world.groupAlive('doi_giu')).toBe(5);
+    expect(world.groupAlive('doi_giu')).toBe(8);
     world.killEnemies();
     step(4.5);
     expect(node()).toBe('n_b52');
@@ -165,7 +165,7 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(r.battle.find((a) => a.type === 'safe_zone')?.zone).toBe('ham');
     step(31.2);
     expect(node()).toBe('n_b52_after');
-    expect(world.groupAlive('sot')).toBe(6);
+    expect(world.groupAlive('sot')).toBe(9);
     expect(r.battle.filter((a) => a.type === 'fx').length).toBeGreaterThanOrEqual(6);
     world.killEnemies();
     step(0.2);
@@ -175,51 +175,51 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     step(0.2);
     expect(node()).toBe('n_cb_hold');
     expect(r.objectives.at(-1)).toMatchObject({ key: 'obj_m1_defend', timerMs: 90000 });
-    expect(world.groupAlive('cb_bac')).toBe(5);
+    expect(world.groupAlive('cb_bac')).toBe(8);
     step(30.2);
     expect(node()).toBe('n_cb_hold2');
-    expect(world.groupAlive('cb_dong')).toBe(5);
-    expect(world.groupAlive('cb_bac')).toBe(5); // đợt 2 chờ chỗ dưới trần 16? (5 + 5 + 5 = 15 → ra được khi tới hạn)
+    expect(world.groupAlive('cb_dong')).toBe(8);
+    expect(world.groupAlive('cb_bac')).toBe(8); // DV-090 trần 24: đợt 2 (8 + 8 + 8 = 24) ra được khi tới hạn
     step(10);
-    expect(world.groupAlive('cb_bac')).toBe(10);
+    expect(world.groupAlive('cb_bac')).toBe(16);
     world.killEnemies();
     r.rt.state.flags['bo_pha_blown'] = true;
     step(0.2);
     expect(node()).toBe('n_khe_go');
-    expect(world.groupAlive('f2')).toBe(6); // tổ phục đã nằm sẵn trong khe
+    expect(world.groupAlive('f2')).toBe(9); // tổ phục đã nằm sẵn trong khe
     // HỒI 5: khe cạn
     world.player = zoneOf('khe');
     step(0.2);
     expect(node()).toBe('n_khe');
-    expect(world.groupAlive('khe_mg') + world.groupAlive('khe_sau')).toBe(5);
+    expect(world.groupAlive('khe_mg') + world.groupAlive('khe_sau')).toBe(8);
     world.killEnemies();
     step(0.2);
     // HỒI 6: dốc — ổ súng giữ đỉnh, vòng sườn, tiếp viện 2 đợt, cối
     expect(node()).toBe('n_f3_go');
-    expect(world.groupAlive('f3_hold')).toBe(4);
+    expect(world.groupAlive('f3_hold')).toBe(6);
     world.player = zoneOf('doc');
     step(0.2);
     expect(node()).toBe('n_f3');
-    expect(world.groupAlive('f3_flank')).toBe(4);
+    expect(world.groupAlive('f3_flank')).toBe(6);
     step(35.2);
     expect(node()).toBe('n_f3b');
     world.kill('f3_hold');
     step(0.2);
     expect(node()).toBe('n_f3c'); // chiếm đỉnh → giữ 60 s trước phản kích
     expect(r.objectives.at(-1)).toMatchObject({ key: 'obj_m1_hold_hill', timerMs: 60000 });
-    expect(world.groupAlive('f3_rf')).toBe(4);
+    expect(world.groupAlive('f3_rf')).toBe(6);
     step(60.2);
     expect(node()).toBe('n_lz_go');
-    expect(world.groupAlive('f3_rf')).toBe(8); // đợt 2 ra ở giây 25 của lúc giữ đỉnh
-    expect(world.groupAlive('lz_a')).toBe(0); // 4 + 8 sống: toán giữ bãi (6) chờ chỗ dưới trần 16
+    expect(world.groupAlive('f3_rf')).toBe(12); // đợt 2 ra ở giây 25 của lúc giữ đỉnh
+    expect(world.groupAlive('lz_a')).toBe(0); // 6 + 12 sống: toán giữ bãi (9) chờ chỗ dưới trần 24
     for (const g of ['f3_flank', 'f3_rf']) world.kill(g);
     step(1.2);
-    expect(world.groupAlive('lz_a')).toBe(6);
+    expect(world.groupAlive('lz_a')).toBe(9);
     // HỒI 7: bãi đáp — 2 lượt trực thăng, giữ 90 s, Hoàn hy sinh, pháo ta bắn chặn, rút
     world.player = zoneOf('lz');
     step(0.2);
     expect(node()).toBe('n_lz');
-    expect(world.groupAlive('lz_a')).toBe(6);
+    expect(world.groupAlive('lz_a')).toBe(9);
     step(34.2);
     expect(node()).toBe('n_lz2');
     expect(r.objectives.at(-1)).toMatchObject({ key: 'obj_m1_lz_hold', timerMs: 90000 });
@@ -236,13 +236,13 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(r.radio.slice(-2)).toEqual(['M00', 'M09']);
     expect(r.cps).toEqual(def.checkpoints);
     expect(r.cps.length).toBe(7);
-    expect(world.spawned, 'tổng địch').toBeGreaterThanOrEqual(70);
-    expect(world.spawned).toBeLessThanOrEqual(90);
-    expect(world.maxAlive, 'địch sống cùng lúc').toBeLessThanOrEqual(16);
+    expect(world.spawned, 'tổng địch (DV-090 × 1,5)').toBeGreaterThanOrEqual(105);
+    expect(world.spawned).toBeLessThanOrEqual(150);
+    expect(world.maxAlive, 'địch sống cùng lúc').toBeLessThanOrEqual(24);
     expect(r.events.countOf('MISSION_COMPLETE')).toBe(1);
   });
 
-  it('không giết ai: tiếp viện chờ dưới trần 16 sống, "còn ít" chưa đúng khi đợt còn chờ; nút nào cũng có lối ra theo giờ', () => {
+  it('không giết ai: tiếp viện chờ dưới trần 24 sống, "còn ít" chưa đúng khi đợt còn chờ; nút nào cũng có lối ra theo giờ', () => {
     const r = run();
     const { world, step, node } = r;
     for (let k = 0; k < 200 && !r.rt.state.complete; k++) {
@@ -257,7 +257,7 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
       for (const a of world.actors.values()) if (a.alive && a.group !== 'squad' && n++ < 3) a.alive = false;
     }
     expect(r.rt.state.complete).toBe(true);
-    expect(world.maxAlive).toBeLessThanOrEqual(16);
+    expect(world.maxAlive).toBeLessThanOrEqual(24);
     // thời gian kịch bản khi đi tức thời giữa các marker (đường đi thật thêm 4–6 phút; đo đủ ở E2E playtime-m1)
     const tEnd = r.nodes.at(-1)!.t;
     expect(tEnd / 60).toBeGreaterThan(7);

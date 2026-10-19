@@ -144,6 +144,14 @@ export class Game {
   private shock = 0;
   private shockFlash = 0;
   private shockT = 0;
+  /** DV-090 xin đạn: thời gian giữ F, lúc mỗi đồng đội vừa cho, thống kê */
+  private resupplyHold = 0;
+  private readonly ammoGivenAt = new Map<string, number>();
+  readonly resupplyStats = { count: 0 };
+  /** DV-090 bùn đang bay tới kính (s), độ mạnh, phía */
+  private mudPending = 0;
+  private mudK = 0;
+  private mudSide = 0;
   private heartAcc = 0;
   readonly shockStats = { count: 0, peak: 0, dirtKicks: 0 };
   /**
@@ -315,6 +323,8 @@ export class Game {
   };
   /** đồng đội có tên (TIP-M1A) */
   squadmates!: Squadmates;
+  /** DV-090 tiểu đội bộ đội không tên đánh cùng tổ (đi theo cùng lệnh, không hô, có thể hy sinh) */
+  support!: Squadmates;
   private footstepMs = 0;
   private readonly targetInfo = { pos: [0, 0, 0] as [number, number, number], eye: [0, 0, 0] as [number, number, number], alive: true, isPlayer: true };
   private readonly camInfo = { pos: [0, 0, 0] as [number, number, number], fwd: [0, 0, -1] as [number, number, number] };
@@ -716,7 +726,8 @@ export class Game {
         const cin = aiTuning.cinematic;
         let dmg = e.damage;
         if (shooterBot?.faction === 'friend' && b.faction === 'enemy') dmg *= cin.friendDamageMul;
-        if (b.faction === 'friend') dmg = Math.min(dmg, Math.max(0, b.bot.health - cin.friendMinHealth));
+        // DV-090: bộ đội không tên (tiểu đội đi cùng) có thể hy sinh, chịu nửa sát thương cho sống lâu hơn qua các hồi
+        if (b.faction === 'friend') dmg = b.nameKey ? Math.min(dmg, Math.max(0, b.bot.health - cin.friendMinHealth)) : dmg * 0.5;
         const died = b.applyDamage(dmg, [this.v3.x, this.v3.y, this.v3.z], e.zone);
         if (e.shooter === 'player') this.hud.hit(died);
         if (shooterBot && shooterBot.faction === 'friend' && died) this.squadmates.bark(shooterBot.id, 'kill');
@@ -724,7 +735,11 @@ export class Game {
         if (b.faction === 'enemy' && !died) this.chatter.say(b.id, 'hit');
         if (died) {
           this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
-          if (b.faction === 'friend') this.squadmates.remove(b.id);
+          if (b.faction === 'friend') {
+            this.squadmates.remove(b.id);
+    this.support.remove(b.id);
+            this.support.remove(b.id);
+          }
           else this.enemyManDown(b.bot.position, shooterBot ? shooterBot.bot.position : this.player.controller.feet);
         }
         return;
@@ -844,6 +859,21 @@ export class Game {
       now: () => this.clock.simTime,
       rand: () => this.barkRng.next(),
     });
+    this.support = new Squadmates(
+      {
+        player: () => {
+          const f = this.player.controller.feet;
+          this.player.aimDirection(this.v3b, false);
+          const l = Math.hypot(this.v3b.x, this.v3b.z) || 1;
+          return { feet: [f[0], f[1], f[2]], fwdX: this.v3b.x / l, fwdZ: this.v3b.z / l, speed: this.player.controller.horizontalSpeed() };
+        },
+        objective: () => this.mission.squadDest ?? (this.mission.markerOnLeader ? null : this.mission.objectiveMarker),
+        say: () => false,
+        now: () => this.clock.simTime,
+        rand: () => this.barkRng.next(),
+      },
+      4,
+    );
     this.events.on('AI_STATE', (e) => {
       const b = this.bots.get(e.botId);
       if (!b || b.faction !== 'friend') return;
@@ -904,7 +934,11 @@ export class Game {
       else if (ev.code === 'Enter' && this.hud.state.missionComplete && this.terrainLevelDef?.nextLevel && this.params.get('autonext') !== '0') this.gotoLevel(this.terrainLevelDef.nextLevel);
       // lệnh tổ (AI-T1.5): 1 theo · 2 giữ · 3 yểm trợ chỗ nhắm · 4 tiến tới chỗ nhắm
       const ord = ev.code === 'Digit1' ? 'follow' : ev.code === 'Digit2' ? 'hold' : ev.code === 'Digit3' ? 'suppress' : ev.code === 'Digit4' ? 'advance' : null;
-      if (ord && this.player.alive && !ev.repeat) this.squadmates.command(ord, this.aimPoint());
+      if (ord && this.player.alive && !ev.repeat) {
+        const pt = this.aimPoint();
+        this.squadmates.command(ord, pt);
+        this.support.command(ord, pt); // DV-090 tiểu đội đi cùng nghe cùng lệnh (không đáp lời)
+      }
       // lựu đạn (DV-074): G ném theo hướng nhìn
       if (ev.code === 'KeyG' && !ev.repeat) this.wantThrow = true;
     });
@@ -1027,6 +1061,7 @@ export class Game {
     sh.aim[2] = this.v3b.z;
     sh.stance = this.player.controller.stance;
     sh.moving = this.player.controller.horizontalSpeed() > 0.5;
+    sh.crawling = sh.stance === 'prone' && (this.inputState.fwd !== 0 || this.inputState.right !== 0 || this.player.controller.horizontalSpeed() > 0.2);
     sh.grounded = this.player.controller.grounded;
     if (this.player.alive && !onGun) this.weapon.step(this.inputState, sh, dt);
     if (!onGun) this.player.adsBlend = this.weapon.ads;
@@ -1078,6 +1113,7 @@ export class Game {
       this.squad.pressure = this.pressure;
       this.squad.tick(dt);
       this.squadmates.tick();
+      this.support.tick();
       // tổ ta thấy địch mới (cách chỗ đã báo > 15 m) → báo hướng (tự chống lặp)
       if (this.clock.tick % 30 === 0) for (const b of this.squadmates.list()) if (b.bot.alive && b.bot.perception.visible && b.bot.inCombat) this.squadmates.callout(b.id, b.bot.threat);
       this.tokens.tick(this.enemyBots(), ti.pos, dt);
@@ -1091,6 +1127,7 @@ export class Game {
     const interactEdge = this.inputState.interact && !this.prevInteract;
     this.prevInteract = this.inputState.interact;
     this.mission.step(dt, interactEdge, this.inputState.interactHeld || this.inputState.interact);
+    this.stepResupply(dt, this.inputState.interactHeld || this.inputState.interact);
     if (this.calmOnStart && this.squadmates.count > 0) {
       this.calmOnStart = false;
       this.calm();
@@ -1110,6 +1147,58 @@ export class Game {
     if (this.clock.simTime - this.suppLastAt > 0.8 || !this.player.alive) this.playerSuppression = Math.max(0, this.playerSuppression - 0.4 * dt);
     h.suppression = this.playerSuppression;
     this.nightAct?.postStep(dt, interactEdge, this.inputState.interactHeld || this.inputState.interact);
+  }
+
+  /**
+   * DV-090 xin đạn đồng đội (Chủ nhà: hết đạn trước 1/3 màn): đứng cách một đồng đội (có tên hoặc không) ≤ 2,6 m, giữ F 0,8 s →
+   * nhận 2 băng; mỗi người cho lại sau 60 s; dự trữ trần 10 băng. Đồng đội có tên nói một câu khi đưa. Lâm cạn đạn → đồng đội
+   * gần (≤ 15 m) gọi lại lấy. Prompt nhiệm vụ (bộc phá, đại liên) luôn được ưu tiên.
+   */
+  private stepResupply(dt: number, held: boolean): void {
+    const h = this.hud.state;
+    const sm = this.weapon.sm;
+    const mag = this.weapon.def.magSize;
+    const cap = mag * 10;
+    const clear = (): void => {
+      this.resupplyHold = 0;
+      if (h.promptKey === 'ammo') {
+        h.promptKey = null;
+        h.promptProgress = -1;
+      }
+    };
+    if (!this.player.alive || this.freeFly || (h.promptKey && h.promptKey !== 'ammo')) return clear();
+    const now = this.clock.simTime;
+    if (sm.reserve === 0 && sm.mag <= 5) this.squadmates.offerAmmo(15);
+    if (sm.reserve + sm.mag > cap - mag) return clear();
+    const f = this.player.controller.feet;
+    let giver: BotActor | null = null;
+    let bd = 2.6;
+    for (const b of this.bots.values()) {
+      if (b.faction !== 'friend' || !b.bot.alive) continue;
+      if (now - (this.ammoGivenAt.get(b.id) ?? -1e9) < 60) continue;
+      const d = Math.hypot(b.bot.position[0] - f[0], b.bot.position[2] - f[2]);
+      if (d < bd) {
+        bd = d;
+        giver = b;
+      }
+    }
+    if (!giver) return clear();
+    h.promptKey = 'ammo';
+    h.promptKeyCap = 'key.f';
+    if (!held) {
+      this.resupplyHold = 0;
+      h.promptProgress = -1;
+      return;
+    }
+    this.resupplyHold += dt;
+    h.promptProgress = Math.min(1, this.resupplyHold / 0.8);
+    if (this.resupplyHold < 0.8) return;
+    sm.reserve = Math.min(cap - sm.mag, sm.reserve + mag * 2);
+    this.ammoGivenAt.set(giver.id, now);
+    this.resupplyStats.count++;
+    this.audio.reload();
+    if (giver.nameKey) this.squadmates.giveAmmo(giver.id);
+    clear();
   }
 
   /** hướng nhìn camera theo la bàn (độ, 0 = bắc = −z, kim đồng hồ) */
@@ -1193,6 +1282,7 @@ export class Game {
       this.bundle.renderer.toneMappingExposure = this.exposure;
     }
     const fo = this.fpOverride;
+    this.viewModel.prone = this.player.controller.stance === 'prone';
     this.viewModel.update(dt, fo ? fo.ads : this.weapon.ads, this.lastInputDx, this.lastInputDy, this.player.rig.bobOffset.x, this.player.rig.bobOffset.y, this.player.controller.horizontalSpeed(), fo ? fo.sprint : this.player.isSprinting);
     if (this.fpHands) this.fpHands.visible = this.viewModel.visible;
     if (this.fpHands && this.viewModel.fpAnchors && this.viewModel.visible) {
@@ -1216,7 +1306,7 @@ export class Game {
     this.updateShock(dt);
     this.updateFilm(dt);
     this.vmFlash.position.copy(this.viewModel.muzzleWorld);
-    this.vmFlash.intensity = this.fx.muzzleLight.intensity * 0.45;
+    this.vmFlash.intensity = this.fx.muzzleLight.intensity * 0.4; // DV-090: đèn nòng 7 → 12 nên hệ số lớp súng giữ ánh ~ như cũ × 1,5
     this.flares?.update(dt);
     if (this.level) this.level.fx.update(dt);
     if (this.terrain) this.terrain.fx.update(dt);
@@ -1356,7 +1446,20 @@ export class Game {
     this.player.rig.stumble(k, side);
     const f = this.player.controller.feet;
     if (k > 0.3) this.blast.rain([f[0], f[1], f[2]], k);
-    if (k > 0.35) this.lensDirt?.splash(k, Math.max(-1, Math.min(1, rel / 90)));
+    // DV-090 (Chủ nhà: bùn bám kính mà không thấy vụ nổ là không tự nhiên): bùn và đất đá vụt qua mặt chỉ khi vụ nổ nằm
+    // trong tầm mắt (±60° quanh hướng nhìn) và không bị che; bùn tới sau khi cục đất bay tới (theo khoảng cách)
+    if (k > 0.3 && Math.abs(rel) < 60) {
+      this.player.eyePosition(this.v3);
+      const e = this.v3;
+      if (this.physics.hasLineOfSight(e.x, e.y, e.z, p[0], p[1] + 0.6, p[2])) {
+        this.blast.spray(p, [e.x, e.y, e.z], k);
+        if (k > 0.35) {
+          this.mudPending = Math.hypot(e.x - p[0], e.z - p[2]) / 24 + 0.06;
+          this.mudK = k;
+          this.mudSide = Math.max(-1, Math.min(1, rel / 60));
+        }
+      }
+    }
   }
 
   /** DV-089 chất phim theo hồi (mission `fx` kind `film`): chuyển dần trong ~2 s */
@@ -1400,6 +1503,10 @@ export class Game {
     this.shock = Math.max(0, this.shock - dt * 0.18);
     this.shockFlash = Math.max(0, this.shockFlash - dt * 3.2);
     this.player.controller.speedMul = 1 - 0.45 * this.shock;
+    if (this.mudPending > 0) {
+      this.mudPending -= dt;
+      if (this.mudPending <= 0) this.lensDirt?.splash(this.mudK, this.mudSide);
+    }
     this.lensDirt?.update(dt);
     const hp = this.player.alive ? this.player.health : 100;
     const hb = Math.max(this.shock * 0.9, hp < 35 ? ((35 - hp) / 35) * 0.8 : 0, this.hushLeft > 0 ? 0.35 + 0.35 * this.hushDepth : 0);
@@ -1457,9 +1564,12 @@ export class Game {
     this.placeScorch(position, radius, opts.kind === 'napalm');
     this.playerShock(position, radius, dp, opts.occlude ? shield(f[0], f[1] + 1.0, f[2]) : 1);
     if (dp <= radius && this.player.alive) {
-      const crouched = this.player.controller.stance === 'crouch';
+      const st = this.player.controller.stance;
+      // DV-090 nằm sát đất: mảnh văng phần lớn bay qua đầu (× 0,6 hệ số cúi)
+      const crouched = st !== 'stand';
+      const lowMul = st === 'prone' ? 0.6 : 1;
       const fall = 1 - (dp / radius) * 0.5;
-      const d = Math.round(damage * fall * (crouched ? opts.crouchMul ?? 0.25 : 1) * shield(f[0], f[1] + 1.0, f[2]));
+      const d = Math.round(damage * fall * (crouched ? (opts.crouchMul ?? 0.25) * lowMul : 1) * shield(f[0], f[1] + 1.0, f[2]));
       this.blastStats.playerHits++;
       this.events.emit('HIT', { actorId: 'player', zone: 'body', damage: d, point: position, penetrated: false, shooter: opts.shooter ?? 'blast', blast: true });
     }
@@ -1701,19 +1811,21 @@ export class Game {
       return;
     }
     const v = c.horizontalSpeed();
-    if (v < 0.4) {
+    if (v < 0.3) {
       this.stepAcc = Math.min(this.stepAcc, 0.5);
       return;
     }
     const crouch = c.stance === 'crouch';
-    const stride = this.player.isSprinting ? 1.3 : crouch ? 0.6 : 0.85;
+    // DV-090 bò: nhịp lê người sột soạt 0,45 m, nhỏ
+    const prone = c.stance === 'prone';
+    const stride = this.player.isSprinting ? 1.3 : prone ? 0.45 : crouch ? 0.6 : 0.85;
     this.stepAcc += (v * dt) / stride;
     if (this.stepAcc >= 1) {
       this.stepAcc -= 1;
       const f = c.feet;
       tile.normalAt(f[0], f[2], this.stepNormal);
       const surf = groundSurface(F, f[0], f[2], 1 - this.stepNormal[1]);
-      this.audio.footstep(surf, this.player.isSprinting ? 1 : crouch ? 0.35 : 0.65);
+      this.audio.footstep(surf, this.player.isSprinting ? 1 : prone ? 0.22 : crouch ? 0.35 : 0.65);
       this.lastStepSurface = surf;
     }
   }
@@ -1744,7 +1856,7 @@ export class Game {
     return this.assets?.weapons[this.weaponIdFor(faction)] ?? null;
   }
 
-  spawnBot(id: string, group: string, spawn: [number, number, number], opts: { faction?: Faction; nameKey?: string | null; archetype?: 'grunt' | 'recon' | 'squad'; waypoints?: Array<[number, number, number]> } = {}): BotActor {
+  spawnBot(id: string, group: string, spawn: [number, number, number], opts: { faction?: Faction; nameKey?: string | null; archetype?: 'grunt' | 'recon' | 'squad'; waypoints?: Array<[number, number, number]>; support?: boolean } = {}): BotActor {
     const existing = this.bots.get(id);
     if (existing) return existing;
     const faction: Faction = opts.faction ?? 'enemy';
@@ -1774,8 +1886,8 @@ export class Game {
       sightOcclusion: this.sightOcclusion && faction === 'enemy' ? this.sightOcclusion : undefined,
       faction,
       hitMask: faction === 'friend' ? LAYER.WORLD | LAYER.ACTOR : LAYER.WORLD | LAYER.PLAYER | LAYER.ACTOR,
-      followGoal: faction === 'friend' ? this.squadmates.goalFor(id) : undefined,
-      escort: faction === 'friend' ? this.squadmates.escortFor(id) : undefined,
+      followGoal: faction === 'friend' ? (opts.support ? this.support : this.squadmates).goalFor(id) : undefined,
+      escort: faction === 'friend' ? (opts.support ? this.support : this.squadmates).escortFor(id) : undefined,
     });
     b.faction = faction;
     b.nameKey = opts.nameKey ?? null;
@@ -1890,6 +2002,8 @@ export class Game {
     for (const b of [...this.bots.values()]) if (b.faction === 'enemy') this.despawnBot(b.id);
     this.squadmates.setOrder('follow');
     this.squadmates.pace = 'normal';
+    this.support.setOrder('follow');
+    this.support.pace = 'normal';
     this.mission.squadDest = null;
     this.mission.objectiveMarker = null;
     this.mission.markerOnLeader = false;
@@ -1909,6 +2023,7 @@ export class Game {
     // DV-087: người còn lại gào tên đồng đội vừa ngã
     this.squadmates.buddyDown(b.id, b.nameKey ?? null);
     this.squadmates.remove(b.id);
+    this.support.remove(b.id);
     return true;
   }
 
@@ -1919,6 +2034,7 @@ export class Game {
     b.dispose(this.scene);
     this.bots.delete(id);
     this.squadmates.remove(id);
+    this.support.remove(id);
   }
 
   /** sang level khác (giữ tham số URL trừ level) — tải lại trang (mỗi level dựng lại renderer/physics/nav) */
@@ -1952,6 +2068,9 @@ export class Game {
     this.fx.reset();
     this.smokeKick = 0;
     this.shock = this.shockFlash = 0;
+    this.mudPending = 0;
+    this.ammoGivenAt.clear();
+    this.resupplyHold = 0;
     this.film = this.filmTarget = this.filmDefault;
     this.hushLeft = 0;
     this.player.controller.speedMul = 1;

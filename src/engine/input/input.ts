@@ -16,6 +16,8 @@ export interface InputSnapshot {
   /** interact = edge (bấm 1 lần, cho tương tác một-nhịp như cắt relay); interactHeld = GIỮ (thanh tiến trình bộc phá/gắn súng — M2 R1) */
   interact: boolean;
   interactHeld: boolean;
+  /** DV-090 nằm/đứng dậy (edge, phím Z) */
+  prone?: boolean;
   /** delta chuột tích lũy từ snapshot trước (pixel) */
   dx: number;
   dy: number;
@@ -28,13 +30,14 @@ export interface InputSource {
 }
 
 export function emptySnapshot(): InputSnapshot {
-  return { fwd: 0, right: 0, sprint: false, crouch: false, jump: false, fire: false, ads: false, reload: false, interact: false, interactHeld: false, dx: 0, dy: 0 };
+  return { fwd: 0, right: 0, sprint: false, crouch: false, jump: false, fire: false, ads: false, reload: false, interact: false, interactHeld: false, prone: false, dx: 0, dy: 0 };
 }
 
 export function clearSnapshot(s: InputSnapshot): void {
   s.fwd = 0;
   s.right = 0;
   s.sprint = s.crouch = s.jump = s.fire = s.ads = s.reload = s.interact = s.interactHeld = false;
+  s.prone = false;
   s.dx = 0;
   s.dy = 0;
 }
@@ -51,6 +54,7 @@ export interface KeyBindings {
   jump: string[];
   reload: string[];
   interact: string[];
+  prone: string[];
 }
 
 export const DEFAULT_BINDINGS: KeyBindings = {
@@ -63,6 +67,7 @@ export const DEFAULT_BINDINGS: KeyBindings = {
   jump: ['Space'],
   reload: ['KeyR'],
   interact: ['KeyF'],
+  prone: ['KeyZ'],
 };
 
 /** Bàn phím + chuột (pointer lock). Mouse delta tích lũy giữa hai snapshot; nút giữ theo trạng thái. */
@@ -74,7 +79,7 @@ export class KeyboardMouseInput implements InputSource {
   private fire = false;
   private ads = false;
   /** jump/reload/interact là edge: bấm 1 lần → true đúng 1 snapshot */
-  private edges = { jump: false, reload: false, interact: false };
+  private edges = { jump: false, reload: false, interact: false, prone: false };
   bindings: KeyBindings = DEFAULT_BINDINGS;
   adsHold = true;
   private adsToggle = false;
@@ -91,6 +96,7 @@ export class KeyboardMouseInput implements InputSource {
     if (this.bindings.jump.includes(e.code)) this.edges.jump = true;
     if (this.bindings.reload.includes(e.code)) this.edges.reload = true;
     if (this.bindings.interact.includes(e.code)) this.edges.interact = true;
+    if (this.bindings.prone.includes(e.code)) this.edges.prone = true;
     if (e.code === 'Space') e.preventDefault();
   };
   private onKeyUp = (e: KeyboardEvent): void => {
@@ -153,12 +159,13 @@ export class KeyboardMouseInput implements InputSource {
     out.reload = this.edges.reload;
     out.interact = this.edges.interact;
     out.interactHeld = this.has(b.interact);
+    out.prone = this.edges.prone;
     out.fire = this.fire;
     out.ads = this.adsHold ? this.ads : this.adsToggle;
     out.dx = this.dx;
     out.dy = this.dy;
     this.dx = 0;
     this.dy = 0;
-    this.edges.jump = this.edges.reload = this.edges.interact = false;
+    this.edges.jump = this.edges.reload = this.edges.interact = this.edges.prone = false;
   }
 }

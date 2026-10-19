@@ -27,7 +27,7 @@ export interface SquadDeps {
 }
 
 /** DV-087 loại câu hô có nhiều biến thể (content/voice/squad-barks.json) */
-export type BarkKind = 'contact' | 'reload' | 'kill' | 'hurt' | 'cover' | 'moving' | 'pinned' | 'grenade' | 'warnPlayer' | 'buddyDown' | 'blast' | 'rally';
+export type BarkKind = 'contact' | 'reload' | 'kill' | 'hurt' | 'cover' | 'moving' | 'pinned' | 'grenade' | 'warnPlayer' | 'buddyDown' | 'blast' | 'rally' | 'giveAmmo' | 'offerAmmo';
 interface BarkLine {
   t: string;
   who?: string[];
@@ -35,7 +35,7 @@ interface BarkLine {
 const BARK_LINES = (barkDef as unknown as { kinds: Record<BarkKind, { lines: BarkLine[] }> }).kinds;
 const BARK_NAMES = (barkDef as unknown as { names: Record<string, string> }).names;
 /** độ ưu tiên phụ đề theo loại (cảnh báo chen được câu hô thường) */
-const BARK_PRIORITY: Record<BarkKind, number> = { contact: 4, reload: 3, kill: 3, hurt: 4, cover: 4, moving: 3, pinned: 4, grenade: 9, warnPlayer: 7, buddyDown: 8, blast: 6, rally: 3 };
+const BARK_PRIORITY: Record<BarkKind, number> = { contact: 4, reload: 3, kill: 3, hurt: 4, cover: 4, moving: 3, pinned: 4, grenade: 9, warnPlayer: 7, buddyDown: 8, blast: 6, rally: 3, giveAmmo: 6, offerAmmo: 6 };
 /** chống spam (DV-087): ≥ 4,5 s mỗi người, ≥ 1,6 s cả tổ — nhiều câu hơn trước vì câu không lặp */
 const PER_PERSON_S = 4.5;
 const SQUAD_GAP_S = 1.6;
@@ -89,16 +89,21 @@ export class Squadmates {
   private randN = 0;
   private lastWarnPlayerAt = -Infinity;
   private lastBlastAt = -Infinity;
+  private lastOfferAt = -Infinity;
   private lastRallyAt = -Infinity;
   /** bán kính neo khi chiến đấu (m) */
   escortRadius = 14;
   holdRadius = 8;
   suppressMs = 12000;
 
-  constructor(private readonly deps: SquadDeps) {}
+  /** DV-090 vị trí đứng bắt đầu từ ô này (tiểu đội bộ đội không tên đi sau tổ Quyết: ô 4 trở đi) */
+  constructor(
+    private readonly deps: SquadDeps,
+    private readonly slotBase = 0,
+  ) {}
 
   add(actor: BotActor, role: 'leader' | 'follower'): void {
-    this.members.push({ actor, role, slot: this.members.filter((m) => m.role === 'follower').length, lastBarkAt: -Infinity });
+    this.members.push({ actor, role, slot: this.slotBase + this.members.filter((m) => m.role === 'follower').length, lastBarkAt: -Infinity });
   }
 
   remove(id: string): void {
@@ -390,6 +395,36 @@ export class Squadmates {
     const m = this.nearestToPlayer();
     if (!m || !this.speakVariant(m, 'warnPlayer')) return false;
     this.lastWarnPlayerAt = now;
+    this.lastAnyBarkAt = now;
+    m.lastBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  /** DV-090 đưa đạn cho Lâm: người được xin nói một câu (bỏ qua chống spam người, chỉ giữ khoảng cách 1 s cả tổ) */
+  giveAmmo(actorId: string): boolean {
+    const m = this.members.find((mm) => mm.actor.id === actorId);
+    if (!m || !m.actor.bot.alive) return false;
+    const now = this.deps.now();
+    if (now - this.lastAnyBarkAt < 1) return false;
+    if (!this.speakVariant(m, 'giveAmmo')) return false;
+    m.lastBarkAt = now;
+    this.lastAnyBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  /** DV-090 Lâm hết đạn: đồng đội gần nhất trong `maxDist` m gọi lại lấy đạn — ≥ 20 s một lần */
+  offerAmmo(maxDist = 15): boolean {
+    const now = this.deps.now();
+    if (now - this.lastOfferAt < 20 || now - this.lastAnyBarkAt < 1.5) return false;
+    const m = this.nearestToPlayer();
+    if (!m) return false;
+    const p = this.deps.player().feet;
+    const q = m.actor.bot.position;
+    if (Math.hypot(p[0] - q[0], p[2] - q[2]) > maxDist) return false;
+    this.lastOfferAt = now;
+    if (!this.speakVariant(m, 'offerAmmo')) return false;
     this.lastAnyBarkAt = now;
     m.lastBarkAt = now;
     this.stats.barks++;

@@ -6,7 +6,7 @@
  * hip ↔ ADS lerp theo weapon.ads, sprint lerp theo tốc độ, bob/sway theo CameraRig + chuột, kick khi bắn, dip khi reload.
  * Xuất `muzzleWorld` + `ejectWorld` cho FX. Chỉ render-side. Không Math.random (kick lệch theo dãy vàng).
  */
-import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
+import { Group, Mesh, Object3D, BoxGeometry, CylinderGeometry, TorusGeometry, MeshStandardNodeMaterial, PointLight, Vector3, Color, Matrix4, Euler, Quaternion, Box3, type PerspectiveCamera, type BufferGeometry } from 'three/webgpu';
 import { ArtistViewmodel, type ArtistViewmodelOptions } from './artistViewmodel';
 import type { FpViewmodelAsset } from '@engine/render/assets';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -239,6 +239,20 @@ export class WeaponViewModel {
   private reloadDur = 1;
   private boltT = 0;
   private sprintBlend = 0;
+  /**
+   * DV-090 (Chủ nhà cho phép ngoại lệ DV-054): xoay/hạ CẢ KHỐI tay + súng của nghệ sĩ như một vật, không sửa xương, không IK.
+   * Chạy thục mạng: súng chéo trước ngực, nòng chếch lên trái, không chĩa ra trước. Bò: súng hạ gần khuất dưới khung.
+   */
+  prone = false;
+  /** hệ số tư thế (rad, m trong hệ lớp súng) — để dạng dữ liệu cho dễ chỉnh */
+  readonly poseTune = { port: { rx: -0.35, ry: 0.7, rz: 0.4, px: 0.07, py: -0.1, pz: 0 }, crawl: { rx: -0.45, ry: 0.2, rz: 0.3, px: 0, py: -0.09, pz: 0.03 } };
+  private portBlend = 0;
+  private crawlBlend = 0;
+  private proneBlend = 0;
+  private pivot: Vector3 | null = null;
+  private readonly qPose = new Quaternion();
+  private readonly ePose = new Euler();
+  private readonly vPose = new Vector3();
   /** viewmodel của nghệ sĩ dùng nguyên trạng (DV-055): AK-47 + tay AB3DX, clip chọn theo VmStateMachine */
   private artist: ArtistViewmodel | null = null;
   private fpvmRoot: Group | null = null;
@@ -391,9 +405,13 @@ export class WeaponViewModel {
       // Rig nghệ sĩ: mọi tư thế (hông, ngắm, chạy, nạp, bắn) đến từ clip. Ở đây chỉ còn độ trễ theo chuột
       // (cả khối súng + tay xoay nhẹ theo quán tính), không cộng bob vì camera đã nhún và clip đi đã có nhún.
       this.lastAds = ads;
-      this.artist.update(dt, { ads, speed, sprinting });
-      this.root.position.set(this.swayX * 0.6, this.swayY * 0.4, 0);
-      this.root.rotation.set(this.swayY * 0.5, this.swayX * 0.8, this.swayX * 0.4);
+      this.artist.update(dt, { ads, speed, sprinting: sprinting && !this.prone });
+      const portT = sprinting && !this.prone && ads < 0.05 && speed > 3.5 && !this.artist.busy ? 1 : 0;
+      const crawlT = this.prone && speed > 0.3 ? 1 : 0;
+      this.portBlend += (portT - this.portBlend) * Math.min(1, dt * (portT ? 6 : 9));
+      this.crawlBlend += (crawlT - this.crawlBlend) * Math.min(1, dt * 7);
+      this.proneBlend += ((this.prone ? 1 : 0) - this.proneBlend) * Math.min(1, dt * 5);
+      this.poseArtist(dt);
       this.artist.muzzle.getWorldPosition(this.muzzleWorld);
       this.artist.eject.getWorldPosition(this.ejectWorld);
       return;
@@ -427,6 +445,34 @@ export class WeaponViewModel {
     r.z = this.tmp.z + this.swayX * 0.6 - dip * 0.5 + k * this.kickSide * 0.05;
     this.muzzleAnchor.getWorldPosition(this.muzzleWorld);
     this.ejectAnchor.getWorldPosition(this.ejectWorld);
+  }
+
+  /** DV-090 cộng tư thế chạy/bò lên khối tay súng nghệ sĩ: xoay quanh tâm khối (không quanh mắt) rồi dời */
+  private poseArtist(_dt: number): void {
+    const a = this.artist!;
+    if (!this.pivot) {
+      // tâm khối tay + súng trong hệ root (đo một lần ở tư thế gốc)
+      this.root.position.set(0, 0, 0);
+      this.root.rotation.set(0, 0, 0);
+      this.root.updateMatrixWorld(true);
+      const box = new Box3().setFromObject(a.root);
+      this.pivot = box.isEmpty() ? new Vector3(0.08, -0.12, -0.3) : this.root.worldToLocal(box.getCenter(new Vector3()));
+    }
+    const p = this.portBlend;
+    const c = this.crawlBlend;
+    const pr = this.proneBlend;
+    const P = this.poseTune.port;
+    const C = this.poseTune.crawl;
+    const e = this.ePose.set(this.swayY * 0.5 + P.rx * p + C.rx * c, this.swayX * 0.8 + P.ry * p + C.ry * c, this.swayX * 0.4 + P.rz * p + C.rz * c);
+    this.qPose.setFromEuler(e);
+    // xoay quanh pivot: pos = pivot − R·pivot + dời
+    this.vPose.copy(this.pivot).applyQuaternion(this.qPose).multiplyScalar(-1).add(this.pivot);
+    this.root.position.set(
+      this.vPose.x + this.swayX * 0.6 + P.px * p + C.px * c,
+      this.vPose.y + this.swayY * 0.4 + P.py * p + C.py * c - 0.012 * pr,
+      this.vPose.z + P.pz * p + C.pz * c,
+    );
+    this.root.quaternion.copy(this.qPose);
   }
 
   /**

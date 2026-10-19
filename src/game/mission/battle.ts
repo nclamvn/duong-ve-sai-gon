@@ -314,7 +314,8 @@ export class Battle {
   private mortarPoint(m: MortarRun): [number, number] | null {
     const f = this.game.player.controller.feet;
     for (let k = 0; k < 6; k++) {
-      const a = this.rng.next() * Math.PI * 2;
+      // DV-090: 70 % số quả rơi trong nón ±60° phía người chơi đang nhìn (thấy được cột đất), còn lại rơi quanh
+      const a = this.rng.next() < 0.7 ? this.game.player.rig.yaw + Math.PI + (this.rng.next() - 0.5) * 2.1 : this.rng.next() * Math.PI * 2;
       const r = m.spare + this.rng.next() * 26;
       const x = f[0] + Math.sin(a) * r;
       const z = f[2] + Math.cos(a) * r;

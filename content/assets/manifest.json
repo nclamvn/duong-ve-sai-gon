@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "generatedAt": "2026-10-12T03:05:28.447Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 221420290,
+  "totalBytes": 222366667,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -5504,8 +5504,8 @@
         },
         {
           "path": "assets/voice/manifest.json",
-          "bytes": 179421,
-          "sha256": "32906195a510b7a0be4ee4f5f3cecc94a01f93421aeef978292bc861e543a803"
+          "bytes": 189162,
+          "sha256": "3c57cf92bac8221157d43f251b6a7c81345d62382f04c196eb4bff4fae8966b0"
         },
         {
           "path": "assets/voice/verify-report.json",
@@ -8088,6 +8088,116 @@
           "sha256": "a7bd559b142de4913b10184c9fe0d8c84b4c5fc8099ae5119e9e1c44e275b1d4"
         },
         {
+          "path": "assets/voice/vi/sq_giveAmmo_0_DAT.mp3",
+          "bytes": 13837,
+          "sha256": "0fd1f4ae69f942276b6fc63a20bcad990684474bd48029997251b2766a3f3ba8"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_0_HOAN.mp3",
+          "bytes": 17285,
+          "sha256": "572955137aecfd67f2863ebe5afe43261d6d1f38639520db9299805e49d2ac9f"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_0_KHANG.mp3",
+          "bytes": 16658,
+          "sha256": "d45076c2b8da1bb752d68fa359888c6749ba37a75efa3873bcc402e0bc4ce58e"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_0_LONG.mp3",
+          "bytes": 21987,
+          "sha256": "bc9170356d84902af575e81df3f478ce682eeb1d0e6658dc6e0646d876be717b"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_0_QUYET.mp3",
+          "bytes": 16972,
+          "sha256": "363f6a3d844933d482b1751c0d12e29d0484caf33818b0d41bcb42a788fb7e52"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_1_DAT.mp3",
+          "bytes": 22301,
+          "sha256": "58d4d7ce2eaf27446ed42f28f4e4ff86c1d76fd00b1332f653c42dcd65be7766"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_1_HOAN.mp3",
+          "bytes": 21987,
+          "sha256": "cdef4ead21c128166ead4df7250fe270ad4e857f7ecd97069bdf30392b20c954"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_1_KHANG.mp3",
+          "bytes": 33586,
+          "sha256": "a3f3e7779433f6a449b9db4ba6619e696df91b8f769bd7b719620c671544cf91"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_1_LONG.mp3",
+          "bytes": 42676,
+          "sha256": "acf4048886d605a9a8c341439d928e943542e07cea1924141405221b1fcb97cf"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_1_QUYET.mp3",
+          "bytes": 20420,
+          "sha256": "bef42348a21d720817197e98d5b16785483d595a9745b13e333eede268016e01"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_2_DAT.mp3",
+          "bytes": 18539,
+          "sha256": "37dc6e0a615f9872be1a4009571695bf4471fbabde46c90aa75d4643e1589ba6"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_2_HOAN.mp3",
+          "bytes": 19166,
+          "sha256": "de243d269b943f0b57234e1ea1f3d12d1327b280128f3d8aa9757fd1ef74da7b"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_2_KHANG.mp3",
+          "bytes": 35467,
+          "sha256": "506a6512e01af5110632adb7d2b34fefec3fe95d25e06edb3912a4e9faafb8fd"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_2_LONG.mp3",
+          "bytes": 22928,
+          "sha256": "9d557b8dd95117f23721a55f8c31511a63f9d1edc3abe4e97275bf433a5de4f0"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_2_QUYET.mp3",
+          "bytes": 20734,
+          "sha256": "1d0e023dbd5a1af2b940cdaf50f3ca280af7ad83edd150343194b70bc038d34a"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_3_DAT.mp3",
+          "bytes": 15405,
+          "sha256": "cfeccc42ecfd3e95d6315002c72a9aa1e34f2c443d4309bdd13699aa9888c5a5"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_3_HOAN.mp3",
+          "bytes": 16031,
+          "sha256": "6f51a8040f3d2552fac2930f9e940d913162e53e560da09e105caccf0c12a7f0"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_3_KHANG.mp3",
+          "bytes": 27630,
+          "sha256": "a13943833370ef18ecd5964942727f30cc78e8ef6f44ecac401193893f275835"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_3_LONG.mp3",
+          "bytes": 19166,
+          "sha256": "cef78593eb85b11f7200f5312b52f519d625fca90a06e81915140c8708d139cb"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_3_QUYET.mp3",
+          "bytes": 11643,
+          "sha256": "5b67d54356aca345867eb9a7c365a6480d447ca80f1994940f42e25f0e5ca97e"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_4_DAT.mp3",
+          "bytes": 26063,
+          "sha256": "adcb11320e20aa78c16271183f06df03283e215366931b628e4aa0491b69e841"
+        },
+        {
+          "path": "assets/voice/vi/sq_giveAmmo_4_QUYET.mp3",
+          "bytes": 22614,
+          "sha256": "9b772a3ffc3dc3efad3e2d942babce2d9034d0b3ae8f16fb6f6ff9ff2c245dbb"
+        },
+        {
           "path": "assets/voice/vi/sq_grenade_0_DAT.mp3",
           "bytes": 9762,
           "sha256": "59b8218443594d31311888f4391599f5585e0973d173dc092a12c04cd64d8ce9"
@@ -8661,6 +8771,106 @@
           "path": "assets/voice/vi/sq_moving_6_QUYET.mp3",
           "bytes": 18539,
           "sha256": "07764ff5d97285351cf4889e28ccead8db408eff27b07625d48f84892ad56472"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_0_DAT.mp3",
+          "bytes": 25749,
+          "sha256": "b8784fc0c59a912ea06871cbf09ea4ad2ab10b6141f7e5b0281c03b4912b5d95"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_0_HOAN.mp3",
+          "bytes": 24495,
+          "sha256": "c253360d7d4a9904c001d2e0884cf015cf9342a2460b7aaa66136a60f1dd4271"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_0_KHANG.mp3",
+          "bytes": 22614,
+          "sha256": "ffd0f5f225c50a49f9d7f4577e3b8555f8b545a95a8e0cf780a451fd2b8c212e"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_0_LONG.mp3",
+          "bytes": 26376,
+          "sha256": "42b8852f44bc1bf0053c863d3e9e36de19b9594a42d58585e8d4aa3b56a59447"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_0_QUYET.mp3",
+          "bytes": 23555,
+          "sha256": "9e82e67176941518a9d60576e3c29655dfd962f98ccbe70bf31a348a1db1141a"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_1_DAT.mp3",
+          "bytes": 17285,
+          "sha256": "0ceddb4e204b9e2ffa43b0e43d93527f32ecdfc580615965dd8cbb2a5376a300"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_1_HOAN.mp3",
+          "bytes": 17285,
+          "sha256": "8d00eeaa09cc9aca787369c732e7c61eac279f5bf6cb90d86591a9eda6542ea8"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_1_KHANG.mp3",
+          "bytes": 13524,
+          "sha256": "020483e445f87108e734c9139ccfa3369183562d4c3c29adfa21e77d99565b19"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_1_LONG.mp3",
+          "bytes": 22928,
+          "sha256": "ffde57baa255c6bb9079ebc83dc11a9af4dc5fb0d9d831385bb1eb2c42a269af"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_1_QUYET.mp3",
+          "bytes": 17912,
+          "sha256": "dab2602a7788dab26b315e4993adb270b34fd8dd0ece012be1675f6b2c3e792f"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_2_DAT.mp3",
+          "bytes": 26063,
+          "sha256": "b106bf77fbfb9c375ba486d14d868beea15c8a43e92e0c22b8a55fed9450230e"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_2_HOAN.mp3",
+          "bytes": 29197,
+          "sha256": "1ca93c99e86e5507e2614fbf5ab4ab7bfcfe0ba1e4ad5a8bec356121dfd87676"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_2_KHANG.mp3",
+          "bytes": 23555,
+          "sha256": "597580187e5a8a54620c1642136ccc55e86b951967d60511760d69dc1c4ee71b"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_2_LONG.mp3",
+          "bytes": 26063,
+          "sha256": "d8dce720dcfd986ead82859d4bb9ee31ae7e2d2fc0566ca3ada6907a295f1730"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_2_QUYET.mp3",
+          "bytes": 28884,
+          "sha256": "ea6e27e0e493c8bb445fbd50067fbc7bd12970a5db080b792add65f947e6e2c3"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_3_DAT.mp3",
+          "bytes": 21987,
+          "sha256": "a7a76c60a0c5efaf0f34f85df07326baeaf8da5ff21a042836c73ffa2895612c"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_3_HOAN.mp3",
+          "bytes": 20107,
+          "sha256": "5c7a4b10685d948d9b11a9276e4f27f3e85faa112051de9a23a7e29fcc73803e"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_3_KHANG.mp3",
+          "bytes": 16031,
+          "sha256": "f100ef02a8e614025b6f53ca936b42f85db5f7bceaedb18b6acb2d450445763b"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_3_LONG.mp3",
+          "bytes": 31078,
+          "sha256": "940068d58216f9bb12a92ea453a8566c7fefca0a75b59c4d82a1f41b47332eb5"
+        },
+        {
+          "path": "assets/voice/vi/sq_offerAmmo_3_QUYET.mp3",
+          "bytes": 18853,
+          "sha256": "6dbc1645286e7874d45fe69230abf10df8a6c272ff4364069302d544456573d2"
         },
         {
           "path": "assets/voice/vi/sq_pinned_0_DAT.mp3",

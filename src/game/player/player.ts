@@ -109,7 +109,7 @@ export class Player {
       yaw: this.rig.yaw,
       pitch: this.rig.pitch,
       health: this.health,
-      stance: this.controller.stance,
+      stance: this.controller.stance === 'prone' ? 'crouch' : this.controller.stance,
     };
   }
 
@@ -118,12 +118,12 @@ export class Player {
     this.rig.reset(s.yaw, s.pitch);
     this.health = s.health;
     this.alive = s.health > 0;
-    if (s.stance === 'crouch') this.controller.stance = 'crouch';
+    this.controller.forceStance(s.stance === 'crouch' ? 'crouch' : 'stand');
   }
 
   reset(yaw = 0): void {
+    this.controller.forceStance('stand');
     this.controller.teleport(this.spawn[0], this.spawn[1], this.spawn[2]);
-    this.controller.stance = 'stand';
     this.rig.reset(yaw, 0);
     this.health = this.maxHealth;
     this.alive = true;

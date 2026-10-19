@@ -133,6 +133,8 @@ export class MissionHost implements MissionWorld {
     this.ev.on('SQUAD_ORDER', (e) => {
       game.squadmates.setOrder(e.order);
       if (e.pace) game.squadmates.pace = e.pace;
+      game.support.setOrder(e.order);
+      if (e.pace) game.support.pace = e.pace;
       // điểm đến chỉ sống trong lệnh có `zone`; lệnh khác xoá (Quyết lại dẫn theo mục tiêu/người chơi)
       const z = e.zone ? this.def.zones?.find((zz) => zz.id === e.zone) : undefined;
       this.squadDest = z ? [z.center[0], this.groundY(z.center[0], z.center[2], z.center[1]), z.center[2]] : null;
@@ -265,14 +267,22 @@ export class MissionHost implements MissionWorld {
     const ids: string[] = [];
     for (let i = 0; i < count; i++) {
       const o = this.spawnOpts(groupId, i);
-      const base = this.game.arena.botSpawns[o.spawnName ?? spawnName] ?? this.game.arena.botSpawns[spawnName] ?? this.game.arena.botSpawns['bot_a']!;
+      const list = this.def.spawnGroups?.find((x) => x.id === groupId)?.spawns;
+      // DV-090: nhóm đông hơn danh sách điểm → dùng lại điểm theo vòng, lệch 2,8 m mỗi vòng (không chồng lên người đứng trước)
+      const lap = list && list.length ? Math.floor(i / list.length) : 0;
+      const name = list && list.length ? list[i % list.length]! : (o.spawnName ?? spawnName);
+      const base = this.game.arena.botSpawns[name] ?? this.game.arena.botSpawns[spawnName] ?? this.game.arena.botSpawns['bot_a']!;
       const id = `${groupId}_${this.spawnCounter++}`;
       // mỗi thành viên có điểm riêng → đặt đúng điểm; chung điểm → rải vòng 2,5 m
-      const own = !!this.game.arena.botSpawns[o.spawnName ?? ''] && o.spawnName !== spawnName;
-      const a = (i / Math.max(1, count)) * Math.PI * 2;
-      const pos: [number, number, number] = own || i === 0 ? [base[0], base[1], base[2]] : [base[0] + Math.cos(a) * 2.5, base[1], base[2] + Math.sin(a) * 2.5];
-      const b = this.game.spawnBot(id, groupId, pos, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(groupId, pos, base, o.faction) });
-      if (o.faction === 'friend') this.game.squadmates.add(b, i === 0 ? 'leader' : 'follower');
+      const own = !!this.game.arena.botSpawns[name] && name !== spawnName;
+      const a = (i / Math.max(1, count)) * Math.PI * 2 + lap * 1.9;
+      const ring = lap > 0 ? 2.8 : 2.5;
+      const pos: [number, number, number] = (own || i === 0) && lap === 0 ? [base[0], base[1], base[2]] : [base[0] + Math.cos(a) * ring, base[1], base[2] + Math.sin(a) * ring];
+      if (lap > 0 && this.game.terrain) pos[1] = this.game.terrain.heightAt(pos[0], pos[2]);
+      const support = o.faction === 'friend' && o.archetype !== 'squad';
+      const b = this.game.spawnBot(id, groupId, pos, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(groupId, pos, base, o.faction), support });
+      if (support) this.game.support.add(b, 'follower');
+      else if (o.faction === 'friend') this.game.squadmates.add(b, i === 0 ? 'leader' : 'follower');
       this.applyBehavior(groupId, b);
       this.spawned.add(id);
       ids.push(id);
@@ -356,8 +366,10 @@ export class MissionHost implements MissionWorld {
       if (!b) {
         const idx = Number(a.id.slice(a.group.length + 1));
         const o = this.spawnOpts(a.group, Number.isFinite(idx) ? idx % Math.max(1, this.def.spawnGroups?.find((x) => x.id === a.group)?.count ?? 1) : 0);
-        b = g.spawnBot(a.id, a.group, a.position, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(a.group, a.position, a.position, o.faction) });
-        if (o.faction === 'friend') g.squadmates.add(b, idx === 0 ? 'leader' : 'follower');
+        const support = o.faction === 'friend' && o.archetype !== 'squad';
+        b = g.spawnBot(a.id, a.group, a.position, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(a.group, a.position, a.position, o.faction), support });
+        if (support) g.support.add(b, 'follower');
+        else if (o.faction === 'friend') g.squadmates.add(b, idx === 0 ? 'leader' : 'follower');
         this.spawned.add(a.id);
       }
       b.reset();
@@ -369,7 +381,11 @@ export class MissionHost implements MissionWorld {
       b.dummy.group.position.set(a.position[0], a.position[1], a.position[2]);
       if (a.alive && b.faction === 'enemy') this.applyBehavior(a.group, b);
       // DV-085 đồng đội hy sinh theo kịch bản: về checkpoint trước lúc hy sinh thì người đó trở lại tổ, sau thì không
-      if (b.faction === 'friend') {
+      if (b.faction === 'friend' && !b.nameKey) {
+        const inSup = g.support.list().includes(b);
+        if (a.alive && !inSup) g.support.add(b, 'follower');
+        else if (!a.alive && inSup) g.support.remove(b.id);
+      } else if (b.faction === 'friend') {
         const inSquad = g.squadmates.list().includes(b);
         if (a.alive && !inSquad) g.squadmates.add(b, b.nameKey === 'name.quyet' ? 'leader' : 'follower');
         else if (!a.alive && inSquad) g.squadmates.remove(b.id);
@@ -443,6 +459,8 @@ export class MissionHost implements MissionWorld {
     }
     this.game.squadmates.setOrder(order);
     this.game.squadmates.pace = pace;
+    this.game.support.setOrder(order);
+    this.game.support.pace = pace;
     const z = zone ? this.def.zones?.find((zz) => zz.id === zone) : undefined;
     this.squadDest = z ? [z.center[0], this.groundY(z.center[0], z.center[2], z.center[1]), z.center[2]] : null;
   }
@@ -608,6 +626,7 @@ export class MissionHost implements MissionWorld {
     for (const id of this.spawned) this.game.despawnBot(id);
     this.spawned.clear();
     this.game.squadmates.clear();
+    this.game.support.clear();
     this.setMarker(null, null);
     this.spawnCounter = 0;
     this.runtime.reset();

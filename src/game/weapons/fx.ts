@@ -7,7 +7,7 @@ import {
   InstancedMesh, PlaneGeometry, BoxGeometry, MeshBasicNodeMaterial, MeshStandardNodeMaterial, Matrix4, Vector3, Quaternion, Object3D, Scene, DoubleSide,
   PointLight, AdditiveBlending, Color, BufferGeometry, Float32BufferAttribute, InstancedBufferAttribute, type PerspectiveCamera, type Node,
 } from 'three/webgpu';
-import { texture, uv, vec2, vec3, vec4, float, floor, attribute, mix } from 'three/tsl';
+import { texture, uv, vec2, vec3, vec4, float, floor, attribute, mix, length, smoothstep } from 'three/tsl';
 import type { EventBus, Prng } from '@engine/core';
 import type { WeaponEvents } from './weapon';
 import { makeMuzzleAtlas, makeSoftPuff, makeBulletHole } from './fxTextures';
@@ -68,9 +68,9 @@ const _fwd = new Vector3(0, 0, 1);
 const _tmp = new Vector3();
 const HIDDEN = new Matrix4().makeScale(0, 0, 0);
 /** đèn nòng: decay 1 (tuyến tính) để súng sát đèn không cháy trắng mà sàn 3–5 m vẫn ánh cam (TIP-011); DV-087 mạnh hơn, xa hơn */
-const MUZZLE_LIGHT = 7;
+const MUZZLE_LIGHT = 12; // DV-090: 7 → 12, soi sáng cây lá quanh mình mỗi phát
 /** thời gian sống của một chớp lửa nòng (s): ~3 khung 60 Hz, khung đầu to nhất rồi co và nguội */
-const FLASH_LIFE = 0.055;
+const FLASH_LIFE = 0.07; // DV-090: 0,055 → 0,07 (~4 khung ở 60 fps, mắt kịp thấy)
 /** khói nòng (DV-087): nhiệt tích theo phát bắn, nguội theo giây; nóng quá ngưỡng thì nòng toả khói mảnh sau loạt bắn */
 const HEAT_PER_SHOT = 1;
 const HEAT_COOL = 0.9;
@@ -114,6 +114,9 @@ export class WeaponFx {
   private readonly flashAge: InstancedBufferAttribute;
   private readonly flashSeed: InstancedBufferAttribute;
   private readonly flashScale: Float32Array;
+  /** DV-090 quầng sáng quanh đầu nòng (sprite hướng camera, cùng chỉ số với chớp) */
+  private readonly glows: InstancedMesh;
+  private readonly glowAge: InstancedBufferAttribute;
   /** nhiệt nòng (DV-087) và thời điểm phát bắn gần nhất (giây, đồng hồ FX) */
   private heat = 0;
   private clock = 0;
@@ -208,7 +211,8 @@ export class WeaponFx {
     const flashSample = texture(atlas, fuv);
     const glow = float(1).sub(age).pow(1.6);
     // nguội: khung đầu trắng vàng, sau đó ngả cam đỏ
-    const warm = mix(vec3(2.4, 2.0, 1.55), vec3(1.6, 0.72, 0.28), age);
+    // DV-090: sáng hơn ~1,6 lần để bloom loé thành quầng (Chủ nhà: lửa nòng chưa đã mắt)
+    const warm = mix(vec3(4.2, 2.7, 1.2), vec3(2.6, 1.0, 0.3), age);
     flashMat.colorNode = vec4(flashSample.rgb.mul(warm).mul(glow), 1.0);
     flashMat.opacityNode = flashSample.a.mul(glow);
     flashMat.fog = false;
@@ -239,6 +243,24 @@ export class WeaponFx {
     this.flashScale = new Float32Array(capacity.flashes);
     for (let i = 0; i < capacity.flashes; i++) this.flashes.setMatrixAt(i, HIDDEN);
     scene.add(this.flashes);
+    // DV-090 quầng: không khí nóng sáng quanh đầu nòng (đĩa mềm to gấp ~4 chớp, cam ấm, tắt nhanh hơn chớp) — cho bloom ăn
+    const glowMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
+    glowMat.fog = false;
+    const gAge = attribute('glowAge', 'float') as unknown as Node<'float'>;
+    const gr = length(uv().sub(0.5)).mul(2);
+    const gFall = smoothstep(float(0), float(1), gr).oneMinus();
+    const gCore = smoothstep(float(0), float(0.35), gr).oneMinus();
+    const gK = float(1).sub(gAge).pow(2.2);
+    glowMat.colorNode = vec4(mix(vec3(1.1, 0.45, 0.12), vec3(2.2, 1.3, 0.55), gCore).mul(gFall.mul(gFall).mul(0.35).add(gCore.mul(0.6))).mul(gK), 1.0);
+    glowMat.opacityNode = gFall.mul(gK);
+    const glowGeo = new PlaneGeometry(1, 1);
+    this.glowAge = new InstancedBufferAttribute(new Float32Array(capacity.flashes).fill(1), 1);
+    glowGeo.setAttribute('glowAge', this.glowAge);
+    this.glows = new InstancedMesh(glowGeo, glowMat, capacity.flashes);
+    this.glows.frustumCulled = false;
+    this.glows.renderOrder = 7;
+    for (let i = 0; i < capacity.flashes; i++) this.glows.setMatrixAt(i, HIDDEN);
+    scene.add(this.glows);
 
     // Khói/bụi mềm (TIP-013): quad billboard (CPU xoay theo camera), alpha per-instance, texture puff procedural
     const puffTex = makeSoftPuff();
@@ -263,7 +285,7 @@ export class WeaponFx {
     }
     scene.add(this.puffs);
 
-    this.muzzleLight = new PointLight(0xffb060, 0, 7, 1.0);
+    this.muzzleLight = new PointLight(0xffb060, 0, 11, 1.0);
     this.muzzleLight.castShadow = false;
     scene.add(this.muzzleLight);
     this.botLight = new PointLight(0xffb060, 0, 6, 1.0);
@@ -340,12 +362,13 @@ export class WeaponFx {
     if (this.muzzleWorld) _p.copy(this.muzzleWorld);
     else _p.set(origin[0] + dir[0] * 0.5, origin[1] + dir[1] * 0.5 - 0.1, origin[2] + dir[2] * 0.5);
     // DV-087: mỗi phát một dáng, cỡ đổi 0,8–1,2, thỉnh thoảng một chớp to (khí thuốc cháy không đều)
-    const big = this.prng.next() < 0.18 ? 1.35 : 1;
-    this.playerFlash = this.spawnFlash(_p, _n, 1.0 * big);
-    this.spawnSparks(_p, _n, 5);
+    // DV-090: chớp người chơi to hơn (× 1,45), một phần tư số phát bùng to (× 1,4); tia lửa nhiều hơn
+    const big = this.prng.next() < 0.25 ? 1.4 : 1;
+    this.playerFlash = this.spawnFlash(_p, _n, 1.45 * big);
+    this.spawnSparks(_p, _n, 8);
     this.spawnTracer(_p, _n, 80, TRACER.player, 1);
     // khí thuốc phụt: một búi khói xám mỏng bay theo hướng bắn, tan nhanh
-    this.spawnPuffs(_p, _n, 2, 0.05, 0.38, 0.2, 0.8, 2.2);
+    this.spawnPuffs(_p, _n, 3, 0.06, 0.55, 0.26, 0.9, 2.4);
     this.muzzleLight.position.copy(_p);
     this.lightPeak = MUZZLE_LIGHT * (0.8 + this.prng.next() * 0.45) * big;
     this.muzzleLight.intensity = this.lightPeak;
@@ -383,7 +406,19 @@ export class WeaponFx {
     _m.compose(pos, _q, _s);
     this.flashes.setMatrixAt(i, _m);
     this.flashes.instanceMatrix.needsUpdate = true;
+    this.glowAge.setX(i, 0);
+    this.glowAge.needsUpdate = true;
+    this.placeGlow(i, pos, sc);
     return i;
+  }
+
+  /** DV-090 quầng sáng hướng camera tại `pos`, cỡ theo chớp */
+  private placeGlow(i: number, pos: Vector3, sc: number): void {
+    const g = sc * 0.75;
+    _s.set(g, g, g);
+    _m.compose(pos, this.camera.quaternion, _s);
+    this.glows.setMatrixAt(i, _m);
+    this.glows.instanceMatrix.needsUpdate = true;
   }
 
   /**
@@ -477,12 +512,15 @@ export class WeaponFx {
       anyFlash = true;
       if (this.flashLife[i]! <= 0) {
         this.flashes.setMatrixAt(i, HIDDEN);
+        this.glows.setMatrixAt(i, HIDDEN);
         this.flashAge.setX(i, 1);
+        this.glowAge.setX(i, 1);
         if (i === this.playerFlash) this.playerFlash = -1;
         continue;
       }
       const u = 1 - this.flashLife[i]! / FLASH_LIFE;
       this.flashAge.setX(i, u);
+      this.glowAge.setX(i, Math.min(1, u * 1.25));
       // co lại khi nguội: khung đầu to nhất
       const sc = this.flashScale[i]! * (1 - 0.35 * u);
       this.flashes.getMatrixAt(i, _m);
@@ -491,10 +529,13 @@ export class WeaponFx {
       _s.set(sc, sc, sc);
       _m.compose(_p, _q, _s);
       this.flashes.setMatrixAt(i, _m);
+      this.placeGlow(i, _p, this.flashScale[i]! * (1 + 0.3 * u));
     }
     if (anyFlash) {
       this.flashes.instanceMatrix.needsUpdate = true;
       this.flashAge.needsUpdate = true;
+      this.glows.instanceMatrix.needsUpdate = true;
+      this.glowAge.needsUpdate = true;
     }
     // khói nòng (DV-087): nòng nóng sau loạt bắn toả sợi khói mảnh bốc lên, lâu dần theo nhiệt
     this.heat = Math.max(0, this.heat - HEAT_COOL * dt);
@@ -629,8 +670,12 @@ export class WeaponFx {
       this.flashLife[i] = 0;
       this.flashAge.setX(i, 1);
       this.flashes.setMatrixAt(i, HIDDEN);
+      this.glowAge.setX(i, 1);
+      this.glows.setMatrixAt(i, HIDDEN);
     }
     this.flashAge.needsUpdate = true;
+    this.glowAge.needsUpdate = true;
+    this.glows.instanceMatrix.needsUpdate = true;
     this.playerFlash = -1;
     this.heat = 0;
     for (let i = 0; i < this.puffPool.length; i++) {

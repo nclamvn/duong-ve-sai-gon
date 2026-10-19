@@ -129,6 +129,11 @@ export class VmStateMachine {
     this.action = { clip, left: (this.dur[clip] ?? 0) / Math.max(0.05, timeScale), timeScale, fadeIn, fadeOut };
   }
 
+  /** đang phát một hành động (bắn, nạp, rút, xem súng) */
+  get busy(): boolean {
+    return this.action !== null;
+  }
+
   private decide(dt: number, inp: VmInput): VmRequest {
     const adsOn = inp.ads >= 0.5;
     const moving = inp.speed > MOVE_MIN;

@@ -1,7 +1,7 @@
 {
   "$comment": "PRD PLY-001..003 — tất cả số là engineering default, tinh chỉnh ở G1 game feel review",
-  "capsule": { "radius": 0.35, "standHeight": 1.8, "crouchHeight": 1.2, "eyeOffsetFromTop": 0.12 },
-  "move": { "walk": 4.2, "sprint": 6.5, "crouch": 2.0, "accel": 30, "decel": 40, "airControl": 0.25 },
+  "capsule": { "radius": 0.35, "standHeight": 1.8, "crouchHeight": 1.2, "proneHeight": 0.8, "proneEye": 0.42, "eyeOffsetFromTop": 0.12 },
+  "move": { "walk": 4.2, "sprint": 6.5, "crouch": 2.0, "prone": 0.9, "accel": 30, "decel": 40, "airControl": 0.25 },
   "jump": { "velocity": 3.6, "gravity": 9.81, "maxFall": 25 },
   "controller": { "offset": 0.02, "autostepHeight": 0.35, "autostepMinWidth": 0.2, "maxSlopeDeg": 50, "minSlideDeg": 55, "snapToGround": 0.3 },
   "look": { "baseSensitivityRadPerPx": 0.0022, "pitchClampDeg": 89 },

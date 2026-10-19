@@ -152,6 +152,11 @@ export class ArtistViewmodel {
     return ARTIST_VM_FOV;
   }
 
+  /** đang phát hành động (bắn/nạp/rút) — không xoay khối tay súng sang tư thế chạy */
+  get busy(): boolean {
+    return this.sm.busy;
+  }
+
   onShot(adsNow: boolean): void {
     this.sm.shot(adsNow);
   }

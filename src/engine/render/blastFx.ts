@@ -26,6 +26,11 @@ export interface BlastFx {
    * `feet` = chân người chơi (mặt đất), `k` 0..1 theo độ gần.
    */
   rain(feet: readonly [number, number, number], k: number): void;
+  /**
+   * DV-090 đất đá văng thẳng về phía người xem: vụ nổ gần trước mặt → 18 cục đất bay vụt qua sát mặt/hai bên trong ~0,4 s
+   * (trước khi bùn bám kính). `p` tâm nổ, `eye` mắt người chơi, `k` 0..1.
+   */
+  spray(p: readonly [number, number, number], eye: readonly [number, number, number], k: number): void;
   /** mỗi frame: dt (s) */
   update(dt: number): void;
   /**
@@ -37,7 +42,7 @@ export interface BlastFx {
   readonly light: { value: number };
   /** hướng gió (x, z) — Game gán chung uniform gió của rừng */
   readonly wind: { value: Vector2 };
-  readonly stats: { spawned: number; active: number; rains: number };
+  readonly stats: { spawned: number; active: number; rains: number; sprays: number };
 }
 
 const FIREBALL = 16;
@@ -46,6 +51,9 @@ const DUST = 34; // 10 cột + 14 vòng + 10 đám lơ lửng
 /** DV-088 hạt mưa đất mỗi lần, số lần cùng lúc */
 const RAIN = 96;
 const RAINS = 4;
+/** DV-090 cục đất vụt qua mặt mỗi lần, số lần cùng lúc */
+const SPRAY = 18;
+const SPRAYS = 4;
 const COLUMN = 10;
 const RING = 14;
 /** sống lâu nhất của một vụ nổ (s) — đám bụi lơ lửng */
@@ -310,9 +318,51 @@ export function createBlastFx(opts: BlastFxOptions = {}): BlastFx {
   }
   let rainHead = 0;
 
+  // ---------------------------------------------------------------- DV-090 đất đá vụt qua mặt
+  const sp = makeInstanced(SPRAYS, SPRAY, 57);
+  const spTarget = new InstancedBufferAttribute(new Float32Array(SPRAYS * SPRAY * 4), 4);
+  spTarget.setUsage(35048);
+  sp.geo.setAttribute('aTarget', spTarget);
+  {
+    const c = attribute('aCenter', 'vec4') as unknown as Node<'vec4'>;
+    const tm = attribute('aTime', 'vec4') as unknown as Node<'vec4'>;
+    const tg = attribute('aTarget', 'vec4') as unknown as Node<'vec4'>;
+    const K = c.w;
+    const s = tm.y;
+    const s2 = fract(s.mul(5.13));
+    const s3 = fract(s.mul(9.71));
+    const s4 = fract(s.mul(2.37));
+    const delay = s3.mul(0.12).add(0.02);
+    const t = uT.sub(tm.x).sub(delay);
+    // hướng: từ tâm nổ (nâng 0,3 m) tới điểm lệch quanh mắt (±1,6 m ngang, −0,6..+1,4 m dọc), bay vượt qua thêm 40 %
+    const from = c.xyz.add(vec3(0, 0.3, 0));
+    const fwd = tg.xyz.sub(from);
+    const L = length(fwd).max(0.5);
+    const dir = fwd.div(L);
+    const side = vec3(dir.z.negate(), 0, dir.x).normalize();
+    const aim = tg.xyz.add(side.mul(s2.sub(0.5).mul(3.2))).add(vec3(0, s4.mul(2).sub(0.6), 0));
+    const v = aim.sub(from).normalize().mul(s.mul(10).add(20));
+    const C = from.add(v.mul(t)).add(vec3(0, t.mul(t).mul(-4.9), 0)) as unknown as V3;
+    const life = L.mul(1.4).div(s.mul(10).add(20));
+    const on = step(float(0), t).mul(step(t, life)).mul(step(s.mul(0.999), K));
+    const size = mix(float(0.04), float(0.16), s2.mul(s4)).mul(on);
+    const mat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: DoubleSide, blending: NormalBlending });
+    mat.fog = false;
+    mat.vertexNode = billboard(C, size as unknown as F, t.mul(s2.sub(0.5).mul(24)) as unknown as F);
+    const vS = varying(s);
+    const vDist = varying(cameraViewMatrix.mul(vec4(C, 1)).z.negate());
+    const q = uv().sub(0.5);
+    const n = mx_noise_float(vec3(q.mul(5), vS.mul(19))).mul(0.5).add(0.5);
+    const clod = smoothstep(float(0.5), float(0.85), length(q).mul(2).add(n.sub(0.5).mul(0.9))).oneMinus();
+    const col = vec3(0.08, 0.052, 0.034).mul(n.mul(0.6).add(0.7)).mul(uLight.mul(0.8).add(0.2));
+    mat.colorNode = vec4(col, clod.mul(smoothstep(float(0.18), float(0.45), vDist)));
+    group.add(finishMesh(sp.geo, mat, SPRAYS * SPRAY, 'blast_spray', 25));
+  }
+  let sprayHead = 0;
+
   const starts = new Float64Array(nB).fill(-1e6);
   let head = 0;
-  const stats = { spawned: 0, active: 0, rains: 0 };
+  const stats = { spawned: 0, active: 0, rains: 0, sprays: 0 };
   let now = 0;
 
   const write = (g: { center: InstancedBufferAttribute; time: InstancedBufferAttribute }, slot: number, per: number, p: readonly number[], R: number, kind: number): void => {
@@ -362,6 +412,23 @@ export function createBlastFx(opts: BlastFxOptions = {}): BlastFx {
       stats.rains++;
     },
     staccato: 0,
+    spray(p, eye, k) {
+      const slot = sprayHead;
+      sprayHead = (sprayHead + 1) % SPRAYS;
+      write(sp, slot, SPRAY, p, Math.max(0.3, Math.min(1, k)), 0);
+      const ta = spTarget.array as Float32Array;
+      for (let j = 0; j < SPRAY; j++) {
+        const i = slot * SPRAY + j;
+        ta[i * 4] = eye[0];
+        ta[i * 4 + 1] = eye[1];
+        ta[i * 4 + 2] = eye[2];
+        ta[i * 4 + 3] = 0;
+      }
+      spTarget.clearUpdateRanges();
+      spTarget.addUpdateRange(slot * SPRAY * 4, SPRAY * 4);
+      spTarget.needsUpdate = true;
+      stats.sprays++;
+    },
     update(dt) {
       now += dt;
       uT.value = this.staccato > 0 ? Math.floor(now * this.staccato) / this.staccato : now;

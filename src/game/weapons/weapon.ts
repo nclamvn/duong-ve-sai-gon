@@ -30,8 +30,10 @@ export interface ShooterContext {
   origin: [number, number, number];
   /** hướng ngắm gốc (đơn vị) */
   aim: [number, number, number];
-  stance: 'stand' | 'crouch';
+  stance: 'stand' | 'crouch' | 'prone';
   moving: boolean;
+  /** DV-090 đang bò (nằm + có lệnh đi hoặc còn trôi) — không bắn được */
+  crawling?: boolean;
   grounded: boolean;
   /** collider của người bắn để loại trừ */
   exclude: RAPIER.Collider | undefined;
@@ -96,13 +98,16 @@ export class Weapon {
     let base = ctx.moving ? s.hipMove : s.hipStand;
     base = base + (s.ads - base) * this.sm.ads;
     if (ctx.stance === 'crouch') base *= s.crouchMul;
+    // DV-090 nằm tì súng: chụm hơn cúi (nửa hệ số cúi)
+    else if (ctx.stance === 'prone') base *= s.crouchMul * 0.5;
     if (!ctx.grounded) base *= s.airMul;
     return base;
   }
 
   /** Gọi ở sim tick 60 Hz. */
   step(input: InputSnapshot, ctx: ShooterContext, dt: number): void {
-    if (input.fire) this.sm.pressFire();
+    // DV-090 đang bò thì hai tay chống đất: không bắn được (nằm yên mới bắn)
+    if (input.fire && !ctx.crawling) this.sm.pressFire();
     else this.sm.releaseFire();
     this.sm.setAds(input.ads);
     if (input.reload && !this.prevReload) this.sm.pressReload();

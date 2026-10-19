@@ -42,11 +42,22 @@ test.describe('DV-088 choáng nổ + đất văng', () => {
       g.explode([fx, groundAt(fx, f[2]!), f[2]!], { radius: 6, damage: 0 });
       for (let i = 0; i < 3; i++) g.frame(1 / 60);
       const far = snap();
-      // nổ sát 3 m
-      const nx = f[0]! + 3;
-      g.explode([nx, groundAt(nx, f[2]!), f[2]!], { radius: 6, damage: 0 });
-      for (let i = 0; i < 12; i++) g.frame(1 / 60);
-      const near = snap();
+      // DV-090: nổ sát 3 m SAU LƯNG → choáng, mưa đất, nhưng không bùn kính, không đất vụt qua mặt
+      const yaw = g.player.rig.yaw as number;
+      const fwx = -Math.sin(yaw);
+      const fwz = -Math.cos(yaw);
+      const bx = f[0]! - fwx * 3;
+      const bz = f[2]! - fwz * 3;
+      g.explode([bx, groundAt(bx, bz), bz], { radius: 6, damage: 0 });
+      for (let i = 0; i < 40; i++) g.frame(1 / 60);
+      const behind = { splats: g.lensDirt?.splats ?? -1, sprays: g.blast.stats.sprays as number };
+      for (let i = 0; i < 80; i++) g.frame(0.1);
+      // nổ sát 3 m TRƯỚC MẶT
+      const nx = f[0]! + fwx * 3;
+      const nz = f[2]! + fwz * 3;
+      g.explode([nx, groundAt(nx, nz), nz], { radius: 6, damage: 0 });
+      for (let i = 0; i < 24; i++) g.frame(1 / 60);
+      const near = { ...snap(), sprays: g.blast.stats.sprays as number };
       // đạn sượt: 8 viên từ 12 m bay sát đầu
       const eye = [f[0]!, f[1]! + 1.6, f[2]!];
       let kicks0 = g.shockStats.dirtKicks as number;
@@ -61,22 +72,25 @@ test.describe('DV-088 choáng nổ + đất văng', () => {
       // 7 s sau: hết choáng, hết bùn, chân nhẹ lại
       for (let i = 0; i < 70; i++) g.frame(0.1);
       const after = snap();
-      return { before, far, near, kicks, nearMisses: kicks0, after };
+      return { before, far, behind, near, kicks, nearMisses: kicks0, after };
     });
     console.log(JSON.stringify(r));
     expect(r.before.shock).toBe(0);
     expect(r.far.count).toBe(r.before.count);
     expect(r.far.shock).toBe(0);
     expect(r.far.scorch).toBe(r.before.scorch + 1);
-    expect(r.near.count).toBe(r.before.count + 1);
+    expect(r.behind.splats, 'nổ sau lưng: không bùn kính').toBe(r.before.splats);
+    expect(r.behind.sprays).toBe(0);
+    expect(r.near.sprays, 'nổ trước mặt: đất đá vụt qua mặt').toBe(1);
+    expect(r.near.count).toBe(r.before.count + 2);
     expect(r.near.shock).toBeGreaterThan(0.6);
     expect(r.near.post).toBeGreaterThan(0.5);
     expect(r.near.speedMul).toBeLessThan(0.75);
     expect(r.near.roll).toBeGreaterThan(0.01);
     expect(r.near.lens).toBeGreaterThan(0.5);
     expect(r.near.splats).toBe(r.before.splats + 1);
-    expect(r.near.rains).toBe(r.before.rains + 1);
-    expect(r.near.scorch).toBe(r.before.scorch + 2);
+    expect(r.near.rains).toBe(r.before.rains + 2);
+    expect(r.near.scorch).toBe(r.before.scorch + 3);
     expect(r.nearMisses).toBeGreaterThan(0);
     expect(r.kicks).toBeGreaterThan(0);
     expect(r.after.shock).toBe(0);

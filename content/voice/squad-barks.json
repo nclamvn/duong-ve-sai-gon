@@ -141,6 +141,25 @@
         { "t": "Giữ đội hình! Giữ!", "who": ["QUYET"] },
         { "t": "Lâm! Bắn đi chứ!" }
       ]
+    },
+    "giveAmmo": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Đạn đây, cầm lấy!" },
+        { "t": "Cầm hai băng, bắn tiết kiệm!" },
+        { "t": "Của tôi còn đây, cầm đi!" },
+        { "t": "Lấy đi, nhanh lên!" },
+        { "t": "Hai băng cuối đấy, ngắm cho kỹ!", "who": ["QUYET", "DAT"] }
+      ]
+    },
+    "offerAmmo": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Lâm! Hết đạn à? Lại đây!" },
+        { "t": "Lâm, qua đây lấy đạn!" },
+        { "t": "Lâm! Chạy lại đây, tôi còn đạn!" },
+        { "t": "Hết đạn thì lại chỗ tôi!" }
+      ]
     }
   }
 }

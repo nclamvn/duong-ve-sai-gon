@@ -133,7 +133,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     for (const gap of r.botGap) expect(gap).toBeLessThan(0.5);
     expect(r.terrainDraws).toBeGreaterThan(0);
     expect(r.terrainDraws).toBeLessThanOrEqual(4);
-    expect(r.bots).toBe(5); // tổ ta Quyết, Hải, Sáng, Đức, Toàn (AI-T1.5) — không còn bot ambient
+    expect(r.bots).toBe(11); // tổ ta 5 người có tên (AI-T1.5) + 6 bộ đội không tên đi cùng (DV-090) — không còn bot ambient
     await expectNoErrors(errors);
   });
 
@@ -453,12 +453,13 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       g.player.health = 1e9;
       H.stepSim(10);
       const sq = H.squad();
-      return { node: H.mission.state().currentNode, squad: sq.count, names: sq.members.filter((m) => m.faction === 'friend').map((m) => m.name), a1: H.bots().filter((b) => b.group === 'a1_bo' && b.alive).length, shown: H.mission.subtitlesShown(), hud: H.hud() };
+      return { node: H.mission.state().currentNode, squad: sq.count, names: sq.members.filter((m) => m.faction === 'friend' && m.name).map((m) => m.name), ban: sq.members.filter((m) => m.faction === 'friend' && !m.name).length, a1: H.bots().filter((b) => b.group === 'a1_bo' && b.alive).length, shown: H.mission.subtitlesShown(), hud: H.hud() };
     });
     expect(intro.node).toBe('n_a1');
     expect(intro.squad).toBe(5);
     expect(intro.names).toEqual(['name.quyet', 'name.long', 'name.dat', 'name.hoan', 'name.khang']);
-    expect(intro.a1).toBe(6);
+    expect(intro.a1).toBe(9);
+    expect(intro.ban, 'DV-090 tiểu đội 6 bộ đội không tên đi cùng').toBe(6);
     expect(intro.shown[0]).toBe('M71');
     expect(intro.hud.marker).not.toBeNull();
     await renderFrames(page, 2);
@@ -554,11 +555,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(act1.friendShots).toBeGreaterThan(5);
     expect(act1.battle.shells, 'đòn đánh + cối').toBeGreaterThanOrEqual(2);
     expect(act1.node0).toBe('n_a1c');
-    expect(act1.a1tiep).toBe(3);
+    expect(act1.a1tiep).toBe(5);
     expect(act1.node1).toBe('n_chase');
     expect(act1.pace).toBe('assault');
     expect(act1.moved / 3, 'Quyết xung phong (chạy)').toBeGreaterThan(2.5);
-    expect(act1.a1suon).toBe(3);
+    expect(act1.a1suon).toBe(5);
     // HỒI 2–3: napalm (Khang), toán chặn, sườn đồi, B-52 (trong lòng suối không mất máu), tàn quân
     const act23 = await page.evaluate(() => {
       const H = window.__ht!;
@@ -580,7 +581,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       const heat = g.mission.battle!.stats.heatHits;
       const napalm = g.mission.battle!.stats.napalm;
       const fires = g.mission.battle!.stats.fires;
-      const squad = H.squad().members.filter((m) => m.faction === 'friend' && m.alive).map((m) => m.name);
+      const squad = H.squad().members.filter((m) => m.faction === 'friend' && m.name && m.alive).map((m) => m.name);
       const khangDead = H.squad().members.some((m) => m.name === 'name.khang' && !m.alive);
       H.stepSim(60 * 5);
       const nChan = H.mission.state().currentNode;
@@ -613,7 +614,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(act23.khangDead).toBe(true);
     expect(act23.squad).toEqual(['name.quyet', 'name.long', 'name.dat', 'name.hoan']);
     expect(act23.nChan).toBe('n_chan');
-    expect(act23.chan).toBe(9);
+    expect(act23.chan).toBe(14);
     expect(act23.nLull).toBe('n_doi_lull');
     expect(act23.nBarrage).toBe('n_doi_barrage');
     expect(act23.nDoi).toBe('n_doi');
@@ -622,7 +623,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(act23.hpB52, 'trong lòng suối thì sống').toBe(100);
     expect(act23.safeHits).toBe(0);
     expect(act23.node).toBe('n_b52_after');
-    expect(act23.sot).toBe(6);
+    expect(act23.sot).toBe(9);
     expect(act23.saves).toBeGreaterThanOrEqual(4);
     // HỒI 4: gài bộc phá (giữ F 3 s), giữ chốt 90 s có đếm ngược, hai mũi phản kích
     const act4 = await page.evaluate(() => {
@@ -659,11 +660,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(act4.prompt).toBe('charge');
     expect(act4.nHold).toBe('n_cb_hold');
     expect(act4.timer).toBeGreaterThan(80);
-    expect(act4.bac).toBe(5);
-    expect(act4.dong).toBe(5);
+    expect(act4.bac).toBe(8);
+    expect(act4.dong).toBe(8);
     expect(act4.blown).toBe(true);
     expect(act4.node).toBe('n_khe_go');
-    expect(act4.f2).toBe(6);
+    expect(act4.f2).toBe(9);
     // HỒI 5–7: tổ phục trong khe im khi ta còn xa, khai hoả khi ≤ 25 m; dốc; bãi đáp (Hoàn); pháo bắn chặn; rút → xong
     const act57 = await page.evaluate(() => {
       const H = window.__ht!;
@@ -715,30 +716,30 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       }
       const nLzDone = H.mission.state().currentNode;
       const hoanDead = H.squad().members.some((m) => m.name === 'name.hoan' && !m.alive);
-      const alive = H.squad().members.filter((m) => m.faction === 'friend' && m.alive).map((m) => m.name);
+      const alive = H.squad().members.filter((m) => m.faction === 'friend' && m.name && m.alive).map((m) => m.name);
       tp('rut');
       H.stepSim(60 * 20);
       const enemies = [...g.bots.values()].filter((b) => b.faction === 'enemy').length;
       return { ambush0, shotsFar, shotsNear, nKhe, nHill, f3, nHold, nLzGo, atLz, lzA, nLz2, lzB, runs, nLzDone, hoanDead, alive, enemies, node: H.mission.state().currentNode, complete: H.mission.state().complete, completeCount: H.events.countOf('MISSION_COMPLETE'), saves: H.checkpoint.saves(), shown: H.mission.subtitlesShown(), arty: g.mission.battle!.stats.shells };
     });
-    expect(act57.ambush0).toBe(6);
+    expect(act57.ambush0).toBe(9);
     expect(act57.shotsFar, 'tổ phục không bắn khi ta còn 45 m').toBe(0);
     expect(act57.shotsNear, 'tổ phục khai hoả khi ta vào ≤ 25 m').toBeGreaterThan(0);
     expect(act57.nKhe).toBe('n_khe');
     expect(act57.nHill).toBe('n_f3_go');
-    expect(act57.f3).toBe(8);
+    expect(act57.f3).toBe(12);
     expect(act57.nHold).toBe('n_f3c');
     expect(act57.nLzGo).toBe('n_lz_go');
     expect(act57.atLz).toBe('n_lz');
-    expect(act57.lzA).toBe(6);
+    expect(act57.lzA).toBe(9);
     expect(act57.nLz2).toBe('n_lz2');
-    expect(act57.lzB).toBe(4);
+    expect(act57.lzB).toBe(6);
     expect(act57.runs).toContain('huey_insert');
     expect(act57.nLzDone).toBe('n_lz_done');
     expect(act57.hoanDead).toBe(true);
     expect(act57.alive).toEqual(['name.quyet', 'name.long', 'name.dat']);
-    expect(act57.enemies, 'tổng địch 70–90').toBeGreaterThanOrEqual(70);
-    expect(act57.enemies).toBeLessThanOrEqual(90);
+    expect(act57.enemies, 'tổng địch (DV-090 × 1,5)').toBeGreaterThanOrEqual(105);
+    expect(act57.enemies).toBeLessThanOrEqual(150);
     expect(act57.node).toBe('n_done');
     expect(act57.complete).toBe(true);
     expect(act57.completeCount).toBe(1);
