@@ -79,6 +79,8 @@ import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
 import { NightAct } from '@game/night/nightAct';
 import { createBlastFx, type BlastFx } from '@engine/render/blastFx';
+import { createScorch, type Scorch } from '@engine/render/scorch';
+import { LensDirt } from '@ui/lensDirt';
 import climateJson from '@content/ecology/climate.truong-son.json';
 import soundscapeJson from '@content/ecology/soundscape.truong-son.json';
 import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelClimate } from '@engine/sky/climate';
@@ -135,6 +137,21 @@ export class Game {
   /** ngẫu nhiên tất định cho chọn câu hô (DV-087) */
   private readonly barkRng: Prng = mulberry32(0x5eed87);
   private rallyAcc = 0;
+  /**
+   * DV-088 choáng nổ (shell shock): mức 0..1 sau vụ nổ sát người, tắt dần ~5 s — ù tai, nhìn đôi, loạng choạng, chân nặng,
+   * tim đập. `shockFlash` = chớp trắng lúc nổ rất sát.
+   */
+  private shock = 0;
+  private shockFlash = 0;
+  private shockT = 0;
+  private heartAcc = 0;
+  readonly shockStats = { count: 0, peak: 0, dirtKicks: 0 };
+  /** DV-088 vết cháy xém trên mặt đất (null khi chưa dựng) */
+  scorch: Scorch | null = null;
+  /** DV-088 bùn bắn lên ống kính */
+  lensDirt: LensDirt | null = null;
+  /** ngẫu nhiên tất định cho FX quanh người chơi (đất văng chân, DV-088) */
+  private readonly fxRng: Prng = mulberry32(0xd1a7f0);
   /** đèn chớp lửa nòng trong lớp súng (DV-087) */
   private readonly vmFlash = new PointLight(0xffa04a, 0, 3, 1.2);
   readonly vmCamera = new PerspectiveCamera(60, 1, 0.03, 12);
@@ -639,6 +656,10 @@ export class Game {
     this.scene.add(this.blast.group);
     // bụi/khói vụ nổ trôi theo gió rừng (cùng đối tượng Vector2)
     if (this.forest) (this.blast.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
+    // DV-088 vết cháy xém + bùn ống kính
+    this.scorch = createScorch();
+    this.scene.add(this.scorch.mesh);
+    this.lensDirt = new LensDirt(this.bundle.renderer.domElement.parentElement);
     this.grenadeView = new GrenadeView(this.scene);
     // DV-065: tay áo người chơi theo gói phe (?sleeve=0 giữ màu gốc của nghệ sĩ để so A/B)
     const sleeveHex = this.params.get('sleeve') === '0' ? undefined : this.lookFor('friend').sleeve;
@@ -1180,6 +1201,7 @@ export class Game {
     this.fx.update(dt);
     this.blast.update(dt);
     this.updateBattleSmoke(dt);
+    this.updateShock(dt);
     this.vmFlash.position.copy(this.viewModel.muzzleWorld);
     this.vmFlash.intensity = this.fx.muzzleLight.intensity * 0.45;
     this.flares?.update(dt);
@@ -1211,6 +1233,12 @@ export class Game {
       this.forest.system.update(this.camera);
     }
     this.post.stress.value = this.playerSuppression * 0.9;
+    {
+      const s = this.shock * this.shock * (3 - 2 * this.shock);
+      this.post.shock.value = s;
+      this.post.shockDir.value.set(Math.cos(this.shockT * 1.9) * 0.012 * s, Math.sin(this.shockT * 1.3) * 0.007 * s);
+      this.post.shockFlash.value = this.shockFlash;
+    }
     let volEnv: { groundY: number; sigma: number } | undefined;
     if (this.post.volumetric && this.terrain && this.atmosphere) {
       const cp = this.camera.matrixWorld.elements;
@@ -1282,6 +1310,65 @@ export class Game {
     if (v?.smoke) v.smoke.value = Math.min(1, this.smokeBase + this.smokeKick);
   }
 
+  /** DV-088 vết cháy xém nằm trên mặt đất (terrain: bám độ cao + pháp tuyến; nổ trên không cao > 2 m thì bỏ) */
+  private placeScorch(p: readonly [number, number, number], radius: number, napalm: boolean): void {
+    if (!this.scorch) return;
+    if (this.terrain) {
+      const h = this.terrain.heightAt(p[0], p[2]);
+      if (Math.abs(p[1] - h) > 2) return;
+      this.scorch.spawn([p[0], h, p[2]], radius, this.terrain.tile.normalAt(p[0], p[2]), napalm);
+    } else this.scorch.spawn(p, radius, [0, 1, 0], napalm);
+  }
+
+  /**
+   * DV-088 choáng nổ theo khoảng cách chân người chơi `dp` tới tâm nổ: k = 1 sát tâm → 0 ở ~4,5 × bán kính (vật che giữa → × che).
+   * k > 0,12: ù tai + ù rít, nhìn đôi, loạng choạng ngược phía nổ, chân nặng; k > 0,3 mưa đất; k > 0,35 bùn lên ống kính;
+   * k > 0,55 chớp trắng.
+   */
+  private playerShock(p: readonly [number, number, number], radius: number, dp: number, shield: number): void {
+    if (!this.player.alive || this.freeFly || this.params.get('shock') === '0') return;
+    const lo = radius * 0.5;
+    const hi = radius * 4.5;
+    const x = Math.max(0, Math.min(1, (dp - lo) / (hi - lo)));
+    const k = (1 - x * x * (3 - 2 * x)) * (shield < 1 ? 0.6 : 1);
+    if (k < 0.12) return;
+    this.shock = Math.max(this.shock, k);
+    this.shockStats.count++;
+    this.shockStats.peak = Math.max(this.shockStats.peak, k);
+    this.audio.shellShock(k, 2.2 + 4.5 * k);
+    if (k > 0.55) this.shockFlash = Math.max(this.shockFlash, (k - 0.55) / 0.45);
+    // phía vụ nổ so với hướng nhìn: nổ bên phải → đầu bị hất nghiêng sang trái
+    const rel = relDeg(this.cameraHeadingDeg(), bearingOf(p[0] - this.player.controller.feet[0], p[2] - this.player.controller.feet[2]));
+    const side = rel >= 0 ? 1 : -1;
+    this.player.rig.stumble(k, side);
+    const f = this.player.controller.feet;
+    if (k > 0.3) this.blast.rain([f[0], f[1], f[2]], k);
+    if (k > 0.35) this.lensDirt?.splash(k, Math.max(-1, Math.min(1, rel / 90)));
+  }
+
+  /** DV-088 mỗi frame: choáng tắt dần, chân nặng theo choáng, tim đập khi choáng hoặc máu thấp, bùn ống kính mờ dần */
+  private updateShock(dt: number): void {
+    this.shockT += dt;
+    this.shock = Math.max(0, this.shock - dt * 0.18);
+    this.shockFlash = Math.max(0, this.shockFlash - dt * 3.2);
+    this.player.controller.speedMul = 1 - 0.45 * this.shock;
+    this.lensDirt?.update(dt);
+    const hp = this.player.alive ? this.player.health : 100;
+    const hb = Math.max(this.shock * 0.9, hp < 35 ? ((35 - hp) / 35) * 0.8 : 0);
+    if (hb > 0.05 && this.audio.ctx) {
+      this.heartAcc += dt;
+      if (this.heartAcc >= 60 / (72 + 50 * hb)) {
+        this.heartAcc = 0;
+        this.audio.heartbeat(hb);
+      }
+    } else this.heartAcc = 0;
+  }
+
+  /** mức choáng nổ hiện tại (E2E/debug) */
+  get shockLevel(): number {
+    return this.shock;
+  }
+
   /** mức khói chiến trường hiện tại (E2E/debug) */
   get battleSmoke(): number {
     return Math.min(1, this.smokeBase + this.smokeKick);
@@ -1319,6 +1406,8 @@ export class Game {
     const f = this.player.controller.feet;
     const dp = Math.hypot(f[0] - position[0], f[2] - position[2]);
     this.player.rig.shakeAmp = Math.max(this.player.rig.shakeAmp, Math.min(1, 1.6 * (1 - Math.min(1, dp / (radius * 3)))));
+    this.placeScorch(position, radius, opts.kind === 'napalm');
+    this.playerShock(position, radius, dp, opts.occlude ? shield(f[0], f[1] + 1.0, f[2]) : 1);
     if (dp <= radius && this.player.alive) {
       const crouched = this.player.controller.stance === 'crouch';
       const fall = 1 - (dp / radius) * 0.5;
@@ -1503,6 +1592,22 @@ export class Game {
     this.playerSuppression = Math.min(1, this.playerSuppression + 0.07 + 0.16 * k);
     this.suppLastAt = this.clock.simTime;
     this.player.rig.shakeAmp = Math.max(this.player.rig.shakeAmp, 0.06 + 0.1 * k);
+    // DV-088 đạn trong loạt cắm đất quanh chân (đất bắn tung, tiếng phụp): hơn nửa số lần sượt, lệch về phía đạn bay qua
+    if (this.terrain && this.fxRng.next() < 0.6) {
+      const f = this.player.controller.feet;
+      const hx = dir[0]!;
+      const hz = dir[2]!;
+      const hl = Math.hypot(hx, hz) || 1;
+      const px = -hz / hl;
+      const pz = hx / hl;
+      const side = (cx - f[0]) * px + (cz - f[2]) * pz >= 0 ? 1 : -1;
+      const lat = side * (0.7 + this.fxRng.next() * 2.4);
+      const fwd = -1 + this.fxRng.next() * 4.5;
+      const ix = f[0] + px * lat + (hx / hl) * fwd;
+      const iz = f[2] + pz * lat + (hz / hl) * fwd;
+      this.shockStats.dirtKicks++;
+      this.events.emit('IMPACT', { point: [ix, this.terrain.heightAt(ix, iz), iz], normal: this.terrain.tile.normalAt(ix, iz), material: 'earth', penetrated: false });
+    }
   }
 
   /** gỡ prop terrain (ẩn + collider) — trả false nếu không có */
@@ -1798,6 +1903,11 @@ export class Game {
     this.weapon.reset(this.prng);
     this.fx.reset();
     this.smokeKick = 0;
+    this.shock = this.shockFlash = 0;
+    this.player.controller.speedMul = 1;
+    this.audio.clearShock();
+    this.lensDirt?.reset();
+    this.scorch?.reset();
     this.viewModel.reset();
     for (const b of this.bots.values()) b.reset();
     this.coverReservations.clear();

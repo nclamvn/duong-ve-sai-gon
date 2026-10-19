@@ -69,6 +69,8 @@ export class CapsuleController {
   /** tốc độ chạm đất khi landing (để camera dip) */
   landedSpeed = 0;
   justJumped = false;
+  /** DV-088 hệ số tốc độ tạm (choáng nổ chân nặng) — 1 = bình thường */
+  speedMul = 1;
   private readonly desired = { x: 0, y: 0, z: 0 };
 
   constructor(
@@ -148,7 +150,7 @@ export class CapsuleController {
       mx /= mlen;
       mz /= mlen;
     }
-    const maxSpeed = this.stance === 'crouch' ? c.crouch : input.sprint && input.fwd > 0 ? c.sprint : c.walk;
+    const maxSpeed = (this.stance === 'crouch' ? c.crouch : input.sprint && input.fwd > 0 ? c.sprint : c.walk) * this.speedMul;
     const tx = mx * maxSpeed;
     const tz = mz * maxSpeed;
     const rate = (mlen > 0 ? c.accel : c.decel) * (this.grounded ? 1 : c.airControl) * dt;

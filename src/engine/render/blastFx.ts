@@ -21,18 +21,26 @@ export interface BlastFx {
   readonly group: Group;
   /** vụ nổ tại `p` (mặt đất), bán kính sát thương `radius` (m) → cỡ hình */
   spawn(p: readonly [number, number, number], radius: number, kind?: BlastKind): void;
+  /**
+   * DV-088 mưa đất: vụ nổ sát người → đất cát rơi lộp độp quanh người chơi trong ~2 s (sau khi cột đất lên tới đỉnh).
+   * `feet` = chân người chơi (mặt đất), `k` 0..1 theo độ gần.
+   */
+  rain(feet: readonly [number, number, number], k: number): void;
   /** mỗi frame: dt (s) */
   update(dt: number): void;
   /** độ sáng của bụi/khói (1 ngày nắng · ~0,15 đêm) */
   readonly light: { value: number };
   /** hướng gió (x, z) — Game gán chung uniform gió của rừng */
   readonly wind: { value: Vector2 };
-  readonly stats: { spawned: number; active: number };
+  readonly stats: { spawned: number; active: number; rains: number };
 }
 
 const FIREBALL = 16;
 const DEBRIS = 24;
 const DUST = 34; // 10 cột + 14 vòng + 10 đám lơ lửng
+/** DV-088 hạt mưa đất mỗi lần, số lần cùng lúc */
+const RAIN = 96;
+const RAINS = 4;
 const COLUMN = 10;
 const RING = 14;
 /** sống lâu nhất của một vụ nổ (s) — đám bụi lơ lửng */
@@ -260,9 +268,46 @@ export function createBlastFx(opts: BlastFxOptions = {}): BlastFx {
     group.add(finishMesh(du.geo, mat, nB * DUST, 'blast_dust', 21));
   }
 
+  // ---------------------------------------------------------------- DV-088 mưa đất quanh người chơi
+  const rn = makeInstanced(RAINS, RAIN, 43);
+  {
+    const c = attribute('aCenter', 'vec4') as unknown as Node<'vec4'>;
+    const tm = attribute('aTime', 'vec4') as unknown as Node<'vec4'>;
+    const K = c.w;
+    const s = tm.y;
+    const s2 = fract(s.mul(7.77));
+    const s3 = fract(s.mul(15.3));
+    const s4 = fract(s.mul(3.91));
+    // rơi lệch nhau 0,35–2,2 s sau vụ nổ (cục to rơi trước, bụi mịn sau), từ độ cao 3–9 m, quanh người 0,6–6 m
+    const delay = s3.mul(1.85).add(0.35);
+    const t = uT.sub(tm.x).sub(delay);
+    const th = s2.mul(6.2832);
+    const rad = s4.mul(s4).mul(5.4).add(0.6);
+    const y0 = s.mul(6).add(3);
+    const y = y0.sub(t.mul(t).mul(4.9));
+    const wind = vec3(uWind.x, 0, uWind.y).mul(t.mul(0.35));
+    const C = c.xyz.add(vec3(cos(th).mul(rad), y, sin(th).mul(rad))).add(wind) as unknown as V3;
+    const on = step(float(0), t).mul(step(float(0), y)).mul(step(s.mul(0.999), K));
+    // phần lớn hạt cát nhỏ, ~1/6 là cục đất bằng đầu ngón tay
+    const clod = step(float(0.83), s2);
+    const size = mix(float(0.02).add(s4.mul(0.035)), float(0.07).add(s4.mul(0.06)), clod).mul(on);
+    const mat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: DoubleSide, blending: NormalBlending });
+    mat.fog = false;
+    mat.vertexNode = billboard(C, size as unknown as F, t.mul(s2.sub(0.5).mul(10)) as unknown as F);
+    const vS = varying(s);
+    const vDist = varying(cameraViewMatrix.mul(vec4(C, 1)).z.negate());
+    const q = uv().sub(0.5);
+    const n = mx_noise_float(vec3(q.mul(4), vS.mul(23))).mul(0.5).add(0.5);
+    const grain = smoothstep(float(0.5), float(0.9), length(q).mul(2).add(n.sub(0.5).mul(0.7))).oneMinus();
+    const col = vec3(0.09, 0.06, 0.04).mul(n.mul(0.5).add(0.75)).mul(uLight.mul(0.8).add(0.2));
+    mat.colorNode = vec4(col, grain.mul(smoothstep(float(0.12), float(0.5), vDist)).mul(0.95));
+    group.add(finishMesh(rn.geo, mat, RAINS * RAIN, 'blast_rain', 24));
+  }
+  let rainHead = 0;
+
   const starts = new Float64Array(nB).fill(-1e6);
   let head = 0;
-  const stats = { spawned: 0, active: 0 };
+  const stats = { spawned: 0, active: 0, rains: 0 };
   let now = 0;
 
   const write = (g: { center: InstancedBufferAttribute; time: InstancedBufferAttribute }, slot: number, per: number, p: readonly number[], R: number, kind: number): void => {
@@ -303,6 +348,13 @@ export function createBlastFx(opts: BlastFxOptions = {}): BlastFx {
       write(du, slot, DUST, p, R, k);
       starts[slot] = now;
       stats.spawned++;
+    },
+    rain(feet, k) {
+      const slot = rainHead;
+      rainHead = (rainHead + 1) % RAINS;
+      // aCenter.w = tỉ lệ hạt bật (k thấp → ít hạt), so với hạt giống trong shader
+      write(rn, slot, RAIN, feet, Math.max(0.2, Math.min(1, k)), 0);
+      stats.rains++;
     },
     update(dt) {
       now += dt;

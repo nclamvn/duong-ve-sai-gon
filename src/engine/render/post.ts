@@ -7,7 +7,8 @@
  * TSL only (không ShaderMaterial). Mọi pass là node của RenderPipeline → 1 lệnh render()/frame.
  */
 import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping, Color } from 'three/webgpu';
-import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec3, vec4, float, mix, smoothstep, uniform, dot } from 'three/tsl';
+import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec2, vec3, vec4, float, mix, smoothstep, uniform, dot, uv, convertToTexture } from 'three/tsl';
+import { Vector2 } from 'three';
 
 /** GTAO mờ dần theo khoảng cách nhìn (m): xa hơn AO_FADE_END không áp AO — terrain (TIP-D04) bị vạch/ô từ GTAO nửa phân giải trên sườn ≥ ~50 m (Mac WebGPU xác nhận: post=low sạch, medium có vạch), và AO bán kính 0,5 m ở > 30 m không nhìn thấy */
 export const AO_FADE_START = 30;
@@ -41,6 +42,13 @@ export interface PostStack {
   volumetric: Volumetric | null;
   /** căng thẳng 0..1 (DV-075 áp chế): mất màu + tối viền thêm; tier off = không tác dụng */
   stress: { value: number };
+  /**
+   * DV-088 choáng nổ 0..1: nhìn đôi + nhoè lệch màu, mất màu, viền tối như đường hầm. `shockDir` = độ lệch ảnh ma (uv, Game
+   * lắc theo thời gian), `shockFlash` = chớp trắng lúc nổ sát. Tier off = không tác dụng.
+   */
+  shock: { value: number };
+  shockDir: { value: Vector2 };
+  shockFlash: { value: number };
   /** gọi mỗi frame trước render (vị trí mặt trời màn hình cho tia nắng) */
   update(camera: PerspectiveCamera, sunDir: readonly [number, number, number] | null, env?: VolumetricEnv): void;
 }
@@ -83,6 +91,9 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
       passes: overlay ? ['overlay'] : [],
       bloomStrength: { value: 0 },
       stress: { value: 0 },
+      shock: { value: 0 },
+      shockDir: { value: new Vector2() },
+      shockFlash: { value: 0 },
       shafts: null,
       volumetric: null,
       update: () => undefined,
@@ -194,12 +205,31 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
 
   // HDR → LDR (AgX + sRGB) rồi AA
   let ldr: V4 = renderOutput(color) as unknown as V4;
+  type TexLike = { sample(uv: Node<'vec2'>): V4 };
+  let ldrTex: TexLike | null = null;
   if (useTRAA) {
     ldr = traa(ldr, depth, scenePass.getTextureNode('velocity'), camera) as unknown as V4;
     passes.push('traa');
   } else {
-    ldr = fxaa(ldr) as unknown as V4;
+    // DV-088: dùng chung texture đầu vào của FXAA cho ảnh ma lúc choáng (không thêm pass)
+    ldrTex = convertToTexture(ldr) as unknown as TexLike;
+    ldr = fxaa(ldrTex as unknown as V4) as unknown as V4;
     passes.push('fxaa');
+  }
+  // DV-088 choáng nổ: hai ảnh lệch nhau (đỏ lệch một phía, lam lệch phía kia) trộn vào ảnh chính theo shock
+  const shock = uniform(0);
+  const shockDir = uniform(new Vector2());
+  const shockFlash = uniform(0);
+  {
+    const src = ldrTex ?? (convertToTexture(ldr) as unknown as TexLike);
+    const u = uv();
+    const d = vec2(shockDir.x, shockDir.y);
+    const a = src.sample(u.add(d)).rgb;
+    const b = src.sample(u.sub(d.mul(0.7))).rgb;
+    const c = src.sample(u.add(vec2(d.y, d.x.negate()).mul(0.5))).rgb;
+    const ghost = vec3(a.r.mul(0.6).add(c.r.mul(0.4)), a.g.add(b.g).add(c.g).div(3), b.b.mul(0.6).add(c.b.mul(0.4)));
+    ldr = vec4(mix(ldr.rgb, ghost, shock.mul(0.75).min(0.62)), 1.0);
+    passes.push('shock');
   }
   // grain + vignette nhẹ (PRD: "nhẹ")
   if (opts.grade !== false && opts.grade !== undefined) {
@@ -209,11 +239,13 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
   // áp chế (DV-075): kéo về xám theo stress (tới 65 %) + vignette mạnh dần
   const stress = uniform(0);
   const luma = dot(ldr.rgb, vec3(0.2126, 0.7152, 0.0722));
-  ldr = vec4(mix(ldr.rgb, vec3(luma), stress.mul(0.65)), 1.0);
+  ldr = vec4(mix(ldr.rgb, vec3(luma), stress.mul(0.65).max(shock.mul(0.6))), 1.0);
+  // chớp trắng ngà lúc nổ sát (DV-088)
+  ldr = vec4(mix(ldr.rgb, vec3(1.0, 0.96, 0.9), shockFlash.mul(0.85)), 1.0);
   // DV-086: hạt phim nhảy mỗi khung (Mac: màn hình "sạn") — mặc định tắt; level đặt grain > 0 mới bật
   const grainAmt = opts.grain ?? 0;
   const grained = grainAmt > 0 ? (film(ldr, float(grainAmt)) as unknown as V4) : ldr;
-  const graded: V4 = vec4(vignette(grained.rgb, float(opts.vignette ?? 0.32).add(stress.mul(0.5)), float(0.55)), 1.0);
+  const graded: V4 = vec4(vignette(grained.rgb, float(opts.vignette ?? 0.32).add(stress.mul(0.5)).add(shock.mul(0.7)), float(0.55)), 1.0);
   passes.push(...(grainAmt > 0 ? ['film'] : []), 'vignette', 'stress');
   pipeline.outputNode = graded;
 
@@ -222,6 +254,9 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     passes,
     bloomStrength: bloomPass.strength as unknown as { value: number },
     stress: stress as unknown as { value: number },
+    shock: shock as unknown as { value: number },
+    shockDir: shockDir as unknown as { value: Vector2 },
+    shockFlash: shockFlash as unknown as { value: number },
     shafts,
     volumetric,
     update: (cam, sunDir, env) => {

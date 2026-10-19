@@ -16,6 +16,11 @@ export class AudioEngine {
   dropped = 0;
   private duckUntil = 0;
   enabled = true;
+  /** DV-088 choáng nổ: master → lowpass → gain → loa (ù tai); ù rít + tim đập đi thẳng ra loa, không qua lọc */
+  private shockFilter: BiquadFilterNode | null = null;
+  private shockGain: GainNode | null = null;
+  private ringOsc: OscillatorNode[] = [];
+  private ringGain: GainNode | null = null;
 
   /** Phải gọi sau user gesture (click/keydown). Idempotent. */
   init(): boolean {
@@ -25,7 +30,29 @@ export class AudioEngine {
       const ctx = new AudioContext();
       const mk = (): GainNode => ctx.createGain();
       const master = mk();
-      master.connect(ctx.destination);
+      const shockFilter = ctx.createBiquadFilter();
+      shockFilter.type = 'lowpass';
+      shockFilter.frequency.value = 20000;
+      shockFilter.Q.value = 0.9;
+      const shockGain = mk();
+      master.connect(shockFilter);
+      shockFilter.connect(shockGain);
+      shockGain.connect(ctx.destination);
+      this.shockFilter = shockFilter;
+      this.shockGain = shockGain;
+      // ù rít: hai sóng sin sát nhau (phách chậm) ở ~4 kHz, chạy thường trực với gain 0 → không tạo nút giữa trận
+      const ringGain = mk();
+      ringGain.gain.value = 0;
+      ringGain.connect(ctx.destination);
+      for (const hz of [3870, 3884]) {
+        const o = ctx.createOscillator();
+        o.type = 'sine';
+        o.frequency.value = hz;
+        o.connect(ringGain);
+        o.start();
+        this.ringOsc.push(o);
+      }
+      this.ringGain = ringGain;
       const buses: Record<Bus, GainNode> = { master, sfx: mk(), dialogue: mk(), radio: mk(), music: mk(), ambience: mk() };
       buses.sfx.gain.value = 0.5;
       buses.dialogue.gain.value = 1;
@@ -493,6 +520,71 @@ export class AudioEngine {
     this.duck(600, 0.5);
   }
 
+  /**
+   * DV-088 choáng nổ (sóng xung kích sát người): cả trận đánh như bị bịt tai (lowpass tụt xuống ~250–900 Hz rồi mở lại
+   * trong `seconds`), tiếng ù rít ~4 kHz nổi lên rồi tắt chậm hơn, âm lượng chung hụt xuống một nhịp. `k` 0..1 theo độ gần.
+   * Gọi lại khi đang choáng: lấy mức nặng hơn (không cộng dồn thành điếc hẳn).
+   */
+  shellShock(k: number, seconds: number): void {
+    if (!this.ctx || !this.shockFilter || !this.shockGain || !this.ringGain) return;
+    const t = this.ctx.currentTime;
+    const kk = Math.max(0, Math.min(1, k));
+    const f = this.shockFilter.frequency;
+    const cur = f.value;
+    const low = 900 - 650 * kk;
+    f.cancelScheduledValues(t);
+    f.setValueAtTime(Math.min(cur, 20000), t);
+    f.exponentialRampToValueAtTime(Math.min(cur, low), t + 0.04);
+    // giữ ù một lúc rồi mở dần (tai hồi lại)
+    f.setValueAtTime(Math.min(cur, low), t + seconds * 0.3);
+    f.exponentialRampToValueAtTime(20000, t + seconds);
+    const g = this.shockGain.gain;
+    g.cancelScheduledValues(t);
+    g.setValueAtTime(g.value, t);
+    g.linearRampToValueAtTime(1 - 0.45 * kk, t + 0.05);
+    g.setTargetAtTime(1, t + seconds * 0.35, seconds * 0.25);
+    const r = this.ringGain.gain;
+    const peak = Math.max(r.value, 0.05 * kk);
+    r.cancelScheduledValues(t);
+    r.setValueAtTime(r.value, t);
+    r.linearRampToValueAtTime(peak, t + 0.15);
+    r.setTargetAtTime(0, t + seconds * 0.45, seconds * 0.35);
+  }
+
+  /** DV-088 hồi tai ngay (chơi lại/đổi màn) */
+  clearShock(): void {
+    if (!this.ctx || !this.shockFilter || !this.shockGain || !this.ringGain) return;
+    const t = this.ctx.currentTime;
+    for (const [p, v] of [[this.shockFilter.frequency, 20000], [this.shockGain.gain, 1], [this.ringGain.gain, 0]] as const) {
+      p.cancelScheduledValues(t);
+      p.setValueAtTime(v, t);
+    }
+  }
+
+  /**
+   * DV-088 một nhịp tim (thình-thịch) nghe trong đầu: hai nhát sin trầm 52/46 Hz, nhát sau nhẹ hơn. `k` 0..1 = độ to.
+   * Không qua lọc choáng (tiếng trong người), không tính voice budget SFX.
+   */
+  heartbeat(k: number): void {
+    if (!this.enabled || !this.ctx || k <= 0.01) return;
+    const ctx = this.ctx;
+    const t = ctx.currentTime;
+    for (const [dt, hz, g] of [[0, 52, 0.42], [0.27, 46, 0.3]] as const) {
+      const o = ctx.createOscillator();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(hz * 1.5, t + dt);
+      o.frequency.exponentialRampToValueAtTime(hz, t + dt + 0.05);
+      const env = ctx.createGain();
+      env.gain.setValueAtTime(0.0001, t + dt);
+      env.gain.exponentialRampToValueAtTime(g * k, t + dt + 0.012);
+      env.gain.exponentialRampToValueAtTime(0.0001, t + dt + 0.16);
+      o.connect(env);
+      env.connect(ctx.destination);
+      o.start(t + dt);
+      o.stop(t + dt + 0.2);
+    }
+  }
+
   /** rút chốt + vung tay ném lựu đạn (DV-074) */
   grenadeThrow(): void {
     this.tone('sfx', 2300, 30, 0.05);
@@ -512,6 +604,8 @@ export class AudioEngine {
   nearMiss(position: [number, number, number], k = 1): void {
     const j = 0.85 + 0.3 * this.jitter();
     this.noiseBurst('sfx', 14, 0.5 * k + 0.15, 6500 * j, 0.6, position, { type: 'highpass', refDistance: 1.5 });
+    // DV-088 "chát" sóng xung kích sát tai: thêm một nhát dải 3,2 kHz cực ngắn (đạn bay ngay mang tai nghe như roi quất)
+    if (k > 0.35) this.noiseBurst('sfx', 9, 0.55 * k, 3200 * j, 1.4, position, { type: 'bandpass', refDistance: 1.2 });
     this.noiseBurst('sfx', 120 + 60 * this.jitter(), 0.22 * k + 0.05, 2400 * j, 4, position, { type: 'bandpass', refDistance: 1.5 });
   }
 

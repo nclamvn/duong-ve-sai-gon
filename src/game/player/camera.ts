@@ -24,6 +24,11 @@ export class CameraRig {
   /** shake hiện tại */
   shakeAmp = 0;
   private shakePhase = 0;
+  /** DV-088 loạng choạng (choáng nổ): nghiêng đầu (roll) + gục xuống (pitch), lò xo tắt dần — offset tạm như shake */
+  stumbleRoll = 0;
+  stumblePitch = 0;
+  private stumbleRollV = 0;
+  private stumblePitchV = 0;
   /** landing dip (m) */
   landingDip = 0;
   private bobPhase = 0;
@@ -53,6 +58,13 @@ export class CameraRig {
     this.shakeAmp = Math.max(this.shakeAmp, amp * this.intensity.shake);
   }
 
+  /** DV-088 xô người: `k` 0..1, `side` −1 trái / +1 phải (phía bị sóng nổ đẩy) */
+  stumble(k: number, side: number): void {
+    const a = k * this.intensity.shake;
+    this.stumbleRollV += side * a * 0.85;
+    this.stumblePitchV -= a * 0.6;
+  }
+
   landed(speed: number): void {
     this.landingDip = Math.min(0.25, speed * 0.02) * this.intensity.bob;
   }
@@ -69,6 +81,15 @@ export class CameraRig {
     this.shakeAmp *= Math.exp(-this.shakeDecay * dt);
     if (this.shakeAmp < 1e-4) this.shakeAmp = 0;
     this.shakePhase += dt * 37;
+    // lò xo tắt dần (ω 5,5 rad/s, ζ 0,38): nghiêng rồi lắc lại một hai nhịp như người say sóng nổ
+    const w2 = 30.25;
+    const c2 = 2 * 0.38 * 5.5;
+    this.stumbleRollV += (-w2 * this.stumbleRoll - c2 * this.stumbleRollV) * dt;
+    this.stumbleRoll += this.stumbleRollV * dt;
+    this.stumblePitchV += (-w2 * this.stumblePitch - c2 * this.stumblePitchV) * dt;
+    this.stumblePitch += this.stumblePitchV * dt;
+    if (Math.abs(this.stumbleRoll) + Math.abs(this.stumbleRollV) < 1e-5) this.stumbleRoll = this.stumbleRollV = 0;
+    if (Math.abs(this.stumblePitch) + Math.abs(this.stumblePitchV) < 1e-5) this.stumblePitch = this.stumblePitchV = 0;
     // landing dip recover
     this.landingDip = Math.max(0, this.landingDip - tuning.camera.landing.recoverPerSec * dt * 0.1);
     // bob
@@ -87,7 +108,7 @@ export class CameraRig {
   compose(): Quaternion {
     const shakeP = this.shakeAmp * Math.sin(this.shakePhase) * 0.02;
     const shakeY = this.shakeAmp * Math.cos(this.shakePhase * 0.7) * 0.02;
-    this.euler.set(this.pitch + this.recoilPitch + shakeP, this.yaw + this.recoilYaw + shakeY, 0);
+    this.euler.set(this.pitch + this.recoilPitch + shakeP + this.stumblePitch, this.yaw + this.recoilYaw + shakeY, this.stumbleRoll);
     return this.quaternion.setFromEuler(this.euler);
   }
 
@@ -103,6 +124,7 @@ export class CameraRig {
     this.pitch = pitch;
     this.recoilPitch = this.recoilYaw = 0;
     this.shakeAmp = 0;
+    this.stumbleRoll = this.stumbleRollV = this.stumblePitch = this.stumblePitchV = 0;
     this.landingDip = 0;
     this.bobPhase = 0;
     this.bobOffset.set(0, 0, 0);
