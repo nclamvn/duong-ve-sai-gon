@@ -117,7 +117,10 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(world.groupAlive('a1_bo')).toBe(6);
     expect(r.radio[0]).toBe('M71');
     expect(r.objectives[0]).toMatchObject({ key: 'obj_m1_ambush', status: 'active', marker: 'bo_dong' });
-    expect(r.battle.map((a) => a.type)).toEqual(['strike', 'mortar']);
+    expect(r.battle.filter((a) => a.type !== 'fx').map((a) => a.type)).toEqual(['strike', 'mortar']);
+    // DV-087: trận mở màn trong khói (sương thể tích) và rừng đang cháy
+    expect(r.battle.find((a) => a.type === 'fx' && a.kind === 'haze')?.scale).toBeGreaterThan(0);
+    expect(r.battle.filter((a) => a.type === 'fx' && a.kind !== 'haze').length).toBeGreaterThanOrEqual(4);
     step(22);
     expect(node()).toBe('n_a1b');
     expect(world.groupAlive('a1_suon')).toBe(3);
@@ -218,7 +221,7 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     world.killEnemies();
     step(48);
     expect(node()).toBe('n_lz_done');
-    expect(r.battle.at(-1)).toMatchObject({ type: 'mortar', kind: 'artillery' });
+    expect(r.battle.filter((a) => a.type !== 'fx').at(-1)).toMatchObject({ type: 'mortar', kind: 'artillery' });
     world.player = zoneOf('rut');
     step(7);
     expect(node()).toBe('n_done');

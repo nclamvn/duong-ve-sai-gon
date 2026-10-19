@@ -7,6 +7,8 @@
  *   - câu hô của tổ ta (ai nói cũng được): `<cue>.<SPEAKER>`, 2 lần đọc (đỡ lặp)
  *   - báo hướng địch: `M20.<SPEAKER>.h<giờ>`
  *   - địch: `en.<kind>.<E1..E4>` (mỗi câu trong kind là một lần đọc khác nhau)
+ *   - DV-087 câu hô nhiều biến thể của tổ ta (content/voice/squad-barks.json): `sq.<kind>#<i>.<SPEAKER>`; câu gọi tên đồng đội
+ *     `sq.<kind>#<i>-<NGƯỜI ĐƯỢC GỌI>.<SPEAKER>` (một bản cho mỗi người được gọi, trừ chính mình)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -94,6 +96,7 @@ export function buildLines(root) {
     const tpl = textOf(byId.get('M20'));
     for (const s of SQUAD) for (let h = 1; h <= 12; h++) add({ key: `M20.${s}.h${h}`, voice: s, lang: 'vi', text: speakable(tpl.replace('{h}', HOURS[h])), tag: TAGS.M20, takes: 1 });
   }
+  for (const l of squadBarkLines(root)) add(l);
   const enemy = JSON.parse(fs.readFileSync(path.join(root, 'content/voice/enemy-lines.json'), 'utf8')).kinds;
   for (const [kind, list] of Object.entries(enemy)) {
     const voices = kind === 'radio' ? ['ERADIO'] : ENEMY_VOICES;
@@ -103,6 +106,28 @@ export function buildLines(root) {
         add({ key: `en.${kind}.${v}#${i}`, group: `en.${kind}.${v}`, voice: v, lang: 'en', text: m[2].trim(), tag: m[1].trim(), takes: 1, radio: kind === 'radio' });
       });
     }
+  }
+  return out;
+}
+
+/** DV-087: câu hô nhiều biến thể của tổ ta → các dòng lồng tiếng (khoá theo cách Squadmates gọi: `sq.<kind>#<i>[-<TARGET>]`) */
+export function squadBarkLines(root) {
+  const def = JSON.parse(fs.readFileSync(path.join(root, 'content/voice/squad-barks.json'), 'utf8'));
+  const out = [];
+  for (const [kind, k] of Object.entries(def.kinds)) {
+    k.lines.forEach((line, i) => {
+      const who = line.who ?? SQUAD;
+      const tag = line.tag ?? k.tag ?? '';
+      for (const s of who) {
+        if (line.t.includes('{name}')) {
+          for (const target of SQUAD) {
+            if (target === s) continue;
+            const text = line.t.replaceAll('{name}', def.names[target]);
+            out.push({ key: `sq.${kind}#${i}-${target}.${s}`, voice: s, lang: 'vi', text: speakable(text), tag, takes: 1 });
+          }
+        } else out.push({ key: `sq.${kind}#${i}.${s}`, voice: s, lang: 'vi', text: speakable(line.t), tag, takes: 1 });
+      }
+    });
   }
   return out;
 }

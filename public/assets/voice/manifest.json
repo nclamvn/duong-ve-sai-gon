@@ -1,7 +1,7 @@
 {
  "version": 1,
  "model": "eleven_v3",
- "generated": "2026-10-12T12:28:42.917Z",
+ "generated": "2026-10-19T09:42:50.507Z",
  "lines": {
   "B01": {
    "voice": "LONG",
@@ -5155,6 +5155,7620 @@
    ],
    "qa": [
     null
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_0_QUYET.mp3"
+   ],
+   "ms": [
+    679
+   ],
+   "hash": [
+    "9faf74347b318332"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_0_LONG.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "fc29a374771c25e7"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_0_DAT.mp3"
+   ],
+   "ms": [
+    679
+   ],
+   "hash": [
+    "7ce6f067c2e7bfcd"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_0_HOAN.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "d92418a34f0087cd"
+   ],
+   "qa": [
+    0.56
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_0_KHANG.mp3"
+   ],
+   "ms": [
+    679
+   ],
+   "hash": [
+    "4441311bd06e69fb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_1_QUYET.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "d0e69dc8185e43a5"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_1_LONG.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "874102861e44aa72"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_1_DAT.mp3"
+   ],
+   "ms": [
+    940
+   ],
+   "hash": [
+    "635011df2230a310"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_1_HOAN.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "8eee8d6f9ba7b072"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_1_KHANG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "6494df89ccc56c73"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_2_QUYET.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "ad34c355abdd92f3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_2_LONG.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "dadd3a9c69e1b327"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_2_DAT.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "31d349ebf14a1c50"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_2_HOAN.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "0f2dac1ea12b1ca8"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_2_KHANG.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "c2a59d76a4fda79e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_3_QUYET.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "bcebb14172c9fadb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_3_LONG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "24e0f2fcb9d80d02"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_3_DAT.mp3"
+   ],
+   "ms": [
+    1176
+   ],
+   "hash": [
+    "51bbc6e2f23dca88"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_3_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "8cc47f4146f2ac37"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_3_KHANG.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "002b4462821b5077"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_4_QUYET.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "abf5c9b8084ac6b5"
+   ],
+   "qa": [
+    0.75
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_4_LONG.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "c2f17247a72da693"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_4_DAT.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "4467e6a494a1f1d5"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_4_HOAN.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "dbc8b7d0b4f5fa01"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_4_KHANG.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "6d9a2050e4a39231"
+   ],
+   "qa": [
+    0.81
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_5_QUYET.mp3"
+   ],
+   "ms": [
+    2482
+   ],
+   "hash": [
+    "6985bd04911f696a"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_5_LONG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "40701c0a0b056be3"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_5_DAT.mp3"
+   ],
+   "ms": [
+    2142
+   ],
+   "hash": [
+    "7e6186cdbfb2580e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_5_HOAN.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "94a99f95db150aed"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_5_KHANG.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "3ed4260c5a1b1ad0"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_6_QUYET.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "3c3a226ee1e45e0d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_6_LONG.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "61b55493d27f7496"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_6_DAT.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "f4a0f1e20f46ffe3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_6_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "7385bddc6e3d547f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_6_KHANG.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "69ab364b237a01a6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#7.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_7_QUYET.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "c95ee5353bb0ff85"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#7.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_7_LONG.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "a6afcf85b832c12b"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#7.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_7_DAT.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "f9316efbedbf19dd"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#7.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_7_HOAN.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "c302443f0878eac6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#7.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_7_KHANG.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "eaf18b2403c3b731"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.contact#8.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_contact_8_QUYET.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "52a7929c12227e52"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#8.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_contact_8_LONG.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "34f22b5ede7704b2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#8.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_contact_8_DAT.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "059ba09528bd19eb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#8.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_contact_8_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "b4a35b9d117b2e36"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.contact#8.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_contact_8_KHANG.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "d6f677e4b44c6d44"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_0_QUYET.mp3"
+   ],
+   "ms": [
+    731
+   ],
+   "hash": [
+    "1c2a0b47188f523c"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_0_LONG.mp3"
+   ],
+   "ms": [
+    940
+   ],
+   "hash": [
+    "09d8f544ae7ee686"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_0_DAT.mp3"
+   ],
+   "ms": [
+    731
+   ],
+   "hash": [
+    "3e28aeae8c4da0cb"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.reload#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_0_HOAN.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "97bd7b505c384163"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_0_KHANG.mp3"
+   ],
+   "ms": [
+    627
+   ],
+   "hash": [
+    "f14c821dcc7ee323"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.reload#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_1_QUYET.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "81ec052e600a7574"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_1_LONG.mp3"
+   ],
+   "ms": [
+    2325
+   ],
+   "hash": [
+    "c734dc9e2a66e31e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_1_DAT.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "f8f7a62e823d44fc"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_1_HOAN.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "6bad9d7ebb8b7af2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_1_KHANG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "6fae7bcc846d5ec3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_2_QUYET.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "84f6819aa7a8f950"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_2_LONG.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "1746f094f3428f70"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_2_DAT.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "bf2843a571fb2eeb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_2_HOAN.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "46bfc146c398bb23"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_2_KHANG.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "624fed3d2714c76d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_3_QUYET.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "f5e849bd41c173a1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_3_LONG.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "2450a87f11672195"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_3_DAT.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "2c51c5cf5d1e4082"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_3_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "f1ddb0a8d861e3c8"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_3_KHANG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "adff073c3eee6dc5"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_4_QUYET.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "49e1a1a7a21d1299"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_4_LONG.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "9efebda0016e78a2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_4_DAT.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "771feab5a3903202"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_4_HOAN.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "e068a84e6537532a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_4_KHANG.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "5b52c5523766e41e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_5_QUYET.mp3"
+   ],
+   "ms": [
+    2560
+   ],
+   "hash": [
+    "f6482f945cbda0b4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_5_LONG.mp3"
+   ],
+   "ms": [
+    1855
+   ],
+   "hash": [
+    "d2dc3a64c534d2fd"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_5_DAT.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "58bab11c0fd2ac95"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_5_HOAN.mp3"
+   ],
+   "ms": [
+    2220
+   ],
+   "hash": [
+    "2dd3b651dbe2fe12"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_5_KHANG.mp3"
+   ],
+   "ms": [
+    2064
+   ],
+   "hash": [
+    "ca7ab20cf0cee8df"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_reload_6_QUYET.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "07af356bcd33b1c9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_reload_6_LONG.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "bfe26f3ff8555e00"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_reload_6_DAT.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "b49466c2b236fa75"
+   ],
+   "qa": [
+    0.84
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_reload_6_HOAN.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "1efc57ec9b47afc9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.reload#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_reload_6_KHANG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "347a072f8c470297"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_0_QUYET.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "557d30e2c7bf90ce"
+   ],
+   "qa": [
+    0.71
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_0_LONG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "a5d36075651ad986"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_0_DAT.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "14799fad4f47a870"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_0_HOAN.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "db7a9027529cb824"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_kill_0_KHANG.mp3"
+   ],
+   "ms": [
+    784
+   ],
+   "hash": [
+    "07fcad294de184ea"
+   ],
+   "qa": [
+    0.63
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_1_QUYET.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "38c841dd1afd3ba6"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_1_LONG.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "b4b55f87685b1e99"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_1_DAT.mp3"
+   ],
+   "ms": [
+    862
+   ],
+   "hash": [
+    "b944ae66ef693940"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_1_HOAN.mp3"
+   ],
+   "ms": [
+    784
+   ],
+   "hash": [
+    "b95ed4593124ae21"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_kill_1_KHANG.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "c9fb43645aaa59a0"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_2_QUYET.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "e5e080b1362445e6"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_2_LONG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "85ae6167699e8762"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_2_DAT.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "f43d142991e4301f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_2_HOAN.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "5aac563ca2fe4c19"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_kill_2_KHANG.mp3"
+   ],
+   "ms": [
+    653
+   ],
+   "hash": [
+    "926c464c5d897361"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_3_QUYET.mp3"
+   ],
+   "ms": [
+    758
+   ],
+   "hash": [
+    "c72a5f494aa76c8f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_3_LONG.mp3"
+   ],
+   "ms": [
+    1933
+   ],
+   "hash": [
+    "58d5fd5fb2e42f8c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_3_DAT.mp3"
+   ],
+   "ms": [
+    549
+   ],
+   "hash": [
+    "f6dbe3bf1e6a3bc1"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.kill#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_3_HOAN.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "3f4778de09842538"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.kill#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_kill_3_KHANG.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "786c4271f9c9359b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.kill#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_4_QUYET.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "351c717734ee4f09"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_4_LONG.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "209314ec2c294066"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_4_DAT.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "49c655de1c9f4763"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_4_HOAN.mp3"
+   ],
+   "ms": [
+    3291
+   ],
+   "hash": [
+    "1b0e79d9c4b89de4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_kill_4_KHANG.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "1c106c41f9fb7a20"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_5_DAT.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "59deea8a25e1a602"
+   ],
+   "qa": [
+    0.67
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.kill#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_kill_5_LONG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "f709705e8e747fa2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.kill#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_kill_6_DAT.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "acc39d426a4e3d65"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_kill_6_QUYET.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "fe1ecba13ff0254e"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.kill#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_kill_6_HOAN.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "e4e857896f7525c3"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_0_QUYET.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "44f8ebfbcb4ece0d"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_0_LONG.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "a80c359826ce4744"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_0_DAT.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "d7267bb9188bab1d"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_hurt_0_HOAN.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "a9c93cc579cc576a"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_hurt_0_KHANG.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "b19eee24219a200a"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_1_QUYET.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "839c858a17636e58"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_1_LONG.mp3"
+   ],
+   "ms": [
+    1933
+   ],
+   "hash": [
+    "0bd8054f555d24ea"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_1_DAT.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "ec2b6709b958e8a3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_hurt_1_HOAN.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "6a41f1c0ddd28ed6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_hurt_1_KHANG.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "6cb9b7f53388b989"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_2_QUYET.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "14b7b47e6b35cdec"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_2_LONG.mp3"
+   ],
+   "ms": [
+    862
+   ],
+   "hash": [
+    "2f11304703c4fe8a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_2_DAT.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "6fcba1c9b1a7ed7a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_hurt_2_HOAN.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "9f5702ca2ffb0e8d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_hurt_2_KHANG.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "8cd70be98d54ef65"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_3_QUYET.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "96ff9012f3ec6cab"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_3_DAT.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "ff16751ae8fa3b85"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_3_LONG.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "4b6abc66c908d79c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_4_QUYET.mp3"
+   ],
+   "ms": [
+    2220
+   ],
+   "hash": [
+    "97cbbd1bc5ec0a28"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_4_LONG.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "77e192e1db374070"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_4_DAT.mp3"
+   ],
+   "ms": [
+    2534
+   ],
+   "hash": [
+    "eb86bf7a81886351"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_hurt_4_HOAN.mp3"
+   ],
+   "ms": [
+    1829
+   ],
+   "hash": [
+    "230306df36f304d2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_hurt_4_KHANG.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "59fa6b4a6d9bdb45"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_hurt_5_QUYET.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "13992604a320d4e1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_hurt_5_LONG.mp3"
+   ],
+   "ms": [
+    2325
+   ],
+   "hash": [
+    "bf6e104e25f3e106"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_hurt_5_DAT.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "916399434492f36c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_hurt_5_HOAN.mp3"
+   ],
+   "ms": [
+    2900
+   ],
+   "hash": [
+    "f4a0964bc023214f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.hurt#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_hurt_5_KHANG.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "7f50b9ff355215d7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_0_QUYET.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "a2db60769febd48c"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_0_LONG.mp3"
+   ],
+   "ms": [
+    731
+   ],
+   "hash": [
+    "68f7d99c91a72047"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_0_DAT.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "d86e7f63c19fe219"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.cover#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_0_HOAN.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "4703b946cab6a423"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_0_KHANG.mp3"
+   ],
+   "ms": [
+    653
+   ],
+   "hash": [
+    "a347288985187586"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_1_QUYET.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "b744696ecf331520"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_1_LONG.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "661467b8a85be78e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_1_DAT.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "df1d9957ebe91a35"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_1_HOAN.mp3"
+   ],
+   "ms": [
+    862
+   ],
+   "hash": [
+    "cd1246bd5e2796b7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_1_KHANG.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "7c89151c93b5be2f"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_2_QUYET.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "61d975e6680527af"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_2_LONG.mp3"
+   ],
+   "ms": [
+    810
+   ],
+   "hash": [
+    "b684bcb0ee3b410c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.cover#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_2_DAT.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "b1ac5c3dcd07d759"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.cover#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_2_HOAN.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "8be83b71f0660056"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_2_KHANG.mp3"
+   ],
+   "ms": [
+    2038
+   ],
+   "hash": [
+    "582adaece3739032"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_3_QUYET.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "6a1cb57259c38c25"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_3_LONG.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "e607df6c438c0669"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_3_DAT.mp3"
+   ],
+   "ms": [
+    862
+   ],
+   "hash": [
+    "beb0cc8291fb2d76"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_3_HOAN.mp3"
+   ],
+   "ms": [
+    2769
+   ],
+   "hash": [
+    "fb174d824ee63b66"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_3_KHANG.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "9c5b9db2aa51cfac"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_4_QUYET.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "c668ade101d58c4a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_4_LONG.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "f2c93734ad2b5e5d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_4_DAT.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "e5b68f5f7a529a8c"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_4_HOAN.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "6ccda262d9bb365a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_4_KHANG.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "d57f230cbe0ae34c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_5_QUYET.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "0669046ab0c430bb"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_5_LONG.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "6b0aeb004a1652f4"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_5_DAT.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "a0020b3e2bba32de"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_5_HOAN.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "90ebe26528462b24"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_5_KHANG.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "95bb27f9f0c8201d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_cover_6_QUYET.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "59ce26e97bea3ab2"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_cover_6_LONG.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "ffb8dc1f5eb0c697"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_cover_6_DAT.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "480fb6d9b1d41c00"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_cover_6_HOAN.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "29eef1bc900321a4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.cover#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_cover_6_KHANG.mp3"
+   ],
+   "ms": [
+    1411
+   ],
+   "hash": [
+    "0ced430b6e3e9728"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_0_QUYET.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "731b3863afe69f15"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_0_LONG.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "8abcbab4ce9c86cf"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_0_DAT.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "50f148b9b3d7e749"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_0_HOAN.mp3"
+   ],
+   "ms": [
+    1802
+   ],
+   "hash": [
+    "51b184f9267c6ef0"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_0_KHANG.mp3"
+   ],
+   "ms": [
+    758
+   ],
+   "hash": [
+    "0b89986b083728ff"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_1_QUYET.mp3"
+   ],
+   "ms": [
+    2325
+   ],
+   "hash": [
+    "f24597069c77f104"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_1_LONG.mp3"
+   ],
+   "ms": [
+    967
+   ],
+   "hash": [
+    "244b4f516f1d822c"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_1_DAT.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "a86e84175d81500c"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_1_HOAN.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "5d95dc44809d907d"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_1_KHANG.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "3fd85792e251ea20"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_2_QUYET.mp3"
+   ],
+   "ms": [
+    2142
+   ],
+   "hash": [
+    "b1a80b08b28eee8d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_2_LONG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "8f7ee1c9dd4d3af0"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_2_DAT.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "66f9706f7f5c2cd8"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_2_HOAN.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "7eb38b636ef65631"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_2_KHANG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "26e83150450279ff"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_3_QUYET.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "e5f661d7ee18a5b3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_3_LONG.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "97b634e17732aa5b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_3_DAT.mp3"
+   ],
+   "ms": [
+    1411
+   ],
+   "hash": [
+    "7bd7869dae2b4094"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_3_HOAN.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "cb6f4772e17ad7ef"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_3_KHANG.mp3"
+   ],
+   "ms": [
+    1959
+   ],
+   "hash": [
+    "6e86a772cc0d42b9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_4_QUYET.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "d7c27016ad124d67"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_4_DAT.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "6ccc02691235cb6a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_5_QUYET.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "4bf3c4e995768298"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_5_LONG.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "b8db528b74603c2d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_5_DAT.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "4b43f985a6ccc7c9"
+   ],
+   "qa": [
+    0.75
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.moving#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_5_HOAN.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "4232c5b60feda373"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_5_KHANG.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "894b9f95c23dd8df"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.moving#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_moving_6_QUYET.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "ea4d6a93cd28beb0"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_moving_6_LONG.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "bce4e6ad2c37b153"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_moving_6_DAT.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "34bb1db30a3aaedd"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_moving_6_HOAN.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "db489ac4ca44894c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.moving#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_moving_6_KHANG.mp3"
+   ],
+   "ms": [
+    1724
+   ],
+   "hash": [
+    "83161b90cec9276f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_pinned_0_QUYET.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "f50ca44d0c77b78c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_pinned_0_LONG.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "b74745af2fb01efb"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_pinned_0_DAT.mp3"
+   ],
+   "ms": [
+    1123
+   ],
+   "hash": [
+    "1bac77844555e5c0"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_pinned_0_HOAN.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "95c94bd3c1b61735"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_pinned_0_KHANG.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "426303a868fd1fde"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_pinned_1_QUYET.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "aa4a2add09903d7f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_pinned_1_LONG.mp3"
+   ],
+   "ms": [
+    1411
+   ],
+   "hash": [
+    "f45d3358b33fe46f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_pinned_1_DAT.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "9770f8054c3cce34"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_pinned_1_HOAN.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "dbe7753ccd024d9c"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_pinned_1_KHANG.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "805ba4d3666f6a77"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_pinned_2_QUYET.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "99b96360b4c52fbb"
+   ],
+   "qa": [
+    0.95
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_pinned_2_LONG.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "61223c995e446648"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_pinned_2_DAT.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "caacb9f4e1339488"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_pinned_2_HOAN.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "04a8f0aafcceb4a7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_pinned_2_KHANG.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "a07fc10269aa2471"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_pinned_3_QUYET.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "eb4f6e140f94bcec"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.pinned#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_pinned_3_LONG.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "6fd0e9c5222cfc04"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_pinned_3_DAT.mp3"
+   ],
+   "ms": [
+    2142
+   ],
+   "hash": [
+    "cc7e00ea9ef955a6"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_pinned_3_HOAN.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "760d8e43fcaf226d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_pinned_3_KHANG.mp3"
+   ],
+   "ms": [
+    2194
+   ],
+   "hash": [
+    "8f21f61048c30303"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_pinned_4_QUYET.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "3c983fbdcd17c189"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_pinned_4_LONG.mp3"
+   ],
+   "ms": [
+    2142
+   ],
+   "hash": [
+    "01faafec4ebc6e21"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_pinned_4_DAT.mp3"
+   ],
+   "ms": [
+    2194
+   ],
+   "hash": [
+    "311a47d804076808"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_pinned_4_HOAN.mp3"
+   ],
+   "ms": [
+    1933
+   ],
+   "hash": [
+    "d6d5e8857d1860f1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.pinned#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_pinned_4_KHANG.mp3"
+   ],
+   "ms": [
+    1855
+   ],
+   "hash": [
+    "aa29956f2018e35c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_grenade_0_QUYET.mp3"
+   ],
+   "ms": [
+    418
+   ],
+   "hash": [
+    "f831cbc507f15d8f"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.grenade#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_grenade_0_LONG.mp3"
+   ],
+   "ms": [
+    1123
+   ],
+   "hash": [
+    "3b6a730bbe2d18bf"
+   ],
+   "qa": [
+    0.71
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_grenade_0_DAT.mp3"
+   ],
+   "ms": [
+    784
+   ],
+   "hash": [
+    "758f1ea08bd862b2"
+   ],
+   "qa": [
+    0.71
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_grenade_0_HOAN.mp3"
+   ],
+   "ms": [
+    627
+   ],
+   "hash": [
+    "9930f540de0a9708"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_grenade_0_KHANG.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "1ce00eca53da62c0"
+   ],
+   "qa": [
+    0.71
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_grenade_1_QUYET.mp3"
+   ],
+   "ms": [
+    2821
+   ],
+   "hash": [
+    "eff428921dcd26ff"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_grenade_1_LONG.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "7b21a3fdc2549f65"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_grenade_1_DAT.mp3"
+   ],
+   "ms": [
+    1123
+   ],
+   "hash": [
+    "e1dc78e34a546b97"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.grenade#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_grenade_1_HOAN.mp3"
+   ],
+   "ms": [
+    993
+   ],
+   "hash": [
+    "6610c8124e94097e"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.grenade#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_grenade_1_KHANG.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "819fe5f9d2c925ca"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.grenade#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_grenade_2_QUYET.mp3"
+   ],
+   "ms": [
+    1855
+   ],
+   "hash": [
+    "c5b2174c01df928d"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_grenade_2_LONG.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "b3c5902e8cf4e4c4"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_grenade_2_DAT.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "537f62304f21055c"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_grenade_2_HOAN.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "0cc75d4b866c0fd6"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_grenade_2_KHANG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "fa7709d9111f0d3f"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_grenade_3_QUYET.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "e8ef9df53319548d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_grenade_3_LONG.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "9fe3bda5cee64d9d"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_grenade_3_DAT.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "121fe925af982dca"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_grenade_3_HOAN.mp3"
+   ],
+   "ms": [
+    1149
+   ],
+   "hash": [
+    "d96c3467ecbb338a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_grenade_3_KHANG.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "e5bb4d2b2731de58"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_grenade_4_QUYET.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "7839239900649a0d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_grenade_4_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "afca88a3530eace1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_grenade_4_DAT.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "0ad85497eca3b57f"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_grenade_4_HOAN.mp3"
+   ],
+   "ms": [
+    2482
+   ],
+   "hash": [
+    "c85faebdfde72aff"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.grenade#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_grenade_4_KHANG.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "ae5b707c097cc151"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_0_QUYET.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "46716dc06c556a8c"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_0_LONG.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "dd50b2404bd9ca28"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_0_DAT.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "46e0425c1e95e642"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_0_HOAN.mp3"
+   ],
+   "ms": [
+    2429
+   ],
+   "hash": [
+    "df3ee60c15b93fd1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_0_KHANG.mp3"
+   ],
+   "ms": [
+    2220
+   ],
+   "hash": [
+    "0fbb293e7d0b024c"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_1_QUYET.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "531d5647ddb01422"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.warnPlayer#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_1_LONG.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "df89dda4f18409be"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_1_DAT.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "92d75803b82f0c4b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_1_HOAN.mp3"
+   ],
+   "ms": [
+    2403
+   ],
+   "hash": [
+    "202268f973942533"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_1_KHANG.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "ba7c9541902160ef"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_2_QUYET.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "b41288121f1069f0"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_2_LONG.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "7fc134775f76a377"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_2_DAT.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "078365375e95a927"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_2_HOAN.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "e57b44bcaa6ba378"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_2_KHANG.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "e64e95672f904b69"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_3_QUYET.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "f664b28176493c83"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#3.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_3_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "688365945e78f3ac"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#3.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_3_DAT.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "87ba06685afdd85f"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_3_HOAN.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "8b45a58221020c20"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_3_KHANG.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "75dea7037fe2e6f6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_4_QUYET.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "9c393647dc46c16c"
+   ],
+   "qa": [
+    0.81
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_4_LONG.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "3cbd0272d0f5064f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_4_DAT.mp3"
+   ],
+   "ms": [
+    2743
+   ],
+   "hash": [
+    "4548fc5087b7348e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_4_HOAN.mp3"
+   ],
+   "ms": [
+    1254
+   ],
+   "hash": [
+    "6a04433fdb178a15"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_4_KHANG.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "f440869c4719d0cf"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_5_QUYET.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "5833868b5b5c80d3"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_5_LONG.mp3"
+   ],
+   "ms": [
+    2560
+   ],
+   "hash": [
+    "9e9e9f6cf7640c47"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_5_DAT.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "aab01eae8b28eb87"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#5.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_5_HOAN.mp3"
+   ],
+   "ms": [
+    1358
+   ],
+   "hash": [
+    "d67fe663915993be"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#5.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_5_KHANG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "07bb84dfbc7d07cc"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_6_QUYET.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "19f262acba9254d8"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_6_LONG.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "7ee9b9f8f62db310"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_6_DAT.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "9f39c40f0b4c3466"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_6_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "40df7f2682dec87c"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_6_KHANG.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "21af35d884f1e751"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.warnPlayer#7.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_warnPlayer_7_QUYET.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "7c1e7c193e5a38f3"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#7.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_warnPlayer_7_LONG.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "1e7c57dfee4329d6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#7.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_warnPlayer_7_DAT.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "0e1692c71489aff4"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#7.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_warnPlayer_7_HOAN.mp3"
+   ],
+   "ms": [
+    2691
+   ],
+   "hash": [
+    "b430278f7534798e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.warnPlayer#7.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_warnPlayer_7_KHANG.mp3"
+   ],
+   "ms": [
+    2247
+   ],
+   "hash": [
+    "6d95f4071ab015d2"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-LONG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_0-LONG_QUYET.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "0d08dd4b570dc118"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-DAT.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_0-DAT_QUYET.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "11b3be88022f05eb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-HOAN.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_0-HOAN_QUYET.mp3"
+   ],
+   "ms": [
+    3135
+   ],
+   "hash": [
+    "cf885a09e894996b"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-KHANG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_0-KHANG_QUYET.mp3"
+   ],
+   "ms": [
+    2717
+   ],
+   "hash": [
+    "6c27ebe7dd94acc4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-QUYET.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_0-QUYET_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "e995ae3875d88374"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-DAT.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_0-DAT_LONG.mp3"
+   ],
+   "ms": [
+    4336
+   ],
+   "hash": [
+    "b28ab0d57cf5321d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-HOAN.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_0-HOAN_LONG.mp3"
+   ],
+   "ms": [
+    2900
+   ],
+   "hash": [
+    "6c33f279b4f8b1bc"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-KHANG.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_0-KHANG_LONG.mp3"
+   ],
+   "ms": [
+    4911
+   ],
+   "hash": [
+    "8a1a6843622885b4"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-QUYET.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_0-QUYET_DAT.mp3"
+   ],
+   "ms": [
+    3396
+   ],
+   "hash": [
+    "85fe6a9f8939b932"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-LONG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_0-LONG_DAT.mp3"
+   ],
+   "ms": [
+    3631
+   ],
+   "hash": [
+    "efd437b256d4a36a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-HOAN.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_0-HOAN_DAT.mp3"
+   ],
+   "ms": [
+    3396
+   ],
+   "hash": [
+    "2df12e2ac40635f5"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-KHANG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_0-KHANG_DAT.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "bfa95af294395918"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-QUYET.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_0-QUYET_HOAN.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "80d4c337bca76f7b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.buddyDown#0-LONG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_0-LONG_HOAN.mp3"
+   ],
+   "ms": [
+    1985
+   ],
+   "hash": [
+    "126f6c11136ad767"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-DAT.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_0-DAT_HOAN.mp3"
+   ],
+   "ms": [
+    3004
+   ],
+   "hash": [
+    "68aa5b0d25aae76e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-KHANG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_0-KHANG_HOAN.mp3"
+   ],
+   "ms": [
+    4362
+   ],
+   "hash": [
+    "7f129d2484978e77"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-QUYET.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_0-QUYET_KHANG.mp3"
+   ],
+   "ms": [
+    2194
+   ],
+   "hash": [
+    "ad95cc5d6a6214ff"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-LONG.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_0-LONG_KHANG.mp3"
+   ],
+   "ms": [
+    3605
+   ],
+   "hash": [
+    "1bc9d7957306272f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-DAT.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_0-DAT_KHANG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "46ac23cea5d497b7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#0-HOAN.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_0-HOAN_KHANG.mp3"
+   ],
+   "ms": [
+    3709
+   ],
+   "hash": [
+    "00f79cabacad4082"
+   ],
+   "qa": [
+    0.83
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-LONG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_1-LONG_QUYET.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "08cb6877f4ed67d0"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-DAT.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_1-DAT_QUYET.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "6416423e3e0417eb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-HOAN.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_1-HOAN_QUYET.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "e674aeeedb7a2be5"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-KHANG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_1-KHANG_QUYET.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "93024c2eede1957b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-QUYET.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_1-QUYET_LONG.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "19f717a821247b02"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-DAT.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_1-DAT_LONG.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "2a442489c99785c4"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-HOAN.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_1-HOAN_LONG.mp3"
+   ],
+   "ms": [
+    2821
+   ],
+   "hash": [
+    "d787159e6ebce50a"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-KHANG.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_1-KHANG_LONG.mp3"
+   ],
+   "ms": [
+    3213
+   ],
+   "hash": [
+    "8d5a0d1090ec7694"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-QUYET.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_1-QUYET_DAT.mp3"
+   ],
+   "ms": [
+    3527
+   ],
+   "hash": [
+    "9e16e930c1480bba"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-LONG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_1-LONG_DAT.mp3"
+   ],
+   "ms": [
+    3840
+   ],
+   "hash": [
+    "fb74b01a2fc29eca"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-HOAN.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_1-HOAN_DAT.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "a376fac65dcf20c1"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-KHANG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_1-KHANG_DAT.mp3"
+   ],
+   "ms": [
+    3082
+   ],
+   "hash": [
+    "89d4bac984c1c941"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-QUYET.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_1-QUYET_HOAN.mp3"
+   ],
+   "ms": [
+    3396
+   ],
+   "hash": [
+    "f61244cb485981da"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-LONG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_1-LONG_HOAN.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "b19bbca830e39825"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.buddyDown#1-DAT.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_1-DAT_HOAN.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "643ef5bd195ab634"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-KHANG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_1-KHANG_HOAN.mp3"
+   ],
+   "ms": [
+    3318
+   ],
+   "hash": [
+    "9db56427b389effb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-QUYET.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_1-QUYET_KHANG.mp3"
+   ],
+   "ms": [
+    2403
+   ],
+   "hash": [
+    "11be6a342b8a52dc"
+   ],
+   "qa": [
+    0.81
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-LONG.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_1-LONG_KHANG.mp3"
+   ],
+   "ms": [
+    1907
+   ],
+   "hash": [
+    "fdec41adbb11266a"
+   ],
+   "qa": [
+    0.93
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-DAT.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_1-DAT_KHANG.mp3"
+   ],
+   "ms": [
+    2952
+   ],
+   "hash": [
+    "ad057914459e728a"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#1-HOAN.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_1-HOAN_KHANG.mp3"
+   ],
+   "ms": [
+    627
+   ],
+   "hash": [
+    "0ef37becbccdf7cc"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-LONG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_2-LONG_QUYET.mp3"
+   ],
+   "ms": [
+    3161
+   ],
+   "hash": [
+    "81534bba2a45d327"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-DAT.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_2-DAT_QUYET.mp3"
+   ],
+   "ms": [
+    705
+   ],
+   "hash": [
+    "0345d022eb24b0a9"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.buddyDown#2-HOAN.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_2-HOAN_QUYET.mp3"
+   ],
+   "ms": [
+    3239
+   ],
+   "hash": [
+    "be99b607b506d693"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-KHANG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_2-KHANG_QUYET.mp3"
+   ],
+   "ms": [
+    2403
+   ],
+   "hash": [
+    "5a2d9340bdfc5750"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-QUYET.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_2-QUYET_LONG.mp3"
+   ],
+   "ms": [
+    3056
+   ],
+   "hash": [
+    "71c2b1bd277de449"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-DAT.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_2-DAT_LONG.mp3"
+   ],
+   "ms": [
+    2978
+   ],
+   "hash": [
+    "6576f1c75b486ae1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-HOAN.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_2-HOAN_LONG.mp3"
+   ],
+   "ms": [
+    3213
+   ],
+   "hash": [
+    "a523a27df5795a96"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-KHANG.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_2-KHANG_LONG.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "2cf3748b1ca014d3"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-QUYET.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_2-QUYET_DAT.mp3"
+   ],
+   "ms": [
+    2247
+   ],
+   "hash": [
+    "090d9f4edbc89213"
+   ],
+   "qa": [
+    0.73
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-LONG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_2-LONG_DAT.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "4a936782bbf17c44"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-HOAN.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_2-HOAN_DAT.mp3"
+   ],
+   "ms": [
+    3318
+   ],
+   "hash": [
+    "da1d72922ad2498e"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-KHANG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_2-KHANG_DAT.mp3"
+   ],
+   "ms": [
+    2612
+   ],
+   "hash": [
+    "1e22cec674254c4f"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-QUYET.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_2-QUYET_HOAN.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "f555ef36058f6904"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-LONG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_2-LONG_HOAN.mp3"
+   ],
+   "ms": [
+    4336
+   ],
+   "hash": [
+    "63d3270c617de46f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-DAT.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_2-DAT_HOAN.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "f95e99112b38619e"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-KHANG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_2-KHANG_HOAN.mp3"
+   ],
+   "ms": [
+    2194
+   ],
+   "hash": [
+    "744a4ec290f9fc72"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-QUYET.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_2-QUYET_KHANG.mp3"
+   ],
+   "ms": [
+    2691
+   ],
+   "hash": [
+    "6bc3b125c0617534"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-LONG.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_2-LONG_KHANG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "fe77e9c02e8944b5"
+   ],
+   "qa": [
+    0.9
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-DAT.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_2-DAT_KHANG.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "11d73fbb79428876"
+   ],
+   "qa": [
+    0.78
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#2-HOAN.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_2-HOAN_KHANG.mp3"
+   ],
+   "ms": [
+    5251
+   ],
+   "hash": [
+    "ecf6f45b9bcb6a41"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-LONG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_3-LONG_QUYET.mp3"
+   ],
+   "ms": [
+    3082
+   ],
+   "hash": [
+    "4445b292e5346fd5"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-DAT.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_3-DAT_QUYET.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "86228457ad16b4d6"
+   ],
+   "qa": [
+    0.82
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-HOAN.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_3-HOAN_QUYET.mp3"
+   ],
+   "ms": [
+    2664
+   ],
+   "hash": [
+    "efea1ebfdd03a5f8"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-KHANG.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_buddyDown_3-KHANG_QUYET.mp3"
+   ],
+   "ms": [
+    3056
+   ],
+   "hash": [
+    "38e57b0d3385f4ae"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-QUYET.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_3-QUYET_LONG.mp3"
+   ],
+   "ms": [
+    2273
+   ],
+   "hash": [
+    "4ae5292dd158fcd2"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-DAT.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_3-DAT_LONG.mp3"
+   ],
+   "ms": [
+    2743
+   ],
+   "hash": [
+    "b81829d4e4514428"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-HOAN.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_3-HOAN_LONG.mp3"
+   ],
+   "ms": [
+    1646
+   ],
+   "hash": [
+    "bb625dc7a518a91b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-KHANG.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_buddyDown_3-KHANG_LONG.mp3"
+   ],
+   "ms": [
+    2926
+   ],
+   "hash": [
+    "410b516d59a69ed1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-QUYET.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_3-QUYET_DAT.mp3"
+   ],
+   "ms": [
+    2351
+   ],
+   "hash": [
+    "43a245b9bc64bc47"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-LONG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_3-LONG_DAT.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "0445c85d6708ff2f"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-HOAN.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_3-HOAN_DAT.mp3"
+   ],
+   "ms": [
+    3056
+   ],
+   "hash": [
+    "73defd7e67eab3e7"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-KHANG.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_buddyDown_3-KHANG_DAT.mp3"
+   ],
+   "ms": [
+    836
+   ],
+   "hash": [
+    "fa8b21d0e718d539"
+   ],
+   "qa": [
+    0.85
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-QUYET.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_3-QUYET_HOAN.mp3"
+   ],
+   "ms": [
+    3971
+   ],
+   "hash": [
+    "763e7a36252799b7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-LONG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_3-LONG_HOAN.mp3"
+   ],
+   "ms": [
+    1985
+   ],
+   "hash": [
+    "c47e0fcd795408c3"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-DAT.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_3-DAT_HOAN.mp3"
+   ],
+   "ms": [
+    2429
+   ],
+   "hash": [
+    "ca21ebb0b328f980"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-KHANG.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_buddyDown_3-KHANG_HOAN.mp3"
+   ],
+   "ms": [
+    1463
+   ],
+   "hash": [
+    "1424fcbc84417d3d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-QUYET.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_3-QUYET_KHANG.mp3"
+   ],
+   "ms": [
+    2873
+   ],
+   "hash": [
+    "c5c28b67f74f8560"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-LONG.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_3-LONG_KHANG.mp3"
+   ],
+   "ms": [
+    2508
+   ],
+   "hash": [
+    "8502f37955a6bff2"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-DAT.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_3-DAT_KHANG.mp3"
+   ],
+   "ms": [
+    2926
+   ],
+   "hash": [
+    "e85c6100cc650c6d"
+   ],
+   "qa": [
+    0.91
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.buddyDown#3-HOAN.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_buddyDown_3-HOAN_KHANG.mp3"
+   ],
+   "ms": [
+    2586
+   ],
+   "hash": [
+    "1f28a0b3fe99da3d"
+   ],
+   "qa": [
+    0.92
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_0_QUYET.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "5a6ef8f7f648de65"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_0_LONG.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "ba18e7bceb8ebfa9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_0_DAT.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "b4b515d5fc74f70d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_0_HOAN.mp3"
+   ],
+   "ms": [
+    1306
+   ],
+   "hash": [
+    "a078f1bde95c0c0b"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_0_KHANG.mp3"
+   ],
+   "ms": [
+    2064
+   ],
+   "hash": [
+    "c5331a5f4d6e1566"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_1_QUYET.mp3"
+   ],
+   "ms": [
+    1123
+   ],
+   "hash": [
+    "a0d513e73738f50d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#1.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_1_LONG.mp3"
+   ],
+   "ms": [
+    967
+   ],
+   "hash": [
+    "53166f6efc2b0628"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#1.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_1_DAT.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "dea1ef159b116157"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#1.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_1_HOAN.mp3"
+   ],
+   "ms": [
+    940
+   ],
+   "hash": [
+    "4dbca62b014a380c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#1.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_1_KHANG.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "51ea7fa76190eeb6"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_2_QUYET.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "0a80b9f6e2d3f912"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#2.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_2_LONG.mp3"
+   ],
+   "ms": [
+    1750
+   ],
+   "hash": [
+    "e9006a532568dd0a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_2_DAT.mp3"
+   ],
+   "ms": [
+    1384
+   ],
+   "hash": [
+    "da3fb1986277ad0f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#2.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_2_HOAN.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "2bb71f60885a0ede"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#2.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_2_KHANG.mp3"
+   ],
+   "ms": [
+    1071
+   ],
+   "hash": [
+    "a5d44908ac7c1201"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#3.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_3_KHANG.mp3"
+   ],
+   "ms": [
+    888
+   ],
+   "hash": [
+    "fbe2cc49e86c5bc7"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#3.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_3_HOAN.mp3"
+   ],
+   "ms": [
+    1019
+   ],
+   "hash": [
+    "564cadbdd9f5462d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_4_QUYET.mp3"
+   ],
+   "ms": [
+    2038
+   ],
+   "hash": [
+    "f498c8cfc4ec8b56"
+   ],
+   "qa": [
+    0.87
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#4.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_4_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "41cb64b4dd386576"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_4_DAT.mp3"
+   ],
+   "ms": [
+    1437
+   ],
+   "hash": [
+    "8becc6632e5d3639"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#4.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_4_HOAN.mp3"
+   ],
+   "ms": [
+    1489
+   ],
+   "hash": [
+    "bd4aaad1c9c7afbf"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#4.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_4_KHANG.mp3"
+   ],
+   "ms": [
+    2038
+   ],
+   "hash": [
+    "1cf6d92fc113f0f9"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#5.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_5_QUYET.mp3"
+   ],
+   "ms": [
+    862
+   ],
+   "hash": [
+    "1f3e699a0e97c6fe"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_5_DAT.mp3"
+   ],
+   "ms": [
+    1045
+   ],
+   "hash": [
+    "b3050275e691b332"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#5.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_5_LONG.mp3"
+   ],
+   "ms": [
+    1541
+   ],
+   "hash": [
+    "b009621f3a2e0e2a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_blast_6_QUYET.mp3"
+   ],
+   "ms": [
+    914
+   ],
+   "hash": [
+    "c95cb238a987aa72"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.blast#6.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_blast_6_LONG.mp3"
+   ],
+   "ms": [
+    2038
+   ],
+   "hash": [
+    "a1abf36a316c0d5c"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#6.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_blast_6_DAT.mp3"
+   ],
+   "ms": [
+    1202
+   ],
+   "hash": [
+    "fc48688a7477075b"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#6.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_blast_6_HOAN.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "f49300621ecfeda3"
+   ],
+   "qa": [
+    0.8
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.blast#6.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_blast_6_KHANG.mp3"
+   ],
+   "ms": [
+    1280
+   ],
+   "hash": [
+    "23df540cc14ee4f1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#0.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_0_QUYET.mp3"
+   ],
+   "ms": [
+    2403
+   ],
+   "hash": [
+    "bbfcfefe2a637082"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#0.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_rally_0_LONG.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "56aad289bd6a9b13"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#0.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_rally_0_DAT.mp3"
+   ],
+   "ms": [
+    1593
+   ],
+   "hash": [
+    "a615c9ab2c158b76"
+   ],
+   "qa": [
+    0.89
+   ],
+   "model": [
+    "eleven_flash_v2_5"
+   ]
+  },
+  "sq.rally#0.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_rally_0_HOAN.mp3"
+   ],
+   "ms": [
+    1567
+   ],
+   "hash": [
+    "37b9ddcc21ae1f5d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#0.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_rally_0_KHANG.mp3"
+   ],
+   "ms": [
+    1672
+   ],
+   "hash": [
+    "7fa8d362f6eb4e48"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#1.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_1_QUYET.mp3"
+   ],
+   "ms": [
+    2116
+   ],
+   "hash": [
+    "f53cbe0fbbd302eb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#2.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_2_QUYET.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "0c610bbba6f2ec2d"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#2.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_rally_2_DAT.mp3"
+   ],
+   "ms": [
+    1620
+   ],
+   "hash": [
+    "9310019a5684c5f1"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#3.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_3_QUYET.mp3"
+   ],
+   "ms": [
+    1881
+   ],
+   "hash": [
+    "bfb4a03c67ac76be"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#4.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_4_QUYET.mp3"
+   ],
+   "ms": [
+    1097
+   ],
+   "hash": [
+    "163d8f4b04e4afe0"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#4.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_rally_4_DAT.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "03d87d634b043ebf"
+   ],
+   "qa": [
+    0.94
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#5.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_rally_5_DAT.mp3"
+   ],
+   "ms": [
+    1228
+   ],
+   "hash": [
+    "0e56c3bebf668833"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#6.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_6_QUYET.mp3"
+   ],
+   "ms": [
+    1855
+   ],
+   "hash": [
+    "7e22b943693bee25"
+   ],
+   "qa": [
+    0.88
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#7.QUYET": {
+   "voice": "QUYET",
+   "files": [
+    "vi/sq_rally_7_QUYET.mp3"
+   ],
+   "ms": [
+    1776
+   ],
+   "hash": [
+    "269d576b53cd3933"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#7.LONG": {
+   "voice": "LONG",
+   "files": [
+    "vi/sq_rally_7_LONG.mp3"
+   ],
+   "ms": [
+    1698
+   ],
+   "hash": [
+    "e6e6c30177832448"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#7.DAT": {
+   "voice": "DAT",
+   "files": [
+    "vi/sq_rally_7_DAT.mp3"
+   ],
+   "ms": [
+    1515
+   ],
+   "hash": [
+    "ff0b8de35ca6b565"
+   ],
+   "qa": [
+    0.86
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#7.HOAN": {
+   "voice": "HOAN",
+   "files": [
+    "vi/sq_rally_7_HOAN.mp3"
+   ],
+   "ms": [
+    1332
+   ],
+   "hash": [
+    "267723d26455920a"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "sq.rally#7.KHANG": {
+   "voice": "KHANG",
+   "files": [
+    "vi/sq_rally_7_KHANG.mp3"
+   ],
+   "ms": [
+    2011
+   ],
+   "hash": [
+    "8b0bb8a69d52c0de"
+   ],
+   "qa": [
+    1
    ],
    "model": [
     "eleven_v3"

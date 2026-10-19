@@ -1,0 +1,146 @@
+{
+  "$comment": "DV-087 câu hô giữa trận của tổ ta: mỗi loại nhiều câu, mỗi người trong tổ đọc bản riêng (giọng ElevenLabs của vai). Game chọn câu không trùng mấy câu vừa nói (cả tổ), nên trận đánh nghe như người thật la hét, gọi tên, cảnh báo, không một câu lặp lại. `who` = chỉ những người này nói câu đó (tính cách). `{name}` = tên đồng đội được gọi (tạo một bản cho mỗi người). Phụ đề là chính câu này. Thẻ [..] là audio tag của eleven_v3 (không đọc thành lời).",
+  "names": { "QUYET": "Quyết", "LONG": "Long", "DAT": "Đạt", "HOAN": "Hoàn", "KHANG": "Khang" },
+  "kinds": {
+    "contact": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Địch! Địch!" },
+        { "t": "Chúng nó kia kìa!" },
+        { "t": "Có động! Trong lùm cây!" },
+        { "t": "Thấy rồi! Bắn đi!" },
+        { "t": "Lính! Bên kia bờ!" },
+        { "t": "Nó lên đấy! Chuẩn bị!" },
+        { "t": "Có người! Nằm xuống!" },
+        { "t": "Trên dốc! Trên dốc kìa!" },
+        { "t": "Coi chừng, nó đông lắm!" }
+      ]
+    },
+    "reload": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Thay băng!" },
+        { "t": "Hết đạn! Che cho tôi!" },
+        { "t": "Băng cuối rồi đấy!" },
+        { "t": "Chờ tí, nạp đạn!" },
+        { "t": "Đạn! Ai còn đạn không?" },
+        { "t": "Kẹt rồi... được rồi, được rồi!" },
+        { "t": "Nạp đạn, yểm trợ tôi!" }
+      ]
+    },
+    "kill": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Gục rồi!" },
+        { "t": "Một thằng nằm!" },
+        { "t": "Trúng rồi!" },
+        { "t": "Hạ được nó!" },
+        { "t": "Nằm im rồi. Tiếp!" },
+        { "t": "Ăn đạn rồi nhé!", "who": ["DAT", "LONG"] },
+        { "t": "Nó không dậy nữa đâu!", "who": ["DAT", "QUYET", "HOAN"] }
+      ]
+    },
+    "hurt": {
+      "tag": "[pained]",
+      "lines": [
+        { "t": "Á! Dính rồi!" },
+        { "t": "Chân tôi! Chân tôi!" },
+        { "t": "Tôi trúng đạn!" },
+        { "t": "Không sao... vẫn bắn được!", "who": ["QUYET", "DAT", "LONG"] },
+        { "t": "Trời ơi... đau quá!" },
+        { "t": "Vai... dính vai rồi!" }
+      ]
+    },
+    "cover": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Nằm xuống!" },
+        { "t": "Vào gốc cây!" },
+        { "t": "Núp đi! Núp!" },
+        { "t": "Cúi đầu xuống!" },
+        { "t": "Tìm chỗ nấp, nhanh!" },
+        { "t": "Ra sau tảng đá!" },
+        { "t": "Đừng đứng giữa trống!" }
+      ]
+    },
+    "moving": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Tôi lên!" },
+        { "t": "Che cho tôi!" },
+        { "t": "Lên! Lên!" },
+        { "t": "Tôi qua bên kia!" },
+        { "t": "Bám theo tôi!", "who": ["QUYET", "DAT"] },
+        { "t": "Yểm trợ, tôi chạy!" },
+        { "t": "Đổi chỗ!" }
+      ]
+    },
+    "pinned": {
+      "tag": "[shouting] [panicked]",
+      "lines": [
+        { "t": "Đạn nhiều quá!" },
+        { "t": "Không ngóc đầu lên được!" },
+        { "t": "Nó ghim chặt tôi rồi!" },
+        { "t": "Rát quá! Rát quá!" },
+        { "t": "Ai bắn nó đi, tôi kẹt rồi!" }
+      ]
+    },
+    "grenade": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Lựu đạn!" },
+        { "t": "Lựu đạn! Chạy!" },
+        { "t": "Nằm xuống! Lựu đạn!" },
+        { "t": "Nó ném lựu đạn!" },
+        { "t": "Tránh ra! Lựu đạn!" }
+      ]
+    },
+    "warnPlayer": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Lâm! Nằm xuống!" },
+        { "t": "Lâm, cúi xuống!" },
+        { "t": "Lâm! Bên trái!" },
+        { "t": "Lâm! Bên phải kìa!" },
+        { "t": "Lâm, đừng đứng đó!" },
+        { "t": "Lâm! Vào chỗ nấp!" },
+        { "t": "Lâm ơi, cẩn thận!" },
+        { "t": "Lâm! Sau lưng!" }
+      ]
+    },
+    "buddyDown": {
+      "tag": "[shouting] [crying]",
+      "lines": [
+        { "t": "{name}! {name} ơi!" },
+        { "t": "{name} trúng rồi!" },
+        { "t": "Không! {name}!" },
+        { "t": "Mất {name} rồi!" }
+      ]
+    },
+    "blast": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Pháo! Pháo!" },
+        { "t": "Trời đất ơi!", "tag": "[panicked]" },
+        { "t": "Nằm xuống, nằm xuống!" },
+        { "t": "Mẹ ơi!", "who": ["KHANG", "HOAN"], "tag": "[screaming]" },
+        { "t": "Gần quá! Gần quá!" },
+        { "t": "Ai bị gì không?", "who": ["QUYET", "DAT", "LONG"] },
+        { "t": "Điếc cả tai rồi!" }
+      ]
+    },
+    "rally": {
+      "tag": "[shouting]",
+      "lines": [
+        { "t": "Bắn trả! Bắn trả đi!" },
+        { "t": "Giữ vững! Không ai lùi!", "who": ["QUYET"] },
+        { "t": "Đừng để nó vượt qua!", "who": ["QUYET", "DAT"] },
+        { "t": "Bắn từng phát, đừng xả!", "who": ["QUYET"] },
+        { "t": "Ngắm rồi hãy bắn!", "who": ["QUYET", "DAT"] },
+        { "t": "Còn sống thì bắn tiếp!", "who": ["DAT"] },
+        { "t": "Giữ đội hình! Giữ!", "who": ["QUYET"] },
+        { "t": "Lâm! Bắn đi chứ!" }
+      ]
+    }
+  }
+}

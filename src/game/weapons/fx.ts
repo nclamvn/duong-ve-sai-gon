@@ -7,10 +7,10 @@ import {
   InstancedMesh, PlaneGeometry, BoxGeometry, MeshBasicNodeMaterial, MeshStandardNodeMaterial, Matrix4, Vector3, Quaternion, Object3D, Scene, DoubleSide,
   PointLight, AdditiveBlending, Color, BufferGeometry, Float32BufferAttribute, InstancedBufferAttribute, type PerspectiveCamera, type Node,
 } from 'three/webgpu';
-import { texture, uv, vec2, vec3, vec4, float, floor, hash, instanceIndex, time, attribute, mix } from 'three/tsl';
+import { texture, uv, vec2, vec3, vec4, float, floor, attribute, mix } from 'three/tsl';
 import type { EventBus, Prng } from '@engine/core';
 import type { WeaponEvents } from './weapon';
-import { makeFlashFlipbook, makeSoftPuff, makeBulletHole, FLIPBOOK_N } from './fxTextures';
+import { makeMuzzleAtlas, makeSoftPuff, makeBulletHole } from './fxTextures';
 
 interface Casing {
   pos: Vector3;
@@ -67,12 +67,18 @@ const _dummy = new Object3D();
 const _fwd = new Vector3(0, 0, 1);
 const _tmp = new Vector3();
 const HIDDEN = new Matrix4().makeScale(0, 0, 0);
-/** đèn nòng: decay 1 (tuyến tính) để súng sát đèn không cháy trắng mà sàn 3–5 m vẫn ánh cam (TIP-011) */
-const MUZZLE_LIGHT = 3.5;
+/** đèn nòng: decay 1 (tuyến tính) để súng sát đèn không cháy trắng mà sàn 3–5 m vẫn ánh cam (TIP-011); DV-087 mạnh hơn, xa hơn */
+const MUZZLE_LIGHT = 7;
+/** thời gian sống của một chớp lửa nòng (s): ~3 khung 60 Hz, khung đầu to nhất rồi co và nguội */
+const FLASH_LIFE = 0.055;
+/** khói nòng (DV-087): nhiệt tích theo phát bắn, nguội theo giây; nóng quá ngưỡng thì nòng toả khói mảnh sau loạt bắn */
+const HEAT_PER_SHOT = 1;
+const HEAT_COOL = 0.9;
+const HEAT_SMOKE = 3;
 const TRACER_SPEED = 320; // m/s (hình ảnh)
 const TRACER_LEN = 5;
 /** màu bụi theo vật liệu (DV-075) */
-const TINT = { smoke: [0.62, 0.6, 0.56], earth: [0.72, 0.4, 0.26], wood: [0.78, 0.62, 0.42], blast: [0.52, 0.4, 0.32] } as const satisfies Record<string, readonly [number, number, number]>;
+const TINT = { smoke: [0.62, 0.6, 0.56], earth: [0.72, 0.4, 0.26], wood: [0.78, 0.62, 0.42], blast: [0.52, 0.4, 0.32], barrel: [0.7, 0.71, 0.74] } as const satisfies Record<string, readonly [number, number, number]>;
 /** màu vệt đạn theo phe (HDR, additive) */
 const TRACER = { player: [1.3, 0.95, 0.5], enemy: [1.9, 0.55, 0.25], friend: [0.55, 1.7, 0.5] } as const satisfies Record<string, readonly [number, number, number]>;
 
@@ -103,6 +109,18 @@ export class WeaponFx {
   private flashHead = 0;
   private lightLife = 0;
   private botLightLife = 0;
+  /** cường độ đỉnh của chớp đèn nòng hiện tại (đổi theo phát) */
+  private lightPeak = MUZZLE_LIGHT;
+  private readonly flashAge: InstancedBufferAttribute;
+  private readonly flashSeed: InstancedBufferAttribute;
+  private readonly flashScale: Float32Array;
+  /** nhiệt nòng (DV-087) và thời điểm phát bắn gần nhất (giây, đồng hồ FX) */
+  private heat = 0;
+  private clock = 0;
+  private lastShotAt = -1;
+  private wispAcc = 0;
+  /** ô chớp lửa của phát bắn gần nhất của người chơi (bám đầu nòng khi súng giật) */
+  private playerFlash = -1;
   readonly stats: FxStats = { decalsPlaced: 0, decalWraps: 0, casingsActive: 0, tracersActive: 0, sparksActive: 0, puffsActive: 0, created: 0, shots: 0, explosions: 0 };
   private readonly gravity = new Vector3(0, -9.81, 0);
   /** màu bụi cho lần spawnPuffs kế tiếp */
@@ -120,7 +138,7 @@ export class WeaponFx {
     private readonly camera: PerspectiveCamera,
     events: EventBus<WeaponEvents>,
     private readonly prng: Prng,
-    readonly capacity = { decals: 256, casings: 64, tracers: 24, sparks: 96, flashes: 6, puffs: 40 },
+    readonly capacity = { decals: 256, casings: 64, tracers: 32, sparks: 128, flashes: 16, puffs: 128 },
   ) {
     // Decal: lỗ đạn procedural (texture canvas) · kind 1 = máu (tint đỏ thẫm)
     const holeTex = makeBulletHole();
@@ -174,23 +192,51 @@ export class WeaponFx {
       this.stats.created++;
     }
 
-    // Muzzle flash (TIP-013): flipbook 4×4 procedural — 1 đĩa vuông góc nòng + 1 cánh dọc nòng; frame ngẫu nhiên mỗi frame (nhấp nháy)
-    const flip = makeFlashFlipbook();
+    // Lửa nòng (DV-087, thay flipbook TIP-013): atlas 4×4 ô 256 px — 8 dáng nhìn trước (sao nhiều cánh không đều, lõi trắng nóng)
+    // + 8 dáng nhìn ngang (chùm lửa loe, đĩa sốc, luồng phụ của bộ hãm). Hình: 1 đĩa vuông góc nòng + 3 tấm dọc nòng xoay 60° quanh
+    // trục nòng (nhìn từ góc nào cũng thấy chùm lửa có khối). Mỗi phát chọn dáng theo hạt giống instance; sống ~3 khung: khung đầu
+    // to và trắng nhất, rồi co lại, nguội về cam đỏ (tuổi qua thuộc tính instance). Màu HDR để bloom loé.
+    const atlas = makeMuzzleAtlas();
     const flashMat = new MeshBasicNodeMaterial({ transparent: true, depthWrite: false, blending: AdditiveBlending, side: DoubleSide });
-    const frame = floor(hash(float(instanceIndex).add(floor(time.mul(90.0)).mul(7.0))).mul(FLIPBOOK_N * FLIPBOOK_N));
-    const fx = frame.mod(FLIPBOOK_N);
-    const fy = floor(frame.div(FLIPBOOK_N));
-    const fuv = uv().div(FLIPBOOK_N).add(vec2(fx, fy).div(FLIPBOOK_N));
-    const flipSample = texture(flip, fuv);
-    flashMat.colorNode = vec4(flipSample.rgb.mul(vec3(1.5, 1.2, 0.9)), 1.0);
-    flashMat.opacityNode = flipSample.a.mul(0.85);
-    const star = mergePlanes([
-      new PlaneGeometry(0.26, 0.26).translate(0, 0, 0.04), // đĩa (nhìn từ phía sau nòng vẫn thấy)
-      new PlaneGeometry(0.3, 0.2).rotateY(Math.PI / 2).translate(0, 0.02, 0.1), // cánh dọc nòng (nhìn ngang)
-    ]);
+    const kind = attribute('flashKind', 'float') as unknown as Node<'float'>;
+    const age = attribute('flashAge', 'float') as unknown as Node<'float'>;
+    // dáng theo hạt giống của phát bắn (gán lúc sinh) — mỗi phát một dáng, không lặp theo thứ tự ô
+    const variant = floor((attribute('flashSeed', 'float') as unknown as Node<'float'>).mul(7.999));
+    const cellX = variant.mod(4);
+    const cellY = floor(variant.div(4)).add(kind.mul(2));
+    const fuv = uv().div(4).add(vec2(cellX, float(3).sub(cellY)).div(4));
+    const flashSample = texture(atlas, fuv);
+    const glow = float(1).sub(age).pow(1.6);
+    // nguội: khung đầu trắng vàng, sau đó ngả cam đỏ
+    const warm = mix(vec3(2.4, 2.0, 1.55), vec3(1.6, 0.72, 0.28), age);
+    flashMat.colorNode = vec4(flashSample.rgb.mul(warm).mul(glow), 1.0);
+    flashMat.opacityNode = flashSample.a.mul(glow);
+    flashMat.fog = false;
+    const sideLen = 0.42;
+    const sidePlane = (roll: number): PlaneGeometry => {
+      const g = new PlaneGeometry(sideLen, 0.24).translate(sideLen / 2, 0, 0).rotateY(-Math.PI / 2).rotateZ(roll);
+      return g;
+    };
+    const parts = [new PlaneGeometry(0.24, 0.24).translate(0, 0, 0.02), sidePlane(0), sidePlane(Math.PI / 3), sidePlane((2 * Math.PI) / 3)];
+    const kinds = [0, 1, 1, 1];
+    const star = mergePlanes(parts);
+    const kindArr = new Float32Array(star.attributes.position!.count);
+    let vo = 0;
+    for (let k = 0; k < kinds.length; k++) {
+      const n = 6; // mỗi tấm không chỉ số = 6 đỉnh
+      kindArr.fill(kinds[k]!, vo, vo + n);
+      vo += n;
+    }
+    star.setAttribute('flashKind', new Float32BufferAttribute(kindArr, 1));
+    this.flashAge = new InstancedBufferAttribute(new Float32Array(capacity.flashes).fill(1), 1);
+    star.setAttribute('flashAge', this.flashAge);
+    this.flashSeed = new InstancedBufferAttribute(new Float32Array(capacity.flashes), 1);
+    star.setAttribute('flashSeed', this.flashSeed);
     this.flashes = new InstancedMesh(star, flashMat, capacity.flashes);
     this.flashes.frustumCulled = false;
+    this.flashes.renderOrder = 6;
     this.flashLife = new Float32Array(capacity.flashes);
+    this.flashScale = new Float32Array(capacity.flashes);
     for (let i = 0; i < capacity.flashes; i++) this.flashes.setMatrixAt(i, HIDDEN);
     scene.add(this.flashes);
 
@@ -254,13 +300,17 @@ export class WeaponFx {
         if (!(this.botMuzzle && this.botMuzzle(e.botId, _p))) {
           _p.set(e.origin[0] + e.dir[0] * 0.6, e.origin[1] + e.dir[1] * 0.6 - 0.15, e.origin[2] + e.dir[2] * 0.6);
         }
-        this.spawnFlash(_p, _n, 0.8);
-        this.spawnSparks(_p, _n, 5);
+        // DV-087: chớp lửa của lính ở xa phóng to theo khoảng cách (giữ cỡ góc tối thiểu) — đọc được chỗ địch bắn trong bóng rừng
+        const dist = _p.distanceTo(this.camera.position);
+        const far = Math.pow(Math.max(1, dist / 10), 0.7);
+        this.spawnFlash(_p, _n, 0.9 * far);
+        this.spawnSparks(_p, _n, 4);
         this.spawnTracer(_p, _n, 70, e.faction === 'friend' ? TRACER.friend : TRACER.enemy, 1.8);
-        this.spawnPuffs(_p, _n, 1, 0.06, 0.28, 0.2, 0.6, 1.4);
+        this.spawnPuffs(_p, _n, 2, 0.06, 0.4 * Math.min(2, far), 0.22, 0.9, 1.4);
         this.botLight.position.copy(_p);
-        this.botLight.intensity = MUZZLE_LIGHT * 0.8;
-        this.botLightLife = 0.05;
+        this.botLight.intensity = MUZZLE_LIGHT * 0.8 * (0.75 + this.prng.next() * 0.5);
+        this.botLight.distance = 9;
+        this.botLightLife = FLASH_LIFE;
       }),
     );
   }
@@ -289,13 +339,19 @@ export class WeaponFx {
     // đầu nòng: từ viewmodel nếu có, không thì từ mắt + 0.5 m
     if (this.muzzleWorld) _p.copy(this.muzzleWorld);
     else _p.set(origin[0] + dir[0] * 0.5, origin[1] + dir[1] * 0.5 - 0.1, origin[2] + dir[2] * 0.5);
-    this.spawnFlash(_p, _n, 0.7);
-    this.spawnSparks(_p, _n, 8);
+    // DV-087: mỗi phát một dáng, cỡ đổi 0,8–1,2, thỉnh thoảng một chớp to (khí thuốc cháy không đều)
+    const big = this.prng.next() < 0.18 ? 1.35 : 1;
+    this.playerFlash = this.spawnFlash(_p, _n, 1.0 * big);
+    this.spawnSparks(_p, _n, 5);
     this.spawnTracer(_p, _n, 80, TRACER.player, 1);
-    this.spawnPuffs(_p, _n, 2, 0.06, 0.32, 0.22, 0.7, 1.6);
+    // khí thuốc phụt: một búi khói xám mỏng bay theo hướng bắn, tan nhanh
+    this.spawnPuffs(_p, _n, 2, 0.05, 0.38, 0.2, 0.8, 2.2);
     this.muzzleLight.position.copy(_p);
-    this.muzzleLight.intensity = MUZZLE_LIGHT;
-    this.lightLife = 0.05;
+    this.lightPeak = MUZZLE_LIGHT * (0.8 + this.prng.next() * 0.45) * big;
+    this.muzzleLight.intensity = this.lightPeak;
+    this.lightLife = FLASH_LIFE;
+    this.heat = Math.min(14, this.heat + HEAT_PER_SHOT);
+    this.lastShotAt = this.clock;
     // casing: từ bên phải camera, bay phải-lên rồi rơi
     const c = this.casingPool[this.casingHead]!;
     this.casingHead = (this.casingHead + 1) % this.capacity.casings;
@@ -308,23 +364,30 @@ export class WeaponFx {
     c.rot = this.prng.next() * 6;
   }
 
-  private spawnFlash(pos: Vector3, dir: Vector3, scale: number): void {
+  /** chớp lửa nòng tại `pos` hướng `dir`; trả chỉ số ô (để bám theo đầu nòng của người chơi trong lúc còn sáng) */
+  private spawnFlash(pos: Vector3, dir: Vector3, scale: number): number {
     const i = this.flashHead;
     this.flashHead = (this.flashHead + 1) % this.capacity.flashes;
-    this.flashLife[i] = 0.035;
+    this.flashLife[i] = FLASH_LIFE;
+    this.flashAge.setX(i, 0);
+    this.flashAge.needsUpdate = true;
+    this.flashSeed.setX(i, this.prng.next());
+    this.flashSeed.needsUpdate = true;
     // +z của geometry ↔ hướng bắn, rồi xoay ngẫu nhiên quanh nòng
     _q.setFromUnitVectors(_fwd, dir);
     _q2.setFromAxisAngle(dir, this.prng.next() * Math.PI * 2);
     _q.premultiply(_q2);
-    const sc = scale * (0.8 + this.prng.next() * 0.5);
+    const sc = scale * (0.8 + this.prng.next() * 0.4);
+    this.flashScale[i] = sc;
     _s.set(sc, sc, sc);
     _m.compose(pos, _q, _s);
     this.flashes.setMatrixAt(i, _m);
     this.flashes.instanceMatrix.needsUpdate = true;
+    return i;
   }
 
   /**
-   * Nổ (bộc phá/lựu đạn — M2 R1): chớp lớn + tia lửa toả cầu + khói đen bốc lên + ánh sáng cam 0,25 s (dùng botLight — đèn thứ hai).
+   * Nổ (bộc phá/lựu đạn — M2 R1): chớp lớn + tia lửa toả cầu + ánh sáng cam 0,25 s (dùng botLight — đèn thứ hai).
    * `radius` (m) chỉ đổi kích thước khói; sát thương do game tính.
    */
   explosion(position: [number, number, number], radius = 5): void {
@@ -335,15 +398,9 @@ export class WeaponFx {
       _tmp.set(this.prng.next() - 0.5, 0.35 + this.prng.next() * 0.6, this.prng.next() - 0.5).normalize();
       this.spawnSparks(_p, _tmp, 9);
     }
-    this.tint = TINT.blast;
-    this.spawnPuffs(_p, _n, 14, 0.6 + radius * 0.12, 2.4 + radius * 0.45, 0.7, 2.6 + radius * 0.15, 3.5);
-    _tmp.set(0.4, 0.35, 0.2).normalize();
-    this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
-    _tmp.set(-0.4, 0.35, -0.2).normalize();
-    this.spawnPuffs(_p, _tmp, 6, 0.5, 1.6 + radius * 0.2, 0.45, 1.6, 4.5);
-    this.tint = TINT.smoke;
+    // DV-087: bụi, khói, đất đá của vụ nổ do engine/render/blastFx vẽ (Game.explode); ở đây chỉ còn chớp, tia lửa, đèn
     this.botLight.position.copy(_p).addScaledVector(_up, 1.2);
-    this.botLight.intensity = MUZZLE_LIGHT * 6;
+    this.botLight.intensity = MUZZLE_LIGHT * 4;
     this.botLight.distance = 10 + radius * 2;
     this.botLightLife = 0.25;
     this.stats.explosions++;
@@ -396,28 +453,62 @@ export class WeaponFx {
 
   /** Render-side update (dt giây). */
   update(dt: number): void {
-    // đèn nòng
+    this.clock += dt;
+    // đèn nòng: tắt theo đường cong (sáng loé rồi rơi nhanh)
     if (this.lightLife > 0) {
       this.lightLife -= dt;
-      this.muzzleLight.intensity = Math.max(0, MUZZLE_LIGHT * (this.lightLife / 0.05));
+      const k = Math.max(0, this.lightLife / FLASH_LIFE);
+      this.muzzleLight.intensity = this.lightPeak * k * k;
+      if (this.muzzleWorld) this.muzzleLight.position.copy(this.muzzleWorld);
       if (this.lightLife <= 0) this.muzzleLight.intensity = 0;
     }
     if (this.botLightLife > 0) {
+      const life0 = this.botLight.distance > 9 ? 0.25 : FLASH_LIFE;
       this.botLightLife -= dt;
-      this.botLight.intensity = Math.max(0, MUZZLE_LIGHT * 0.8 * (this.botLightLife / 0.05));
+      const k = Math.max(0, this.botLightLife / life0);
+      this.botLight.intensity = Math.max(0, (life0 > FLASH_LIFE ? MUZZLE_LIGHT * 4 : MUZZLE_LIGHT * 0.8) * k);
       if (this.botLightLife <= 0) this.botLight.intensity = 0;
     }
-    // flash
+    // flash: tuổi 0 → 1 trong FLASH_LIFE; chớp của người chơi bám đầu nòng hiện tại
     let anyFlash = false;
     for (let i = 0; i < this.capacity.flashes; i++) {
       if (this.flashLife[i]! <= 0) continue;
       this.flashLife[i] = this.flashLife[i]! - dt;
+      anyFlash = true;
       if (this.flashLife[i]! <= 0) {
         this.flashes.setMatrixAt(i, HIDDEN);
-        anyFlash = true;
+        this.flashAge.setX(i, 1);
+        if (i === this.playerFlash) this.playerFlash = -1;
+        continue;
       }
+      const u = 1 - this.flashLife[i]! / FLASH_LIFE;
+      this.flashAge.setX(i, u);
+      // co lại khi nguội: khung đầu to nhất
+      const sc = this.flashScale[i]! * (1 - 0.35 * u);
+      this.flashes.getMatrixAt(i, _m);
+      _m.decompose(_p, _q, _s);
+      if (i === this.playerFlash && this.muzzleWorld) _p.copy(this.muzzleWorld);
+      _s.set(sc, sc, sc);
+      _m.compose(_p, _q, _s);
+      this.flashes.setMatrixAt(i, _m);
     }
-    if (anyFlash) this.flashes.instanceMatrix.needsUpdate = true;
+    if (anyFlash) {
+      this.flashes.instanceMatrix.needsUpdate = true;
+      this.flashAge.needsUpdate = true;
+    }
+    // khói nòng (DV-087): nòng nóng sau loạt bắn toả sợi khói mảnh bốc lên, lâu dần theo nhiệt
+    this.heat = Math.max(0, this.heat - HEAT_COOL * dt);
+    if (this.heat > HEAT_SMOKE && this.muzzleWorld && this.clock - this.lastShotAt > 0.12) {
+      this.wispAcc += dt;
+      const every = 0.11 - Math.min(0.05, (this.heat - HEAT_SMOKE) * 0.006);
+      while (this.wispAcc >= every) {
+        this.wispAcc -= every;
+        _tmp.set((this.prng.next() - 0.5) * 0.15, 1, (this.prng.next() - 0.5) * 0.15).normalize();
+        this.tint = TINT.barrel;
+        this.spawnPuffs(this.muzzleWorld, _tmp, 1, 0.03, 0.32, Math.min(0.2, 0.06 + (this.heat - HEAT_SMOKE) * 0.02), 2.1, 0.35);
+        this.tint = TINT.smoke;
+      }
+    } else this.wispAcc = 0;
     // casing
     let active = 0;
     for (let i = 0; i < this.casingPool.length; i++) {
@@ -536,8 +627,12 @@ export class WeaponFx {
     }
     for (let i = 0; i < this.capacity.flashes; i++) {
       this.flashLife[i] = 0;
+      this.flashAge.setX(i, 1);
       this.flashes.setMatrixAt(i, HIDDEN);
     }
+    this.flashAge.needsUpdate = true;
+    this.playerFlash = -1;
+    this.heat = 0;
     for (let i = 0; i < this.puffPool.length; i++) {
       this.puffPool[i]!.life = 0;
       this.puffs.setMatrixAt(i, HIDDEN);

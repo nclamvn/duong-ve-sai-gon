@@ -5,6 +5,8 @@ const schema = JSON.parse(readFileSync('content/schemas/performance-replay.schem
 
 test.describe('G0-04/G0-16 bench harness (PRD §4.1, §8 PerformanceReplay)', () => {
   test('?bench=1&runs=1&seconds=3 → POST /__bench → file hợp lệ schema, evidence_status sandbox', async ({ page }) => {
+    // DV-087: chờ POST tới 120 s mà hạn mặc định của test chỉ 90 s (vừa sát ngưỡng từ trước, nay nạp FX lâu hơn ~1 s trên SwiftShader)
+    test.setTimeout(180_000);
     const posted = page.waitForRequest((r) => r.url().endsWith('/__bench') && r.method() === 'POST', { timeout: 120_000 });
     await page.goto('/?backend=webgl&level=arena&autostart=1&debug=1&quality=low&rain=500&shadow=512&bench=1&runs=1&seconds=3&overlay=1');
     await posted;

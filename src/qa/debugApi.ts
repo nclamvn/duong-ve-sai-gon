@@ -11,6 +11,8 @@ import { Box3, Vector3, type Mesh } from 'three/webgpu';
 
 export interface HtDebugApi {
   ready: boolean;
+  /** DV-087 QA: đối tượng Game (soi FX/âm trong trình duyệt của app khi chỉnh hình) */
+  raw: unknown;
   version: string;
   buildHash: string;
   backend: string;
@@ -74,6 +76,7 @@ export function installDebugApi(game: Game, buildHash: string): HtDebugApi | nul
   if (import.meta.env.PROD && params.get('debug') !== '1') return null;
   const api: HtDebugApi = {
     ready: true,
+    raw: game,
     version: '0.1.0-g0',
     buildHash,
     backend: game.bundle.backend,

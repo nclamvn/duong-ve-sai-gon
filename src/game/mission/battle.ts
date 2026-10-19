@@ -15,8 +15,8 @@ import type { MissionAction, MissionZone } from './types';
 
 type V3 = [number, number, number];
 
-/** số chỗ trong bể (đám lửa / cột khói) — napalm 120 m rải ~14 đám */
-const POOL = { fire: 24, smoke: 18 };
+/** số chỗ trong bể (đám lửa / cột khói) — napalm 120 m rải ~14 đám; DV-087 chiến trường dày khói lửa hơn */
+const POOL = { fire: 40, smoke: 32 };
 const FIRE_LIGHTS = 4;
 
 interface Slot {
@@ -93,6 +93,11 @@ export class Battle {
   handle(a: MissionAction): void {
     switch (a.type) {
       case 'fx': {
+        // DV-087 khói chiến trường (sương thể tích): mức 0..1 trong `scale`
+        if (a.kind === 'haze') {
+          this.game.setBattleSmoke(a.scale ?? 0.5);
+          return;
+        }
         const p = this.pointOf(a);
         if (!p) return;
         const dur = (a.durationMs ?? 60000) / 1000;
@@ -141,11 +146,11 @@ export class Battle {
     }
   }
 
-  /** nổ lớn (bom, đòn đánh) để lại hố cháy âm ỉ + khói xám/đen */
+  /** nổ lớn (bom, đòn đánh) để lại hố cháy âm ỉ + khói xám/đen (DV-087: luôn có khói, cháy nhiều hơn, cháy lâu hơn) */
   afterBlast(p: V3, size: number): void {
     const r = this.rng.next();
-    if (r < 0.55) this.fire(p, 18 + this.rng.next() * 20, 0.5 + size * 0.25);
-    this.smoke(p, 30 + this.rng.next() * 25, 0.5 + size * 0.3, r < 0.25);
+    if (r < 0.7) this.fire(p, 25 + this.rng.next() * 30, 0.5 + size * 0.3);
+    this.smoke(p, 45 + this.rng.next() * 35, 0.6 + size * 0.35, r < 0.35);
   }
 
   /** dừng mọi đòn đang chờ (checkpoint/hồi sinh) — lửa đang cháy giữ nguyên, hết hạn tự tắt */
@@ -186,10 +191,10 @@ export class Battle {
       this.shells.splice(i, 1);
       const p: V3 = [s.x, this.groundY(s.x, s.z), s.z];
       if (s.kind === 'napalm') {
-        this.game.explode(p, { radius: s.radius, damage: s.damage, shooter: 'air' });
+        this.game.explode(p, { radius: s.radius, damage: s.damage, shooter: 'air', kind: 'napalm' });
         this.game.audio.whoosh(p, 1.2);
-        this.fire(p, 40 + this.rng.next() * 15, 1.5 + this.rng.next() * 0.5);
-        if (this.rng.next() < 0.6) this.smoke(p, 70, 2.2, true);
+        this.fire(p, 55 + this.rng.next() * 25, 1.5 + this.rng.next() * 0.6);
+        if (this.rng.next() < 0.8) this.smoke(p, 90, 2.4, true);
       } else {
         this.game.explode(p, { radius: s.radius, damage: s.damage, shooter: 'shell' });
         this.afterBlast(p, s.kind === 'artillery' || s.kind === 'strike' ? 1.4 : 0.8);

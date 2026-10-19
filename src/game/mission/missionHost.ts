@@ -222,6 +222,16 @@ export class MissionHost implements MissionWorld {
     return true;
   }
 
+  /**
+   * DV-087 câu hô biến thể của tổ (content/voice/squad-barks.json): không có trong file thoại — khoá giọng = `cue`.<người nói>,
+   * phụ đề là chính câu (`bark.raw`), thời lượng ước theo độ dài (giọng thật kéo dài khi có file).
+   */
+  sayLine(cue: string, speaker: string, text: string, priority: number): boolean {
+    const durationMs = Math.round(700 + text.length * 60);
+    this.ev.emit('RADIO', { cue, speaker, subtitleKey: 'bark.raw', durationMs, priority, interruptPolicy: priority >= 7 ? 'interrupt' : 'drop', bus: 'dialogue', vars: { t: text }, bark: true }, { id: `${this.def.id}:bark:${cue}:${this.barkSeq++}` });
+    return true;
+  }
+
   /** tuỳ chọn spawn theo group (faction/tên/archetype) — dùng cả khi restore checkpoint */
   private spawnOpts(groupId: string, index: number): { faction: 'enemy' | 'friend'; nameKey: string | null; archetype: 'grunt' | 'recon' | 'squad'; spawnName: string | null } {
     const g = this.def.spawnGroups?.find((x) => x.id === groupId);

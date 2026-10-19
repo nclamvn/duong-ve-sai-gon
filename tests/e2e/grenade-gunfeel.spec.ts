@@ -111,7 +111,8 @@ test('DV-074/075: lựu đạn người chơi + địch, né lựu đạn, cản
         }
       }
     }
-    out.m26 = H.mission.subtitlesShown().slice(sub0).includes('M26');
+    // DV-087: câu cảnh báo lựu đạn có nhiều biến thể (sq.grenade#i), M26 là đường cũ
+    out.m26 = H.mission.subtitlesShown().slice(sub0).some((c: string) => c === 'M26' || c.startsWith('sq.grenade#'));
     out.warned = warned;
     out.warnVisible = warnVisible;
     out.playerHp = g.player.health;

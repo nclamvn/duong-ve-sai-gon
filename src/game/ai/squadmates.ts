@@ -8,6 +8,7 @@
 import type { BotActor } from '@game/actors/botActor';
 import type { EscortInfo } from './bot';
 import ai from '@content/tuning/ai.json';
+import barkDef from '@content/voice/squad-barks.json';
 
 type V3 = [number, number, number];
 
@@ -18,8 +19,26 @@ export interface SquadDeps {
   objective: () => V3 | null;
   /** phát cue thoại (bark) — trả false nếu bị chặn; `vars` chèn vào phụ đề */
   say: (cueId: string, speaker: string, vars?: Record<string, string | number>) => boolean;
+  /** DV-087 câu hô biến thể (ngoài file thoại): khoá giọng `cue`, phụ đề là `text`; `priority` cao = chen được */
+  sayLine?: (cue: string, speaker: string, text: string, priority: number) => boolean;
   now: () => number;
+  /** [0,1) tất định (Prng của game); không có thì dùng bộ đếm */
+  rand?: () => number;
 }
+
+/** DV-087 loại câu hô có nhiều biến thể (content/voice/squad-barks.json) */
+export type BarkKind = 'contact' | 'reload' | 'kill' | 'hurt' | 'cover' | 'moving' | 'pinned' | 'grenade' | 'warnPlayer' | 'buddyDown' | 'blast' | 'rally';
+interface BarkLine {
+  t: string;
+  who?: string[];
+}
+const BARK_LINES = (barkDef as unknown as { kinds: Record<BarkKind, { lines: BarkLine[] }> }).kinds;
+const BARK_NAMES = (barkDef as unknown as { names: Record<string, string> }).names;
+/** độ ưu tiên phụ đề theo loại (cảnh báo chen được câu hô thường) */
+const BARK_PRIORITY: Record<BarkKind, number> = { contact: 4, reload: 3, kill: 3, hurt: 4, cover: 4, moving: 3, pinned: 4, grenade: 9, warnPlayer: 7, buddyDown: 8, blast: 6, rally: 3 };
+/** chống spam (DV-087): ≥ 4,5 s mỗi người, ≥ 1,6 s cả tổ — nhiều câu hơn trước vì câu không lặp */
+const PER_PERSON_S = 4.5;
+const SQUAD_GAP_S = 1.6;
 
 export type SquadOrder = 'follow' | 'hold' | 'suppress' | 'advance';
 /** DV-083: assault = tổ trưởng chạy thẳng tới điểm kế, chờ khi người chơi tụt > 18 m (M1-T3 dồn dập) */
@@ -65,6 +84,12 @@ export class Squadmates {
   private readonly lastCalloutPos: V3 = [1e9, 0, 1e9];
   readonly stats = { barks: 0, barksDropped: 0, callouts: 0, commands: 0, grenadeWarnings: 0 };
   private lastGrenadeWarnAt = -Infinity;
+  /** chỉ số câu vừa nói theo loại (cả tổ) — không lặp lại khi còn câu khác */
+  private readonly recent = new Map<BarkKind, number[]>();
+  private randN = 0;
+  private lastWarnPlayerAt = -Infinity;
+  private lastBlastAt = -Infinity;
+  private lastRallyAt = -Infinity;
   /** bán kính neo khi chiến đấu (m) */
   escortRadius = 14;
   holdRadius = 8;
@@ -296,23 +321,160 @@ export class Squadmates {
     return { x: p.feet[0] - p.fwdX * back + rx * side * 1.8, z: p.feet[2] - p.fwdZ * back + rz * side * 1.8, run: dPlayer > back + 6 };
   }
 
-  /** bark theo sự kiện của một thành viên (contact/reload/kill/hurt/cover/moving) */
-  bark(actorId: string, kind: keyof typeof BARKS | 'moving'): boolean {
+  private rand(): number {
+    if (this.deps.rand) return this.deps.rand();
+    this.randN = (this.randN + 0.6180339887) % 1;
+    return this.randN;
+  }
+
+  /**
+   * DV-087: chọn một câu của loại `kind` cho người nói — bỏ câu người này không nói (`who`), tránh các câu cả tổ vừa nói (nhớ tới
+   * nửa số câu của loại), ngẫu nhiên trong phần còn lại. Trả chỉ số câu hoặc −1.
+   */
+  pickLine(kind: BarkKind, speaker: string): number {
+    const lines = BARK_LINES[kind]?.lines ?? [];
+    const ok: number[] = [];
+    for (let i = 0; i < lines.length; i++) if (!lines[i]!.who || lines[i]!.who!.includes(speaker)) ok.push(i);
+    if (!ok.length) return -1;
+    const recent = this.recent.get(kind) ?? [];
+    const fresh = ok.filter((i) => !recent.includes(i));
+    const pool = fresh.length ? fresh : ok;
+    const i = pool[Math.min(pool.length - 1, Math.floor(this.rand() * pool.length))]!;
+    recent.push(i);
+    while (recent.length > Math.max(1, Math.floor(lines.length / 2))) recent.shift();
+    this.recent.set(kind, recent);
+    return i;
+  }
+
+  /** nói một câu biến thể (không qua chống spam) — `target` = người được gọi tên (câu có {name}) */
+  private speakVariant(m: Member, kind: BarkKind, target?: string): boolean {
+    const speaker = this.speakerOf(m);
+    const i = this.pickLine(kind, speaker);
+    if (i < 0) return false;
+    const line = BARK_LINES[kind].lines[i]!;
+    const named = line.t.includes('{name}');
+    if (named && (!target || !BARK_NAMES[target])) return false;
+    const text = named ? line.t.replaceAll('{name}', BARK_NAMES[target!]!) : line.t;
+    const cue = named ? `sq.${kind}#${i}-${target}` : `sq.${kind}#${i}`;
+    if (!this.deps.sayLine) return false;
+    return this.deps.sayLine(cue, speaker, text, BARK_PRIORITY[kind]);
+  }
+
+  /** bark theo sự kiện của một thành viên (contact/reload/kill/hurt/cover/moving/pinned) — DV-087 nhiều biến thể, không lặp */
+  bark(actorId: string, kind: keyof typeof BARKS | 'moving' | 'pinned'): boolean {
     const m = this.members.find((mm) => mm.actor.id === actorId);
     if (!m || !m.actor.bot.alive) return false;
     const speaker = this.speakerOf(m);
-    const cue = kind === 'moving' ? SQUAD_CUES.moving : BARKS[kind]?.[speaker];
-    if (!cue) return false;
     const now = this.deps.now();
-    if (now - m.lastBarkAt < 6 || now - this.lastAnyBarkAt < 2.5) {
+    if (now - m.lastBarkAt < PER_PERSON_S || now - this.lastAnyBarkAt < SQUAD_GAP_S) {
       this.stats.barksDropped++;
       return false;
     }
-    if (!this.deps.say(cue, speaker)) return false;
+    let ok = this.deps.sayLine ? this.speakVariant(m, kind as BarkKind) : false;
+    // không có đường câu biến thể (test cũ, mission không có host) → cue cố định như trước
+    if (!ok && !this.deps.sayLine) {
+      const cue = kind === 'moving' ? SQUAD_CUES.moving : kind === 'pinned' ? BARKS.cover![speaker] : BARKS[kind]?.[speaker];
+      ok = !!cue && this.deps.say(cue, speaker);
+    }
+    if (!ok) return false;
     m.lastBarkAt = now;
     this.lastAnyBarkAt = now;
     this.stats.barks++;
     return true;
+  }
+
+  /** DV-087 đồng đội gần người chơi nhất hét gọi tên Lâm (người chơi trúng đạn/đứng trống) — ≥ 9 s một lần */
+  warnPlayer(): boolean {
+    const now = this.deps.now();
+    if (now - this.lastWarnPlayerAt < 9 || now - this.lastAnyBarkAt < 1) return false;
+    const m = this.nearestToPlayer();
+    if (!m || !this.speakVariant(m, 'warnPlayer')) return false;
+    this.lastWarnPlayerAt = now;
+    this.lastAnyBarkAt = now;
+    m.lastBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  /** DV-087 đồng đội ngã: người còn sống gần nhất gào tên người đó (bỏ qua chống spam) */
+  buddyDown(deadActorId: string, deadNameKey: string | null): boolean {
+    const target = deadNameKey?.replace('name.', '').toUpperCase() ?? '';
+    if (!BARK_NAMES[target]) return false;
+    const dead = this.members.find((mm) => mm.actor.id === deadActorId)?.actor.bot.position;
+    let best: Member | null = null;
+    let bd = Infinity;
+    for (const m of this.members) {
+      if (!m.actor.bot.alive || m.actor.id === deadActorId || this.speakerOf(m) === target) continue;
+      const p = m.actor.bot.position;
+      const d = dead ? Math.hypot(p[0] - dead[0], p[2] - dead[2]) : 0;
+      if (d < bd) {
+        bd = d;
+        best = m;
+      }
+    }
+    if (!best || !this.speakVariant(best, 'buddyDown', target)) return false;
+    const now = this.deps.now();
+    best.lastBarkAt = now;
+    this.lastAnyBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  /** DV-087 nổ sát người trong tổ (≤ 14 m): người gần nhất la lên — ≥ 5 s một lần */
+  blastNear(x: number, z: number): boolean {
+    const now = this.deps.now();
+    if (now - this.lastBlastAt < 5 || now - this.lastAnyBarkAt < 0.8) return false;
+    let best: Member | null = null;
+    let bd = 14;
+    for (const m of this.members) {
+      if (!m.actor.bot.alive) continue;
+      const p = m.actor.bot.position;
+      const d = Math.hypot(p[0] - x, p[2] - z);
+      if (d < bd) {
+        bd = d;
+        best = m;
+      }
+    }
+    if (!best || !this.speakVariant(best, 'blast')) return false;
+    this.lastBlastAt = now;
+    this.lastAnyBarkAt = now;
+    best.lastBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  /** DV-087 giữa trận mà tổ im quá lâu (8–13 s): ai đó hô động viên/ra lệnh bắn trả — gọi mỗi khung khi đang giao chiến */
+  rally(inCombat: boolean): boolean {
+    if (!inCombat) return false;
+    const now = this.deps.now();
+    if (now - this.lastAnyBarkAt < 8 + this.rand() * 5 || now - this.lastRallyAt < 10) return false;
+    const alive = this.members.filter((m) => m.actor.bot.alive);
+    if (!alive.length) return false;
+    // tổ trưởng hay hô hơn
+    const lead = alive.find((m) => m.role === 'leader');
+    const m = lead && this.rand() < 0.6 ? lead : alive[Math.min(alive.length - 1, Math.floor(this.rand() * alive.length))]!;
+    this.lastRallyAt = now;
+    if (!this.speakVariant(m, 'rally')) return false;
+    this.lastAnyBarkAt = now;
+    m.lastBarkAt = now;
+    this.stats.barks++;
+    return true;
+  }
+
+  private nearestToPlayer(): Member | null {
+    const p = this.deps.player();
+    let best: Member | null = null;
+    let bd = 30;
+    for (const m of this.members) {
+      if (!m.actor.bot.alive) continue;
+      const q = m.actor.bot.position;
+      const d = Math.hypot(q[0] - p.feet[0], q[2] - p.feet[2]);
+      if (d < bd) {
+        bd = d;
+        best = m;
+      }
+    }
+    return best;
   }
 
   /** "Lựu đạn! Nằm xuống!" (DV-074): bỏ qua chống spam riêng người nói, chỉ chặn trùng trong 1 s */
@@ -321,7 +483,8 @@ export class Squadmates {
     if (!m || !m.actor.bot.alive) return false;
     const now = this.deps.now();
     if (now - this.lastGrenadeWarnAt < 1) return false;
-    if (!this.deps.say(SQUAD_CUES.grenade, this.speakerOf(m))) return false;
+    const ok = this.deps.sayLine ? this.speakVariant(m, 'grenade') : this.deps.say(SQUAD_CUES.grenade, this.speakerOf(m));
+    if (!ok) return false;
     this.lastGrenadeWarnAt = now;
     m.lastBarkAt = now;
     this.lastAnyBarkAt = now;

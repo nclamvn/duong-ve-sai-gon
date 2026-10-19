@@ -83,7 +83,7 @@ describe('đồng đội (TIP-M1A Squadmates)', () => {
     h.bot.position[2] = 40;
     expect(sq.goalFor('h')()!.run).toBe(true); // hold nhưng > 20 m → về gần
   });
-  it('bark: theo người nói; chống spam 6 s/người và 2,5 s toàn tổ', () => {
+  it('bark (đường cũ, không có sayLine): theo người nói; chống spam 4,5 s/người và 1,6 s toàn tổ', () => {
     const { sq, said, tick } = mk(null, [0, 0, 0]);
     sq.add(fakeActor('q', [0, 0, 0], 'name.quyet'), 'leader');
     sq.add(fakeActor('h', [0, 0, 0], 'name.long'), 'follower');
@@ -116,5 +116,67 @@ describe('mission M1 "Cổng Trời" (schema + tham chiếu; đồ thị DV-085 
       expect(Math.abs(z.center[0] - nr.x), z.id).toBeLessThanOrEqual(nr.w / 2);
       expect(Math.abs(z.center[2] - nr.z), z.id).toBeLessThanOrEqual(nr.h / 2);
     }
+  });
+});
+
+describe('DV-087 câu hô nhiều biến thể của tổ', () => {
+  const mk = () => {
+    const said: Array<{ cue: string; speaker: string; text: string }> = [];
+    let now = 0;
+    let r = 0;
+    const sq = new Squadmates({
+      player: () => ({ feet: [0, 0, 0], fwdX: 0, fwdZ: -1, speed: 1 }),
+      objective: () => null,
+      say: () => true,
+      sayLine: (cue, speaker, text) => (said.push({ cue, speaker, text }), true),
+      now: () => now,
+      rand: () => ((r = (r * 9301 + 49297) % 233280), r / 233280),
+    });
+    sq.add(fakeActor('q', [0, 0, 2], 'name.quyet'), 'leader');
+    sq.add(fakeActor('l', [1, 0, 3], 'name.long'), 'follower');
+    sq.add(fakeActor('d', [2, 0, 4], 'name.dat'), 'follower');
+    return { sq, said, tick: (s: number) => (now += s) };
+  };
+  it('cùng một loại hô: không câu nào lặp lại trong nửa số câu gần nhất (cả tổ)', () => {
+    const { sq, said, tick } = mk();
+    const ids = ['q', 'l', 'd'];
+    for (let k = 0; k < 12; k++) {
+      tick(5);
+      expect(sq.bark(ids[k % 3]!, 'contact')).toBe(true);
+    }
+    const cues = said.map((x) => x.cue);
+    for (let i = 1; i < cues.length; i++) for (let j = Math.max(0, i - 4); j < i; j++) expect(cues[i]).not.toBe(cues[j]);
+    expect(new Set(cues).size).toBeGreaterThanOrEqual(7);
+    for (const x of said) expect(x.cue).toMatch(/^sq\.contact#\d+$/);
+  });
+  it('câu riêng tính cách (`who`) chỉ người đó nói; câu gọi tên Lâm khi người chơi trúng đạn', () => {
+    const { sq, said, tick } = mk();
+    for (let k = 0; k < 30; k++) {
+      tick(5);
+      sq.bark('l', 'kill');
+    }
+    // "Nó không dậy nữa đâu!" (#6) không dành cho Long
+    expect(said.some((x) => x.cue === 'sq.kill#6' && x.speaker === 'LONG')).toBe(false);
+    tick(10);
+    expect(sq.warnPlayer()).toBe(true);
+    expect(said.at(-1)!.text).toContain('Lâm');
+    expect(sq.warnPlayer()).toBe(false); // ≥ 9 s
+  });
+  it('đồng đội ngã: người khác gào đúng tên, khoá giọng kèm tên người ngã', () => {
+    const { sq, said } = mk();
+    expect(sq.buddyDown('l', 'name.long')).toBe(true);
+    const x = said.at(-1)!;
+    expect(x.text).toContain('Long');
+    expect(x.speaker).not.toBe('LONG');
+    expect(x.cue).toMatch(/^sq\.buddyDown#\d+-LONG$/);
+  });
+  it('nổ gần tổ thì có người la; giữa trận tổ im lâu thì có người hô bắn trả', () => {
+    const { sq, said, tick } = mk();
+    expect(sq.blastNear(50, 50)).toBe(false); // xa
+    expect(sq.blastNear(1, 3)).toBe(true);
+    tick(20);
+    expect(sq.rally(false)).toBe(false);
+    expect(sq.rally(true)).toBe(true);
+    expect(said.at(-1)!.cue).toMatch(/^sq\.rally#/);
   });
 });

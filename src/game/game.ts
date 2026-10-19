@@ -3,7 +3,7 @@
  * TIP-003 arena/free-fly · TIP-004 input source/telemetry/quality · TIP-005+ gắn player/weapon/ai/mission
  * qua các field public và resetHooks.
  */
-import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, BufferGeometry, BufferAttribute, Mesh, Color } from 'three/webgpu';
+import { Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, BufferGeometry, BufferAttribute, Mesh, Color, PointLight } from 'three/webgpu';
 import { FixedClock, Scheduler, EventBus, mulberry32, type Prng } from '@engine/core';
 import { createRenderer, backendFromSearch, type RendererBundle } from '@engine/render/backend';
 import { buildArena, type ArenaData } from '@engine/render/arena';
@@ -78,6 +78,7 @@ import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
 import { MissionHost } from '@game/mission/missionHost';
 import { NightAct } from '@game/night/nightAct';
+import { createBlastFx, type BlastFx } from '@engine/render/blastFx';
 import climateJson from '@content/ecology/climate.truong-son.json';
 import soundscapeJson from '@content/ecology/soundscape.truong-son.json';
 import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelClimate } from '@engine/sky/climate';
@@ -125,6 +126,17 @@ export class Game {
   readonly camera = new PerspectiveCamera(90, 1, 0.05, 400);
   /** lớp viewmodel (TIP-017b): scene + camera FOV hẹp riêng, đè lên cảnh (không méo hình như ép scale) */
   readonly vmScene = new Scene();
+  /** vụ nổ (DV-087) */
+  blast!: BlastFx;
+  /** khói chiến trường trong sương thể tích (DV-087): mức nền do kịch bản đặt + phần cộng thêm theo vụ nổ gần đây */
+  private smokeBase = 0;
+  private smokeTarget = 0;
+  private smokeKick = 0;
+  /** ngẫu nhiên tất định cho chọn câu hô (DV-087) */
+  private readonly barkRng: Prng = mulberry32(0x5eed87);
+  private rallyAcc = 0;
+  /** đèn chớp lửa nòng trong lớp súng (DV-087) */
+  private readonly vmFlash = new PointLight(0xffa04a, 0, 3, 1.2);
   readonly vmCamera = new PerspectiveCamera(60, 1, 0.03, 12);
   private readonly fxMuzzle = new Vector3();
   private readonly fxEject = new Vector3();
@@ -520,6 +532,9 @@ export class Game {
       // DV-079: IBL lớp súng 0,65 × cảnh — kim loại thép nhuộm đen không loá trắng như nhôm dưới trời sương sáng
       this.vmLight = { sun: sunVm, hemi: hemiVm, sun0: sky.sun.intensity, hemi0: sky.hemi.intensity, env0: this.scene.environmentIntensity * 0.65 };
     } else this.vmScene.add(new HemisphereLight(0xdfe8ff, 0x3a3630, 0.35)); // nền cho súng/tay khi đèn cảnh không vào lớp riêng
+    // DV-087: chớp lửa nòng hắt ánh cam lên súng và tay (đèn luôn trong lớp súng, cường độ 0 khi nghỉ → không biên dịch lại)
+    this.vmFlash.castShadow = false;
+    this.vmScene.add(this.vmFlash);
     // DV-063: hậu kỳ điện ảnh theo level (tia nắng xuyên tán, màu phim); ?shafts=0 / ?grade=0 để so A/B
     const lp = terrainDef?.post;
     const rig = this.lights as { sunColor?: number; sunIntensity?: number };
@@ -619,6 +634,11 @@ export class Game {
     this.weapon.onViewKick = (y, p) => this.player.rig.kick(p, y);
     this.shooter.exclude = this.player.controller.collider;
     this.fx = new WeaponFx(this.scene, this.camera, this.events as unknown as EventBus<WeaponEvents>, this.prng.fork('fx'));
+    // DV-087 vụ nổ có khối: cầu lửa → khói đen, đất đá văng, cột đất, vòng bụi sát đất, bụi lơ lửng (3 draw call)
+    this.blast = createBlastFx({ blasts: this.quality.tier === 'low' ? 8 : 16 });
+    this.scene.add(this.blast.group);
+    // bụi/khói vụ nổ trôi theo gió rừng (cùng đối tượng Vector2)
+    if (this.forest) (this.blast.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
     this.grenadeView = new GrenadeView(this.scene);
     // DV-065: tay áo người chơi theo gói phe (?sleeve=0 giữ màu gốc của nghệ sĩ để so A/B)
     const sleeveHex = this.params.get('sleeve') === '0' ? undefined : this.lookFor('friend').sleeve;
@@ -648,6 +668,8 @@ export class Game {
           this.hud.damageFrom(relDeg(this.cameraHeadingDeg(), bearingOf(src[0] - f[0], src[2] - f[2])));
         }
         if (dead) this.events.emit('ACTOR_DIED', { actorId: 'player', group: 'player' });
+        // DV-087: đồng đội gọi tên người chơi khi Lâm dính đạn/nổ gần
+        else if (this.player.health < 70 || e.blast) this.squadmates.warnPlayer();
         return;
       }
       const b = this.bots.get(e.actorId);
@@ -785,14 +807,17 @@ export class Game {
       },
       objective: () => this.mission.squadDest ?? (this.mission.markerOnLeader ? null : this.mission.objectiveMarker),
       say: (cue, speaker, vars) => this.mission.say(cue, speaker, vars),
+      sayLine: (cue, speaker, text, priority) => this.mission.sayLine(cue, speaker, text, priority),
       now: () => this.clock.simTime,
+      rand: () => this.barkRng.next(),
     });
     this.events.on('AI_STATE', (e) => {
       const b = this.bots.get(e.botId);
       if (!b || b.faction !== 'friend') return;
       // chạm địch: báo hướng theo giờ đồng hồ (AI-T1.5), không được thì hô chung
       if (e.to === 'ENGAGE' && (e.from === 'PATROL' || e.from === 'INVESTIGATE')) {
-        if (!(e.reason === 'contact' && this.squadmates.callout(b.id, b.bot.threat))) this.squadmates.bark(b.id, 'contact');
+        // DV-087: báo giờ đồng hồ chỉ khoảng 1/3 số lần — còn lại hô tự nhiên (nhiều biến thể) cho đỡ đều đều
+        if (!(e.reason === 'contact' && this.barkRng.next() < 0.35 && this.squadmates.callout(b.id, b.bot.threat))) this.squadmates.bark(b.id, 'contact');
       }
       else if (e.to === 'SEEK_COVER') this.squadmates.bark(b.id, 'cover');
     });
@@ -807,7 +832,7 @@ export class Game {
     });
     this.events.on('AI_PINNED', (e) => {
       const b = this.bots.get(e.botId);
-      if (b && b.faction === 'friend') this.squadmates.bark(b.id, 'cover');
+      if (b && b.faction === 'friend') this.squadmates.bark(b.id, 'pinned');
       else if (b) this.chatter.say(b.id, 'pinned');
     });
     // địch hô tiếng Anh (DV-076)
@@ -835,6 +860,7 @@ export class Game {
     // hồi đêm (DV-078): dựng trước mission.start (nghe cờ convoy_go/gunship từ node đầu)
     if (this.levelId === 'ngam-ta-le' && this.terrain && terrainDef) {
       this.nightAct = new NightAct(this, terrainDef);
+      this.blast.light.value = 0.15;
       await this.nightAct.load();
     }
     this.mission = new MissionHost(this);
@@ -1152,6 +1178,10 @@ export class Game {
     this.feedHud();
     this.hud.update();
     this.fx.update(dt);
+    this.blast.update(dt);
+    this.updateBattleSmoke(dt);
+    this.vmFlash.position.copy(this.viewModel.muzzleWorld);
+    this.vmFlash.intensity = this.fx.muzzleLight.intensity * 0.45;
     this.flares?.update(dt);
     if (this.level) this.level.fx.update(dt);
     if (this.terrain) this.terrain.fx.update(dt);
@@ -1224,6 +1254,39 @@ export class Game {
     out.applyMatrix4(this.camera.matrixWorld);
   }
 
+  /**
+   * DV-087 khói chiến trường: mức nền 0..1 do kịch bản đặt (`fx` kind `haze`) — đổi êm trong vài giây; cộng phần do vụ nổ
+   * gần đây (tan dần). Đẩy vào sương thể tích (khói được nắng xuyên thành tia) nếu có.
+   */
+  setBattleSmoke(level: number): void {
+    this.smokeTarget = Math.max(0, Math.min(1, level));
+  }
+
+  private updateBattleSmoke(dt: number): void {
+    // DV-087: tổ im quá lâu giữa trận → có người hô động viên/bắn trả (kiểm mỗi giây)
+    this.rallyAcc += dt;
+    if (this.rallyAcc >= 1) {
+      this.rallyAcc = 0;
+      let fighting = false;
+      for (const b of this.bots.values()) {
+        if (b.faction === 'enemy' && b.bot.alive && (b.bot.state === 'ENGAGE' || b.bot.state === 'PEEK_FIRE' || b.bot.state === 'FLANK')) {
+          fighting = true;
+          break;
+        }
+      }
+      this.squadmates.rally(fighting);
+    }
+    this.smokeBase += (this.smokeTarget - this.smokeBase) * Math.min(1, dt * 0.25);
+    this.smokeKick = Math.max(0, this.smokeKick - dt * 0.012);
+    const v = this.post.volumetric as { smoke?: { value: number } } | null | undefined;
+    if (v?.smoke) v.smoke.value = Math.min(1, this.smokeBase + this.smokeKick);
+  }
+
+  /** mức khói chiến trường hiện tại (E2E/debug) */
+  get battleSmoke(): number {
+    return Math.min(1, this.smokeBase + this.smokeKick);
+  }
+
   /** pháo sáng (M2 R1) — chỉ level terrain đêm; mission bắn qua flag `flares` */
   flares: Flares | null = null;
   /** collider tĩnh của props terrain theo id (gỡ khi bộc phá — M2 R1) */
@@ -1237,7 +1300,7 @@ export class Game {
    */
   explode(
     position: [number, number, number],
-    opts: { radius?: number; damage?: number; botDamage?: number; prop?: string | null; shooter?: string; occlude?: boolean; crouchMul?: number } = {},
+    opts: { radius?: number; damage?: number; botDamage?: number; prop?: string | null; shooter?: string; occlude?: boolean; crouchMul?: number; kind?: 'dirt' | 'napalm' } = {},
   ): void {
     const radius = opts.radius ?? 6;
     const damage = opts.damage ?? 35;
@@ -1247,6 +1310,11 @@ export class Game {
       opts.occlude && !this.physics.hasLineOfSight(position[0], position[1] + 0.35, position[2], x, y, z) ? GRENADE.occludedMul : 1;
     this.blastStats.count++;
     this.fx.explosion(position, radius);
+    this.blast.spawn(position, radius, opts.kind ?? 'dirt');
+    // mỗi vụ nổ gần làm khói chiến trường dày thêm một chút (tan dần trong ~1 phút)
+    const cp = this.camera.position;
+    if (Math.hypot(cp.x - position[0], cp.z - position[2]) < 140) this.smokeKick = Math.min(0.6, this.smokeKick + 0.04 + radius * 0.006);
+    this.squadmates.blastNear(position[0], position[2]);
     this.audio.explosion(position, 1 + radius / 8);
     const f = this.player.controller.feet;
     const dp = Math.hypot(f[0] - position[0], f[2] - position[2]);
@@ -1685,6 +1753,8 @@ export class Game {
     const died = b.applyDamage(9999, [p[0] + 1, p[1] + 1.5, p[2]], 'body');
     if (!died) return false;
     this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
+    // DV-087: người còn lại gào tên đồng đội vừa ngã
+    this.squadmates.buddyDown(b.id, b.nameKey ?? null);
     this.squadmates.remove(b.id);
     return true;
   }
@@ -1727,6 +1797,7 @@ export class Game {
     this.player.reset(0);
     this.weapon.reset(this.prng);
     this.fx.reset();
+    this.smokeKick = 0;
     this.viewModel.reset();
     for (const b of this.bots.values()) b.reset();
     this.coverReservations.clear();

@@ -5,7 +5,7 @@
  *    bùng lên rồi lụi dần, không hiện đủ ngay;
  *  - tàn lửa: 10 đốm sáng mỗi đám, bay xoắn lên nhanh, tắt dần;
  *  - quầng sáng đất: một tấm nằm sát đất dưới mỗi đám (lửa "đứng" trên đất, không lơ lửng);
- *  - khói: mỗi cột 28 hạt to dần, loãng dần, trôi theo gió, sáng hơn khi lên cao; cột lớn lên từ từ từ lúc cháy, không thành cột
+ *  - khói: mỗi cột 36 hạt (DV-087, trước 28) to dần, loãng dần, trôi theo gió, sáng hơn khi lên cao; cột lớn lên từ từ từ lúc cháy, không thành cột
  *    đặc như cột đá; mờ khi sát camera (bớt phủ màn hình).
  * Toàn bộ là 4 InstancedMesh (lửa, tàn, quầng, khói) — 4 draw call bất kể bao nhiêu đám cháy; chỗ chưa dùng co về 0 (không vẽ
  * điểm ảnh nào). Thời gian theo đồng hồ của trận (`update(now)`), hash theo chỉ số (không Math.random). TSL only.
@@ -47,7 +47,7 @@ export const SMOKE_GREY: SmokeLook = { color: [0.3, 0.29, 0.27], lit: 0.75 };
 
 const FLAMES = 20;
 const EMBERS = 10;
-const SMOKE_P = 28;
+const SMOKE_P = 36;
 
 /** hash [0,1) từ số nguyên (deterministic) */
 function h1(i: number, k: number): number {
@@ -270,7 +270,7 @@ export function createFireField(opts: FireFieldOptions = {}): FireField {
     const fadeIn = smoothstep(float(0), float(0.08), vAge);
     const fadeOut = smoothstep(float(0.55), float(1), vAge).oneMinus();
     const near = smoothstep(float(1.5), float(7), vDist);
-    const thick = mix(float(0.3), float(0.62), vBlack);
+    const thick = mix(float(0.36), float(0.7), vBlack);
     const alpha = blob.mul(fadeIn).mul(fadeOut).mul(near).mul(thick);
     // khói đen dầu: đáy đen nâu, lên cao loãng xám; khói xám cây cháy: sáng hơn
     const lo = vLook.rgb;

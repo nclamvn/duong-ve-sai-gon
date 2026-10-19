@@ -73,6 +73,8 @@ export interface Volumetric {
   readonly intensity: { value: number };
   /** hướng gió xz cho sương trôi */
   readonly wind: { value: Vector2 };
+  /** DV-087 khói chiến trường 0..1 (chỉ có tác dụng khi bật sương sát đất) */
+  readonly smoke: { value: number };
 }
 
 /**
@@ -122,6 +124,9 @@ export function volumetricShafts(
   const wind = uniform(new Vector2(0.8, 0.6));
   /** mặt trời dưới chân trời → tắt (đêm dùng đèn riêng) */
   const fade = uniform(1);
+  /** DV-087 khói chiến trường 0..1 (Game đặt theo kịch bản + vụ nổ gần đây): lớp khói cao hơn sương, thành mảng lớn, tán xạ nắng
+   * thành tia và nhuộm ánh trời ngả nâu xám */
+  const smoke = uniform(0);
   const groundRect = uniform(new Vector4(ground?.x0 ?? 0, ground?.z0 ?? 0, 1 / (ground?.size ?? 1), ground?.minY ?? 0));
   const steps = p.steps;
   const g = p.anisotropy;
@@ -164,12 +169,17 @@ export function volumetricShafts(
         const nz = mx_noise_float(vec3(P.x.sub(flow.x).div(mp.scale), P.y.div(mp.scale * 0.35), P.z.sub(flow.y).div(mp.scale))).mul(0.5).add(0.5);
         const nz2 = mx_noise_float(vec3(P.x.sub(flow.x.mul(1.7)).div(mp.scale * 0.33), time.mul(0.05), P.z.sub(flow.y.mul(1.7)).div(mp.scale * 0.33))).mul(0.5).add(0.5);
         const patch = smoothstep(float(0.25), float(0.75), nz.mul(0.75).add(nz2.mul(0.25)));
-        const m = exp(above.negate().div(mp.height)).mul(mp.density).mul(patch);
+        const mMist = exp(above.negate().div(mp.height)).mul(mp.density).mul(patch);
+        // khói: mảng to hơn sương (nhiễu thang ×1,6), dày tới ~7 m, trôi nhanh hơn
+        const sm = smoke as unknown as Node<'float'>;
+        const nzs = mx_noise_float(vec3(P.x.sub(flow.x.mul(2.2)).div(mp.scale * 1.6), P.y.div(mp.scale * 0.6).sub(time.mul(0.03)), P.z.sub(flow.y.mul(2.2)).div(mp.scale * 1.6))).mul(0.5).add(0.5);
+        const ms = exp(above.negate().div(7)).mul(sm.mul(0.03)).mul(smoothstep(float(0.2), float(0.8), nzs.mul(0.7).add(nz2.mul(0.3))).mul(0.8).add(0.2));
+        const m = mMist.add(ms);
         // ánh trời trong sương: tối dưới tán kín
         const cHere = canopyMap.sampleAt(vec2(P.x, P.z));
         const sunHere = canopySunLight(P, sv, gy.add(p.canopyHeight));
         // nắng trong sương sát đất: 0,35 × (sương dày dễ loá trắng khi nhìn về phía nắng); ánh trời tối dưới tán kín
-        const scat = sunL.mul(sunHere.mul(sigma.add(m.mul(0.35)))).add(ambL.mul(m).mul(float(1).sub(cHere.mul(0.55))));
+        const scat = sunL.mul(sunHere.mul(sigma.add(mMist.mul(0.35)).add(ms.mul(0.55)))).add(ambL.mul(mMist.add(ms.mul(vec3(0.95, 0.85, 0.74)))).mul(float(1).sub(cHere.mul(0.55))));
         acc.addAssign(scat.mul(trans).mul(dt));
         trans.mulAssign(exp(m.mul(dt).negate()));
       } else {
@@ -220,6 +230,7 @@ export function volumetricShafts(
     params: p,
     intensity: intensity as unknown as { value: number },
     wind: wind as unknown as { value: Vector2 },
+    smoke: smoke as unknown as { value: number },
     update(camera, sunDir, env) {
       (projInv.value as Matrix4).copy(camera.projectionMatrixInverse);
       (camWorld.value as Matrix4).copy(camera.matrixWorld);
