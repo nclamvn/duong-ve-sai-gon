@@ -58,4 +58,34 @@ test.describe('ảnh choáng nổ', () => {
     await renderFramesRaf(page, 10);
     await page.screenshot({ path: `${OUT}/06-vet-chay-xem.png` });
   });
+
+  test('DV-089 chất phim A/B (0,3 · 1)', async ({ page }) => {
+    test.setTimeout(1_800_000);
+    await page.goto(`/?backend=webgl&level=truong-son&autostart=1&debug=1&quality=${process.env.DV_SHOTS_QUALITY ?? 'low'}&shadow=1024&calm=1${process.env.DV_SHOTS_Q ?? ''}`);
+    await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 900_000 });
+    await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 900_000 });
+    await page.evaluate(() => {
+      window.__ht!.game.stop();
+      document.getElementById('hud')!.hidden = true;
+      const sub = document.getElementById('subtitles');
+      if (sub) sub.style.display = 'none';
+      const y = window.__ht!.terrainHeight(-134, 580) ?? 0;
+      window.__ht!.teleport(-134, y + 0.05, 580);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const g = (window.__ht as any).raw;
+      g.player.rig.yaw = 0.6;
+      g.player.rig.pitch = -0.04;
+      g.setBattleSmoke(0.6);
+    });
+    for (const [name, film] of [['07-phim-0.3', 0.3], ['08-phim-1', 1]] as const) {
+      await page.evaluate((f) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const g = (window.__ht as any).raw;
+        g.film = f;
+        g.filmTarget = f;
+      }, film);
+      await renderFramesRaf(page, 3);
+      await page.screenshot({ path: `${OUT}/${name}.png` });
+    }
+  });
 });

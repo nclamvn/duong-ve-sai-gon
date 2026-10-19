@@ -964,9 +964,175 @@
           "count": 1
         }
       ],
-      "next": "n_doi",
+      "next": "n_doi_lull",
       "timeoutMs": 180000,
-      "fallbackNext": "n_doi"
+      "fallbackNext": "n_doi_lull"
+    },
+    {
+      "id": "n_doi_lull",
+      "type": "script",
+      "enterConditions": [],
+      "actions": [
+        {
+          "type": "squad_order",
+          "order": "hold"
+        },
+        {
+          "type": "fx",
+          "kind": "film",
+          "scale": 0.85
+        },
+        {
+          "type": "fx",
+          "kind": "hush",
+          "scale": 0.7,
+          "durationMs": 11000
+        },
+        {
+          "type": "fx",
+          "kind": "haze",
+          "scale": 0.7
+        },
+        {
+          "type": "radio",
+          "cue": "M100"
+        },
+        {
+          "type": "radio",
+          "cue": "M83"
+        },
+        {
+          "type": "radio",
+          "cue": "M101"
+        },
+        {
+          "type": "radio",
+          "cue": "M102"
+        },
+        {
+          "type": "radio",
+          "cue": "M103"
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "active_ms",
+          "ms": 16000
+        }
+      ],
+      "next": "n_doi_barrage"
+    },
+    {
+      "id": "n_doi_barrage",
+      "type": "script",
+      "enterConditions": [],
+      "actions": [
+        {
+          "type": "radio",
+          "cue": "M104"
+        },
+        {
+          "type": "strike",
+          "at": [
+            -4,
+            446
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 600
+        },
+        {
+          "type": "strike",
+          "at": [
+            -22,
+            450
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 1300
+        },
+        {
+          "type": "strike",
+          "at": [
+            8,
+            455
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 2000
+        },
+        {
+          "type": "strike",
+          "at": [
+            -14,
+            460
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 2600
+        },
+        {
+          "type": "strike",
+          "at": [
+            -30,
+            463
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 3300
+        },
+        {
+          "type": "strike",
+          "at": [
+            2,
+            467
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 3900
+        },
+        {
+          "type": "strike",
+          "at": [
+            -18,
+            470
+          ],
+          "radius": 8,
+          "damage": 40,
+          "delayMs": 4500
+        },
+        {
+          "type": "strike",
+          "near": 14,
+          "radius": 8,
+          "damage": 30,
+          "delayMs": 5200
+        },
+        {
+          "type": "strike",
+          "near": 10,
+          "radius": 7,
+          "damage": 30,
+          "delayMs": 6300
+        },
+        {
+          "type": "fx",
+          "kind": "film",
+          "scale": 1
+        },
+        {
+          "type": "fx",
+          "kind": "haze",
+          "scale": 0.8
+        }
+      ],
+      "exitConditions": [
+        {
+          "type": "active_ms",
+          "ms": 7800
+        }
+      ],
+      "next": "n_doi"
     },
     {
       "id": "n_doi",
@@ -993,7 +1159,7 @@
         },
         {
           "type": "radio",
-          "cue": "M83"
+          "cue": "M105"
         },
         {
           "type": "radio",
@@ -1027,6 +1193,39 @@
           ],
           "scale": 1.5,
           "durationMs": 200000
+        },
+        {
+          "type": "squad_order",
+          "order": "follow",
+          "pace": "assault",
+          "zone": "doi"
+        },
+        {
+          "type": "fx",
+          "kind": "film",
+          "scale": 1
+        },
+        {
+          "type": "fx",
+          "kind": "haze",
+          "scale": 0.85
+        },
+        {
+          "type": "mortar",
+          "zone": "doi",
+          "rate": 18,
+          "radius": 7,
+          "damage": 35,
+          "spare": 9,
+          "durationMs": 45000,
+          "delayMs": 2500
+        },
+        {
+          "type": "strike",
+          "near": 9,
+          "radius": 7,
+          "damage": 25,
+          "delayMs": 9000
         }
       ],
       "exitConditions": [
@@ -1051,6 +1250,11 @@
         {
           "type": "radio",
           "cue": "M85"
+        },
+        {
+          "type": "fx",
+          "kind": "film",
+          "scale": 0.5
         }
       ],
       "exitConditions": [

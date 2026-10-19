@@ -47,6 +47,8 @@ export interface MissionAction {
   /** DV-084 fx/strike: điểm (x, z); không có thì dùng `zone` */
   at?: [number, number];
   scale?: number;
+  /** DV-089 strike: nổ cách người chơi chừng này mét (thay at/zone) */
+  near?: number;
   height?: number;
   /** DV-084 reinforce: số đợt (kể cả đợt đầu), khoảng cách giữa đợt, trần địch sống toàn màn */
   waves?: number;

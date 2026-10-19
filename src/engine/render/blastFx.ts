@@ -28,6 +28,11 @@ export interface BlastFx {
   rain(feet: readonly [number, number, number], k: number): void;
   /** mỗi frame: dt (s) */
   update(dt: number): void;
+  /**
+   * DV-089 màn trập hẹp kiểu phim chiến tranh: > 0 thì hạt nổ/đất/bụi chuyển động theo nhịp `staccato` khung/giây (24 = phim),
+   * giật cục sắc nét trong khi máy (người chơi) vẫn mượt 60 khung. 0 = mượt.
+   */
+  staccato: number;
   /** độ sáng của bụi/khói (1 ngày nắng · ~0,15 đêm) */
   readonly light: { value: number };
   /** hướng gió (x, z) — Game gán chung uniform gió của rừng */
@@ -356,9 +361,10 @@ export function createBlastFx(opts: BlastFxOptions = {}): BlastFx {
       write(rn, slot, RAIN, feet, Math.max(0.2, Math.min(1, k)), 0);
       stats.rains++;
     },
+    staccato: 0,
     update(dt) {
       now += dt;
-      uT.value = now;
+      uT.value = this.staccato > 0 ? Math.floor(now * this.staccato) / this.staccato : now;
       let a = 0;
       for (let i = 0; i < nB; i++) if (now - starts[i]! < MAX_LIFE) a++;
       stats.active = a;

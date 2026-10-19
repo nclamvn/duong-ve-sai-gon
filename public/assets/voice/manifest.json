@@ -1,7 +1,7 @@
 {
  "version": 1,
  "model": "eleven_v3",
- "generated": "2026-10-19T09:42:50.507Z",
+ "generated": "2026-10-19T14:37:26.059Z",
  "lines": {
   "B01": {
    "voice": "LONG",
@@ -3780,13 +3780,13 @@
     "vi/M83.mp3"
    ],
    "ms": [
-    3370
+    4101
    ],
    "hash": [
-    "dd070aeb673df437"
+    "3651306ff1945772"
    ],
    "qa": [
-    0.96
+    1
    ],
    "model": [
     "eleven_v3"
@@ -4075,6 +4075,114 @@
    ],
    "qa": [
     0.98
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M100": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M100.mp3"
+   ],
+   "ms": [
+    2299
+   ],
+   "hash": [
+    "b674505bca811d78"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M101": {
+   "voice": "DAT",
+   "files": [
+    "vi/M101.mp3"
+   ],
+   "ms": [
+    3892
+   ],
+   "hash": [
+    "62729be72869b91f"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M102": {
+   "voice": "HOAN",
+   "files": [
+    "vi/M102.mp3"
+   ],
+   "ms": [
+    2456
+   ],
+   "hash": [
+    "cec87f412edf9a9f"
+   ],
+   "qa": [
+    0.84
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M103": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M103.mp3"
+   ],
+   "ms": [
+    4754
+   ],
+   "hash": [
+    "aecb1de298af3cfb"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M104": {
+   "voice": "LONG",
+   "files": [
+    "vi/M104.mp3"
+   ],
+   "ms": [
+    2090
+   ],
+   "hash": [
+    "c067a9dfe298e804"
+   ],
+   "qa": [
+    1
+   ],
+   "model": [
+    "eleven_v3"
+   ]
+  },
+  "M105": {
+   "voice": "QUYET",
+   "files": [
+    "vi/M105.mp3"
+   ],
+   "ms": [
+    3161
+   ],
+   "hash": [
+    "bd46b223a74dbb1a"
+   ],
+   "qa": [
+    1
    ],
    "model": [
     "eleven_v3"

@@ -7,7 +7,7 @@
  * TSL only (không ShaderMaterial). Mọi pass là node của RenderPipeline → 1 lệnh render()/frame.
  */
 import { RenderPipeline, type WebGPURenderer, type Scene, type PerspectiveCamera, type Node, AgXToneMapping, Color } from 'three/webgpu';
-import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec2, vec3, vec4, float, mix, smoothstep, uniform, dot, uv, convertToTexture } from 'three/tsl';
+import { pass, mrt, output, normalView, metalness, roughness, velocity, renderOutput, vec2, vec3, vec4, float, mix, smoothstep, uniform, dot, uv, convertToTexture, Fn, If } from 'three/tsl';
 import { Vector2 } from 'three';
 
 /** GTAO mờ dần theo khoảng cách nhìn (m): xa hơn AO_FADE_END không áp AO — terrain (TIP-D04) bị vạch/ô từ GTAO nửa phân giải trên sườn ≥ ~50 m (Mac WebGPU xác nhận: post=low sạch, medium có vạch), và AO bán kính 0,5 m ở > 30 m không nhìn thấy */
@@ -49,6 +49,11 @@ export interface PostStack {
   shock: { value: number };
   shockDir: { value: Vector2 };
   shockFlash: { value: number };
+  /**
+   * DV-089 màu phim bleach-bypass 0..1 (phim chiến tranh: bạc, tương phản gắt, da/đất xám nâu; đỏ cam của lửa máu giữ lại).
+   * Game đặt theo hồi (mission `fx` kind `film`). Tier off = không tác dụng.
+   */
+  bleach: { value: number };
   /** gọi mỗi frame trước render (vị trí mặt trời màn hình cho tia nắng) */
   update(camera: PerspectiveCamera, sunDir: readonly [number, number, number] | null, env?: VolumetricEnv): void;
 }
@@ -94,6 +99,7 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
       shock: { value: 0 },
       shockDir: { value: new Vector2() },
       shockFlash: { value: 0 },
+      bleach: { value: 0 },
       shafts: null,
       volumetric: null,
       update: () => undefined,
@@ -222,19 +228,48 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
   const shockFlash = uniform(0);
   {
     const src = ldrTex ?? (convertToTexture(ldr) as unknown as TexLike);
-    const u = uv();
-    const d = vec2(shockDir.x, shockDir.y);
-    const a = src.sample(u.add(d)).rgb;
-    const b = src.sample(u.sub(d.mul(0.7))).rgb;
-    const c = src.sample(u.add(vec2(d.y, d.x.negate()).mul(0.5))).rgb;
-    const ghost = vec3(a.r.mul(0.6).add(c.r.mul(0.4)), a.g.add(b.g).add(c.g).div(3), b.b.mul(0.6).add(c.b.mul(0.4)));
-    ldr = vec4(mix(ldr.rgb, ghost, shock.mul(0.75).min(0.62)), 1.0);
+    const base = ldr;
+    // nhánh thật (If theo uniform): lúc không choáng không lấy thêm mẫu nào (SwiftShader/GPU yếu không trả giá)
+    ldr = Fn(() => {
+      const out = vec4(base.rgb, 1.0).toVar();
+      If(shock.greaterThan(0.001), () => {
+        const u = uv();
+        const d = vec2(shockDir.x, shockDir.y);
+        const a = src.sample(u.add(d)).rgb;
+        const b = src.sample(u.sub(d.mul(0.7))).rgb;
+        const c = src.sample(u.add(vec2(d.y, d.x.negate()).mul(0.5))).rgb;
+        const ghost = vec3(a.r.mul(0.6).add(c.r.mul(0.4)), a.g.add(b.g).add(c.g).div(3), b.b.mul(0.6).add(c.b.mul(0.4)));
+        out.assign(vec4(mix(base.rgb, ghost, shock.mul(0.75).min(0.62)), 1.0));
+      });
+      return out;
+    })() as unknown as V4;
     passes.push('shock');
   }
   // grain + vignette nhẹ (PRD: "nhẹ")
   if (opts.grade !== false && opts.grade !== undefined) {
     ldr = vec4(filmGrade(ldr.rgb, opts.grade), 1.0);
     passes.push('grade');
+  }
+  // DV-089 bleach-bypass: chồng lớp "độ sáng" lên màu theo kiểu overlay (giữ bạc trong nhũ tương) → tối sâu, sáng gắt, bạc màu;
+  // vùng đỏ cam rực (lửa, máu, chớp nòng) bớt bị rút màu để vẫn nổi trên nền xám
+  const bleach = uniform(0);
+  {
+    const base = ldr;
+    ldr = Fn(() => {
+      const out = vec4(base.rgb, 1.0).toVar();
+      If(bleach.greaterThan(0.001), () => {
+        const c = base.rgb;
+        const lb = dot(c, vec3(0.2126, 0.7152, 0.0722));
+        const lo = c.mul(lb).mul(2);
+        const hi = float(1).sub(float(1).sub(c).mul(float(1).sub(lb)).mul(2));
+        const ov = mix(lo, hi, smoothstep(float(0.4), float(0.5), lb));
+        const warm = smoothstep(float(0.08), float(0.3), c.r.sub(c.g.max(c.b)));
+        const silver = mix(ov, vec3(dot(ov, vec3(0.2126, 0.7152, 0.0722))), float(0.55).mul(warm.mul(0.7).oneMinus()));
+        out.assign(vec4(mix(c, silver.clamp(0, 1), bleach.mul(0.85)), 1.0));
+      });
+      return out;
+    })() as unknown as V4;
+    passes.push('bleach');
   }
   // áp chế (DV-075): kéo về xám theo stress (tới 65 %) + vignette mạnh dần
   const stress = uniform(0);
@@ -257,6 +292,7 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     shock: shock as unknown as { value: number },
     shockDir: shockDir as unknown as { value: Vector2 },
     shockFlash: shockFlash as unknown as { value: number },
+    bleach: bleach as unknown as { value: number },
     shafts,
     volumetric,
     update: (cam, sunDir, env) => {

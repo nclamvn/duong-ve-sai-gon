@@ -146,6 +146,16 @@ export class Game {
   private shockT = 0;
   private heartAcc = 0;
   readonly shockStats = { count: 0, peak: 0, dirtKicks: 0 };
+  /**
+   * DV-089 chất phim chiến tranh 0..1: màu bleach-bypass, máy cầm tay, từ 0,5 thì lửa/nổ/bụi chạy nhịp 24 khung (màn trập hẹp).
+   * Mặc định theo level (`post.film`), mission đổi theo hồi (`fx` kind `film`); `?film=0` tắt.
+   */
+  private film = 0;
+  private filmTarget = 0;
+  private filmDefault = 0;
+  /** DV-089 thế giới lặng (hush): còn bao lâu (s), độ sâu */
+  private hushLeft = 0;
+  private hushDepth = 0;
   /** DV-088 vết cháy xém trên mặt đất (null khi chưa dựng) */
   scorch: Scorch | null = null;
   /** DV-088 bùn bắn lên ống kính */
@@ -554,6 +564,8 @@ export class Game {
     this.vmScene.add(this.vmFlash);
     // DV-063: hậu kỳ điện ảnh theo level (tia nắng xuyên tán, màu phim); ?shafts=0 / ?grade=0 để so A/B
     const lp = terrainDef?.post;
+    this.filmDefault = this.params.get('film') === '0' ? 0 : (lp?.film ?? 0);
+    this.film = this.filmTarget = this.filmDefault;
     const rig = this.lights as { sunColor?: number; sunIntensity?: number };
     const sc = new Color(rig.sunColor ?? 0xffffff).multiplyScalar(rig.sunIntensity ?? 1);
     // DV-081 sương sát đất: ánh trời trong sương = màu sương của trời (linear) × độ sáng ánh trời
@@ -1202,6 +1214,7 @@ export class Game {
     this.blast.update(dt);
     this.updateBattleSmoke(dt);
     this.updateShock(dt);
+    this.updateFilm(dt);
     this.vmFlash.position.copy(this.viewModel.muzzleWorld);
     this.vmFlash.intensity = this.fx.muzzleLight.intensity * 0.45;
     this.flares?.update(dt);
@@ -1346,6 +1359,41 @@ export class Game {
     if (k > 0.35) this.lensDirt?.splash(k, Math.max(-1, Math.min(1, rel / 90)));
   }
 
+  /** DV-089 chất phim theo hồi (mission `fx` kind `film`): chuyển dần trong ~2 s */
+  setFilm(level: number): void {
+    if (this.params.get('film') === '0') return;
+    this.filmTarget = Math.max(0, Math.min(1, level));
+  }
+
+  /** DV-089 thế giới lặng đi `seconds` giây (độ sâu 0..1): tiếng trận chìm, tim đập, thoại vẫn rõ */
+  hush(depth: number, seconds: number): void {
+    this.hushDepth = Math.max(0, Math.min(1, depth));
+    this.hushLeft = seconds;
+    this.audio.hush(this.hushDepth, seconds);
+  }
+
+  /** mức chất phim hiện tại (E2E/debug) */
+  get filmLevel(): number {
+    return this.film;
+  }
+
+  /** DV-089 mỗi frame: màu phim, nhịp màn trập, rung cầm tay theo vận động + áp chế + choáng (ngắm thì đỡ rung) */
+  private updateFilm(dt: number): void {
+    this.film += (this.filmTarget - this.film) * Math.min(1, dt * 0.6);
+    if (Math.abs(this.filmTarget - this.film) < 1e-3) this.film = this.filmTarget;
+    this.post.bleach.value = this.film;
+    this.blast.staccato = this.film >= 0.5 && this.params.get('staccato') !== '0' ? 24 : 0;
+    this.hushLeft = Math.max(0, this.hushLeft - dt);
+    const rig = this.player.rig;
+    if (this.freeFly || !this.player.alive || this.film <= 0) {
+      rig.handheld = 0;
+      return;
+    }
+    const mv = Math.min(1, this.player.controller.horizontalSpeed() / 6);
+    const amp = this.film * (0.0035 + 0.006 * mv + 0.004 * this.playerSuppression) + 0.008 * this.shock;
+    rig.handheld = amp * (1 - 0.6 * this.player.adsBlend);
+  }
+
   /** DV-088 mỗi frame: choáng tắt dần, chân nặng theo choáng, tim đập khi choáng hoặc máu thấp, bùn ống kính mờ dần */
   private updateShock(dt: number): void {
     this.shockT += dt;
@@ -1354,7 +1402,7 @@ export class Game {
     this.player.controller.speedMul = 1 - 0.45 * this.shock;
     this.lensDirt?.update(dt);
     const hp = this.player.alive ? this.player.health : 100;
-    const hb = Math.max(this.shock * 0.9, hp < 35 ? ((35 - hp) / 35) * 0.8 : 0);
+    const hb = Math.max(this.shock * 0.9, hp < 35 ? ((35 - hp) / 35) * 0.8 : 0, this.hushLeft > 0 ? 0.35 + 0.35 * this.hushDepth : 0);
     if (hb > 0.05 && this.audio.ctx) {
       this.heartAcc += dt;
       if (this.heartAcc >= 60 / (72 + 50 * hb)) {
@@ -1904,6 +1952,8 @@ export class Game {
     this.fx.reset();
     this.smokeKick = 0;
     this.shock = this.shockFlash = 0;
+    this.film = this.filmTarget = this.filmDefault;
+    this.hushLeft = 0;
     this.player.controller.speedMul = 1;
     this.audio.clearShock();
     this.lensDirt?.reset();

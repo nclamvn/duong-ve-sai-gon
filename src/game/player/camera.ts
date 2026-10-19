@@ -29,6 +29,15 @@ export class CameraRig {
   stumblePitch = 0;
   private stumbleRollV = 0;
   private stumblePitchV = 0;
+  /**
+   * DV-089 máy cầm tay: biên độ (rad) do Game đặt mỗi frame theo hồi + vận động + trận (0 = tắt). Nhiễu tần thấp nhiều tầng
+   * (thở, bước, tay mỏi) — offset tạm như shake, không ghi vào yaw/pitch, theo cài đặt rung.
+   */
+  handheld = 0;
+  private handT = 0;
+  private handP = 0;
+  private handY = 0;
+  private handR = 0;
   /** landing dip (m) */
   landingDip = 0;
   private bobPhase = 0;
@@ -81,6 +90,13 @@ export class CameraRig {
     this.shakeAmp *= Math.exp(-this.shakeDecay * dt);
     if (this.shakeAmp < 1e-4) this.shakeAmp = 0;
     this.shakePhase += dt * 37;
+    // máy cầm tay: các tần số không chia hết nhau → không lặp nhịp thấy được
+    this.handT += dt;
+    const t = this.handT;
+    const h = this.handheld * this.intensity.shake;
+    this.handP = h * (0.55 * Math.sin(t * 1.27 + 0.4) + 0.3 * Math.sin(t * 2.91 + 1.7) + 0.15 * Math.sin(t * 6.83 + 0.2));
+    this.handY = h * (0.6 * Math.sin(t * 0.93 + 2.1) + 0.28 * Math.sin(t * 2.37 + 0.9) + 0.12 * Math.sin(t * 5.71 + 1.3));
+    this.handR = h * 0.8 * (0.7 * Math.sin(t * 0.71 + 1.1) + 0.3 * Math.sin(t * 1.83 + 2.6));
     // lò xo tắt dần (ω 5,5 rad/s, ζ 0,38): nghiêng rồi lắc lại một hai nhịp như người say sóng nổ
     const w2 = 30.25;
     const c2 = 2 * 0.38 * 5.5;
@@ -108,7 +124,7 @@ export class CameraRig {
   compose(): Quaternion {
     const shakeP = this.shakeAmp * Math.sin(this.shakePhase) * 0.02;
     const shakeY = this.shakeAmp * Math.cos(this.shakePhase * 0.7) * 0.02;
-    this.euler.set(this.pitch + this.recoilPitch + shakeP + this.stumblePitch, this.yaw + this.recoilYaw + shakeY, this.stumbleRoll);
+    this.euler.set(this.pitch + this.recoilPitch + shakeP + this.stumblePitch + this.handP, this.yaw + this.recoilYaw + shakeY + this.handY, this.stumbleRoll + this.handR);
     return this.quaternion.setFromEuler(this.euler);
   }
 
@@ -125,6 +141,7 @@ export class CameraRig {
     this.recoilPitch = this.recoilYaw = 0;
     this.shakeAmp = 0;
     this.stumbleRoll = this.stumbleRollV = this.stumblePitch = this.stumblePitchV = 0;
+    this.handP = this.handY = this.handR = 0;
     this.landingDip = 0;
     this.bobPhase = 0;
     this.bobOffset.set(0, 0, 0);

@@ -37,9 +37,12 @@ const TAGS = {
   M00: '[sad] [quietly]', M16: '[nervous]', M17: '[shouting]', M18: '[shouting]', M19: '[shouting]', M27: '[urgent]', M28: '[shouting]',
   M71: '[shouting]', M72: '[shouting]', M73: '[shouting]', M74: '[shouting]', M75: '[panicked] [shouting]', M76: '[shouting]',
   M77: '[shouting]', M78: '[shouting]', M79: '[crying] [shouting]', M80: '[shouting]', M81: '[shouting]', M82: '[shouting]',
-  M83: '[urgent]', M84: '[shouting]', M85: '[out of breath]', M86: '[panicked]', M87: '[shouting]', M88: '[shouting]',
+  M83: '[whispers]', M84: '[shouting]', M85: '[out of breath]', M86: '[panicked]', M87: '[shouting]', M88: '[shouting]',
   M89: '[urgent]', M90: '[shouting]', M91: '[shouting]', M92: '[shouting]', M93: '[shouting]', M94: '[shouting]', M95: '[shouting]',
   M96: '[strained] [shouting]', M97: '[crying] [shouting]', M98: '[shouting]', M99: '[shouting]',
+  // DV-089 hồi sườn đồi theo nhịp Normandy: nín thở → pháo dồn → xung phong
+  M100: '[whispers]', M101: '[whispers] [nervous]', M102: '[whispers] [scared]', M103: '[whispers] [determined]',
+  M104: '[panicked] [shouting]', M105: '[shouting]',
   // DV-078 hồi đêm Ngầm Ta Lê
   N01: '[quietly]', N02: '[quietly]', N03: '[curious]', N04: '[calm]', N05: '[calm]', N07: '[shouting]', N08: '[shouting]',
   N09: '[shouting]', N10: '[excited]', N11: '[shouting]', N12: '[shouting]', N13: '[shouting]', N14: '[urgent]', N15: '[shouting]',

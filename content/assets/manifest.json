@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "generatedAt": "2026-10-12T03:05:28.447Z",
   "policy": "ADR-005/006/007: CC0 Poly Haven qua fetch-assets; Mixamo (convert-mixamo/extract-arms); Sketchfab CC-BY (convert-weapon/convert-model) — entry không phải polyhaven được giữ khi chạy lại fetch",
-  "totalBytes": 221184340,
+  "totalBytes": 221420290,
   "assets": [
     {
       "id": "blue_lagoon_night",
@@ -5504,8 +5504,8 @@
         },
         {
           "path": "assets/voice/manifest.json",
-          "bytes": 178213,
-          "sha256": "fcea4e9a1a2c9d045c96f7b31eb61943ed8df39f9d8a99eb01a92308391d2f47"
+          "bytes": 179421,
+          "sha256": "32906195a510b7a0be4ee4f5f3cecc94a01f93421aeef978292bc861e543a803"
         },
         {
           "path": "assets/voice/verify-report.json",
@@ -5721,6 +5721,36 @@
           "path": "assets/voice/vi/M09.mp3",
           "bytes": 39855,
           "sha256": "271503530bef85986988fd7a75cb97459882865786c2e38d4ff4941c2ab39b33"
+        },
+        {
+          "path": "assets/voice/vi/M100.mp3",
+          "bytes": 27943,
+          "sha256": "9317bac52a9bba36a8118412878caf30e258c39f3b92ab1abad245bfbf953627"
+        },
+        {
+          "path": "assets/voice/vi/M101.mp3",
+          "bytes": 47065,
+          "sha256": "b9fc5d8be6cdceb8e052fb53a053524e8cec516680510dc3a06142c340870c95"
+        },
+        {
+          "path": "assets/voice/vi/M102.mp3",
+          "bytes": 29824,
+          "sha256": "9db027b89c788550a263a790754a3733582c4a21db48661257eb436bf2db3501"
+        },
+        {
+          "path": "assets/voice/vi/M103.mp3",
+          "bytes": 57409,
+          "sha256": "be2977fea1d4b116eefc2f2cbdc6ef92d4fd9236ea34f231e483e2a0e8b1ad23"
+        },
+        {
+          "path": "assets/voice/vi/M104.mp3",
+          "bytes": 25436,
+          "sha256": "03e4aefcce1c6bb5212978e8e779cb477648e161762a4d249ed123d4ef35d4c2"
+        },
+        {
+          "path": "assets/voice/vi/M105.mp3",
+          "bytes": 38288,
+          "sha256": "b009c6fe83656a58036bc3823f36db5363990a04ceba337245e50a4e4ef23159"
         },
         {
           "path": "assets/voice/vi/M10_DAT_1.mp3",
@@ -6794,8 +6824,8 @@
         },
         {
           "path": "assets/voice/vi/M83.mp3",
-          "bytes": 40796,
-          "sha256": "84d45282661179aad2dd6f8e4f20081608b16a5086b2368035874809fce095f0"
+          "bytes": 49573,
+          "sha256": "158ff9455763e6253d86cd4c560847d597d1a9d1f21759664c76d0770280a91f"
         },
         {
           "path": "assets/voice/vi/M84.mp3",

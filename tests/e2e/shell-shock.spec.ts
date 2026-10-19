@@ -85,4 +85,52 @@ test.describe('DV-088 choáng nổ + đất văng', () => {
     expect(r.after.lens).toBe(0);
     expectNoErrors(errors);
   });
+
+  test('DV-089 chất phim: bleach, máy cầm tay, màn trập 24 khung; thế giới lặng; pháo nổ gần người chơi theo kịch bản', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(`PAGEERROR ${e.message}`));
+    page.on('console', (m) => {
+      if (m.type() === 'error' && !/favicon/.test(m.text())) errors.push(m.text());
+    });
+    await page.goto(`/?${QUERY.replace('level=truong-son&', 'level=truong-son-a&')}`);
+    await page.waitForFunction(() => window.__ht?.ready === true, null, { timeout: 120_000 });
+    await page.waitForFunction(() => (window.__ht?.metrics().frames ?? 0) >= 2, null, { timeout: 120_000 });
+    await pauseLoop(page);
+    const r = await page.evaluate(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const g = (window.__ht as any).raw;
+      const base = { film: g.filmLevel as number, bleach: g.post.bleach.value as number, st: g.blast.staccato as number };
+      g.setFilm(1);
+      for (let i = 0; i < 40; i++) g.frame(0.1);
+      const on = { film: g.filmLevel as number, bleach: g.post.bleach.value as number, st: g.blast.staccato as number, hand: g.player.rig.handheld as number };
+      g.hush(0.7, 3);
+      g.frame(0.1);
+      const hush = g.hushLeft as number;
+      const battle = g.mission?.battle;
+      const shells0 = battle ? (battle.stats.shells as number) : -1;
+      const shock0 = g.shockStats.count as number;
+      battle?.handle({ type: 'strike', near: 9, radius: 7, damage: 0, delayMs: 1500 });
+      for (let i = 0; i < 25; i++) g.frame(0.1);
+      const shells = battle ? (battle.stats.shells as number) - shells0 : -1;
+      const shocked = (g.shockStats.count as number) - shock0;
+      g.setFilm(0.05);
+      for (let i = 0; i < 60; i++) g.frame(0.1);
+      const off = { film: g.filmLevel as number, st: g.blast.staccato as number };
+      return { base, on, hush, shells, shocked, off, hasBattle: !!battle };
+    });
+    console.log(JSON.stringify(r));
+    expect(r.base.film).toBeCloseTo(0.3, 2);
+    expect(r.base.st).toBe(0);
+    expect(r.on.film).toBeGreaterThan(0.9);
+    expect(r.on.bleach).toBeGreaterThan(0.9);
+    expect(r.on.st).toBe(24);
+    expect(r.on.hand).toBeGreaterThan(0.002);
+    expect(r.hush).toBeGreaterThan(2.5);
+    expect(r.hasBattle).toBe(true);
+    expect(r.shells).toBe(1);
+    expect(r.shocked).toBe(1);
+    expect(r.off.film).toBeLessThan(0.1);
+    expect(r.off.st).toBe(0);
+    expectNoErrors(errors);
+  });
 });

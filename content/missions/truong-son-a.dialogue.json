@@ -827,7 +827,7 @@
       "subtitleKey": "dlg.M83",
       "priority": 7,
       "interruptPolicy": "queue",
-      "durationMs": 4035,
+      "durationMs": 4100,
       "bus": "dialogue"
     },
     {
@@ -988,6 +988,66 @@
       "priority": 9,
       "interruptPolicy": "interrupt",
       "durationMs": 3980,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M100",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.M100",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 2300,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M101",
+      "speaker": "DAT",
+      "audio": null,
+      "subtitleKey": "dlg.M101",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 3890,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M102",
+      "speaker": "HOAN",
+      "audio": null,
+      "subtitleKey": "dlg.M102",
+      "priority": 6,
+      "interruptPolicy": "queue",
+      "durationMs": 2460,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M103",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.M103",
+      "priority": 7,
+      "interruptPolicy": "queue",
+      "durationMs": 4750,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M104",
+      "speaker": "LONG",
+      "audio": null,
+      "subtitleKey": "dlg.M104",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 2090,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "M105",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.M105",
+      "priority": 9,
+      "interruptPolicy": "queue",
+      "durationMs": 3160,
       "bus": "dialogue"
     }
   ]

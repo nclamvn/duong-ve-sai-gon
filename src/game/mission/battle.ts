@@ -43,6 +43,8 @@ interface Shell {
   damage: number;
   whistled: boolean;
   kind: 'mortar' | 'artillery' | 'napalm' | 'strike';
+  /** DV-089: nổ cách người chơi chừng này mét — chốt toạ độ lúc đạn bắt đầu rít */
+  near?: number;
 }
 
 interface MortarRun {
@@ -98,6 +100,15 @@ export class Battle {
           this.game.setBattleSmoke(a.scale ?? 0.5);
           return;
         }
+        // DV-089 chất phim chiến tranh; thế giới lặng đi trước giờ xung phong
+        if (a.kind === 'film') {
+          this.game.setFilm(a.scale ?? 1);
+          return;
+        }
+        if (a.kind === 'hush') {
+          this.game.hush(a.scale ?? 0.7, (a.durationMs ?? 8000) / 1000);
+          return;
+        }
         const p = this.pointOf(a);
         if (!p) return;
         const dur = (a.durationMs ?? 60000) / 1000;
@@ -111,6 +122,10 @@ export class Battle {
         break;
       }
       case 'strike': {
+        if (a.near !== undefined) {
+          this.shells.push({ t: this.t + (a.delayMs ?? 0) / 1000, x: 0, z: 0, radius: a.radius ?? 8, damage: a.damage ?? 60, whistled: false, kind: 'strike', near: a.near });
+          break;
+        }
         const p = this.pointOf(a);
         if (!p) return;
         this.shells.push({ t: this.t + (a.delayMs ?? 0) / 1000, x: p[0], z: p[2], radius: a.radius ?? 8, damage: a.damage ?? 120, whistled: (a.delayMs ?? 0) < 1200, kind: 'strike' });
@@ -165,7 +180,9 @@ export class Battle {
 
   update(dt: number): void {
     this.t += dt;
-    this.fx.update(this.t, this.game.camera.position);
+    // DV-089 màn trập hẹp: lửa/khói chạy theo nhịp phim (24 khung/s) khi hồi đặt chất phim
+    const st = this.game.blast.staccato;
+    this.fx.update(st > 0 ? Math.floor(this.t * st) / st : this.t, this.game.camera.position);
     // chỗ hết hạn thì rảnh (lửa tự lụi trong shader theo thời điểm tắt)
     for (const list of [this.fires, this.smokes]) for (const s of list) if (s.busy && this.t >= s.until) s.busy = false;
     // cối/pháo
@@ -183,6 +200,7 @@ export class Battle {
     // đạn đang bay: rít trước 1,1 s, rồi nổ
     for (let i = this.shells.length - 1; i >= 0; i--) {
       const s = this.shells[i]!;
+      if (s.near !== undefined && !s.whistled && this.t >= s.t - 1.1) this.placeNear(s);
       if (!s.whistled && this.t >= s.t - 1.1) {
         s.whistled = true;
         if (s.kind === 'mortar' || s.kind === 'artillery' || s.kind === 'strike') this.game.audio.incoming([s.x, this.groundY(s.x, s.z), s.z], 1100);
@@ -324,6 +342,16 @@ export class Battle {
       this.stats.kills++;
       return;
     }
+  }
+
+  /** DV-089 chốt điểm nổ cách người chơi `near` m: phía trước ±70°, lệch theo rng (đạn pháo không trúng thẳng người) */
+  private placeNear(s: Shell): void {
+    const f = this.game.player.controller.feet;
+    const yaw = this.game.player.rig.yaw + (this.rng.next() - 0.5) * 2.4;
+    const d = (s.near ?? 8) * (0.85 + this.rng.next() * 0.3);
+    s.x = f[0] - Math.sin(yaw) * d;
+    s.z = f[2] - Math.cos(yaw) * d;
+    s.near = undefined;
   }
 
   private pointOf(a: MissionAction): V3 | null {

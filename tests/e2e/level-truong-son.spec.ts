@@ -588,6 +588,11 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       H.kill('chan');
       H.kill('chan_san');
       H.stepSim(10);
+      // DV-089 nhịp Normandy: nín thở 16 s → pháo dồn 7,8 s → xung phong
+      const nLull = H.mission.state().currentNode;
+      H.stepSim(60 * 16.2);
+      const nBarrage = H.mission.state().currentNode;
+      H.stepSim(60 * 8);
       const nDoi = H.mission.state().currentNode;
       H.kill('doi_giu');
       H.stepSim(60 * 5);
@@ -598,7 +603,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       H.stepSim(60 * 30.5); // bom rơi xong ở giây 30 (tàn quân ra ở giây 31)
       const hpB52 = g.player.health;
       H.stepSim(60 * 1.5);
-      return { hpB52, nNapalm, timer, hp0, heat, napalm, fires, squad, khangDead, nChan, chan, nDoi, nB52, bombs: g.mission.bombStats.dropped, safeHits: g.mission.battle!.stats.safeHits - safe0, node: H.mission.state().currentNode, sot: H.bots().filter((b) => b.group === 'sot' && b.alive).length, saves: H.checkpoint.saves() };
+      return { hpB52, nNapalm, timer, hp0, heat, napalm, fires, squad, khangDead, nChan, chan, nLull, nBarrage, nDoi, nB52, bombs: g.mission.bombStats.dropped, safeHits: g.mission.battle!.stats.safeHits - safe0, node: H.mission.state().currentNode, sot: H.bots().filter((b) => b.group === 'sot' && b.alive).length, saves: H.checkpoint.saves() };
     });
     expect(act23.nNapalm).toBe('n_napalm');
     expect(act23.timer).not.toBeNull();
@@ -609,6 +614,8 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(act23.squad).toEqual(['name.quyet', 'name.long', 'name.dat', 'name.hoan']);
     expect(act23.nChan).toBe('n_chan');
     expect(act23.chan).toBe(9);
+    expect(act23.nLull).toBe('n_doi_lull');
+    expect(act23.nBarrage).toBe('n_doi_barrage');
     expect(act23.nDoi).toBe('n_doi');
     expect(act23.nB52).toBe('n_b52');
     expect(act23.bombs).toBeGreaterThanOrEqual(35);

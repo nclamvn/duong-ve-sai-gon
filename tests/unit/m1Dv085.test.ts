@@ -148,7 +148,14 @@ describe('DV-085 M1 bản dồn dập: đồ thị 7 hồi', () => {
     expect(world.groupAlive('chan') + world.groupAlive('chan_san')).toBe(9);
     world.kill('chan', 1);
     step(0.2);
-    // HỒI 3: sườn đồi → B-52: chạy vào lòng suối trong 22 s, ngoài vùng an toàn chịu sát thương
+    // DV-089 HỒI 3 theo nhịp Normandy: nín thở dưới chân đồi (thế giới lặng, tổ nằm giữ) → pháo dồn về phía tổ → xung phong
+    expect(node()).toBe('n_doi_lull');
+    expect(r.battle.some((a) => a.type === 'fx' && a.kind === 'hush')).toBe(true);
+    step(16.2);
+    expect(node()).toBe('n_doi_barrage');
+    expect(r.battle.filter((a) => a.type === 'strike' && a.near !== undefined).length).toBeGreaterThanOrEqual(2);
+    step(8);
+    // sườn đồi → B-52: chạy vào lòng suối trong 22 s, ngoài vùng an toàn chịu sát thương
     expect(node()).toBe('n_doi');
     expect(world.groupAlive('doi_giu')).toBe(5);
     world.killEnemies();

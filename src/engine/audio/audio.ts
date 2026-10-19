@@ -21,6 +21,9 @@ export class AudioEngine {
   private shockGain: GainNode | null = null;
   private ringOsc: OscillatorNode[] = [];
   private ringGain: GainNode | null = null;
+  /** DV-089 lớp "thế giới" (sfx + nền): lowpass + gain riêng để lặng tiếng trận mà thoại vẫn rõ */
+  private worldFilter: BiquadFilterNode | null = null;
+  private worldGain: GainNode | null = null;
 
   /** Phải gọi sau user gesture (click/keydown). Idempotent. */
   init(): boolean {
@@ -60,11 +63,20 @@ export class AudioEngine {
       buses.music.gain.value = 0.6;
       // bus nền rừng (TIP soundscape): không bị duck, mức thấp hơn SFX
       buses.ambience.gain.value = 0.7;
-      buses.sfx.connect(master);
+      const worldFilter = ctx.createBiquadFilter();
+      worldFilter.type = 'lowpass';
+      worldFilter.frequency.value = 20000;
+      worldFilter.Q.value = 0.7;
+      const worldGain = mk();
+      worldFilter.connect(worldGain);
+      worldGain.connect(master);
+      this.worldFilter = worldFilter;
+      this.worldGain = worldGain;
+      buses.sfx.connect(worldFilter);
       buses.dialogue.connect(master);
       buses.radio.connect(master);
       buses.music.connect(master);
-      buses.ambience.connect(master);
+      buses.ambience.connect(worldFilter);
       // noise buffer 1 s
       const len = ctx.sampleRate;
       const buf = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -551,11 +563,34 @@ export class AudioEngine {
     r.setTargetAtTime(0, t + seconds * 0.45, seconds * 0.35);
   }
 
+  /**
+   * DV-089 thế giới lặng đi (khoảnh khắc nín thở trước giờ xung phong): tiếng trận và nền rừng chìm xuống, mất cao tần trong
+   * ~1,5 s, giữ `seconds`, rồi trở lại trong ~2 s. Thoại/bộ đàm không bị ảnh hưởng. `depth` 0..1.
+   */
+  hush(depth: number, seconds: number): void {
+    if (!this.ctx || !this.worldFilter || !this.worldGain) return;
+    const t = this.ctx.currentTime;
+    const d = Math.max(0, Math.min(1, depth));
+    const f = this.worldFilter.frequency;
+    const g = this.worldGain.gain;
+    f.cancelScheduledValues(t);
+    f.setValueAtTime(f.value, t);
+    f.exponentialRampToValueAtTime(2400 - 1700 * d, t + 1.5);
+    f.setValueAtTime(2400 - 1700 * d, t + seconds);
+    f.exponentialRampToValueAtTime(20000, t + seconds + 2);
+    g.cancelScheduledValues(t);
+    g.setValueAtTime(g.value, t);
+    g.linearRampToValueAtTime(1 - 0.75 * d, t + 1.5);
+    g.setValueAtTime(1 - 0.75 * d, t + seconds);
+    g.linearRampToValueAtTime(1, t + seconds + 2);
+  }
+
   /** DV-088 hồi tai ngay (chơi lại/đổi màn) */
   clearShock(): void {
     if (!this.ctx || !this.shockFilter || !this.shockGain || !this.ringGain) return;
     const t = this.ctx.currentTime;
-    for (const [p, v] of [[this.shockFilter.frequency, 20000], [this.shockGain.gain, 1], [this.ringGain.gain, 0]] as const) {
+    const world = this.worldFilter && this.worldGain ? ([[this.worldFilter.frequency, 20000], [this.worldGain.gain, 1]] as const) : [];
+    for (const [p, v] of [[this.shockFilter.frequency, 20000], [this.shockGain.gain, 1], [this.ringGain.gain, 0], ...world] as const) {
       p.cancelScheduledValues(t);
       p.setValueAtTime(v, t);
     }

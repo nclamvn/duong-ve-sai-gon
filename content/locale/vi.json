@@ -227,7 +227,7 @@
   "dlg.M80": "Không quay lại được! Chạy! Lửa đuổi sau lưng!",
   "dlg.M81": "Phía trước có người chặn đường!",
   "dlg.M82": "Mở đường máu! Lâm, đi bên trái tôi!",
-  "dlg.M83": "Sườn đồi kia là chỗ chúng nhìn xuống cả thung. Chiếm lấy!",
+  "dlg.M83": "Sườn đồi kia là chỗ chúng nhìn xuống cả thung. Phải chiếm lấy nó.",
   "dlg.M84": "Có công sự trên sườn! Ba khẩu súng!",
   "dlg.M85": "Chiếm được rồi. Đào nhanh… khoan đã.",
   "dlg.M86": "Tiếng gì thế… B-52! Bom đang đi về phía mình!",
@@ -292,5 +292,11 @@
   "hud.next_level": "Enter: sang hồi tiếp",
   "weapon.dshk": "12,7 ly DShK",
   "name.thu": "Thu",
-  "hud.reloading": "Thay hộp đạn"
+  "hud.reloading": "Thay hộp đạn",
+  "dlg.M100": "Nằm sát xuống. Đừng ai thở mạnh.",
+  "dlg.M101": "Năm chục mét dốc trống trơn… không một gốc cây.",
+  "dlg.M102": "Anh Quyết… lên đó là chết cả lượt.",
+  "dlg.M103": "Nằm đây thì pháo nó cũng giã chết. Nghe tôi hô thì chạy, đừng dừng lại.",
+  "dlg.M104": "Pháo! Nó gọi pháo xuống đầu mình!",
+  "dlg.M105": "Xung phong! Lên! Lên! Không ai dừng lại!"
 }

@@ -53,7 +53,7 @@ export interface TerrainLevelDef {
   /** FX môi trường (khói bom xa, đám cháy) — x/z, y từ terrain + dy */
   fx?: Array<{ kind: FxDef['kind']; position: V2; dy?: number; scale?: number; color?: number; height?: number; lit?: number }>;
   /** DV-063: hậu kỳ điện ảnh riêng level (tia nắng xuyên tán, chỉnh màu phim, grain, vignette) */
-  post?: { shafts?: ShaftOptions | false; volumetric?: Omit<VolumetricOptions, 'steps' | 'resolutionScale'> | false; grade?: FilmGrade | false; grain?: number; vignette?: number; bloom?: number };
+  post?: { shafts?: ShaftOptions | false; volumetric?: Omit<VolumetricOptions, 'steps' | 'resolutionScale'> | false; grade?: FilmGrade | false; grain?: number; vignette?: number; bloom?: number; film?: number };
   playerSpawn: V2;
   playerYaw: number;
   botSpawns: Record<string, V2>;

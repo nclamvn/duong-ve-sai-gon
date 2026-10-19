@@ -964,6 +964,12 @@
         "vignette": {
           "type": "number"
         },
+        "film": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "DV-089 chất phim chiến tranh mặc định của level (bleach-bypass, máy cầm tay, màn trập hẹp từ 0,5); mission đổi theo hồi bằng fx kind film"
+        },
         "bloom": {
           "type": "number"
         }
