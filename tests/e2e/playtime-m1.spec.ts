@@ -180,7 +180,7 @@ test('M1 thời lượng (người chơi giả)', async ({ page }) => {
       t += DT;
     }
     log.push({ node: 'END', t: Math.round(t) });
-    return { log, t, shots, kills, maxAlive, maxQuiet, quietAt, enemies: [...g.bots.values()].filter((b) => b.faction === 'enemy').length, complete: H.mission.state().complete };
+    return { log, t, shots, kills, maxAlive, maxQuiet, quietAt, enemies: g.spawnStats.enemy, complete: H.mission.state().complete };
   });
   console.log('[playtime]', JSON.stringify(out));
   expect(out.complete).toBe(true);

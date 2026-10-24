@@ -363,7 +363,11 @@ export class AudioEngine {
     let out: AudioNode = env;
     if (position) {
       const pan = ctx.createPanner();
-      pan.panningModel = 'HRTF';
+      // DV-091: HRTF (a convolution per voice on the audio thread) only where it is heard — near the head; distant
+      // gunfire and echoes (most voices in a big fight) use equal-power panning, inaudibly different at range
+      const L = this.listener;
+      const near = Math.hypot(position[0] - L[0], position[1] - L[1], position[2] - L[2]) < 18;
+      pan.panningModel = near ? 'HRTF' : 'equalpower';
       pan.distanceModel = 'inverse';
       pan.refDistance = o?.refDistance ?? 2;
       pan.maxDistance = o?.maxDistance ?? 80;

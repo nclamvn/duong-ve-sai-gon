@@ -753,7 +753,8 @@
               "radio",
               "drum",
               "jerrycan",
-              "chest"
+              "chest",
+              "wreck"
             ]
           },
           "position": {
@@ -774,6 +775,35 @@
           "scale": {
             "type": "number",
             "minimum": 0.1
+          },
+          "$comment": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string",
+            "description": "DV-092 wreck: model id (manifest)"
+          },
+          "roll": {
+            "type": "number"
+          },
+          "pitch": {
+            "type": "number"
+          },
+          "sink": {
+            "type": "number"
+          },
+          "heat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "half": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
           }
         }
       }
@@ -972,6 +1002,25 @@
         },
         "bloom": {
           "type": "number"
+        },
+        "hdr": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "DV-092 HDR thật trên màn EDR: highlight vượt ngưỡng cộng trên trắng giấy",
+          "properties": {
+            "gain": {
+              "type": "number",
+              "minimum": 0
+            },
+            "threshold": {
+              "type": "number",
+              "minimum": 0
+            },
+            "headroom": {
+              "type": "number",
+              "minimum": 1
+            }
+          }
         }
       }
     },

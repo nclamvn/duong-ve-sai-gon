@@ -21,15 +21,15 @@ function tile(): TerrainTile {
   return t;
 }
 
-/** điểm trên đường mòn (chỗ xuất phát M1 trước DV-085) — mốc đo cho mật độ rừng và đất mòn */
-const TRAIL_CAMP: [number, number] = [-134, 580];
+/** điểm trên đường mòn — mốc đo cho mật độ rừng và đất mòn (DV-092: đường mòn = tuyến giao tranh M1, điểm dốc bờ đông) */
+const TRAIL_CAMP: [number, number] = [-12, 540];
 
 describe('DV-063 nền rừng dày quanh đường mòn, âm thanh mặt đất, nước chảy', () => {
   it('boost: dày thêm sát đường mòn, lưới chính giữ nguyên, không mọc trong nước, không thêm loài (draw)', () => {
     const t = tile();
     const rule = level.vegetation.species.find((r) => r.id === 'ph_fern')!;
     expect(rule.boost?.length).toBeGreaterThan(0);
-    // điểm đo trên đường mòn (chỗ xuất phát cũ trước DV-085; chỗ xuất phát mới ở bờ suối, xa đường mòn)
+    // điểm đo trên đường mòn
     const rect = { x: TRAIL_CAMP[0], z: TRAIL_CAMP[1], w: 120, h: 120 };
     const withB = scatterSpecies(t, rect, rule, level.vegetation.seed, level.vegetation.cellM);
     const { boost: _b, ...noBoost } = rule;

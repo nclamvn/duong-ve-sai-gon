@@ -7,8 +7,9 @@
 import { Box3, BoxGeometry, Group, InstancedMesh, Matrix4, Mesh, MeshStandardNodeMaterial, Object3D, Quaternion, Vector3, Euler, TubeGeometry, Curve, type BufferGeometry } from 'three/webgpu';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { ColliderDef } from '../render/arena';
+import { burntMaterial } from '../render/burnt';
 
-export type TerrainPropKind = 'wire' | 'sandbag' | 'crate' | 'ammo' | 'barrel' | 'radio' | 'drum' | 'jerrycan' | 'chest';
+export type TerrainPropKind = 'wire' | 'sandbag' | 'crate' | 'ammo' | 'barrel' | 'radio' | 'drum' | 'jerrycan' | 'chest' | 'wreck';
 
 export interface TerrainPropDef {
   id: string;
@@ -19,6 +20,13 @@ export interface TerrainPropDef {
   /** wire: chiều dài đoạn (m) */
   len?: number;
   scale?: number;
+  /** DV-092 wreck: model id (manifest), tilt (rad), sink into the ground (m), collider half extents override, ember heat 0..1 */
+  model?: string;
+  roll?: number;
+  pitch?: number;
+  sink?: number;
+  half?: [number, number, number];
+  heat?: number;
 }
 
 /** kind → model manifest (bao cát: xen 2 mẫu theo hash id) */
@@ -32,6 +40,8 @@ export const PROP_MODEL: Record<Exclude<TerrainPropKind, 'wire'>, string[]> = {
   drum: ['barrel_03'],
   jerrycan: ['metal_jerrycan_green'],
   chest: ['wooden_military_crate'],
+  // DV-092 xác xe cháy (Sketchfab CC-BY, CREDITS.md): Zil-157 (registry veh.pavn.zil157_truck; Ural 4320 là đời 1977, không dùng)
+  wreck: ['veh_zil157'],
 };
 
 /** nửa kích thước collider theo kind khi không có model (lite) — cùng bảng với scripts/terrain-bake.mjs --nav (đo từ GLB) */
@@ -44,10 +54,11 @@ export const PROP_HALF: Record<Exclude<TerrainPropKind, 'wire'>, [number, number
   drum: [0.32, 0.47, 0.32],
   jerrycan: [0.18, 0.25, 0.09],
   chest: [0.62, 0.23, 0.26],
+  wreck: [3.46, 1.49, 1.23],
 };
 
 /** chôn gốc (m) — bao cát/thùng đặt lún nhẹ cho khỏi hở chân trên dốc */
-const SINK: Record<TerrainPropKind, number> = { wire: 0.05, sandbag: 0.08, crate: 0.03, ammo: 0.01, barrel: 0.02, radio: 0.02, drum: 0.02, jerrycan: 0.01, chest: 0.02 };
+const SINK: Record<TerrainPropKind, number> = { wire: 0.05, sandbag: 0.08, crate: 0.03, ammo: 0.01, barrel: 0.02, radio: 0.02, drum: 0.02, jerrycan: 0.01, chest: 0.02, wreck: 0.18 };
 
 const _p = new Vector3();
 const _q = new Quaternion();
@@ -183,10 +194,53 @@ export function buildTerrainProps(defs: TerrainPropDef[], opts: TerrainPropsOpti
     for (const g of fixedWire) g.dispose();
   }
 
+  // ---- DV-092 wrecks: one clone each (burnt material per wreck carries its ground height and ember heat; one shared shader)
+  for (const d of defs) {
+    if (d.kind !== 'wreck') continue;
+    const model = d.model ?? PROP_MODEL.wreck[0]!;
+    const src = opts.models?.[model];
+    const gy = opts.heightAt(d.position[0], d.position[1]);
+    const sink = d.sink ?? SINK.wreck;
+    const yaw = d.yaw ?? 0;
+    let half: [number, number, number] = d.half ?? [...PROP_HALF.wreck];
+    if (src) {
+      const obj = src.clone(true);
+      obj.updateMatrixWorld(true);
+      const bb = new Box3().setFromObject(obj);
+      const sz = bb.getSize(new Vector3());
+      const ctr = bb.getCenter(new Vector3());
+      const inner = new Group();
+      inner.add(obj);
+      inner.position.set(-ctr.x, -bb.min.y, -ctr.z);
+      const root = new Group();
+      root.name = `wreck_${d.id}`;
+      root.position.set(d.position[0], gy - sink, d.position[1]);
+      root.rotation.set(d.pitch ?? 0, yaw, d.roll ?? 0, 'YXZ');
+      root.scale.setScalar(d.scale ?? 1);
+      root.add(inner);
+      const heat = d.heat ?? 0.6;
+      obj.traverse((o: Object3D) => {
+        const m = o as Mesh;
+        if (!m.isMesh) return;
+        const list = Array.isArray(m.material) ? m.material : [m.material];
+        const out = list.map((mat) => burntMaterial(mat, gy, heat));
+        m.material = Array.isArray(m.material) ? out : out[0]!;
+        m.castShadow = true;
+        m.receiveShadow = true;
+        draws++;
+      });
+      group.add(root);
+      if (!d.half) half = [(sz.x / 2) * (d.scale ?? 1), (sz.y / 2) * (d.scale ?? 1), (sz.z / 2) * (d.scale ?? 1)];
+    }
+    const p: [number, number, number] = [d.position[0], gy - sink + half[1], d.position[1]];
+    colliders.push({ id: `prop_${d.id}`, kind: 'box', position: p, size: half, yaw, material: 'steel' });
+    navBoxes.push({ id: d.id, position: p, size: half, yaw });
+  }
+
   // ---- model props
   const byModel = new Map<string, Array<{ def: TerrainPropDef; y: number }>>();
   for (const d of defs) {
-    if (d.kind === 'wire') continue;
+    if (d.kind === 'wire' || d.kind === 'wreck') continue;
     const list = PROP_MODEL[d.kind];
     const model = list[hash(d.id) % list.length]!;
     let arr = byModel.get(model);

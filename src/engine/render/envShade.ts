@@ -41,10 +41,49 @@ export function shadeMaterial(m: MeshStandardNodeMaterial, o: EnvShadeOptions = 
   const ud = m.userData as { envShade?: boolean };
   if (ud.envShade) return m;
   ud.envShade = true;
+  // DV-091: one node set per (colour graph, ao map, mud scale, options) shared by every material → one shader program for
+  // N soldiers of a look instead of one per soldier (each new program compiles mid-fight = a frame stall). The nodes only read
+  // the material through materialColor/Roughness/Emissive/AO, so per-instance colour/emissive (hit flash) stay per material.
+  const key = `${m.colorNode ? nodeKey(m.colorNode) : 'mat'}|${m.aoMap ? 1 : 0}|${o.mudGeomScale ? o.mudGeomScale.toFixed(4) : '-'}|${o.rim ?? '-'}|${o.canopyHeight ?? '-'}|${o.mud ?? '-'}`;
+  let set = shadeCache.get(key);
+  if (!set) {
+    set = buildShade(m, o);
+    shadeCache.set(key, set);
+  }
+  m.aoNode = set.ao;
+  m.colorNode = set.color;
+  m.roughnessNode = set.rough;
+  m.emissiveNode = set.emissive;
+  m.needsUpdate = true;
+  return m;
+}
+
+interface ShadeSet {
+  ao: Node<'float'>;
+  color: Node<'vec4'>;
+  rough: Node<'float'>;
+  emissive: Node<'vec3'>;
+}
+const shadeCache = new Map<string, ShadeSet>();
+const nodeIds = new WeakMap<object, number>();
+let nextNodeId = 1;
+function nodeKey(n: object): number {
+  let id = nodeIds.get(n);
+  if (id === undefined) {
+    id = nextNodeId++;
+    nodeIds.set(n, id);
+  }
+  return id;
+}
+/** number of distinct shared env-shade node sets (tests) */
+export function envShadeSetCount(): number {
+  return shadeCache.size;
+}
+
+function buildShade(m: MeshStandardNodeMaterial, o: EnvShadeOptions): ShadeSet {
   const c = canopyMap.sample();
   const on = WEATHER.forest as unknown as Node<'float'>;
   const canopyAO = mix(float(1), float(0.45), c.mul(on));
-  m.aoNode = (m.aoMap ? materialAO.mul(canopyAO) : canopyAO) as unknown as Node<'float'>;
   const wet = WEATHER.wet as unknown as Node<'float'>;
   const base = m.colorNode ? vec4(m.colorNode as unknown as Node<'vec4'>) : vec4(materialColor as unknown as Node<'vec4'>); // màu × map (rgba khi có map)
   const rgb0 = base.rgb.mul(mix(float(1), float(0.85), wet));
@@ -71,17 +110,18 @@ export function shadeMaterial(m: MeshStandardNodeMaterial, o: EnvShadeOptions = 
     rgb = mix(rgb0, mudC, w) as unknown as Node<'vec3'>;
     rough = mix(rough0, mix(float(0.88), float(0.42), wet), w) as unknown as Node<'float'>;
   }
-  m.colorNode = vec4(rgb, base.a);
-  m.roughnessNode = rough;
   // viền nắng ngược sáng
   const V = normalize(cameraPosition.sub(positionWorld));
   const fres = pow(float(1).sub(abs(dot(normalWorld, V))), float(3));
   const back = pow(max(dot(V.negate(), SUN.dir as unknown as Node<'vec3'>), float(0)), float(2));
   const lit = canopySunLight(positionWorld, SUN.dir as unknown as Node<'vec3'>, positionWorld.y.add(o.canopyHeight ?? 16));
   const rim = (SUN.color as unknown as Node<'vec3'>).mul(fres.mul(back).mul(lit).mul(on).mul(o.rim ?? 0.45));
-  m.emissiveNode = materialEmissive.add(rim) as unknown as Node<'vec3'>;
-  m.needsUpdate = true;
-  return m;
+  return {
+    ao: (m.aoMap ? materialAO.mul(canopyAO) : canopyAO) as unknown as Node<'float'>,
+    color: vec4(rgb, base.a) as unknown as Node<'vec4'>,
+    rough,
+    emissive: materialEmissive.add(rim) as unknown as Node<'vec3'>,
+  };
 }
 
 /** áp cho cả cây đối tượng (nhân vật + mũ + túi + súng); trả số material đã áp */

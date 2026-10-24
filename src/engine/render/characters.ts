@@ -10,11 +10,11 @@
  * Weights are set by code each frame and always sum to 1 per layer (never leaks the bind pose); clip times are driven by
  * code (timeScale 0). After the mixer, the spine chain twists/pitches toward the aim so the rifle points at the target.
  */
-import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopRepeat, Mesh, Bone, DoubleSide, Quaternion, type AnimationAction, MeshStandardNodeMaterial, type MeshStandardMaterial, Color } from 'three/webgpu';
+import { AnimationMixer, AnimationClip, Group, Object3D, SkinnedMesh, Box3, Vector3, LoopRepeat, Mesh, Bone, DoubleSide, Quaternion, type AnimationAction, MeshStandardNodeMaterial, type MeshStandardMaterial, Color, type Node } from 'three/webgpu';
 import { createGltfLoader } from './loaders';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import { tigerStripeColorNode, erdlColorNode, camoGreyFabricNode, recolorGreyFabricNode, skinToneNode, CAMO_B_PALETTE, ERDL_PALETTE } from './camo';
-import { texture as tslTexture, uv as tslUv } from 'three/tsl';
+import { texture as tslTexture, uv as tslUv, materialReference } from 'three/tsl';
 import { LocomotionController, type LocoClipInfo, type LocoConfig, type TurnClipInfo, type LocoInput } from './locomotion';
 import { analysisRig, analyzeLocoClip, analyzeTurnClip, findByNames, NOMINAL_SPEED, parseLocoName, splitUpperLower, upperBodyNames, type SplitClip } from './clipAnalysis';
 
@@ -246,6 +246,21 @@ export function toStandardNodeMaterial(src: MeshStandardMaterial): MeshStandardN
 const pickVariant = (n: number, counter: number): number => (n <= 1 ? 0 : ((Math.imul(counter + 1, 2654435761) >>> 0) % n));
 
 /**
+ * DV-091 anti-hitch: three's node cache key includes each node's id, so two soldiers with separately built (even identical)
+ * colour graphs compile two shader programs; a soldier entering view mid-fight then stalls the frame while it compiles.
+ * Colour graphs are built once per key and shared by every instance (variation goes through material properties).
+ */
+const colorNodeCache = new Map<string, Node<'vec3'> | null>();
+function sharedColorNode(key: string, build: () => Node<'vec3'> | null): Node<'vec3'> | null {
+  if (!colorNodeCache.has(key)) colorNodeCache.set(key, build());
+  return colorNodeCache.get(key) ?? null;
+}
+/** number of distinct shared colour graphs (tests) */
+export function sharedColorNodeCount(): number {
+  return colorNodeCache.size;
+}
+
+/**
  * One character in the scene: own skeleton clone, own mixer, a LocomotionController, layered weights (DV-066).
  * Call `drive()` with the aim/velocity each frame, then `update(dt)` at render tier.
  */
@@ -307,19 +322,26 @@ export class CharacterInstance {
           }
           if (asset.profile === 'ref' && c.map && c.name === 'Body') {
             // grey-green field fabric: dye/print by a low-saturation mask (skin, leather, boots keep their colours)
-            const g = opts.variant?.fabricGain ?? 1;
-            if (opts.skin === 'camo_b') c.colorNode = camoGreyFabricNode(c.map, CAMO_B_PALETTE, 0.125, g);
-            else if (opts.skin === 'erdl' || opts.skin === 'recon') c.colorNode = camoGreyFabricNode(c.map, ERDL_PALETTE, 0.125, g);
-            else if (opts.skin === 'olive') c.colorNode = recolorGreyFabricNode(c.map, [OLIVE_FABRIC[0] * g, OLIVE_FABRIC[1] * g, OLIVE_FABRIC[2] * g], 0.125);
-            if (opts.variant) {
-              const base = (c.colorNode as unknown as ReturnType<typeof skinToneNode> | null) ?? (tslTexture(c.map, tslUv()).rgb as unknown as ReturnType<typeof skinToneNode>);
-              c.colorNode = skinToneNode(base, c.map, opts.variant.skinTone);
-            }
+            // DV-091: the per-soldier variation lives in material properties read by materialReference → the node graph is
+            // built once per (texture, skin) and shared, so every soldier of a look uses one shader program
+            const map = c.map;
+            const ud = c as unknown as { dvGain: number; dvTone: number };
+            ud.dvGain = opts.variant?.fabricGain ?? 1;
+            ud.dvTone = opts.variant?.skinTone ?? 0.35;
+            c.colorNode = sharedColorNode(`${map.uuid}|${opts.skin ?? '-'}|${opts.variant ? 'v' : '-'}`, () => {
+              const g = materialReference('dvGain', 'float') as unknown as Node<'float'>;
+              let n: ReturnType<typeof skinToneNode> | null = null;
+              if (opts.skin === 'camo_b') n = camoGreyFabricNode(map, CAMO_B_PALETTE, 0.125, g);
+              else if (opts.skin === 'erdl' || opts.skin === 'recon') n = camoGreyFabricNode(map, ERDL_PALETTE, 0.125, g);
+              else if (opts.skin === 'olive') n = recolorGreyFabricNode(map, OLIVE_FABRIC, 0.125, g);
+              if (opts.variant) n = skinToneNode(n ?? (tslTexture(map, tslUv()).rgb as unknown as ReturnType<typeof skinToneNode>), map, materialReference('dvTone', 'float') as unknown as Node<'float'>);
+              return n;
+            });
           } else if (asset.profile === 'ref') {
             /* belt pouches, helmet props: keep their own colours */
-          } else if (opts.skin === 'recon' && c.map) c.colorNode = tigerStripeColorNode(c.map);
-          else if (opts.skin === 'erdl' && c.map) c.colorNode = erdlColorNode(c.map);
-          else if (opts.skin === 'camo_b' && c.map) c.colorNode = erdlColorNode(c.map, CAMO_B_PALETTE);
+          } else if (opts.skin === 'recon' && c.map) c.colorNode = sharedColorNode(`${c.map.uuid}|tiger`, () => tigerStripeColorNode(c.map!));
+          else if (opts.skin === 'erdl' && c.map) c.colorNode = sharedColorNode(`${c.map.uuid}|erdl`, () => erdlColorNode(c.map!));
+          else if (opts.skin === 'camo_b' && c.map) c.colorNode = sharedColorNode(`${c.map.uuid}|camo_b`, () => erdlColorNode(c.map!, CAMO_B_PALETTE));
           this.materials.push(c);
           this.baseEmissive.push(c.emissive ? c.emissive.clone() : new Color(0));
           return c;

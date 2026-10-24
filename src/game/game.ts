@@ -76,7 +76,7 @@ import { Squadmates } from '@game/ai/squadmates';
 import { LAYER } from '@engine/physics/layers';
 import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
-import { MissionHost } from '@game/mission/missionHost';
+import { MissionHost, missionUsesFlares } from '@game/mission/missionHost';
 import { NightAct } from '@game/night/nightAct';
 import { createBlastFx, type BlastFx } from '@engine/render/blastFx';
 import { createScorch, type Scorch } from '@engine/render/scorch';
@@ -116,6 +116,11 @@ function hashSeed(id: string): number {
   for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 0x01000193);
   return h >>> 0;
 }
+
+/** DV-091 corpse clearing (s, m): keep a body this long, shorter when many lie around; never in view nearer than farM */
+/** DV-091 animation LOD (m, frames, s) */
+const ANIM_LOD = { farM: 45, nearM: 8, every: 3, settledS: 4 };
+const CORPSE = { keepS: 25, shortS: 8, crowd: 14, nearM: 6, farM: 70 };
 
 export class Game {
   readonly clock = new FixedClock(60, 5);
@@ -185,6 +190,14 @@ export class Game {
   nightAct: NightAct | null = null;
   /** level terrain đang chơi (đọc nextLevel, roads…) */
   terrainLevelDef: TerrainLevelDef | null = null;
+  /** DV-091 next AI slot (spreads bot thinking over the six ticks of a 10 Hz AI step) */
+  private aiSlotNext = 0;
+  /** DV-091 corpses removed (tests) */
+  readonly corpseStats = { cleared: 0 };
+  /** DV-091 soldiers ever spawned per faction (the bots map no longer keeps cleared corpses) */
+  readonly spawnStats = { enemy: 0, friend: 0 };
+  /** DV-091 animation LOD on (?animlod=0 off; offline cinematic renders turn it off) */
+  animLod = true;
   /** level terrain (TIP-D04) — null khi không phải ?level=truong-son */
   terrain: TerrainLevelBuild | null = null;
   /** rừng loài thật (TIP-D05) — null khi level không có `vegetation`, `?veg=0`, hoặc lite (`assets=0`) không kèm `?veg=1` */
@@ -354,6 +367,10 @@ export class Game {
   onFrame: ((game: Game, frameMs: number) => void) | null = null;
   /** TIP-005+: player điều khiển camera ở render(alpha); null → free-fly ở sim */
   cameraDriver: ((alpha: number, dt: number) => void) | null = null;
+  /** DV-093 called at the start of every frame with the real frame time (cinematic director) */
+  preFrame: ((dt: number) => void) | null = null;
+  /** DV-093 world time scale (sim + render effects); 1 = real time */
+  simScale = 1;
   readonly params: URLSearchParams;
   readonly resetHooks: Array<(seed: number) => void> = [];
   private pendingTimestamp = false;
@@ -373,9 +390,12 @@ export class Game {
     const override = backendFromSearch(this.opts.search);
     this.quality = resolveQuality(this.params);
     this.scaler.enabled = this.quality.dynamicResolution;
+    this.animLod = this.params.get('animlod') !== '0';
     this.bundle = await createRenderer({
       canvas: this.opts.canvas,
       forceWebGL: override === 'webgl',
+      trackTimestamp: this.params.get('bench') === '1' || this.params.get('debug') === '1' || this.params.get('gpuTime') === '1',
+      hdr: this.wantHdr(),
       onDeviceLost: (info) => this.events.emit('RENDER_DEVICE_LOST', info),
     });
     this.bundle.renderer.shadowMap.enabled = this.quality.shadows;
@@ -595,6 +615,8 @@ export class Game {
       ...(this.params.get('aoden') === '0' ? { aoDenoise: false } : {}),
       ...(lp?.vignette !== undefined ? { vignette: lp.vignette } : {}),
       ...(lp?.bloom !== undefined ? { bloomStrength: lp.bloom } : {}),
+      // DV-092 HDR thật: chỉ khi canvas đang ở chế độ extended (WebGPU + màn EDR hoặc ?hdr=1)
+      hdr: this.hdrOut ? { gain: lp?.hdr?.gain ?? 1, threshold: lp?.hdr?.threshold ?? 1.6, headroom: lp?.hdr?.headroom ?? 3 } : null,
     });
     // DV-081: sương sát đất trôi cùng hướng gió rừng (cùng đối tượng Vector2 → đổi gió trực thăng/bom cũng đổi hướng trôi)
     if (this.post.volumetric && this.forest) (this.post.volumetric.wind as { value: unknown }).value = this.forest.system.wind.dir.value;
@@ -616,7 +638,8 @@ export class Game {
         this.scene.add(this.dust.sprite);
       }
     }
-    if (this.terrain) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
+    // DV-091: flare lights live from load only on levels whose mission uses them (no per-pixel light cost elsewhere)
+    if (this.terrain && missionUsesFlares(this.levelId)) this.flares = new Flares(this.scene, { max: this.quality.tier === 'low' ? 2 : 3 });
     for (let i = 0; i < this.arena.dummySpawns.length; i++) {
       const d = createActorVisual(this.quality.character ? this.assets.character : null, { phase: i * 0.9, seed: hashSeed(`dummy_${i}`), color: 0x4a5246, visor: 0x2ad4ff, gear: this.lookFor('friend').gear, skin: this.lookFor('friend').skin }, this.weaponFor('friend'));
       const p = this.arena.dummySpawns[i]!;
@@ -734,10 +757,10 @@ export class Game {
         if (!died && b.faction === 'friend' && b.bot.health < 55) this.squadmates.bark(b.id, 'hurt');
         if (b.faction === 'enemy' && !died) this.chatter.say(b.id, 'hit');
         if (died) {
+          b.diedAt = this.clock.simTime;
           this.events.emit('ACTOR_DIED', { actorId: b.id, group: b.group });
           if (b.faction === 'friend') {
             this.squadmates.remove(b.id);
-    this.support.remove(b.id);
             this.support.remove(b.id);
           }
           else this.enemyManDown(b.bot.position, shooterBot ? shooterBot.bot.position : this.player.controller.feet);
@@ -800,17 +823,25 @@ export class Game {
     this.buildTactics();
     this.squad = new FireTeams(this.events as unknown as EventBus<BotEvents>);
     if (this.levelId !== 'truong-son' && this.levelId !== 'diem-cao-31' && this.levelId !== 'ngam-ta-le') this.spawnBot('bot_a', 'ambient', this.arena.botSpawns['bot_a']!);
-    this.scheduler.add('ai10', (_tick, dtAi) => {
+    // DV-091: each bot thinks at 10 Hz but on its own sixth of the ticks — 35 bots no longer all think in one frame
+    // (one 60 Hz frame in six used to carry the whole AI cost: a regular micro-stutter in big fights)
+    this.scheduler.add('sim60', (tick, dt) => {
+      if (this.aiPaused) return;
+      const div = this.scheduler.aiDivider;
+      const phase = tick % div;
+      for (const b of this.bots.values()) if (b.aiSlot % div === phase) b.bot.think(dt * div);
+    });
+    this.scheduler.add('ai10', () => {
       let full = 0;
       let alive = 0;
       for (const b of this.bots.values()) {
-        if (!this.aiPaused) b.bot.think(dtAi);
         if (b.bot.alive) {
           alive++;
           if (b.bot.lod === 'FULL') full++;
         }
       }
       this.actorStats.full = full;
+      this.sweepCorpses();
       let dummiesAlive = 0;
       for (const a of this.actors.values()) if (a.dummy.alive) dummiesAlive++;
       this.actorStats.total = alive + dummiesAlive;
@@ -953,6 +984,22 @@ export class Game {
     this.ready = true;
   }
 
+  /**
+   * DV-092 HDR output: ?hdr=1 on (needs an EDR display: MacBook Pro XDR, HDR monitor), ?hdr=auto on when the display reports
+   * high dynamic range; default off until judged on the owner's Mac
+   */
+  private wantHdr(): boolean {
+    const p = this.params.get('hdr');
+    if (p === '1') return true;
+    if (p === 'auto') return typeof window.matchMedia === 'function' && window.matchMedia('(dynamic-range: high)').matches;
+    return false;
+  }
+
+  /** DV-092 the canvas really is an extended-range (rgba16float) WebGPU canvas */
+  get hdrOut(): boolean {
+    return this.bundle.backend === 'webgpu' && this.wantHdr();
+  }
+
   resize(): void {
     const w = window.innerWidth;
     const h = window.innerHeight;
@@ -1005,13 +1052,16 @@ export class Game {
   /** Một frame: sim fixed-step → render nội suy → telemetry. Không mutate physics trong render. */
   frame(dt: number): void {
     const t0 = performance.now();
+    // DV-093 cinematic: the director advances its own clock first and may slow the world (simScale < 1 = slow motion)
+    this.preFrame?.(dt);
+    const dts = dt * this.simScale;
     this.scheduler.beginFrame();
-    const adv = this.clock.advance(dt);
+    const adv = this.clock.advance(dts);
     for (let i = 0; i < adv.steps; i++) {
       this.events.currentTick = this.clock.tick - adv.steps + i + 1;
       this.scheduler.runSim(this.events.currentTick, this.clock.step);
     }
-    this.scheduler.runRender(adv.alpha, dt);
+    this.scheduler.runRender(adv.alpha, dts);
     const frameMs = performance.now() - t0;
     this.lastFrameMs = frameMs;
     this.frames++;
@@ -1252,7 +1302,25 @@ export class Game {
     this.nightAct?.render(dt);
     const t = this.clock.simTime + alpha * this.clock.step;
     for (let i = 0; i < this.dummies.length; i++) this.dummies[i]!.setPose(t);
-    for (const b of this.bots.values()) b.syncVisual(t);
+    // DV-091 animation LOD: mixer + IK + foot planting at full rate only for soldiers the camera can see up close; far or
+    // behind-camera soldiers pose every third frame (position every frame), settled corpses not at all
+    const ce = this.camera.matrixWorld.elements;
+    const cx = ce[12]!;
+    const cz = ce[14]!;
+    const fx = -ce[8]!;
+    const fz = -ce[10]!;
+    const fl = Math.hypot(fx, fz) || 1;
+    const now = this.clock.simTime;
+    for (const b of this.bots.values()) {
+      if (!b.bot.alive && b.diedAt >= 0 && now - b.diedAt > ANIM_LOD.settledS) continue;
+      const p = b.bot.position;
+      const dx = p[0] - cx;
+      const dz = p[2] - cz;
+      const d = Math.hypot(dx, dz);
+      const ahead = (dx * fx + dz * fz) / fl > -2;
+      const low = this.animLod && (d > ANIM_LOD.farM || (!ahead && d > ANIM_LOD.nearM));
+      b.syncVisual(t, !low || (this.frames + b.aiSlot) % ANIM_LOD.every === 0);
+    }
     this.grenadeView?.sync(this.grenades.live(), dt);
     // viewmodel: chỉ khi có player (không free-fly)
     this.viewModel.visible = !this.freeFly && this.player.alive && !this.viewModelHidden && !this.nightAct?.mounted;
@@ -1355,7 +1423,7 @@ export class Game {
     this.post.update(this.camera, (this.lights as { sunDir?: [number, number, number] }).sunDir ?? null, volEnv);
     this.post.render();
     readRenderInfo(this.bundle.renderer, this.renderInfo);
-    if (!this.pendingTimestamp) {
+    if (!this.pendingTimestamp && (this.bundle.renderer.backend as unknown as { trackTimestamp?: boolean }).trackTimestamp) {
       this.pendingTimestamp = true;
       void this.bundle.renderer
         .resolveTimestampsAsync('render')
@@ -1892,6 +1960,8 @@ export class Game {
     b.faction = faction;
     b.nameKey = opts.nameKey ?? null;
     if (this.terrain) visual.ground = (x, z) => this.terrain!.heightAt(x, z);
+    b.aiSlot = this.aiSlotNext++;
+    this.spawnStats[faction === 'enemy' ? 'enemy' : 'friend']++;
     this.bots.set(id, b);
     this.squad?.add({ group, bot: b.bot, friend: faction === 'friend' });
     return b;
@@ -2025,6 +2095,35 @@ export class Game {
     this.squadmates.remove(b.id);
     this.support.remove(b.id);
     return true;
+  }
+
+  /**
+   * DV-091: enemy corpses used to stay for the whole mission (≈120 skinned bodies by the last act: draw calls, skinning,
+   * physics, a growing bots map). A body is removed once it has lain long enough and the player is not looking at it;
+   * at most one per sweep (10 Hz) so removals never pile into one frame.
+   */
+  private sweepCorpses(): void {
+    const now = this.clock.simTime;
+    const f = this.player.controller.feet;
+    this.camera.getWorldDirection(this.v3);
+    let dead = 0;
+    for (const b of this.bots.values()) if (!b.bot.alive && b.faction === 'enemy') dead++;
+    const keepS = dead > CORPSE.crowd ? CORPSE.shortS : CORPSE.keepS;
+    for (const b of this.bots.values()) {
+      if (b.bot.alive || b.faction !== 'enemy') continue;
+      if (b.diedAt < 0) b.diedAt = now;
+      if (now - b.diedAt < keepS) continue;
+      const p = b.bot.position;
+      const dx = p[0] - f[0];
+      const dz = p[2] - f[2];
+      const d = Math.hypot(dx, dz);
+      const inView = d < CORPSE.farM && (dx * this.v3.x + dz * this.v3.z) / Math.max(1e-3, d) > 0.2;
+      if (inView && d > CORPSE.nearM) continue;
+      if (d <= CORPSE.nearM) continue; // under the player's feet: leave it
+      this.despawnBot(b.id);
+      this.corpseStats.cleared++;
+      return;
+    }
   }
 
   despawnBot(id: string): void {

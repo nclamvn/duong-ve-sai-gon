@@ -546,6 +546,10 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       H.stepSim(10);
       const node1 = H.mission.state().currentNode;
       const lead = g.squadmates.leader()!;
+      // DV-091: Quyết chờ người chơi khi cách > 18 m (đúng thiết kế) — chỗ nấp cuối trận quyết định khoảng cách → người chơi đứng sau lưng
+      const lp = lead.bot.position;
+      H.teleport(lp[0] - 3, lp[1] + 0.3, lp[2]);
+      H.stepSim(2);
       const p0 = [...lead.bot.position];
       H.stepSim(60 * 3);
       const moved = Math.hypot(lead.bot.position[0] - p0[0]!, lead.bot.position[2] - p0[2]!);
@@ -719,7 +723,8 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
       const alive = H.squad().members.filter((m) => m.faction === 'friend' && m.name && m.alive).map((m) => m.name);
       tp('rut');
       H.stepSim(60 * 20);
-      const enemies = [...g.bots.values()].filter((b) => b.faction === 'enemy').length;
+      // DV-091: corpses are cleared over time → count soldiers ever spawned, not those still in the map
+      const enemies = g.spawnStats.enemy;
       return { ambush0, shotsFar, shotsNear, nKhe, nHill, f3, nHold, nLzGo, atLz, lzA, nLz2, lzB, runs, nLzDone, hoanDead, alive, enemies, node: H.mission.state().currentNode, complete: H.mission.state().complete, completeCount: H.events.countOf('MISSION_COMPLETE'), saves: H.checkpoint.saves(), shown: H.mission.subtitlesShown(), arty: g.mission.battle!.stats.shells };
     });
     expect(act57.ambush0).toBe(9);

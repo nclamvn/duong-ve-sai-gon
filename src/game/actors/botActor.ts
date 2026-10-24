@@ -21,6 +21,10 @@ export class BotActor {
   nameKey: string | null = null;
   /** tick sim lần bắn gần nhất (minimap: địch chỉ hiện khi vừa bắn) */
   lastFireTick = -1e9;
+  /** DV-091 AI slot: the bot thinks on ticks where tick % 6 === slot % 6 (spreads the 10 Hz AI over six frames) */
+  aiSlot = 0;
+  /** DV-091 sim time of death (s), -1 alive — corpses are cleared after a while out of view */
+  diedAt = -1;
 
   constructor(
     readonly id: string,
@@ -56,7 +60,8 @@ export class BotActor {
   private prevT = 0;
   /** smoothed world velocity for the locomotion blend (DV-066) */
   private readonly vel: [number, number] = [0, 0];
-  syncVisual(t: number): void {
+  /** `pose` false: move the body but skip the animation update this frame (DV-091 animation LOD) */
+  syncVisual(t: number, pose = true): void {
     const g = this.dummy.group;
     if (this.bot.alive) {
       const p = this.bot.position;
@@ -89,9 +94,10 @@ export class BotActor {
       m.pitch = this.bot.aimPitch;
       g.position.set(p[0], p[1], p[2]);
       // procedural dummy faces the aim; a glTF soldier overrides this with its own body yaw in setPose
+      if (!pose) return;
       g.rotation.y = this.bot.yaw;
     }
-    this.dummy.setPose(t);
+    if (pose) this.dummy.setPose(t);
   }
 
   applyDamage(amount: number, from: [number, number, number], zone?: string): boolean {
@@ -103,6 +109,7 @@ export class BotActor {
 
   reset(): void {
     this.drop = 0;
+    this.diedAt = -1; // DV-091: corpse timer restarts (checkpoint load keeps the snapshot's bodies until they lie long enough)
     this.vel[0] = 0;
     this.vel[1] = 0;
     this.bot.reset(this.spawn);

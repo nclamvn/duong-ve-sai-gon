@@ -30,6 +30,8 @@ export interface TerrainFeaturesData {
   id: string;
   /** đường mòn nhiệm vụ (spawn → waypoint), polyline x/z */
   trail?: Array<[number, number]>;
+  /** DV-092 thêm các polyline cùng loại 'trail' (đường xe đoàn xe cháy…): rừng rậm hai bên như tuyến chính */
+  trails?: Array<Array<[number, number]>>;
   streams: StreamFeature[];
   craters: CraterFeature[];
 }
@@ -106,17 +108,18 @@ export class FeatureField {
         }
       }
     } else if (kind === 'trail') {
-      const t = this.data.trail ?? [];
-      for (let q = 0; q + 1 < t.length; q++) {
-        const a = t[q]!;
-        const b = t[q + 1]!;
-        const vx = b[0] - a[0];
-        const vz = b[1] - a[1];
-        const L2 = vx * vx + vz * vz || 1;
-        stamp(a[0], a[1], b[0], b[1], 0, (x, z) => {
-          const u = Math.max(0, Math.min(1, ((x - a[0]) * vx + (z - a[1]) * vz) / L2));
-          return Math.hypot(x - (a[0] + u * vx), z - (a[1] + u * vz));
-        });
+      for (const t of [this.data.trail ?? [], ...(this.data.trails ?? [])]) {
+        for (let q = 0; q + 1 < t.length; q++) {
+          const a = t[q]!;
+          const b = t[q + 1]!;
+          const vx = b[0] - a[0];
+          const vz = b[1] - a[1];
+          const L2 = vx * vx + vz * vz || 1;
+          stamp(a[0], a[1], b[0], b[1], 0, (x, z) => {
+            const u = Math.max(0, Math.min(1, ((x - a[0]) * vx + (z - a[1]) * vz) / L2));
+            return Math.hypot(x - (a[0] + u * vx), z - (a[1] + u * vz));
+          });
+        }
       }
     } else {
       for (const cr of this.data.craters) stamp(cr.x, cr.z, cr.x, cr.z, cr.r, (x, z) => Math.hypot(x - cr.x, z - cr.z) - cr.r);

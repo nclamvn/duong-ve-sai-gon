@@ -2,7 +2,7 @@
  * Chọn backend render (PRD REN-001): WebGPU primary, WebGL 2 fallback, cùng content path.
  * Override: ?backend=webgl | ?backend=webgpu. Device lost → callback (không ship menu debug).
  */
-import { WebGPURenderer, ACESFilmicToneMapping, SRGBColorSpace, PCFSoftShadowMap } from 'three/webgpu';
+import { WebGPURenderer, ACESFilmicToneMapping, SRGBColorSpace, PCFSoftShadowMap, HalfFloatType } from 'three/webgpu';
 
 export type BackendKind = 'webgpu' | 'webgl2';
 
@@ -27,6 +27,10 @@ export interface CreateRendererOptions {
   canvas: HTMLCanvasElement;
   forceWebGL?: boolean;
   antialias?: boolean;
+  /** DV-091 GPU timestamp queries (bench/debug only: resolving them every frame costs a map/readback round trip) */
+  trackTimestamp?: boolean;
+  /** DV-092 HDR output: rgba16float canvas in 'extended' tone-mapping mode (values above 1 brighter than SDR white on EDR) */
+  hdr?: boolean;
   onDeviceLost?: (info: { api: string; message: string; reason: string | null }) => void;
 }
 
@@ -62,7 +66,8 @@ export async function createRenderer(opts: CreateRendererOptions): Promise<Rende
     canvas: opts.canvas,
     antialias: opts.antialias ?? true,
     forceWebGL,
-    trackTimestamp: true,
+    trackTimestamp: opts.trackTimestamp ?? true,
+    ...(opts.hdr && !forceWebGL ? { outputType: HalfFloatType } : {}),
     powerPreference: 'high-performance',
   });
   renderer.onDeviceLost = (info) => {

@@ -58,6 +58,25 @@ export interface HudState {
 
 const OBJ_FRESH_MS = 6000;
 
+/**
+ * DV-091: restart a CSS animation without the remove-class / read offsetWidth / add-class trick, which forces a synchronous
+ * layout of the whole page on every hit (dozens per second in a firefight).
+ */
+function restartAnimation(el: HTMLElement, cls: string): void {
+  if (el.classList.contains(cls) && typeof el.getAnimations === 'function') {
+    const anims = el.getAnimations();
+    if (anims.length > 0) {
+      for (const a of anims) {
+        a.currentTime = 0;
+        a.play();
+      }
+      return;
+    }
+  }
+  el.classList.remove(cls);
+  el.classList.add(cls);
+}
+
 export class Hud {
   private root: HTMLElement;
   private els: Record<'hurt' | 'objective' | 'objLabel' | 'objText' | 'objDist' | 'vitals' | 'vState' | 'vHp' | 'vBar' | 'ammo' | 'mag' | 'res' | 'wname' | 'wmode' | 'segs' | 'reticle' | 'hit' | 'dmg' | 'markers' | 'prompt' | 'promptKey' | 'promptText' | 'promptBar' | 'banner' | 'bannerBig' | 'bannerSub' | 'heading' | 'compass' | 'minimap' | 'squad' | 'squadOrder' | 'gren' | 'gwarn' | 'supp' | 'convoy' | 'aasight' | 'bannerNext', HTMLElement>;
@@ -123,10 +142,8 @@ export class Hud {
     this.stats.hits++;
     if (kill) this.stats.kills++;
     const el = this.els.hit;
-    el.classList.remove('show');
-    void el.offsetWidth; // restart animation
     el.classList.toggle('kill', kill);
-    el.classList.add('show');
+    restartAnimation(el, 'show');
     this.hitTimer = 0.3;
   }
 
@@ -137,10 +154,8 @@ export class Hud {
     // chọn arc rảnh (không .on) hoặc cái đầu
     let el = arcs[0] as HTMLElement;
     for (const a of arcs) if (!(a as HTMLElement).classList.contains('on')) { el = a as HTMLElement; break; }
-    el.classList.remove('on');
-    void el.offsetWidth;
     el.style.transform = `rotate(${relDeg.toFixed(1)}deg)`;
-    el.classList.add('on');
+    restartAnimation(el, 'on');
     this.hurtFlash = Math.min(1, this.hurtFlash + 0.5);
   }
 
@@ -149,7 +164,8 @@ export class Hud {
   }
 
   setMarkers3D(list: readonly Marker3DInput[], project: Projector, eye: [number, number, number], fwd: [number, number, number]): void {
-    this.markers.update(list, project, this.root.clientWidth || window.innerWidth, this.root.clientHeight || window.innerHeight, eye, fwd);
+    // DV-091: the HUD root is full-window; window size avoids a forced synchronous layout every frame (clientWidth read)
+    this.markers.update(list, project, window.innerWidth, window.innerHeight, eye, fwd);
   }
 
   setMinimapActors(player: MinimapActor, others: readonly MinimapActor[], objective: { x: number; z: number } | null): void {

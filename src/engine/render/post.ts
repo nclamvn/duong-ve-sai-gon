@@ -54,6 +54,8 @@ export interface PostStack {
    * Game đặt theo hồi (mission `fx` kind `film`). Tier off = không tác dụng.
    */
   bleach: { value: number };
+  /** DV-092 HDR highlight gain (0 = SDR look) */
+  hdrGain: { value: number };
   /** gọi mỗi frame trước render (vị trí mặt trời màn hình cho tia nắng) */
   update(camera: PerspectiveCamera, sunDir: readonly [number, number, number] | null, env?: VolumetricEnv): void;
 }
@@ -85,6 +87,11 @@ export interface PostOptions {
   volumetric?: (Omit<VolumetricOptions, 'steps'> & { sunColor: [number, number, number]; debug?: boolean; ground?: VolumetricGround | null; ambient?: [number, number, number] }) | null;
   /** DV-063: chỉnh màu phim (mọi tier trừ off); false = tắt */
   grade?: FilmGrade | false;
+  /**
+   * DV-092 HDR thật (màn EDR/XDR, canvas rgba16float 'extended'): phần sáng vượt ngưỡng của ảnh HDR (lửa, nổ, chớp nòng, nắng
+   * loé) được cộng thêm trên ảnh đã chỉnh màu, vượt trắng giấy tới `headroom` lần. Màn SDR: giá trị > 1 bị cắt, ảnh như cũ.
+   */
+  hdr?: { gain: number; threshold: number; headroom: number } | null;
 }
 
 export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: PerspectiveCamera, opts: PostOptions): PostStack {
@@ -100,6 +107,7 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
       shockDir: { value: new Vector2() },
       shockFlash: { value: 0 },
       bleach: { value: 0 },
+      hdrGain: { value: 0 },
       shafts: null,
       volumetric: null,
       update: () => undefined,
@@ -280,8 +288,22 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
   // DV-086: hạt phim nhảy mỗi khung (Mac: màn hình "sạn") — mặc định tắt; level đặt grain > 0 mới bật
   const grainAmt = opts.grain ?? 0;
   const grained = grainAmt > 0 ? (film(ldr, float(grainAmt)) as unknown as V4) : ldr;
-  const graded: V4 = vec4(vignette(grained.rgb, float(opts.vignette ?? 0.32).add(stress.mul(0.5)).add(shock.mul(0.7)), float(0.55)), 1.0);
+  let graded: V4 = vec4(vignette(grained.rgb, float(opts.vignette ?? 0.32).add(stress.mul(0.5)).add(shock.mul(0.7)), float(0.55)), 1.0);
   passes.push(...(grainAmt > 0 ? ['film'] : []), 'vignette', 'stress');
+  // DV-092 HDR: highlight vượt ngưỡng của ảnh HDR (trước tone map) → cộng thêm phần sáng trên trắng giấy, giữ màu (cam lửa)
+  const hdrGain = uniform(opts.hdr?.gain ?? 0);
+  if (opts.hdr) {
+    const hdrSrc = color;
+    const T = float(opts.hdr.threshold);
+    const head = float(opts.hdr.headroom - 1);
+    const lum = dot(hdrSrc.rgb, vec3(0.2126, 0.7152, 0.0722));
+    const over = lum.sub(T).max(0);
+    // nén mềm: x / (1 + x) → không vượt headroom; hướng màu theo HDR gốc (lửa cam, chớp nòng vàng trắng)
+    const k = over.div(over.add(T)).mul(head).mul(hdrGain);
+    const hue = hdrSrc.rgb.div(lum.max(1e-4)).min(vec3(3));
+    graded = vec4(graded.rgb.add(hue.mul(k)), 1.0);
+    passes.push('hdr');
+  }
   pipeline.outputNode = graded;
 
   return {
@@ -293,6 +315,7 @@ export function createPostStack(renderer: WebGPURenderer, scene: Scene, camera: 
     shockDir: shockDir as unknown as { value: Vector2 },
     shockFlash: shockFlash as unknown as { value: number },
     bleach: bleach as unknown as { value: number },
+    hdrGain: hdrGain as unknown as { value: number },
     shafts,
     volumetric,
     update: (cam, sunDir, env) => {

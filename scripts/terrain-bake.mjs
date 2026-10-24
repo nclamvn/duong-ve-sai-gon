@@ -95,13 +95,13 @@ if (args.includes('--nav')) {
     // props (M2 R1): hộp obstacle cho bao cát/phuy/rào cố định (cùng bảng PROP_HALF của src/engine/terrain/props.ts; rào đoạn _gap
     // KHÔNG chặn — bộc phá mở đường cho bot đi qua; thùng thấp < 0,25 m không chặn)
     if (Array.isArray(level.props) && level.props.length) {
-      const HALF = { sandbag: [1.47, 0.36, 0.4], crate: [0.9, 0.15, 0.5], ammo: [0.04, 0.09, 0.13], barrel: [0.28, 0.44, 0.28], radio: [0.26, 0.56, 0.22], drum: [0.32, 0.47, 0.32], jerrycan: [0.18, 0.25, 0.09], chest: [0.62, 0.23, 0.26] };
+      const HALF = { sandbag: [1.47, 0.36, 0.4], crate: [0.9, 0.15, 0.5], ammo: [0.04, 0.09, 0.13], barrel: [0.28, 0.44, 0.28], radio: [0.26, 0.56, 0.22], drum: [0.32, 0.47, 0.32], jerrycan: [0.18, 0.25, 0.09], chest: [0.62, 0.23, 0.26], wreck: [3.46, 1.49, 1.23] };
       const tile = new eng.TerrainTile(meta, u16, yOff);
       const bp = [], bi = [];
       let nb = 0;
       for (const d of level.props) {
         if (/_gap$/.test(d.id)) continue;
-        const half = d.kind === 'wire' ? [(d.len ?? 6.4) / 2, 0.5, 0.5] : HALF[d.kind];
+        const half = d.kind === 'wire' ? [(d.len ?? 6.4) / 2, 0.5, 0.5] : (d.half ?? HALF[d.kind]); // DV-092 xác xe: hộp đo từ model ghi trong level
         if (!half || half[1] <= 0.25) continue;
         if (Math.abs(d.position[0] - rect[0]) > rect[2] / 2 + 4 || Math.abs(d.position[1] - rect[1]) > rect[3] / 2 + 4) continue;
         const gy = tile.sampleGrid(d.position[0], d.position[1], step);

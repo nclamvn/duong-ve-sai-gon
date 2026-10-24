@@ -38,6 +38,17 @@ export interface Interactable {
   fuseLeft: number;
 }
 
+/** raw mission data of a level (the same choice the host makes) */
+export function missionJsonFor(levelId: string): typeof missionJson {
+  const j = levelId === 'pho' ? phoMissionJson : levelId === 'truong-son' ? truongSonMissionJson : levelId === 'diem-cao-31' ? diemCao31MissionJson : levelId === 'ngam-ta-le' ? ngamTaLeMissionJson : missionJson;
+  return j as unknown as typeof missionJson;
+}
+
+/** DV-091: does this level's mission ever raise the `flares` flag (flare lights must exist from load, see Flares) */
+export function missionUsesFlares(levelId: string): boolean {
+  return /"flares"/.test(JSON.stringify(missionJsonFor(levelId)));
+}
+
 export class MissionHost implements MissionWorld {
   readonly def: MissionDefinition;
   readonly dialogue: DialogueSet;
@@ -89,7 +100,7 @@ export class MissionHost implements MissionWorld {
     const m1 = game.levelId === 'truong-son';
     const m2 = game.levelId === 'diem-cao-31';
     const night = game.levelId === 'ngam-ta-le';
-    this.def = loadMission(game.levelId === 'pho' ? phoMissionJson : m1 ? truongSonMissionJson : m2 ? diemCao31MissionJson : night ? ngamTaLeMissionJson : missionJson);
+    this.def = loadMission(missionJsonFor(game.levelId));
     // hồi đêm (DV-078): thoại riêng + câu hô dùng chung của tổ từ M1 (báo hướng, nạp đạn, lựu đạn…)
     const nightDialogue = night ? { cues: [...ngamTaLeDialogueJson.cues, ...truongSonDialogueJson.cues.filter((c) => !ngamTaLeDialogueJson.cues.some((n) => n.cueId === c.cueId))] } : null;
     this.dialogue = loadDialogue(m1 ? truongSonDialogueJson : m2 ? diemCao31DialogueJson : nightDialogue ?? dialogueJson);

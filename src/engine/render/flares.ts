@@ -49,7 +49,8 @@ export class Flares {
     for (let i = 0; i < this.opts.max; i++) {
       const light = new PointLight(new Color(0xffe6b0), 0, this.opts.distance, 1.6);
       light.castShadow = false;
-      light.visible = false;
+      // DV-091: the light stays in the scene at intensity 0 — toggling visible changes the light count, which changes the
+      // lights node of every lit material and recompiles all of them mid-fight (a multi-second stall)
       const bulb = new Mesh(Flares.geo, Flares.mat);
       bulb.visible = false;
       bulb.frustumCulled = false;
@@ -70,7 +71,6 @@ export class Flares {
     f.age = 0;
     f.life = this.opts.life;
     f.ground = ground;
-    f.light.visible = true;
     f.bulb.visible = true;
     this.stats.fired++;
   }
@@ -84,7 +84,6 @@ export class Flares {
       f.y -= this.opts.fall * dt;
       if (f.life <= 0 || f.y <= f.ground + 1.5) {
         f.life = 0;
-        f.light.visible = false;
         f.bulb.visible = false;
         f.light.intensity = 0;
         continue;

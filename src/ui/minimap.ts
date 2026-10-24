@@ -122,10 +122,23 @@ export class Minimap {
     if (this.tacOpen && this.frame % 6 === 0) this.drawTac();
   }
 
+  private cssSize = 0;
+  private resizeHooked = false;
+
   private drawMini(): void {
     const ctx = this.ctx;
     if (!ctx) return;
-    const css = this.root.clientWidth || 150;
+    // DV-091: read the box size once and on resize, not every drawn frame (a forced synchronous layout mid-frame)
+    if (this.cssSize === 0) {
+      this.cssSize = this.root.clientWidth || 150;
+      if (!this.resizeHooked) {
+        this.resizeHooked = true;
+        window.addEventListener('resize', () => {
+          this.cssSize = 0;
+        });
+      }
+    }
+    const css = this.cssSize;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     const S = Math.round(css * dpr);
     if (S !== this.lastSize) {

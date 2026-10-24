@@ -140,7 +140,14 @@
     "mossy_rock",
     "aerial_grass_rock"
   ],
-  "models": [],
+  "models": [
+    "veh_zil157",
+    "barrel_03",
+    "metal_jerrycan_green",
+    "wooden_military_crate",
+    "old_military_crate",
+    "ammo_box"
+  ],
   "vegetation": {
     "$comment": "DV-057 tầng rừng theo registry (docs/research/rung-truong-son): ô DEM 522–892 m, ranh rừng đất thấp/núi thấp. Vượt tán (tree_gn) 20–29 m, thưa (15–20 % diện tích), không mọc trên sườn dốc và đỉnh (Bắc Hướng Hóa, A). Tán chính (tree_canopy, cùng GLB) 11–15 m, khép kín (độ tàn che rừng già 0,66–0,90, A). Nền dưới tán tối và thưa (2 % nắng, B): dương xỉ/ráy thưa; cỏ, chuối rừng, cọ, bụi dày dồn vào khoảng trống tán (noise.max theo trường của tree_canopy) và chỗ trũng ven suối. Monstera là cây châu Mỹ, giữ tạm làm hình thay cho ráy leo Rhaphidophora bản địa, mật độ thấp. TIP-D05: perHa = cây/ha; lod = ngưỡng m [0→1, 1→2, 2→impostor, impostor→cull]; sink = chôn gốc [m, × tan dốc]; noiseId = dùng chung trường noise của luật khác. DV-059: thêm lớp nền rừng CC0 Poly Haven (scan): dương xỉ, lá rộng thay lá dong ở chỗ trũng, cành khô, thân đổ phủ rêu (không collider: capsule đứng không khớp thân nằm), gốc cây, đá phủ rêu trên sườn dốc, cụm rễ trồi quanh cây vượt tán. DV-060: rừng dày và ngổn ngang hơn (tầng thấp, cành gãy, gốc, khúc gỗ tăng 2–10 lần); bờ khe rậm dương xỉ, ráy, lá rộng, tre; lòng khe đá cuội; bờ khe và sườn dốc có đá tảng, vách đá lộ; quanh hố bom cây đổ, cành gãy, gốc cụt, cỏ mọc lại; cây tán tránh lòng khe và hố (luật near/avoid theo features.json). Ngân sách draw (≤ 140): gỡ Monstera (cây châu Mỹ, registry), lá rộng bờ khe và gốc cụt quanh hố (gộp vào luật chung). Thực vật có collider tránh đường mòn nhiệm vụ 3 m (spawn → waypoint), như đường mòn được phát quang. DV-063: nền rừng quanh chỗ xuất phát và hai bên đường mòn dày hơn bằng `boost` (lưới phụ cùng batch, không thêm draw): thảm dương xỉ, cành khô, lá rộng, thân đổ, đá rêu, đá tảng, rễ, gốc cây; đất đỏ chỉ lộ ở lòng hố, bờ khe và đường mòn. DV-064: cây mua trên Fab (Standard License, gói .dvpak): Shorea roxburghii thay Tree GN cho cả tầng vượt tán và tán chính; thân đổ 7 m Megascans thay thân đổ cũ; gốc dầu rái gãy và gốc si rễ bạnh thay hai luật gốc cây; luật dương xỉ cũ dùng chung GLB ph_fern.",
     "seed": 1971,
@@ -372,7 +379,7 @@
           {
             "feature": "trail",
             "max": 26,
-            "perHa": 36,
+            "perHa": 50,
             "min": 4
           }
         ]
@@ -417,7 +424,7 @@
           {
             "feature": "trail",
             "max": 25,
-            "perHa": 448
+            "perHa": 627
           }
         ]
       },
@@ -457,7 +464,7 @@
           {
             "feature": "trail",
             "max": 22,
-            "perHa": 1100
+            "perHa": 1540
           }
         ],
         "asset": "ph_fern"
@@ -532,7 +539,7 @@
           {
             "feature": "trail",
             "max": 20,
-            "perHa": 1400
+            "perHa": 1960
           }
         ]
       },
@@ -644,7 +651,7 @@
           {
             "feature": "trail",
             "max": 30,
-            "perHa": 1700
+            "perHa": 2380
           }
         ]
       },
@@ -688,7 +695,7 @@
           {
             "feature": "trail",
             "max": 25,
-            "perHa": 520
+            "perHa": 728
           }
         ]
       },
@@ -723,7 +730,7 @@
           {
             "feature": "trail",
             "max": 32,
-            "perHa": 1800
+            "perHa": 2520
           }
         ]
       },
@@ -759,7 +766,7 @@
           {
             "feature": "trail",
             "max": 30,
-            "perHa": 28,
+            "perHa": 39,
             "min": 2
           }
         ],
@@ -1393,6 +1400,78 @@
           0.4
         ]
       }
+    ],
+    "clear": [
+      {
+        "pts": [
+          [
+            -87,
+            546
+          ],
+          [
+            -87,
+            546
+          ]
+        ],
+        "within": 6.5,
+        "withinLow": 4.2
+      },
+      {
+        "pts": [
+          [
+            -80,
+            524
+          ],
+          [
+            -80,
+            524
+          ]
+        ],
+        "within": 6.5,
+        "withinLow": 4.2
+      },
+      {
+        "pts": [
+          [
+            -66,
+            500
+          ],
+          [
+            -66,
+            500
+          ]
+        ],
+        "within": 6.5,
+        "withinLow": 4.2
+      },
+      {
+        "pts": [
+          [
+            -74,
+            474
+          ],
+          [
+            -74,
+            474
+          ]
+        ],
+        "within": 6.5,
+        "withinLow": 4.2
+      },
+      {
+        "pts": [
+          [
+            -80,
+            450
+          ],
+          [
+            -80,
+            450
+          ]
+        ],
+        "within": 6.5,
+        "withinLow": 4.2
+      }
     ]
   },
   "fx": [
@@ -1455,10 +1534,83 @@
       "scale": 3,
       "height": 90,
       "color": 4210752
+    },
+    {
+      "$comment": "DV-092 đoàn xe cháy: lửa khoang máy/thùng hàng + cột khói đen",
+      "kind": "fire",
+      "position": [
+        -88.5,
+        544
+      ],
+      "scale": 1.3
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -88,
+        545
+      ],
+      "scale": 2.4,
+      "height": 70,
+      "color": 1315860
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -79,
+        522
+      ],
+      "scale": 1.0
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -66,
+        502
+      ],
+      "scale": 1.5
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -66,
+        501
+      ],
+      "scale": 2.8,
+      "height": 85,
+      "color": 1052688
+    },
+    {
+      "kind": "fire",
+      "position": [
+        -75,
+        476
+      ],
+      "scale": 0.9
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -75,
+        476
+      ],
+      "scale": 1.8,
+      "height": 50,
+      "color": 2236962
+    },
+    {
+      "kind": "smoke",
+      "position": [
+        -80,
+        451
+      ],
+      "scale": 1.4,
+      "height": 30,
+      "color": 3355443
     }
   ],
   "post": {
-    "$comment": "DV-063: hậu kỳ điện ảnh. Tia nắng xuyên kẽ tán lúc bình minh (mặt trời thấp, sương), màu phim nhựa 35 mm thập niên 70: bóng xanh rêu lạnh, sáng vàng ấm, xanh lá bớt chói, đen hơi nâng. DV-080: tia nắng thể tích xuyên tán qua sương (cả khi mặt trời ngoài khung hình). DV-081: sương sát đất rạng sáng bám địa hình, trôi chậm theo gió. DV-086: bỏ hạt phim (sạn), sương sát đất loãng hơn ~3 lần (0,035 → 0,012/m: ở 30 m còn thấy 70 % thay vì 35 %), đen không nâng (lift 0), tương phản 0,45 — ảnh trong, bớt đục. Tia nắng thể tích 3 → 1,8; tia nắng màn hình (shafts) không cộng chồng khi đã có tia thể tích (hai lớp cộng sáng làm cả ảnh phủ sữa).",
+    "$comment": "DV-063: hậu kỳ điện ảnh. Tia nắng xuyên kẽ tán lúc bình minh (mặt trời thấp, sương), màu phim nhựa 35 mm thập niên 70: bóng xanh rêu lạnh, sáng vàng ấm, xanh lá bớt chói, đen hơi nâng. DV-080: tia nắng thể tích xuyên tán qua sương (cả khi mặt trời ngoài khung hình). DV-081: sương sát đất rạng sáng bám địa hình, trôi chậm theo gió. DV-086: bỏ hạt phim (sạn), sương sát đất loãng hơn ~3 lần (0,035 → 0,012/m: ở 30 m còn thấy 70 % thay vì 35 %), đen không nâng (lift 0), tương phản 0,45 — ảnh trong, bớt đục. Tia nắng thể tích 3 → 1,8; tia nắng màn hình (shafts) không cộng chồng khi đã có tia thể tích (hai lớp cộng sáng làm cả ảnh phủ sữa). DV-092: tương phản điện ảnh hơn (contrast 0,45 → 0,58, đen sâu hơn lift −0,012, bão hoà 0,92) cho bản trình diễn; HDR thật bật bằng ?hdr=1 trên màn EDR.",
     "volumetric": {
       "intensity": 1.8,
       "maxDist": 36,
@@ -1479,9 +1631,9 @@
       "maxElevationDeg": 30
     },
     "grade": {
-      "lift": 0.0,
-      "contrast": 0.45,
-      "saturation": 0.88,
+      "lift": -0.012,
+      "contrast": 0.58,
+      "saturation": 0.92,
       "greenDesat": 0.32,
       "shadowTint": [
         0.26,
@@ -2211,5 +2363,219 @@
       ]
     }
   ],
-  "nextLevel": "ngam-ta-le"
+  "nextLevel": "ngam-ta-le",
+  "roads": [
+    {
+      "id": "duong_xe",
+      "$comment": "DV-092 nhánh đường xe dọc bờ tây suối: đoàn xe bị B-52 đánh trúng đêm trước (xác xe cháy dọc đường); rừng chừa dải trống, mặt đường đất xới",
+      "pts": [
+        [
+          -158,
+          618
+        ],
+        [
+          -112,
+          580
+        ],
+        [
+          -86,
+          548
+        ],
+        [
+          -76,
+          512
+        ],
+        [
+          -72,
+          478
+        ],
+        [
+          -82,
+          446
+        ],
+        [
+          -100,
+          420
+        ],
+        [
+          -138,
+          366
+        ]
+      ],
+      "halfWidth": 2.4
+    }
+  ],
+  "props": [
+    {
+      "id": "xe1",
+      "kind": "wreck",
+      "model": "veh_zil157",
+      "position": [
+        -87,
+        546
+      ],
+      "yaw": -1.742,
+      "roll": 0.04,
+      "pitch": 0.0,
+      "heat": 0.9,
+      "half": [
+        3.46,
+        1.49,
+        1.23
+      ]
+    },
+    {
+      "id": "xe2",
+      "kind": "wreck",
+      "model": "veh_zil157",
+      "position": [
+        -80,
+        524
+      ],
+      "yaw": -1.292,
+      "roll": 0.12,
+      "pitch": -0.03,
+      "heat": 0.7,
+      "half": [
+        3.46,
+        1.49,
+        1.23
+      ]
+    },
+    {
+      "id": "xe3",
+      "kind": "wreck",
+      "model": "veh_zil157",
+      "position": [
+        -66,
+        500
+      ],
+      "yaw": -1.338,
+      "roll": 1.45,
+      "pitch": 0.0,
+      "heat": 0.5,
+      "half": [
+        3.46,
+        1.49,
+        1.23
+      ]
+    },
+    {
+      "id": "xe4",
+      "kind": "wreck",
+      "model": "veh_zil157",
+      "position": [
+        -74,
+        474
+      ],
+      "yaw": -1.468,
+      "roll": -0.05,
+      "pitch": -0.22,
+      "heat": 0.8,
+      "half": [
+        3.46,
+        1.49,
+        1.23
+      ]
+    },
+    {
+      "id": "xe5",
+      "kind": "wreck",
+      "model": "veh_zil157",
+      "position": [
+        -80,
+        450
+      ],
+      "yaw": -1.118,
+      "roll": 0.03,
+      "pitch": 0.0,
+      "heat": 0.35,
+      "half": [
+        3.46,
+        1.49,
+        1.23
+      ]
+    },
+    {
+      "id": "thung1",
+      "kind": "drum",
+      "position": [
+        -83,
+        540
+      ],
+      "yaw": 0.4
+    },
+    {
+      "id": "thung2",
+      "kind": "drum",
+      "position": [
+        -82.2,
+        541.3
+      ],
+      "yaw": 1.3
+    },
+    {
+      "id": "can1",
+      "kind": "jerrycan",
+      "position": [
+        -90,
+        551
+      ],
+      "yaw": 0.2
+    },
+    {
+      "id": "hom1",
+      "kind": "chest",
+      "position": [
+        -76,
+        519
+      ],
+      "yaw": 2.1
+    },
+    {
+      "id": "hom2",
+      "kind": "crate",
+      "position": [
+        -84,
+        528
+      ],
+      "yaw": 0.9
+    },
+    {
+      "id": "thung3",
+      "kind": "drum",
+      "position": [
+        -61,
+        503
+      ],
+      "yaw": 0.7
+    },
+    {
+      "id": "can2",
+      "kind": "jerrycan",
+      "position": [
+        -69,
+        470
+      ],
+      "yaw": 1.9
+    },
+    {
+      "id": "hom3",
+      "kind": "chest",
+      "position": [
+        -76,
+        446
+      ],
+      "yaw": 0.3
+    },
+    {
+      "id": "dan1",
+      "kind": "ammo",
+      "position": [
+        -78,
+        447
+      ],
+      "yaw": 1.0
+    }
+  ]
 }

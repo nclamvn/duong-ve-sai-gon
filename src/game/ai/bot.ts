@@ -707,6 +707,13 @@ export class Bot {
     this.threatFeet[0] = te[0];
     this.threatFeet[1] = te[1] - ai.perception.eyeHeight;
     this.threatFeet[2] = te[2];
+    // DV-091: no hostile left at all → a friend escorting the player stands down at once. It used to keep peeking at the last
+    // spot of a dead enemy until its alert decayed (the squad leader frozen in cover while the act moved on).
+    if (!target.alive && this.deps.faction === 'friend' && this.deps.followGoal && COMBAT_STATES.has(this.state)) {
+      this.releaseCover();
+      this.perception.reset();
+      this.go('PATROL', 'all_clear');
+    }
 
     // Timers
     this.cooldownMs = Math.max(0, this.cooldownMs - ms);
