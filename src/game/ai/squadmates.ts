@@ -147,6 +147,12 @@ export class Squadmates {
     this.orderPoint = null;
   }
 
+  /** DV-094 kịch bản đặt điểm giữ (không đáp lời): tổ về quanh `p` (vòng 3 m) rồi giữ ở đó */
+  holdAt(p: V3): void {
+    this.order = 'hold';
+    this.orderPoint = [p[0], p[1], p[2]];
+  }
+
   /** lệnh của người chơi (phím 1–4). `point` = chỗ người chơi nhắm (yểm trợ/tiến); giữ = chỗ người chơi đứng */
   command(order: SquadOrder, point: V3 | null = null): void {
     const p = this.deps.player();

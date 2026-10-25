@@ -85,6 +85,7 @@ export async function recordVideo(game: Game, cine: CinePlayer, o: VideoRecordOp
   game.setFixedRender({ w, h });
   const from = o.from ?? 0;
   cine.t = from;
+  cine.maxDt = Infinity;
   cine.start();
   const N = Math.round(((o.to ?? cine.def.duration) - from) * fps);
   const stillStep = Math.max(1, Math.round(o.stillEvery * fps));

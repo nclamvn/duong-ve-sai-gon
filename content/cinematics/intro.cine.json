@@ -4,6 +4,20 @@
   "level": "truong-son",
   "duration": 77,
   "fps": 30,
+  "handoff": {
+    "cut": 57.37,
+    "live": 57.45,
+    "t": 65.0,
+    "holdAt": [
+      -48.0,
+      594.5
+    ],
+    "skipCues": [
+      "M71"
+    ],
+    "title": "cine.intro.title",
+    "sub": "cine.intro.chapter"
+  },
   "shots": [
     {
       "id": "s1_den",

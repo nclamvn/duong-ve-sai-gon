@@ -6,6 +6,7 @@ import { GRENADE } from '@game/weapons/grenades';
 import type { EventBus, Prng } from '@engine/core';
 import type { Game } from '@game/game';
 import { MissionRuntime, type MissionWorld } from './runtime';
+import type { IntroHandoff } from './types';
 import { loadMission, loadDialogue } from './loader';
 import { CheckpointStore, stateHash, type SavedCheckpoint } from './checkpoint';
 import type { CheckpointSnapshot, MissionDefinition, DialogueSet, MissionEvents } from './types';
@@ -220,6 +221,25 @@ export class MissionHost implements MissionWorld {
     this.runtime.start();
   }
 
+  /** DV-094 chỗ đứng tổ do intro để lại (theo tên), chỉ dùng trong lần spawn đầu của `startFromIntro` */
+  private readonly castAt = new Map<string, { pos: [number, number, number]; yaw: number }>();
+
+  /**
+   * DV-094 vào trận nối liền từ intro: tổ ra đúng chỗ và hướng các diễn viên đang đứng (không nhảy chỗ), câu radio intro vừa nói
+   * không lặp lại, tổ giữ quanh điểm kịch bản đặt (bờ suối) thay vì chỗ spawn mặc định.
+   */
+  startFromIntro(h: IntroHandoff): void {
+    this.castAt.clear();
+    for (const c of h.cast) this.castAt.set(c.nameKey, { pos: c.pos, yaw: c.yaw });
+    for (const cue of h.skipCues ?? []) this.runtime.skipCues.add(cue);
+    // action của node đầu chạy ở tick kế tiếp → mỗi chỗ đứng bị dùng (xoá) khi người đó được spawn
+    this.runtime.start();
+    this.introHold = h.holdAt ? [h.holdAt[0], this.groundY(h.holdAt[0], h.holdAt[1], 0), h.holdAt[1]] : null;
+  }
+
+  /** DV-094 điểm tổ giữ sau intro: đặt sau khi node đầu chạy xong action (squad_order của node đầu không đè mất) */
+  private introHold: [number, number, number] | null = null;
+
   private groundY(x: number, z: number, fallback: number): number {
     return this.game.terrain ? this.game.terrain.heightAt(x, z) : fallback;
   }
@@ -309,8 +329,17 @@ export class MissionHost implements MissionWorld {
       const ring = lap > 0 ? 2.8 : 2.5;
       const pos: [number, number, number] = (own || i === 0) && lap === 0 ? [base[0], base[1], base[2]] : [base[0] + Math.cos(a) * ring, base[1], base[2] + Math.sin(a) * ring];
       if (lap > 0 && this.game.terrain) pos[1] = this.game.terrain.heightAt(pos[0], pos[2]);
+      // DV-094 intro nối liền: người có tên đứng đúng chỗ diễn viên của mình vừa đứng
+      const cast = o.nameKey ? this.castAt.get(o.nameKey) : undefined;
+      if (cast) {
+        this.castAt.delete(o.nameKey!);
+        pos[0] = cast.pos[0];
+        pos[2] = cast.pos[2];
+        pos[1] = this.groundY(pos[0], pos[2], cast.pos[1]);
+      }
       const support = o.faction === 'friend' && o.archetype !== 'squad';
       const b = this.game.spawnBot(id, groupId, pos, { faction: o.faction, nameKey: o.nameKey, archetype: o.archetype, waypoints: this.waypointsFor(groupId, pos, base, o.faction), support });
+      if (cast) b.bot.yaw = cast.yaw;
       if (support) this.game.support.add(b, 'follower');
       else if (o.faction === 'friend') this.game.squadmates.add(b, i === 0 ? 'leader' : 'follower');
       this.applyBehavior(groupId, b);
@@ -503,6 +532,10 @@ export class MissionHost implements MissionWorld {
   /** sim tick */
   step(dt: number, interact: boolean, interactHeld = interact): void {
     if (!this.paused) this.runtime.step(dt);
+    if (this.introHold && this.runtime.state.currentNode !== this.def.startNode) {
+      this.game.squadmates.holdAt(this.introHold);
+      this.introHold = null;
+    }
     this.subtitles.update(dt); // phụ đề chạy theo sim time (deterministic, không phụ thuộc render)
     this.stepInteractables(dt, interact, interactHeld);
     this.stepAmbientScript(dt);

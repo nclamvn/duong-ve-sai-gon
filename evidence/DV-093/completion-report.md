@@ -179,3 +179,71 @@ ISSUES:
 
 SUGGESTIONS:
 - Trình chiếu nhà đầu tư dùng bản đầy đủ; bản 60 s để dự phòng nếu bị giới hạn thời gian.
+
+## DV-094 (25/10/2026): intro nối liền vào trận M1
+
+Chủ nhà yêu cầu: nối phần intro vào phần chơi để liền mạch. Chủ nhà chọn:
+- phim MP4 chiếu tới cú nổ hất ngã, từ đó chạy trong engine rồi trao quyền tại chỗ;
+- tựa phim hiện đè lúc đang chơi, không còn màn đen.
+
+STATUS: DONE (sandbox).
+
+Diễn biến trong game (vào M1 không có `autostart=1`):
+1. Phim MP4 chiếu 0 đến 57,37 s. Điểm cắt rơi vào khung đen của cú nổ, cắt theo khung hình (`requestVideoFrameCallback`).
+2. Engine chạy tiếp từ 57,45 s:
+   - dựng lại trạng thái tại thời điểm đó: chất phim, sương, khói, loạt đạn còn bắn, nhạc phát tiếp từ giữa bài;
+   - không phát lại chuyện đã qua;
+   - nằm dưới đất, Quyết chạy đến gọi, kéo dậy.
+3. Tại 65,0 s, lúc Quyết quay người chạy ra suối, người chơi nhận quyền ngay tại chỗ camera đang đứng:
+   - mắt và hướng nhìn khớp camera, chuyển êm 0,45 s;
+   - súng rút lên;
+   - tổ thật ra đúng chỗ năm diễn viên và giữ bờ suối;
+   - nhiệm vụ M1 bắt đầu, bỏ câu M71 vì intro vừa nói;
+   - HUD hiện dần, sương về mức trận trong 5 s, nhạc tắt dần 6 s;
+   - tựa ĐƯỜNG VỀ SÀI GÒN / PHẦN MỘT · CỔNG TRỜI hiện đè 1,6 s sau rồi tan.
+
+FILES CHANGED:
+- `content/cinematics/intro.cine.json`: khối `handoff` gồm cut, live, t, holdAt, skipCues, title.
+- `game/narrative/cinePlayer.ts`:
+  - `start(from)`, `skipTo(t)`, `handoff()`;
+  - `seamless`;
+  - bước đồng hồ tối đa 0,1 s mỗi khung, để khung giật không nhảy cóc qua điểm trao quyền.
+- `game/narrative/cineBoot.ts`:
+  - `playIntroLive`, `introVideoCut`;
+  - `&from=` khi xem trực tiếp;
+  - `&then=play` trao quyền liền mạch.
+- `game/narrative/cineRecorder.ts`: bộ ghi bỏ giới hạn bước.
+- `ui/introVideo.ts`: `until`, cắt gọn không mờ dần.
+- `ui/titleCard.ts` (mới): tựa hiện đè lúc chơi.
+- `main.ts`: luồng phim, rồi engine, rồi trận.
+- `game/game.ts`:
+  - `introPlanned` giữ nhiệm vụ tới lúc trao quyền;
+  - `beginMission(intro)`, `resetFilm()`;
+  - tổ có tên không bị cắt khung nhìn (đứng sát người chơi thì thân không biến mất).
+- `game/mission/missionHost.ts`: `startFromIntro` (chỗ đứng theo tên, điểm giữ đặt sau node đầu).
+- `game/mission/runtime.ts`: `skipCues`.
+- `game/mission/types.ts`: `IntroHandoff`.
+- `game/ai/squadmates.ts`: `holdAt`.
+- `engine/audio/audio.ts`: `playClip(..., offset)`.
+- Tests:
+  - `tests/e2e/dv094.spec.ts` (mới);
+  - `tests/unit/cinematics.test.ts`: điểm cắt nằm trong khung đen, trao quyền trong shot cảnh ngã.
+- README.
+- Ảnh: `noi-lien.jpg`.
+
+TEST RESULTS (`evidence_status: sandbox_swiftshader_lifecycle_only`):
+- Typecheck 0 lỗi. Unit 309/310 (vẫn chỉ `voice.test`).
+- `dv094` đạt:
+  - engine chạy tiếp từ 57,45 s; nhiệm vụ chờ (0 lính nhiệm vụ, 8 diễn viên);
+  - trao quyền: người chơi đứng dưới camera (sai số 0,04 m), hướng nhìn khớp (tích vô hướng 0,99998);
+  - 5 người tổ đúng chỗ diễn viên (sai số 0 m), tổ giữ đúng điểm bờ suối;
+  - radio M72, M73 có, M71 không lặp; HUD bật, tựa phim hiện, AI chạy, súng hiện.
+- Ảnh khung: trước trao quyền (cận mặt Quyết), ngay sau (súng rút lên, Quyết trước mặt, tổ bắn ở suối, mục tiêu M1, Đạt hô M72).
+- E2E `dv094`, `dv093`, `dv092`, `level-truong-son`, `mission`, `boot`: 17/17 đạt. Lượt đầu có 2 lỗi thời gian ở sandbox (boot arena quá 90 s khi máy bận; tổ trưởng cách 16,5 m so với ngưỡng 16 m); chạy lại riêng đều đạt.
+
+ISSUES:
+- Trung bình: chưa chấm trên Mac với MP4 thật (cần dựng 4K và ghép tiếng); trong sandbox không có file phim nên đi thẳng vào phần engine.
+- Thấp: đường dẫn `autostart=1` (Chủ nhà hay dùng) bỏ qua intro theo thiết kế; muốn xem cả chuỗi thì mở không có `autostart`.
+
+DEVIATIONS:
+- L1: tổ có tên không bị cắt khung nhìn ở mọi lúc (5 lính), sửa lỗi thân biến mất khi đứng sát người chơi, không chỉ cho intro.

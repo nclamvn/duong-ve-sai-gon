@@ -11,6 +11,8 @@ import type { Game } from '@game/game';
 import type { BotActor } from '@game/actors/botActor';
 import { CineOverlay } from '@ui/cineOverlay';
 import { BriefingMap, type MapCue } from '@ui/briefingMap';
+import { showTitleCard } from '@ui/titleCard';
+import type { IntroHandoff } from '@game/mission/types';
 
 type V2 = [number, number];
 
@@ -35,6 +37,12 @@ export interface ActorDef {
 
 export interface IntroDef extends CinematicDef {
   actors: ActorDef[];
+  /**
+   * DV-094 intro nối liền vào trận: phim MP4 chiếu tới `cut` (giây, rơi vào khung đen), engine chạy tiếp từ `live`;
+   * tới `t` thì trao quyền điều khiển tại chỗ camera đang đứng. `holdAt` (x, z) = chỗ tổ giữ; `skipCues` = câu radio
+   * của nhiệm vụ intro đã nói rồi; `title`/`sub` = tựa hiện đè lúc đang chơi.
+   */
+  handoff?: { cut: number; live: number; t: number; holdAt?: V2; skipCues?: string[]; title?: string; sub?: string };
 }
 
 interface Burst {
@@ -75,6 +83,10 @@ export class CinePlayer {
   /** fog density before the cinematic (`fog` events change it; gameplay gets it back) */
   private readonly prevFog: number | null;
   onEnd: (() => void) | null = null;
+  /** DV-094 trao quyền liền mạch tại `def.handoff.t` (thay cho chạy hết intro rồi cắt) */
+  seamless = false;
+  /** bước đồng hồ tối đa mỗi khung khi xem trực tiếp (bộ ghi offline bỏ giới hạn: bước = 1/fps) */
+  maxDt = 0.1;
 
   constructor(
     private readonly game: Game,
@@ -88,8 +100,8 @@ export class CinePlayer {
     this.prevFog = game.atmosphere?.densityScale.value ?? null;
   }
 
-  /** take over camera, AI, HUD; spawn the cast */
-  start(): void {
+  /** take over camera, AI, HUD; spawn the cast. `from` > 0 = vào giữa intro (DV-094, phim đã chiếu phần trước) */
+  start(from = 0): void {
     const g = this.game;
     g.aiPaused = true;
     g.viewModelHidden = true;
@@ -114,6 +126,7 @@ export class CinePlayer {
     }
     g.preFrame = (dt) => this.step(dt);
     g.cameraDriver = () => this.applyCamera();
+    if (from > 0) this.skipTo(from);
     this.step(0);
   }
 
@@ -129,6 +142,8 @@ export class CinePlayer {
   /** advance the editorial clock by a real frame time; sets the world time scale for this frame */
   step(dt: number): void {
     if (this.done) return;
+    // DV-094 khung giật (biên dịch shader, tab nền) không được nhảy cóc qua cả cảnh / điểm trao quyền
+    dt = Math.min(dt, this.maxDt);
     this.t += dt;
     this.lastDt = dt;
     const now = this.t;
@@ -148,7 +163,9 @@ export class CinePlayer {
     this.driveBursts(now);
     this.overlay.update(now, dt);
     this.overlay.present();
-    if (now >= this.def.duration && !this.done) this.finish();
+    const h = this.def.handoff;
+    if (this.seamless && h && now >= h.t && !this.done) this.handoff();
+    else if (now >= this.def.duration && !this.done) this.finish();
   }
 
   private applyCamera(): void {
@@ -412,6 +429,131 @@ export class CinePlayer {
       ],
       coordKey: 'cine.map.coord',
     });
+  }
+
+  /**
+   * DV-094 vào giữa intro (phim MP4 đã chiếu tới `t`): dựng lại trạng thái tại `t` mà không phát lại chuyện đã qua. Chỉ áp
+   * sự kiện trạng thái (chất phim, khói, sương, màn đen, bản đồ tắt, loạt đạn còn đang bắn, nhạc từ giữa bài, quay chậm còn
+   * hiệu lực); nổ trong 0,6 s cuối vẫn chạy (bùn ống kính, choáng) để cảnh mở ra đúng nhịp.
+   */
+  skipTo(t: number): void {
+    this.t = t;
+    this.cues.advance(t, (e) => {
+      const num = (k: string, d = 0): number => (typeof e[k] === 'number' ? (e[k] as number) : d);
+      switch (e.type) {
+        case 'film':
+        case 'haze':
+          this.fire(e);
+          break;
+        case 'map':
+          if (e['on'] !== true) this.overlay.mapOn = false;
+          break;
+        case 'black':
+          this.overlay.fadeBlack(num('to'), 1e-3);
+          break;
+        case 'fog': {
+          const atm = this.game.atmosphere;
+          if (atm) atm.densityScale.value = num('scale', 1);
+          break;
+        }
+        case 'burst': {
+          const until = e.t + num('dur', 2);
+          if (until > t) {
+            this.fire(e);
+            const q = this.bursts[this.bursts.length - 1];
+            if (q) q.next = t;
+          }
+          break;
+        }
+        case 'music':
+          if (this.opts.audio && this.game.audio.ctx) {
+            const off = t - e.t;
+            void this.game.audio.playClip(`${import.meta.env.BASE_URL ?? '/'}${String(e['file'])}`, 'music', num('gain', 1), 0, off).then((st) => (this.stopMusic = st));
+          }
+          break;
+        case 'slowmo':
+          if (e.t + num('dur', 1) > t) this.fire(e);
+          break;
+        case 'explode':
+          if (t - e.t <= 0.6) this.fire(e);
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  /**
+   * DV-094 trao quyền liền mạch: người chơi đứng đúng chỗ camera (mắt, hướng nhìn), súng rút lên, tổ thật ra đúng chỗ diễn
+   * viên đang đứng và giữ bờ suối, nhiệm vụ bắt đầu (bỏ câu radio vừa nói), camera chuyển êm 0,45 s, sương về mức trận trong
+   * 5 s, nhạc tắt dần 6 s, tựa phim hiện đè.
+   */
+  private handoff(): void {
+    const g = this.game;
+    const h = this.def.handoff!;
+    const c = this.track.at(this.t, (x, z) => this.ground(x, z));
+    const cast: IntroHandoff['cast'] = [];
+    for (const { def, bot } of this.actors.values()) {
+      if (def.faction !== 'friend' || !def.nameKey) continue;
+      const p = bot.bot.position;
+      cast.push({ nameKey: def.nameKey, pos: [p[0], p[1], p[2]], yaw: bot.bot.yaw });
+    }
+    const fromPos = g.camera.position.clone();
+    const fromQuat = g.camera.quaternion.clone();
+    const fogTo = this.prevFog;
+    const fogFrom = g.atmosphere?.densityScale.value ?? null;
+    this.done = true;
+    this.stopMusic?.(6);
+    this.stopMusic = null;
+    this.dispose();
+    // sương: giữ mức intro rồi về mức trận trong 5 s (dispose vừa trả ngay → đặt lại rồi chuyển dần)
+    const atm = g.atmosphere;
+    if (atm && fogFrom !== null && fogTo !== null) {
+      atm.densityScale.value = fogFrom;
+      const t0 = performance.now();
+      const ramp = (): void => {
+        const u = Math.min(1, (performance.now() - t0) / 5000);
+        atm.densityScale.value = fogFrom + (fogTo - fogFrom) * u * u * (3 - 2 * u);
+        if (u < 1) requestAnimationFrame(ramp);
+      };
+      requestAnimationFrame(ramp);
+    }
+    // người chơi: chân dưới camera, nhìn đúng hướng camera đang nhìn
+    const dx = c.look[0] - c.pos[0];
+    const dy = c.look[1] - c.pos[1];
+    const dz = c.look[2] - c.pos[2];
+    const yaw = Math.atan2(-dx, -dz);
+    const pitch = Math.max(-0.6, Math.min(0.6, Math.atan2(dy, Math.hypot(dx, dz))));
+    const snap = g.player.snapshot();
+    g.player.restore({ position: [c.pos[0], this.ground(c.pos[0], c.pos[2]), c.pos[2]], yaw, pitch, health: snap.health, stance: 'stand' });
+    g.viewModel.reset();
+    g.resetFilm();
+    g.beginMission({ cast, ...(h.skipCues ? { skipCues: h.skipCues } : {}), ...(h.holdAt ? { holdAt: h.holdAt } : {}) });
+    const hud = document.getElementById('hud');
+    if (hud) {
+      hud.style.opacity = '0';
+      hud.style.transition = 'opacity 1.6s ease-out';
+      requestAnimationFrame(() => requestAnimationFrame(() => (hud.style.opacity = '1')));
+    }
+    // camera: từ khung intro cuối sang mắt người chơi trong 0,45 s
+    const drive = g.cameraDriver;
+    const t0 = performance.now();
+    g.cameraDriver = (alpha, dt) => {
+      drive?.(alpha, dt);
+      const u = Math.min(1, (performance.now() - t0) / 450);
+      if (u >= 1) {
+        g.cameraDriver = drive;
+        return;
+      }
+      const e = u * u * (3 - 2 * u);
+      const tp = g.camera.position.clone();
+      const tq = g.camera.quaternion.clone();
+      g.camera.position.lerpVectors(fromPos, tp, e);
+      g.camera.quaternion.slerpQuaternions(fromQuat, tq, e);
+      g.camera.updateMatrixWorld();
+    };
+    if (h.title) showTitleCard({ titleKey: h.title, ...(h.sub ? { subKey: h.sub } : {}), delayS: 1.6, holdS: 3.4 });
+    this.onEnd?.();
   }
 
   private finish(): void {

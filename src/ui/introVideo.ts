@@ -4,7 +4,11 @@
  */
 import { t } from './i18n';
 
-export async function playIntroVideo(url: string): Promise<void> {
+/**
+ * `until` (giây, DV-094): dừng phim tại đó, giữ nền đen thêm vài khung rồi gỡ (không mờ dần) — engine nối tiếp phía sau từ
+ * khung đen. Bỏ qua (giữ Space / Esc) trả về như hết phim.
+ */
+export async function playIntroVideo(url: string, opts: { until?: number } = {}): Promise<void> {
   try {
     const head = await fetch(url, { method: 'HEAD' });
     const ct = head.headers.get('content-type') ?? '';
@@ -31,13 +35,25 @@ export async function playIntroVideo(url: string): Promise<void> {
     let holding = false;
     let last = performance.now();
     let raf = 0;
-    const done = (): void => {
+    let finished = false;
+    const done = (cut = false): void => {
+      if (finished) return;
+      finished = true;
       cancelAnimationFrame(raf);
       window.removeEventListener('keydown', down, true);
       window.removeEventListener('keyup', up, true);
-      wrap.style.transition = 'opacity 0.5s';
-      wrap.style.opacity = '0';
-      setTimeout(() => wrap.remove(), 550);
+      if (cut) {
+        // cắt ở khung đen: dừng phim, giữ nền đen thêm 2 khung cho engine dựng khung đầu rồi gỡ (không mờ dần)
+        v.pause();
+        v.style.visibility = 'hidden';
+        hint.remove();
+        bar.remove();
+        requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => wrap.remove())));
+      } else {
+        wrap.style.transition = 'opacity 0.5s';
+        wrap.style.opacity = '0';
+        setTimeout(() => wrap.remove(), 550);
+      }
       resolve();
     };
     const tick = (now: number): void => {
@@ -46,6 +62,7 @@ export async function playIntroVideo(url: string): Promise<void> {
       held = holding ? held + dt : Math.max(0, held - dt * 2);
       bar.style.width = `${Math.min(1, held) * 120}px`;
       if (held >= 1) return done();
+      if (opts.until !== undefined && v.currentTime >= opts.until) return done(true);
       raf = requestAnimationFrame(tick);
     };
     const down = (e: KeyboardEvent): void => {
@@ -61,9 +78,18 @@ export async function playIntroVideo(url: string): Promise<void> {
     };
     window.addEventListener('keydown', down, true);
     window.addEventListener('keyup', up, true);
-    v.addEventListener('ended', done, { once: true });
-    v.addEventListener('error', done, { once: true });
+    v.addEventListener('ended', () => done(opts.until !== undefined), { once: true });
+    v.addEventListener('error', () => done(), { once: true });
     raf = requestAnimationFrame(tick);
+    // cắt chính xác theo khung đang hiện (rVFC), không đợi timeupdate ~250 ms
+    const rvfc = (v as HTMLVideoElement & { requestVideoFrameCallback?: (cb: (now: number, m: { mediaTime: number }) => void) => number }).requestVideoFrameCallback;
+    if (opts.until !== undefined && rvfc) {
+      const watch = (_n: number, m: { mediaTime: number }): void => {
+        if (m.mediaTime >= opts.until!) done(true);
+        else if (!finished) rvfc.call(v, watch);
+      };
+      rvfc.call(v, watch);
+    }
     v.play().catch(() => done());
   });
 }

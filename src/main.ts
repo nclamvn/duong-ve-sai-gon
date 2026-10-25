@@ -9,7 +9,7 @@ import { installDebugApi } from '@qa/debugApi';
 import { runBench, submitReport } from '@qa/bench';
 import { installCalib, type CalibMode } from '@qa/calib';
 import { t } from '@ui/i18n';
-import { runCine } from '@game/narrative/cineBoot';
+import { introVideoCut, playIntroLive, runCine } from '@game/narrative/cineBoot';
 import { playIntroVideo } from '@ui/introVideo';
 
 declare const __BUILD_HASH__: string;
@@ -49,10 +49,17 @@ async function boot(): Promise<void> {
       return;
     }
     // DV-093 intro dựng sẵn trước M1 (?intro=0 bỏ qua); màn đã nạp xong nên phim không giật, hết phim vào chơi ngay
-    const intro = game.levelId === 'truong-son' && params.get('intro') !== '0' && params.get('autostart') !== '1' && params.get('bench') !== '1';
+    const intro = game.introPlanned;
     if (intro) {
-      void playIntroVideo(`${import.meta.env.BASE_URL ?? '/'}assets/video/intro.mp4`).then(() => {
-        // hết phim (đen + tựa) → vào trận từ màn đen, mở dần 1,2 s
+      // DV-094 intro nối liền vào trận: phim chiếu tới cú nổ hất ngã (khung đen), engine chạy tiếp cảnh nằm dưới đất, Quyết kéo
+      // dậy rồi trao quyền ngay tại chỗ — không màn đen, không cắt cảnh giữa phim và trận
+      const cut = introVideoCut();
+      void playIntroVideo(`${import.meta.env.BASE_URL ?? '/'}assets/video/intro.mp4`, cut !== null ? { until: cut } : {}).then(() => {
+        if (cut !== null) {
+          playIntroLive(game);
+          return;
+        }
+        // intro không có điểm nối: hết phim → vào trận từ màn đen, mở dần 1,2 s
         const fade = document.createElement('div');
         Object.assign(fade.style, { position: 'fixed', inset: '0', background: '#000', zIndex: '45', pointerEvents: 'none', transition: 'opacity 1.2s ease-out' });
         document.body.appendChild(fade);

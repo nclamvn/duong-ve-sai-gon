@@ -114,7 +114,7 @@ export class AudioEngine {
   private readonly clips = new Map<string, Promise<AudioBuffer | null>>();
 
   /** DV-093 phát một file âm (nhạc, tiếng động dựng sẵn) qua bus; `at` = giây trễ; trả hàm dừng (mờ dần `fadeS`) */
-  async playClip(url: string, bus: Bus, gain = 1, at = 0): Promise<((fadeS?: number) => void) | null> {
+  async playClip(url: string, bus: Bus, gain = 1, at = 0, offset = 0): Promise<((fadeS?: number) => void) | null> {
     const ctx = this.ctx;
     if (!ctx || !this.buses) return null;
     let pb = this.clips.get(url);
@@ -133,7 +133,9 @@ export class AudioEngine {
     g.gain.value = gain;
     src.connect(g);
     g.connect(this.buses[bus]);
-    src.start(ctx.currentTime + at);
+    // DV-094: `offset` = bắt đầu giữa bài (intro nối từ phim sang engine giữa chừng)
+    if (offset >= buf.duration) return null;
+    src.start(ctx.currentTime + at, Math.max(0, offset));
     return (fadeS = 0.6) => {
       const t0 = ctx.currentTime;
       g.gain.setValueAtTime(g.gain.value, t0);

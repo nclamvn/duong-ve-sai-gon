@@ -58,6 +58,8 @@ export class MissionRuntime {
   private readonly zoneInside = new Map<string, boolean>();
   /** số lần zone_enter được đánh giá true (test idempotent) */
   zoneEnterHits = 0;
+  /** DV-094 câu radio bỏ qua (intro nối liền đã nói câu đó ngay trước khi trao quyền) */
+  readonly skipCues = new Set<string>();
   private started = false;
 
   constructor(
@@ -148,7 +150,7 @@ export class MissionRuntime {
     switch (a.type) {
       case 'radio': {
         const cue = this.cues.get(a.cue ?? '');
-        if (!cue) return;
+        if (!cue || this.skipCues.has(cue.cueId)) return;
         this.events.emit('RADIO', { cue: cue.cueId, speaker: cue.speaker, subtitleKey: cue.subtitleKey, durationMs: cue.durationMs, priority: cue.priority, interruptPolicy: cue.interruptPolicy, bus: cue.bus ?? 'dialogue' }, { id });
         break;
       }

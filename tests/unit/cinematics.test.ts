@@ -71,6 +71,26 @@ describe('DV-093 cinematics: camera track + timeline', () => {
       for (const a of d.actors) for (let i = 1; i < a.keys.length; i++) expect(a.keys[i]!.t).toBeGreaterThanOrEqual(a.keys[i - 1]!.t);
     });
   }
+  it('DV-094 điểm nối phim → engine → trận: cắt trong khung đen, engine chạy tiếp, trao quyền trước khi hết', () => {
+    const d = intro as unknown as CinematicDef & { handoff: { cut: number; live: number; t: number; holdAt: number[]; skipCues: string[]; title: string; sub: string } };
+    const h = d.handoff;
+    expect(h).toBeTruthy();
+    expect(h.cut).toBeLessThan(h.live);
+    expect(h.live).toBeLessThan(h.t);
+    expect(h.t).toBeLessThan(d.duration);
+    // màn đen đã kéo kín trước điểm cắt, mở lại không sớm hơn lúc engine chạy tiếp
+    const blacks = d.events.filter((e) => e.type === 'black').sort((a, b) => a.t - b.t);
+    const closing = blacks.filter((e) => e['to'] === 1 && e.t + Number(e['dur'] ?? 0) <= h.cut).pop();
+    expect(closing, 'màn đen trước điểm cắt').toBeTruthy();
+    const opening = blacks.find((e) => e['to'] === 0 && e.t > closing!.t);
+    expect(opening!.t).toBeGreaterThanOrEqual(h.live);
+    // trao quyền trong shot cảnh ngã (người chơi được kéo dậy)
+    expect(new CameraTrack(d).shotAt(h.t).id).toBe('s8_nga');
+    const L = vi as Record<string, string>;
+    expect(L[h.title]).toBeTruthy();
+    expect(L[h.sub]).toBeTruthy();
+    expect(h.holdAt.length).toBe(2);
+  });
   it('bản đầy đủ chứa mọi shot của bản 60 s (không bỏ cảnh nào) và dài hơn', () => {
     const full = new Set((intro as unknown as CinematicDef).shots.map((s) => s.id));
     for (const s of (intro60 as unknown as CinematicDef).shots) if (s.id !== 's9_tua') expect(full.has(s.id), s.id).toBe(true);

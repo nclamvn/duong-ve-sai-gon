@@ -86,7 +86,7 @@ import soundscapeJson from '@content/ecology/soundscape.truong-son.json';
 import { resolveClimate, parseClimatePresets, type ResolvedClimate, type LevelClimate } from '@engine/sky/climate';
 import { Soundscape } from '@engine/audio/soundscape';
 import { parseSoundscapeConfig, type AmbientState } from '@engine/audio/soundscapePlan';
-import type { MissionEvents } from '@game/mission/types';
+import type { IntroHandoff, MissionEvents } from '@game/mission/types';
 import { factionLook, resolvePackId, type FactionLook } from '@game/factions';
 import { streamEmitters, groundSurface, type GroundSurface } from '@engine/terrain/features';
 
@@ -968,8 +968,9 @@ export class Game {
       await this.nightAct.load();
     }
     this.mission = new MissionHost(this);
-    // DV-093: cinematic mode (?cine=<id>) holds the mission until the intro hands the world back (beginMission)
-    if (!this.params.get('cine')) this.mission.start();
+    // DV-093: cinematic mode (?cine=<id>) holds the mission until the intro hands the world back (beginMission);
+    // DV-094: same for the in-game M1 intro (film, then the live wake-up hands control over)
+    if (!this.params.get('cine') && !this.introPlanned) this.mission.start();
     window.addEventListener('keydown', (ev) => {
       if (ev.code === 'Enter' && !this.player.alive) this.respawn();
       // DV-078: hoàn thành nhiệm vụ → Enter sang level nối tiếp (giữ tham số chất lượng)
@@ -1012,11 +1013,23 @@ export class Game {
   }
 
   /** DV-093 after an in-engine intro: player camera back, HUD on, mission starts */
-  beginMission(): void {
+  /** DV-094 the M1 intro (film + live wake-up) runs before play: the mission waits for the handoff */
+  get introPlanned(): boolean {
+    const p = this.params;
+    return this.levelId === 'truong-son' && p.get('intro') !== '0' && p.get('autostart') !== '1' && p.get('bench') !== '1';
+  }
+
+  beginMission(intro?: IntroHandoff): void {
     if (!this.freeFly) this.cameraDriver = (alpha) => this.player.render(this.camera, alpha);
     const hud = document.getElementById('hud');
     if (hud) hud.hidden = false;
-    this.mission.start();
+    if (intro) this.mission.startFromIntro(intro);
+    else this.mission.start();
+  }
+
+  /** DV-094 chất phim về mức mặc định của level (chuyển dần ~2 s) — hết intro */
+  resetFilm(): void {
+    this.setFilm(this.filmDefault);
   }
 
   resize(): void {
@@ -2001,6 +2014,13 @@ export class Game {
     });
     b.faction = faction;
     b.nameKey = opts.nameKey ?? null;
+    // DV-094 named squadmates stand right next to the player (intro handoff, ammo, orders): the skinned body's bind-pose bounds
+    // cull it at arm's length while it is in view, so they are never frustum-culled (5 bots)
+    if (b.nameKey && faction === 'friend') {
+      b.dummy.group.traverse((o) => {
+        o.frustumCulled = false;
+      });
+    }
     if (this.terrain) visual.ground = (x, z) => this.terrain!.heightAt(x, z);
     b.aiSlot = this.aiSlotNext++;
     this.spawnStats[faction === 'enemy' ? 'enemy' : 'friend']++;

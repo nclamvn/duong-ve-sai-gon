@@ -176,3 +176,10 @@ export interface MissionEvents extends Record<string, unknown> {
   NODE_TIMEOUT: { node: string; fallback: string | null };
   [k: string]: unknown;
 }
+
+/** DV-094 trao quyền từ intro sang trận (intro nối liền): chỗ đứng tổ, câu radio bỏ qua, điểm tổ giữ (x, z) */
+export interface IntroHandoff {
+  cast: Array<{ nameKey: string; pos: [number, number, number]; yaw: number }>;
+  skipCues?: string[];
+  holdAt?: [number, number];
+}

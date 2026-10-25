@@ -23,7 +23,7 @@ Tham số URL: `?backend=webgl|webgpu` · `?autostart=1` · `?overlay=1` (teleme
 
 ### Intro điện ảnh (DV-093)
 
-Intro dựng trong engine, hai bản cắt: bản đầy đủ 77 giây `intro` (`content/cinematics/intro.cine.json`, phát trước M1) và bản 60 giây `intro-60` (`intro-60.cine.json`, dự phòng). Phát dưới dạng MP4 trước M1 (giữ Space để bỏ qua, `?intro=0` để tắt). Cần `npm run dev` (plugin ghi file vào `recordings/`):
+Intro dựng trong engine, hai bản cắt: bản đầy đủ 77 giây `intro` (`content/cinematics/intro.cine.json`, phát trước M1) và bản 60 giây `intro-60` (`intro-60.cine.json`, dự phòng). Trong game (vào M1 không có `autostart=1`), intro nối liền vào trận (DV-094): MP4 chiếu tới cú nổ hất ngã, engine chạy tiếp cảnh nằm dưới đất và Quyết kéo dậy, rồi trao quyền điều khiển ngay tại chỗ, tựa phim hiện đè lúc đang chơi (giữ Space bỏ qua phần phim, `?intro=0` tắt hẳn). Xem riêng phần nối: `?level=truong-son-a&cine=intro&from=57.45&then=play`. Cần `npm run dev` (plugin ghi file vào `recordings/`):
 
 ```bash
 # xem trực tiếp, hết intro vào chơi M1 (bấm vào màn để có tiếng)
