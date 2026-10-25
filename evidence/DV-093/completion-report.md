@@ -247,3 +247,33 @@ ISSUES:
 
 DEVIATIONS:
 - L1: tổ có tên không bị cắt khung nhìn ở mọi lúc (5 lính), sửa lỗi thân biến mất khi đứng sát người chơi, không chỉ cho intro.
+
+## DV-094b (25/10/2026): vào game là có intro đầy đủ
+
+Chủ nhà báo: vào game không thấy intro. Hai nguyên nhân:
+- vào bằng `autostart=1` thì intro bị bỏ qua;
+- chưa có file `intro.mp4` (chờ dựng 4K) nên chỉ còn 7,5 s phần nối.
+
+STATUS: DONE (sandbox).
+
+Sửa:
+- Vào bằng `autostart=1` cũng có intro. Trước intro là màn đen "BẤM PHÍM BẤT KỲ ĐỂ BẮT ĐẦU", vì trình duyệt chặn tiếng tới cú bấm đầu.
+- Chưa có file phim thì cả intro chạy trực tiếp trong engine từ 0 s, rồi trao quyền tại 65 s như DV-094. Có file phim thì phim chiếu tới cú nổ, engine chạy tiếp.
+- Giữ Space 1 s hoặc Esc: tua tới lúc trao quyền, vẫn vào trận liền mạch.
+- Trình duyệt tự động (Playwright, `navigator.webdriver`) mặc định bỏ intro để các test cũ không đổi; `intro=1` bật lại. `intro=0`, `bench=1`, `calib` vẫn vào thẳng.
+
+FILES CHANGED:
+- `ui/pressStart.ts` (mới).
+- `main.ts`.
+- `game/narrative/cineBoot.ts`: `playIntroLive({ from })`, tua bằng Space hoặc Esc.
+- `ui/introVideo.ts`: trả `missing` hoặc `played`.
+- `game/game.ts`: `introPlanned`.
+- Locale `cine.press_start`.
+- README.
+- `tests/e2e/dv094.spec.ts`: thêm test vào thẳng.
+
+TEST RESULTS (`evidence_status: sandbox_swiftshader_lifecycle_only`):
+- `dv094` 2/2 đạt:
+  - vào bằng nút: cả intro chạy từ 0,2 s, trao quyền đúng như DV-094;
+  - vào thẳng: màn bấm phím hiện, bấm xong âm thanh bật, intro chạy từ 0 s, 8 diễn viên, nhiệm vụ chờ.
+- `dv093`, `mission`, `boot`, `first-use`: 12/12 đạt (đường test tự động không đổi).

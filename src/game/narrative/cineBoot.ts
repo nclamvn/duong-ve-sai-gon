@@ -11,6 +11,7 @@ import type { Game } from '@game/game';
 import introJson from '@content/cinematics/intro.cine.json';
 import intro60Json from '@content/cinematics/intro-60.cine.json';
 import { CinePlayer, type IntroDef } from './cinePlayer';
+import { t } from '@ui/i18n';
 import { recordAudio, recordVideo } from './cineRecorder';
 
 /** `intro` = bản đầy đủ (77 s, phát trước M1); `intro-60` = bản cắt 60 s dự phòng */
@@ -81,17 +82,57 @@ export async function runCine(game: Game, id: string, params: URLSearchParams): 
 
 /**
  * DV-094 intro trong game, nối liền vào trận: phim MP4 đã chiếu tới `handoff.cut` (khung đen của cú nổ hất ngã); engine chạy
- * tiếp từ `handoff.live` (nằm dưới đất, Quyết gọi, kéo dậy) rồi trao quyền tại `handoff.t`. Không có phim thì cũng vào từ đây.
+ * tiếp từ `handoff.live` (nằm dưới đất, Quyết gọi, kéo dậy) rồi trao quyền tại `handoff.t`. Chưa có file phim (DV-094b):
+ * `from: 0`, cả intro chạy trong engine từ đầu.
  */
-export function playIntroLive(game: Game, id = 'intro'): CinePlayer {
+export function playIntroLive(game: Game, opts: { id?: string; from?: number } = {}): CinePlayer {
+  const id = opts.id ?? 'intro';
   const def = CINEMATICS[id];
   if (!def?.handoff) throw new Error(`cinematic ${id} has no handoff`);
+  const h = def.handoff;
   game.audio.init();
   const cine = new CinePlayer(game, def, { audio: true });
   cine.seamless = true;
-  cine.start(def.handoff.live);
+  cine.start(opts.from ?? h.live);
   game.start();
   (window as unknown as { __cine?: unknown }).__cine = cine;
+  // giữ Space 1 s hoặc Esc: tua tới lúc trao quyền (vẫn vào trận liền mạch, không cắt)
+  const hint = document.createElement('div');
+  hint.textContent = t('cine.skip');
+  Object.assign(hint.style, { position: 'fixed', right: '28px', bottom: '22px', zIndex: '46', font: '500 15px "Barlow Condensed", sans-serif', letterSpacing: '0.12em', color: 'rgba(232,220,192,0.55)', opacity: '0', transition: 'opacity 0.4s', pointerEvents: 'none' });
+  document.body.appendChild(hint);
+  let held = 0;
+  let holding = false;
+  let last = performance.now();
+  let raf = 0;
+  const skip = (): void => {
+    if (!cine.done) cine.t = Math.max(cine.t, h.t - 0.05);
+  };
+  const tick = (now: number): void => {
+    const dt = (now - last) / 1000;
+    last = now;
+    held = holding ? held + dt : 0;
+    if (held >= 1) skip();
+    if (!cine.done) raf = requestAnimationFrame(tick);
+  };
+  const down = (e: KeyboardEvent): void => {
+    if (cine.done) return;
+    hint.style.opacity = '1';
+    if (e.code === 'Escape') skip();
+    if (e.code === 'Space') holding = true;
+  };
+  const up = (e: KeyboardEvent): void => {
+    if (e.code === 'Space') holding = false;
+  };
+  window.addEventListener('keydown', down, true);
+  window.addEventListener('keyup', up, true);
+  raf = requestAnimationFrame(tick);
+  cine.onEnd = () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener('keydown', down, true);
+    window.removeEventListener('keyup', up, true);
+    hint.remove();
+  };
   return cine;
 }
 

@@ -2,11 +2,12 @@ import { test, expect } from '@playwright/test';
 import { expectNoErrors } from './helpers';
 
 /**
- * DV-094 intro nối liền vào trận M1: vào màn (không autostart) → phim MP4 (sandbox không có file → bỏ qua) → engine chạy tiếp
- * cảnh nằm dưới đất từ `handoff.live`, nhiệm vụ chưa chạy → tới `handoff.t` trao quyền tại chỗ: người chơi đứng dưới camera nhìn
+ * DV-094 intro nối liền vào trận M1: vào màn → phim MP4 (sandbox không có file → DV-094b: cả intro chạy trong engine từ 0 s),
+ * nhiệm vụ chưa chạy → tới `handoff.t` trao quyền tại chỗ: người chơi đứng dưới camera nhìn
  * đúng hướng, tổ thật ra đúng chỗ diễn viên, giữ bờ suối, nhiệm vụ bắt đầu và không lặp câu M71, HUD hiện dần, tựa phim hiện đè.
  */
-const QUERY = 'backend=webgl&level=truong-son-a&debug=1&quality=low&post=low&shadow=512';
+// intro=1: trình duyệt tự động (navigator.webdriver) mặc định bỏ intro (DV-094b)
+const QUERY = 'backend=webgl&level=truong-son-a&debug=1&quality=low&post=low&shadow=512&intro=1';
 
 test.describe('DV-094 intro nối liền vào trận', () => {
   test.setTimeout(400_000);
@@ -77,7 +78,7 @@ test.describe('DV-094 intro nối liền vào trận', () => {
       };
     });
     console.log(JSON.stringify(r));
-    expect(r.t0, 'engine chạy tiếp từ khung đen của phim').toBeGreaterThanOrEqual(r.live);
+    expect(r.t0, 'chưa có file phim: cả intro chạy trong engine từ đầu').toBeLessThan(2);
     expect(r.missionBots0, 'nhiệm vụ chờ trao quyền').toBe(0);
     expect(r.node0).toBeNull();
     expect(r.cast0).toBe(8);
@@ -98,6 +99,30 @@ test.describe('DV-094 intro nối liền vào trận', () => {
     expect(r.aiPaused).toBe(false);
     expect(r.simScale).toBe(1);
     expect(r.vmHidden).toBe(false);
+    expectNoErrors(errors);
+  });
+
+  test('DV-094b vào thẳng (autostart): màn bấm phím bất kỳ → cả intro chạy trong engine từ đầu, nhiệm vụ chờ', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(`PAGEERROR ${e.message}`));
+    await page.goto(`/?${QUERY}&autostart=1`);
+    await expect(page.getByTestId('press-start')).toBeVisible({ timeout: 300_000 });
+    await page.keyboard.press('KeyA');
+    await expect(page.getByTestId('press-start')).toBeHidden();
+    await page.waitForFunction(() => (window as unknown as { __cine?: unknown }).__cine !== undefined, null, { timeout: 120_000 });
+    const r = await page.evaluate(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const g = (window.__ht as any).raw;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cine = (window as any).__cine;
+      g.stop();
+      return { t: cine.t, node: g.mission.runtime.state.currentNode, cast: [...g.bots.values()].filter((b: { group: string }) => b.group === 'cine').length, audio: !!g.audio.ctx };
+    });
+    console.log(JSON.stringify(r));
+    expect(r.t).toBeLessThan(2);
+    expect(r.node).toBeNull();
+    expect(r.cast).toBe(8);
+    expect(r.audio, 'cú bấm mở được tiếng').toBe(true);
     expectNoErrors(errors);
   });
 });

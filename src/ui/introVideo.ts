@@ -8,13 +8,15 @@ import { t } from './i18n';
  * `until` (giây, DV-094): dừng phim tại đó, giữ nền đen thêm vài khung rồi gỡ (không mờ dần) — engine nối tiếp phía sau từ
  * khung đen. Bỏ qua (giữ Space / Esc) trả về như hết phim.
  */
-export async function playIntroVideo(url: string, opts: { until?: number } = {}): Promise<void> {
+export type IntroVideoResult = 'missing' | 'played';
+
+export async function playIntroVideo(url: string, opts: { until?: number } = {}): Promise<IntroVideoResult> {
   try {
     const head = await fetch(url, { method: 'HEAD' });
     const ct = head.headers.get('content-type') ?? '';
-    if (!head.ok || /html|text/i.test(ct)) return;
+    if (!head.ok || /html|text/i.test(ct)) return 'missing';
   } catch {
-    return;
+    return 'missing';
   }
   const wrap = document.createElement('div');
   Object.assign(wrap.style, { position: 'fixed', inset: '0', background: '#000', zIndex: '50', display: 'flex', alignItems: 'center', justifyContent: 'center' });
@@ -92,4 +94,5 @@ export async function playIntroVideo(url: string, opts: { until?: number } = {})
     }
     v.play().catch(() => done());
   });
+  return 'played';
 }

@@ -1013,10 +1013,16 @@ export class Game {
   }
 
   /** DV-093 after an in-engine intro: player camera back, HUD on, mission starts */
-  /** DV-094 the M1 intro (film + live wake-up) runs before play: the mission waits for the handoff */
+  /**
+   * DV-094 the M1 intro (film + live wake-up) runs before play: the mission waits for the handoff. DV-094b: also with
+   * `autostart=1` (a press-any-key screen gives the browser its user gesture); skipped for `intro=0`, bench, calibration and
+   * automated browsers (Playwright sets navigator.webdriver) unless `intro=1`
+   */
   get introPlanned(): boolean {
     const p = this.params;
-    return this.levelId === 'truong-son' && p.get('intro') !== '0' && p.get('autostart') !== '1' && p.get('bench') !== '1';
+    if (this.levelId !== 'truong-son' || p.get('intro') === '0' || p.get('bench') === '1' || p.get('calib')) return false;
+    const automated = typeof navigator !== 'undefined' && navigator.webdriver === true;
+    return p.get('intro') === '1' || !automated;
   }
 
   beginMission(intro?: IntroHandoff): void {

@@ -11,6 +11,7 @@ import { installCalib, type CalibMode } from '@qa/calib';
 import { t } from '@ui/i18n';
 import { introVideoCut, playIntroLive, runCine } from '@game/narrative/cineBoot';
 import { playIntroVideo } from '@ui/introVideo';
+import { pressStart } from '@ui/pressStart';
 
 declare const __BUILD_HASH__: string;
 
@@ -52,22 +53,15 @@ async function boot(): Promise<void> {
     const intro = game.introPlanned;
     if (intro) {
       // DV-094 intro nối liền vào trận: phim chiếu tới cú nổ hất ngã (khung đen), engine chạy tiếp cảnh nằm dưới đất, Quyết kéo
-      // dậy rồi trao quyền ngay tại chỗ — không màn đen, không cắt cảnh giữa phim và trận
+      // dậy rồi trao quyền ngay tại chỗ — không màn đen, không cắt cảnh giữa phim và trận.
+      // DV-094b: vào thẳng (autostart) thì chờ một cú bấm (trình duyệt chặn tiếng); chưa có file phim thì cả intro chạy trong engine
       const cut = introVideoCut();
-      void playIntroVideo(`${import.meta.env.BASE_URL ?? '/'}assets/video/intro.mp4`, cut !== null ? { until: cut } : {}).then(() => {
-        if (cut !== null) {
-          playIntroLive(game);
-          return;
-        }
-        // intro không có điểm nối: hết phim → vào trận từ màn đen, mở dần 1,2 s
-        const fade = document.createElement('div');
-        Object.assign(fade.style, { position: 'fixed', inset: '0', background: '#000', zIndex: '45', pointerEvents: 'none', transition: 'opacity 1.2s ease-out' });
-        document.body.appendChild(fade);
-        document.getElementById('hud')!.hidden = false;
-        game.start();
-        requestAnimationFrame(() => requestAnimationFrame(() => (fade.style.opacity = '0')));
-        setTimeout(() => fade.remove(), 1500);
-      });
+      void (async () => {
+        await pressStart(params.get('autostart') === '1');
+        game.audio.init();
+        const r = await playIntroVideo(`${import.meta.env.BASE_URL ?? '/'}assets/video/intro.mp4`, cut !== null ? { until: cut } : {});
+        playIntroLive(game, r === 'missing' ? { from: 0 } : {});
+      })().catch((e: unknown) => showFatal(capRoot, String((e as Error)?.stack ?? e)));
       return;
     }
     document.getElementById('hud')!.hidden = false;
