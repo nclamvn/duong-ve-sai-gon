@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { execSync } from 'node:child_process';
 import { fileURLToPath, URL } from 'node:url';
 import { benchPlugin } from './scripts/bench-plugin.ts';
+import { cinePlugin } from './scripts/cine-plugin.ts';
 
 function gitHash(): string {
   try {
@@ -26,7 +27,7 @@ export default defineConfig(({ mode }) => ({
     __BUILD_HASH__: JSON.stringify(gitHash()),
     __BUILD_MODE__: JSON.stringify(mode),
   },
-  plugins: [benchPlugin()],
+  plugins: [benchPlugin(), cinePlugin()],
   optimizeDeps: {
     // WASM packages: keep them out of the pre-bundler (ADR-002, ADR-003)
     exclude: ['@dimforge/rapier3d-compat', 'recast-navigation', '@recast-navigation/core', '@recast-navigation/wasm'],

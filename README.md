@@ -21,6 +21,23 @@ Tham số URL: `?backend=webgl|webgpu` · `?autostart=1` · `?overlay=1` (teleme
 
 Điều khiển: click để khóa chuột · WASD · Shift chạy · C cúi · Z nằm bò (DV-090) · Space nhảy · Chuột trái bắn · Chuột phải ADS · R nạp · F tương tác (giữ F cạnh đồng đội: xin 2 băng đạn) · 1–4 lệnh tổ · F3 telemetry · F4 navmesh · Enter (khi chết) nạp checkpoint · Esc thoát khóa chuột.
 
+### Intro điện ảnh (DV-093)
+
+Intro 60 giây dựng trong engine (`content/cinematics/intro.cine.json`), phát dưới dạng MP4 trước M1 (giữ Space để bỏ qua, `?intro=0` để tắt). Cần `npm run dev` (plugin ghi file vào `recordings/`):
+
+```bash
+# xem trực tiếp, hết intro vào chơi M1 (bấm vào màn để có tiếng)
+open "http://127.0.0.1:5173/?level=truong-son-a&quality=ultra&cine=intro&then=play"
+# dựng hình 4K offline (H.264 phần cứng) → recordings/intro.h264 + ảnh tĩnh
+open "http://127.0.0.1:5173/?level=truong-son-a&quality=ultra&cine=intro&rec=video&autostart=1"
+# thu tiếng thời gian thực → recordings/intro-audio.webm (bấm để bắt đầu)
+open "http://127.0.0.1:5173/?level=truong-son-a&quality=ultra&cine=intro&rec=audio"
+node scripts/cine-mux.mjs        # → recordings/intro-master.mp4 (4K) + public/assets/video/intro.mp4 (1080p)
+node scripts/cine-music.mjs      # nhạc nền bằng ElevenLabs Music (.env.local)
+```
+
+Tuỳ chọn dựng: `&w=&h=` (mặc định 3840×2160), `&mbps=45`, `&fps=30`, `&from=&to=` (giây), `&stills=2`. HDR thật trên màn EDR: `?hdr=1`.
+
 ## Test
 
 ```bash

@@ -96,6 +96,57 @@ export class AudioEngine {
     }
   }
 
+  /**
+   * DV-093 bản thu âm cho video intro: một MediaStream nhận đúng những gì đi ra loa (sau lọc choáng, cả tiếng ù tai).
+   * Gọi sau init(); idempotent.
+   */
+  recordTap(): MediaStream | null {
+    if (!this.ctx || !this.shockGain) return null;
+    if (!this.tap) {
+      this.tap = this.ctx.createMediaStreamDestination();
+      this.shockGain.connect(this.tap);
+      this.ringGain?.connect(this.tap);
+    }
+    return this.tap.stream;
+  }
+
+  private tap: MediaStreamAudioDestinationNode | null = null;
+  private readonly clips = new Map<string, Promise<AudioBuffer | null>>();
+
+  /** DV-093 phát một file âm (nhạc, tiếng động dựng sẵn) qua bus; `at` = giây trễ; trả hàm dừng (mờ dần `fadeS`) */
+  async playClip(url: string, bus: Bus, gain = 1, at = 0): Promise<((fadeS?: number) => void) | null> {
+    const ctx = this.ctx;
+    if (!ctx || !this.buses) return null;
+    let pb = this.clips.get(url);
+    if (!pb) {
+      pb = fetch(url)
+        .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
+        .then((b) => ctx.decodeAudioData(b))
+        .catch(() => null);
+      this.clips.set(url, pb);
+    }
+    const buf = await pb;
+    if (!buf || !this.buses) return null;
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const g = ctx.createGain();
+    g.gain.value = gain;
+    src.connect(g);
+    g.connect(this.buses[bus]);
+    src.start(ctx.currentTime + at);
+    return (fadeS = 0.6) => {
+      const t0 = ctx.currentTime;
+      g.gain.setValueAtTime(g.gain.value, t0);
+      g.gain.linearRampToValueAtTime(0, t0 + fadeS);
+      src.stop(t0 + fadeS + 0.05);
+    };
+  }
+
+  /** DV-093 nhiễu bộ đàm trước lời chỉ huy: vài nhát nhiễu dải giữa rải trong `seconds` */
+  radioStatic(seconds: number): void {
+    for (let i = 0; i < 6; i++) this.noiseBurst('radio', 180 + i * 37, 0.06, 1800 + i * 210, 1.2, undefined, { delayMs: (i * seconds * 1000) / 6, type: 'bandpass' });
+  }
+
   setBusGain(bus: Bus, v: number): void {
     if (this.buses) this.buses[bus].gain.value = v;
   }

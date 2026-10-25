@@ -143,8 +143,9 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
     opts.onProgress?.(done, total, label);
   };
 
+  // DV-091 nạp song song: texture, tay FP, súng, nhân vật, mô hình + HDRI, viewmodel chạy cùng lúc (trước đây nối tiếp từng nhóm)
   const textures: Record<string, PbrTextureSet> = {};
-  await Promise.all(
+  const texturesP = Promise.all(
     textureIds.map(async (id) => {
       const dir = `${b}textures/${id}/${id}`;
       const [map, normalMap, armMap] = await Promise.all([
@@ -164,93 +165,104 @@ export async function loadAssets(opts: LoadOptions): Promise<LoadedAssets> {
   let character: CharacterAsset | null = null;
   let arms: FpArmsAsset | null = null;
   let fpHands: FpHandsAsset | null = null;
-  if (!opts.lite && !opts.noWeapons && !opts.noArms) {
-    // ưu tiên tay FP v2 (fp_hands.glb, D11b); giữ soldier_arms cũ làm fallback
-    try {
-      const head = await assetExists(`${b}${FP_HANDS_URL}`);
-      if (head) fpHands = await loadFpHands(`${b}${FP_HANDS_URL}`);
-    } catch {
-      fpHands = null;
-    }
-    if (!fpHands) {
+  let fpViewmodel: FpViewmodelAsset | null = null;
+  const armsP = (async (): Promise<void> => {
+    if (!opts.lite && !opts.noWeapons && !opts.noArms) {
+      // ưu tiên tay FP v2 (fp_hands.glb, D11b); giữ soldier_arms cũ làm fallback
       try {
-        const head = await assetExists(`${b}${ARMS_URL}`);
-        if (head) arms = await loadFpArms(`${b}${ARMS_URL}`);
+        const head = await assetExists(`${b}${FP_HANDS_URL}`);
+        if (head) fpHands = await loadFpHands(`${b}${FP_HANDS_URL}`);
       } catch {
-        arms = null;
+        fpHands = null;
       }
-    }
-  }
-  await Promise.all(
-    weaponCfgs.map(async (cfg) => {
-      // vũ khí: tuỳ chọn — thiếu file (chưa convert) → bỏ qua, viewmodel/prop procedural
-      try {
-        const url = `${b}${cfg.model}`;
-        const head = await assetExists(url);
-        if (head) weapons[cfg.id] = await loadWeaponModel(url, cfg, aniso);
-      } catch {
-        /* thiếu → procedural */
-      }
-      tick(cfg.id);
-    }),
-  );
-  if (!opts.lite && !opts.noCharacter) {
-    // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
-    try {
-      const url = opts.swatBody || !(await assetExists(`${b}${CHARACTER_URL}`)) ? CHARACTER_SWAT_URL : CHARACTER_URL;
-      const head = await assetExists(`${b}${url}`);
-      if (head) character = await loadCharacter(`${b}${url}`);
-    } catch {
-      character = null;
-    }
-    // head props for the gear slots: optional, a missing file keeps the procedural fallback
-    if (character) {
-      try {
-        if (await assetExists(`${b}${HELMET_A_URL}`)) {
-          const g = await createGltfLoader().loadAsync(`${b}${HELMET_A_URL}`);
-          g.scene.traverse((o) => {
-            const m = o as Object3D & { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean };
-            if (m.isMesh) {
-              m.castShadow = true;
-              m.receiveShadow = true;
-            }
-          });
-          character.props.helmetA = g.scene;
+      if (!fpHands) {
+        try {
+          const head = await assetExists(`${b}${ARMS_URL}`);
+          if (head) arms = await loadFpArms(`${b}${ARMS_URL}`);
+        } catch {
+          arms = null;
         }
-      } catch {
-        /* keep fallback */
       }
     }
-  }
-  if (!opts.lite) {
+  })();
+  const weaponsP = (async (): Promise<void> => {
     await Promise.all(
-      modelIds.map(async (id) => {
-        models[id] = await loadModel(`${b}models/${id}.glb`, aniso);
-        tick(id);
+      weaponCfgs.map(async (cfg) => {
+        // vũ khí: tuỳ chọn — thiếu file (chưa convert) → bỏ qua, viewmodel/prop procedural
+        try {
+          const url = `${b}${cfg.model}`;
+          const head = await assetExists(url);
+          if (head) weapons[cfg.id] = await loadWeaponModel(url, cfg, aniso);
+        } catch {
+          /* thiếu → procedural */
+        }
+        tick(cfg.id);
       }),
     );
-    const hdr = await new HDRLoader().loadAsync(`${b}hdris/${hdri.id}/${hdri.id}_${hdri.res}.hdr`);
-    hdr.mapping = EquirectangularReflectionMapping;
-    const pmrem = new PMREMGenerator(opts.renderer);
-    const rt = await pmrem.fromEquirectangularAsync(hdr);
-    environment = rt.texture;
-    if (opts.keepSky) sky = hdr;
-    else hdr.dispose();
-    pmrem.dispose();
-    tick(hdri.id);
-  }
-  let fpViewmodel: FpViewmodelAsset | null = null;
-  if (!opts.lite && !opts.noWeapons && !opts.noArms) {
-    try {
-      const head = await assetExists(`${b}${FP_VIEWMODEL_URL}`);
-      if (head) {
-        const g = await createGltfLoader().loadAsync(`${b}${FP_VIEWMODEL_URL}`);
-        fpViewmodel = { scene: g.scene as unknown as Group, clips: g.animations };
+  })();
+  const characterP = (async (): Promise<void> => {
+    if (!opts.lite && !opts.noCharacter) {
+      // nhân vật: tuỳ chọn — thiếu file (CI, chưa convert Mixamo) → null, không phải lỗi
+      try {
+        const url = opts.swatBody || !(await assetExists(`${b}${CHARACTER_URL}`)) ? CHARACTER_SWAT_URL : CHARACTER_URL;
+        const head = await assetExists(`${b}${url}`);
+        if (head) character = await loadCharacter(`${b}${url}`);
+      } catch {
+        character = null;
       }
-    } catch {
-      fpViewmodel = null;
+      // head props for the gear slots: optional, a missing file keeps the procedural fallback
+      if (character) {
+        try {
+          if (await assetExists(`${b}${HELMET_A_URL}`)) {
+            const g = await createGltfLoader().loadAsync(`${b}${HELMET_A_URL}`);
+            g.scene.traverse((o) => {
+              const m = o as Object3D & { isMesh?: boolean; castShadow: boolean; receiveShadow: boolean };
+              if (m.isMesh) {
+                m.castShadow = true;
+                m.receiveShadow = true;
+              }
+            });
+            character.props.helmetA = g.scene;
+          }
+        } catch {
+          /* keep fallback */
+        }
+      }
     }
-  }
+  })();
+  const modelsP = (async (): Promise<void> => {
+    if (!opts.lite) {
+      await Promise.all(
+        modelIds.map(async (id) => {
+          models[id] = await loadModel(`${b}models/${id}.glb`, aniso);
+          tick(id);
+        }),
+      );
+      const hdr = await new HDRLoader().loadAsync(`${b}hdris/${hdri.id}/${hdri.id}_${hdri.res}.hdr`);
+      hdr.mapping = EquirectangularReflectionMapping;
+      const pmrem = new PMREMGenerator(opts.renderer);
+      const rt = await pmrem.fromEquirectangularAsync(hdr);
+      environment = rt.texture;
+      if (opts.keepSky) sky = hdr;
+      else hdr.dispose();
+      pmrem.dispose();
+      tick(hdri.id);
+    }
+  })();
+  const viewmodelP = (async (): Promise<void> => {
+    if (!opts.lite && !opts.noWeapons && !opts.noArms) {
+      try {
+        const head = await assetExists(`${b}${FP_VIEWMODEL_URL}`);
+        if (head) {
+          const g = await createGltfLoader().loadAsync(`${b}${FP_VIEWMODEL_URL}`);
+          fpViewmodel = { scene: g.scene as unknown as Group, clips: g.animations };
+        }
+      } catch {
+        fpViewmodel = null;
+      }
+    }
+  })();
+  await Promise.all([texturesP, armsP, weaponsP, characterP, modelsP, viewmodelP]);
   return { textures, models, environment, sky, character, weapons, arms, fpHands, fpViewmodel, bytesHint: 0 };
 }
 

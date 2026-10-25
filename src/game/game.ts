@@ -76,7 +76,7 @@ import { Squadmates } from '@game/ai/squadmates';
 import { LAYER } from '@engine/physics/layers';
 import type { Faction } from '@game/actors/botActor';
 import aiTuning from '@content/tuning/ai.json';
-import { MissionHost, missionUsesFlares } from '@game/mission/missionHost';
+import { MissionHost, missionUsesFlares, voiceCuesFor } from '@game/mission/missionHost';
 import { NightAct } from '@game/night/nightAct';
 import { createBlastFx, type BlastFx } from '@engine/render/blastFx';
 import { createScorch, type Scorch } from '@engine/render/scorch';
@@ -139,6 +139,8 @@ export class Game {
   private smokeBase = 0;
   private smokeTarget = 0;
   private smokeKick = 0;
+  /** DV-093 cap of the per-explosion haze kick (the intro keeps far bombing readable instead of a white wall) */
+  smokeKickCap = 1;
   /** ngẫu nhiên tất định cho chọn câu hô (DV-087) */
   private readonly barkRng: Prng = mulberry32(0x5eed87);
   private rallyAcc = 0;
@@ -380,7 +382,15 @@ export class Game {
     this.seed = opts.seed ?? Number(this.params.get('seed') ?? 7);
     this.calmOnStart = this.params.get('calm') === '1' && this.params.get('debug') === '1';
     // giọng (DV-076): manifest nhỏ, tải song song; file mp3 tải dần (prefetch) và giải mã khi nói
-    if (this.params.get('voice') !== '0') void this.voice.load().then((ok) => ok && this.voice.manifest && this.voice.prefetch(Object.keys(this.voice.manifest.lines)));
+    if (this.params.get('voice') !== '0') void this.voice.load().then((ok) => {
+        if (!ok || !this.voice.manifest) return;
+        // DV-091: only this level's lines + shared barks (sq.*, en.*): squad barks keyed `<cue>.<SPEAKER>` share the cue id
+        const cues = voiceCuesFor(this.levelId);
+        this.voice.prefetch(Object.keys(this.voice.manifest.lines).filter((k) => {
+          const head = k.split('.')[0]!;
+          return head === 'sq' || head === 'en' || cues.has(head);
+        }));
+      });
     this.prng = mulberry32(this.seed);
     this.defaultInput = new KeyboardMouseInput(opts.canvas);
     this.input = this.defaultInput;
@@ -958,7 +968,8 @@ export class Game {
       await this.nightAct.load();
     }
     this.mission = new MissionHost(this);
-    this.mission.start();
+    // DV-093: cinematic mode (?cine=<id>) holds the mission until the intro hands the world back (beginMission)
+    if (!this.params.get('cine')) this.mission.start();
     window.addEventListener('keydown', (ev) => {
       if (ev.code === 'Enter' && !this.player.alive) this.respawn();
       // DV-078: hoàn thành nhiệm vụ → Enter sang level nối tiếp (giữ tham số chất lượng)
@@ -1000,7 +1011,16 @@ export class Game {
     return this.bundle.backend === 'webgpu' && this.wantHdr();
   }
 
+  /** DV-093 after an in-engine intro: player camera back, HUD on, mission starts */
+  beginMission(): void {
+    if (!this.freeFly) this.cameraDriver = (alpha) => this.player.render(this.camera, alpha);
+    const hud = document.getElementById('hud');
+    if (hud) hud.hidden = false;
+    this.mission.start();
+  }
+
   resize(): void {
+    if (this.fixedRender) return;
     const w = window.innerWidth;
     const h = window.innerHeight;
     this.camera.aspect = w / h;
@@ -1016,9 +1036,31 @@ export class Game {
     return Math.min(window.devicePixelRatio || 1, this.quality.maxPixelRatio, this.quality.maxRenderWidth / cssW) * this.scaler.scale;
   }
 
+  /** DV-093 offline recorder: fixed drawing-buffer size (w × h px, pixel ratio 1) regardless of the window; null = follow window */
+  fixedRender: { w: number; h: number } | null = null;
+
+  setFixedRender(size: { w: number; h: number } | null): void {
+    this.fixedRender = size;
+    this.scaler.enabled = size ? false : this.quality.dynamicResolution;
+    if (size) this.scaler.reset();
+    const aspect = size ? size.w / size.h : window.innerWidth / window.innerHeight;
+    this.camera.aspect = aspect;
+    this.camera.updateProjectionMatrix();
+    this.vmCamera.aspect = aspect;
+    this.vmCamera.updateProjectionMatrix();
+    this.applyScale(true);
+  }
+
   private applyScale(force = false): void {
-    const dpr = this.effectivePixelRatio();
     const r = this.bundle.renderer;
+    if (this.fixedRender) {
+      if (force || r.getPixelRatio() !== 1) {
+        r.setPixelRatio(1);
+        r.setSize(this.fixedRender.w, this.fixedRender.h, false);
+      }
+      return;
+    }
+    const dpr = this.effectivePixelRatio();
     if (force || Math.abs(r.getPixelRatio() - dpr) > 1e-3) {
       r.setPixelRatio(dpr);
       r.setSize(window.innerWidth, window.innerHeight, false);
@@ -1478,7 +1520,7 @@ export class Game {
     this.smokeBase += (this.smokeTarget - this.smokeBase) * Math.min(1, dt * 0.25);
     this.smokeKick = Math.max(0, this.smokeKick - dt * 0.012);
     const v = this.post.volumetric as { smoke?: { value: number } } | null | undefined;
-    if (v?.smoke) v.smoke.value = Math.min(1, this.smokeBase + this.smokeKick);
+    if (v?.smoke) v.smoke.value = Math.min(1, this.smokeBase + Math.min(this.smokeKick, this.smokeKickCap));
   }
 
   /** DV-088 vết cháy xém nằm trên mặt đất (terrain: bám độ cao + pháp tuyến; nổ trên không cao > 2 m thì bỏ) */

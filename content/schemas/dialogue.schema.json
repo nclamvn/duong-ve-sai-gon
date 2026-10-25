@@ -25,7 +25,7 @@
         "properties": {
           "cueId": {
             "type": "string",
-            "pattern": "^[BDMNP]\\d{2,3}$",
+            "pattern": "^[BCDMNP]\\d{2,3}$",
             "description": "D = G0 arena, P = Phố Vạn Hải, M = M1 Trường Sơn, B = M2 Bản Đông"
           },
           "speaker": {

@@ -1,0 +1,56 @@
+{
+  "$schema": "../schemas/dialogue.schema.json",
+  "$comment": "DV-093 thoại intro (hư cấu): C01–C03 chỉ huy qua bộ đàm (giọng TRUNG_DOI), C04–C05 Quyết. Câu phục kích dùng lại M71 của M1.",
+  "cues": [
+    {
+      "cueId": "C01",
+      "speaker": "TRUNG_DOI",
+      "audio": null,
+      "subtitleKey": "dlg.C01",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 5200,
+      "bus": "radio"
+    },
+    {
+      "cueId": "C02",
+      "speaker": "TRUNG_DOI",
+      "audio": null,
+      "subtitleKey": "dlg.C02",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 5600,
+      "bus": "radio"
+    },
+    {
+      "cueId": "C03",
+      "speaker": "TRUNG_DOI",
+      "audio": null,
+      "subtitleKey": "dlg.C03",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 4600,
+      "bus": "radio"
+    },
+    {
+      "cueId": "C04",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.C04",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 3200,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "C05",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.C05",
+      "priority": 8,
+      "interruptPolicy": "queue",
+      "durationMs": 2600,
+      "bus": "dialogue"
+    }
+  ]
+}

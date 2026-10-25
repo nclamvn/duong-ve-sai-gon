@@ -9,6 +9,8 @@ import { installDebugApi } from '@qa/debugApi';
 import { runBench, submitReport } from '@qa/bench';
 import { installCalib, type CalibMode } from '@qa/calib';
 import { t } from '@ui/i18n';
+import { runCine } from '@game/narrative/cineBoot';
+import { playIntroVideo } from '@ui/introVideo';
 
 declare const __BUILD_HASH__: string;
 
@@ -40,6 +42,27 @@ async function boot(): Promise<void> {
   if (api && (calib === 'soldier' || calib === 'fp')) api.calib = installCalib(game, calib as CalibMode, params);
 
   const enter = (): void => {
+    // DV-093 intro trong engine (xem / ghi tiếng / dựng hình) thay cho vào chơi ngay
+    const cineId = params.get('cine');
+    if (cineId) {
+      void runCine(game, cineId, params).catch((e: unknown) => showFatal(capRoot, String((e as Error)?.stack ?? e)));
+      return;
+    }
+    // DV-093 intro dựng sẵn trước M1 (?intro=0 bỏ qua); màn đã nạp xong nên phim không giật, hết phim vào chơi ngay
+    const intro = game.levelId === 'truong-son' && params.get('intro') !== '0' && params.get('autostart') !== '1' && params.get('bench') !== '1';
+    if (intro) {
+      void playIntroVideo(`${import.meta.env.BASE_URL ?? '/'}assets/video/intro.mp4`).then(() => {
+        // hết phim (đen + tựa) → vào trận từ màn đen, mở dần 1,2 s
+        const fade = document.createElement('div');
+        Object.assign(fade.style, { position: 'fixed', inset: '0', background: '#000', zIndex: '45', pointerEvents: 'none', transition: 'opacity 1.2s ease-out' });
+        document.body.appendChild(fade);
+        document.getElementById('hud')!.hidden = false;
+        game.start();
+        requestAnimationFrame(() => requestAnimationFrame(() => (fade.style.opacity = '0')));
+        setTimeout(() => fade.remove(), 1500);
+      });
+      return;
+    }
     document.getElementById('hud')!.hidden = false;
     game.start();
     if (params.get('bench') === '1') {

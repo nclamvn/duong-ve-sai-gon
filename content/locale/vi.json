@@ -299,5 +299,22 @@
   "dlg.M102": "Anh Quyết… lên đó là chết cả lượt.",
   "dlg.M103": "Nằm đây thì pháo nó cũng giã chết. Nghe tôi hô thì chạy, đừng dừng lại.",
   "dlg.M104": "Pháo! Nó gọi pháo xuống đầu mình!",
-  "dlg.M105": "Xung phong! Lên! Lên! Không ai dừng lại!"
+  "dlg.M105": "Xung phong! Lên! Lên! Không ai dừng lại!",
+  "cine.intro.place": "TRƯỜNG SƠN\nRạng sáng 20 tháng 1 năm 1971",
+  "cine.intro.title": "ĐƯỜNG VỀ SÀI GÒN",
+  "cine.intro.chapter": "PHẦN MỘT · CỔNG TRỜI",
+  "cine.speaker.cmd": "Chỉ huy",
+  "cine.map.sheet": "TỜ 6243-II · CỔNG TRỜI",
+  "cine.map.scale": "Tỉ lệ 1:25 000 · đường đồng mức 5 m",
+  "cine.map.coord": "17°33′ B · 106°06′ Đ · 05:40",
+  "cine.map.l.suoi": "suối",
+  "cine.map.l.convoy": "đoàn xe bị chặn",
+  "cine.map.l.doi": "điểm cao",
+  "cine.map.l.lz": "bãi trống",
+  "cine.skip": "Giữ Space để bỏ qua",
+  "dlg.C01": "Đêm qua đoàn xe bị chặn ở Cổng Trời. Năm xe cháy, hàng nằm lại giữa rừng.",
+  "dlg.C02": "Tổ Quyết vượt suối, đánh bật toán chặn, mở đường cho đoàn sau trước khi trời sáng.",
+  "dlg.C03": "B-52 đang rải thảm phía đông. Bám bờ suối, đừng dừng lại.",
+  "dlg.C04": "Đừng nhìn lửa. Nhìn chân người đi trước.",
+  "dlg.C05": "Khẽ thôi… chúng ở gần đây."
 }

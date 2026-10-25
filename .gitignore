@@ -26,3 +26,6 @@ zz-parked/
 .env.*.local
 # gói tạm chuyển file giữa máy và sandbox của Claude
 .transfer/
+
+# DV-093 bản ghi intro (luồng H.264, âm thanh) trước khi ghép MP4 — không vào git
+recordings/

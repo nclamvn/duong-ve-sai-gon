@@ -21,6 +21,7 @@ import diemCao31MissionJson from '@content/missions/diem-cao-31.mission.json';
 import diemCao31DialogueJson from '@content/missions/diem-cao-31.dialogue.json';
 import ngamTaLeMissionJson from '@content/missions/ngam-ta-le.mission.json';
 import ngamTaLeDialogueJson from '@content/missions/ngam-ta-le.dialogue.json';
+import introDialogueJson from '@content/missions/intro.dialogue.json';
 
 export interface Interactable {
   id: string;
@@ -42,6 +43,24 @@ export interface Interactable {
 export function missionJsonFor(levelId: string): typeof missionJson {
   const j = levelId === 'pho' ? phoMissionJson : levelId === 'truong-son' ? truongSonMissionJson : levelId === 'diem-cao-31' ? diemCao31MissionJson : levelId === 'ngam-ta-le' ? ngamTaLeMissionJson : missionJson;
   return j as unknown as typeof missionJson;
+}
+
+/**
+ * DV-091 cue ids a level can speak (its dialogue + the M1 squad lines reused at night + the intro): voice prefetch loads only
+ * these plus the shared barks instead of every recorded line of every level (~23 MB)
+ */
+export function voiceCuesFor(levelId: string): Set<string> {
+  const lists =
+    levelId === 'truong-son'
+      ? [truongSonDialogueJson.cues, introDialogueJson.cues]
+      : levelId === 'diem-cao-31'
+        ? [diemCao31DialogueJson.cues]
+        : levelId === 'ngam-ta-le'
+          ? [ngamTaLeDialogueJson.cues, truongSonDialogueJson.cues]
+          : [dialogueJson.cues];
+  const out = new Set<string>();
+  for (const l of lists) for (const c of l as Array<{ cueId: string }>) out.add(c.cueId);
+  return out;
 }
 
 /** DV-091: does this level's mission ever raise the `flares` flag (flare lights must exist from load, see Flares) */

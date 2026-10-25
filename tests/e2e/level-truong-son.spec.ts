@@ -279,7 +279,7 @@ test.describe('Trường Sơn — vật lý terrain (TIP-D04)', () => {
     expect(r.atlasTree).toBe(true);
     for (const s of r.stats) {
       expect(s.draws, JSON.stringify(r.stats)).toBeGreaterThan(10);
-      expect(s.draws).toBeLessThanOrEqual(140);
+      expect(s.draws, JSON.stringify(s.by ?? s)).toBeLessThanOrEqual(140);
       expect(s.tris, JSON.stringify(s.by)).toBeLessThanOrEqual(1_500_000);
       expect(s.total).toBeLessThanOrEqual(4_000_000);
       expect(s.calls, JSON.stringify(r.stats)).toBeLessThanOrEqual(280);

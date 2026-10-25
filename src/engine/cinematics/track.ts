@@ -137,16 +137,18 @@ export class CameraTrack {
       out.pos[1] += ground(out.pos[0], out.pos[2]);
       out.look[1] += ground(out.look[0], out.look[2]);
     }
-    // fov: linear between keys (missing → shot fov)
+    // fov: linear between keys that set it; the shot fov acts as a key at t = 0
     let fov = s.fov ?? 50;
-    let prev: CameraKey | null = null;
+    let pt = 0;
+    let pf = fov;
     for (const k of s.keys) {
       if (k.fov === undefined) continue;
       if (k.t <= local) {
         fov = k.fov;
-        prev = k;
+        pt = k.t;
+        pf = k.fov;
       } else {
-        if (prev) fov = prev.fov! + (k.fov - prev.fov!) * ((local - prev.t) / Math.max(1e-6, k.t - prev.t));
+        fov = pf + (k.fov - pf) * ((local - pt) / Math.max(1e-6, k.t - pt));
         break;
       }
     }

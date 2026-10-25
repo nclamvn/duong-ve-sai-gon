@@ -41,6 +41,8 @@ export interface Atmosphere {
   /** hướng tới mặt trời (đơn vị) — cập nhật khi mặt trời đổi */
   setSun(dir: readonly number[]): void;
   readonly params: Required<AtmosphereOptions>;
+  /** DV-093 global fog density multiplier (1 = preset) */
+  readonly densityScale: { value: number };
   /** hệ số sương (0..1) tính trên CPU cùng công thức (test/QA) */
   factorAt(cam: readonly number[], p: readonly number[]): number;
   /** DV-080: hệ số tắt dần (1/m) tại độ cao y — cho tia nắng thể tích */
@@ -92,7 +94,9 @@ export function createAtmosphere(scene: Scene, opts: AtmosphereOptions): Atmosph
   const integ = select(abs(k).lessThan(1e-3), d, d.mul(float(1).sub(exp(kSafe.negate()))).div(kSafe));
   // tia đi xuống sâu (k ≪ 0) thì e^(−k) lớn — chặn bằng trần mật độ × d
   const tauHeight = min(rhoCam.mul(integ), uSigma.mul(uMax).mul(d));
-  const tau = tauHeight.add(uBase.mul(d));
+  // DV-093 hệ số mật độ toàn cục (intro: cảnh trên không/xa bớt sương; 1 = theo preset)
+  const uScale = uniform(1);
+  const tau = tauHeight.add(uBase.mul(d)).mul(uScale);
   const amount = float(1).sub(exp(tau.negate())).clamp(0, 1);
   const phase = pow(max(dot(normalize(dir), uSun), 0), float(p.sunSharpness));
   const fogCol = mix(uFog as unknown as Node<'vec3'>, uSunCol as unknown as Node<'vec3'>, phase.mul(uScatter));
@@ -101,6 +105,7 @@ export function createAtmosphere(scene: Scene, opts: AtmosphereOptions): Atmosph
 
   return {
     params: p,
+    densityScale: uScale as unknown as { value: number },
     setSun(dir) {
       (uSun.value as Vector3).set(dir[0]!, dir[1]!, dir[2]!).normalize();
     },
