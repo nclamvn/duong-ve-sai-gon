@@ -27,7 +27,7 @@ test.describe('DV-093 intro trong engine', () => {
       const missionBots0 = [...g.bots.values()].filter((b: { group: string }) => b.group !== 'cine').length;
       const cast = [...g.bots.values()].filter((b: { group: string }) => b.group === 'cine').length;
       // nhảy tới cảnh đoàn xe, chạy vài khung
-      cine.t = 31;
+      cine.t = 38;
       for (let i = 0; i < 6; i++) g.frame(1 / 30);
       const c = cine.track.at(cine.t, (x: number, z: number) => g.terrain.heightAt(x, z));
       const cam = g.camera.position;
@@ -42,7 +42,7 @@ test.describe('DV-093 intro trong engine', () => {
       cine.overlay.map.paint(cv.getContext('2d'), 640, 360);
       const px = cv.getContext('2d')!.getImageData(320, 180, 1, 1).data;
       // tới cuối: bàn giao
-      cine.t = 59.95;
+      cine.t = cine.def.duration - 0.05;
       for (let i = 0; i < 4; i++) g.frame(1 / 30);
       const castAfter = [...g.bots.values()].filter((b: { group: string }) => b.group === 'cine').length;
       const friends = [...g.bots.values()].filter((b: { faction: string; group: string }) => b.faction === 'friend' && b.group !== 'cine').length;

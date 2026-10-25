@@ -2,7 +2,7 @@
  * DV-093 nhạc nền intro bằng ElevenLabs Music (gói trả phí của Chủ nhà, quyền thương mại theo điều khoản gói).
  * Đọc khoá từ `.env.local` (ELEVENLABS_API_KEY, không in ra). Nhạc nguyên tác theo mô tả (không nêu tên nghệ sĩ, bài hát, game).
  * Bố cục khớp nhịp intro (content/cinematics/intro.cine.json): mỗi đoạn đúng thời lượng của cảnh.
- *   node scripts/cine-music.mjs [--out public/assets/audio/cine/intro-score.mp3]
+ *   node scripts/cine-music.mjs [--id intro|intro-60] [--out public/assets/audio/cine/<id>-score.mp3]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -10,7 +10,7 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
 const outArg = args.indexOf('--out');
-const OUT = outArg >= 0 ? args[outArg + 1] : 'public/assets/audio/cine/intro-score.mp3';
+const idArg = args.indexOf('--id');
 
 function key() {
   const f = path.join(ROOT, '.env.local');
@@ -23,19 +23,46 @@ function key() {
 const BASE = ['cinematic orchestral war film score', 'instrumental', 'dark', 'tense', 'low strings', 'taiko-like war drums', 'jungle atmosphere'];
 const NO = ['vocals', 'singing', 'choir lyrics', 'electronic dance beat', 'pop', 'cheerful'];
 
-const plan = {
-  positive_global_styles: BASE,
-  negative_global_styles: NO,
-  sections: [
-    { section_name: 'cold open', duration_ms: 6000, positive_local_styles: ['near silence', 'distant low rumble', 'single sustained cello note', 'sparse'], negative_local_styles: ['drums'], lines: [] },
-    { section_name: 'briefing', duration_ms: 13000, positive_local_styles: ['ticking muted percussion pulse', 'low string ostinato', 'restrained tension', 'slow build'], negative_local_styles: ['big hits'], lines: [] },
-    { section_name: 'aerial', duration_ms: 8000, positive_local_styles: ['rising string swell', 'wide and epic', 'heavy low brass pad', 'crescendo'], negative_local_styles: [], lines: [] },
-    { section_name: 'bombardment', duration_ms: 9000, positive_local_styles: ['massive percussion impacts', 'thunderous low drums', 'dissonant strings', 'chaos', 'slow motion feel in the middle'], negative_local_styles: [], lines: [] },
-    { section_name: 'elegy', duration_ms: 14000, positive_local_styles: ['sorrowful solo bamboo flute melody', 'soft low strings', 'mournful', 'quiet', 'heartbeat-like soft pulse'], negative_local_styles: ['loud drums'], lines: [] },
-    { section_name: 'ambush', duration_ms: 6000, positive_local_styles: ['sudden urgent percussion surge', 'staccato strings', 'driving rhythm', 'intense'], negative_local_styles: [], lines: [] },
-    { section_name: 'title', duration_ms: 4000, positive_local_styles: ['one huge low boom hit', 'then sustained dark chord', 'ringing out'], negative_local_styles: [], lines: [] },
+const sec = (name, s, pos, neg = []) => ({ section_name: name, duration_ms: Math.round(s * 1000), positive_local_styles: pos, negative_local_styles: neg, lines: [] });
+const COLD = ['near silence', 'distant low rumble', 'single sustained cello note', 'sparse'];
+const BRIEF = ['ticking muted percussion pulse', 'low string ostinato', 'restrained tension', 'slow build'];
+const AIR = ['rising string swell', 'wide and epic', 'heavy low brass pad', 'crescendo'];
+const BOMB = ['massive percussion impacts', 'thunderous low drums', 'dissonant strings', 'chaos', 'slow motion feel in the middle'];
+const ELEGY = ['sorrowful solo bamboo flute melody', 'soft low strings', 'mournful', 'quiet', 'heartbeat-like soft pulse'];
+const AMBUSH = ['sudden urgent percussion surge', 'staccato strings', 'driving rhythm', 'intense'];
+const DAZE = ['muffled underwater feel', 'high thin ringing tone', 'slow heavy heartbeat', 'music almost gone', 'then strings swelling back'];
+const CHARGE = ['heroic rising brass', 'pounding war drums', 'full orchestra', 'defiant and driving'];
+const TITLE = ['one huge low boom hit', 'then sustained dark chord', 'ringing out'];
+/** mỗi bản cắt một bố cục, khớp thời lượng từng cảnh trong content/cinematics/<id>.cine.json */
+const CUTS = {
+  intro: [
+    sec('cold open', 6, COLD, ['drums']),
+    sec('briefing', 13, BRIEF, ['big hits']),
+    sec('aerial', 8, AIR),
+    sec('bombardment', 9, BOMB),
+    sec('elegy', 14, ELEGY, ['loud drums']),
+    sec('ambush', 7.5, AMBUSH),
+    sec('concussion', 9, DAZE, ['drums']),
+    sec('charge', 6, CHARGE),
+    sec('title', 4.5, TITLE),
+  ],
+  'intro-60': [
+    sec('cold open', 4.5, COLD, ['drums']),
+    sec('briefing', 10.5, BRIEF, ['big hits']),
+    sec('aerial', 6, AIR),
+    sec('bombardment', 8, BOMB),
+    sec('elegy', 11.5, ELEGY, ['loud drums']),
+    sec('ambush', 6, AMBUSH),
+    sec('concussion', 9, DAZE, ['drums']),
+    sec('title', 4.5, TITLE),
   ],
 };
+const ID = idArg >= 0 ? args[idArg + 1] : 'intro';
+const sections = CUTS[ID];
+if (!sections) throw new Error(`unknown cut ${ID} (${Object.keys(CUTS).join(', ')})`);
+const TOTAL = sections.reduce((n, x) => n + x.duration_ms, 0);
+const OUT = outArg >= 0 ? args[outArg + 1] : `public/assets/audio/cine/${ID}-score.mp3`;
+const plan = { positive_global_styles: BASE, negative_global_styles: NO, sections };
 
 async function compose(body) {
   return fetch('https://api.elevenlabs.io/v1/music?output_format=mp3_44100_192', {
@@ -47,12 +74,14 @@ async function compose(body) {
 let r = await compose({ composition_plan: plan, respect_sections_durations: true });
 if (!r.ok) {
   console.error(`[music] plan rejected ${r.status}: ${(await r.text()).slice(0, 600)} -> retry with a text prompt`);
-  const prompt =
-    'Original instrumental cinematic war film score, exactly 60 seconds, no vocals. 0-6s near silence with distant low rumble and one sustained cello note. ' +
-    '6-19s ticking muted percussion pulse and low string ostinato, restrained tension. 19-27s rising string swell with heavy low brass pad, wide crescendo. ' +
-    '27-36s massive thunderous drum impacts and dissonant strings, chaos. 36-50s sorrowful solo bamboo flute melody over soft low strings, mournful and quiet. ' +
-    '50-56s sudden urgent percussion surge with staccato strings. 56-60s one huge low boom hit then a sustained dark chord ringing out.';
-  r = await compose({ prompt, music_length_ms: 60000 });
+  let at = 0;
+  const parts = sections.map((x) => {
+    const p = `${(at / 1000).toFixed(1)}-${((at + x.duration_ms) / 1000).toFixed(1)}s ${x.positive_local_styles.join(', ')}.`;
+    at += x.duration_ms;
+    return p;
+  });
+  const prompt = `Original instrumental cinematic war film score, exactly ${TOTAL / 1000} seconds, no vocals. ${parts.join(' ')}`;
+  r = await compose({ prompt, music_length_ms: TOTAL });
 }
 if (!r.ok) {
   console.error(`[music] ${r.status} ${(await r.text()).slice(0, 800)}`);

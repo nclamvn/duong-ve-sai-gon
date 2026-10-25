@@ -136,3 +136,46 @@ TEST RESULTS (`evidence_status: sandbox_swiftshader_lifecycle_only`):
 ISSUES:
 - Trung bình: tư thế cúi của bộ hoạt ảnh giơ súng che mặt, nên Quyết đứng (không quỳ) khi gọi người chơi. Quỳ đỡ người cần một clip hoạt ảnh riêng.
 - Thấp: nhìn ngược lên trời sương vẫn sáng; cần xem bản 4K (`quality=ultra`) trên Mac.
+
+## DV-093c (25/10/2026): intro bản đầy đủ 77 giây, ghép bản cũ và cảnh mới
+
+Chủ nhà yêu cầu: ghép intro trước và phần mới nhất thành một intro đầy đủ, dài hơn 60 giây, tận dụng mọi cảnh đã dựng.
+
+STATUS: DONE (sandbox). Giọng C01–C07 và nhạc vẫn chờ ElevenLabs.
+
+Bố cục bản đầy đủ `intro` (77 s), mọi cảnh giữ độ dài gốc của bản đầu:
+
+| Giây | Shot | Nội dung |
+|---|---|---|
+| 0–6 | s1_den | màn đen, địa danh, nhiễu bộ đàm |
+| 6–19 | s2_bando | bản đồ tác chiến, chỉ huy giao nhiệm vụ (C01, C02) |
+| 19–27 | s3_tren_may | bay trên mây xuống tán rừng (C03) |
+| 27–36 | s4_b52 | B-52 rải thảm, quay chậm |
+| 36–43 | s5_doan_xe | đoàn xe cháy (C04) |
+| 43–50 | s6_loi_suoi | tổ Quyết lội suối (C05) |
+| 50–57,5 | s7_phuc_kich | phục kích: nhìn sang bờ địch, lia xuống tổ đang bắn trả (M71) |
+| 57,5–66,5 | s8_nga | bị nổ hất ngã, góc nhìn thứ nhất, Quyết gọi dậy (C06, C07) |
+| 66,5–72,5 | s9_xung_phong | mới: nối liền cảnh ngã, chạy theo Quyết ra bờ suối, hạ sau lưng anh khi anh bắn, nổ sát, quay chậm |
+| 72,5–77 | s10_tua | tựa ĐƯỜNG VỀ SÀI GÒN |
+
+FILES CHANGED:
+- `content/cinematics/intro.cine.json`: bản đầy đủ 77 s (10 shot).
+- `content/cinematics/intro-60.cine.json` (mới): bản 60 s của DV-093b, giữ làm dự phòng (`?cine=intro-60`), nhạc riêng `intro-60-score.mp3`.
+- `game/narrative/cineBoot.ts`: đăng ký hai bản cắt.
+- `scripts/cine-music.mjs`: `--id intro|intro-60`, mỗi bản một bố cục nhạc khớp cảnh (thêm đoạn choáng và xông lên).
+- `content/levels/truong-son-a.level.json`: khoảng trống thực vật dọc đường chạy của shot xông lên (lá ráy che khung).
+- `README.md`: lệnh cho hai bản cắt.
+- Tests: `tests/unit/cinematics.test.ts` kiểm cả hai bản (shot nối liền, sự kiện, chữ, thoại; bản đầy đủ chứa mọi shot của bản 60 s); `tests/e2e/dv093.spec.ts` (mốc đoàn xe 38 s, cuối theo `duration`).
+- Ảnh: `ban-day-du.jpg`.
+
+TEST RESULTS (`evidence_status: sandbox_swiftshader_lifecycle_only`):
+- Typecheck 0 lỗi. Unit 308/309 (lỗi duy nhất vẫn là `voice.test`, chờ file giọng).
+- E2E `dv093`, `dv092`, `level-truong-son`: 6/6 đạt.
+- Dựng thử 50–57,5 s và 66–72,5 s: tổ bắn trả hiện rõ trong khung; đường chạy xông lên không còn lá che.
+
+ISSUES:
+- Cao: chưa có giọng và nhạc (ElevenLabs). Bản đầy đủ cần chạy lại `node scripts/cine-music.mjs` (77 s).
+- Trung bình: chưa dựng 4K toàn bộ 77 s trên Mac để chấm nhịp liền mạch.
+
+SUGGESTIONS:
+- Trình chiếu nhà đầu tư dùng bản đầy đủ; bản 60 s để dự phòng nếu bị giới hạn thời gian.

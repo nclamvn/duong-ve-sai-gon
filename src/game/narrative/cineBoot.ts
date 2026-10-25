@@ -1,16 +1,19 @@
 /**
  * DV-093 vào chế độ intro trong engine:
- *   ?cine=intro                   xem trực tiếp (bấm vào màn để có tiếng); &then=play → hết intro vào chơi M1 luôn
+ *   ?cine=intro | intro-60        xem trực tiếp (bản đầy đủ 77 s | bản cắt 60 s)
+ *                                  (bấm vào màn để có tiếng); &then=play → hết intro vào chơi M1 luôn
  *   ?cine=intro&rec=audio         ghi tiếng thời gian thực → recordings/intro-audio.webm
  *   ?cine=intro&rec=video         dựng hình offline → recordings/intro.h264 (+ ảnh tĩnh); &w=3840&h=2160&mbps=45
  * Chỉ chạy được với dev server (`npm run dev`), nơi plugin ghi file đang chạy.
  */
 import type { Game } from '@game/game';
 import introJson from '@content/cinematics/intro.cine.json';
+import intro60Json from '@content/cinematics/intro-60.cine.json';
 import { CinePlayer, type IntroDef } from './cinePlayer';
 import { recordAudio, recordVideo } from './cineRecorder';
 
-const CINEMATICS: Record<string, IntroDef> = { intro: introJson as unknown as IntroDef };
+/** `intro` = bản đầy đủ (77 s, phát trước M1); `intro-60` = bản cắt 60 s dự phòng */
+const CINEMATICS: Record<string, IntroDef> = { intro: introJson as unknown as IntroDef, 'intro-60': intro60Json as unknown as IntroDef };
 
 function status(): (msg: string) => void {
   const el = document.createElement('div');

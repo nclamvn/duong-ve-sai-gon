@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { CameraTrack, CueTimeline, type CinematicDef } from '@engine/cinematics/track';
 import intro from '@content/cinematics/intro.cine.json';
+import intro60 from '@content/cinematics/intro-60.cine.json';
 import vi from '@content/locale/vi.json';
 import introDialogue from '@content/missions/intro.dialogue.json';
 
@@ -43,22 +44,36 @@ describe('DV-093 cinematics: camera track + timeline', () => {
     expect(got).toEqual(['a', 'b', 'c']);
     expect(tl.done).toBe(true);
   });
-  it('intro.cine.json: 60 s, shot nối liền, sự kiện đã biết, chữ có trong locale, thoại có cue', () => {
-    const d = intro as unknown as CinematicDef & { actors: Array<{ keys: Array<{ t: number }> }> };
-    expect(d.duration).toBe(60);
-    const shots = [...d.shots].sort((a, b) => a.t - b.t);
-    for (let i = 1; i < shots.length; i++) expect(shots[i]!.t).toBeCloseTo(shots[i - 1]!.t + shots[i - 1]!.dur, 5);
-    expect(shots[shots.length - 1]!.t + shots[shots.length - 1]!.dur).toBeCloseTo(60, 5);
-    const L = vi as Record<string, string>;
-    const cues = new Set((introDialogue as { cues: Array<{ cueId: string }> }).cues.map((c) => c.cueId));
-    for (const e of d.events) {
-      expect(KNOWN.has(e.type), e.type).toBe(true);
-      if (e.type === 'title') expect(L[e['key'] as string], String(e['key'])).toBeTruthy();
-      if (e.type === 'say') {
-        expect(L[e['sub'] as string], String(e['sub'])).toBeTruthy();
-        if (String(e['cue']).startsWith('C')) expect(cues.has(String(e['cue']))).toBe(true);
+  for (const [name, json, dur] of [
+    ['intro.cine.json (bản đầy đủ)', intro, 77],
+    ['intro-60.cine.json (bản cắt 60 s)', intro60, 60],
+  ] as const) {
+    it(`${name}: ${dur} s, shot nối liền, sự kiện đã biết, chữ có trong locale, thoại có cue`, () => {
+      const d = json as unknown as CinematicDef & { actors: Array<{ keys: Array<{ t: number }> }> };
+      expect(d.duration).toBe(dur);
+      const shots = [...d.shots].sort((a, b) => a.t - b.t);
+      expect(shots[0]!.t).toBe(0);
+      for (let i = 1; i < shots.length; i++) expect(shots[i]!.t).toBeCloseTo(shots[i - 1]!.t + shots[i - 1]!.dur, 5);
+      expect(shots[shots.length - 1]!.t + shots[shots.length - 1]!.dur).toBeCloseTo(dur, 5);
+      expect(new Set(shots.map((s) => s.id)).size).toBe(shots.length);
+      const L = vi as Record<string, string>;
+      const cues = new Set((introDialogue as { cues: Array<{ cueId: string }> }).cues.map((c) => c.cueId));
+      for (const e of d.events) {
+        expect(KNOWN.has(e.type), e.type).toBe(true);
+        expect(e.t, `${e.type}@${e.t}`).toBeLessThanOrEqual(dur);
+        if (e.type === 'title') expect(L[e['key'] as string], String(e['key'])).toBeTruthy();
+        if (e.type === 'say') {
+          expect(L[e['sub'] as string], String(e['sub'])).toBeTruthy();
+          if (String(e['cue']).startsWith('C')) expect(cues.has(String(e['cue']))).toBe(true);
+        }
       }
-    }
-    for (const a of d.actors) for (let i = 1; i < a.keys.length; i++) expect(a.keys[i]!.t).toBeGreaterThanOrEqual(a.keys[i - 1]!.t);
+      expect(d.events.some((e) => e.type === 'end' && e.t === dur)).toBe(true);
+      for (const a of d.actors) for (let i = 1; i < a.keys.length; i++) expect(a.keys[i]!.t).toBeGreaterThanOrEqual(a.keys[i - 1]!.t);
+    });
+  }
+  it('bản đầy đủ chứa mọi shot của bản 60 s (không bỏ cảnh nào) và dài hơn', () => {
+    const full = new Set((intro as unknown as CinematicDef).shots.map((s) => s.id));
+    for (const s of (intro60 as unknown as CinematicDef).shots) if (s.id !== 's9_tua') expect(full.has(s.id), s.id).toBe(true);
+    expect((intro as unknown as CinematicDef).duration).toBeGreaterThan((intro60 as unknown as CinematicDef).duration);
   });
 });

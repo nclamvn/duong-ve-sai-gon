@@ -23,7 +23,7 @@ Tham số URL: `?backend=webgl|webgpu` · `?autostart=1` · `?overlay=1` (teleme
 
 ### Intro điện ảnh (DV-093)
 
-Intro 60 giây dựng trong engine (`content/cinematics/intro.cine.json`), phát dưới dạng MP4 trước M1 (giữ Space để bỏ qua, `?intro=0` để tắt). Cần `npm run dev` (plugin ghi file vào `recordings/`):
+Intro dựng trong engine, hai bản cắt: bản đầy đủ 77 giây `intro` (`content/cinematics/intro.cine.json`, phát trước M1) và bản 60 giây `intro-60` (`intro-60.cine.json`, dự phòng). Phát dưới dạng MP4 trước M1 (giữ Space để bỏ qua, `?intro=0` để tắt). Cần `npm run dev` (plugin ghi file vào `recordings/`):
 
 ```bash
 # xem trực tiếp, hết intro vào chơi M1 (bấm vào màn để có tiếng)
@@ -34,6 +34,9 @@ open "http://127.0.0.1:5173/?level=truong-son-a&quality=ultra&cine=intro&rec=vid
 open "http://127.0.0.1:5173/?level=truong-son-a&quality=ultra&cine=intro&rec=audio"
 node scripts/cine-mux.mjs        # → recordings/intro-master.mp4 (4K) + public/assets/video/intro.mp4 (1080p)
 node scripts/cine-music.mjs      # nhạc nền bằng ElevenLabs Music (.env.local)
+# bản 60 s: thay cine=intro bằng cine=intro-60, rồi
+node scripts/cine-music.mjs --id intro-60
+node scripts/cine-mux.mjs --id intro-60
 ```
 
 Tuỳ chọn dựng: `&w=&h=` (mặc định 3840×2160), `&mbps=45`, `&fps=30`, `&from=&to=` (giây), `&stills=2`. HDR thật trên màn EDR: `?hdr=1`.
