@@ -44,7 +44,7 @@ const TAGS = {
   M100: '[whispers]', M101: '[whispers] [nervous]', M102: '[whispers] [scared]', M103: '[whispers] [determined]',
   M104: '[panicked] [shouting]', M105: '[shouting]',
   // DV-093 intro: chỉ huy qua bộ đàm, Quyết
-  C01: '[serious]', C02: '[serious] [urgent]', C03: '[urgent]', C04: '[quietly]', C05: '[whispers]',
+  C01: '[serious]', C02: '[serious] [urgent]', C03: '[urgent]', C04: '[quietly]', C05: '[whispers]', C06: '[shouting] [desperate]', C07: '[shouting]',
   // DV-078 hồi đêm Ngầm Ta Lê
   N01: '[quietly]', N02: '[quietly]', N03: '[curious]', N04: '[calm]', N05: '[calm]', N07: '[shouting]', N08: '[shouting]',
   N09: '[shouting]', N10: '[excited]', N11: '[shouting]', N12: '[shouting]', N13: '[shouting]', N14: '[urgent]', N15: '[shouting]',

@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/dialogue.schema.json",
-  "$comment": "DV-093 thoại intro (hư cấu): C01–C03 chỉ huy qua bộ đàm (giọng TRUNG_DOI), C04–C05 Quyết. Câu phục kích dùng lại M71 của M1.",
+  "$comment": "DV-093 thoại intro (hư cấu): C01–C03 chỉ huy qua bộ đàm (giọng TRUNG_DOI), C04–C07 Quyết (C06–C07: kéo Lâm dậy sau khi bị nổ hất ngã). Câu phục kích dùng lại M71 của M1.",
   "cues": [
     {
       "cueId": "C01",
@@ -50,6 +50,26 @@
       "priority": 8,
       "interruptPolicy": "queue",
       "durationMs": 2600,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "C06",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.C06",
+      "priority": 9,
+      "interruptPolicy": "interrupt",
+      "durationMs": 2400,
+      "bus": "dialogue"
+    },
+    {
+      "cueId": "C07",
+      "speaker": "QUYET",
+      "audio": null,
+      "subtitleKey": "dlg.C07",
+      "priority": 9,
+      "interruptPolicy": "interrupt",
+      "durationMs": 2200,
       "bus": "dialogue"
     }
   ]

@@ -43,7 +43,7 @@ DV-092 cảnh (commit 48ed3d8):
 - `tests/e2e/dv092.spec.ts`, `tests/unit/forestDv063.test.ts`.
 
 DV-093 intro (đã chép sang Mac, chưa commit):
-- `content/cinematics/intro.cine.json`: 8 shot, 8 diễn viên, ~45 sự kiện.
+- `content/cinematics/intro.cine.json`: 8 shot, 8 diễn viên, ~45 sự kiện (DV-093b: 9 shot).
 - `content/missions/intro.dialogue.json`: C01–C05.
 - Locale `cine.*`, `dlg.C0x`.
 - Engine và game:
@@ -105,3 +105,34 @@ Kết quả sandbox (`evidence_status: sandbox_swiftshader_lifecycle_only`).
 
 - Sau khi có bản 4K: Chủ nhà chấm từng cảnh; em chỉnh góc máy và nhịp, rồi dựng lại (khoảng 10–20 phút trên M1 Max).
 - Nếu ElevenLabs không kịp: nhạc CC-BY (Kevin MacLeod, cần cho phép tải), thoại chỉ phụ đề.
+
+## DV-093b (25/10/2026): cảnh ngã góc nhìn thứ nhất, diễn viên không xuyên vật thể
+
+Chủ nhà yêu cầu: intro chưa ấn tượng, cần cảnh người lính chạy đến nâng người chơi đang ngã vì bom (góc nhìn thứ nhất, cận cảnh điện ảnh); lính không được chạy xuyên qua xe và vật thể.
+
+STATUS: DONE (sandbox). Giọng C06, C07 vẫn chờ ElevenLabs.
+
+FILES CHANGED:
+- `engine/cinematics/track.ts`: khoá camera có `roll` (nghiêng máy khi nằm dưới đất).
+- `game/narrative/cinePlayer.ts`:
+  - diễn viên đi theo đường navmesh giữa hai khoá (vòng qua xác xe, cây, đá), không nội suy thẳng;
+  - quay người mượt tối đa 7 rad/s;
+  - khoá `face`: quay về một điểm mà không giơ súng (nói với người dưới đất);
+  - tắt cắt khung nhìn cho thân diễn viên khi quay cận (hết cảnh mũ, súng lơ lửng);
+  - trả lại mật độ sương khi kết thúc intro (trước đây sự kiện `fog` lọt sang lúc chơi).
+- `content/cinematics/intro.cine.json`: 9 shot. Shot mới `s8_nga` (46,5 đến 55,5 s):
+  - nổ sát người, chớp đen, quay chậm, lặng tiếng, máy nằm nghiêng dưới đất;
+  - Quyết từ lòng suối chạy đến, đứng trên người chơi gọi "Lâm! Lâm! Nghe tôi không?", "Dậy! Đứng dậy, theo tôi!";
+  - máy nâng lên ngang mặt Quyết (cận mặt, nổ phía sau), rồi theo anh xông ra suối.
+- `content/missions/intro.dialogue.json`, locale: C06, C07. `scripts/voice/lines.mjs`: nhãn giọng.
+- `content/levels/truong-son-a.level.json`: hai khoảng trống thực vật quanh chỗ ngã; `nav.bin` bake lại.
+- Tests: `tests/e2e/dv093.spec.ts` (mốc kiểm camera dời sang shot đoàn xe 31 s).
+- Ảnh: `pov-nga.jpg` (49 đến 55 s).
+
+TEST RESULTS (`evidence_status: sandbox_swiftshader_lifecycle_only`):
+- Typecheck 0 lỗi. Unit 306/307 (lỗi duy nhất vẫn là `voice.test`, chờ file giọng).
+- E2E `dv093`, `dv092`, `level-truong-son`: 6/6 đạt.
+
+ISSUES:
+- Trung bình: tư thế cúi của bộ hoạt ảnh giơ súng che mặt, nên Quyết đứng (không quỳ) khi gọi người chơi. Quỳ đỡ người cần một clip hoạt ảnh riêng.
+- Thấp: nhìn ngược lên trời sương vẫn sáng; cần xem bản 4K (`quality=ultra`) trên Mac.

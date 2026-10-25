@@ -27,7 +27,7 @@ test.describe('DV-093 intro trong engine', () => {
       const missionBots0 = [...g.bots.values()].filter((b: { group: string }) => b.group !== 'cine').length;
       const cast = [...g.bots.values()].filter((b: { group: string }) => b.group === 'cine').length;
       // nhảy tới cảnh đoàn xe, chạy vài khung
-      cine.t = 38;
+      cine.t = 31;
       for (let i = 0; i < 6; i++) g.frame(1 / 30);
       const c = cine.track.at(cine.t, (x: number, z: number) => g.terrain.heightAt(x, z));
       const cam = g.camera.position;

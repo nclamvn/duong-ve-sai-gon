@@ -21,6 +21,8 @@ export interface ActorKey {
   jump?: boolean;
   crouch?: boolean;
   aim?: V2;
+  /** turn the body toward a point without raising the rifle (talking to someone on the ground) */
+  face?: V2;
 }
 
 export interface ActorDef {
@@ -65,10 +67,13 @@ export class CinePlayer {
   t = 0;
   done = false;
   private slow = 1;
+  private lastDt = 1 / 30;
   private slowUntil = 0;
   private parked: [number, number, number] = [0, 0, 0];
   private stopMusic: ((fadeS?: number) => void) | null = null;
   private readonly prevFar: number;
+  /** fog density before the cinematic (`fog` events change it; gameplay gets it back) */
+  private readonly prevFog: number | null;
   onEnd: (() => void) | null = null;
 
   constructor(
@@ -80,6 +85,7 @@ export class CinePlayer {
     this.cues = new CueTimeline(def.events);
     this.overlay = new CineOverlay(document.getElementById('app') ?? document.body);
     this.prevFar = game.camera.far;
+    this.prevFog = game.atmosphere?.densityScale.value ?? null;
   }
 
   /** take over camera, AI, HUD; spawn the cast */
@@ -100,6 +106,10 @@ export class CinePlayer {
       const k = a.keys[0]!;
       const y = this.ground(k.x, k.z);
       const bot = g.spawnBot(`cine_${a.id}`, 'cine', [k.x, y, k.z], { faction: a.faction, nameKey: a.nameKey ?? null, archetype: a.archetype ?? 'grunt' });
+      // close-ups: the skinned body's bind-pose bounds can cull it while its gear (never culled) floats in frame
+      bot.dummy.group.traverse((o) => {
+        o.frustumCulled = false;
+      });
       this.actors.set(a.id, { def: a, bot });
     }
     g.preFrame = (dt) => this.step(dt);
@@ -120,6 +130,7 @@ export class CinePlayer {
   step(dt: number): void {
     if (this.done) return;
     this.t += dt;
+    this.lastDt = dt;
     const now = this.t;
     this.cues.advance(now, (e) => this.fire(e));
     for (let i = this.pending.length - 1; i >= 0; i--) {
@@ -153,6 +164,26 @@ export class CinePlayer {
     g.camera.updateMatrixWorld();
   }
 
+  /** DV-093 actor segment along the navmesh (wrecks, trees and rocks are carved out): never walk through an object */
+  private readonly segPaths = new Map<string, { pts: V2[]; cum: number[] }>();
+
+  private segPath(id: string, i: number, a: ActorKey, b: ActorKey): { pts: V2[]; cum: number[] } {
+    const key = `${id}:${i}`;
+    let sp = this.segPaths.get(key);
+    if (sp) return sp;
+    const pts: V2[] = [[a.x, a.z]];
+    const nav = this.game.nav;
+    const na = nav?.nearest({ x: a.x, y: this.ground(a.x, a.z), z: a.z });
+    const nb = nav?.nearest({ x: b.x, y: this.ground(b.x, b.z), z: b.z });
+    if (na && nb) for (const q of nav.findPath(na, nb)) pts.push([q.x, q.z]);
+    pts.push([b.x, b.z]);
+    const cum = [0];
+    for (let k = 1; k < pts.length; k++) cum.push(cum[k - 1]! + Math.hypot(pts[k]![0] - pts[k - 1]![0], pts[k]![1] - pts[k - 1]![1]));
+    sp = { pts, cum };
+    this.segPaths.set(key, sp);
+    return sp;
+  }
+
   private driveActors(now: number): void {
     for (const { def, bot } of this.actors.values()) {
       const ks = def.keys;
@@ -162,26 +193,38 @@ export class CinePlayer {
       const b = ks[i + 1];
       let x = a.x;
       let z = a.z;
-      if (b && !b.jump && b.t > a.t) {
+      if (b && !b.jump && b.t > a.t && Math.hypot(b.x - a.x, b.z - a.z) > 0.05) {
         const u = Math.min(1, Math.max(0, (now - a.t) / (b.t - a.t)));
-        x = a.x + (b.x - a.x) * u;
-        z = a.z + (b.z - a.z) * u;
+        const { pts, cum } = this.segPath(def.id, i, a, b);
+        const L = cum[cum.length - 1]!;
+        const d = u * L;
+        let k = 1;
+        while (k < pts.length - 1 && cum[k]! < d) k++;
+        const seg = Math.max(1e-6, cum[k]! - cum[k - 1]!);
+        const f = Math.min(1, Math.max(0, (d - cum[k - 1]!) / seg));
+        x = pts[k - 1]![0] + (pts[k]![0] - pts[k - 1]![0]) * f;
+        z = pts[k - 1]![1] + (pts[k]![1] - pts[k - 1]![1]) * f;
       }
       const p = bot.bot.position;
       const dx = x - p[0];
       const dz = z - p[2];
+      const jumped = Math.hypot(dx, dz) > 3;
       p[0] = x;
       p[2] = z;
       p[1] = this.ground(x, z);
       bot.bot.stance = a.crouch ? 'crouch' : 'stand';
       const firing = this.bursts.some((q) => q.from === def.id && q.until > now);
-      if (a.aim) {
-        bot.bot.yaw = Math.atan2(-(a.aim[0] - x), -(a.aim[1] - z));
-        bot.bot.aiming = true;
-      } else if (Math.hypot(dx, dz) > 1e-3) {
-        bot.bot.yaw = Math.atan2(-dx, -dz);
-        bot.bot.aiming = firing;
-      } else bot.bot.aiming = firing;
+      let want = bot.bot.yaw;
+      const look = a.aim ?? a.face;
+      if (look) want = Math.atan2(-(look[0] - x), -(look[1] - z));
+      else if (Math.hypot(dx, dz) > 1e-3) want = Math.atan2(-dx, -dz);
+      bot.bot.aiming = !!a.aim || firing;
+      // quay người mượt (≤ 7 rad/s), trừ lúc nhảy cảnh
+      let dy = want - bot.bot.yaw;
+      while (dy > Math.PI) dy -= Math.PI * 2;
+      while (dy < -Math.PI) dy += Math.PI * 2;
+      const maxTurn = 7 * Math.max(1 / 60, this.lastDt);
+      bot.bot.yaw += jumped ? dy : Math.max(-maxTurn, Math.min(maxTurn, dy));
     }
   }
 
@@ -246,7 +289,7 @@ export class CinePlayer {
         break;
       case 'fog': {
         // sương: hệ số mật độ đổi mượt trong `dur`
-        const atm = (g as unknown as { atmosphere?: { densityScale: { value: number } } | null }).atmosphere;
+        const atm = g.atmosphere;
         if (atm) {
           const from = atm.densityScale.value;
           const to = num('scale', 1);
@@ -387,6 +430,7 @@ export class CinePlayer {
     g.aiPaused = false;
     g.viewModelHidden = false;
     g.camera.far = this.prevFar;
+    if (g.atmosphere && this.prevFog !== null) g.atmosphere.densityScale.value = this.prevFog;
     g.smokeKickCap = 1;
     g.camera.up.set(0, 1, 0);
     g.camera.updateProjectionMatrix();

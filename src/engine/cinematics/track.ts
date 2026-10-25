@@ -16,6 +16,8 @@ export interface CameraKey {
   look: Vec3;
   /** vertical field of view (deg); default: previous key or the shot's fov */
   fov?: number;
+  /** camera roll (rad), linear between keys that set it (a player knocked to the ground lies tilted) */
+  roll?: number;
 }
 
 export interface ShotDef {
@@ -153,15 +155,32 @@ export class CameraTrack {
       }
     }
     out.fov = fov;
+    // roll: linear between keys that set it; before the first such key hold its value
+    let roll = 0;
+    let have = false;
+    let rt = 0;
+    let rv = 0;
+    for (const k of s.keys) {
+      if (k.roll === undefined) continue;
+      if (k.t <= local) {
+        roll = k.roll;
+        rt = k.t;
+        rv = k.roll;
+        have = true;
+      } else {
+        roll = have ? rv + (k.roll - rv) * ((local - rt) / Math.max(1e-6, k.t - rt)) : k.roll;
+        break;
+      }
+    }
     const sh = s.shake ?? 0;
-    out.roll = 0;
+    out.roll = roll;
     if (sh > 0) {
       const tt = t * 1.0;
       out.pos[0] += wobble(tt, 1.1) * 0.05 * sh;
       out.pos[1] += wobble(tt, 2.7) * 0.04 * sh;
       out.look[0] += wobble(tt * 1.2, 4.2) * 0.35 * sh;
       out.look[1] += wobble(tt * 1.1, 5.9) * 0.25 * sh;
-      out.roll = wobble(tt * 0.9, 7.3) * 0.02 * sh;
+      out.roll += wobble(tt * 0.9, 7.3) * 0.02 * sh;
     }
     out.timeScale = s.timeScale ?? 1;
     return out;
